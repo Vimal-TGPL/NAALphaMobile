@@ -1,0 +1,7 @@
+{
+  "name": "NAAlphaMobile",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "angular"
+}

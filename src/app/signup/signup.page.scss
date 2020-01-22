@@ -1,0 +1,90 @@
+ion-content{
+
+    --ion-background-color:#d3d8dc;
+
+}
+
+.card{
+    background-color: #2e4c99;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    // align-items: center;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;                
+}
+
+.cardTitle
+{
+    text-align: center; 
+    color: #00aeef; 
+    font-size: 40px; 
+    font-weight: bold;
+}
+
+.form{
+    display: flex;
+    flex-direction: column;
+    padding: 2%;
+    justify-content: center;
+}
+
+.flex_item{
+    // margin-top: 2%;
+    margin-bottom: 3%;
+}
+
+.label{
+    color: white;
+    font-size: 15px;
+     padding-bottom: 1%;
+    // margin-bottom: 2%;
+}
+
+.input{
+    --background: white;
+    color: black;
+}
+
+.scrolldiv{    
+    overflow: scroll;
+}
+
+.scrolldiv::-webkit-scrollbar { 
+    display: none; 
+}
+
+.agreecheckBox{
+
+    margin-top: 0%;
+    width: 32px;
+}
+
+.checkboxLabel{
+    color: white;
+    padding-left: 10px;
+    font-size: 14px;
+}
+
+.agreeItem{
+    --padding-start: 0%;
+    --background: #2e4c99 ;
+    --background-activated: #2e4c99;
+}
+
+.signupBtn{
+    --background : #00aeef;
+    height: 45px;
+}
+
+.loginBtn{
+    --background: white;
+    color: #2e4c99;
+    --background-activated: #dadada;
+    --color-activated: #2e4c99;
+    height: 45px;
+}

@@ -1,0 +1,41 @@
+.active-item{
+    border-left: 8px solid var(--ion-color-primary);
+}
+
+ion-content{
+
+    --ion-background-color:#2e4c99;
+
+}
+
+.profile{
+    background-color: white;
+    height: 100px;
+   
+    display: flex;
+    padding: 12px;
+}
+
+.avatar{
+    height: 40px;
+    width: 40px;
+    border-radius: 20px;
+    background-color: #2e4c99;
+    padding: 8px;
+}
+
+.avatarDiv{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+p{
+    margin-block-start: 0em;
+    margin-block-end: 0em;
+    color: #00AEEF;
+}
+
+.deatilsDiv{
+padding: 10px;
+}

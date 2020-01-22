@@ -1,0 +1,51 @@
+<ion-content>
+    <div style="display: block;">
+      <form [formGroup]="loginForm">
+    <ion-card class="card">
+      <ion-card-header>
+        <ion-card-title class="cardTitle">Login</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <div class="signupBtnDiv">
+          <ion-button size="medium" expand="block" class="signupBtn" (click)="onSignupClick()">
+            Sign up
+          </ion-button>
+        </div>
+        <div class="form">
+          <div class="inputdiv">
+            <ion-label class="emailLabel">Email<ion-text color="danger"> *</ion-text>
+            </ion-label>
+            <ion-item class="emailItem">
+              <ion-input type="text" placeholder="Email Address" formControlName="Email"></ion-input>
+            </ion-item>
+          </div>
+          <div class="inputdiv">
+            <ion-label class="emailLabel">Password<ion-text color="danger"> *</ion-text>
+            </ion-label>
+            <ion-item class="passwordItem">
+              <ion-input calss="passwordInput" type="password" placeholder="Password" formControlName="Password">
+              </ion-input>
+            </ion-item>
+          </div>
+          <!-- <div class="inputdiv">
+            <ion-item class="rememberItem" lines="none">
+                <ion-checkbox mode="md" [(ngModel)]="stayStignedIn" [ngModelOptions]="{standalone: true}"></ion-checkbox>
+                <ion-label class="checkboxLabel">Stay signed in</ion-label>
+            </ion-item>
+          </div> -->
+          <div class="loginDiv">
+            <ion-button class="loginBtn" size="medium" expand="block" [disabled] ="!loginForm.valid" (click)="onLoginClick()">
+              Login
+            </ion-button>
+          </div>
+        </div>
+        <div class="forgotPassDiv">
+          <ion-button class="forgotPassBtn" fill="clear" expand="block" (click)="onForgotPassClick()">
+            Forgot Password?
+          </ion-button>
+        </div>
+      </ion-card-content>
+    </ion-card>
+  </form>
+  </div>
+</ion-content>

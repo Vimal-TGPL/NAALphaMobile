@@ -1,0 +1,59 @@
+<ion-content>
+  <div style="display: block;">
+    <ion-card class="card">
+      <div>
+        <div class="imgdiv">
+          <img src="../../assets/images/NAA_aboutUs_tools.png" />
+        </div>
+        <div>
+          <div *ngIf="showMessage==''">
+            <div class="textdiv">
+              <ion-text class="text">
+                An Email has been sent to the email address you provided for validation.
+              </ion-text>
+            </div>
+            <div class="textdiv">
+              <ion-text class="text">
+                Please check your inbox.
+              </ion-text>
+            </div>
+            <div class="loginDiv">
+              <ion-button class="loginBtn" color="light" size="medium" expand="block" (click)="onLoginClick()">
+                Login
+              </ion-button>
+            </div>
+          </div>
+          <div *ngIf="showMessage=='successfullyreset'">
+            <div class="textdiv">
+              <ion-text class="text">
+                An Email has been sent to the email address you provided.
+              </ion-text>
+            </div>
+            <div class="textdiv">
+              <ion-text class="text">
+                Please check your inbox.
+              </ion-text>
+            </div>
+            <div class="loginDiv">
+              <ion-button class="loginBtn" color="light" size="medium" expand="block" (click)="onLoginClick()">
+                Login
+              </ion-button>
+            </div>
+          </div>
+          <div *ngIf="showMessage=='successfullychanged'">
+            <div class="textdiv">
+              <ion-text class="text">
+                Passsword has been successfully updated.
+              </ion-text>
+            </div>
+            <div class="loginDiv">
+              <ion-button class="loginBtn" color="light" size="medium" expand="block" (click)="onLoginClick()">
+                Login
+              </ion-button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </ion-card>
+  </div>
+</ion-content>

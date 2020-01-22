@@ -1,0 +1,86 @@
+<ion-content>
+    <div style="display: block;">
+        <form [formGroup]="signupForm">
+            <ion-card class="card">
+                <div class="scrolldiv">
+                    <ion-card-header>
+                        <ion-card-title class="cardTitle">Sign Up</ion-card-title>
+                    </ion-card-header>
+                    <ion-card-content>
+                        <div class="form">
+                            <div class="flex_item">
+                                <ion-label class="label">First Name<ion-text color="danger"> *</ion-text>
+                                </ion-label>
+                                <ion-item lines="none" class="input">
+                                    <ion-input type="text" placeholder="First Name" formControlName="FirstName">
+                                    </ion-input>
+                                </ion-item>
+                            </div>
+                            <div class="flex_item">
+                                <ion-label class="label">Last Name<ion-text color="danger"> *</ion-text>
+                                </ion-label>
+                                <ion-item lines="none" class="input">
+                                    <ion-input type="text" placeholder="Last Name" formControlName="LastName">
+                                    </ion-input>
+                                </ion-item>
+                            </div>
+                            <div class="flex_item">
+                                <ion-label class="label">Company Name<ion-text color="danger"> *</ion-text>
+                                </ion-label>
+                                <ion-item lines="none" class="input">
+                                    <ion-input type="text" placeholder="Company Name" formControlName="CompanyName">
+                                    </ion-input>
+                                </ion-item>
+                            </div>
+                            <div class="flex_item">
+                                <ion-label class="label">I am a...</ion-label>
+                                <ion-item lines="none" class="input">
+                                    <ion-select style="display: inherit;" placeholder="Please Select" interface="action-sheet"
+                                        formControlName="SelectIAMA">
+                                        <ion-select-option value="Advisor">Financial Advisor</ion-select-option>
+                                        <ion-select-option value="Institution">Financial Institution</ion-select-option>
+                                    </ion-select>
+                                </ion-item>
+                            </div>
+                            <div class="flex_item">
+                                <ion-label class="label">Email<ion-text color="danger"> *</ion-text>
+                                </ion-label>
+                                <ion-item lines="none" class="input">
+                                    <ion-input type="email" placeholder="Email Address" formControlName="Email">
+                                    </ion-input>
+                                </ion-item>
+                            </div>
+                            <div class="flex_item">
+                                <ion-label class="label">Password<ion-text color="danger"> *</ion-text>
+                                </ion-label>
+                                <ion-item lines="none" class="input">
+                                    <ion-input type="password" placeholder="Password" formControlName="Password">
+                                    </ion-input>
+                                </ion-item>
+                            </div>
+                            <div class="flex_item">
+                                <ion-item lines="none" class="agreeItem">
+                                    <ion-checkbox mode="md" class="agreecheckBox" formControlName="IAgree"></ion-checkbox>
+                                    <label class="checkboxLabel">I agree to receive communications from New Age Alpha &
+                                        privacy policy<ion-text color="danger">
+                                            *
+                                        </ion-text></label>
+                                </ion-item>
+                            </div>
+                            <div>
+                                <ion-button class="signupBtn" size="large" expand="block" (click)="OnsignupClick()" [disabled]="!signupForm.valid">
+                                    Sign Up
+                                </ion-button>
+                            </div>
+                            <div>
+                                <ion-button class="loginBtn" size="large" expand="block" (click)="OnLoginClick()">
+                                    Login
+                                </ion-button>
+                            </div>
+                        </div>
+                    </ion-card-content>
+                </div>
+            </ion-card>
+        </form>
+    </div>
+</ion-content>

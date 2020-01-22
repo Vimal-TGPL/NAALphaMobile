@@ -1,0 +1,63 @@
+<!-- <ion-header>
+  <ion-toolbar>
+    <ion-title>menu</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+</ion-content> -->
+
+<ion-split-pane>
+ <ion-menu when="main-content">
+<ion-header>
+  <div class = "profile">
+    <div class = "avatarDiv">
+    <div class = "avatar">
+      
+      <img src="../../assets/images/Profile_NAA5.svg" alt="Profile">
+    </div>
+    <div class = "deatilsDiv">
+     
+      <p>{{firstname}} {{lastname}}</p>
+      <p>{{username}}</p>
+    </div>
+  </div>
+  </div>
+</ion-header>
+
+<ion-content >
+  <!-- <ion-list>
+    <ion-menu-toggle auto-hide="false" *ngFor="let p of pages">
+      <ion-title [routerLink]="['/menu/menu/home']" routerLinkActive="router-link-active" >
+        Home
+      </ion-title>
+    </ion-menu-toggle>
+  </ion-list> -->
+  
+
+  <ion-list>
+      <ion-menu-toggle autoHide="false" >
+        <ion-item [routerLink]="['/menu/menu/home']" routerDirection="root" [class.active-item]="selectedPath==='/menu/menu/path'">
+         <ion-text color="light">
+           Home
+         </ion-text>
+        </ion-item>
+        <ion-item [routerLink]="['/change-password']" routerLinkActive="router-link-active" >
+            <ion-text color="light">
+              Change Password
+            </ion-text>
+          </ion-item>
+        <ion-item (click)="onLogoutClick()">
+            <ion-text color="light">
+                Logout
+              </ion-text>
+        </ion-item>
+      </ion-menu-toggle>
+  </ion-list>
+  
+</ion-content>
+ </ion-menu>
+
+ <ion-router-outlet when="main-content" main></ion-router-outlet>
+</ion-split-pane>

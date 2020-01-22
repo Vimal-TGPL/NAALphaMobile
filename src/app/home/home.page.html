@@ -1,0 +1,340 @@
+<ion-header class="ion-text-center">
+  <ion-toolbar class="toolbar">
+    <ion-buttons slot="start" class="toolbar-button">
+      <ion-menu-button color="light"></ion-menu-button>
+    </ion-buttons>
+    <div class="header-Logo">
+      <img src="../../assets/images/NewAgeAlpha-logo.svg" alt="NewAgeAlpha" height="25px" width="auto">
+    </div>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content id="parent-content">
+  <div>
+    <div class="search-Outer-Div">
+      <div class="searchDiv">
+        <ion-item class="searchItem" lines="none">
+          <!-- <ion-input class="searchInput" type="text" placeholder="Ticker or company name" (click)="OpenSeach()"></ion-input> -->
+          <!-- <ionic-selectable ></ionic-selectable> -->
+          <!-- <ion-searchbar placeholder="Ticker or company name" (ionChange)="onSearchChange($event)" ></ion-searchbar> -->
+          <!-- </ion-item> -->
+          <ion-label style="text-align: center; margin: 2px 0px; font-size: 14px;">
+            {{searchSel==""? "Ticker or company name":searchSel.companyName}}</ion-label>
+          <ionic-selectable class="homeSearch" [(ngModel)]="searchSel" [items]="LoadsearchList" itemTextField="companyName"
+            [canSearch]="true" 
+            (onSearch)="searchCompany($event)"
+            (onSelect)="onSearchSelect($event.item)"
+            [hasInfiniteScroll]="true"
+            (onInfiniteScroll)="getMoreSearchComp($event)">
+            <ng-template ionicSelectableTitleTemplate>Ticker or company name</ng-template>
+            <ng-template ionicSelectableItemTemplate let-LoadsearchList="item">
+              <div style="width: 100%;">
+                <span style=" font-size: 14px;">{{LoadsearchList.companyName}} ({{LoadsearchList.ticker}})</span>
+                <br>
+                <span style="float: left;
+                font-size: 12px;
+                color: #00b9ff;
+                text-transform: uppercase;">{{LoadsearchList.indexName}}</span>
+                <span style="float: right;
+                font-size: 12px;
+                color: #ffba89;
+                text-transform: uppercase;">{{LoadsearchList.country}}</span>
+              </div>
+              
+            </ng-template>
+            <ng-template ionicSelectableItemIconTemplate let-port="item" let-isPortSelected="isItemSelected">
+              <ion-icon style="display: none;" [name]="isPortSelected ? 'checkmark-circle' : 'radio-button-off'"
+                [color]="isPortSelected ? 'primary' : null">
+              </ion-icon>
+            </ng-template>
+            <ng-template ionicSelectableCloseButtonTemplate>
+              <ion-icon name="close-circle" style="font-size: 24px;"></ion-icon>
+            </ng-template>
+          </ionic-selectable>
+        </ion-item>
+      </div>
+    </div>
+    <div>
+      <ion-card class="stocks-card">
+        <ion-card-content class="stock-card-content">
+          <div class="stock-header" (click)="onStockDivClick()">
+            <span class="stock-span">Stocks</span>
+            <span class="stock-span"><span style="display: flex;" *ngIf="searchSel!=''"><span style="white-space: nowrap;
+              width: 106px;
+              display: inline-block;
+              text-overflow: ellipsis;
+              overflow: hidden;">{{searchSel.companyName}}</span><span>({{searchSel.ticker}})</span></span></span>
+          </div>
+          <div [ngClass]="{'stock-collapse': stockCollapse}">
+            <ion-grid fixed>
+              <ion-row>
+                <ion-col size="6" class="col-first">
+                  <div class="image-div">
+                    <img src="../../assets/images/NAA_aboutUs_tools.png" alt="img" class="image">
+                  </div>
+                </ion-col>
+                <ion-col size="6" class="selected-stock-details">
+                  <div>
+                    <ion-text>
+                      <p class="selected-stock-score" *ngIf="searchSel!='' && searchSel.indexName!='ETF'">{{roundValue(searchSel.scores*100)}}%</p>
+                      <p class="selected-stock-comp" *ngIf="searchSel!='' && searchSel.indexName!='ETF'">{{searchSel.companyName}} ({{searchSel.ticker}})</p>
+                      <p class="selected-stock-score" *ngIf="searchSel!='' && searchSel.indexName=='ETF' && EtfMed!='' ">{{EtfMed}}%</p>
+                      <p class="selected-stock-comp" *ngIf="searchSel!='' && searchSel.indexName=='ETF'">{{searchSel.companyName}} ({{searchSel.ticker}})</p>
+                    </ion-text>
+                  </div>
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+          </div>
+          <!-- <div>
+            <img src="../../assets/images/angle-double-Up-solid.svg" alt="up">
+          </div> -->
+        </ion-card-content>
+      </ion-card>
+    </div>
+    <div>
+      <ion-slides pager="true" loop="true">
+        <ion-slide>
+          <div class="slider-div">
+            <div class="slider-div">
+              <ion-card class="title-card">
+                <ion-card-content class="title-card-content">
+                  <ion-text class="title-text">
+                    <p class="title-p">S&P Global Industry Classification System</p>
+                  </ion-text>
+                </ion-card-content>
+              </ion-card>
+            </div>
+            <div class="slider-div">
+              <ion-card class="title-card">
+                <ion-card-content class="subIndex-card-content">
+                  <div class="subIndex-div">
+                    <span id="subIndex-circle" class="subIndex-circle">{{stockMed}}</span>
+                    <ion-button class="header-btn" [disabled]="sectorList==''" [ngClass]="{'stockicon-active': stockIndexShow}"
+                      (click)="onStockBtnClick()">
+                      <div class="SubIndex-header-content">
+                        <span class="subIndex-header-title">{{SelSecLevTitle}}</span>
+                        <span class="subIndex-header-subtitle">{{selSector.name}}</span>
+                      </div>
+                      <ion-icon [name]="stockIcon" class="subindex-icon"></ion-icon>
+                    </ion-button>
+
+                  </div>
+                </ion-card-content>
+              </ion-card>
+            </div>
+            <div>
+              <ion-card class="stockCompList-card" *ngIf="stockIndexShow==false" [ngClass]="{'Stockcard-extend': stockCollapse}">
+                <ion-card-content *ngIf="selSectorComp==''"
+                  class="stockcomplist-card-content" [ngClass]="{'companycard-extend': stockCollapse}">
+
+                  <p class="test1" style="width: 62%;">
+                    To begin, use the Search Bar located at the top of your screen to select a stock.
+                  </p>
+                  <!-- <p class="test1" style="color: #01b1f2; text-align: center;">
+                      Search for a stock to begin.
+                    </p> -->
+
+                </ion-card-content>
+                <ion-card-content style=" padding: 0px;" *ngIf="selSectorComp!=''">
+                    <div class="company-list-inner-div" [ngClass]="{'companycard-extend': stockCollapse}">
+                        <ion-list class="company-list">
+                          <ion-item lines='none' class="company-list-item" *ngFor="let item of selSectorComp">
+                            <div class="company-label-outer-div" [ngClass]="{'comp-sel': selComp==item.companyName}"
+                              (click)="onCompanyClick(item)"
+                              [style.background]="getColor(roundValue(item.scores*100))"
+                              [style.color]="ApplyTextColor(roundValue(item.scores*100))">
+                              <ion-label class="company-label">
+                                <div style="width: 193px; overflow: hidden; text-overflow: ellipsis;">
+                                  <span class="s-no">{{selSectorComp.indexOf(item)+1}}</span>
+                                  <span>{{item.companyName}}</span>
+                                </div>
+                                <div>
+                                  <span class="ticker-data">({{item.ticker}})</span>
+                                  <span>{{roundValue(item.scores*100)}}%</span>
+                                </div>
+                              </ion-label>
+                            </div>
+                          </ion-item>
+                        </ion-list>
+                      </div>
+                </ion-card-content>
+              </ion-card>
+              <ion-card class="stockCompList-card" *ngIf="stockIndexShow==true"
+                [ngClass]="{'Stockcard-extend': stockCollapse}">
+                <ion-card-content style="padding: 0px;">
+                  <ion-item style="color: black; --background: white;" *ngFor="let item of sectorList" (click)="onSectorClick(item.code)">
+                    <ion-label style="display: flex; flex-direction: column; margin: 4px 0px; font-size: 14px; color: black;"><span style="font-size: 12px; color: #666;">{{sectorHeadings[sectorList.indexOf(item)]}}</span><span style="overflow: hidden;
+                      text-overflow: ellipsis;">{{item.name}}</span></ion-label>
+                  </ion-item>
+                </ion-card-content>
+              </ion-card>
+            </div>
+          </div>
+        </ion-slide>
+        <ion-slide>
+          <div class="slider-div">
+            <div>
+              <ul class="NavTabList">
+                <li class="navTabBtn" [ngClass]="{'tab-active': SelTab == 'Global'}"
+                  (click)="GridHeaderTitle=false; SelTab = 'Global';onNavClick();">Global Index</li>
+                <li class="navTabBtn" [ngClass]="{'tab-active': SelTab == 'NAA'}"
+                  (click)="GridHeaderTitle=false; SelTab = 'NAA';onNavClick();">NAA Index</li>
+                <li class="ETFNavTabBtn" [ngClass]="{'tab-active': SelTab == 'ETF'|| SelTab == 'ETFChild'}"
+                  (click)="GridHeaderTitle=false; SelTab = 'ETF'; onNavETFClick();">ETF's</li>
+              </ul>
+            </div>
+            <div>
+              <ion-card class="index-header"
+                [ngClass]="{'active-left': SelTab == 'Global', 'active-right': SelTab == 'ETF' || SelTab == 'ETFChild'}">
+
+                <ion-card-content class="index-header-card-content">
+                  <div class="index-header-card-div">
+                    <span id='header-circle' class="header-circle">{{headermed}}</span>
+                    <!-- <span style="min-width: 40px; min-height: 40px; height: 40px; width:40px; border-radius: 50%; background-color: #2e4c99;"></span> -->
+                    <ion-button class="header-btn" [disabled]="GridHeaderTitle" [ngClass]="{'stockicon-active': compIndexShow}"
+                      (click)="onCompBtnClick()">
+                      <div class="Btn-inner-div">
+                        <span
+                          class="subIndex-header-title">{{(SelTab=='ETF' || SelTab=='ETFChild')? 'ETF':'Index'}}</span>
+                        <span class="subIndex-header-subtitle">{{SelIndexName}}</span>
+
+                      </div>
+                      <ion-icon [name]='icon' class="subindex-icon"></ion-icon>
+                    </ion-button>
+                  </div>
+                </ion-card-content>
+              </ion-card>
+            </div>
+            <div>
+
+              <ion-card class="company-card" *ngIf="compIndexShow==false"
+                [ngClass]="{'companycard-extend': stockCollapse}">
+
+                <!-- <ion-card-content  class="company-card-content">
+                      company list
+                    </ion-card-content> -->
+                <ion-card-content *ngIf="selectedIndexData.length == 0 && ETFHoldings.length == 0 "
+                  class="child-card-content" [ngClass]="{'companycard-extend': stockCollapse}">
+
+                  <p class="test1" style="width: 67%;">
+                    To begin, use the Search Bar located at the top of your screen to select a stock.
+                  </p>
+                  <!-- <p class="test1" style="color: #01b1f2; text-align: center;">
+                      Search for a stock to begin.
+                    </p> -->
+
+                </ion-card-content>
+                <ion-card-content *ngIf="selectedIndexData.length > 0 " class="company-card-content"
+                  [ngClass]="{'companycard-extend': stockCollapse}">
+
+                  <div class="company-list-inner-div" [ngClass]="{'companycard-extend': stockCollapse}">
+                    <ion-list class="company-list">
+                      <ion-item [id]="getIDReplace(item.companyName)"  lines='none' class="company-list-item" *ngFor="let item of selectedIndexData">
+                        <div class="company-label-outer-div" [ngClass]="{'comp-sel': selComp==item.companyName}"
+                          (click)="onCompanyClick(item)"
+                          [style.background]="getColor(roundValue(item.scores*100))"
+                          [style.color]="ApplyTextColor(roundValue(item.scores*100))">
+                          <ion-label class="company-label">
+                            <div style="width: 193px; overflow: hidden; text-overflow: ellipsis;">
+                              <span class="s-no">{{unsortedIndexData.indexOf(item)+1}}</span>
+                              <span>{{item.companyName}}</span>
+                            </div>
+                            <div>
+                              <span class="ticker-data">({{item.ticker}})</span>
+                              <span>{{roundValue(item.scores*100)}}%</span>
+                            </div>
+                          </ion-label>
+                        </div>
+                      </ion-item>
+                    </ion-list>
+                  </div>
+                </ion-card-content>
+                <!-- <ion-card-content *ngIf="ETFHoldings.length > 0 && (SelTab =='ETF' || SelTab == 'ETFChild')"
+                  style="width: 100%; padding: 0px;">
+                  <div style=" height: calc(100vh - 330px); overflow: auto;">
+                    <ion-list style="background-color: white;">
+                      <ion-item lines='none'
+                        style="--background: white; margin: 5px 0px; padding: 0px; --min-height: 30px; --padding-start: 15px; --padding-end: 15px; --inner-padding-end: 0px;"
+                        *ngFor="let item of ETFHoldings">
+                        <div
+                          style="border-radius: 30px; --min-height: 30px; background: rgb(244, 156, 43); width: 100%">
+                          <ion-label
+                            style="margin: 0px; padding: 5px 11px; display: flex; font-size: 13px;justify-content: space-between;">
+                            <span
+                              style="text-overflow: ellipsis; overflow: hidden; width: 60%;">{{item[0].companyName}}</span>({{item[0].ticker}})<span>{{roundValue(item[0].scores*100)}}%</span>
+                          </ion-label>
+                        </div>
+                      </ion-item>
+                    </ion-list>
+                  </div>
+                </ion-card-content> -->
+              </ion-card>
+              <ion-card class="company-card" style="overflow: auto;" *ngIf="compIndexShow==true"
+                [ngClass]="{'companycard-extend': stockCollapse}">
+                <ion-card-content *ngIf="showLoader" class="index-loader">
+                  <div>
+                    <img class="loader" src="../../assets/images/Rolling.svg" alt="Loading...">
+                  </div>
+                </ion-card-content>
+                <ion-card-content *ngIf="SelTab=='Global'" class="company-card-content">
+                  <ion-list class="nav-tab-index">
+                    <ion-item class="nav-tab-item" lines="none" *ngFor="let item of globalIndex"
+                      (click)="onglobalIndexClick(item)">
+                      <span class="index-circle" [style.color]="ApplyTextColor(globalmed[globalIndex.indexOf(item)])"
+                        [style.background-color]="getColor(globalmed[globalIndex.indexOf(item)])">{{globalmed[globalIndex.indexOf(item)]}}</span>
+                      <ion-label>{{getGlobalIndex(item)}}</ion-label>
+                    </ion-item>
+                  </ion-list>
+                </ion-card-content>
+                <ion-card-content *ngIf="SelTab=='NAA'" class="company-card-content">
+                  <ion-list class="nav-tab-index">
+                    <ion-item class="nav-tab-item" lines="none" *ngFor="let item of NAAIndex"
+                      (click)="onNaaIndexClick(item)">
+                      <span class="index-circle" [style.color]="ApplyTextColor(naamed[NAAIndex.indexOf(item)])"
+                        [style.background-color]="getColor(naamed[NAAIndex.indexOf(item)])">{{naamed[NAAIndex.indexOf(item)]}}</span>
+                      <ion-label>{{getNaaIndex(item)}}</ion-label>
+                    </ion-item>
+                  </ion-list>
+                </ion-card-content>
+                <ion-card-content *ngIf="SelTab=='ETF'" class="company-card-content">
+                  <ion-list class="nav-tab-index">
+                    <ion-item class="nav-tab-item" lines="none" *ngFor="let item of ETFcategory"
+                      (click)="onETFCategoryClick(item)">
+                      <span class="index-circle"
+                        [style.color]="ApplyTextColor(roundValue(getETFCategoryMed(ETFcategory.indexOf(item))*100))"
+                        [style.background-color]="getColor(roundValue(getETFCategoryMed(ETFcategory.indexOf(item))*100))">{{roundValue(getETFCategoryMed(ETFcategory.indexOf(item))*100)}}</span>
+                      <ion-label>{{item}}</ion-label>
+                      <ion-icon name="ios-arrow-forward"></ion-icon>
+                      <!-- <ion-icon name="arrow-forward" type="ios"></ion-icon> -->
+                    </ion-item>
+                  </ion-list>
+                </ion-card-content>
+                <ion-card-content *ngIf="SelTab=='ETFChild'" class="nav-tab-card-content">
+                  <div class="backBtn">
+
+                    <ion-icon class="backText" name="arrow-back" type="ios"></ion-icon>
+                    <ion-label class="backText backText-label" (click)="this.SelTab='ETF';">{{selCategory}}</ion-label>
+
+                  </div>
+                  <div class="ETFChild-Div">
+                    <div>
+                      <ion-list class="ETFChild-List">
+                        <ion-item lines="none" style="--background: white; font-size: 14px;"
+                          *ngFor="let item of ETFNameList" (click)="onETFNameClick(item)">
+                          <span class="index-circle" [style.color]="ApplyTextColor(getEtfMed(item))"
+                            [style.background-color]="getColor(getEtfMed(item))">{{getEtfMed(item)}}</span>
+                          <ion-label class="ETFChild-Label">{{item}}</ion-label>
+                        </ion-item>
+                      </ion-list>
+                    </div>
+                  </div>
+                </ion-card-content>
+              </ion-card>
+            </div>
+          </div>
+        </ion-slide>
+      </ion-slides>
+    </div>
+  </div>
+</ion-content>

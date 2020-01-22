@@ -1,0 +1,52 @@
+ion-content{
+
+    --ion-background-color:#d3d8dc;
+
+}
+
+.card{
+    background-color: #2e4c99;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    // align-items: center;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    // width: 100%;
+    // min-height: 96vh;                
+}
+
+.imgdiv{
+    padding: 10%;
+}
+
+.text{
+    color: white;
+    font-size: 18px;
+}
+
+.textdiv{
+    padding-top: 5%;
+    padding-left: 5%;
+    padding-right: 5%;
+    text-align: center;
+}
+
+.loginBtn{
+    // --background : white;
+   // --color	: #2b468f;
+    // --ripple-color : #9a9a9a;
+    // --color-activated : #9a9a9a;
+    --ion-color-contrast: #2b468f !important;
+    font-size: 18px;
+}
+
+.loginDiv{
+    padding-left: 10%;
+    padding-right: 10%;
+    padding-top: 8%;
+}

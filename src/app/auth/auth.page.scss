@@ -1,0 +1,106 @@
+ion-content{
+
+    --ion-background-color:#d3d8dc;
+
+}
+
+.card{
+    background-color: #2e4c99;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    // align-items: center;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    // width: 100%;
+    // min-height: 96vh;                
+}
+
+.signupBtnDiv{
+    padding-left: 2%;
+    padding-right: 2%;
+    padding-top: 4%;
+    
+}
+
+.signupBtn{
+    --background: #00aeef;
+    
+}
+
+.cardTitle
+{
+    text-align: center; 
+    color: #00aeef; 
+    font-size: 40px; 
+    font-weight: bold;
+}
+
+.emailLabel{
+    color: white;
+    // font-family: Arial, Helvetica, sans-serif;
+    font-size: 17px;
+}
+
+.emailItem
+{
+    --background: white;
+    font-size: 19px;
+}
+
+.passwordItem
+{
+    --background: white;
+    font-size: 20px;
+}
+
+.passwordInput{
+    font-size: 19px !important;
+}
+
+.form{
+    padding-top: 5%;
+}
+
+.inputdiv{
+    padding: 3%;
+}
+
+.loginBtn{
+    --background : white;
+    --color	: #2b468f;
+    --ripple-color : #9a9a9a;
+    --color-activated : #2b468f;
+}
+
+.loginDiv{
+    padding-left: 2%;
+    padding-right: 2%;
+    padding-top: 5%;
+}
+
+.forgotPassBtn{
+    color: #00aeef;
+}
+
+.forgotPassDiv{
+    padding-left: 2%;
+    padding-right: 2%;
+    padding-top: 3%;
+}
+
+.rememberItem{
+    --padding-start: 0%;
+    --background: #2e4c99 ;
+    --background-activated: #2e4c99;
+}
+
+.checkboxLabel{
+    color: white;
+    padding-left: 10px;
+    font-size: 14px;
+}
