@@ -5,7 +5,6 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 import { Platform, IonSlides } from '@ionic/angular';
 import * as d3 from 'd3';
-import { $ } from 'protractor';
 import { IonicSelectableComponent } from 'ionic-selectable';
 
 @Component({
