@@ -14,6 +14,7 @@ import { IonicSelectableComponent } from 'ionic-selectable';
   styleUrls: ['home.page.scss'],
 })
 
+//hai
 
 export class HomePage implements OnInit, AfterViewInit {
   stockMed:any;
