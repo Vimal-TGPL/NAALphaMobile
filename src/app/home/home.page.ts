@@ -18,7 +18,7 @@ import { getTestBed } from '@angular/core/testing';
 
 export class HomePage implements OnInit, AfterViewInit {
 
-  @ViewChild(IonSlides) slides: IonSlides;
+  @ViewChild(IonSlides,{static:true}) slides: IonSlides;
 
   compETFNameList:any = [];
   comNAAIndex:any = [];
