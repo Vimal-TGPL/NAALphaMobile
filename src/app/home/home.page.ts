@@ -6,6 +6,9 @@ import { environment } from '../../environments/environment';
 import { Platform, IonSlides } from '@ionic/angular';
 import * as d3 from 'd3';
 import { IonicSelectableComponent } from 'ionic-selectable';
+import { ScreenOrientation } from '@ionic-native/screen-orientation/ngx';
+import { getTestBed } from '@angular/core/testing';
+
 
 @Component({
   selector: 'app-home',
@@ -14,6 +17,9 @@ import { IonicSelectableComponent } from 'ionic-selectable';
 })
 
 export class HomePage implements OnInit, AfterViewInit {
+
+  @ViewChild(IonSlides) slides: IonSlides;
+
   compETFNameList:any = [];
   comNAAIndex:any = [];
   comGlobalIndex:any =[];
@@ -94,8 +100,20 @@ export class HomePage implements OnInit, AfterViewInit {
     // });
   }
 
-  constructor(private authService: AuthenticationService, public storage: Storage, private httpclient: HttpClient, private plt:Platform) {
+  constructor(private screenOrientation:ScreenOrientation, private authService: AuthenticationService, public storage: Storage, private httpclient: HttpClient, private plt:Platform) {
     this.currentUser =  this.authService.currentUserValue();
+    //console.log(this.screenOrientation.type);
+    if(this.screenOrientation.type == this.screenOrientation.ORIENTATIONS.LANDSCAPE || this.screenOrientation.type == this.screenOrientation.ORIENTATIONS.LANDSCAPE_PRIMARY || this.screenOrientation.type == this.screenOrientation.ORIENTATIONS.LANDSCAPE_SECONDARY){
+      this.stockCollapse = true;
+    }
+    this.screenOrientation.onChange().subscribe(
+      () => {
+          if(this.screenOrientation.type == this.screenOrientation.ORIENTATIONS.LANDSCAPE || this.screenOrientation.type == this.screenOrientation.ORIENTATIONS.LANDSCAPE_PRIMARY || this.screenOrientation.type == this.screenOrientation.ORIENTATIONS.LANDSCAPE_SECONDARY){
+            this.stockCollapse = true;
+          }
+      }
+   );
+   //document.getElementById("slide0dot").style.color="#FFFFFF";
     //IonicSelectableComponent
     //console.log(this.currentUser);
   }
@@ -849,5 +867,31 @@ onSectorClick(key){
 
 getIDReplace(id){
   return id.replace(/ /g,'-');
+}
+
+onSlide0Click(){
+  this.slides.slideTo(0);
+  document.getElementById("slide0dot").style.backgroundColor="#FFFFFF"
+  document.getElementById("slide1dot").style.backgroundColor="#666"
+}
+
+onSlide1Click(){
+  this.slides.slideTo(1);
+  document.getElementById("slide1dot").style.backgroundColor="#FFFFFF"
+  document.getElementById("slide0dot").style.backgroundColor="#666"
+}
+
+onSlideChange(){
+  
+  this.slides.getActiveIndex().then(index => {
+    if(index == 0)
+  {
+    document.getElementById("slide0dot").style.backgroundColor="#FFFFFF"
+    document.getElementById("slide1dot").style.backgroundColor="#666"
+  }else{
+    document.getElementById("slide1dot").style.backgroundColor="#FFFFFF"
+    document.getElementById("slide0dot").style.backgroundColor="#666"
+  }
+  });  
 }
 }

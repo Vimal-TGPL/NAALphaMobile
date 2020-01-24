@@ -13,6 +13,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { HTTP } from '@ionic-native/http/ngx'
 import { IonicStorageModule } from '@ionic/storage';
+import { ScreenOrientation } from '@ionic-native/screen-orientation/ngx';
 
 import { JwtInterceptor } from './_helper/jwt.interceptor';
 import { IonicSelectableComponent } from 'ionic-selectable';
@@ -26,6 +27,7 @@ import { IonicSelectableComponent } from 'ionic-selectable';
     StatusBar,
     HTTP, 
     SplashScreen,
+    ScreenOrientation,
     IonicSelectableComponent,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     { provide: HTTP_INTERCEPTORS, useClass:JwtInterceptor, multi:true}

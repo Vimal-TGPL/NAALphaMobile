@@ -793,6 +793,14 @@ ion-content {
 .searchItem{
     --padding-start:0px
 }
+
+.ios .child-card-content{
+    height: calc(100vh - 401px) !important;
+}
+
+.ios .companycard-extend{
+    height: calc(100vh - 251px) !important;
+}
 /* MEDIA */
 @media (max-width: 340px) and (min-width: 310px) {
     .nav-tab li a{
@@ -820,3 +828,41 @@ ion-content {
         margin: 0px 12px;
         }
 }
+@media screen and (orientation:landscape) {
+    .Stockcard-extend{
+        height: 300px !important;
+    }
+    .companycard-extend{
+        height: 300px !important;
+    }
+    .ios .companycard-extend{
+        height: 300px !important;
+    }
+    .overflowOnlyLandscape{
+        --overflow: auto;
+    }
+    .stockCompList-card{
+        height: 300px !important;
+    }
+    .child-card-content{
+        height: 300px !important;
+    }
+    .ios .child-card-content{
+        height: 300px !important;
+    }
+    .index-loader{
+        height: 300px !important;
+    }
+    .nameExtend{
+        width: 350px !important;
+    }
+    .company-list-inner-div{
+        height: 300px !important;
+    }
+    .company-card-content{
+        height: 300px !important;
+    }
+    .stock-header{
+        padding: 5px 12px 0px 12px !important;
+    }
+ }
