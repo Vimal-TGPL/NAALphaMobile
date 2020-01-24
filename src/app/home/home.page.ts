@@ -14,6 +14,9 @@ import { IonicSelectableComponent } from 'ionic-selectable';
 })
 
 export class HomePage implements OnInit, AfterViewInit {
+  compETFNameList:any = [];
+  comNAAIndex:any = [];
+  comGlobalIndex:any =[];
   stockMed:any;
   GridHeaderTitle:boolean = true;
   selSector:any=[];
@@ -211,7 +214,7 @@ getMed(array:any){
   createData(){
     this.httpclient.get(this.api_url+"/Industry/GetIndustry").subscribe((res:any[]) =>{
       this.dbGICS = res;
-      console.log(this.dbGICS);
+     // console.log(this.dbGICS);
     });
     this.httpclient.get(this.api_url + "/Scores/GetNAAIndexScoresCurrent/GLOBAL").subscribe( (res:any[]) => {
       this.data =res;
@@ -231,9 +234,11 @@ getMed(array:any){
           this.NAAIndex.push(element);
         }else{
           //element = element.replace(' Tndex','');
+          
           this.globalIndex.push(element);
         }
       }); 
+     // console.log(this.globalIndex);
       var i;
       
       //let temp = data.filter(item => item.)
@@ -252,10 +257,33 @@ getMed(array:any){
       for(i=0;i < this.globalIndex.length;i++ ){
       this.globalmed.push(this.roundValue(this.getMed(this.globalindexwise[i]) * 100));
       }
-
+     // console.log(this.globalmed);
+      let globaltemp = [];
+      for(i=0;i<this.globalIndex.length;i++){
+        let t:any = [];
+        t = {'name':this.globalIndex[i],'med':this.globalmed[i]}
+        globaltemp.push(t);
+      }
+      this.comGlobalIndex = globaltemp;
+      //console.log(this.comGlobalIndex);
+      this.comGlobalIndex.sort((a,b) => {
+        return a.med - b.med;
+      });
+     // console.log(this.comGlobalIndex);
       for(i=0;i < this.NAAIndex.length;i++ ){
         this.naamed.push(this.roundValue(this.getMed(this.naaindexwise[i]) * 100));
         }
+      let naatemp = [];
+      for(i=0;i<this.NAAIndex.length;i++){
+        let t:any = [];
+        t = {'name':this.NAAIndex[i],'med':this.naamed[i]};
+        naatemp.push(t);
+      }
+      this.comNAAIndex = naatemp;
+      this.comNAAIndex.sort((a,b) => {
+        return a.med - b.med;
+      });
+     // console.log(naatemp);
       this.showLoader = false;
       this.GetETFValues();
       // //this.SelTab='Global';
@@ -499,7 +527,19 @@ onETFCategoryClick(i){
        var temp = this.res.filter(item=>item.etfName === this.ETFNameList[i]);
        this.ETFNameFull.push(temp[0]);
      }
-     console.log(this.ETFNameList);
+     var etfnametemp = [];
+     for(i=0;i<this.ETFNameList.length;i++){
+       var med:any = this.getEtfMed(this.ETFNameList[i]);
+        var t:any = [];
+        t={'name':this.ETFNameList[i],'med':med}
+        etfnametemp.push(t);
+     }
+     this.compETFNameList = etfnametemp;
+     console.log(this.compETFNameList);
+     this.compETFNameList.sort((a,b) => {
+      return a.med - b.med;
+    });
+    // console.log(this.ETFNameList);
     //console.log(this.ETFNameFull);
     //var ETFNameMed = ETFNameFull.map(item => item.medianCont);
     //console.log(ETFNameMed);
@@ -579,7 +619,6 @@ onNavClick(){
   this.stockCollapse = true;
   this.compIndexShow= true;
   this.icon = "ios-arrow-dropup-circle";
- 
 }
 
 onNavETFClick(){
@@ -641,29 +680,31 @@ onCompBtnClick(){
 
 onCompanyClick(e){
   this.selComp = e.companyName;
-  //this.searchSel = e;
-  console.log(e);
-  //this.onSearchSelect(e);
+  this.searchSel = e;
+ // console.log(e);
+  this.onSearchSelect(e);
   if(e.indexName.indexOf('New Age Alpha ') == -1)
   {
-    
+    //console.log('global');
     this.getSectorList(e.industry.toString());
     this.SelSearchObj = e;
+    //this.onSearchSelect(e);
     this.onSectorClick(e.industry);
-   // this.onSearchSelect(e);
+    
     // console.log(this.fullSectorComp);
     // console.log(this.selSectorComp);
 
   }else{
-    //console.log('NAA');
+   // console.log('NAA');
     //console.log(e);
     var temp = this.data.filter(item=> item.companyName == e.companyName);
     temp = temp.filter(item=> item.indexName.indexOf("New Age Alpha ")== -1)
     temp = temp[0];
     this.getSectorList(temp.industry.toString());
     this.SelSearchObj = temp;
+    //console.log(temp);
     this.onSectorClick(temp.industry);
-    console.log(temp);
+    
   }
 }
 
@@ -702,7 +743,7 @@ onSearchSelect(e){
   this.selComp = e.companyName;
   this.SelSearchObj = e;
   
-  console.log(this.searchSel);
+ // console.log(this.searchSel);
   //console.log(this.searchSel);
   //console.log(this.searchList);
   var industryVal = e.industry;
@@ -728,7 +769,7 @@ onSearchSelect(e){
   if(e.indexName=='ETF')
   {
     this.SelTab = 'ETF';
-    console.log(this.ETFcategory);
+   // console.log(this.ETFcategory);
     //this.onNavETFClick();
     //this.onETFCategoryClick(e.item.country);
     this.onETFNameClick(e.companyName);
@@ -775,7 +816,7 @@ getSectorList(data)
 }
 
 onSectorClick(key){
-  console.log(key);
+ // console.log(key);
   if(this.stockCollapse == true){
     //this.stockCollapse = false;
     this.stockIndexShow= false;
@@ -802,7 +843,7 @@ onSectorClick(key){
   // console.log(this.sectorHeadings[this.sectorList.indexOf(this.selSector)]);
   // console.log(this.selSector);
    //console.log(this.selSectorComp);
-   console.log(this.roundValue(this.getMed(this.selSectorComp)*100));
+   //console.log(this.roundValue(this.getMed(this.selSectorComp)*100));
   //console.log(temp);
 }
 

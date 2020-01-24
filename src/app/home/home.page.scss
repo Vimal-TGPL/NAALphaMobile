@@ -221,24 +221,33 @@ border-radius: 25px;
 }
 
 .header-circle{
-    background-color: #2e4c99;
-  color: white;
-  font-weight: 600;
-  /* font-family: open sans; */
-  font-family: sans-serif;
-  padding: 5px;
-  border-radius: 50%;
-  font-size: 14px;
-  max-width: 48px;
-  max-height: 48px;
-  min-width: 48px;
-  min-height: 48px;
-  display: flex;
-  margin-left: -1px;
-  margin-top: 0px;
-  align-items: center;
-  justify-content: center;
-//    visibility:hidden;
+    background-color: #2e4c99; 
+    height: 40px; 
+    width: 40px; 
+    min-width: 40px;
+    min-height: 40px; 
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+//     background-color: #2e4c99;
+//   color: white;
+//   font-weight: 600;
+//   /* font-family: open sans; */
+//   font-family: sans-serif;
+//   padding: 5px;
+//   border-radius: 50%;
+//   font-size: 14px;
+//   max-width: 48px;
+//   max-height: 48px;
+//   min-width: 48px;
+//   min-height: 48px;
+//   display: flex;
+//   margin-left: -1px;
+//   margin-top: 0px;
+//   align-items: center;
+//   justify-content: center;
+// //    visibility:hidden;
 }
 
 .parent-card-header{
@@ -315,7 +324,7 @@ border-radius: 25px;
 
 .child-card-content{
     --ion-background-color: white;
-    height: calc(100vh - 407px); 
+    height: calc(100vh - 399px); 
     display: flex; 
     justify-content: center; 
     align-items: center;
@@ -465,7 +474,7 @@ ion-content {
 // }
 
 .company-list-inner-div{
-    height: calc(100vh - 408px);
+    height: calc(100vh - 399px);
     overflow: auto;
 }
 
@@ -631,7 +640,7 @@ ion-content {
 }
 
 .title-text{
-    padding: 3px;
+    padding: 4px 2px;
 }
 
 .title-p{
@@ -748,7 +757,7 @@ ion-content {
 
 .company-card-content{
     padding: 0px; 
-    height: calc(100vh - 408px);
+    height: calc(100vh - 399px);
 }
 
 .stock-collapse{
@@ -760,7 +769,7 @@ ion-content {
 }
 
 .companycard-extend{
-    height: calc(100vh - 257px) !important;
+    height: calc(100vh - 249px) !important;
 }
 
 .stockicon-active{

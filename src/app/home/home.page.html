@@ -93,7 +93,7 @@
       </ion-card>
     </div>
     <div>
-      <ion-slides pager="true" loop="true">
+      <ion-slides loop="true">
         <ion-slide>
           <div class="slider-div">
             <div class="slider-div">
@@ -279,21 +279,21 @@
                 </ion-card-content>
                 <ion-card-content *ngIf="SelTab=='Global'" class="company-card-content">
                   <ion-list class="nav-tab-index">
-                    <ion-item class="nav-tab-item" lines="none" *ngFor="let item of globalIndex"
-                      (click)="onglobalIndexClick(item)">
-                      <span class="index-circle" [style.color]="ApplyTextColor(globalmed[globalIndex.indexOf(item)])"
-                        [style.background-color]="getColor(globalmed[globalIndex.indexOf(item)])">{{globalmed[globalIndex.indexOf(item)]}}</span>
-                      <ion-label>{{getGlobalIndex(item)}}</ion-label>
+                    <ion-item class="nav-tab-item" lines="none" *ngFor="let item of comGlobalIndex"
+                      (click)="onglobalIndexClick(item.name)">
+                      <span class="index-circle" [style.color]="ApplyTextColor(item.med)"
+                        [style.background-color]="getColor(item.med)">{{item.med}}</span>
+                      <ion-label>{{getGlobalIndex(item.name)}}</ion-label>
                     </ion-item>
                   </ion-list>
                 </ion-card-content>
                 <ion-card-content *ngIf="SelTab=='NAA'" class="company-card-content">
                   <ion-list class="nav-tab-index">
-                    <ion-item class="nav-tab-item" lines="none" *ngFor="let item of NAAIndex"
-                      (click)="onNaaIndexClick(item)">
-                      <span class="index-circle" [style.color]="ApplyTextColor(naamed[NAAIndex.indexOf(item)])"
-                        [style.background-color]="getColor(naamed[NAAIndex.indexOf(item)])">{{naamed[NAAIndex.indexOf(item)]}}</span>
-                      <ion-label>{{getNaaIndex(item)}}</ion-label>
+                    <ion-item class="nav-tab-item" lines="none" *ngFor="let item of comNAAIndex"
+                      (click)="onNaaIndexClick(item.name)">
+                      <span class="index-circle" [style.color]="ApplyTextColor(item.med)"
+                        [style.background-color]="getColor(item.med)">{{item.med}}</span>
+                      <ion-label>{{getNaaIndex(item.name)}}</ion-label>
                     </ion-item>
                   </ion-list>
                 </ion-card-content>
@@ -321,10 +321,10 @@
                     <div>
                       <ion-list class="ETFChild-List">
                         <ion-item lines="none" style="--background: white; font-size: 14px;"
-                          *ngFor="let item of ETFNameList" (click)="onETFNameClick(item)">
-                          <span class="index-circle" [style.color]="ApplyTextColor(getEtfMed(item))"
-                            [style.background-color]="getColor(getEtfMed(item))">{{getEtfMed(item)}}</span>
-                          <ion-label class="ETFChild-Label">{{item}}</ion-label>
+                          *ngFor="let item of compETFNameList" (click)="onETFNameClick(item.name)">
+                          <span class="index-circle" [style.color]="ApplyTextColor(item.med)"
+                            [style.background-color]="getColor(item.med)">{{item.med}}</span>
+                          <ion-label class="ETFChild-Label">{{item.name}}</ion-label>
                         </ion-item>
                       </ion-list>
                     </div>
