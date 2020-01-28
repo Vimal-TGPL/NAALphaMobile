@@ -104,3 +104,10 @@ ion-content{
     padding-left: 10px;
     font-size: 14px;
 }
+
+
+@media screen and (orientation:landscape) {
+.overfloscroll{
+    overflow: auto;
+}
+}
