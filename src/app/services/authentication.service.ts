@@ -28,7 +28,18 @@ export class AuthenticationService {
   }
 
   public currentUserValue() {
-    //console.log(this.CurrentUser);
+    let usr:any = '';
+    this.storage.get('currentUser').then(res=>{
+      console.log(res);
+      var temp = JSON.parse(res);
+      //console.log(temp);
+      usr = temp;
+      console.log(usr);
+      
+    })
+      //console.log(this.user);
+      //this.CurrentUser.token = usr.token;
+      console.log(this.CurrentUser);
     return this.CurrentUser;
   }
 
@@ -43,8 +54,11 @@ export class AuthenticationService {
   .pipe(map(user=>{
     if(user && user.token){
       if(user.isEmailVerified != "" && user.isEmailVerified == "Y"){
+        this.storage.clear();
+        console.log(user);
         this.storage.set('currentUser',JSON.stringify(user));
         this.authenticationState.next(true);
+        this.CurrentUser = user;
       }
     }
     return user;

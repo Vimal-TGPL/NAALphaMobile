@@ -19,8 +19,9 @@ export class JwtInterceptor implements HttpInterceptor {
              }
          });
 
-         
+         this.getCurrentUser();
          if(this.currentUser && this.currentUser.token){
+           
              console.log(this.currentUser);
              //console.log("adding bearer");
              request = request.clone({
@@ -34,6 +35,14 @@ export class JwtInterceptor implements HttpInterceptor {
 
     constructor(public http: HttpClient, private storage:Storage, private authService: AuthenticationService){
     this.currentUser = this.authService.currentUserValue();
+   // console.log
+    }
+
+    getCurrentUser()
+    {
+        //this.currentUser = '';
+        this.currentUser = this.authService.currentUserValue();
+        console.log(this.currentUser);
     }
 
 }
