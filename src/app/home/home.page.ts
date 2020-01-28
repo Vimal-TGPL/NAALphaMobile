@@ -8,6 +8,7 @@ import * as d3 from 'd3';
 import { IonicSelectableComponent } from 'ionic-selectable';
 import { ScreenOrientation } from '@ionic-native/screen-orientation/ngx';
 import { getTestBed } from '@angular/core/testing';
+import { timeInterval, timeout } from 'rxjs/operators';
 
 
 @Component({
@@ -399,6 +400,22 @@ onglobalIndexClick(i){
     //   var topPos = document.getElementById(this.getIDReplace(this.selComp)).offsetTop;
     // console.log(topPos);
     // });
+    setTimeout(()=>{
+     // 
+     var temp = this.selectedIndexData.filter((item)=> item.companyName == this.selComp);
+     var index = this.selectedIndexData.indexOf(temp[0])+1;
+     var manInd = (index*35)-140;
+     document.getElementById('scrollDiv').scrollTo(0,manInd);
+     var sectemp = this.selSectorComp.filter((item)=> item.companyName == this.selComp);
+     console.log(sectemp);
+     var secInd = this.selSectorComp.indexOf(sectemp[0])+1;
+     console.log(secInd);
+     var mansecInd = (secInd*35)-140;
+     document.getElementById('sectorscrollDiv').scrollTo(0,mansecInd);
+     console.log(index);
+      console.log("Executed")
+    },500);
+    
   }
 }
 
@@ -536,7 +553,9 @@ onETFCategoryClick(i){
   var tempp =[];
   tempp = this.ETFCatagoriesComp[this.ETFcategory.indexOf(i)-1];
   //console.log(tempp);
-  this.ETFNameList = tempp.map(item=>item.etfName);
+    this.ETFNameList = tempp.map(item=>item.etfName);
+ 
+  
  // console.log(this.ETFNameList);
   
   var j;
@@ -756,7 +775,7 @@ searchCompany(event:{component: IonicSelectableComponent,
     }   
 }
 
-onSearchSelect(e){
+ onSearchSelect(e){
   console.log(e);
   this.selComp = e.companyName;
   this.SelSearchObj = e;
@@ -780,6 +799,9 @@ onSearchSelect(e){
   //console.log(industryVal.toString().substring(0,2));
   //console.log(e.item.industry);
   this.onSectorClick(e.industry);
+  //console.log(this.getIDReplace(this.selComp));
+ // var id = this.getIDReplace(this.selComp);
+  
   }
   
   
@@ -791,12 +813,16 @@ onSearchSelect(e){
     //this.onNavETFClick();
     //this.onETFCategoryClick(e.item.country);
     this.onETFNameClick(e.companyName);
+    this.slides.slideTo(1);
     //console.log(this.ETFNameList);
   }else{
     this.SelTab = 'Global';
   //console.log(this.globalIndex);
-  this.onglobalIndexClick(e.indexName);
+   this.onglobalIndexClick(e.indexName);
+
+   
   }
+  
 }
 
 getMoreSearchComp(event:{component: IonicSelectableComponent,text: string}){
@@ -863,6 +889,8 @@ onSectorClick(key){
    //console.log(this.selSectorComp);
    //console.log(this.roundValue(this.getMed(this.selSectorComp)*100));
   //console.log(temp);
+  
+  
 }
 
 getIDReplace(id){

@@ -134,10 +134,9 @@
                   <!-- <p class="test1" style="color: #01b1f2; text-align: center;">
                       Search for a stock to begin.
                     </p> -->
-
                 </ion-card-content>
-                <ion-card-content style=" padding: 0px;" *ngIf="selSectorComp!=''">
-                    <div class="company-list-inner-div" [ngClass]="{'companycard-extend': stockCollapse}">
+                <ion-card-content  style=" padding: 0px;" *ngIf="selSectorComp!=''">
+                    <div id="sectorscrollDiv" class="company-list-inner-div" [ngClass]="{'companycard-extend': stockCollapse}">
                         <ion-list class="company-list">
                           <ion-item lines='none' class="company-list-item" *ngFor="let item of selSectorComp">
                             <div class="company-label-outer-div" [ngClass]="{'comp-sel': selComp==item.companyName}"
@@ -228,9 +227,9 @@
                 <ion-card-content *ngIf="selectedIndexData.length > 0 " class="company-card-content"
                   [ngClass]="{'companycard-extend': stockCollapse}">
 
-                  <div class="company-list-inner-div" [ngClass]="{'companycard-extend': stockCollapse}">
+                  <div id="scrollDiv" class="company-list-inner-div" [ngClass]="{'companycard-extend': stockCollapse}">
                     <ion-list class="company-list">
-                      <ion-item [id]="getIDReplace(item.companyName)"  lines='none' class="company-list-item" *ngFor="let item of selectedIndexData">
+                      <ion-item lines='none' class="company-list-item" *ngFor="let item of selectedIndexData">
                         <div class="company-label-outer-div" [ngClass]="{'comp-sel': selComp==item.companyName}"
                           (click)="onCompanyClick(item)"
                           [style.background]="getColor(roundValue(item.scores*100))"
