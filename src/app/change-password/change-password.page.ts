@@ -10,29 +10,30 @@ import { Router } from '@angular/router';
   styleUrls: ['./change-password.page.scss'],
 })
 export class ChangePasswordPage implements OnInit {
-
+  customErrors = {required: 'Please accept the terms'}
   changePasswordForm:FormGroup;
   flag: any;
     valueee: any;
-  hasError = (controlName: string, errorName: string) => {
-    return this.changePasswordForm.controls[controlName].hasError(errorName);
-}
+ 
 
   constructor(private formBuilder:FormBuilder,private userServices:UserService,private toastController:ToastController, private route:Router) { }
-
+  hasError = (controlName: string, errorName: string) => {
+    console.log(this.changePasswordForm.controls[controlName].hasError(errorName));
+    return this.changePasswordForm.controls[controlName].hasError(errorName);
+}
   ngOnInit() {
     this.changePasswordForm = this.formBuilder.group({
       Password: ['', [
           Validators.required,
-          Validators.minLength(6)
-          //Validators.pattern(regExps.password)
+          Validators.minLength(8)
       ]],
-      confirmPassword: ['', [Validators.required, Validators.minLength(6)]]
+      confirmPassword: ['', [Validators.required, Validators.minLength(8)]]
   }, { validator: passwordMatchValidator });
   }
   
 
   onSubmitClick(){
+    console.log("clciked")
      if(this.changePasswordForm.valid)
      {
        let Password = this.changePasswordForm.controls["Password"].value;

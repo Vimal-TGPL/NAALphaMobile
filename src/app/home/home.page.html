@@ -70,7 +70,8 @@
               <ion-row>
                 <ion-col size="6" class="col-first">
                   <div class="image-div">
-                    <img src="../../assets/images/NAA_aboutUs_tools.png" alt="img" class="image">
+                    <img *ngIf="selComp!=null" src="../../assets/images/NAA_aboutUs_tools.png" alt="img" class="image">
+                    <img *ngIf="selComp==null" src="../../assets/images/Stock_Mobile_View.svg" alt="img" class="image0">
                   </div>
                 </ion-col>
                 <ion-col size="6" class="selected-stock-details">
@@ -135,8 +136,8 @@
                       Search for a stock to begin.
                     </p> -->
                 </ion-card-content>
-                <ion-card-content  style=" padding: 0px;" *ngIf="selSectorComp!=''">
-                    <div id="sectorscrollDiv" class="company-list-inner-div" [ngClass]="{'companycard-extend': stockCollapse}">
+                <ion-card-content  style=" padding: 5px 5px 5px 0px;" *ngIf="selSectorComp!=''">
+                    <div id="sectorscrollDiv" class="company-list-inner-div" [ngClass]="{'stock_companycard-extend': stockCollapse}">
                         <ion-list class="company-list">
                           <ion-item lines='none' class="company-list-item" *ngFor="let item of selSectorComp">
                             <div class="company-label-outer-div" [ngClass]="{'comp-sel': selComp==item.companyName}"
@@ -224,10 +225,10 @@
                     </p> -->
 
                 </ion-card-content>
-                <ion-card-content *ngIf="selectedIndexData.length > 0 " class="company-card-content"
+                <ion-card-content style="padding: 5px 5px 5px 0px;" *ngIf="selectedIndexData.length > 0 " class="company-card-content"
                   [ngClass]="{'companycard-extend': stockCollapse}">
 
-                  <div id="scrollDiv" class="company-list-inner-div" [ngClass]="{'companycard-extend': stockCollapse}">
+                  <div id="scrollDiv" class="company-list-inner-div" [ngClass]="{'Index_companycard-extend': stockCollapse}">
                     <ion-list class="company-list">
                       <ion-item lines='none' class="company-list-item" *ngFor="let item of selectedIndexData">
                         <div class="company-label-outer-div" [ngClass]="{'comp-sel': selComp==item.companyName}"

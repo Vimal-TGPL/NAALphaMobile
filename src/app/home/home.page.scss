@@ -474,12 +474,13 @@ ion-content {
 // }
 
 .company-list-inner-div{
-    height: calc(100vh - 399px);
+    height: calc(100vh - 410px);
     overflow: auto;
 }
 
 .company-list{
     background-color: white;
+    padding: 0px;
 }
 
 .company-list-item{
@@ -793,15 +794,49 @@ ion-content {
 .searchItem{
     --padding-start:0px
 }
+.Index_companycard-extend{
+    height: calc(100vh - 260px) !important;
+}
+.stock_companycard-extend{
+    height: calc(100vh - 260px) !important;
+}
+.ios .company-list-inner-div{
+    height: calc(100vh - 390px) !important;
+}
 
+.ios .stockCompList-card{
+    // height: calc(100vh - 400px) !important;
+    height: calc(100vh - 380px) !important;
+}
 .ios .child-card-content{
-    height: calc(100vh - 401px) !important;
+    // height: calc(100vh - 401px) !important;
+    height: calc(100vh - 381px) !important;
+}
+.ios .stock_companycard-extend{
+    height: calc(100vh - 239px) !important;
 }
 
+.ios .Index_companycard-extend{
+    height: calc(100vh - 239px) !important;
+}
+
+.ios .Stockcard-extend{
+    // height: calc(100vh - 231px) !important;
+    height: calc(100vh - 229px) !important;
+}
+
+.ios .company-card-content{
+    height: calc(100vh - 381px) !important;
+}
 .ios .companycard-extend{
-    height: calc(100vh - 251px) !important;
+    // height: calc(100vh - 251px) !important;
+    // height: calc(100vh - 231px) !important;
+    height: calc(100vh - 230px) !important;
 }
 
+// .ios .company-list-inner-div{
+//     height: calc(100vh - 380px) !important;
+// }
 .pager_div{
     display: flex; 
     flex-direction: row; 
@@ -825,6 +860,12 @@ ion-content {
     height: 12px; 
     background-color: #666;
     border-radius: 50%;
+}
+
+.image0{
+    height: 100px;
+    width: 100px;
+    padding: 10px;
 }
 /* MEDIA */
 @media (max-width: 340px) and (min-width: 310px) {
@@ -853,6 +894,24 @@ ion-content {
         margin: 0px 12px;
         }
 }
+::-webkit-scrollbar-track
+{
+border-radius: 5px!important;
+background-color: #d3d8dc !important;
+}
+
+::-webkit-scrollbar
+{
+width: 5px!important;
+background-color: #d3d8dc !important;
+}
+
+::-webkit-scrollbar-thumb
+{
+border-radius: 5px!important;
+background-color: #00b9ff !important;
+}
+
 @media screen and (orientation:landscape) {
     .Stockcard-extend{
         height: 300px !important;

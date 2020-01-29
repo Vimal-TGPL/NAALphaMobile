@@ -28,18 +28,6 @@ export class AuthenticationService {
   }
 
   public currentUserValue() {
-    let usr:any = '';
-    this.storage.get('currentUser').then(res=>{
-      console.log(res);
-      var temp = JSON.parse(res);
-      //console.log(temp);
-      usr = temp;
-      console.log(usr);
-      
-    })
-      //console.log(this.user);
-      //this.CurrentUser.token = usr.token;
-      console.log(this.CurrentUser);
     return this.CurrentUser;
   }
 
