@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router, RouterEvent } from '@angular/router';
 import { AuthenticationService } from '../services/authentication.service';
 import { Storage } from '@ionic/storage';
+import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
 
 
 @Component({
@@ -10,7 +11,7 @@ import { Storage } from '@ionic/storage';
   styleUrls: ['./menu.page.scss'],
 })
 export class MenuPage implements OnInit {
-
+  url = 'https://www.newagealpha.com/';
   user:any;
   firstname:string;
   lastname:string;
@@ -24,7 +25,7 @@ export class MenuPage implements OnInit {
 
   selectedPath = '';
 
-  constructor(private route:Router, private authService:AuthenticationService, private storage:Storage) {
+  constructor(private iab:InAppBrowser,private route:Router, private authService:AuthenticationService, private storage:Storage) {
     this.route.events.subscribe((event:RouterEvent)=>{
       this.selectedPath = event.url;
     });
@@ -47,5 +48,9 @@ export class MenuPage implements OnInit {
 
   onChangePasswordClick(){
     this.route.navigateByUrl('/menu/menu/change-password')
+  }
+
+  openBrowserClick(){
+    this.iab.create(this.url,'_self','location=no,toolbar=no,zoom=no');
   }
 }
