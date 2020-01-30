@@ -16,7 +16,7 @@ export class LandingPage implements OnInit {
   }
 
   onSkipClick(){
-    this.iab.create(this.url,'_self','location=no,toolbar=no,zoom=no');
+    this.iab.create(this.url,'_blank','location=no,toolbar=no,zoom=no');
   }
 
   onLoginClick(){
