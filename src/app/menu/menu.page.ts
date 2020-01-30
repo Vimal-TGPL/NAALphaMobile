@@ -51,6 +51,6 @@ export class MenuPage implements OnInit {
   }
 
   openBrowserClick(){
-    this.iab.create(this.url,'_blank','location=no,toolbar=no,zoom=no');
+    this.iab.create(this.url,'_blank','location=yes,toolbar=no,zoom=no');
   }
 }
