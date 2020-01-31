@@ -14,7 +14,8 @@ export class ChangePasswordPage implements OnInit {
   changePasswordForm:FormGroup;
   flag: any;
     valueee: any;
- 
+  pwd:boolean = false;
+  Cpwd:boolean = false;
 
   constructor(private formBuilder:FormBuilder,private userServices:UserService,private toastController:ToastController, private route:Router) { }
   hasError = (controlName: string, errorName: string) => {
@@ -59,7 +60,23 @@ export class ChangePasswordPage implements OnInit {
       duration: 3000
     });
     toast.present();
-  }s
+  }
+
+  onPwdTextInput(){
+    this.pwd = true;
+  }
+
+  onCPwdTextInput(){
+    this.Cpwd = true;
+    if(this.changePasswordForm.controls["Password"].value === this.changePasswordForm.controls["confirmPassword"].value){
+      this.flag = false;
+    }else if(this.changePasswordForm.controls["confirmPassword"].value.length < 1){
+      this.flag = false;
+    }else{
+      this.flag = true;
+    }
+  }
+
 }
 
 export const passwordMatchValidator: ValidatorFn = (formGroup: FormGroup): ValidationErrors | null => {

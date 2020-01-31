@@ -844,7 +844,7 @@ ion-content {
 }
 
 .dot0p{
-    margin: 0px 5px 0px 0px; 
+    margin: 0px 10px 0px 0px; 
     font-size: 13px; 
     width: 12px;
     height: 12px; 
@@ -869,6 +869,14 @@ ion-content {
 
 .ionic-selectable-item{
     --padding-end:16px !important;
+}
+
+.indName{
+    max-width: 150px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: inline-block;
+    vertical-align: middle;
 }
 /* MEDIA */
 @media (max-width: 340px) and (min-width: 310px) {

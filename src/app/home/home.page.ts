@@ -409,13 +409,13 @@ onglobalIndexClick(i){
      // 
      var temp = this.selectedIndexData.filter((item)=> item.companyName == this.selComp);
      var index = this.selectedIndexData.indexOf(temp[0])+1;
-     var manInd = (index*35)-140;
+     var manInd = (index*35)-240;
      document.getElementById('scrollDiv').scrollTo(0,manInd);
      var sectemp = this.selSectorComp.filter((item)=> item.companyName == this.selComp);
      console.log(sectemp);
      var secInd = this.selSectorComp.indexOf(sectemp[0])+1;
      console.log(secInd);
-     var mansecInd = (secInd*35)-140;
+     var mansecInd = (secInd*35)-240;
      document.getElementById('sectorscrollDiv').scrollTo(0,mansecInd);
      console.log(index);
       console.log("Executed")

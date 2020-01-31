@@ -114,7 +114,7 @@
                     <ion-button class="header-btn" [disabled]="sectorList==''" [ngClass]="{'stockicon-active': stockIndexShow}"
                       (click)="onStockBtnClick()">
                       <div class="SubIndex-header-content">
-                        <span class="subIndex-header-title">{{SelSecLevTitle}}</span>
+                        <span class="subIndex-header-title">{{SelSecLevTitle}}<span *ngIf="SelSearchObj!=''"> (<span class="indName">{{SelSearchObj.indexName}}</span>)</span></span>
                         <span class="subIndex-header-subtitle">{{selSector.name}}</span>
                       </div>
                       <ion-icon [name]="stockIcon" class="subindex-icon"></ion-icon>
@@ -229,7 +229,7 @@
                   [ngClass]="{'companycard-extend': stockCollapse}">
 
                   <div id="scrollDiv" class="company-list-inner-div" [ngClass]="{'Index_companycard-extend': stockCollapse}">
-                    <ion-list class="company-list" style=" overflow: auto; height: 100%;">
+                    <ion-list class="company-list">
                       <ion-item lines='none' class="company-list-item" *ngFor="let item of selectedIndexData">
                         <div class="company-label-outer-div" [ngClass]="{'comp-sel': selComp==item.companyName && SelSearchObj.indexName==item.indexName}"
                           (click)="onCompanyClick(item)"
