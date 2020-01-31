@@ -9,6 +9,7 @@ import { IonicSelectableComponent } from 'ionic-selectable';
 import { ScreenOrientation } from '@ionic-native/screen-orientation/ngx';
 import { getTestBed } from '@angular/core/testing';
 import { timeInterval, timeout } from 'rxjs/operators';
+import { templateJitUrl } from '@angular/compiler';
 
 
 @Component({
@@ -366,9 +367,10 @@ ApplyTextColor(val) {
 }
 
 onglobalIndexClick(i){
+  console.log(i);
   this.selectedIndexData = this.globalindexwise[this.globalIndex.indexOf(i)].filter(item => item.indexName == i);
   this.unsortedIndexData = this.globalindexwise[this.globalIndex.indexOf(i)].filter(item => item.indexName == i);
-  //console.log(i);
+  console.log(this.selectedIndexData);
   //console.log(this.globalmed[this.globalIndex.indexOf(i)]);
   //document.getElementById('header-circle').style.visibility='visible';
  document.getElementById('header-circle').style.background=this.getColor(this.globalmed[this.globalIndex.indexOf(i)]);
@@ -400,6 +402,9 @@ onglobalIndexClick(i){
     //   var topPos = document.getElementById(this.getIDReplace(this.selComp)).offsetTop;
     // console.log(topPos);
     // });
+    if(this.selComp!=undefined)
+    {
+      console.log(this.selComp);
     setTimeout(()=>{
      // 
      var temp = this.selectedIndexData.filter((item)=> item.companyName == this.selComp);
@@ -415,7 +420,7 @@ onglobalIndexClick(i){
      console.log(index);
       console.log("Executed")
     },500);
-    
+  }
   }
 }
 
@@ -718,11 +723,12 @@ onCompBtnClick(){
 onCompanyClick(e){
   this.selComp = e.companyName;
   this.searchSel = e;
- // console.log(e);
-  this.onSearchSelect(e);
+  console.log(e);
+  
   if(e.indexName.indexOf('New Age Alpha ') == -1)
   {
-    //console.log('global');
+    this.onSearchSelect(e);
+    console.log('global');
     this.getSectorList(e.industry.toString());
     this.SelSearchObj = e;
     //this.onSearchSelect(e);
@@ -732,16 +738,17 @@ onCompanyClick(e){
     // console.log(this.selSectorComp);
 
   }else{
-   // console.log('NAA');
+    console.log('NAA');
     //console.log(e);
-    var temp = this.data.filter(item=> item.companyName == e.companyName);
-    temp = temp.filter(item=> item.indexName.indexOf("New Age Alpha ")== -1)
-    temp = temp[0];
-    this.getSectorList(temp.industry.toString());
-    this.SelSearchObj = temp;
-    //console.log(temp);
-    this.onSectorClick(temp.industry);
-    
+     //var temp = this.data.filter(item=> item.companyName == e.companyName);
+     //console.log(temp);
+    // temp = temp.filter(item=> item.indexName.indexOf("New Age Alpha ")== -1)
+    // temp = temp[0];
+    var temp=e;
+     this.getSectorList(temp.industry.toString());
+     this.SelSearchObj = temp;
+    // //console.log(temp);
+     this.onSectorClick(temp.industry);
   }
 }
 
@@ -777,8 +784,20 @@ searchCompany(event:{component: IonicSelectableComponent,
 
  onSearchSelect(e){
   console.log(e);
-  this.selComp = e.companyName;
-  this.SelSearchObj = e;
+  // if(e.indexName.indexOf("New Age Alpha ")== -1){
+    this.selComp = e.companyName;
+    this.SelSearchObj = e;
+  // }else{
+  //   console.log(e);
+  //   console.log("NAA");
+  //   var temp = this.data.filter((item)=> item.companyName == e.companyName && item.indexName.indexOf("New Age Alpha ")==-1)[0];
+  //   //var tempp = temp.filter((item)=>)
+  //   //console.log(temp);
+  //   this.selComp = temp;
+  //   this.SelSearchObj = temp;
+  // }
+ 
+  
   
  // console.log(this.searchSel);
   //console.log(this.searchSel);
@@ -795,10 +814,12 @@ searchCompany(event:{component: IonicSelectableComponent,
     this.SelTab = '';
     //console.log(this.EtfMed);
   }else{
+    console.log(this.selComp);
     this.getSectorList(industryVal.toString())
   //console.log(industryVal.toString().substring(0,2));
   //console.log(e.item.industry);
-  this.onSectorClick(e.industry);
+  //if()
+    this.onSectorClick(e.industry);
   //console.log(this.getIDReplace(this.selComp));
  // var id = this.getIDReplace(this.selComp);
   
@@ -817,10 +838,8 @@ searchCompany(event:{component: IonicSelectableComponent,
     //console.log(this.ETFNameList);
   }else{
     this.SelTab = 'Global';
-  //console.log(this.globalIndex);
-   this.onglobalIndexClick(e.indexName);
-
-   
+    //console.log(this.globalIndex);
+    this.onglobalIndexClick(e.indexName);
   }
   
 }
@@ -857,10 +876,14 @@ getSectorList(data)
     this.sectorList.push(temp[0]);
     i=i+2;
   }
+  console.log(this.sectorList);
 }
 
 onSectorClick(key){
- // console.log(key);
+  console.log(this.SelSearchObj);
+  // console.log(e);
+  // var key = e.industry;
+  console.log(key);
   if(this.stockCollapse == true){
     //this.stockCollapse = false;
     this.stockIndexShow= false;
@@ -868,11 +891,20 @@ onSectorClick(key){
     this.stockIcon = "ios-arrow-dropdown-circle";
     this.icon = "ios-arrow-dropdown-circle";
   }
-  //console.log(key.toString().length);
   this.fullSectorComp = this.data.filter(item => 
     item.industry.toString().substring(0,key.toString().length) == key
   )
+  console.log(this.fullSectorComp);
+  //console.log(key.toString().length);
+  if(this.SelSearchObj.indexName.indexOf("New Age Alpha ")==-1){
+  
+  
   this.fullSectorComp = this.fullSectorComp.filter(item=> item.indexName.indexOf("New Age Alpha") == -1);
+  }
+  else{
+    console.log("NAA from On Search Select");
+    this.fullSectorComp = this.fullSectorComp.filter(item=> item.indexName.indexOf("New Age Alpha") != -1);
+  }
   //console.log(this.SelSearchObj);
   this.selSectorComp = this.fullSectorComp.filter(item=> item.indexName == this.SelSearchObj.indexName);
   this.selSectorComp.sort((a,b) => {
@@ -885,11 +917,12 @@ onSectorClick(key){
   document.getElementById('subIndex-circle').style.background = this.getColor(this.roundValue(this.getMed(this.selSectorComp)*100));
   document.getElementById('subIndex-circle').style.color = this.ApplyTextColor(this.roundValue(this.getMed(this.selSectorComp)*100));
   // console.log(this.sectorHeadings[this.sectorList.indexOf(this.selSector)]);
-  // console.log(this.selSector);
-   //console.log(this.selSectorComp);
+   console.log(this.fullSectorComp);
+   console.log(this.selSectorComp);
    //console.log(this.roundValue(this.getMed(this.selSectorComp)*100));
   //console.log(temp);
-  
+
+
   
 }
 

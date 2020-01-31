@@ -77,10 +77,10 @@
                 <ion-col size="6" class="selected-stock-details">
                   <div>
                     <ion-text>
-                      <p class="selected-stock-score" *ngIf="searchSel!='' && searchSel.indexName!='ETF'">{{roundValue(searchSel.scores*100)}}%</p>
-                      <p class="selected-stock-comp" *ngIf="searchSel!='' && searchSel.indexName!='ETF'">{{searchSel.companyName}} ({{searchSel.ticker}})</p>
-                      <p class="selected-stock-score" *ngIf="searchSel!='' && searchSel.indexName=='ETF' && EtfMed!='' ">{{EtfMed}}%</p>
-                      <p class="selected-stock-comp" *ngIf="searchSel!='' && searchSel.indexName=='ETF'">{{searchSel.companyName}} ({{searchSel.ticker}})</p>
+                      <p class="selected-stock-score" [style.color]="getColor(roundValue(searchSel.scores*100))" *ngIf="searchSel!='' && searchSel.indexName!='ETF'">{{roundValue(searchSel.scores*100)}}%</p>
+                      <p class="selected-stock-comp" [style.color]="getColor(roundValue(searchSel.scores*100))" *ngIf="searchSel!='' && searchSel.indexName!='ETF'">{{searchSel.companyName}} ({{searchSel.ticker}})</p>
+                      <p class="selected-stock-score" [style.color]="getColor(roundValue(searchSel.scores*100))" *ngIf="searchSel!='' && searchSel.indexName=='ETF' && EtfMed!='' ">{{EtfMed}}%</p>
+                      <p class="selected-stock-comp" [style.color]="getColor(roundValue(searchSel.scores*100))" *ngIf="searchSel!='' && searchSel.indexName=='ETF'">{{searchSel.companyName}} ({{searchSel.ticker}})</p>
                     </ion-text>
                   </div>
                 </ion-col>
@@ -136,7 +136,7 @@
                       Search for a stock to begin.
                     </p> -->
                 </ion-card-content>
-                <ion-card-content  style=" padding: 5px 5px 5px 0px;" *ngIf="selSectorComp!=''">
+                <ion-card-content  style=" padding: 5px 0px 5px 0px;" *ngIf="selSectorComp!=''">
                     <div id="sectorscrollDiv" class="company-list-inner-div" [ngClass]="{'stock_companycard-extend': stockCollapse}">
                         <ion-list class="company-list">
                           <ion-item lines='none' class="company-list-item" *ngFor="let item of selSectorComp">
@@ -225,7 +225,7 @@
                     </p> -->
 
                 </ion-card-content>
-                <ion-card-content style="padding: 5px 5px 5px 0px;" *ngIf="selectedIndexData.length > 0 " class="company-card-content"
+                <ion-card-content style="padding: 5px 0px 5px 0px;" *ngIf="selectedIndexData.length > 0 " class="company-card-content"
                   [ngClass]="{'companycard-extend': stockCollapse}">
 
                   <div id="scrollDiv" class="company-list-inner-div" [ngClass]="{'Index_companycard-extend': stockCollapse}">

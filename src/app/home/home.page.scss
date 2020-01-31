@@ -515,9 +515,6 @@ ion-content {
     width: 60%;
 }
 
-
-
-
 .swiper-container{
     overflow: visible;
 }
@@ -611,6 +608,7 @@ ion-content {
 }
 
 .selected-stock-score{
+    text-align: center;
     color: green; 
     font-size: 30px; 
     font-weight: bold;
@@ -867,6 +865,10 @@ ion-content {
     width: 100px;
     padding: 10px;
 }
+
+.ionic-selectable-item{
+    --padding-end:16px !important;
+}
 /* MEDIA */
 @media (max-width: 340px) and (min-width: 310px) {
     .nav-tab li a{
@@ -894,22 +896,26 @@ ion-content {
         margin: 0px 12px;
         }
 }
-::-webkit-scrollbar-track
-{
-border-radius: 5px!important;
-background-color: #d3d8dc !important;
-}
+// ::-webkit-scrollbar-track
+// {
+// border-radius: 5px!important;
+// background-color: #d3d8dc !important;
+// }
 
-::-webkit-scrollbar
-{
-width: 5px!important;
-background-color: #d3d8dc !important;
-}
+// ::-webkit-scrollbar
+// {
+// width: 5px!important;
+// background-color: #d3d8dc !important;
+// }
 
-::-webkit-scrollbar-thumb
-{
-border-radius: 5px!important;
-background-color: #00b9ff !important;
+// ::-webkit-scrollbar-thumb
+// {
+// border-radius: 5px!important;
+// background-color: #00b9ff !important;
+// }
+
+::-webkit-scrollbar {
+    display: none;
 }
 
 @media screen and (orientation:landscape) {
