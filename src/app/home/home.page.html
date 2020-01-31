@@ -9,7 +9,7 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content id="parent-content" class="overflowOnlyLandscape">
+<ion-content id="parent-content">
   <div>
     <div class="search-Outer-Div">
       <div class="searchDiv">
@@ -231,7 +231,7 @@
                   <div id="scrollDiv" class="company-list-inner-div" [ngClass]="{'Index_companycard-extend': stockCollapse}">
                     <ion-list class="company-list">
                       <ion-item lines='none' class="company-list-item" *ngFor="let item of selectedIndexData">
-                        <div class="company-label-outer-div" [ngClass]="{'comp-sel': selComp==item.companyName}"
+                        <div class="company-label-outer-div" [ngClass]="{'comp-sel': selComp==item.companyName && SelSearchObj.indexName==item.indexName}"
                           (click)="onCompanyClick(item)"
                           [style.background]="getColor(roundValue(item.scores*100))"
                           [style.color]="ApplyTextColor(roundValue(item.scores*100))">
