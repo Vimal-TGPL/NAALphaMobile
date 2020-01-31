@@ -94,7 +94,7 @@
       </ion-card>
     </div>
     <div>
-      <ion-slides style="height: 238px;" mode='md' loop="true" (ionSlideDidChange)="onSlideChange()">
+      <ion-slides mode='md' loop="true" (ionSlideDidChange)="onSlideChange()">
         <ion-slide>
           <div class="slider-div">
             <div class="slider-div">
@@ -336,7 +336,7 @@
         </ion-slide>
       </ion-slides>
     </div>
-    <div>
+    <div style="    position: absolute; width: 100%;">
       <div class="pager_div">
         <p id="slide0dot" class="dot0p" (click)="onSlide0Click()"></p>
         <p id="slide1dot" class="dot1P" (click)="onSlide1Click()"></p>

@@ -698,7 +698,7 @@ ion-content {
 
 .stockCompList-card{
     background-color: white; 
-    // height: calc(100vh - 400px); 
+    height: calc(100vh - 400px); 
     margin: 3px 0px 0px 0px; 
     border-radius: 10px 10px 0 0; 
     box-shadow: none;
@@ -804,7 +804,7 @@ ion-content {
 
 .ios .stockCompList-card{
     // height: calc(100vh - 400px) !important;
-    // height: calc(100vh - 380px) !important;
+    height: calc(100vh - 380px) !important;
 }
 .ios .child-card-content{
     // height: calc(100vh - 401px) !important;
@@ -932,7 +932,7 @@ ion-content {
         --overflow: auto;
     }
     .stockCompList-card{
-        // height: 300px !important;
+        height: 300px !important;
     }
     .child-card-content{
         height: 300px !important;
