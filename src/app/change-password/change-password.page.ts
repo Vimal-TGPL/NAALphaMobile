@@ -19,7 +19,6 @@ export class ChangePasswordPage implements OnInit {
 
   constructor(private formBuilder:FormBuilder,private userServices:UserService,private toastController:ToastController, private route:Router) { }
   hasError = (controlName: string, errorName: string) => {
-    console.log(this.changePasswordForm.controls[controlName].hasError(errorName));
     return this.changePasswordForm.controls[controlName].hasError(errorName);
 }
   ngOnInit() {
@@ -34,13 +33,11 @@ export class ChangePasswordPage implements OnInit {
   
 
   onSubmitClick(){
-    console.log("clciked")
      if(this.changePasswordForm.valid)
      {
        let Password = this.changePasswordForm.controls["Password"].value;
       this.userServices.UpdatePass(Password)
       .subscribe(data=>{
-        console.log(data);
         this.presentToast("New Password changed successfully");
         this.changePasswordForm.reset();
         setTimeout(()=>{
@@ -67,10 +64,8 @@ export class ChangePasswordPage implements OnInit {
   }
 
   onCPwdTextInput(){
-    this.Cpwd = true;
-    if(this.changePasswordForm.controls["Password"].value === this.changePasswordForm.controls["confirmPassword"].value){
-      this.flag = false;
-    }else if(this.changePasswordForm.controls["confirmPassword"].value.length < 1){
+    this.Cpwd = true;    
+    if(this.changePasswordForm.controls["Password"].value.toString() === this.changePasswordForm.controls["confirmPassword"].value.toString()){
       this.flag = false;
     }else{
       this.flag = true;
