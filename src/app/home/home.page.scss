@@ -841,7 +841,11 @@ ion-content {
     justify-content: center; 
     padding: 5px 0px;
     background: #d3d8dc;
-    align-items: center;
+    // align-items: center;
+    
+}
+
+.ios .pager_div{
     height: 35px;
 }
 
