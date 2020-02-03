@@ -928,6 +928,18 @@ ion-content {
 }
 
 @media screen and (orientation:landscape) {
+    .ios .stock_companycard-extend{
+        height: 300px !important;
+    }
+    .ios .Stockcard-extend{
+        height: 300px !important;
+    }
+    .ios .Index_companycard-extend{
+        height: 300px !important;
+    }
+    .Index_companycard-extend{
+        height: 300px !important;
+    }
     .Stockcard-extend{
         height: 300px !important;
     }
