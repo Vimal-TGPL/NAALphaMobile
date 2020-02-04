@@ -582,7 +582,7 @@ ion-content {
 }
 
 .stock-header{
-    padding: 3px 6px 0px 6px;
+    padding: 3px 15px 0px 15px;
     display: flex; 
     justify-content: space-between;
 }
@@ -806,11 +806,13 @@ ion-content {
 
 .ios .stockCompList-card{
     // height: calc(100vh - 400px) !important;
-    height: calc(100vh - 380px) !important;
+    // height: calc(100vh - 380px) !important;
+    height: calc(100vh - 410px) !important;
 }
 .ios .child-card-content{
     // height: calc(100vh - 401px) !important;
-    height: calc(100vh - 381px) !important;
+    // height: calc(100vh - 381px) !important;
+    height: calc(100vh - 410px) !important
 }
 .ios .stock_companycard-extend{
     height: calc(100vh - 239px) !important;
@@ -832,7 +834,8 @@ ion-content {
 .ios .companycard-extend{
     // height: calc(100vh - 251px) !important;
     // height: calc(100vh - 231px) !important;
-    height: calc(100vh - 230px) !important;
+    // height: calc(100vh - 230px) !important;
+    height: calc(100vh - 260px) !important;
 }
 
 // .ios .company-list-inner-div{
