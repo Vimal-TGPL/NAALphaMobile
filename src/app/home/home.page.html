@@ -57,6 +57,9 @@
     <div>
       <ion-card class="stocks-card">
         <ion-card-content class="stock-card-content">
+          <div *ngIf="stockCollapse" class="arrow">
+            <span></span>
+          </div>
           <div class="stock-header" (click)="onStockDivClick()">
             <span class="stock-span">Stocks</span>
             <span class="stock-span"><span style="display: flex;" *ngIf="searchSel!=''"><span style="white-space: nowrap;
