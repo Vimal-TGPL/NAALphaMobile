@@ -419,7 +419,7 @@ onglobalIndexClick(i){
      document.getElementById('sectorscrollDiv').scrollTo(0,mansecInd);
      console.log(index);
       console.log("Executed")
-    },500);
+    },100);
   }
   }
 }
@@ -727,6 +727,7 @@ onStockBtnClick(){
   }else{
     this.stockIndexShow = false;
     this.stockIcon = "ios-arrow-dropdown-circle";
+    this.scrollToSel();
   }
 }
 
@@ -739,7 +740,7 @@ onCompBtnClick(){
   }else{
     this.compIndexShow = false;
     this.icon = "ios-arrow-dropdown-circle";
-    
+    this.scrollToSel();
   }
 }
 
@@ -1011,7 +1012,7 @@ scrollToSel(){
      document.getElementById('sectorscrollDiv').scrollTo(0,mansecInd);
      console.log(index);
       console.log("Executed")
-    },500);
+    },100);
   }
 }
 }
