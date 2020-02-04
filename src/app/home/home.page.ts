@@ -868,8 +868,10 @@ searchCompany(event:{component: IonicSelectableComponent,
     this.SelTab = 'Global';
     //console.log(this.globalIndex);
     this.onglobalIndexClick(e.indexName);
+    this.slides.slideTo(0);
   }
   
+
 }
 
 getMoreSearchComp(event:{component: IonicSelectableComponent,text: string}){
