@@ -114,7 +114,7 @@
                     <ion-button class="header-btn" [disabled]="sectorList==''" [ngClass]="{'stockicon-active': stockIndexShow}"
                       (click)="onStockBtnClick()">
                       <div class="SubIndex-header-content">
-                        <span class="subIndex-header-title">{{SelSecLevTitle}}<span *ngIf="SelSearchObj!=''"> (<span class="indName">{{SelSearchObj.indexName}}</span>)</span></span>
+                        <span class="subIndex-header-title">{{SelSecLevTitle}}<span *ngIf="SelSearchObj!=''"> (<span class="indName">{{SelSearchObj.hasOwnProperty('indexType')?SelSearchObj.etfName:SelSearchObj.indexName}}</span>)</span></span>
                         <span class="subIndex-header-subtitle">{{selSector.name}}</span>
                       </div>
                       <ion-icon [name]="stockIcon" class="subindex-icon"></ion-icon>

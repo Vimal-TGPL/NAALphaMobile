@@ -513,7 +513,7 @@ GetETFValues(){
     });
      //console.log(this.res);
      //console.log(this.ETFNameFull);
-    //console.log(this.ETFNameWise);
+    console.log(this.ETFNameWise);
     //console.log();
     //console.log(temp);
     //console.log(this.roundValue(this.getETFCategoryMed()*100));
@@ -542,6 +542,7 @@ getETFNameMed(){
 }
 
 onETFCategoryClick(i){
+  console.log(i);
   if(i=='All')
   {
   this.SelTab='ETFChild';
@@ -550,7 +551,22 @@ onETFCategoryClick(i){
   this.ETFNameList = this.res.map(item=>item.etfName);
   this.ETFNameFull = this.res;
   //console.log(this.ETFNameList);
-  this.ETFNameMed = this.res.map(item=>this.roundValue(item.medianCount*100));
+  this.ETFNameMed = this.ETFNameFull.map(item=>this.roundValue(item.medianCont*100));
+  console.log(this.ETFNameFull);
+  console.log(this.ETFNameMed);
+   var etfallnametemp = [];
+   for(i=0;i<this.ETFNameList.length;i++){
+    var med:any = this.ETFNameMed[i];
+    var name:any = this.ETFNameList[i];
+    var t:any = [];
+    t={'name':name,'med':med};
+    etfallnametemp.push(t);
+   }
+   this.compETFNameList = etfallnametemp;
+   this.compETFNameList.sort((a,b) => {
+    return a.med - b.med;
+  });
+   console.log(this.compETFNameList);
   }else{
  //console.log('ETF Category Clicked'+" "+i);
   this.SelTab='ETFChild';
@@ -581,7 +597,7 @@ onETFCategoryClick(i){
      this.compETFNameList.sort((a,b) => {
       return a.med - b.med;
     });
-    // console.log(this.ETFNameList);
+     console.log(this.compETFNameList);
     //console.log(this.ETFNameFull);
     //var ETFNameMed = ETFNameFull.map(item => item.medianCont);
     //console.log(ETFNameMed);
@@ -630,8 +646,10 @@ onETFNameClick(i){
       var tempData = this.data.filter(item=> item.isin === temp.isin);
       if(tempData != "")
       {
-        this.ETFHoldings.push(tempData[0]);
-        this.unsortedIndexData.push(tempData[0]);
+        var temp = tempData[0];
+        temp.indexType = "ETF";
+        this.ETFHoldings.push(temp);
+        this.unsortedIndexData.push(temp);
       }
     }
     this.selectedIndexData = this.ETFHoldings;
@@ -651,9 +669,11 @@ onETFNameClick(i){
     this.unsortedIndexData = this.unsortedIndexData.sort((a,b)=>{
       return a.scores - b.scores;
     });
+    
     this.sortcompany();
     //this.SelIndexName = i;
-  //  console.log(this.ETFHoldings);
+    console.log(this.ETFHoldings);
+    console.log(this.unsortedIndexData);
   });
 }
 
@@ -725,7 +745,13 @@ onCompanyClick(e){
   this.searchSel = e;
   console.log(e);
   
-  if(e.indexName.indexOf('New Age Alpha ') == -1)
+  if(e.hasOwnProperty('indexType')){
+    console.log("ETF");
+    this.getSectorList(e.industry.toString());
+    this.SelSearchObj = e;
+    this.SelSearchObj.etfName = this.SelIndexName;
+    this.onSectorClick(e.industry);
+  }else if(e.indexName.indexOf('New Age Alpha ') == -1)
   {
     this.onSearchSelect(e);
     console.log('global');
@@ -896,7 +922,12 @@ onSectorClick(key){
   )
   console.log(this.fullSectorComp);
   //console.log(key.toString().length);
-  if(this.SelSearchObj.indexName.indexOf("New Age Alpha ")==-1){
+  if(this.SelSearchObj.hasOwnProperty('indexType')){
+    console.log("etf from onSectorClick");
+    this.fullSectorComp = this.ETFHoldings.filter(item => item.industry.toString().substring(0,key.toString().length) == key);
+    console.log(this.fullSectorComp);
+  }
+  else if(this.SelSearchObj.indexName.indexOf("New Age Alpha ")==-1){
   
   
   this.fullSectorComp = this.fullSectorComp.filter(item=> item.indexName.indexOf("New Age Alpha") == -1);
