@@ -447,6 +447,9 @@ onNaaIndexClick(i){
   this.headermed = this.naamed[this.NAAIndex.indexOf(i)];
   //$('header-comp-span').css('visibility', 'visible');
   //console.log(i);
+  if(this.selComp!=undefined){
+    console.log(this.selComp);
+  }
 }
 
 sortcompany(){
@@ -751,6 +754,7 @@ onCompanyClick(e){
     this.SelSearchObj = e;
     this.SelSearchObj.etfName = this.SelIndexName;
     this.onSectorClick(e.industry);
+    this.scrollToSel();
   }else if(e.indexName.indexOf('New Age Alpha ') == -1)
   {
     this.onSearchSelect(e);
@@ -775,6 +779,7 @@ onCompanyClick(e){
      this.SelSearchObj = temp;
     // //console.log(temp);
      this.onSectorClick(temp.industry);
+     this.scrollToSel();
   }
 
   this.slides.slideTo(0);
@@ -824,9 +829,6 @@ searchCompany(event:{component: IonicSelectableComponent,
   //   this.selComp = temp;
   //   this.SelSearchObj = temp;
   // }
- 
-  
-  
  // console.log(this.searchSel);
   //console.log(this.searchSel);
   //console.log(this.searchList);
@@ -989,5 +991,27 @@ onSlideChange(){
     document.getElementById("slide0dot").style.backgroundColor="#666"
   }
   });  
+}
+
+scrollToSel(){
+  if(this.selComp!=undefined)
+    {
+      console.log(this.selComp);
+    setTimeout(()=>{
+     // 
+     var temp = this.selectedIndexData.filter((item)=> item.companyName == this.selComp);
+     var index = this.selectedIndexData.indexOf(temp[0])+1;
+     var manInd = (index*35)-240;
+     document.getElementById('scrollDiv').scrollTo(0,manInd);
+     var sectemp = this.selSectorComp.filter((item)=> item.companyName == this.selComp);
+     console.log(sectemp);
+     var secInd = this.selSectorComp.indexOf(sectemp[0])+1;
+     console.log(secInd);
+     var mansecInd = (secInd*35)-240;
+     document.getElementById('sectorscrollDiv').scrollTo(0,mansecInd);
+     console.log(index);
+      console.log("Executed")
+    },500);
+  }
 }
 }
