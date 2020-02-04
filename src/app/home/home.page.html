@@ -317,7 +317,7 @@
                     <ion-label class="backText backText-label" (click)="this.SelTab='ETF';">{{selCategory}}</ion-label>
 
                   </div>
-                  <div class="ETFChild-Div">
+                  <div class="ETFChild-Div" [ngClass]="{'companycard-extend': stockCollapse}">
                     <div>
                       <ion-list class="ETFChild-List">
                         <ion-item lines="none" style="--background: white; font-size: 14px;"

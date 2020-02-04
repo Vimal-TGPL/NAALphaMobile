@@ -418,10 +418,10 @@ ion-content {
     display: flex;
     align-items: center;
     padding: 10px 10px 5px;
-    position: fixed;
+    // position: fixed;
     z-index: 9;
     background-color: white;
-    width: 90%;
+    width: 100%;
     /* margin-right: -19px; */
     // display: block;
     margin-top: 0px;
@@ -448,7 +448,8 @@ ion-content {
 }
 
 .ETFChild-Div{
-    padding: 32px 10px 0px 10px;
+    // padding: 32px 10px 0px 10px;
+    overflow: auto;
 }
 
 .ETFChild-List{
