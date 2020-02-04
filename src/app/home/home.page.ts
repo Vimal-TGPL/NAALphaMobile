@@ -776,6 +776,8 @@ onCompanyClick(e){
     // //console.log(temp);
      this.onSectorClick(temp.industry);
   }
+
+  this.slides.slideTo(0);
 }
 
 // OpenSeach(){
