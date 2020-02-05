@@ -527,7 +527,7 @@ ion-content {
 }
 
 .navTabBtn{
-    background-color: #05baff;  
+    background-color: #00b9ff;  
     flex: 1; 
     color: white;
     padding: 8px 3px;     
@@ -538,7 +538,7 @@ ion-content {
 
 .ETFNavTabBtn
 {
-    background-color: #2e4c99;  
+    background-color: #2889ae;  
     flex: 1; 
     color: white;
     padding: 8px 3px;   
@@ -768,9 +768,12 @@ ion-content {
     height: calc(100vh - 250px) !important;
 }
 
+.tab2color{
+    background-color: #3098cb !important;
+}
 .companycard-extend{
-    // height: calc(100vh - 249px) !important;
-    height: calc(100vh - 271px) !important;
+    height: calc(100vh - 249px) !important;
+    // height: calc(100vh - 271px) !important;
 }
 
 .stockicon-active{

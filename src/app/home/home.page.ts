@@ -960,7 +960,7 @@ onSectorClick(key){
    //console.log(this.roundValue(this.getMed(this.selSectorComp)*100));
   //console.log(temp);
 
-
+this.scrollToSel();
   
 }
 
