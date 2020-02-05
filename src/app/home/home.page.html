@@ -181,7 +181,7 @@
               <ul class="NavTabList">
                 <li class="navTabBtn" [ngClass]="{'tab-active': SelTab == 'Global'}"
                   (click)="GridHeaderTitle=false; SelTab = 'Global';onNavClick();">Global Index</li>
-                <li class="navTabBtn tab2color" [ngClass]="{'tab-active': SelTab == 'NAA'}"
+                <li class="tab2color" [ngClass]="{'tab-active': SelTab == 'NAA'}"
                   (click)="GridHeaderTitle=false; SelTab = 'NAA';onNavClick();">NAA Index</li>
                 <li class="ETFNavTabBtn" [ngClass]="{'tab-active': SelTab == 'ETF'|| SelTab == 'ETFChild'}"
                   (click)="GridHeaderTitle=false; SelTab = 'ETF'; onNavETFClick();">ETF's</li>

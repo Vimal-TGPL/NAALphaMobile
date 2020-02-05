@@ -769,7 +769,13 @@ ion-content {
 }
 
 .tab2color{
-    background-color: #3098cb !important;
+    background-color: #3098cb;
+    flex: 1; 
+    color: white;
+    padding: 8px 3px;     
+    margin-right: 1px;    
+    border-radius: 10px; 
+    font-size: 13px;
 }
 .companycard-extend{
     height: calc(100vh - 249px) !important;
