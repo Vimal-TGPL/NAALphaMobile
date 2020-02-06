@@ -367,10 +367,10 @@ ApplyTextColor(val) {
 }
 
 onglobalIndexClick(i){
-  console.log(i);
+  //console.log(i);
   this.selectedIndexData = this.globalindexwise[this.globalIndex.indexOf(i)].filter(item => item.indexName == i);
   this.unsortedIndexData = this.globalindexwise[this.globalIndex.indexOf(i)].filter(item => item.indexName == i);
-  console.log(this.selectedIndexData);
+  // console.log(this.selectedIndexData);
   //console.log(this.globalmed[this.globalIndex.indexOf(i)]);
   //document.getElementById('header-circle').style.visibility='visible';
  document.getElementById('header-circle').style.background=this.getColor(this.globalmed[this.globalIndex.indexOf(i)]);
@@ -404,7 +404,7 @@ onglobalIndexClick(i){
     // });
     if(this.selComp!=undefined)
     {
-      console.log(this.selComp);
+      // console.log(this.selComp);
     setTimeout(()=>{
      // 
      var temp = this.selectedIndexData.filter((item)=> item.companyName == this.selComp);
@@ -412,13 +412,13 @@ onglobalIndexClick(i){
      var manInd = (index*35)-240;
      document.getElementById('scrollDiv').scrollTo(0,manInd);
      var sectemp = this.selSectorComp.filter((item)=> item.companyName == this.selComp);
-     console.log(sectemp);
+     //console.log(sectemp);
      var secInd = this.selSectorComp.indexOf(sectemp[0])+1;
-     console.log(secInd);
+    // console.log(secInd);
      var mansecInd = (secInd*35)-240;
      document.getElementById('sectorscrollDiv').scrollTo(0,mansecInd);
-     console.log(index);
-      console.log("Executed")
+    // console.log(index);
+    //  console.log("Executed")
     },100);
   }
   }
@@ -448,7 +448,7 @@ onNaaIndexClick(i){
   //$('header-comp-span').css('visibility', 'visible');
   //console.log(i);
   if(this.selComp!=undefined){
-    console.log(this.selComp);
+    // console.log(this.selComp);
   }
 }
 
@@ -516,7 +516,7 @@ GetETFValues(){
     });
      //console.log(this.res);
      //console.log(this.ETFNameFull);
-    console.log(this.ETFNameWise);
+    //console.log(this.ETFNameWise);
     //console.log();
     //console.log(temp);
     //console.log(this.roundValue(this.getETFCategoryMed()*100));
@@ -545,7 +545,7 @@ getETFNameMed(){
 }
 
 onETFCategoryClick(i){
-  console.log(i);
+  //console.log(i);
   if(i=='All')
   {
   this.SelTab='ETFChild';
@@ -555,8 +555,8 @@ onETFCategoryClick(i){
   this.ETFNameFull = this.res;
   //console.log(this.ETFNameList);
   this.ETFNameMed = this.ETFNameFull.map(item=>this.roundValue(item.medianCont*100));
-  console.log(this.ETFNameFull);
-  console.log(this.ETFNameMed);
+ // console.log(this.ETFNameFull);
+ // console.log(this.ETFNameMed);
    var etfallnametemp = [];
    for(i=0;i<this.ETFNameList.length;i++){
     var med:any = this.ETFNameMed[i];
@@ -569,7 +569,7 @@ onETFCategoryClick(i){
    this.compETFNameList.sort((a,b) => {
     return a.med - b.med;
   });
-   console.log(this.compETFNameList);
+//   console.log(this.compETFNameList);
   }else{
  //console.log('ETF Category Clicked'+" "+i);
   this.SelTab='ETFChild';
@@ -596,11 +596,11 @@ onETFCategoryClick(i){
         etfnametemp.push(t);
      }
      this.compETFNameList = etfnametemp;
-     console.log(this.compETFNameList);
+    // console.log(this.compETFNameList);
      this.compETFNameList.sort((a,b) => {
       return a.med - b.med;
     });
-     console.log(this.compETFNameList);
+   //  console.log(this.compETFNameList);
     //console.log(this.ETFNameFull);
     //var ETFNameMed = ETFNameFull.map(item => item.medianCont);
     //console.log(ETFNameMed);
@@ -675,8 +675,8 @@ onETFNameClick(i){
     
     this.sortcompany();
     //this.SelIndexName = i;
-    console.log(this.ETFHoldings);
-    console.log(this.unsortedIndexData);
+  //  console.log(this.ETFHoldings);
+  //  console.log(this.unsortedIndexData);
   });
 }
 
@@ -747,10 +747,10 @@ onCompBtnClick(){
 onCompanyClick(e){
   this.selComp = e.companyName;
   this.searchSel = e;
-  console.log(e);
+ // console.log(e);
   
   if(e.hasOwnProperty('indexType')){
-    console.log("ETF");
+ //   console.log("ETF");
     this.getSectorList(e.industry.toString());
     this.SelSearchObj = e;
     this.SelSearchObj.etfName = this.SelIndexName;
@@ -759,7 +759,7 @@ onCompanyClick(e){
   }else if(e.indexName.indexOf('New Age Alpha ') == -1)
   {
     this.onSearchSelect(e);
-    console.log('global');
+  //  console.log('global');
     this.getSectorList(e.industry.toString());
     this.SelSearchObj = e;
     //this.onSearchSelect(e);
@@ -769,7 +769,7 @@ onCompanyClick(e){
     // console.log(this.selSectorComp);
 
   }else{
-    console.log('NAA');
+ //   console.log('NAA');
     //console.log(e);
      //var temp = this.data.filter(item=> item.companyName == e.companyName);
      //console.log(temp);
@@ -817,7 +817,7 @@ searchCompany(event:{component: IonicSelectableComponent,
 }
 
  onSearchSelect(e){
-  console.log(e);
+ // console.log(e);
   // if(e.indexName.indexOf("New Age Alpha ")== -1){
     this.selComp = e.companyName;
     this.SelSearchObj = e;
@@ -845,7 +845,7 @@ searchCompany(event:{component: IonicSelectableComponent,
     this.SelTab = '';
     //console.log(this.EtfMed);
   }else{
-    console.log(this.selComp);
+  //  console.log(this.selComp);
     this.getSectorList(industryVal.toString())
   //console.log(industryVal.toString().substring(0,2));
   //console.log(e.item.industry);
@@ -872,9 +872,13 @@ searchCompany(event:{component: IonicSelectableComponent,
     //console.log(this.globalIndex);
     this.onglobalIndexClick(e.indexName);
     this.slides.slideTo(0);
+    
   }
   
-
+  //console.log(this.selComp);
+  setTimeout(()=>{
+    this.loadData();
+  },50);
 }
 
 getMoreSearchComp(event:{component: IonicSelectableComponent,text: string}){
@@ -909,14 +913,14 @@ getSectorList(data)
     this.sectorList.push(temp[0]);
     i=i+2;
   }
-  console.log(this.sectorList);
+ // console.log(this.sectorList);
 }
 
 onSectorClick(key){
-  console.log(this.SelSearchObj);
+//  console.log(this.SelSearchObj);
   // console.log(e);
   // var key = e.industry;
-  console.log(key);
+//  console.log(key);
   if(this.stockCollapse == true){
     //this.stockCollapse = false;
     this.stockIndexShow= false;
@@ -927,12 +931,12 @@ onSectorClick(key){
   this.fullSectorComp = this.data.filter(item => 
     item.industry.toString().substring(0,key.toString().length) == key
   )
-  console.log(this.fullSectorComp);
+ // console.log(this.fullSectorComp);
   //console.log(key.toString().length);
   if(this.SelSearchObj.hasOwnProperty('indexType')){
-    console.log("etf from onSectorClick");
+ //   console.log("etf from onSectorClick");
     this.fullSectorComp = this.ETFHoldings.filter(item => item.industry.toString().substring(0,key.toString().length) == key);
-    console.log(this.fullSectorComp);
+ //   console.log(this.fullSectorComp);
   }
   else if(this.SelSearchObj.indexName.indexOf("New Age Alpha ")==-1){
   
@@ -940,7 +944,7 @@ onSectorClick(key){
   this.fullSectorComp = this.fullSectorComp.filter(item=> item.indexName.indexOf("New Age Alpha") == -1);
   }
   else{
-    console.log("NAA from On Search Select");
+  //  console.log("NAA from On Search Select");
     this.fullSectorComp = this.fullSectorComp.filter(item=> item.indexName.indexOf("New Age Alpha") != -1);
   }
   //console.log(this.SelSearchObj);
@@ -955,11 +959,11 @@ onSectorClick(key){
   document.getElementById('subIndex-circle').style.background = this.getColor(this.roundValue(this.getMed(this.selSectorComp)*100));
   document.getElementById('subIndex-circle').style.color = this.ApplyTextColor(this.roundValue(this.getMed(this.selSectorComp)*100));
   // console.log(this.sectorHeadings[this.sectorList.indexOf(this.selSector)]);
-   console.log(this.fullSectorComp);
-   console.log(this.selSectorComp);
+  // console.log(this.fullSectorComp);
+ //  console.log(this.selSectorComp);
    //console.log(this.roundValue(this.getMed(this.selSectorComp)*100));
   //console.log(temp);
-
+this.loadData();
 this.scrollToSel();
   
 }
@@ -997,7 +1001,7 @@ onSlideChange(){
 scrollToSel(){
   if(this.selComp!=undefined)
     {
-      console.log(this.selComp);
+      //console.log(this.selComp);
     setTimeout(()=>{
      // 
      var temp = this.selectedIndexData.filter((item)=> item.companyName == this.selComp);
@@ -1005,14 +1009,213 @@ scrollToSel(){
      var manInd = (index*35)-240;
      document.getElementById('scrollDiv').scrollTo(0,manInd);
      var sectemp = this.selSectorComp.filter((item)=> item.companyName == this.selComp);
-     console.log(sectemp);
+     //console.log(sectemp);
      var secInd = this.selSectorComp.indexOf(sectemp[0])+1;
-     console.log(secInd);
+     //console.log(secInd);
      var mansecInd = (secInd*35)-240;
      document.getElementById('sectorscrollDiv').scrollTo(0,mansecInd);
-     console.log(index);
-      console.log("Executed")
+     //console.log(index);
+     // console.log("Executed")
     },100);
   }
+}
+
+// Banner Tool 
+M_gchart:any;
+M_chartMain: any = [];
+M_selResData: any = [];
+M_tradeDt: string = "";
+radius = 170;
+M_Companies: any = [];
+
+loadData(){
+this.M_gchart = d3.select("#M_gchart");
+console.log(this.M_gchart);
+this.M_chartMain = this.M_createMainChart(this.M_gchart);
+console.log(this.M_chartMain);
+}
+
+M_createMainChart(obj){
+  console.log(obj);
+  d3.select("#maincircle").remove();
+  d3.select("#crlChart").remove();
+
+  var grp1 = obj.append("g").attr("id","crlChart");
+  grp1.append("circle")
+    .attr("id", "maincircle")
+    .attr("class", "start-ring")
+    .attr("r", 0)
+    .attr("fill","#f5f5f5");
+
+  this.M_CreateData();
+
+  return grp1;
+}
+
+M_CreateData(){
+  var that = this;
+  var dbScore: any = [];
+ dbScore = this.selSectorComp;
+ console.log(this.selSectorComp);
+ this.M_selResData = dbScore.sort((a,b)=>{
+   return a.scores - b.scores;
+ });
+ let tradeDt = dbScore[0].tradeDate;
+ this.M_tradeDt = tradeDt.slice(4,6)+"/"+tradeDt.slice(6,8)+"/"+tradeDt.slice(0,4);
+ this.M_selResData.forEach(function(d,i){
+   d.score = d.scores*100;
+   d.deg = d.score;
+   d.indname = d.industry;
+   d.companyName = d.companyName.trim();
+   d.company = d.companyName != null ? d.companyName.toUpperCase() : null;
+   d.ticker = d.ticker;
+   return d.score, d.stockKey, d.industry, d.deg, d.company, d.ticker, d.indname, d
+ });
+ d3.select(".ringAnim").style("display", "none").remove();
+  d3.select(".preloding").style("display", "none").remove();
+  d3.select("#maincircle")
+                .transition()
+                .delay(10)
+                .duration(10)
+               .attr('r', that.radius - 10)
+                .style('stroke-width', '40px')
+
+                .on("end", function () {
+                    d3.select("#maincircle")
+                        .transition()
+                        .duration(10)
+                        .style('opacity', '0')
+                        that.M_creatGradienArc(); 
+                        that.M_Companies = that.M_selResData;
+                        that.M_CreateComps(that.M_chartMain, that.M_selResData, "lvl1");
+                });
+}
+
+M_creatGradienArc(){
+  var gArc = d3.select("#crlChart").append("g");
+  var arc = d3.arc()
+            .innerRadius(this.radius - 40)
+            .outerRadius(this.radius - 0);
+  var colors = [];
+  var color1 = d3.scaleLinear()
+            .domain([0, 1, 2, 3, 4])
+            .range(["#40b55c", "#75c254", "#f5ea23", "#f37130", "#ef462f"]);
+  var linearGradient = gArc.append("defs");
+
+  var linearG1 = linearGradient.append("linearGradient");
+  linearG1.attr("id", "linearColors0")
+            .attr("x1", "0").attr("y1", "0").attr("x2", ".5").attr("y2", "1");
+  linearG1.append("stop").attr("offset", "0%").attr("stop-color", color1(0));
+  linearG1.append("stop").attr("offset", "100%").attr("stop-color", color1(1));
+
+  var linearG2 = linearGradient.append("linearGradient");
+  linearG2.attr("id", "linearColors1")
+            .attr("x1", "0.8").attr("y1", "0").attr("x2", "0.5").attr("y2", "0.8");
+  linearG2.append("stop").attr("offset", "0%").attr("stop-color", color1(1));
+  linearG2.append("stop").attr("offset", "100%").attr("stop-color", color1(2));
+
+  var linearG3 = linearGradient.append("linearGradient");
+  linearG3.attr("id", "linearColors2")
+            .attr("x1", "0.8").attr("y1", "0.8").attr("x2", "0").attr("y2", "0.3");
+  linearG3.append("stop").attr("offset", "0%").attr("stop-color", color1(2));
+  linearG3.append("stop").attr("offset", "100%").attr("stop-color", color1(3));
+
+  var linearG4 = linearGradient.append("linearGradient");
+  linearG4.attr("id", "linearColors3")
+            .attr("x1", "0").attr("y1", "0.9").attr("x2", "0").attr("y2", "0.1");
+  linearG4.append("stop").attr("offset", "0%").attr("stop-color", color1(3));
+  linearG4.append("stop").attr("offset", "100%").attr("stop-color", color1(4));
+
+  d3.range(4).forEach(function (d, i) {
+    // convert to radians
+    var start = (i * 89) * (Math.PI / 180),
+        end = ((i * 89.9) + 90) * (Math.PI / 180);
+    colors.push({
+        startAngle: start,
+        endAngle: end
+    });
+  });
+
+  gArc.selectAll('.arc')
+            .data(colors)
+            .enter()
+            .append('path')
+            .attr('class', 'arc')
+            .attr('d', arc)
+            .attr('stroke', 'none')
+            .attr('fill', function (d, i) { return 'url(#linearColors' + i + ')'; });
+
+  gArc.append("rect")
+            .attr("height", "60px")
+            .attr("class", "crect_MW")
+            .attr("fill", "#fff")
+            .attr("x", -5)
+            .attr("y", -173)
+            //.attr("rx", 15)
+            .attr("width", 10)
+            .transition()
+            .duration(2000)
+}
+
+M_CreateComps(oSvg, dta, lvl){
+  console.log(oSvg);
+  var that = this;
+  var M_compLst;
+  var gExist = d3.select(".M_compLst" + lvl)._groups[0];
+  if (gExist != "") {
+    M_compLst = oSvg.select('.M_compLst' + lvl).remove();
+}
+  M_compLst = oSvg.append("g").attr('class', 'compList M_compLst' + lvl).style("display", "block");
+
+  var M_compC = M_compLst.append("g").attr("class", 'M_compLstC' + lvl);
+
+  var M_compg = M_compC.selectAll("g")
+            .data(dta)
+            .enter().append("g")
+            .attr("class", "comp")
+            .attr("transform", function (d, i) { return "rotate(" + ((d.deg * 360 / 100) - 90) + ")"; })
+            .attr("name", function (d) { return d.stockKey })
+
+  M_compg.append("rect")
+            .attr("height", "10px")
+            .attr("class", "crect_MW")
+            .attr("fill", "#fff")
+            .attr("x", that.radius - 42)
+            .attr("y", 2)
+            //.attr("rx", 15)
+            .attr("width", 50)
+            .transition()
+            .duration(2000)
+
+  M_compg.append("rect")
+            .attr("height", "27px")
+            .attr("class", "crect_M")
+            .attr("fill", function (d) {
+              
+                    let gC100 = d3.scaleLinear()
+                        .domain([0, 25, 50, 75, 100])
+                        .range(["#40b55c", "#75c254", "#f5ea23", "#f37130", "#ef462f"])
+                var scr = d.scores * 100;
+                return gC100(scr);
+            })
+            .attr("id", function (d) {
+              if (d.companyName == that.selComp) {
+                  return d.id = "SelectedCmpyCirlce";
+              }
+              else {
+                  return d.id = "";
+              }
+            })
+            .attr("x", that.radius + 20)
+            .attr("rx", 15)
+            .attr("width", 70)
+            .transition()
+            .duration(2000)
+  
+  d3.select("#SelectedCmpyCirlce")
+            .attr("height", 60)
+            .attr("width", 150)
+            .attr("rx", 30)
+            .attr("y", -18)
 }
 }

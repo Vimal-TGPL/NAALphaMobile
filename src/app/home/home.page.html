@@ -25,6 +25,7 @@
             (onSearch)="searchCompany($event)"
             (onSelect)="onSearchSelect($event.item)"
             [hasInfiniteScroll]="true"
+            [searchFailText]="'Sorry! we could not find any results matching.'"
             (onInfiniteScroll)="getMoreSearchComp($event)">
             <ng-template ionicSelectableTitleTemplate>Ticker or company name</ng-template>
             <ng-template ionicSelectableItemTemplate let-LoadsearchList="item">
@@ -40,7 +41,6 @@
                 color: #ffba89;
                 text-transform: uppercase;">{{LoadsearchList.country}}</span>
               </div>
-              
             </ng-template>
             <ng-template ionicSelectableItemIconTemplate let-port="item" let-isPortSelected="isItemSelected">
               <ion-icon style="display: none;" [name]="isPortSelected ? 'checkmark-circle' : 'radio-button-off'"
@@ -50,6 +50,11 @@
             <ng-template ionicSelectableCloseButtonTemplate>
               <ion-icon name="close-circle" style="font-size: 24px;"></ion-icon>
             </ng-template>
+            <!-- <ng-template ionicSelectableSearchFailTemplate>
+              <div padding>
+                
+              </div>
+            </ng-template> -->
           </ionic-selectable>
         </ion-item>
       </div>
@@ -73,8 +78,13 @@
               <ion-row>
                 <ion-col size="6" class="col-first">
                   <div class="image-div">
-                    <img *ngIf="selComp!=null" src="../../assets/images/NAA_aboutUs_tools.png" alt="img" class="image">
+                    <!-- <img *ngIf="selComp!=null" src="../../assets/images/NAA_aboutUs_tools.png" alt="img" class="image"> -->
                     <img *ngIf="selComp==null" src="../../assets/images/Stock_Mobile_View.svg" alt="img" class="image0">
+                    <div *ngIf="selComp!=null"  class="Banner_HomeChartcontainer">
+                      <svg preserveAspectRatio="xMidYMid meet" viewBox="30 110 750 710" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" version="1.1">
+                        <g id="M_gchart" transform="translate(400 ,445)"></g>
+                      </svg>
+                    </div>
                   </div>
                 </ion-col>
                 <ion-col size="6" class="selected-stock-details">
