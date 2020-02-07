@@ -8,10 +8,6 @@ import * as d3 from 'd3';
 import { IonicSelectableComponent } from 'ionic-selectable';
 import { ScreenOrientation } from '@ionic-native/screen-orientation/ngx';
 import { Router } from '@angular/router';
-import { getTestBed } from '@angular/core/testing';
-import { timeInterval, timeout } from 'rxjs/operators';
-import { templateJitUrl } from '@angular/compiler';
-
 
 @Component({
   selector: 'app-home',
@@ -22,7 +18,7 @@ import { templateJitUrl } from '@angular/compiler';
 export class HomePage implements OnInit, AfterViewInit {
 
   @ViewChild(IonSlides,{static:true}) slides: IonSlides;
-
+  currenturl:string;
   compETFNameList:any = [];
   comNAAIndex:any = [];
   comGlobalIndex:any =[];
@@ -92,6 +88,7 @@ export class HomePage implements OnInit, AfterViewInit {
     { "Name": 'Ticker (ascending)', "value": "5" }, 
     { "Name": 'Ticker (descending)', "value": "6" }];
   ngOnInit() {
+    this.currenturl = this.router.url;
     this.createData();
     this.GetETFValues();
     // this.httpclient.get(this.api_url + "/Scores/GetNAAIndexScoresCurrent/GLOBAL").subscribe( (res:any[]) => {
@@ -103,8 +100,9 @@ export class HomePage implements OnInit, AfterViewInit {
     // });
   }
   
-  constructor(private screenOrientation:ScreenOrientation, private authService: AuthenticationService, public storage: Storage, private httpclient: HttpClient, private plt:Platform) {
+  constructor(private screenOrientation:ScreenOrientation, public router:Router, private authService: AuthenticationService, public storage: Storage, private httpclient: HttpClient, private plt:Platform) {
     this.currentUser =  this.authService.currentUserValue();
+    console.log(this.router.url);
     //console.log(this.screenOrientation.type);
     if(this.screenOrientation.type == this.screenOrientation.ORIENTATIONS.LANDSCAPE || this.screenOrientation.type == this.screenOrientation.ORIENTATIONS.LANDSCAPE_PRIMARY || this.screenOrientation.type == this.screenOrientation.ORIENTATIONS.LANDSCAPE_SECONDARY){
       this.stockCollapse = true;
@@ -1137,7 +1135,8 @@ M_creatGradienArc(){
         endAngle: end
     });
   });
-
+  //console.log('url('+this.currenturl+'#linearColors');
+  var returnValu = 'url('+this.currenturl+'#linearColors';
   gArc.selectAll('.arc')
             .data(colors)
             .enter()
@@ -1145,7 +1144,7 @@ M_creatGradienArc(){
             .attr('class', 'arc')
             .attr('d', arc)
             .attr('stroke', 'none')
-            .attr('fill', function (d, i) { return 'url(#linearColors' + i + ')'; });
+            .attr('fill', function (d, i) { return returnValu + i + ')'; });
 
   gArc.append("rect")
             .attr("height", "60px")
