@@ -7,6 +7,7 @@ import { Platform, IonSlides } from '@ionic/angular';
 import * as d3 from 'd3';
 import { IonicSelectableComponent } from 'ionic-selectable';
 import { ScreenOrientation } from '@ionic-native/screen-orientation/ngx';
+import { Router } from '@angular/router';
 import { getTestBed } from '@angular/core/testing';
 import { timeInterval, timeout } from 'rxjs/operators';
 import { templateJitUrl } from '@angular/compiler';
@@ -101,7 +102,7 @@ export class HomePage implements OnInit, AfterViewInit {
     //   console.log(err);
     // });
   }
-
+  
   constructor(private screenOrientation:ScreenOrientation, private authService: AuthenticationService, public storage: Storage, private httpclient: HttpClient, private plt:Platform) {
     this.currentUser =  this.authService.currentUserValue();
     //console.log(this.screenOrientation.type);
@@ -1101,6 +1102,7 @@ M_creatGradienArc(){
             .domain([0, 1, 2, 3, 4])
             .range(["#40b55c", "#75c254", "#f5ea23", "#f37130", "#ef462f"]);
   var linearGradient = gArc.append("defs");
+  // var linearGradient = gArc;
 
   var linearG1 = linearGradient.append("linearGradient");
   linearG1.attr("id", "linearColors0")
