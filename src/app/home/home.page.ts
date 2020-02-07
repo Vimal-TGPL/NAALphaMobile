@@ -89,6 +89,7 @@ export class HomePage implements OnInit, AfterViewInit {
     { "Name": 'Ticker (descending)', "value": "6" }];
   ngOnInit() {
     this.currenturl = this.router.url;
+    // this.slides
     this.createData();
     this.GetETFValues();
     // this.httpclient.get(this.api_url + "/Scores/GetNAAIndexScoresCurrent/GLOBAL").subscribe( (res:any[]) => {
@@ -1044,7 +1045,7 @@ M_createMainChart(obj){
     .attr("id", "maincircle")
     .attr("class", "start-ring")
     .attr("r", 0)
-    .attr("fill","#f5f5f5");
+    .attr("fill","#fff");
 
   this.M_CreateData();
 
@@ -1074,9 +1075,8 @@ M_CreateData(){
   d3.select(".preloding").style("display", "none").remove();
   d3.select("#maincircle")
                 .transition()
-                .delay(10)
-                .duration(10)
-               .attr('r', that.radius - 10)
+                .delay(50)
+                .attr('r', that.radius - 10)
                 .style('stroke-width', '40px')
 
                 .on("end", function () {
