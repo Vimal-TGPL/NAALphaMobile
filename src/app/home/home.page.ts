@@ -8,6 +8,7 @@ import * as d3 from 'd3';
 import { IonicSelectableComponent } from 'ionic-selectable';
 import { ScreenOrientation } from '@ionic-native/screen-orientation/ngx';
 import { Router } from '@angular/router';
+import { filter } from 'rxjs/operators';
 
 @Component({
   selector: 'app-home',
@@ -79,7 +80,7 @@ export class HomePage implements OnInit, AfterViewInit {
   ETFNameMed:any = [];
   ETFNameFull:any=[];
   showLoader:any = true;
-  sectorHeadings:any = ['Sector','Industry Group','Industry','Sub Industry'];
+  sectorHeadings:any = ['Global','Index','Sector','Industry Group','Industry','Sub Industry'];
   FilterList: any = [
     { "Name": 'Company Name (ascending)', "value": "1" },
     { "Name": 'Company Name (descending)', "value": "2" }, 
@@ -909,18 +910,23 @@ getSectorList(data)
   {
     var searchkey = indus.substring(0,i);
     var temp = this.dbGICS.filter(item=> item.code == searchkey);
-    //console.log(temp[0]);
     this.sectorList.push(temp[0]);
     i=i+2;
   }
- // console.log(this.sectorList);
+  var temp1 =[];
+   temp1 = [{'code':'Index','name':this.SelSearchObj.indexName}]
+  this.sectorList.unshift(temp1[0]);
+  var temp2 =[];
+   temp2 = [{'code':'Global','name':'NAA'}];
+   this.sectorList.unshift(temp2[0]);
+  console.log(this.sectorList);
 }
 
 onSectorClick(key){
 //  console.log(this.SelSearchObj);
   // console.log(e);
   // var key = e.industry;
-//  console.log(key);
+  console.log(key);
   if(this.stockCollapse == true){
     //this.stockCollapse = false;
     this.stockIndexShow= false;
@@ -928,6 +934,33 @@ onSectorClick(key){
     this.stockIcon = "ios-arrow-dropdown-circle";
     this.icon = "ios-arrow-dropdown-circle";
   }
+  if(key == "Global"){
+    //console.log(this.selSectorComp);
+    this.selSectorComp = this.data.filter(item=> item.companyName != null && item.indexName.indexOf("New Age Alpha") == -1);
+    this.selSectorComp.sort((a,b) => {
+      return a.scores - b.scores;
+      //this.unsortedIndexData = this.selectedIndexData;
+    })
+    console.log(this.selSectorComp);
+    // this.selSector = 
+    this.selSector = this.sectorList[0];
+    this.SelSecLevTitle = this.sectorHeadings[this.sectorList.indexOf(this.selSector)];
+    this.stockMed = this.roundValue(this.getMed(this.selSectorComp)*100);
+    document.getElementById('subIndex-circle').style.background = this.getColor(this.roundValue(this.getMed(this.selSectorComp)*100));
+  document.getElementById('subIndex-circle').style.color = this.ApplyTextColor(this.roundValue(this.getMed(this.selSectorComp)*100));
+    this.scrollToSel();
+    //this.selSectorComp = this.data;
+  }
+  else if(key == "Index"){
+    this.selSectorComp = this.selectedIndexData;
+    this.selSector = this.sectorList[1];
+    this.SelSecLevTitle = this.sectorHeadings[this.sectorList.indexOf(this.selSector)];
+    this.stockMed = this.roundValue(this.getMed(this.selSectorComp)*100);
+    document.getElementById('subIndex-circle').style.background = this.getColor(this.roundValue(this.getMed(this.selSectorComp)*100));
+  document.getElementById('subIndex-circle').style.color = this.ApplyTextColor(this.roundValue(this.getMed(this.selSectorComp)*100));
+    console.log(this.selSector);
+    this.scrollToSel();
+  }else{
   this.fullSectorComp = this.data.filter(item => 
     item.industry.toString().substring(0,key.toString().length) == key
   )
@@ -953,18 +986,19 @@ onSectorClick(key){
     return a.scores - b.scores;
     //this.unsortedIndexData = this.selectedIndexData;
   })
-  this.selSector = this.sectorList[(key.toString().length/2)-1];
+  this.selSector = this.sectorList[((key.toString().length/2)-1)+2];
   this.SelSecLevTitle = this.sectorHeadings[this.sectorList.indexOf(this.selSector)];
   this.stockMed = this.roundValue(this.getMed(this.selSectorComp)*100);
   document.getElementById('subIndex-circle').style.background = this.getColor(this.roundValue(this.getMed(this.selSectorComp)*100));
   document.getElementById('subIndex-circle').style.color = this.ApplyTextColor(this.roundValue(this.getMed(this.selSectorComp)*100));
   // console.log(this.sectorHeadings[this.sectorList.indexOf(this.selSector)]);
-  // console.log(this.fullSectorComp);
- //  console.log(this.selSectorComp);
+   console.log(this.sectorList);
+   console.log(this.SelSecLevTitle);
    //console.log(this.roundValue(this.getMed(this.selSectorComp)*100));
   //console.log(temp);
 this.loadData();
 this.scrollToSel();
+}
   
 }
 
@@ -1030,13 +1064,13 @@ M_Companies: any = [];
 
 loadData(){
 this.M_gchart = d3.select("#M_gchart");
-console.log(this.M_gchart);
+//console.log(this.M_gchart);
 this.M_chartMain = this.M_createMainChart(this.M_gchart);
-console.log(this.M_chartMain);
+//console.log(this.M_chartMain);
 }
 
 M_createMainChart(obj){
-  console.log(obj);
+  //console.log(obj);
   d3.select("#maincircle").remove();
   d3.select("#crlChart").remove();
 
@@ -1056,7 +1090,7 @@ M_CreateData(){
   var that = this;
   var dbScore: any = [];
  dbScore = this.selSectorComp;
- console.log(this.selSectorComp);
+ //console.log(this.selSectorComp);
  this.M_selResData = dbScore.sort((a,b)=>{
    return a.scores - b.scores;
  });
@@ -1159,7 +1193,7 @@ M_creatGradienArc(){
 }
 
 M_CreateComps(oSvg, dta, lvl){
-  console.log(oSvg);
+  //console.log(oSvg);
   var that = this;
   var M_compLst;
   var gExist = d3.select(".M_compLst" + lvl)._groups[0];
