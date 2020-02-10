@@ -1054,6 +1054,15 @@ scrollToSel(){
   }
 }
 
+loadStockData(event){
+  console.log("Done");
+  event.target.complete();
+  // setTimeout(()=>{
+  //   console.log("Done");
+  //   //event.target.complete();
+  // },200);
+}
+
 // Banner Tool 
 M_gchart:any;
 M_chartMain: any = [];
