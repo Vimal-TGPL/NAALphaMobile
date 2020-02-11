@@ -21,8 +21,9 @@
           <ionic-selectable class="homeSearch" [(ngModel)]="searchSel" [items]="LoadsearchList"
             itemTextField="companyName" [canSearch]="true" (onSearch)="searchCompany($event)"
             (onSelect)="onSearchSelect($event.item)" [hasInfiniteScroll]="true"
-            [searchFailText]="'Sorry! we could not find any results matching.'"
-            (onInfiniteScroll)="getMoreSearchComp($event)">
+            
+            (onInfiniteScroll)="getMoreSearchComp($event)"
+            [searchFailText]="'Sorry! we could not find any results matching.'">
             <ng-template ionicSelectableTitleTemplate>Ticker or company name</ng-template>
             <ng-template ionicSelectableItemTemplate let-LoadsearchList="item">
               <div style="width: 100%;">
@@ -46,11 +47,22 @@
             <ng-template ionicSelectableCloseButtonTemplate>
               <ion-icon name="close-circle" style="font-size: 24px;"></ion-icon>
             </ng-template>
-            <!-- <ng-template ionicSelectableSearchFailTemplate>
-              <div padding>
-                
+            <ng-template ionicSelectableSearchFailTemplate>
+              <div style="height: calc(100vh - 196px);
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              flex-direction: column;">
+                <!-- <ion-img [src]=""></ion-img> -->
+                <img src="../../assets/images/NAA_search_notfound.png" alt="Search Not Found"  height="300">
+                <p style="font-size: 20px;
+                color: #0569bd;
+                margin: 15px 5px 5px 5px;">Sorry, no result found</p>
+                <p style="width: 300px;
+                text-align: center;
+                margin: 5px;">What you searched was unfortunately not found or doesn’t exist.</p>
               </div>
-            </ng-template> -->
+            </ng-template>
           </ionic-selectable>
         </ion-item>
       </div>
