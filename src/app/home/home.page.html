@@ -310,11 +310,16 @@
                 <!-- Global Index List Start -->
                 <ion-card-content *ngIf="SelTab=='Global'" class="company-card-content">
                   <ion-list class="nav-tab-index">
-                    <ion-item class="nav-tab-item" lines="none" *ngFor="let item of comGlobalIndex"
+                    <ion-item class="nav-tab-item"  lines="none" *ngFor="let item of comGlobalIndex"
                       (click)="onglobalIndexClick(item.name)">
-                      <span class="index-circle" [style.color]="ApplyTextColor(item.med)"
+                      <div style="display: flex;
+                      width: 100%;
+                      margin-left: 1px;
+                      align-items: center;" [ngClass]="{'selectIndex': SelIndexName==item.name}">
+                      <span class="index-circle" [ngClass]="{'selectedIndexMed': SelIndexName==item.name}" [style.color]="ApplyTextColor(item.med)"
                         [style.background-color]="getColor(item.med)">{{item.med}}</span>
-                      <ion-label>{{getGlobalIndex(item.name)}}</ion-label>
+                      <ion-label [ngClass]="{'selectedIndexLabel': SelIndexName==item.name}">{{getGlobalIndex(item.name)}}</ion-label>
+                      </div>
                     </ion-item>
                   </ion-list>
                 </ion-card-content>
@@ -325,9 +330,14 @@
                   <ion-list class="nav-tab-index">
                     <ion-item class="nav-tab-item" lines="none" *ngFor="let item of comNAAIndex"
                       (click)="onNaaIndexClick(item.name)">
-                      <span class="index-circle" [style.color]="ApplyTextColor(item.med)"
+                      <div style="display: flex;
+                      width: 100%;
+                      margin-left: 1px;
+                      align-items: center;" [ngClass]="{'selectIndex': SelIndexName==item.name}">
+                      <span class="index-circle" [ngClass]="{'selectedIndexMed': SelIndexName==item.name}" [style.color]="ApplyTextColor(item.med)"
                         [style.background-color]="getColor(item.med)">{{item.med}}</span>
-                      <ion-label>{{getNaaIndex(item.name)}}</ion-label>
+                      <ion-label [ngClass]="{'selectedIndexLabel': SelIndexName==item.name}">{{getNaaIndex(item.name)}}</ion-label>
+                    </div>
                     </ion-item>
                   </ion-list>
                 </ion-card-content>
@@ -351,19 +361,22 @@
                 <!-- ETF Index List Start -->
                 <ion-card-content *ngIf="SelTab=='ETFChild'" class="nav-tab-card-content">
                   <div class="backBtn">
-
                     <ion-icon class="backText" name="arrow-back" type="ios"></ion-icon>
                     <ion-label class="backText backText-label" (click)="this.SelTab='ETF';">{{selCategory}}</ion-label>
-
                   </div>
                   <div class="ETFChild-Div" [ngClass]="{'companycard-extend': stockCollapse}">
                     <div>
                       <ion-list class="ETFChild-List">
-                        <ion-item lines="none" style="--background: white; font-size: 14px;"
+                        <ion-item lines="none" style="--background: white; font-size: 14px; margin: 5px 0 5px 0;"
                           *ngFor="let item of compETFNameList" (click)="onETFNameClick(item.name)">
-                          <span class="index-circle" [style.color]="ApplyTextColor(item.med)"
+                          <div style="display: flex;
+                          width: 100%;
+                          margin-left: 1px;
+                          align-items: center;" [ngClass]="{'selectIndex': SelIndexName==item.name}">
+                          <span class="index-circle" [ngClass]="{'selectedIndexMed': SelIndexName==item.name}" [style.color]="ApplyTextColor(item.med)"
                             [style.background-color]="getColor(item.med)">{{item.med}}</span>
-                          <ion-label class="ETFChild-Label">{{item.name}}</ion-label>
+                          <ion-label class="ETFChild-Label" [ngClass]="{'selectedIndexLabel': SelIndexName==item.name}">{{item.name}}</ion-label>
+                        </div>
                         </ion-item>
                       </ion-list>
                     </div>

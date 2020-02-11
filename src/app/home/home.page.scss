@@ -101,13 +101,15 @@ ion-content{
 
 .nav-tab-index{
     background: white;
-    padding: 0px 10px;
+    // padding: 0px 10px;
+    padding: 0px 4px;
 }
 
 .nav-tab-item{
     --background: white;
      color: #666;
      font-size: 14px;
+     margin: 5px 0 5px 0;
 }
 
 .nav-tab-card-content{
@@ -398,10 +400,10 @@ border-radius: 25px;
     margin-right: 10px;
     border-radius: 50%;
     font-size: 14px;
-    max-width: 38px;
-    max-height: 38px;
-    min-width: 38px;
-    min-height: 38px;
+    max-width: 42px;
+    max-height: 42px;
+    min-width: 42px;
+    min-height: 42px;
     display: -webkit-box;
     display: flex;
     align-items: center;
@@ -454,7 +456,7 @@ ion-content {
 
 .ETFChild-List{
     background: white;
-    padding: 0px 10px;
+    padding: 0px 4px
 }
 
 .ETFChild-Item{
@@ -935,6 +937,21 @@ ion-content {
         opacity: 0;
         transform: rotate(45deg) translate(5px,5px);
     }
+}
+
+.selectIndex{
+    background: #05baff !important;
+    border-radius: 25px !important;
+}
+
+.selectedIndexMed{
+    color: #ffffff !important;
+    background-color: #05baff !important;
+    margin-left: -1px !important;
+}
+
+.selectedIndexLabel{
+    color: white !important;
 }
 
 .indName{
