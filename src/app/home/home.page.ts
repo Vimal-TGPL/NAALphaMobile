@@ -948,7 +948,8 @@ onSectorClick(key){
     this.stockMed = this.roundValue(this.getMed(this.selSectorComp)*100);
     document.getElementById('subIndex-circle').style.background = this.getColor(this.roundValue(this.getMed(this.selSectorComp)*100));
   document.getElementById('subIndex-circle').style.color = this.ApplyTextColor(this.roundValue(this.getMed(this.selSectorComp)*100));
-    this.scrollToSel();
+  this.loadData();  
+  this.scrollToSel();
     //this.selSectorComp = this.data;
   }
   else if(key == "Index"){
@@ -959,6 +960,7 @@ onSectorClick(key){
     document.getElementById('subIndex-circle').style.background = this.getColor(this.roundValue(this.getMed(this.selSectorComp)*100));
   document.getElementById('subIndex-circle').style.color = this.ApplyTextColor(this.roundValue(this.getMed(this.selSectorComp)*100));
     console.log(this.selSector);
+    this.loadData();
     this.scrollToSel();
   }else{
   this.fullSectorComp = this.data.filter(item => 
@@ -1063,7 +1065,7 @@ loadStockData(event){
   // },200);
 }
 
-// Banner Tool 
+/*************** Banner Tool *****************/
 M_gchart:any;
 M_chartMain: any = [];
 M_selResData: any = [];
@@ -1073,9 +1075,7 @@ M_Companies: any = [];
 
 loadData(){
 this.M_gchart = d3.select("#M_gchart");
-//console.log(this.M_gchart);
 this.M_chartMain = this.M_createMainChart(this.M_gchart);
-//console.log(this.M_chartMain);
 }
 
 M_createMainChart(obj){
@@ -1098,7 +1098,16 @@ M_createMainChart(obj){
 M_CreateData(){
   var that = this;
   var dbScore: any = [];
- dbScore = this.selSectorComp;
+  if(that.selSector.code != "Index" && that.selSector.code != "Global" && this.sectorList.indexOf(this.selSector) != 2){
+    dbScore = this.selSectorComp;
+  }
+  else{
+    //dbScore = this.SelSearchObj;
+    dbScore.push(this.SelSearchObj);
+    console.log(dbScore);
+  }
+  //console.log(that.selSector);
+ 
  //console.log(this.selSectorComp);
  this.M_selResData = dbScore.sort((a,b)=>{
    return a.scores - b.scores;
@@ -1179,7 +1188,7 @@ M_creatGradienArc(){
     });
   });
   //console.log('url('+this.currenturl+'#linearColors');
-  var returnValu = 'url('+this.currenturl+'#linearColors';
+  var returnValue = 'url('+this.currenturl+'#linearColors';
   gArc.selectAll('.arc')
             .data(colors)
             .enter()
@@ -1187,7 +1196,7 @@ M_creatGradienArc(){
             .attr('class', 'arc')
             .attr('d', arc)
             .attr('stroke', 'none')
-            .attr('fill', function (d, i) { return returnValu + i + ')'; });
+            .attr('fill', function (d, i) { return returnValue + i + ')'; });
 
   gArc.append("rect")
             .attr("height", "60px")
@@ -1263,3 +1272,4 @@ M_CreateComps(oSvg, dta, lvl){
             .attr("y", -18)
 }
 }
+/*************** End Banner Tool *****************/
