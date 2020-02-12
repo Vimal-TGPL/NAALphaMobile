@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewInit, ViewChild } from '@angular/core';
+import { Component, OnInit, AfterViewInit, ViewChild, HostListener } from '@angular/core';
 import { AuthenticationService } from '../services/authentication.service';
 import { Storage } from '@ionic/storage';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
@@ -95,6 +95,15 @@ export class HomePage implements OnInit, AfterViewInit {
 
   ionViewWillEnter(){
     this.slides.update();
+  }
+
+  @HostListener('window:resize')
+  public onResize(){
+    setTimeout(()=>{
+      if(this.slides){
+        this.slides.update();
+      }
+    },100);
   }
 
   constructor(private screenOrientation: ScreenOrientation, public router: Router, private authService: AuthenticationService, public storage: Storage, private httpclient: HttpClient, private plt: Platform) {
