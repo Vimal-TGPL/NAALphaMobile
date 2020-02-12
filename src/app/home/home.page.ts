@@ -110,8 +110,9 @@ export class HomePage implements OnInit, AfterViewInit {
     this.screenOrientation.onChange().subscribe(
       () => {
         setTimeout(() => {
+          console.log("Slide update");
           this.slides.update();
-        }, 100);
+        }, 500);
         if (this.screenOrientation.type == this.screenOrientation.ORIENTATIONS.LANDSCAPE || this.screenOrientation.type == this.screenOrientation.ORIENTATIONS.LANDSCAPE_PRIMARY || this.screenOrientation.type == this.screenOrientation.ORIENTATIONS.LANDSCAPE_SECONDARY) {
           this.stockCollapse = true;
         }
