@@ -91,6 +91,14 @@ export class HomePage implements OnInit, AfterViewInit {
     this.currenturl = this.router.url;
     this.createData();
     this.GetETFValues();
+    this.screenOrientation.onChange().subscribe(
+      () => {
+        if (this.screenOrientation.type == this.screenOrientation.ORIENTATIONS.LANDSCAPE || this.screenOrientation.type == this.screenOrientation.ORIENTATIONS.LANDSCAPE_PRIMARY || this.screenOrientation.type == this.screenOrientation.ORIENTATIONS.LANDSCAPE_SECONDARY) {
+          this.stockCollapse = true;
+          this.slides.update();
+        }
+      }
+    );
   }
 
   ionViewWillEnter(){
