@@ -26,6 +26,8 @@ export class AppComponent {
   initializeApp() {
     this.platform.ready().then(() => {
       this.statusBar.styleDefault();
+      this.statusBar.overlaysWebView(false);
+      this.statusBar.backgroundColorByHexString("#2b468f");
       this.splashScreen.hide();
       this.authService.authenticationState.subscribe(state =>{
         console.log("Auth State : "+state);

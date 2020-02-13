@@ -1,12 +1,12 @@
-<ion-content>
+<ion-content forceOverscroll=false>
     <div style="display: block;">
         <form [formGroup]="signupForm">
             <ion-card class="card">
-                <div class="scrolldiv">
-                    <ion-card-header>
+                <!-- <div class="scrolldiv"> -->
+                    <ion-card-header style="    padding: 0px;">
                         <ion-card-title class="cardTitle">Sign Up</ion-card-title>
                     </ion-card-header>
-                    <ion-card-content>
+                    <ion-card-content class="overfloscroll" style=" padding: 0px;">
                         <div class="form">
                             <div class="flex_item">
                                 <ion-label class="label">First Name<ion-text color="danger"> *</ion-text>
@@ -35,7 +35,7 @@
                             <div class="flex_item">
                                 <ion-label class="label">I am a...</ion-label>
                                 <ion-item lines="none" class="input">
-                                    <ion-select style="display: inherit;" placeholder="Please Select" interface="action-sheet"
+                                    <ion-select style="min-width: 100%; margin-inline-start: -16px;" placeholder="Please Select" interface="action-sheet"
                                         formControlName="SelectIAMA">
                                         <ion-select-option value="Advisor">Financial Advisor</ion-select-option>
                                         <ion-select-option value="Institution">Financial Institution</ion-select-option>
@@ -79,7 +79,7 @@
                             </div>
                         </div>
                     </ion-card-content>
-                </div>
+                <!-- </div> -->
             </ion-card>
         </form>
     </div>

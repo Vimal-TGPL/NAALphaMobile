@@ -21,15 +21,13 @@ ion-content{
 }
 
 .signupBtnDiv{
-    padding-left: 2%;
-    padding-right: 2%;
-    padding-top: 4%;
-    
+    padding: 5px 10px 10px 10px;
 }
 
 .signupBtn{
     --background: #00aeef;
-    
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
 }
 
 .cardTitle
@@ -38,6 +36,7 @@ ion-content{
     color: #00aeef; 
     font-size: 40px; 
     font-weight: bold;
+    padding-top: 15px;
 }
 
 .emailLabel{
@@ -49,13 +48,13 @@ ion-content{
 .emailItem
 {
     --background: white;
-    font-size: 19px;
+    font-size: 18px;
 }
 
 .passwordItem
 {
     --background: white;
-    font-size: 20px;
+    font-size: 18px;
 }
 
 .passwordInput{
@@ -63,11 +62,11 @@ ion-content{
 }
 
 .form{
-    padding-top: 5%;
+    padding-top: 0px;
 }
 
 .inputdiv{
-    padding: 3%;
+    padding: 10px;
 }
 
 .loginBtn{
@@ -75,22 +74,21 @@ ion-content{
     --color	: #2b468f;
     --ripple-color : #9a9a9a;
     --color-activated : #2b468f;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
 }
 
 .loginDiv{
-    padding-left: 2%;
-    padding-right: 2%;
-    padding-top: 5%;
+    padding: 15px 10px 10px 10px;
 }
 
 .forgotPassBtn{
     color: #00aeef;
+    height: 15px;
 }
 
 .forgotPassDiv{
-    padding-left: 2%;
-    padding-right: 2%;
-    padding-top: 3%;
+    padding: 10px 10px 10px 10px;
 }
 
 .rememberItem{
@@ -109,5 +107,8 @@ ion-content{
 @media screen and (orientation:landscape) {
 .overfloscroll{
     overflow: auto;
+}
+.overfloscroll::-webkit-scrollbar, *::-webkit-scrollbar { 
+    display: none; 
 }
 }

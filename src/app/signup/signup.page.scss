@@ -24,18 +24,19 @@ ion-content{
     color: #00aeef; 
     font-size: 40px; 
     font-weight: bold;
+    padding-top: 15px;
 }
 
 .form{
     display: flex;
     flex-direction: column;
-    padding: 2%;
+    padding: 25px;
     justify-content: center;
 }
 
 .flex_item{
     // margin-top: 2%;
-    margin-bottom: 3%;
+    margin-bottom: 15px;
 }
 
 .label{
@@ -58,11 +59,7 @@ ion-content{
     display: none; 
 }
 
-.agreecheckBox{
 
-    margin-top: 0%;
-    width: 32px;
-}
 
 .checkboxLabel{
     color: white;
@@ -87,4 +84,25 @@ ion-content{
     --background-activated: #dadada;
     --color-activated: #2e4c99;
     height: 45px;
+}
+
+.select-icon{
+    padding: 10px;
+}
+
+@media screen and (orientation:landscape) {
+    .overfloscroll{
+        overflow: auto;
+    }
+    .overfloscroll::-webkit-scrollbar, *::-webkit-scrollbar { 
+        display: none; 
+    }
+}
+
+@media screen and (orientation:portrait) {
+    .agreecheckBox{
+
+        margin-top: 0%;
+        width: 32px;
+    }
 }
