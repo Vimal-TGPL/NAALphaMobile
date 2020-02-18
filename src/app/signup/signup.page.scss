@@ -89,7 +89,18 @@ ion-content{
 .select-icon{
     padding: 10px;
 }
+.hs-custom-style fieldset{
+    padding: 0 10px 0 10px ;
+}
+// form.hs-form-8a5c3b99-5ca9-4f28-8d99-616c8528d53e_9abde04d-fbc0-4a4e-b02b-94a22fff11bd:not(.hs-video-form) .form-columns-2 .hs-form-field{
+//     padding: 10px !important;
+// }
 
+#dvSignUp{
+    
+    padding: 0px 5px 0 15px;
+
+}
 @media screen and (orientation:landscape) {
     .overfloscroll{
         overflow: auto;
