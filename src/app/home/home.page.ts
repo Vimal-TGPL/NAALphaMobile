@@ -8,6 +8,7 @@ import * as d3 from 'd3';
 import { IonicSelectableComponent } from 'ionic-selectable';
 import { ScreenOrientation } from '@ionic-native/screen-orientation/ngx';
 import { Router } from '@angular/router';
+import { AlertController } from '@ionic/angular';
 
 @Component({
   selector: 'app-home',
@@ -102,7 +103,7 @@ export class HomePage implements OnInit, AfterViewInit {
     },100);
   }
 
-  constructor(private screenOrientation: ScreenOrientation, public router: Router, private authService: AuthenticationService, public storage: Storage, private httpclient: HttpClient, private plt: Platform) {
+  constructor(public alertController: AlertController, private screenOrientation: ScreenOrientation, public router: Router, private authService: AuthenticationService, public storage: Storage, private httpclient: HttpClient, private plt: Platform) {
     this.currentUser = this.authService.currentUserValue();
     if (this.screenOrientation.type == this.screenOrientation.ORIENTATIONS.LANDSCAPE || this.screenOrientation.type == this.screenOrientation.ORIENTATIONS.LANDSCAPE_PRIMARY || this.screenOrientation.type == this.screenOrientation.ORIENTATIONS.LANDSCAPE_SECONDARY) {
       this.stockCollapse = true;
@@ -985,5 +986,28 @@ export class HomePage implements OnInit, AfterViewInit {
       .attr("rx", 30)
       .attr("y", -18)
   }
-}
 /*************** Banner Tool End *****************/
+
+infiniteScroll(event){
+  console.log(event);
+  console.log("infinite Scroll executed");
+  this.presentAlert("Form inside Div");
+}
+
+infiniteScroll1(event){
+  console.log(event);
+  console.log("infinite Scroll executed");
+  this.presentAlert("Form outside Div");
+}
+
+async presentAlert(msg) {
+  const alert = await this.alertController.create({
+    header: 'Alert',
+    subHeader: 'Subtitle',
+    message: msg,
+    buttons: ['OK']
+  });
+  await alert.present();
+}
+}
+
