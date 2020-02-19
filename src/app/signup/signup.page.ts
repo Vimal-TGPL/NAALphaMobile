@@ -15,13 +15,13 @@ declare var hbspt: any;
 })
 export class SignupPage implements OnInit, AfterViewInit {
   ngAfterViewInit() {
-    hbspt.forms.create({
-      portalId: "6010193",
-      formId: "8a5c3b99-5ca9-4f28-8d99-616c8528d53e",
-      target: "#dvSignUp",
-      onFormSubmit: function ($form) { 
-      }
-    });
+    // hbspt.forms.create({
+    //   portalId: "6010193",
+    //   formId: "8a5c3b99-5ca9-4f28-8d99-616c8528d53e",
+    //   target: "#dvSignUp",
+    //   onFormSubmit: function ($form) { 
+    //   }
+    // });
   }
 
   // signupForm: FormGroup;

@@ -5,7 +5,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { ToastController } from '@ionic/angular';
 import { AuthenticationService } from '../services/authentication.service';
 import { Storage } from '@ionic/storage';
-
+import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
 @Component({
   selector: 'app-auth',
   templateUrl: './auth.page.html',
@@ -15,9 +15,9 @@ export class AuthPage implements OnInit {
 
   loginForm: FormGroup;
   stayStignedIn : boolean;
- 
+  signupUrl = 'https://app.newagealpha.com/signUp';
 
-  constructor(private route:Router, private http: HttpClient, private toastController:ToastController, private authenticationService: AuthenticationService, private storage:Storage) { }
+  constructor(private route:Router, private iab:InAppBrowser, private http: HttpClient, private toastController:ToastController, private authenticationService: AuthenticationService, private storage:Storage) { }
 
   ngOnInit() {
     this.loginForm = new FormGroup({
@@ -51,11 +51,12 @@ export class AuthPage implements OnInit {
           this.presentToast(err.error.message);
           console.log(err);
         })
-    }
+    } 
   }
 
   onSignupClick(){
-    this.route.navigateByUrl('/signup');
+    //this.route.navigateByUrl('/signup');
+    this.iab.create(this.signupUrl,'_self','location=no,toolbar=yes,zoom=no');
   }
 
   onForgotPassClick(){
