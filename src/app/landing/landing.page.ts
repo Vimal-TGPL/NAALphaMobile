@@ -25,7 +25,7 @@ export class LandingPage implements OnInit {
 
   onSignupClick(){
     //this.route.navigateByUrl('/signup');
-    this.iab.create(this.signupUrl,'_self','location=no,toolbar=yes,zoom=no');
+    this.iab.create(this.signupUrl,'_blank','location=no,toolbar=yes,zoom=no');
   }
 
 }
