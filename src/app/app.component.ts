@@ -34,7 +34,7 @@ export class AppComponent {
         if(state){
               this.router.navigateByUrl('/menu');         
         }else{
-          this.router.navigateByUrl('/auth');
+          this.router.navigateByUrl('/landing');
         }
       });
     });
