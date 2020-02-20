@@ -14,7 +14,6 @@
 <!-- Body -->
 <ion-content id="parent-content" class="overflowOnlyLandscape">
   <div>
-    
     <!-- SearchBar start -->
     <div class="search-Outer-Div">
       <div class="searchDiv">
@@ -163,7 +162,7 @@
               </ion-card>
             </div>
             <!-- GICS DropDown End -->
-
+            
             <!-- Stock Company start -->
             <div>
               <ion-card class="stockCompList-card" *ngIf="stockIndexShow==false"
@@ -199,16 +198,16 @@
                           </ion-label>
                         </div>
                       </ion-item>
+                      <ion-infinite-scroll threshold="100px" [disabled]="flase" position="bottom" (ionInfinite)="onscroll($event)">
+                        <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Loading more data...">
+                        </ion-infinite-scroll-content>
+                      </ion-infinite-scroll>
                     </ion-list>
-                    <ion-infinite-scroll threshold="100px" position="bottom" (ionInfinite)="infiniteScroll($event)">
+                    <!-- <ion-infinite-scroll threshold="100px" position="bottom" (ionInfinite)="onscroll($event)">
                       <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Loading more data...">
                       </ion-infinite-scroll-content>
-                    </ion-infinite-scroll>
+                    </ion-infinite-scroll> -->
                   </div>
-                  <ion-infinite-scroll threshold="100px" position="bottom" (ionInfinite)="infiniteScroll1($event)">
-                    <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Loading more data...">
-                    </ion-infinite-scroll-content>
-                  </ion-infinite-scroll>
                 </ion-card-content>
                 <!-- Stock Company List End-->
               </ion-card>
@@ -218,8 +217,8 @@
                 [ngClass]="{'Stockcard-extend': stockCollapse}">
                 <ion-card-content style="padding: 0px;">
                   <ion-item style="color: black; --background: white;" *ngFor="let item of sectorList"
-                    (click)="onSectorClick(item.code)">
-                    <ion-label
+                   (click)="onSectorClick(item.code)">
+                    <ion-label 
                       style="display: flex; flex-direction: column; margin: 4px 0px; font-size: 14px; color: black;">
                       <span style="font-size: 12px; color: #666;">{{sectorHeadings[sectorList.indexOf(item)]}}</span>
                       <span style="overflow: hidden; text-overflow: ellipsis;">{{item.name}}</span></ion-label>
@@ -430,5 +429,6 @@
     </div>
     <!-- Slides/Carousel Pager End -->
   </div>
+  
 </ion-content>
 <!-- body -->

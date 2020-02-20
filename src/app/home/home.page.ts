@@ -103,7 +103,7 @@ export class HomePage implements OnInit, AfterViewInit {
     },100);
   }
 
-  constructor(public alertController: AlertController, private screenOrientation: ScreenOrientation, public router: Router, private authService: AuthenticationService, public storage: Storage, private httpclient: HttpClient, private plt: Platform) {
+  constructor(private route:Router, public alertController: AlertController, private screenOrientation: ScreenOrientation, public router: Router, private authService: AuthenticationService, public storage: Storage, private httpclient: HttpClient, private plt: Platform) {
     this.currentUser = this.authService.currentUserValue();
     if (this.screenOrientation.type == this.screenOrientation.ORIENTATIONS.LANDSCAPE || this.screenOrientation.type == this.screenOrientation.ORIENTATIONS.LANDSCAPE_PRIMARY || this.screenOrientation.type == this.screenOrientation.ORIENTATIONS.LANDSCAPE_SECONDARY) {
       this.stockCollapse = true;
@@ -676,7 +676,7 @@ export class HomePage implements OnInit, AfterViewInit {
   /***************Geting GICS List End *****************/
 
   /*************** On GICS Click Start *****************/
-  onSectorClick(key) {
+  async onSectorClick(key) {
     if (this.stockCollapse == true) {
       this.stockIndexShow = false;
       this.compIndexShow = false;
@@ -684,17 +684,25 @@ export class HomePage implements OnInit, AfterViewInit {
       this.icon = "ios-arrow-dropdown-circle";
     }
     if (key == "Global") {
-      this.selSectorComp = this.data.filter(item => item.companyName != null && item.indexName.indexOf("New Age Alpha") == -1);
-      this.selSectorComp.sort((a, b) => {
-        return a.scores - b.scores;
-      })
-      this.selSector = this.sectorList[0];
-      this.SelSecLevTitle = this.sectorHeadings[this.sectorList.indexOf(this.selSector)];
-      this.stockMed = this.roundValue(this.getMed(this.selSectorComp) * 100);
-      document.getElementById('subIndex-circle').style.background = this.getColor(this.roundValue(this.getMed(this.selSectorComp) * 100));
-      document.getElementById('subIndex-circle').style.color = this.ApplyTextColor(this.roundValue(this.getMed(this.selSectorComp) * 100));
-      this.loadData();
-      this.scrollToSel();
+      const alert = await this.alertController.create({
+        header: 'Global',
+        message: 'Coming Soon',
+        buttons: ['OK']
+      });
+  
+      await alert.present();
+
+      // this.selSectorComp = this.data.filter(item => item.companyName != null && item.indexName.indexOf("New Age Alpha") == -1);
+      // this.selSectorComp.sort((a, b) => {
+      //   return a.scores - b.scores;
+      // })
+      // this.selSector = this.sectorList[0];
+      // this.SelSecLevTitle = this.sectorHeadings[this.sectorList.indexOf(this.selSector)];
+      // this.stockMed = this.roundValue(this.getMed(this.selSectorComp) * 100);
+      // document.getElementById('subIndex-circle').style.background = this.getColor(this.roundValue(this.getMed(this.selSectorComp) * 100));
+      // document.getElementById('subIndex-circle').style.color = this.ApplyTextColor(this.roundValue(this.getMed(this.selSectorComp) * 100));
+      // this.loadData();
+      // this.scrollToSel();
     }
     else if (key == "Index") {
       this.selSectorComp = this.selectedIndexData;
@@ -988,26 +996,14 @@ export class HomePage implements OnInit, AfterViewInit {
   }
 /*************** Banner Tool End *****************/
 
-infiniteScroll(event){
-  console.log(event);
-  console.log("infinite Scroll executed");
-  this.presentAlert("Form inside Div");
+onscroll(event){
+  //event.target.
+  console.log(event)
+  console.log("scroll running");
 }
 
-infiniteScroll1(event){
-  console.log(event);
-  console.log("infinite Scroll executed");
-  this.presentAlert("Form outside Div");
-}
-
-async presentAlert(msg) {
-  const alert = await this.alertController.create({
-    header: 'Alert',
-    subHeader: 'Subtitle',
-    message: msg,
-    buttons: ['OK']
-  });
-  await alert.present();
+onClick(){
+  this.route.navigateByUrl('/test');
 }
 }
 
