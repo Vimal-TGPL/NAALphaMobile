@@ -179,8 +179,10 @@
 
                 <!-- Stock Company List Start-->
                 <ion-card-content style=" padding: 5px 0px 5px 0px;" *ngIf="selSectorComp!=''">
+                  
                   <div id="sectorscrollDiv" class="company-list-inner-div"
                     [ngClass]="{'stock_companycard-extend': stockCollapse}">
+                    <ion-content style="--background:white; ">
                     <ion-list class="company-list">
                       <ion-item lines='none' class="company-list-item" *ngFor="let item of selSectorComp">
                         <div class="company-label-outer-div" [ngClass]="{'comp-sel': selComp==item.companyName}"
@@ -198,16 +200,15 @@
                           </ion-label>
                         </div>
                       </ion-item>
-                      <ion-infinite-scroll threshold="100px" [disabled]="flase" position="bottom" (ionInfinite)="onscroll($event)">
-                        <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Loading more data...">
-                        </ion-infinite-scroll-content>
-                      </ion-infinite-scroll>
+                     
                     </ion-list>
-                    <!-- <ion-infinite-scroll threshold="100px" position="bottom" (ionInfinite)="onscroll($event)">
+                    <ion-infinite-scroll  [disabled]="flase" position="bottom" (ionInfinite)="onscroll($event)">
                       <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Loading more data...">
                       </ion-infinite-scroll-content>
-                    </ion-infinite-scroll> -->
+                    </ion-infinite-scroll>
+                  </ion-content>
                   </div>
+                
                 </ion-card-content>
                 <!-- Stock Company List End-->
               </ion-card>

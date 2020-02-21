@@ -12,7 +12,7 @@
     display: flex;
 }
 
-ion-content{
+#parent-content{
 
     --ion-background-color:#d3d8dc;
 
@@ -411,7 +411,7 @@ border-radius: 25px;
 
 }
 
-ion-content {
+#parent-content {
     height: 100vh;
     --overflow: hidden;
 }
