@@ -19,6 +19,8 @@ import { AlertController } from '@ionic/angular';
 export class HomePage implements OnInit, AfterViewInit {
 
   @ViewChild(IonSlides, { static: true }) slides: IonSlides;
+  globalSize:any = 100;
+  globalselectorcomp:any = [];
   currenturl: string;
   compETFNameList: any = [];
   comNAAIndex: any = [];
@@ -684,25 +686,27 @@ export class HomePage implements OnInit, AfterViewInit {
       this.icon = "ios-arrow-dropdown-circle";
     }
     if (key == "Global") {
-      const alert = await this.alertController.create({
-        header: 'Global',
-        message: 'Coming Soon',
-        buttons: ['OK']
-      });
+      // const alert = await this.alertController.create({
+      //   header: 'Global',
+      //   message: 'Coming Soon',
+      //   buttons: ['OK']
+      // });
   
-      await alert.present();
+      // await alert.present();
+      this.globalselectorcomp = this.data.filter(item => item.companyName != null && item.indexName.indexOf("New Age Alpha") == -1);
+      this.globalselectorcomp.sort((a, b) => {
+        return a.scores - b.scores;
+      });
 
-      // this.selSectorComp = this.data.filter(item => item.companyName != null && item.indexName.indexOf("New Age Alpha") == -1);
-      // this.selSectorComp.sort((a, b) => {
-      //   return a.scores - b.scores;
-      // })
-      // this.selSector = this.sectorList[0];
-      // this.SelSecLevTitle = this.sectorHeadings[this.sectorList.indexOf(this.selSector)];
-      // this.stockMed = this.roundValue(this.getMed(this.selSectorComp) * 100);
-      // document.getElementById('subIndex-circle').style.background = this.getColor(this.roundValue(this.getMed(this.selSectorComp) * 100));
-      // document.getElementById('subIndex-circle').style.color = this.ApplyTextColor(this.roundValue(this.getMed(this.selSectorComp) * 100));
-      // this.loadData();
-      // this.scrollToSel();
+      this.selSectorComp = this.globalselectorcomp.slice(0,100);
+      this.selSector = this.sectorList[0];
+      console.log(this.selSector);
+      this.SelSecLevTitle = this.sectorHeadings[this.sectorList.indexOf(this.selSector)];
+      this.stockMed = this.roundValue(this.getMed(this.globalselectorcomp) * 100);
+      document.getElementById('subIndex-circle').style.background = this.getColor(this.roundValue(this.getMed(this.globalselectorcomp) * 100));
+      document.getElementById('subIndex-circle').style.color = this.ApplyTextColor(this.roundValue(this.getMed(this.globalselectorcomp) * 100));
+      this.loadData();
+      this.scrollToSel();
     }
     else if (key == "Index") {
       this.selSectorComp = this.selectedIndexData;
@@ -998,8 +1002,26 @@ export class HomePage implements OnInit, AfterViewInit {
 
 onscroll(event){
   //event.target.
-  console.log(event)
-  console.log("scroll running");
+  setTimeout(()=>{
+    //console.log(event)
+    //console.log("scroll running");
+    if(this.selSector.code=='Global'){
+      if(this.selSectorComp.length != this.globalselectorcomp.length){
+        this.globalSize = this.globalSize+100;
+      this.selSectorComp = this.globalselectorcomp.slice(0,this.globalSize);
+      event.target.complete();
+      if(this.selSectorComp.length == this.globalselectorcomp.length){
+        event.target.disabled = true;
+      }
+    }else{
+      event.target.disabled = true;
+    }
+    }
+    
+    
+  },500);
+  
+
 }
 
 onClick(){

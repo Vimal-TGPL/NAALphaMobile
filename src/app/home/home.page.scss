@@ -477,7 +477,7 @@ border-radius: 25px;
 // }
 
 .company-list-inner-div{
-    height: calc(100vh - 410px);
+    // height: calc(100vh - 410px);
     overflow: auto;
 }
 
@@ -701,7 +701,7 @@ border-radius: 25px;
 
 .stockCompList-card{
     background-color: white; 
-    height: calc(100vh - 400px); 
+    height: calc(100vh - 411px); 
     margin: 3px 0px 0px 0px; 
     border-radius: 10px 10px 0 0; 
     box-shadow: none;
@@ -767,7 +767,7 @@ border-radius: 25px;
 }
 
 .Stockcard-extend{
-    height: calc(100vh - 250px) !important;
+    height: calc(100vh - 262px) !important;
 }
 
 .tab2color{
@@ -809,7 +809,7 @@ border-radius: 25px;
     height: calc(100vh - 260px) !important;
 }
 .stock_companycard-extend{
-    height: calc(100vh - 260px) !important;
+ //   height: calc(100vh - 260px) !important;
 }
 // .ios .company-list-inner-div{
 //     // height: calc(100vh - 390px) !important;
@@ -1010,7 +1010,6 @@ border-radius: 25px;
 ::-webkit-scrollbar {
     display: none;
 }
-
 @media screen and (orientation:landscape) {
     .ios .stock_companycard-extend{
         height: 300px !important;
@@ -1052,7 +1051,7 @@ border-radius: 25px;
         width: 350px !important;
     }
     .company-list-inner-div{
-        height: 300px !important;
+        // height: 300px !important;
     }
     .company-card-content{
         height: 300px !important;
