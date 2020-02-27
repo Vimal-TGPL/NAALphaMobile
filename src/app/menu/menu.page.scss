@@ -4,7 +4,7 @@
 
 ion-content{
 
-    --ion-background-color:#2e4c99;
+    --ion-background-color:linear-gradient(-90deg,#2E4C99, #233771);;
 
 }
 
@@ -17,25 +17,31 @@ ion-content{
 }
 
 .avatar{
-    height: 40px;
-    width: 40px;
-    border-radius: 20px;
+    height: 80px;
+    width: 80px;
+    border-radius: 50%;
     background-color: #2e4c99;
-    padding: 8px;
+    padding: 20px;
+    border: 2px solid white;
 }
 
 .avatarDiv{
     display: flex;
     justify-content: center;
     align-items: center;
+    flex-direction: column;
+    margin: 30px 0 0 0;
+    
 }
 
 p{
     margin-block-start: 0em;
     margin-block-end: 0em;
-    color: #00AEEF;
+    color: white;
+    margin-top:5px;
 }
 
 .deatilsDiv{
 padding: 10px;
+text-align: center;
 }

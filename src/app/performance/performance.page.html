@@ -1,31 +1,33 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>performance</ion-title>
-  </ion-toolbar>
-</ion-header>
-
 <ion-content>
-  <ion-segment value="performance" scrollable mode="md">
-    <ion-segment-button value="All">
-      <ion-label>All</ion-label>
-    </ion-segment-button>
-    <ion-segment-button value="USA">
-      <ion-label>USA</ion-label>
-    </ion-segment-button>
-    <ion-segment-button value="Europe">
-        <ion-label>Europe</ion-label>
-      </ion-segment-button>
-      <ion-segment-button value="UK">
-          <ion-label>UK</ion-label>
-        </ion-segment-button>
-        <ion-segment-button value="Japan">
-            <ion-label>Japan</ion-label>
-          </ion-segment-button>
-          <ion-segment-button value="Dev. World">
-              <ion-label>Dev. World</ion-label>
-            </ion-segment-button>
-            <ion-segment-button value="Dev. World ex US">
-                <ion-label>Dev. world ex US</ion-label>
-              </ion-segment-button>
-  </ion-segment>
+  <div>
+    <div class="Section1">
+    <div style="display: flex; align-items: center;"><ion-icon name="arrow-back" mode="md" style=" margin-right: 10px; font-size: 20px;"></ion-icon>
+      <h1 class="PageTitle">H-Factor Indexes</h1>
+    </div>
+      <p class="PageSubTitle">Performance</p>
+    </div>
+    <div class="Section2">
+      <div class="InnerDiv">
+      <div [id]=replaceId(item) class="ItemDiv" *ngFor="let item of CountryClasificationList">
+        <ion-card class="ItemCard" [ngClass]="{ActiveItem: item == selectedCountry}" (click)="OnItemClick(item)">
+          <ion-card-content class="ItemCardContent">
+           <ion-text class="ItemTitleText">
+             <h1 class="ItemTitle">{{item}}</h1>
+           </ion-text>
+           <div *ngIf="item == selectedCountry && itemActive" style="margin:6px 0 0 0;">
+            <ion-label style="color: white;">Index</ion-label>
+            <ion-item style="--padding-start: 0px; border-radius: 8px;    margin-top: 6px;">
+              <ion-label style="display: none;">Index</ion-label>
+              <ion-select value="peperoni" multiple="false" placeholder="Select Index" style="max-width: 100%;
+              --padding-start: 10px;     min-width: 300px;">
+                <ion-select-option  text-wrap [value]=item.IndexName *ngFor="let item of filterIndex(item)">{{item.indexName.replace('New Age Alpha',' ')}}</ion-select-option>
+              </ion-select>
+            </ion-item>
+           </div>
+          </ion-card-content>
+        </ion-card>
+      </div>
+    </div>
+  </div>
+  </div>
 </ion-content>

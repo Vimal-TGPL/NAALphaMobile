@@ -1,0 +1,76 @@
+ion-content{
+    --background: #d3d8dc;
+}
+
+.Section1{
+    padding-left: 15px;
+}
+
+.PageTitle{
+    color: #2b468f;
+    margin-top: 10px; 
+    margin-bottom: 5px;
+}
+
+.PageSubTitle{
+    margin: 0px; 
+    color: #666; 
+    font-size: 17px;
+}
+
+.Section2{
+    padding: 10px 10px; 
+    overflow-x: auto;
+}
+
+.InnerDiv{
+    display: inline-flex; 
+    flex-direction: row;
+}
+
+.ItemDiv{
+    margin: 0 5px 0 5px;
+}
+
+.ItemCard{
+    background-color: #ffffff;
+    margin: 0px;
+    width: 130px;
+    height: 75px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.ItemCardContent{
+    padding: 10px;
+}
+
+.ItemTitle{
+    font-size: 18px;
+}
+
+.ItemTitleText{
+    color: #2b468f;
+}
+
+.ActiveItem{
+    background: linear-gradient(-90deg,#2E4C99, #233771);
+    width: 340px;
+    height: 150px;
+    transition: 0.3s;
+    display: block;
+}
+
+.ActiveItem ion-text{
+    color: #ffffff;
+}
+
+.ActiveItem h1{
+    padding: 10px 0 0 0;
+    font-size: 22px;
+}
+
+ion-select .select-text{
+    min-width: 275px;
+}

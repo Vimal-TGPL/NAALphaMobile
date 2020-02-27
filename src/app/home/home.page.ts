@@ -3,7 +3,7 @@ import { AuthenticationService } from '../services/authentication.service';
 import { Storage } from '@ionic/storage';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from '../../environments/environment';
-import { Platform, IonSlides } from '@ionic/angular';
+import { Platform, IonSlides, IonContent } from '@ionic/angular';
 import * as d3 from 'd3';
 import { IonicSelectableComponent } from 'ionic-selectable';
 import { ScreenOrientation } from '@ionic-native/screen-orientation/ngx';
@@ -17,8 +17,9 @@ import { AlertController } from '@ionic/angular';
 })
 
 export class HomePage implements OnInit, AfterViewInit {
-
+  @ViewChild(IonContent, {static:true}) content: IonContent;
   @ViewChild(IonSlides, { static: true }) slides: IonSlides;
+  
   globalSize:any = 100;
   globalselectorcomp:any = [];
   currenturl: string;
@@ -706,7 +707,15 @@ export class HomePage implements OnInit, AfterViewInit {
       document.getElementById('subIndex-circle').style.background = this.getColor(this.roundValue(this.getMed(this.globalselectorcomp) * 100));
       document.getElementById('subIndex-circle').style.color = this.ApplyTextColor(this.roundValue(this.getMed(this.globalselectorcomp) * 100));
       this.loadData();
-      this.scrollToSel();
+      setTimeout(()=>{
+        this.content.scrollToPoint(0,500);
+        console.log("done");
+      },100);
+  
+      //
+      
+      //this.scrollToSel();
+      
     }
     else if (key == "Index") {
       this.selSectorComp = this.selectedIndexData;
