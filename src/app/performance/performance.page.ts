@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import * as $ from "jquery";
 import 'slick-carousel/slick/slick';
+import { filter } from 'rxjs/operators';
 
 @Component({
   selector: 'app-performance',
@@ -15,6 +16,7 @@ export class PerformancePage implements OnInit {
   selectedCountry:any;
   PerformanceData:any = [];
   IndexData:any = [];
+  Index:any = [];
   CountryClasificationList:any = ['All','USA','Europe','UK','Japan','Dev. World','Dev. World ex US'];
   performanceAPIUrl = 'https://api.newagealpha.com/api/Indexes/GetIndexPerformance';
   APIUrl = 'https://api.newagealpha.com/api/Indexes/GetIndexDetails';
@@ -33,7 +35,12 @@ export class PerformancePage implements OnInit {
     this.httpClient.get(this.APIUrl).subscribe(data=>{
       this.IndexData = data
       console.log(this.IndexData);
-      console.log(this.selectedIndex);
+      var i = 0;
+      for(i=0; i<this.CountryClasificationList.length;i++){
+        this.Index.push(this.filterIndex(this.CountryClasificationList[i]));
+     }
+     console.log();
+      //console.log(this.selectedIndex);
     });
   }
 
@@ -42,7 +49,7 @@ export class PerformancePage implements OnInit {
   filterIndex(item){
     //CON
     var index = item;
-    console.log(item);
+    //console.log(item);
     var filterStr='U.S.';
     var ind = [];
     if(index == 'USA')
@@ -70,13 +77,20 @@ export class PerformancePage implements OnInit {
     }else if(index == 'All'){
       ind = this.IndexData;
     }
-    
+    //console.log(ind);
+   // this.selectedIndex = ind[0].indexName;
+   // this.selectedIndex = this.selectedIndex.replace('New Age Alpha ','');
+    //console.log(this.selectedIndex)
     return ind;
   }
 
   OnItemClick(item){
     this.itemActive = true;
     this.selectedCountry = item;
+    this.selectedIndex = this.Index[this.CountryClasificationList.indexOf(this.selectedCountry)][0].indexName.replace('New Age Alpha ','')
+   // this.selectedIndex = this.filterIndex(item)[0].IndexName;
+   // this.selectedIndex = this.selectedIndex.replace('New Age Alpha ','');
+    console.log(this.selectedIndex);
     //document.getElementById(this.replaceId(item)).scrollLeft;
     //$(this.replaceId(item)).scrollTo(100);
   }

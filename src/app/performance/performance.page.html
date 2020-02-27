@@ -18,9 +18,9 @@
             <ion-label style="color: white;">Index</ion-label>
             <ion-item style="--padding-start: 0px; border-radius: 8px;    margin-top: 6px;">
               <ion-label style="display: none;">Index</ion-label>
-              <ion-select value="peperoni" multiple="false" placeholder="Select Index" style="max-width: 100%;
-              --padding-start: 10px;     min-width: 300px;">
-                <ion-select-option  text-wrap [value]=item.IndexName *ngFor="let item of filterIndex(item)">{{item.indexName.replace('New Age Alpha',' ')}}</ion-select-option>
+              <ion-select [(ngModel)]="selectedIndex" placeholder="Select Index" style="max-width: 100%;
+              --padding-start: 10px; min-width: 300px;">
+                <ion-select-option  text-wrap [value]=item.IndexName *ngFor="let item of Index[CountryClasificationList.indexOf(item)]">{{item.indexName.replace('New Age Alpha ','')}}</ion-select-option>
               </ion-select>
             </ion-item>
            </div>
