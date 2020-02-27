@@ -10,12 +10,13 @@ ion-content{
     color: #2b468f;
     margin-top: 10px; 
     margin-bottom: 5px;
+    font-size: 20px;
 }
 
 .PageSubTitle{
     margin: 0px; 
     color: #666; 
-    font-size: 17px;
+    font-size: 15px;
 }
 
 .Section2{
@@ -40,6 +41,7 @@ ion-content{
     display: flex;
     justify-content: center;
     align-items: center;
+    box-shadow: none;
 }
 
 .ItemCardContent{
@@ -73,4 +75,28 @@ ion-content{
 
 ion-select .select-text{
     min-width: 275px;
+}
+
+.dataCard{
+    background-color: white; 
+    height: calc(100vh - 200px);
+    margin-top: 15px;
+}
+
+.ActiveCard{
+    height: calc(100vh - 275px);
+}
+
+.loader{
+    position: fixed;
+    z-index: 999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    background-color: rgba(255, 255, 255, 0.85);
 }

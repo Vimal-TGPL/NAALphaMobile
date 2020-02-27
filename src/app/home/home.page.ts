@@ -640,6 +640,7 @@ export class HomePage implements OnInit, AfterViewInit {
     setTimeout(() => {
       this.loadData();
     }, 50);
+    console.log(this.selSectorComp);
   }
   /***************On Company Selected from Search Result End *****************/
 
@@ -740,6 +741,7 @@ export class HomePage implements OnInit, AfterViewInit {
         this.fullSectorComp = this.fullSectorComp.filter(item => item.indexName.indexOf("New Age Alpha") != -1);
       }
       this.selSectorComp = this.fullSectorComp.filter(item => item.indexName == this.SelSearchObj.indexName);
+      this.selSectorComp = this.selSectorComp.filter(item => item.companyName != null);
       this.selSectorComp.sort((a, b) => {
         return a.scores - b.scores;
       })
@@ -756,6 +758,7 @@ export class HomePage implements OnInit, AfterViewInit {
 
   /*************** Company Replace for ID Start *****************/
   getIDReplace(id) {
+    //console.log(id);
     return id.replace(/ /g, '-');
   }
   /*************** Company Replace for ID End *****************/

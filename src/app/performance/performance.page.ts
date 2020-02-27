@@ -11,6 +11,8 @@ import { filter } from 'rxjs/operators';
 })
 export class PerformancePage implements OnInit {
 
+  selectedIndexData:any = [];
+  selectedIndexName:any;
   selectedIndex:any;
   itemActive:boolean = false;
   selectedCountry:any;
@@ -31,7 +33,7 @@ export class PerformancePage implements OnInit {
     this.httpClient.get(this.performanceAPIUrl).subscribe(data=>{
       this.PerformanceData = data
       console.log(this.PerformanceData);
-    });
+    
     this.httpClient.get(this.APIUrl).subscribe(data=>{
       this.IndexData = data
       console.log(this.IndexData);
@@ -41,7 +43,10 @@ export class PerformancePage implements OnInit {
      }
      console.log();
       //console.log(this.selectedIndex);
+      this.OnItemClick('USA');
+      document.getElementById('Loader').style.display='none';
     });
+  });
   }
 
 
@@ -87,10 +92,14 @@ export class PerformancePage implements OnInit {
   OnItemClick(item){
     this.itemActive = true;
     this.selectedCountry = item;
-    this.selectedIndex = this.Index[this.CountryClasificationList.indexOf(this.selectedCountry)][0].indexName.replace('New Age Alpha ','')
+    this.selectedIndex = this.Index[this.CountryClasificationList.indexOf(this.selectedCountry)][0];
+    this.selectedIndexName = this.Index[this.CountryClasificationList.indexOf(this.selectedCountry)][0].indexName.replace('New Age Alpha ','')
    // this.selectedIndex = this.filterIndex(item)[0].IndexName;
    // this.selectedIndex = this.selectedIndex.replace('New Age Alpha ','');
-    console.log(this.selectedIndex);
+    var inddata = this.PerformanceData.filter(data => data.indexName == this.selectedIndex.indexName);
+    this.selectedIndexData = inddata[0];
+    console.log(this.selectedIndexData);
+    //console.log(this.selectedIndex);
     //document.getElementById(this.replaceId(item)).scrollLeft;
     //$(this.replaceId(item)).scrollTo(100);
   }
@@ -98,6 +107,16 @@ export class PerformancePage implements OnInit {
   replaceId(item){
     var itm = item.replace(/ /g,'-');
     return itm;
+  }
+
+  onIndexChange(event){
+    console.log(event.target.value);
+    var d =this.IndexData.filter(data=> data.indexName.indexOf(event.target.value) != -1);
+    this.selectedIndex = d[0];
+    var inddata = this.PerformanceData.filter(data => data.indexName == this.selectedIndex.indexName);
+    this.selectedIndexData = inddata[0];
+    console.log(this.selectedIndexData);
+    //console.log(d);
   }
 
 }

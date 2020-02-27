@@ -16,9 +16,9 @@
            </ion-text>
            <div *ngIf="item == selectedCountry && itemActive" style="margin:6px 0 0 0;">
             <ion-label style="color: white;">Index</ion-label>
-            <ion-item style="--padding-start: 0px; border-radius: 8px;    margin-top: 6px;">
+            <ion-item style="--padding-start: 0px; border-radius: 8px; margin-top: 6px;">
               <ion-label style="display: none;">Index</ion-label>
-              <ion-select [(ngModel)]="selectedIndex" placeholder="Select Index" style="max-width: 100%;
+              <ion-select [(ngModel)]="selectedIndexName" interface="action-sheet" (ionChange)=onIndexChange($event); placeholder="Select Index" style="max-width: 100%;
               --padding-start: 10px; min-width: 300px;">
                 <ion-select-option  text-wrap [value]=item.IndexName *ngFor="let item of Index[CountryClasificationList.indexOf(item)]">{{item.indexName.replace('New Age Alpha ','')}}</ion-select-option>
               </ion-select>
@@ -29,5 +29,26 @@
       </div>
     </div>
   </div>
+  <div *ngIf="selectedIndex" style="padding: 0 15px;">
+    <h1 style="    margin: 0px;
+    color: #666;
+    font-size: 12px;
+    font-weight: bold;">
+      {{selectedIndex.indexName}}
+    </h1>
+    <p style="font-size: 11px; text-align: justify; color: #666;">{{selectedIndexData.description}}</p>
+  </div>
+  <div>
+      <div>
+          <ion-card class="dataCard" [ngClass]="{ActiveCard: itemActive}">
+            <ion-card-content style="padding: 5px;">
+              Awesome content
+            </ion-card-content>
+          </ion-card>
+        </div>
+  </div>
+  </div>
+  <div id="Loader" class='loader'>
+    <img src="../../assets/images/NAA.gif" alt="Loader" height="50">
   </div>
 </ion-content>
