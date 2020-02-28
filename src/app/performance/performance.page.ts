@@ -11,7 +11,7 @@ import { filter } from 'rxjs/operators';
 })
 export class PerformancePage implements OnInit {
 
-  selectedIndexData:any = [];
+  selectedIndexData:any;
   selectedIndexName:any;
   selectedIndex:any;
   itemActive:boolean = false;
@@ -26,7 +26,6 @@ export class PerformancePage implements OnInit {
 
   ngOnInit() {
     this.loadData();
-    
   }
 
   loadData(){
@@ -43,7 +42,7 @@ export class PerformancePage implements OnInit {
      }
      console.log();
       //console.log(this.selectedIndex);
-      this.OnItemClick('USA');
+      this.OnItemClick('All');
       document.getElementById('Loader').style.display='none';
     });
   });
@@ -92,16 +91,22 @@ export class PerformancePage implements OnInit {
   OnItemClick(item){
     this.itemActive = true;
     this.selectedCountry = item;
-    this.selectedIndex = this.Index[this.CountryClasificationList.indexOf(this.selectedCountry)][0];
-    this.selectedIndexName = this.Index[this.CountryClasificationList.indexOf(this.selectedCountry)][0].indexName.replace('New Age Alpha ','')
-   // this.selectedIndex = this.filterIndex(item)[0].IndexName;
-   // this.selectedIndex = this.selectedIndex.replace('New Age Alpha ','');
-    var inddata = this.PerformanceData.filter(data => data.indexName == this.selectedIndex.indexName);
-    this.selectedIndexData = inddata[0];
-    console.log(this.selectedIndexData);
-    //console.log(this.selectedIndex);
-    //document.getElementById(this.replaceId(item)).scrollLeft;
-    //$(this.replaceId(item)).scrollTo(100);
+    
+    setTimeout(()=>{
+      document.getElementById('BottomCardDiv').style.display="block";
+      setTimeout(()=>{
+        document.getElementById('BottomCardDiv').style.opacity="1";
+        setTimeout(()=>{
+          document.getElementById('parentdiv').style.paddingTop="48px";
+          document.getElementById('header').style.display='none';
+        },100);
+      },100);
+    },500);
+  }
+
+  onIndexItemClick(){
+    document.getElementById('BottomCardDiv').style.display="none";
+    document.getElementById('BottomCardDiv').style.transition=".2s";
   }
 
   replaceId(item){
@@ -110,13 +115,50 @@ export class PerformancePage implements OnInit {
   }
 
   onIndexChange(event){
+    this.selectedIndex = this.Index[this.CountryClasificationList.indexOf(this.selectedCountry)][0];
+    this.selectedIndexName = this.Index[this.CountryClasificationList.indexOf(this.selectedCountry)][0].indexName.replace('New Age Alpha ','')
+   // this.selectedIndex = this.filterIndex(item)[0].IndexName;
+   // this.selectedIndex = this.selectedIndex.replace('New Age Alpha ','');
+    var inddata = this.PerformanceData.filter(data => data.indexName == this.selectedIndex.indexName);
+    this.selectedIndexData = inddata[0];
+    console.log(this.selectedIndexData);
     console.log(event.target.value);
     var d =this.IndexData.filter(data=> data.indexName.indexOf(event.target.value) != -1);
     this.selectedIndex = d[0];
     var inddata = this.PerformanceData.filter(data => data.indexName == this.selectedIndex.indexName);
     this.selectedIndexData = inddata[0];
     console.log(this.selectedIndexData);
+    this.onCancelClick();
     //console.log(d);
   }
 
+  onCancelClick(){
+    
+    // setTimeout(()=>{
+    //   document.getElementById('BottomCardDiv').style.opacity="0";
+    //   setTimeout(()=>{
+    //     setTimeout(()=>{
+    //       document.getElementById('BottomCardDiv').style.display="none";
+    //     },100);
+    //     document.getElementById('header').style.display='block';
+    //    },200);
+    // },500);
+     
+    setTimeout(()=>{
+      document.getElementById('BottomCardDiv').style.opacity="0";
+      setTimeout(()=>{
+        
+        document.getElementById('BottomCardDiv').style.display="none";
+        // setTimeout(()=>{
+         
+        // },100);
+      },700);
+      setTimeout(()=>{
+        document.getElementById('parentdiv').style.paddingTop="0px";
+        document.getElementById('header').style.display='block';
+      },500);
+    },100);
+    
+    
+  }
 }

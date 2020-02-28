@@ -3,7 +3,9 @@ ion-content{
 }
 
 .Section1{
-    padding-left: 15px;
+    padding: 0 15px;
+    display: flex;
+    justify-content: space-between;
 }
 
 .PageTitle{
@@ -17,6 +19,10 @@ ion-content{
     margin: 0px; 
     color: #666; 
     font-size: 15px;
+}
+
+.p-font{
+    font-size: 12px;
 }
 
 .Section2{
@@ -46,6 +52,11 @@ ion-content{
 
 .ItemCardContent{
     padding: 10px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
 }
 
 .ItemTitle{
@@ -59,9 +70,9 @@ ion-content{
 .ActiveItem{
     background: linear-gradient(-90deg,#2E4C99, #233771);
     width: 340px;
-    height: 150px;
+    // height: 150px;
     transition: 0.3s;
-    display: block;
+    display: flex;
 }
 
 .ActiveItem ion-text{
@@ -69,7 +80,7 @@ ion-content{
 }
 
 .ActiveItem h1{
-    padding: 10px 0 0 0;
+    //padding: 10px 0 0 0;
     font-size: 22px;
 }
 
@@ -89,7 +100,7 @@ ion-select .select-text{
 
 .loader{
     position: fixed;
-    z-index: 999;
+    z-index: 9999;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -99,4 +110,51 @@ ion-select .select-text{
     left: 0;
     bottom: 0;
     background-color: rgba(255, 255, 255, 0.85);
+}
+
+.blink_me {
+    animation: blinker 1s linear infinite;
+  }
+  
+  @keyframes blinker {  
+    50% { opacity: 0; }
+  }
+
+// :host{
+//     background: #d3d8dc;
+// }
+
+// ion-app{
+//     background: #d3d8dc;
+// }
+ion-toolbar{
+    --background: #d3d8dc;
+    --border-width: 0px !important;
+    --padding-top: 0px;
+    --padding-bottom: 0px;
+}
+
+.bottomcard-Div{
+    position: absolute; 
+    z-index: 9999; 
+    top: 0; 
+    width: 100%; 
+    height: 100%; 
+    background: linear-gradient(-90deg, #2E4C99, #233771);
+    display: none;
+    opacity: 0;
+    transition: 1s;
+}
+
+.BottomCard{
+    margin: 0px;
+    bottom: 0;
+    background: white;
+    border-radius: 30px 30px 0 0;
+    position: absolute;
+    /* top: 100px; */
+    overflow: auto;
+    transition: .5s;
+    //max-height: 550px;
+    max-height: 400px;
 }

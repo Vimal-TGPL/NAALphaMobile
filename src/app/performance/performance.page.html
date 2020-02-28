@@ -1,10 +1,19 @@
+<ion-header id='header'>
+  <ion-toolbar>
+      <ion-buttons slot="start">
+          <ion-back-button mode='md'></ion-back-button>
+      </ion-buttons>
+    <ion-title style="    text-align: left;
+    padding: 0px 45px;
+    font-size: 18px;
+    color: #2b468f;">H-Factor Indexes</ion-title>
+  </ion-toolbar>
+</ion-header>
 <ion-content>
-  <div>
+  <div id="parentdiv">
     <div class="Section1">
-    <div style="display: flex; align-items: center;"><ion-icon name="arrow-back" mode="md" style=" margin-right: 10px; font-size: 20px;"></ion-icon>
-      <h1 class="PageTitle">H-Factor Indexes</h1>
-    </div>
       <p class="PageSubTitle">Performance</p>
+      <p *ngIf="selectedIndexData" class="PageSubTitle p-font">As of: {{selectedIndexData.date}}</p>
     </div>
     <div class="Section2">
       <div class="InnerDiv">
@@ -14,15 +23,16 @@
            <ion-text class="ItemTitleText">
              <h1 class="ItemTitle">{{item}}</h1>
            </ion-text>
-           <div *ngIf="item == selectedCountry && itemActive" style="margin:6px 0 0 0;">
-            <ion-label style="color: white;">Index</ion-label>
-            <ion-item style="--padding-start: 0px; border-radius: 8px; margin-top: 6px;">
+           <div *ngIf="item == selectedCountry && itemActive" style="display: flex;">
+            <ion-label style="color: white; padding-right: 5px;">Index</ion-label>
+            <img src="../../assets/images/chevron-forward-sharp.svg" alt="forword" style="width: 20px;" class="blink_me"> 
+            <!-- <ion-item style="--padding-start: 0px; border-radius: 8px; margin-top: 6px;">
               <ion-label style="display: none;">Index</ion-label>
               <ion-select [(ngModel)]="selectedIndexName" interface="action-sheet" (ionChange)=onIndexChange($event); placeholder="Select Index" style="max-width: 100%;
               --padding-start: 10px; min-width: 300px;">
                 <ion-select-option  text-wrap [value]=item.IndexName *ngFor="let item of Index[CountryClasificationList.indexOf(item)]">{{item.indexName.replace('New Age Alpha ','')}}</ion-select-option>
               </ion-select>
-            </ion-item>
+            </ion-item> -->
            </div>
           </ion-card-content>
         </ion-card>
@@ -30,15 +40,15 @@
     </div>
   </div>
   <div *ngIf="selectedIndex" style="padding: 0 15px;">
-    <h1 style="    margin: 0px;
+    <h1 style="margin: 0px;
     color: #666;
-    font-size: 12px;
+    font-size: 14px;
     font-weight: bold;">
       {{selectedIndex.indexName}}
     </h1>
-    <p style="font-size: 11px; text-align: justify; color: #666;">{{selectedIndexData.description}}</p>
+    <p style="font-size: 12px; text-align: justify; color: #666; line-height: 1.4;">{{selectedIndexData.description}}</p>
   </div>
-  <div>
+  <!-- <div>
       <div>
           <ion-card class="dataCard" [ngClass]="{ActiveCard: itemActive}">
             <ion-card-content style="padding: 5px;">
@@ -46,9 +56,40 @@
             </ion-card-content>
           </ion-card>
         </div>
+  </div> -->
   </div>
+  <div id='BottomCardDiv' class="bottomcard-Div">
+    <div>
+      <div style="text-align: right; margin: 10px 0px 0 0;">
+        <ion-button style="color: white; font-size: 15px;" (click)="onCancelClick()" size='small' fill="clear" shape="round">
+          Cancel
+        </ion-button>
+      </div>
+      <div style="padding: 25px 15px;">
+        <div>
+          <h1 style="color: white; font-weight: bold; font-size: 30px;">{{selectedCountry}}</h1>
+        </div>
+        <div>
+          <p style="color: white; font-size: 16px;">Please select the Index</p>
+        </div>
+      </div>
+    </div>
+    <ion-card class="BottomCard">
+      <ion-card-content>
+          <ion-list>
+              <ion-radio-group value="New Age Alpha Developed World Ex-US Low Volatility Index" (ionChange)='onIndexChange($event)'>
+                <ion-item lines='none' *ngFor="let item of Index[CountryClasificationList.indexOf(selectedCountry)]">
+                  <ion-label style="white-space: normal;">{{item.indexName}}</ion-label>
+                  <ion-radio slot="start" mode="md" [value]="item.indexName"></ion-radio>
+                </ion-item>
+              </ion-radio-group>
+            </ion-list>
+      </ion-card-content>
+    </ion-card>
   </div>
   <div id="Loader" class='loader'>
     <img src="../../assets/images/NAA.gif" alt="Loader" height="50">
   </div>
+
+
 </ion-content>
