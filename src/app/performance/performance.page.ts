@@ -186,8 +186,6 @@ export class PerformancePage implements OnInit, AfterViewInit {
   }
 
   async animateSequenceStart(){
-    console.log("animation started",document.getElementById('value'));
-    
     const valueRef = createAnimation()
     .addElement(document.getElementById('value'))
     .duration(100)
@@ -199,13 +197,132 @@ export class PerformancePage implements OnInit, AfterViewInit {
     .duration(100)
     .fromTo('transform','translateX(-50px)','translateX(0px)');
 
+    const ytdReturn = createAnimation()
+    .addElement(document.getElementById('ytdReturn'))
+    .duration(100)
+    .fromTo('transform','translateX(-50px)','translateX(0px)');
+
+    const y1Return = createAnimation()
+    .addElement(document.getElementById('y1Return'))
+    .duration(100)
+    .fromTo('transform','translateX(-50px)','translateX(0px)');
+
+    const y3Return = createAnimation()
+    .addElement(document.getElementById('y3Return'))
+    .duration(100)
+    .fromTo('transform','translateX(-50px)','translateX(0px)');
+
+    const y5Return = createAnimation()
+    .addElement(document.getElementById('y5Return'))
+    .duration(100)
+    .fromTo('transform','translateX(-50px)','translateX(0px)');
+
+    const y10Return = createAnimation()
+    .addElement(document.getElementById('y10Return'))
+    .duration(100)
+    .fromTo('transform','translateX(-50px)','translateX(0px)');
+
+    const cumReturns = createAnimation()
+    .addElement(document.getElementById('cumReturns'))
+    .duration(100)
+    .fromTo('transform','translateX(-50px)','translateX(0px)');
+
+    const annReturns = createAnimation()
+    .addElement(document.getElementById('annReturns'))
+    .duration(100)
+    .fromTo('transform','translateX(-50px)','translateX(0px)');
+   
+    const year1 = createAnimation()
+    .addElement(document.getElementById('year1'))
+    .duration(100)
+    .fromTo('transform','translateX(-50px)','translateX(0px)');
+
+    const year2 = createAnimation()
+    .addElement(document.getElementById('year2'))
+    .duration(100)
+    .fromTo('transform','translateX(-50px)','translateX(0px)');
+
+    const year3 = createAnimation()
+    .addElement(document.getElementById('year4'))
+    .duration(100)
+    .fromTo('transform','translateX(-50px)','translateX(0px)');
+
+    const year4 = createAnimation()
+    .addElement(document.getElementById('year4'))
+    .duration(100)
+    .fromTo('transform','translateX(-50px)','translateX(0px)');
+
+    const year5 = createAnimation()
+    .addElement(document.getElementById('year5'))
+    .duration(100)
+    .fromTo('transform','translateX(-50px)','translateX(0px)');
+
+    const year6 = createAnimation()
+    .addElement(document.getElementById('year6'))
+    .duration(100)
+    .fromTo('transform','translateX(-50px)','translateX(0px)');
+
+    const year7 = createAnimation()
+    .addElement(document.getElementById('year7'))
+    .duration(100)
+    .fromTo('transform','translateX(-50px)','translateX(0px)');
+
+    const year8 = createAnimation()
+    .addElement(document.getElementById('year8'))
+    .duration(100)
+    .fromTo('transform','translateX(-50px)','translateX(0px)');
+
+    const year9 = createAnimation()
+    .addElement(document.getElementById('year9'))
+    .duration(100)
+    .fromTo('transform','translateX(-50px)','translateX(0px)');
+
+    const year10 = createAnimation()
+    .addElement(document.getElementById('year10'))
+    .duration(100)
+    .fromTo('transform','translateX(-50px)','translateX(0px)');
+
     document.getElementById('value').style.display = 'block';
     await valueRef.play();
     document.getElementById('dailyReturn').style.display = 'block';
     await dailyReturnRef.play();
+    document.getElementById('ytdReturn').style.display = 'block';
+    await ytdReturn.play();
+    document.getElementById('y1Return').style.display = 'block';
+    await y1Return.play();
+    document.getElementById('y3Return').style.display = 'block';
+    await y3Return.play();
+    document.getElementById('y5Return').style.display = 'block';
+    await y5Return.play();
+    document.getElementById('y10Return').style.display = 'block';
+    await y10Return.play();
+    document.getElementById('cumReturns').style.display = 'block';
+    await cumReturns.play();
+    document.getElementById('annReturns').style.display = 'block';
+    await annReturns.play();
+    document.getElementById('year1').style.display = 'block';
+    await year1.play();
+    document.getElementById('year2').style.display = 'block';
+    await year2.play();
+    document.getElementById('year3').style.display = 'block';
+    await year3.play();
+    document.getElementById('year4').style.display = 'block';
+    await year4.play();
+    document.getElementById('year5').style.display = 'block';
+    await year5.play();
+    document.getElementById('year6').style.display = 'block';
+    await year6.play();
+    document.getElementById('year7').style.display = 'block';
+    await year7.play();
+    document.getElementById('year8').style.display = 'block';
+    await year8.play();
+    document.getElementById('year9').style.display = 'block';
+    await year9.play();
+    document.getElementById('year10').style.display = 'block';
+    await year10.play();
   }
 
   displayNone(){
-    
+
   }
 }
