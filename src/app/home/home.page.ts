@@ -174,9 +174,11 @@ export class HomePage implements OnInit, AfterViewInit {
   /*************** Data Population Start *****************/
   createData() {
     this.httpclient.get(this.api_url + "/Industry/GetIndustry").subscribe((res: any[]) => {
+      //console.log(res);
       this.dbGICS = res;
     });
     this.httpclient.get(this.api_url + "/Scores/GetNAAIndexScoresCurrent/GLOBAL").subscribe((res: any[]) => {
+      res = res.filter(item=> item.companyName != null);
       this.data = res;
       this.searchList = this.data.filter(item => item.companyName != null);
       this.searchList = this.searchList.filter(item => item.indexName.indexOf("New Age Alpha") == -1);
@@ -640,7 +642,7 @@ export class HomePage implements OnInit, AfterViewInit {
     setTimeout(() => {
       this.loadData();
     }, 50);
-    console.log(this.selSectorComp);
+    //console.log(this.selSectorComp);
   }
   /***************On Company Selected from Search Result End *****************/
 
@@ -708,15 +710,16 @@ export class HomePage implements OnInit, AfterViewInit {
       document.getElementById('subIndex-circle').style.background = this.getColor(this.roundValue(this.getMed(this.globalselectorcomp) * 100));
       document.getElementById('subIndex-circle').style.color = this.ApplyTextColor(this.roundValue(this.getMed(this.globalselectorcomp) * 100));
       this.loadData();
-      setTimeout(()=>{
-        this.content.scrollToPoint(0,500);
-        console.log("done");
-      },100);
-  
-      //
+      // setTimeout(()=>{
+      //   this.content.scrollToPoint(0,500);
+      //   console.log("done");
+      // },100);
       
-      //this.scrollToSel();
-      
+      this.scrollToSel();
+      // setTimeout(()=>{
+      //   console.log(document.getElementById('sectorscrollDiv'));
+      //   document.getElementById('sectorscrollDiv').scrollTo(0,1500);
+      // },500); 
     }
     else if (key == "Index") {
       this.selSectorComp = this.selectedIndexData;
@@ -751,6 +754,12 @@ export class HomePage implements OnInit, AfterViewInit {
       document.getElementById('subIndex-circle').style.background = this.getColor(this.roundValue(this.getMed(this.selSectorComp) * 100));
       document.getElementById('subIndex-circle').style.color = this.ApplyTextColor(this.roundValue(this.getMed(this.selSectorComp) * 100));
       this.loadData();
+      // setTimeout(()=>{
+      //   console.log(document.getElementById('sectorscrollDiv'));
+      //   document.getElementById('sectorscrollDiv').scrollTo(0,1500);
+      // },500); 
+      
+      
       this.scrollToSel();
     }
   }

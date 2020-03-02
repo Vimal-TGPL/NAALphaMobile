@@ -180,7 +180,7 @@
                 <ion-card-content style=" padding: 0px;" *ngIf="selSectorComp!=''">
                   
                   
-                    <ion-content [scrollEvents]="true" id="innerContent" style="overflow: auto; --background:white; position: fixed;">
+                    <ion-content  forceOverscroll="true" id="innerContent" style="--overflow: hidden; --background:white; position: fixed;" [ngClass]="{foceScrollOverflow: SelSecLevTitle=='Global'}">
                       <div scrollY="true" id="sectorscrollDiv" class="company-list-inner-div"
                     [ngClass]="{'stock_companycard-extend': stockCollapse}">
                     <ion-list class="company-list">

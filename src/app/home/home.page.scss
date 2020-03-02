@@ -478,7 +478,14 @@ border-radius: 25px;
 
 .company-list-inner-div{
     // height: calc(100vh - 410px);
-    overflow: auto;
+    // overflow: auto;
+    overflow: scroll;
+    height: 100%;
+
+}
+
+.foceScrollOverflow{
+    --overflow:auto !important;
 }
 
 .company-list{
