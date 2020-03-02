@@ -1,4 +1,4 @@
-<ion-header id='header'>
+<ion-header id='header' style="z-index: 99;">
   <ion-toolbar>
       <ion-buttons slot="start">
           <ion-back-button mode='md'></ion-back-button>
@@ -8,6 +8,9 @@
     font-size: 18px;
     color: #2b468f;">H-Factor Indexes</ion-title>
   </ion-toolbar>
+  <div id="Loader" class='loader'>
+      <img src="../../assets/images/NAA.gif" alt="Loader" height="50">
+    </div>
 </ion-header>
 <ion-content>
   <div id="parentdiv">
@@ -89,9 +92,5 @@
       </ion-card-content>
     </ion-card>
   </div>
-  <div id="Loader" class='loader'>
-    <img src="../../assets/images/NAA.gif" alt="Loader" height="50">
-  </div>
-
-
+  
 </ion-content>
