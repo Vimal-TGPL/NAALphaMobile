@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import * as $ from "jquery";
 import 'slick-carousel/slick/slick';
 import { filter } from 'rxjs/operators';
+import { createAnimation } from '@ionic/core';
 
 @Component({
   selector: 'app-performance',
@@ -55,7 +56,7 @@ export class PerformancePage implements OnInit, AfterViewInit {
      }
      console.log();
       //console.log(this.selectedIndex);
-      this.OnItemClick('All');
+      this.OnItemClick('USA');
       document.getElementById('Loader').style.display='none';
     });
   });
@@ -142,6 +143,10 @@ export class PerformancePage implements OnInit, AfterViewInit {
     this.selectedIndexData = inddata[0];
     console.log(this.selectedIndexData);
     this.onCancelClick();
+    setTimeout(()=>{
+      this.animateSequenceStart();
+    },300);
+    
     //console.log(d);
   }
 
@@ -175,5 +180,32 @@ export class PerformancePage implements OnInit, AfterViewInit {
     
   }
 
-  
+  roundValue(val){
+    var v = Math.round(val*100)/100;
+    return v;
+  }
+
+  async animateSequenceStart(){
+    console.log("animation started",document.getElementById('value'));
+    
+    const valueRef = createAnimation()
+    .addElement(document.getElementById('value'))
+    .duration(100)
+    .fromTo('transform','translateX(-50px)','translateX(0px)');
+
+    
+    const dailyReturnRef = createAnimation()
+    .addElement(document.getElementById('dailyReturn'))
+    .duration(100)
+    .fromTo('transform','translateX(-50px)','translateX(0px)');
+
+    document.getElementById('value').style.display = 'block';
+    await valueRef.play();
+    document.getElementById('dailyReturn').style.display = 'block';
+    await dailyReturnRef.play();
+  }
+
+  displayNone(){
+    
+  }
 }

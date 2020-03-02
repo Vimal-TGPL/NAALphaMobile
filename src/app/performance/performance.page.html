@@ -42,6 +42,7 @@
       </div>
     </div>
   </div>
+  
   <div *ngIf="selectedIndex" style="padding: 0 15px;">
     <h1 style="margin: 0px;
     color: #666;
@@ -49,17 +50,167 @@
     font-weight: bold;">
       {{selectedIndex.indexName}}
     </h1>
-    <p style="font-size: 12px; text-align: justify; color: #666; line-height: 1.4;">{{selectedIndexData.description}}</p>
+    <p style="font-size: 12px; text-align: justify; color: #666; line-height: 1.4; white-space: normal; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;">{{selectedIndexData.description}}</p>
   </div>
-  <!-- <div>
-      <div>
-          <ion-card class="dataCard" [ngClass]="{ActiveCard: itemActive}">
-            <ion-card-content style="padding: 5px;">
-              Awesome content
-            </ion-card-content>
-          </ion-card>
-        </div>
-  </div> -->
+  
+  <div *ngIf="selectedIndexData" style="
+  padding: 5px 0px 5px 0px;">
+    <div style="overflow: auto;
+    height: calc(100vh - 249px);">
+      <ion-card id="value" class="itemRowCard" (click)="animateSequenceStart()">
+        <ion-card-content class="itemRowCardContent">
+          <ion-text class="itemRowText">
+            <p>Value</p>
+            <p>{{roundValue(selectedIndexData.value)}}%</p>
+          </ion-text>
+        </ion-card-content>
+      </ion-card>
+      <ion-card id="dailyReturn" class="itemRowCard">
+          <ion-card-content class="itemRowCardContent">
+            <ion-text class="itemRowText">
+              <p>Daily</p>
+              <p>{{roundValue(selectedIndexData.dailyReturn*100)}}%</p>
+            </ion-text>
+          </ion-card-content>
+      </ion-card>
+      <ion-card id="ytdReturn" class="itemRowCard">
+          <ion-card-content class="itemRowCardContent">
+            <ion-text class="itemRowText">
+              <p>YTD</p>
+              <p>{{roundValue(selectedIndexData.ytdReturn*100)}}%</p>
+            </ion-text>
+          </ion-card-content>
+      </ion-card>
+      <ion-card id="y1Return" class="itemRowCard">
+          <ion-card-content class="itemRowCardContent">
+            <ion-text class="itemRowText">
+              <p>1 Year</p>
+              <p>{{roundValue(selectedIndexData.y1Return*100)}}%</p>
+            </ion-text>
+          </ion-card-content>
+      </ion-card>
+      <ion-card id="y3Return" class="itemRowCard">
+          <ion-card-content class="itemRowCardContent">
+            <ion-text class="itemRowText">
+              <p>3 Year*</p>
+              <p>{{roundValue(selectedIndexData.y3Return*100)}}%</p>
+            </ion-text>
+          </ion-card-content>
+      </ion-card>
+      <ion-card id="y5Return" class="itemRowCard">
+          <ion-card-content class="itemRowCardContent">
+            <ion-text class="itemRowText">
+              <p>5 Year*</p>
+              <p>{{roundValue(selectedIndexData.y5Return*100)}}%</p>
+            </ion-text>
+          </ion-card-content>
+      </ion-card>
+      <ion-card id="y10Return" class="itemRowCard">
+          <ion-card-content class="itemRowCardContent">
+            <ion-text class="itemRowText">
+              <p>10 Year*</p>
+              <p>{{roundValue(selectedIndexData.y10Return*100)}}%</p>
+            </ion-text>
+          </ion-card-content>
+      </ion-card>
+      <ion-card id="cumReturns" class="itemRowCard">
+          <ion-card-content class="itemRowCardContent">
+            <ion-text class="itemRowText">
+              <p>Cumulative Inception</p>
+              <p>{{roundValue(selectedIndexData.cumReturns*100)}}%</p>
+            </ion-text>
+          </ion-card-content>
+      </ion-card>
+      <ion-card id="annReturns" class="itemRowCard">
+          <ion-card-content class="itemRowCardContent">
+            <ion-text class="itemRowText">
+              <p>Annualized Inception</p>
+              <p>{{roundValue(selectedIndexData.annReturns*100)}}%</p>
+            </ion-text>
+          </ion-card-content>
+      </ion-card>
+      <ion-card id="year1" class="itemRowCard">
+          <ion-card-content class="itemRowCardContent">
+            <ion-text class="itemRowText">
+              <p>2019</p>
+              <p>{{roundValue(selectedIndexData.year1*100)}}%</p>
+            </ion-text>
+          </ion-card-content>
+      </ion-card>
+      <ion-card id="year2" class="itemRowCard">
+          <ion-card-content class="itemRowCardContent">
+            <ion-text class="itemRowText">
+              <p>2018</p>
+              <p>{{roundValue(selectedIndexData.year2*100)}}%</p>
+            </ion-text>
+          </ion-card-content>
+      </ion-card>
+      <ion-card id="year3" class="itemRowCard">
+          <ion-card-content class="itemRowCardContent">
+            <ion-text class="itemRowText">
+              <p>2017</p>
+              <p>{{roundValue(selectedIndexData.year3*100)}}%</p>
+            </ion-text>
+          </ion-card-content>
+      </ion-card>
+      <ion-card id="year4" class="itemRowCard">
+          <ion-card-content class="itemRowCardContent">
+            <ion-text class="itemRowText">
+              <p>2016</p>
+              <p>{{roundValue(selectedIndexData.year4*100)}}%</p>
+            </ion-text>
+          </ion-card-content>
+      </ion-card>
+      <ion-card id="year5" class="itemRowCard">
+          <ion-card-content class="itemRowCardContent">
+            <ion-text class="itemRowText">
+              <p>2015</p>
+              <p>{{roundValue(selectedIndexData.year5*100)}}%</p>
+            </ion-text>
+          </ion-card-content>
+      </ion-card>
+      <ion-card id="year6" class="itemRowCard">
+          <ion-card-content class="itemRowCardContent">
+            <ion-text class="itemRowText">
+              <p>2014</p>
+              <p>{{roundValue(selectedIndexData.year6*100)}}%</p>
+            </ion-text>
+          </ion-card-content>
+      </ion-card>
+      <ion-card id="year7" class="itemRowCard">
+          <ion-card-content class="itemRowCardContent">
+            <ion-text class="itemRowText">
+              <p>2013</p>
+              <p>{{roundValue(selectedIndexData.year7*100)}}%</p>
+            </ion-text>
+          </ion-card-content>
+      </ion-card>
+      <ion-card id="year8" class="itemRowCard">
+          <ion-card-content class="itemRowCardContent">
+            <ion-text class="itemRowText">
+              <p>2012</p>
+              <p>{{roundValue(selectedIndexData.year8*100)}}%</p>
+            </ion-text>
+          </ion-card-content>
+      </ion-card>
+      <ion-card id="year9" class="itemRowCard">
+          <ion-card-content class="itemRowCardContent">
+            <ion-text class="itemRowText">
+              <p>2011</p>
+              <p>{{roundValue(selectedIndexData.year9*100)}}%</p>
+            </ion-text>
+          </ion-card-content>
+      </ion-card>
+      <ion-card id="year10" class="itemRowCard">
+          <ion-card-content class="itemRowCardContent">
+            <ion-text class="itemRowText">
+              <p>2010</p>
+              <p>{{roundValue(selectedIndexData.year10*100)}}%</p>
+            </ion-text>
+          </ion-card-content>
+      </ion-card>
+  </div>
+  </div>
   </div>
   <div id='BottomCardDiv' class="bottomcard-Div">
     <div>

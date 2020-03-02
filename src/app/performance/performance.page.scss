@@ -1,5 +1,6 @@
 ion-content{
     --background: #d3d8dc;
+    --overflow: hidden;
 }
 
 .Section1{
@@ -91,7 +92,7 @@ ion-select .select-text{
 .dataCard{
     background-color: white; 
     height: calc(100vh - 200px);
-    margin-top: 15px;
+    margin: 0px;
 }
 
 .ActiveCard{
@@ -162,4 +163,20 @@ ion-toolbar{
 
 .bottomCardScrollUp{
     max-height: 600px !important;
+}
+
+.itemRowCardContent{
+    background-color: #fff
+}
+
+.itemRowText{
+    color:#000;
+    display: flex;
+    justify-content: space-between;
+}
+
+.itemRowCard{
+    margin: 10px 15px;
+    // transition: 1s;
+    display: none;
 }
