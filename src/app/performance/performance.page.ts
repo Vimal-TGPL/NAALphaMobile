@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import * as $ from "jquery";
 import 'slick-carousel/slick/slick';
@@ -9,7 +9,12 @@ import { filter } from 'rxjs/operators';
   templateUrl: './performance.page.html',
   styleUrls: ['./performance.page.scss'],
 })
-export class PerformancePage implements OnInit {
+export class PerformancePage implements OnInit, AfterViewInit {
+  ngAfterViewInit() {
+    var ref = document.getElementById('IndexListCard');
+    ref.onscroll= this.OnCardScroll;
+  }
+
 
   selectedIndexData:any;
   selectedIndexName:any;
@@ -28,6 +33,14 @@ export class PerformancePage implements OnInit {
     this.loadData();
   }
 
+  OnCardScroll(e){
+    var ref = document.getElementById('IndexListCard');
+   // console.log(ref.scrollTop);
+    if(ref.scrollTop > 200){
+      ref.classList.add("bottomCardScrollUp");
+    }
+  }
+  
   loadData(){
     this.httpClient.get(this.performanceAPIUrl).subscribe(data=>{
       this.PerformanceData = data
@@ -161,4 +174,6 @@ export class PerformancePage implements OnInit {
     
     
   }
+
+  
 }

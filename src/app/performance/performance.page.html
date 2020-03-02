@@ -74,15 +74,17 @@
         </div>
       </div>
     </div>
-    <ion-card class="BottomCard">
+
+    <ion-card id="IndexListCard" class="BottomCard">
       <ion-card-content>
           <ion-list>
-              <ion-radio-group value="New Age Alpha Developed World Ex-US Low Volatility Index" (ionChange)='onIndexChange($event)'>
+              <ion-radio-group  (ionChange)='onIndexChange($event)'>
                 <ion-item lines='none' *ngFor="let item of Index[CountryClasificationList.indexOf(selectedCountry)]">
                   <ion-label style="white-space: normal;">{{item.indexName}}</ion-label>
                   <ion-radio slot="start" mode="md" [value]="item.indexName"></ion-radio>
                 </ion-item>
               </ion-radio-group>
+              
             </ion-list>
       </ion-card-content>
     </ion-card>

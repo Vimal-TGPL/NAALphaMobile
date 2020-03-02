@@ -157,4 +157,9 @@ ion-toolbar{
     transition: .5s;
     //max-height: 550px;
     max-height: 400px;
+    width: 100%;
+}
+
+.bottomCardScrollUp{
+    max-height: 600px !important;
 }
