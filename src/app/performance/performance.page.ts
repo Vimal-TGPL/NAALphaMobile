@@ -143,6 +143,7 @@ export class PerformancePage implements OnInit, AfterViewInit {
     this.selectedIndexData = inddata[0];
     console.log(this.selectedIndexData);
     this.onCancelClick();
+    
     setTimeout(()=>{
       this.animateSequenceStart();
     },300);
@@ -186,6 +187,7 @@ export class PerformancePage implements OnInit, AfterViewInit {
   }
 
   async animateSequenceStart(){
+    document.getElementById('IndexDataInnerDiv').scrollTop = 0;
     const valueRef = createAnimation()
     .addElement(document.getElementById('value'))
     .duration(100)
