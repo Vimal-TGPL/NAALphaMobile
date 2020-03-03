@@ -29,6 +29,9 @@ ion-content{
 .Section2{
     padding: 10px 10px; 
     overflow-x: auto;
+
+    display: flex;
+    flex-direction: row;
 }
 
 .InnerDiv{

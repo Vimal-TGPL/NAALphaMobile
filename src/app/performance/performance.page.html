@@ -18,8 +18,8 @@
       <p class="PageSubTitle">Performance</p>
       <p *ngIf="selectedIndexData" class="PageSubTitle p-font">As of: {{selectedIndexData.date}}</p>
     </div>
-    <div class="Section2">
-      <div class="InnerDiv">
+    <div id="sec2" class="Section2">
+      <!-- <div class="InnerDiv"> -->
       <div [id]=replaceId(item) class="ItemDiv" *ngFor="let item of CountryClasificationList">
         <ion-card class="ItemCard" [ngClass]="{ActiveItem: item == selectedCountry}" (click)="OnItemClick(item)">
           <ion-card-content class="ItemCardContent">
@@ -39,7 +39,7 @@
            </div>
           </ion-card-content>
         </ion-card>
-      </div>
+      <!-- </div> -->
     </div>
   </div>
   

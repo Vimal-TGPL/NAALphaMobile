@@ -105,7 +105,7 @@ export class PerformancePage implements OnInit, AfterViewInit {
   OnItemClick(item){
     this.itemActive = true;
     this.selectedCountry = item;
-    
+  
     setTimeout(()=>{
       document.getElementById('BottomCardDiv').style.display="block";
       setTimeout(()=>{
@@ -116,6 +116,7 @@ export class PerformancePage implements OnInit, AfterViewInit {
         },100);
       },100);
     },500);
+    
   }
 
   onIndexItemClick(){
