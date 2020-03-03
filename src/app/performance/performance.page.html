@@ -20,27 +20,32 @@
     </div>
     <div id="sec2" class="Section2">
       <!-- <div class="InnerDiv"> -->
-      <div [id]=replaceId(item) class="ItemDiv" *ngFor="let item of CountryClasificationList">
-        <ion-card class="ItemCard" [ngClass]="{ActiveItem: item == selectedCountry}" (click)="OnItemClick(item)">
-          <ion-card-content class="ItemCardContent">
-           <ion-text class="ItemTitleText">
-             <h1 class="ItemTitle">{{item}}</h1>
-           </ion-text>
-           <div *ngIf="item == selectedCountry && itemActive" style="display: flex;">
-            <ion-label style="color: white; padding-right: 5px;">Index</ion-label>
-            <img src="../../assets/images/chevron-forward-sharp.svg" alt="forword" style="width: 20px;" class="blink_me"> 
-            <!-- <ion-item style="--padding-start: 0px; border-radius: 8px; margin-top: 6px;">
-              <ion-label style="display: none;">Index</ion-label>
-              <ion-select [(ngModel)]="selectedIndexName" interface="action-sheet" (ionChange)=onIndexChange($event); placeholder="Select Index" style="max-width: 100%;
-              --padding-start: 10px; min-width: 300px;">
-                <ion-select-option  text-wrap [value]=item.IndexName *ngFor="let item of Index[CountryClasificationList.indexOf(item)]">{{item.indexName.replace('New Age Alpha ','')}}</ion-select-option>
-              </ion-select>
-            </ion-item> -->
-           </div>
-          </ion-card-content>
-        </ion-card>
-      <!-- </div> -->
-    </div>
+        <!-- <ion-slides mode="ios" pager="false" [options]='slideOpts'> -->
+          <!-- <ion-slide *ngFor="let item of CountryClasificationList"> -->
+              <div [id]=replaceId(item) class="ItemDiv" *ngFor="let item of CountryClasificationList">
+                  <ion-card class="ItemCard" [ngClass]="{ActiveItem: item == selectedCountry}" (click)="OnItemClick(item)">
+                    <ion-card-content class="ItemCardContent">
+                     <ion-text class="ItemTitleText">
+                       <h1 class="ItemTitle">{{item}}</h1>
+                     </ion-text>
+                     <div *ngIf="item == selectedCountry && itemActive" style="display: flex;">
+                      <ion-label style="color: white; padding-right: 5px;">Index</ion-label>
+                      <img src="../../assets/images/chevron-forward-sharp.svg" alt="forword" style="width: 20px;" class="blink_me"> 
+                      <!-- <ion-item style="--padding-start: 0px; border-radius: 8px; margin-top: 6px;">
+                        <ion-label style="display: none;">Index</ion-label>
+                        <ion-select [(ngModel)]="selectedIndexName" interface="action-sheet" (ionChange)=onIndexChange($event); placeholder="Select Index" style="max-width: 100%;
+                        --padding-start: 10px; min-width: 300px;">
+                          <ion-select-option  text-wrap [value]=item.IndexName *ngFor="let item of Index[CountryClasificationList.indexOf(item)]">{{item.indexName.replace('New Age Alpha ','')}}</ion-select-option>
+                        </ion-select>
+                      </ion-item> -->
+                     </div>
+                    </ion-card-content>
+                  </ion-card>
+                <!-- </div> -->
+              </div>
+          <!-- </ion-slide> -->
+        <!-- </ion-slides> -->
+      
   </div>
   
   <div *ngIf="selectedIndex" style="padding: 0 15px;">
