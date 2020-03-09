@@ -22,14 +22,14 @@
     <div id="sec2" class="Section2">
       <!-- <div class="InnerDiv"> -->
         <div [id]=replaceId(item) class="ItemDiv" *ngFor="let item of CountryClasificationList">
-          <ion-card class="ItemCard" [ngClass]="{ActiveItem: item == selectedCountry}" (click)="OnItemClick(item)">
+          <ion-card class="ItemCard" [id]=replaceIdCard(item) [ngClass]="{ActiveItem: item == selectedCountry}" (click)="OnItemClick(item)">
             <ion-card-content class="ItemCardContent">
               <ion-text class="ItemTitleText">
                 <h1 class="ItemTitle">{{item}}</h1>
               </ion-text>
-              <div *ngIf="item == selectedCountry && itemActive" style="display: flex;">
-                <ion-text style="color: white; padding-right: 5px;"><span>Index</span></ion-text>
-                <img src="../../assets/images/chevron-forward-sharp.svg" alt="forword" style="width: 20px;"
+              <div *ngIf="item == selectedCountry && itemActive">
+                <ion-text style="color: white; padding-right: 5px; float: left;"><span>Index</span></ion-text>
+                <img src="../../assets/images/chevron-forward-sharp.svg" alt="forword" style="width: 20px; vertical-align: middle;"
                   class="blink_me">
               </div>
             </ion-card-content>

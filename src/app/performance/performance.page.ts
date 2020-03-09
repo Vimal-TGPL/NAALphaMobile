@@ -1,6 +1,6 @@
 import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import * as $ from "jquery";
+import * as $ from "jquery"
 import 'slick-carousel/slick/slick';
 import { filter } from 'rxjs/operators';
 import { createAnimation } from '@ionic/core';
@@ -105,6 +105,11 @@ export class PerformancePage implements OnInit, AfterViewInit {
   OnItemClick(item){
     this.itemActive = true;
     this.selectedCountry = item;
+    // var Cardwidth = screen.width-35;
+    // setTimeout(()=>{
+    //   $('#'+item+' ion-card').find('.ActiveItem').css('width',Cardwidth+'px');
+    // },50);
+    
     setTimeout(()=>{
       document.getElementById('BottomCardDiv').style.display="block";
       setTimeout(()=>{
@@ -115,7 +120,6 @@ export class PerformancePage implements OnInit, AfterViewInit {
         },100);
       },100);
     },500);
-    
     var sec2Div = document.getElementById("sec2");
     setTimeout(()=>{
       sec2Div.scrollLeft = (150*this.CountryClasificationList.indexOf(item))-(10*this.CountryClasificationList.indexOf(item));
@@ -131,6 +135,11 @@ export class PerformancePage implements OnInit, AfterViewInit {
   replaceId(item){
     var itm = item.replace(/ /g,'-');
     return itm;
+  }
+
+  replaceIdCard(item){
+    var itm = item.replace(/ /g,'-');
+    return itm+'Card';
   }
 
   onIndexChange(event){
