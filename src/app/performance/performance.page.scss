@@ -30,9 +30,13 @@ ion-content{
 .Section2{
     padding: 10px 10px; 
     overflow-x: auto;
-    
     display: flex;
     flex-direction: row;
+  
+    &::after {
+        content: '';
+        padding-right: 10px;
+      }
 }
 
 .InnerDiv{

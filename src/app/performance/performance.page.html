@@ -1,16 +1,16 @@
 <ion-header id='header' style="z-index: 99;">
   <ion-toolbar>
-      <ion-buttons slot="start">
-          <ion-back-button mode='md'></ion-back-button>
-      </ion-buttons>
+    <ion-buttons slot="start">
+      <ion-back-button mode='md'></ion-back-button>
+    </ion-buttons>
     <ion-title style="    text-align: left;
     padding: 0px 45px;
     font-size: 18px;
     color: #2b468f;">H-Factor Indexes</ion-title>
   </ion-toolbar>
   <div id="Loader" class='loader'>
-      <img src="../../assets/images/NAA.gif" alt="Loader" height="50">
-    </div>
+    <img src="../../assets/images/NAA.gif" alt="Loader" height="50">
+  </div>
 </ion-header>
 <ion-content>
   <div id="parentdiv">
@@ -18,209 +18,202 @@
       <p class="PageSubTitle">Performance</p>
       <p *ngIf="selectedIndexData" class="PageSubTitle p-font">As of: {{selectedIndexData.date}}</p>
     </div>
+
     <div id="sec2" class="Section2">
       <!-- <div class="InnerDiv"> -->
-        <!-- <ion-slides mode="ios" pager="false" [options]='slideOpts'> -->
-          <!-- <ion-slide *ngFor="let item of CountryClasificationList"> -->
-              <div [id]=replaceId(item) class="ItemDiv" *ngFor="let item of CountryClasificationList">
-                  <ion-card class="ItemCard" [ngClass]="{ActiveItem: item == selectedCountry}" (click)="OnItemClick(item)">
-                    <ion-card-content class="ItemCardContent">
-                     <ion-text class="ItemTitleText">
-                       <h1 class="ItemTitle">{{item}}</h1>
-                     </ion-text>
-                     <div *ngIf="item == selectedCountry && itemActive" style="display: flex;">
-                      <ion-label style="color: white; padding-right: 5px;">Index</ion-label>
-                      <img src="../../assets/images/chevron-forward-sharp.svg" alt="forword" style="width: 20px;" class="blink_me"> 
-                      <!-- <ion-item style="--padding-start: 0px; border-radius: 8px; margin-top: 6px;">
-                        <ion-label style="display: none;">Index</ion-label>
-                        <ion-select [(ngModel)]="selectedIndexName" interface="action-sheet" (ionChange)=onIndexChange($event); placeholder="Select Index" style="max-width: 100%;
-                        --padding-start: 10px; min-width: 300px;">
-                          <ion-select-option  text-wrap [value]=item.IndexName *ngFor="let item of Index[CountryClasificationList.indexOf(item)]">{{item.indexName.replace('New Age Alpha ','')}}</ion-select-option>
-                        </ion-select>
-                      </ion-item> -->
-                     </div>
-                    </ion-card-content>
-                  </ion-card>
-                <!-- </div> -->
+        <div [id]=replaceId(item) class="ItemDiv" *ngFor="let item of CountryClasificationList">
+          <ion-card class="ItemCard" [ngClass]="{ActiveItem: item == selectedCountry}" (click)="OnItemClick(item)">
+            <ion-card-content class="ItemCardContent">
+              <ion-text class="ItemTitleText">
+                <h1 class="ItemTitle">{{item}}</h1>
+              </ion-text>
+              <div *ngIf="item == selectedCountry && itemActive" style="display: flex;">
+                <ion-label style="color: white; padding-right: 5px;">Index</ion-label>
+                <img src="../../assets/images/chevron-forward-sharp.svg" alt="forword" style="width: 20px;"
+                  class="blink_me">
               </div>
-          <!-- </ion-slide> -->
-        <!-- </ion-slides> -->
-      
-  </div>
-  
-  <div *ngIf="selectedIndex" style="padding: 0 15px;">
-    <h1 style="margin: 0px;
+            </ion-card-content>
+          </ion-card>
+        </div>
+      <!-- </div> -->
+    </div>
+
+    <div *ngIf="selectedIndex" style="padding: 0 15px;">
+      <h1 style="margin: 0px;
     color: #666;
     font-size: 14px;
     font-weight: bold;">
-      {{selectedIndex.indexName}}
-    </h1>
-    <p style="font-size: 12px; text-align: justify; color: #666; line-height: 1.4; white-space: normal; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;">{{selectedIndexData.description}}</p>
-  </div>
-  
-  <div *ngIf="selectedIndexData" style="
+        {{selectedIndex.indexName}}
+      </h1>
+      <p
+        style="font-size: 12px; text-align: justify; color: #666; line-height: 1.4; white-space: normal; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;">
+        {{selectedIndexData.description}}</p>
+    </div>
+
+    <div *ngIf="selectedIndexData && selectedIndex" style="
   padding: 5px 0px 5px 0px;">
-    <div id="IndexDataInnerDiv" style="overflow: auto;
+      <div id="IndexDataInnerDiv" style="overflow: auto;
     height: calc(100vh - 249px);">
-      <ion-card id="value" class="itemRowCard" (click)="animateSequenceStart()">
-        <ion-card-content class="itemRowCardContent">
-          <ion-text class="itemRowText">
-            <p>Value</p>
-            <p class="valueP">{{roundValue(selectedIndexData.value)}}%</p>
-          </ion-text>
-        </ion-card-content>
-      </ion-card>
-      <ion-card id="dailyReturn" class="itemRowCard">
+        <ion-card id="value" class="itemRowCard">
+          <ion-card-content class="itemRowCardContent">
+            <ion-text class="itemRowText">
+              <p>Value</p>
+              <p class="valueP">{{roundValue(selectedIndexData.value)}}%</p>
+            </ion-text>
+          </ion-card-content>
+        </ion-card>
+        <ion-card id="dailyReturn" class="itemRowCard">
           <ion-card-content class="itemRowCardContent">
             <ion-text class="itemRowText">
               <p>Daily</p>
               <p class="valueP">{{roundValue(selectedIndexData.dailyReturn*100)}}%</p>
             </ion-text>
           </ion-card-content>
-      </ion-card>
-      <ion-card id="ytdReturn" class="itemRowCard">
+        </ion-card>
+        <ion-card id="ytdReturn" class="itemRowCard">
           <ion-card-content class="itemRowCardContent">
             <ion-text class="itemRowText">
               <p>YTD</p>
               <p class="valueP">{{roundValue(selectedIndexData.ytdReturn*100)}}%</p>
             </ion-text>
           </ion-card-content>
-      </ion-card>
-      <ion-card id="y1Return" class="itemRowCard">
+        </ion-card>
+        <ion-card id="y1Return" class="itemRowCard">
           <ion-card-content class="itemRowCardContent">
             <ion-text class="itemRowText">
               <p>1 Year</p>
               <p class="valueP">{{roundValue(selectedIndexData.y1Return*100)}}%</p>
             </ion-text>
           </ion-card-content>
-      </ion-card>
-      <ion-card id="y3Return" class="itemRowCard">
+        </ion-card>
+        <ion-card id="y3Return" class="itemRowCard">
           <ion-card-content class="itemRowCardContent">
             <ion-text class="itemRowText">
               <p>3 Year*</p>
               <p class="valueP">{{roundValue(selectedIndexData.y3Return*100)}}%</p>
             </ion-text>
           </ion-card-content>
-      </ion-card>
-      <ion-card id="y5Return" class="itemRowCard">
+        </ion-card>
+        <ion-card id="y5Return" class="itemRowCard">
           <ion-card-content class="itemRowCardContent">
             <ion-text class="itemRowText">
               <p>5 Year*</p>
               <p class="valueP">{{roundValue(selectedIndexData.y5Return*100)}}%</p>
             </ion-text>
           </ion-card-content>
-      </ion-card>
-      <ion-card id="y10Return" class="itemRowCard">
+        </ion-card>
+        <ion-card id="y10Return" class="itemRowCard">
           <ion-card-content class="itemRowCardContent">
             <ion-text class="itemRowText">
               <p>10 Year*</p>
               <p class="valueP">{{roundValue(selectedIndexData.y10Return*100)}}%</p>
             </ion-text>
           </ion-card-content>
-      </ion-card>
-      <ion-card id="cumReturns" class="itemRowCard">
+        </ion-card>
+        <ion-card id="cumReturns" class="itemRowCard">
           <ion-card-content class="itemRowCardContent">
             <ion-text class="itemRowText">
               <p>Cumulative Inception</p>
               <p class="valueP">{{roundValue(selectedIndexData.cumReturns*100)}}%</p>
             </ion-text>
           </ion-card-content>
-      </ion-card>
-      <ion-card id="annReturns" class="itemRowCard">
+        </ion-card>
+        <ion-card id="annReturns" class="itemRowCard">
           <ion-card-content class="itemRowCardContent">
             <ion-text class="itemRowText">
               <p>Annualized Inception</p>
               <p class="valueP">{{roundValue(selectedIndexData.annReturns*100)}}%</p>
             </ion-text>
           </ion-card-content>
-      </ion-card>
-      <ion-card id="year1" class="itemRowCard">
+        </ion-card>
+        <ion-card id="year1" class="itemRowCard">
           <ion-card-content class="itemRowCardContent">
             <ion-text class="itemRowText">
               <p>2019</p>
               <p class="valueP">{{roundValue(selectedIndexData.year1*100)}}%</p>
             </ion-text>
           </ion-card-content>
-      </ion-card>
-      <ion-card id="year2" class="itemRowCard">
+        </ion-card>
+        <ion-card id="year2" class="itemRowCard">
           <ion-card-content class="itemRowCardContent">
             <ion-text class="itemRowText">
               <p>2018</p>
               <p class="valueP">{{roundValue(selectedIndexData.year2*100)}}%</p>
             </ion-text>
           </ion-card-content>
-      </ion-card>
-      <ion-card id="year3" class="itemRowCard">
+        </ion-card>
+        <ion-card id="year3" class="itemRowCard">
           <ion-card-content class="itemRowCardContent">
             <ion-text class="itemRowText">
               <p>2017</p>
               <p class="valueP">{{roundValue(selectedIndexData.year3*100)}}%</p>
             </ion-text>
           </ion-card-content>
-      </ion-card>
-      <ion-card id="year4" class="itemRowCard">
+        </ion-card>
+        <ion-card id="year4" class="itemRowCard">
           <ion-card-content class="itemRowCardContent">
             <ion-text class="itemRowText">
               <p>2016</p>
               <p class="valueP">{{roundValue(selectedIndexData.year4*100)}}%</p>
             </ion-text>
           </ion-card-content>
-      </ion-card>
-      <ion-card id="year5" class="itemRowCard">
+        </ion-card>
+        <ion-card id="year5" class="itemRowCard">
           <ion-card-content class="itemRowCardContent">
             <ion-text class="itemRowText">
               <p>2015</p>
               <p class="valueP">{{roundValue(selectedIndexData.year5*100)}}%</p>
             </ion-text>
           </ion-card-content>
-      </ion-card>
-      <ion-card id="year6" class="itemRowCard">
+        </ion-card>
+        <ion-card id="year6" class="itemRowCard">
           <ion-card-content class="itemRowCardContent">
             <ion-text class="itemRowText">
               <p>2014</p>
               <p class="valueP">{{roundValue(selectedIndexData.year6*100)}}%</p>
             </ion-text>
           </ion-card-content>
-      </ion-card>
-      <ion-card id="year7" class="itemRowCard">
+        </ion-card>
+        <ion-card id="year7" class="itemRowCard">
           <ion-card-content class="itemRowCardContent">
             <ion-text class="itemRowText">
               <p>2013</p>
               <p class="valueP">{{roundValue(selectedIndexData.year7*100)}}%</p>
             </ion-text>
           </ion-card-content>
-      </ion-card>
-      <ion-card id="year8" class="itemRowCard">
+        </ion-card>
+        <ion-card id="year8" class="itemRowCard">
           <ion-card-content class="itemRowCardContent">
             <ion-text class="itemRowText">
               <p>2012</p>
               <p class="valueP">{{roundValue(selectedIndexData.year8*100)}}%</p>
             </ion-text>
           </ion-card-content>
-      </ion-card>
-      <ion-card id="year9" class="itemRowCard">
+        </ion-card>
+        <ion-card id="year9" class="itemRowCard">
           <ion-card-content class="itemRowCardContent">
             <ion-text class="itemRowText">
               <p>2011</p>
               <p class="valueP">{{roundValue(selectedIndexData.year9*100)}}%</p>
             </ion-text>
           </ion-card-content>
-      </ion-card>
-      <ion-card id="year10" class="itemRowCard">
+        </ion-card>
+        <ion-card id="year10" class="itemRowCard">
           <ion-card-content class="itemRowCardContent">
             <ion-text class="itemRowText">
               <p>2010</p>
               <p class="valueP">{{roundValue(selectedIndexData.year10*100)}}%</p>
             </ion-text>
           </ion-card-content>
-      </ion-card>
-  </div>
-  </div>
+        </ion-card>
+      </div>
+    </div>
   </div>
   <div id='BottomCardDiv' class="bottomcard-Div">
     <div>
       <div style="text-align: right; margin: 10px 0px 0 0;">
-        <ion-button style="color: white; font-size: 15px;" (click)="onCancelClick()" size='small' fill="clear" shape="round">
+        <ion-button style="color: white; font-size: 15px;" (click)="onCancelClick()" size='small' fill="clear"
+          shape="round">
           Cancel
         </ion-button>
       </div>
@@ -236,17 +229,17 @@
 
     <ion-card id="IndexListCard" class="BottomCard">
       <ion-card-content>
-          <ion-list>
-              <ion-radio-group  (ionChange)='onIndexChange($event)'>
-                <ion-item lines='none' *ngFor="let item of Index[CountryClasificationList.indexOf(selectedCountry)]">
-                  <ion-label style="white-space: normal;">{{item.indexName}}</ion-label>
-                  <ion-radio slot="start" mode="md" [value]="item.indexName"></ion-radio>
-                </ion-item>
-              </ion-radio-group>
-              
-            </ion-list>
+        <ion-list>
+          <ion-radio-group (ionChange)='onIndexChange($event)'>
+            <ion-item lines='none' *ngFor="let item of Index[CountryClasificationList.indexOf(selectedCountry)]">
+              <ion-label style="white-space: normal;">{{item.indexName}}</ion-label>
+              <ion-radio slot="start" mode="md" [value]="item.indexName"></ion-radio>
+            </ion-item>
+          </ion-radio-group>
+
+        </ion-list>
       </ion-card-content>
     </ion-card>
   </div>
-  
+
 </ion-content>
