@@ -62,10 +62,16 @@ ion-content{
     }
     .tool-img img{
         width: 200px;
-        height: 170px;
+        // height: 170px;
     }
     .tool-img{
         display: flex;
         justify-content: center;
+    }
+  }
+
+  @media screen and (orientation:landscape) {
+    ion-card-content{
+        overflow: auto;
     }
   }
