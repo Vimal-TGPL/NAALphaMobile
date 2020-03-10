@@ -181,8 +181,8 @@
                   
                   
                     <ion-content  forceOverscroll="true" id="innerContent" style="--overflow: hidden; --background:white; position: fixed;" [ngClass]="{foceScrollOverflow: SelSecLevTitle=='Global'}">
-                      <div scrollY="true" id="sectorscrollDiv" class="company-list-inner-div"
-                    [ngClass]="{'stock_companycard-extend': stockCollapse}">
+                      <div scrollY="true" id="sectorscrollDiv"
+                    [ngClass]="{'stock_companycard-extend': stockCollapse, 'company-list-inner-div': SelSecLevTitle!='Global'}">
                     <ion-list class="company-list">
                       <ion-item lines='none' [id]=getIDReplace(item.companyName) class="company-list-item" *ngFor="let item of selSectorComp">
                         <div class="company-label-outer-div" [ngClass]="{'comp-sel': selComp==item.companyName}"
