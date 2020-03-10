@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewInit, ViewChild, HostListener } from '@angular/core';
+import { Component, OnInit, AfterViewInit, ViewChild, HostListener, OnDestroy } from '@angular/core';
 import { AuthenticationService } from '../services/authentication.service';
 import { Storage } from '@ionic/storage';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
@@ -17,9 +17,11 @@ import { AlertController } from '@ionic/angular';
 })
 
 export class HomePage implements OnInit, AfterViewInit {
+  
   @ViewChild(IonContent, {static:true}) content: IonContent;
   @ViewChild(IonSlides, { static: true }) slides: IonSlides;
   
+  backButtonSubscription;
   globalSize:any = 100;
   globalselectorcomp:any = [];
   currenturl: string;
@@ -356,9 +358,21 @@ export class HomePage implements OnInit, AfterViewInit {
 
   /*************** After View Start *****************/
   ngAfterViewInit() {
+    
     this.GetETFValues();
   }
+
+  
   /*************** After View End *****************/
+
+  ionViewDidEnter() {
+    this.backButtonSubscription = this.plt.backButton.subscribe(()=>{
+      navigator['app'].exitApp();
+    });
+  }
+  ionViewWillLeave() {
+    this.backButtonSubscription.unsubscribe();
+  }
 
   /*************** ETF Category List Start *****************/
   GetETFValues() {
