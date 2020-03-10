@@ -1,3 +1,6 @@
+ion-header{
+    z-index: 99;
+}
 ion-content{
     --background: #d3d8dc;
     --overflow: hidden;
@@ -11,10 +14,10 @@ ion-content{
 }
 
 .PageTitle{
+    text-align: left;
+    padding: 0px 45px;
+    font-size: 18px;
     color: #2b468f;
-    margin-top: 10px; 
-    margin-bottom: 5px;
-    font-size: 20px;
 }
 
 .PageSubTitle{
@@ -32,11 +35,23 @@ ion-content{
     overflow-x: auto;
     display: flex;
     flex-direction: row;
-  
+    -ms-overflow-style: none;
+    
+
     &::after {
         content: '';
         padding-right: 10px;
       }
+}
+
+.indexText{
+    color: white;
+    padding-right: 5px; 
+    float: left;
+}
+
+.Section2::-webkit-scrollbar {
+    display: none;
 }
 
 .InnerDiv{
@@ -97,6 +112,43 @@ ion-select .select-text{
     min-width: 275px;
 }
 
+.descDiv{
+    padding: 0 15px;
+
+    h1{
+        margin: 0px;
+    color: #666;
+    font-size: 14px;
+    font-weight: bold;
+    }
+
+    p{
+        font-size: 12px;
+        text-align: justify; 
+        color: #666; 
+        line-height: 1.4; 
+        white-space: normal; 
+        display: -webkit-box; 
+        -webkit-line-clamp: 3; 
+        -webkit-box-orient: vertical; 
+        overflow: hidden;
+    }
+}
+
+.detailsOuterDiv{
+    padding: 5px 0px 5px 0px;
+
+    div{
+        overflow: auto;
+        height: calc(100vh - 249px);
+        -ms-overflow-style: none;
+    }
+
+    div::-webkit-scrollbar {
+        display: none;
+      }
+}
+
 .dataCard{
     background-color: white; 
     height: calc(100vh - 200px);
@@ -120,6 +172,8 @@ ion-select .select-text{
     bottom: 0;
     background-color: rgba(255, 255, 255, 0.85);
 }
+
+
 
 .blink_me {
     animation: blinker 1s linear infinite;
@@ -167,7 +221,16 @@ ion-toolbar{
     //max-height: 550px;
     max-height: 400px;
     width: 100%;
+    -ms-overflow-style: none;
+
+    ion-label{
+        white-space: normal;
+    }
 }
+
+.BottomCard::-webkit-scrollbar {
+    display: none;
+  }
 
 .bottomCardScrollUp{
     max-height: 600px !important;
@@ -191,4 +254,41 @@ ion-toolbar{
 
 .valueP{
     color: #2b468f;
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.TitleP{
+    color: #666;
+    font-weight: 500;
+}
+
+.arrow{
+    width: 20px;
+    vertical-align: middle;
+}
+
+.cancelDiv{
+    text-align: right; 
+    margin: 10px 0px 0 0;
+
+    ion-button{
+        color: white; 
+        font-size: 15px;
+    }
+}
+
+.TitleDiv{
+    padding: 25px 15px;
+
+    h1{
+        color: white; 
+        font-weight: bold; 
+        font-size: 30px;
+    }
+
+    p{
+        color: white; 
+        font-size: 16px;
+    }
 }

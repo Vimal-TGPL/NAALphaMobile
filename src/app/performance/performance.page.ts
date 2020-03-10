@@ -2,7 +2,6 @@ import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import * as $ from "jquery"
 import 'slick-carousel/slick/slick';
-import { filter } from 'rxjs/operators';
 import { createAnimation } from '@ionic/core';
 
 @Component({
