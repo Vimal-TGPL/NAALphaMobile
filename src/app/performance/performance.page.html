@@ -200,6 +200,17 @@
       </div>
     </div>
   </div>
+  <div class="dateDiv">
+    <div *ngIf="selectedIndexData">
+      <p>First Value Date: <span>{{selectedIndexData.firstValueDt}}</span></p>
+    </div>
+    <div *ngIf="selectedIndexData">
+      <p>Launch Date: <span>{{selectedIndexData.inception}}</span></p>
+    </div>
+  </div>
+  <div class="bottomText">
+    <p>Calculated by S&P Dow Jones Indices</p>
+  </div>
   <div id='BottomCardDiv' class="bottomcard-Div">
     <div>
       <div class="cancelDiv">
@@ -217,7 +228,7 @@
         </div>
       </div>
     </div>
-
+    
     <ion-card id="IndexListCard" class="BottomCard">
       <ion-card-content>
         <ion-list>

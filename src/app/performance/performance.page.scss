@@ -132,15 +132,16 @@ ion-select .select-text{
         -webkit-line-clamp: 3; 
         -webkit-box-orient: vertical; 
         overflow: hidden;
+        margin: 7px 0px;
     }
 }
 
 .detailsOuterDiv{
-    padding: 5px 0px 5px 0px;
+    padding: 0px 0px 10px 0px;
 
     div{
         overflow: auto;
-        height: calc(100vh - 249px);
+        height: calc(100vh - 290px);
         -ms-overflow-style: none;
     }
 
@@ -299,5 +300,30 @@ ion-toolbar{
     p{
         color: white; 
         font-size: 16px;
+    }
+}
+
+.bottomText{
+    padding: 0px 15px; 
+    display: flex; 
+    justify-content: center; 
+    bottom: 10px;
+    position: absolute;
+    width: 100%;
+
+    p{
+        margin: 0px; margin-top: 5px; font-size: 11px; color: #666;
+    }
+}
+
+.dateDiv{
+    display: flex;
+  padding: 0px 15px;
+  justify-content: space-between;
+
+    p{
+        margin: 0px;
+      font-size: 11px;
+      color: #666;
     }
 }
