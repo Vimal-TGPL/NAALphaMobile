@@ -120,6 +120,9 @@ ion-select .select-text{
     color: #666;
     font-size: 14px;
     font-weight: bold;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden
     }
 
     p{
@@ -127,11 +130,10 @@ ion-select .select-text{
         text-align: justify; 
         color: #666; 
         line-height: 1.4; 
-        white-space: normal; 
-        display: -webkit-box; 
-        -webkit-line-clamp: 3; 
-        -webkit-box-orient: vertical; 
         overflow: hidden;
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
         margin: 7px 0px;
     }
 }
