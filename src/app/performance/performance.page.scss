@@ -131,6 +131,7 @@ ion-select .select-text{
         color: #666; 
         line-height: 1.4; 
         overflow: hidden;
+        /* autoprefixer: ignore next */
         display: -webkit-box;
         -webkit-line-clamp: 3;
         -webkit-box-orient: vertical;
