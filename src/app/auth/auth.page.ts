@@ -16,9 +16,13 @@ export class AuthPage implements OnInit {
   loginForm: FormGroup;
   stayStignedIn : boolean;
   signupUrl = 'https://app.newagealpha.com/signUp';
+  pwd:boolean = false;
+  email:boolean = false;
 
   constructor(private route:Router, private iab:InAppBrowser, private http: HttpClient, private toastController:ToastController, private authenticationService: AuthenticationService, private storage:Storage) { }
-
+  hasError = (controlName: string, errorName: string) => {
+    return this.loginForm.controls[controlName].hasError(errorName);
+}
   ngOnInit() {
     this.loginForm = new FormGroup({
       Email: new FormControl('', [Validators.required, Validators.email]),
@@ -26,7 +30,13 @@ export class AuthPage implements OnInit {
       
     });
   }
+  onemialTextInput(){
+    this.email = true;
+  }
 
+  onPwdTextInput(){
+    this.pwd = true;
+  }
   onLoginClick(){
     const httpOptions = {
       headers: new HttpHeaders({
@@ -54,6 +64,7 @@ export class AuthPage implements OnInit {
     } 
   }
 
+  
   onSignupClick(){
     //this.route.navigateByUrl('/signup');
     this.iab.create(this.signupUrl,'_blank','location=no,toolbar=yes,zoom=no');

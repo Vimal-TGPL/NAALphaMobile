@@ -51,9 +51,13 @@ export class PerformancePage implements OnInit, AfterViewInit {
       console.log(this.IndexData);
       var i = 0;
       for(i=0; i<this.CountryClasificationList.length;i++){
-        this.Index.push(this.filterIndex(this.CountryClasificationList[i]));
+        var temp = this.filterIndex(this.CountryClasificationList[i]);
+        temp= temp.sort((a, b) => {
+          return a.indexName - b.indexName;
+        });
+        this.Index.push(temp);
      }
-     console.log();
+     console.log(this.Index);
       //console.log(this.selectedIndex);
       this.OnItemClick('USA');
       document.getElementById('Loader').style.display='none';
@@ -196,7 +200,7 @@ export class PerformancePage implements OnInit, AfterViewInit {
 
   roundValue(val){
     var v = Math.round(val*100)/100;
-    return v;
+    return v.toFixed(2);
   }
 
   async animateSequenceStart(){

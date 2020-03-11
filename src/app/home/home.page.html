@@ -180,9 +180,9 @@
                 <ion-card-content style=" padding: 0px;" *ngIf="selSectorComp!=''">
                   
                   
-                    <ion-content  forceOverscroll="true" id="innerContent" style="--overflow: hidden; --background:white; position: fixed;" [ngClass]="{foceScrollOverflow: SelSecLevTitle=='Global'}">
+                    <ion-content  forceOverscroll="true" id="innerContent" style="--overflow: hidden; --background:white; position: fixed;" [ngClass]="{foceScrollOverflow: SelSecLevTitle=='Global Universe'}">
                       <div scrollY="true" id="sectorscrollDiv"
-                    [ngClass]="{'stock_companycard-extend': stockCollapse, 'company-list-inner-div': SelSecLevTitle!='Global'}">
+                    [ngClass]="{'stock_companycard-extend': stockCollapse, 'company-list-inner-div': SelSecLevTitle!='Global Universe'}">
                     <ion-list class="company-list">
                       <ion-item lines='none' [id]=getIDReplace(item.companyName) class="company-list-item" *ngFor="let item of selSectorComp">
                         <div class="company-label-outer-div" [ngClass]="{'comp-sel': selComp==item.companyName}"
@@ -202,7 +202,7 @@
                       </ion-item>
                      
                     </ion-list>
-                  <ion-infinite-scroll  [disabled]="selSector.code!='Global'" threshold="100px" position="bottom" (ionInfinite)="onscroll($event)">
+                  <ion-infinite-scroll  [disabled]="selSector.code!='Global Universe'" threshold="100px" position="bottom" (ionInfinite)="onscroll($event)">
                     <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Loading more data...">
                     </ion-infinite-scroll-content>
                   </ion-infinite-scroll>
@@ -242,8 +242,8 @@
             <!-- Index Tab Start  -->
             <div>
               <ul class="NavTabList">
-                <li class="navTabBtn" [ngClass]="{'tab-active': SelTab == 'Global'}"
-                  (click)="GridHeaderTitle=false; SelTab = 'Global';onNavClick();">Global Index</li>
+                <li class="navTabBtn" [ngClass]="{'tab-active': SelTab == 'Global Universe'}"
+                  (click)="GridHeaderTitle=false; SelTab = 'Global Universe';onNavClick();">Global Index</li>
                 <li class="tab2color" [ngClass]="{'tab-active': SelTab == 'NAA'}"
                   (click)="GridHeaderTitle=false; SelTab = 'NAA';onNavClick();">NAA Index</li>
                 <li class="ETFNavTabBtn" [ngClass]="{'tab-active': SelTab == 'ETF'|| SelTab == 'ETFChild'}"
@@ -255,7 +255,7 @@
             <!-- Index Dropdown Start -->
             <div>
               <ion-card class="index-header"
-                [ngClass]="{'active-left': SelTab == 'Global', 'active-right': SelTab == 'ETF' || SelTab == 'ETFChild'}">
+                [ngClass]="{'active-left': SelTab == 'Global Universe', 'active-right': SelTab == 'ETF' || SelTab == 'ETFChild'}">
 
                 <ion-card-content class="index-header-card-content">
                   <div class="index-header-card-div">
@@ -331,7 +331,7 @@
                 <!-- Index Loader -->
 
                 <!-- Global Index List Start -->
-                <ion-card-content *ngIf="SelTab=='Global'" class="company-card-content">
+                <ion-card-content *ngIf="SelTab=='Global Universe'" class="company-card-content">
                   <ion-list class="nav-tab-index">
                     <ion-item class="nav-tab-item"  lines="none" *ngFor="let item of comGlobalIndex"
                       (click)="onglobalIndexClick(item.name)">

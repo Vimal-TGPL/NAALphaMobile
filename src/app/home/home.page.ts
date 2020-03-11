@@ -84,7 +84,7 @@ export class HomePage implements OnInit, AfterViewInit {
   ETFNameMed: any = [];
   ETFNameFull: any = [];
   showLoader: any = true;
-  sectorHeadings: any = ['Global', 'Index', 'Sector', 'Industry Group', 'Industry', 'Sub Industry'];
+  sectorHeadings: any = ['Global Universe', 'Index', 'Sector', 'Industry Group', 'Industry', 'Sub Industry'];
   FilterList: any = [
     { "Name": 'Company Name (ascending)', "value": "1" },
     { "Name": 'Company Name (descending)', "value": "2" },
@@ -649,7 +649,7 @@ export class HomePage implements OnInit, AfterViewInit {
       this.onETFNameClick(e.companyName);
       this.slides.slideTo(1);
     } else {
-      this.SelTab = 'Global';
+      this.SelTab = 'Global Universe';
       this.onglobalIndexClick(e.indexName);
       this.slides.slideTo(0);
     }
@@ -690,7 +690,7 @@ export class HomePage implements OnInit, AfterViewInit {
     temp1 = [{ 'code': 'Index', 'name': this.SelSearchObj.indexName }]
     this.sectorList.unshift(temp1[0]);
     var temp2 = [];
-    temp2 = [{ 'code': 'Global', 'name': 'NAA' }];
+    temp2 = [{ 'code': 'Global Universe', 'name': 'New Age Alpha' }];
     this.sectorList.unshift(temp2[0]);
   }
   /***************Geting GICS List End *****************/
@@ -703,9 +703,9 @@ export class HomePage implements OnInit, AfterViewInit {
       this.stockIcon = "ios-arrow-dropdown-circle";
       this.icon = "ios-arrow-dropdown-circle";
     }
-    if (key == "Global") {
+    if (key == "Global Universe") {
       // const alert = await this.alertController.create({
-      //   header: 'Global',
+      //   header: 'Global Universe',
       //   message: 'Coming Soon',
       //   buttons: ['OK']
       // });
@@ -869,7 +869,7 @@ export class HomePage implements OnInit, AfterViewInit {
   M_CreateData() {
     var that = this;
     var dbScore: any = [];
-    if (that.selSector.code != "Index" && that.selSector.code != "Global" && this.sectorList.indexOf(this.selSector) != 2) {
+    if (that.selSector.code != "Index" && that.selSector.code != "Global Universe" && this.sectorList.indexOf(this.selSector) != 2) {
       dbScore = this.selSectorComp;
     }
     else {
@@ -1040,7 +1040,7 @@ onscroll(event){
   setTimeout(()=>{
     //console.log(event)
     //console.log("scroll running");
-    if(this.selSector.code=='Global'){
+    if(this.selSector.code=='Global Universe'){
       if(this.selSectorComp.length != this.globalselectorcomp.length){
         this.globalSize = this.globalSize+100;
       this.selSectorComp = this.globalselectorcomp.slice(0,this.globalSize);

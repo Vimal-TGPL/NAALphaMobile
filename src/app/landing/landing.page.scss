@@ -62,7 +62,7 @@ ion-content{
     }
     .tool-img img{
         width: 200px;
-        // height: 170px;
+         height: 200px;
     }
     .tool-img{
         display: flex;
@@ -74,4 +74,15 @@ ion-content{
     ion-card-content{
         overflow: auto;
     }
+
+    .button_outer_div{
+        display: flex;
+        justify-content: center;
+
+        .button_inner_div{
+            width: 400px;
+        }
+    }
+
+
   }

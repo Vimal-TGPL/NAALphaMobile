@@ -234,7 +234,7 @@
         <ion-list>
           <ion-radio-group (ionChange)='onIndexChange($event)'>
             <ion-item lines='none' *ngFor="let item of Index[CountryClasificationList.indexOf(selectedCountry)]">
-              <ion-label>{{item.indexName}}</ion-label>
+              <ion-label>{{item.indexName}} ({{item.indexCode}})</ion-label>
               <ion-radio slot="start" mode="md" [value]="item.indexName"></ion-radio>
             </ion-item>
           </ion-radio-group>

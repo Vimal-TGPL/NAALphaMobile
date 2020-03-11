@@ -25,7 +25,7 @@ ion-content{
 }
 
 .signupBtn{
-    --background: #00aeef;
+    --color:#00aeef;
     margin-inline-start: 0px;
     margin-inline-end: 0px;
 }
@@ -54,7 +54,7 @@ ion-content{
 .passwordItem
 {
     --background: white;
-    font-size: 18px;
+    font-size: 16px;
 }
 
 .passwordInput{
@@ -70,8 +70,8 @@ ion-content{
 }
 
 .loginBtn{
-    --background : white;
-    --color	: #2b468f;
+    --background: #00aeef;
+    --color	: #ffffff;
     --ripple-color : #9a9a9a;
     --color-activated : #2b468f;
     margin-inline-start: 0px;
@@ -79,7 +79,7 @@ ion-content{
 }
 
 .loginDiv{
-    padding: 15px 10px 10px 10px;
+    padding: 15px 10px 15px 10px;
 }
 
 .forgotPassBtn{
@@ -88,7 +88,7 @@ ion-content{
 }
 
 .forgotPassDiv{
-    padding: 10px 10px 10px 10px;
+    padding: 0px 10px 10px 10px;
 }
 
 .rememberItem{

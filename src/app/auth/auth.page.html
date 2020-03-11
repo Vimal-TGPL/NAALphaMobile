@@ -6,26 +6,24 @@
         <ion-card-title class="cardTitle">Login</ion-card-title>
       </ion-card-header>
       <ion-card-content class="overfloscroll">
-        <div class="signupBtnDiv">
-          <ion-button size="medium" expand="block" class="signupBtn" (click)="onSignupClick()">
-            Sign up
-          </ion-button>
-        </div>
+        
         <div class="form">
           <div class="inputdiv">
             <ion-label class="emailLabel">Email<ion-text color="danger"> *</ion-text>
             </ion-label>
             <ion-item class="emailItem">
-              <ion-input type="text" placeholder="Email Address" formControlName="Email" autocomplete="on"></ion-input>
+              <ion-input type="text" (ionInput)="onemialTextInput()" placeholder="Email Address" formControlName="Email" autocomplete="on"></ion-input>
             </ion-item>
+            <div style="color:red; padding-top: 0.2rem; font-size: 12px;" *ngIf="hasError('Email', 'required') && email">Password is required</div>
           </div>
           <div class="inputdiv">
             <ion-label class="emailLabel">Password<ion-text color="danger"> *</ion-text>
             </ion-label>
             <ion-item class="passwordItem">
-              <ion-input calss="passwordInput" type="password" placeholder="Password" formControlName="Password">
+              <ion-input calss="passwordInput" (ionInput)="onPwdTextInput()" type="password" placeholder="Password" formControlName="Password">
               </ion-input>
             </ion-item>
+            <div style="color:red; padding-top: 0.2rem; font-size: 12px;" *ngIf="hasError('Password', 'required') && pwd">Password is required</div>
           </div>
           <!-- <div class="inputdiv">
             <ion-item class="rememberItem" lines="none">
@@ -42,6 +40,11 @@
         <div class="forgotPassDiv">
           <ion-button class="forgotPassBtn" fill="clear" expand="block" (click)="onForgotPassClick()">
             Forgot Password?
+          </ion-button>
+        </div>
+        <div class="forgotPassDiv">
+          <ion-button expand="block" fill="clear" class="forgotPassBtn" (click)="onSignupClick()">
+            Sign up
           </ion-button>
         </div>
       </ion-card-content>
