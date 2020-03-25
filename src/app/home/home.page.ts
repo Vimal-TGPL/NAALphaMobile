@@ -9,6 +9,9 @@ import { IonicSelectableComponent } from 'ionic-selectable';
 import { ScreenOrientation } from '@ionic-native/screen-orientation/ngx';
 import { Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
+import { PopoverController } from '@ionic/angular';
+import { ProfiledetailsComponent } from '../Components/profiledetails/profiledetails.component';
+import { NavParams, Events } from '@ionic/angular';
 
 @Component({
   selector: 'app-home',
@@ -20,7 +23,7 @@ export class HomePage implements OnInit, AfterViewInit {
   
   @ViewChild(IonContent, {static:true}) content: IonContent;
   @ViewChild(IonSlides, { static: true }) slides: IonSlides;
-  
+  mobile : boolean;
   backButtonSubscription;
   globalSize:any = 100;
   globalselectorcomp:any = [];
@@ -97,6 +100,11 @@ export class HomePage implements OnInit, AfterViewInit {
     this.currenturl = this.router.url;
     this.createData();
     this.GetETFValues();
+    if(this.platform.is('ipad') || this.platform.is('tablet')){
+      this.mobile = false;
+    }else{
+      this.mobile = true;
+    }
   }
 
   @HostListener('window:resize')
@@ -108,7 +116,7 @@ export class HomePage implements OnInit, AfterViewInit {
     },100);
   }
 
-  constructor(private route:Router, public alertController: AlertController, private screenOrientation: ScreenOrientation, public router: Router, private authService: AuthenticationService, public storage: Storage, private httpclient: HttpClient, private plt: Platform) {
+  constructor(private events:Events, private platform:Platform, private popoverController: PopoverController ,private route:Router, public alertController: AlertController, private screenOrientation: ScreenOrientation, public router: Router, private authService: AuthenticationService, public storage: Storage, private httpclient: HttpClient, private plt: Platform) {
     this.currentUser = this.authService.currentUserValue();
     if (this.screenOrientation.type == this.screenOrientation.ORIENTATIONS.LANDSCAPE || this.screenOrientation.type == this.screenOrientation.ORIENTATIONS.LANDSCAPE_PRIMARY || this.screenOrientation.type == this.screenOrientation.ORIENTATIONS.LANDSCAPE_SECONDARY) {
       this.stockCollapse = true;
@@ -1062,5 +1070,23 @@ onscroll(event){
 onClick(){
   this.route.navigateByUrl('/test');
 }
+
+onLogoutClick(){
+  this.authService.logout();
 }
+
+  async profilePopover(e:any){
+    console.log("presenting profile Details");
+  const popover = await this.popoverController.create({
+    component:ProfiledetailsComponent,
+    event : e,
+    translucent: true
+
+  });
+
+  return await popover.present();
+}
+}
+
+
 

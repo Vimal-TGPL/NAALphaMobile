@@ -1,39 +1,6 @@
-<!-- <ion-header>
-  <ion-toolbar>
-    <ion-title>menu</ion-title>
-  </ion-toolbar>
-</ion-header>
-
-<ion-content>
-
-</ion-content> -->
-
 <ion-split-pane>
- <ion-menu when="main-content">
-<!-- <ion-header>
-  <div class = "profile">
-    <div class = "avatarDiv">
-    <div class = "avatar">
-      
-      <img src="../../assets/images/Profile_NAA5.svg" alt="Profile">
-    </div>
-    <div class = "deatilsDiv">
-     
-      <p>{{firstname}} {{lastname}}</p>
-      <p>{{username}}</p>
-    </div>
-  </div>
-  </div>
-</ion-header> -->
-
-<ion-content forceOverscroll = false>
-  <!-- <ion-list>
-    <ion-menu-toggle auto-hide="false" *ngFor="let p of pages">
-      <ion-title [routerLink]="['/menu/menu/home']" routerLinkActive="router-link-active" >
-        Home
-      </ion-title>
-    </ion-menu-toggle>
-  </ion-list> -->
+ <ion-menu when="main-content" type="push" [ngClass]="{'ipadmenu': !mobile}">
+<ion-content forceOverscroll = false *ngIf="mobile">
   <div>
   <div class = "avatarDiv">
       <div class = "avatar">
@@ -47,8 +14,8 @@
       </div>
     </div>
   </div>
-  <hr style=" border-top: 1px solid white; margin: 15px 25px;">
-  <ion-list>
+  <hr class="divider">
+  <ion-list id="menu-List">
       <ion-menu-toggle autoHide="false" >
         <ion-item lines="none" style="    color: white; --detail-icon-opacity: 1;" [routerLink]="['/menu/menu/home']" routerDirection="root" [class.active-item]="selectedPath==='/menu/menu/path'">
           <!-- //<ion-icon name="home-outline" style="color: white; margin-right: 10px;"></ion-icon> -->
@@ -78,11 +45,34 @@
         </ion-item>
       </ion-menu-toggle>
   </ion-list>
-  <div style="display: flex;
-  justify-content: center;">
-    <ion-text style="position: absolute; bottom: 30px;">
-      <p style="color: white; font-size: 14px;" (click)="openBrowserClick()">© 2020 <span style="color: #00AEEF;">newagealpha.com</span></p>
+  <div class="footerDiv">
+    <ion-text class="footerText">
+      <p (click)="openBrowserClick()">© 2020 <span style="color: #00AEEF;">newagealpha.com</span></p>
     </ion-text>
+  </div>
+</ion-content>
+<ion-content forceOverscroll = false *ngIf="!mobile">
+  <div class="ipadParentDiv">
+    <ion-list>
+    <ion-menu-toggle autoHide="false" >
+      <div>
+        <div>
+        <ion-item lines="none" [routerLink]="['/menu/menu/home']" routerDirection="root" [class.active-item]="selectedPath==='/menu/menu/path'" detail=false>
+          <img src="../../assets/images/H-Factor Icon solid.svg" alt="home" >
+        </ion-item>
+        <ion-item lines="none" [routerLink]="['/performance']" routerLinkActive="router-link-active" detail=false>
+          <!-- <img src="../../assets/images/bar graph.svg" alt="satistics" > -->
+          <ion-icon name="stats" style=" height: 65px; width: 65px; color:#ffffff;"></ion-icon>
+        </ion-item>
+      </div>
+        <!-- <div>
+        <ion-item lines="none" [routerLink]="['/change-password']" routerLinkActive="router-link-active" detail=false>
+          <img src="../../assets/images/password.svg" alt="ChangePassword" >
+        </ion-item>
+      </div> -->
+      </div>
+    </ion-menu-toggle>
+    </ion-list>
   </div>
 </ion-content>
  </ion-menu>

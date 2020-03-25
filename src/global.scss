@@ -63,3 +63,37 @@
 // .infinite-loading{
 //     display: inline-block;
 // }
+
+ion-popover{
+    --ion-safe-area-right: 15px;
+    --width: 300px !important;
+}
+
+ion-select{
+    max-width: 60vh !important;
+    min-width: 60vh !important;
+
+    .select-icon{
+        opacity: 1 !important;
+    }
+}
+
+ion-select-popover, .popover-content{
+    max-width: 60vh !important;
+    min-width: 60vh !important;
+    max-height: 30vh !important;
+    --background:#12203f !important;
+    ion-item{
+        --background:#12203f !important;
+        --color: #ffffff !important;
+    }
+
+    .item-radio-checked{
+        --color: #00b9ff !important;
+    }
+
+    ion-list{
+        margin-top: 1px;
+        margin-bottom: 0px;
+    }
+}

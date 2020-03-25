@@ -1,0 +1,15 @@
+.side-nav-item{
+    justify-content: center;
+    display: flex;
+    height: 50px;
+    align-items: center;
+    margin: 0 10px;
+    background: #4e62a1;
+    color: white;
+    padding: 5px;
+    border-radius: 10px;
+}
+
+.item-Active{
+   background-color: #324784 !important;
+}

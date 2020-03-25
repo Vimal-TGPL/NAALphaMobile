@@ -3,6 +3,7 @@ import { Router, RouterEvent } from '@angular/router';
 import { AuthenticationService } from '../services/authentication.service';
 import { Storage } from '@ionic/storage';
 import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
+import { Platform, IonSlides, IonContent } from '@ionic/angular';
 
 
 @Component({
@@ -11,6 +12,7 @@ import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
   styleUrls: ['./menu.page.scss'],
 })
 export class MenuPage implements OnInit {
+  mobile:boolean;
   url = 'https://www.newagealpha.com/';
   user:any;
   firstname:string;
@@ -25,7 +27,7 @@ export class MenuPage implements OnInit {
 
   selectedPath = '';
 
-  constructor(private iab:InAppBrowser,private route:Router, private authService:AuthenticationService, private storage:Storage) {
+  constructor(private platform:Platform, private iab:InAppBrowser,private route:Router, private authService:AuthenticationService, private storage:Storage) {
     this.route.events.subscribe((event:RouterEvent)=>{
       this.selectedPath = event.url;
     });
@@ -39,7 +41,11 @@ export class MenuPage implements OnInit {
    }
 
   ngOnInit() {
-    
+    if(this.platform.is('ipad') || this.platform.is('tablet')){
+      this.mobile = false;
+    }else{
+      this.mobile = true;
+    }
   }
 
   onLogoutClick(){

@@ -1,8 +1,8 @@
 import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import * as $ from "jquery"
 import 'slick-carousel/slick/slick';
 import { createAnimation } from '@ionic/core';
+import { Platform, IonSlides, IonContent } from '@ionic/angular';
 
 @Component({
   selector: 'app-performance',
@@ -11,11 +11,14 @@ import { createAnimation } from '@ionic/core';
 })
 export class PerformancePage implements OnInit, AfterViewInit {
   ngAfterViewInit() {
+    if(this.mobile){
     var ref = document.getElementById('IndexListCard');
     ref.onscroll= this.OnCardScroll;
+    }
   }
 
-
+  mobile : boolean;
+  selWith:any;
   selectedIndexData:any;
   selectedIndexName:any;
   selectedIndex:any;
@@ -27,15 +30,23 @@ export class PerformancePage implements OnInit, AfterViewInit {
   CountryClasificationList:any = ['All','USA','Europe','UK','Japan','Dev. World','Dev. World ex US'];
   performanceAPIUrl = 'https://api.newagealpha.com/api/Indexes/GetIndexPerformance';
   APIUrl = 'https://api.newagealpha.com/api/Indexes/GetIndexDetails';
-  constructor(private httpClient:HttpClient) { }
+  constructor(private platform:Platform, private httpClient:HttpClient) { 
+    this.selWith= window.innerWidth;
+    this.selWith = this.selWith- 30; 
+  }
 
   ngOnInit() {
-    this.loadData();
+    
+    if(this.platform.is('ipad') || this.platform.is('tablet')){
+      this.mobile = false;
+    }else{
+      this.mobile = true;
+      this.loadData();
+    }
   }
 
   OnCardScroll(e){
     var ref = document.getElementById('IndexListCard');
-   // console.log(ref.scrollTop);
     if(ref.scrollTop > 200){
       ref.classList.add("bottomCardScrollUp");
     }
@@ -43,7 +54,7 @@ export class PerformancePage implements OnInit, AfterViewInit {
   
   loadData(){
     this.httpClient.get(this.performanceAPIUrl).subscribe(data=>{
-      this.PerformanceData = data
+      this.PerformanceData = data;
       console.log(this.PerformanceData);
     
     this.httpClient.get(this.APIUrl).subscribe(data=>{
@@ -106,6 +117,7 @@ export class PerformancePage implements OnInit, AfterViewInit {
   }
 
   OnItemClick(item){
+    
     this.itemActive = true;
     this.selectedCountry = item;
     // var Cardwidth = screen.width-35;
@@ -117,9 +129,12 @@ export class PerformancePage implements OnInit, AfterViewInit {
       document.getElementById('BottomCardDiv').style.display="block";
       setTimeout(()=>{
         document.getElementById('BottomCardDiv').style.opacity="1";
+        
         setTimeout(()=>{
           document.getElementById('parentdiv').style.paddingTop="48px";
           document.getElementById('header').style.display='none';
+         
+          
         },100);
       },100);
     },500);
@@ -164,8 +179,6 @@ export class PerformancePage implements OnInit, AfterViewInit {
     setTimeout(()=>{
       this.animateSequenceStart();
     },300);
-    
-    //console.log(d);
   }
 
   onCancelClick(){
@@ -183,15 +196,12 @@ export class PerformancePage implements OnInit, AfterViewInit {
     setTimeout(()=>{
       document.getElementById('BottomCardDiv').style.opacity="0";
       setTimeout(()=>{
-        
         document.getElementById('BottomCardDiv').style.display="none";
-        // setTimeout(()=>{
-         
-        // },100);
       },700);
       setTimeout(()=>{
         document.getElementById('parentdiv').style.paddingTop="0px";
         document.getElementById('header').style.display='block';
+       
       },500);
     },100);
     

@@ -93,7 +93,7 @@ ion-content{
 
 .ActiveItem{
     background: linear-gradient(-90deg,#2E4C99, #233771);
-    width: 340px;
+    // width: 340px;
     // height: 150px;
     transition: 0.3s;
     display: flex;
@@ -140,7 +140,7 @@ ion-select .select-text{
 }
 
 .detailsOuterDiv{
-    padding: 0px 0px 10px 0px;
+    padding: 0px 0px 5px 0px;
 
     div{
         overflow: auto;
@@ -328,5 +328,54 @@ ion-toolbar{
         margin: 0px;
       font-size: 11px;
       color: #666;
+    }
+}
+
+.header-md:after{
+    background-image: none;
+}
+
+
+@media screen and (orientation:landscape) {
+    .bottomCardScrollUp{
+        max-height: 200px !important;
+    }
+
+    .BottomCard{
+        max-height: 200px;
+    }
+
+    .detailsOuterDiv div{
+        height: 250px;
+    }
+
+    ion-content{
+        --overflow: auto;
+        -ms-overflow-style: none;
+    
+
+    ::-webkit-scrollbar {
+        display: none;
+    }
+}
+    .parentdiv{
+        -ms-overflow-style: none;
+        
+    }
+    .parentdiv::-webkit-scrollbar {
+        display: none;
+    }
+    
+    .bottomText{
+        position: unset;
+    width: auto;
+    }
+
+    .dateDiv{
+    padding: 0px 15px 5px 15px;
+    }
+
+    .bottomcard-Div{
+        position: fixed;
     }
 }

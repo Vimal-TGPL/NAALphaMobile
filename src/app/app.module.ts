@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouteReuseStrategy } from '@angular/router';
 
-import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
+import { IonicModule, IonicRouteStrategy, PopoverController } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 
@@ -14,13 +14,13 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { HTTP } from '@ionic-native/http/ngx'
 import { IonicStorageModule } from '@ionic/storage';
 import { ScreenOrientation } from '@ionic-native/screen-orientation/ngx';
-
+import { ProfiledetailsComponent } from './Components/profiledetails/profiledetails.component'
 import { JwtInterceptor } from './_helper/jwt.interceptor';
 import { IonicSelectableComponent } from 'ionic-selectable';
 
 @NgModule({
-  declarations: [AppComponent],
-  entryComponents: [],
+  declarations: [AppComponent,ProfiledetailsComponent],
+  entryComponents: [ProfiledetailsComponent],
   imports: [BrowserModule, IonicModule.forRoot(), HttpClientModule, ReactiveFormsModule, AppRoutingModule, IonicStorageModule.forRoot()],
   providers: [
     InAppBrowser,

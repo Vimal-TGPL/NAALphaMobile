@@ -1,4 +1,4 @@
-<ion-header id='header'>
+<ion-header id='header' *ngIf="mobile">
   <ion-toolbar>
     <ion-buttons slot="start">
       <ion-back-button mode='md'></ion-back-button>
@@ -9,7 +9,8 @@
     <img src="../../assets/images/NAA.gif" alt="Loader" height="50">
   </div>
 </ion-header>
-<ion-content>
+<ion-content id="content" class="content" *ngIf="mobile">
+  
   <div id="parentdiv">
     <div class="Section1">
       <p class="PageSubTitle">Performance</p>
@@ -19,7 +20,7 @@
     <div id="sec2" class="Section2">
       <!-- <div class="InnerDiv"> -->
         <div [id]=replaceId(item) class="ItemDiv" *ngFor="let item of CountryClasificationList">
-          <ion-card class="ItemCard" [id]=replaceIdCard(item) [ngClass]="{ActiveItem: item == selectedCountry}" (click)="OnItemClick(item)">
+          <ion-card class="ItemCard" [id]=replaceIdCard(item) [ngClass]="{ActiveItem: item == selectedCountry}" [ngStyle]="{'width': item == selectedCountry? selWith+'px': '130px'}" (click)="OnItemClick(item)">
             <ion-card-content class="ItemCardContent">
               <ion-text class="ItemTitleText">
                 <h1 class="ItemTitle">{{item}}</h1>
@@ -204,13 +205,14 @@
     <div *ngIf="selectedIndexData">
       <p>First Value Date: <span>{{selectedIndexData.firstValueDt}}</span></p>
     </div>
+    <div class="bottomText">
+      <p>Calculated by S&P Dow Jones Indices</p>
+    </div>
     <div *ngIf="selectedIndexData">
       <p>Launch Date: <span>{{selectedIndexData.inception}}</span></p>
     </div>
   </div>
-  <div class="bottomText">
-    <p>Calculated by S&P Dow Jones Indices</p>
-  </div>
+  
   <div id='BottomCardDiv' class="bottomcard-Div">
     <div>
       <div class="cancelDiv">
@@ -228,7 +230,7 @@
         </div>
       </div>
     </div>
-    
+  
     <ion-card id="IndexListCard" class="BottomCard">
       <ion-card-content>
         <ion-list>
@@ -244,4 +246,8 @@
     </ion-card>
   </div>
 
+</ion-content>
+
+<ion-content *ngIf="!mobile">
+  <app-index ></app-index>
 </ion-content>

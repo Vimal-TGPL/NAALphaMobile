@@ -6,11 +6,14 @@ import { RouterModule } from '@angular/router';
 
 import { HomePage } from './home.page';
 import { IonicSelectableModule } from 'ionic-selectable';
+import { IPadHomeToolComponent } from '../Components/i-pad-home-tool/i-pad-home-tool.component'
+
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
+    
     IonicModule,
     IonicSelectableModule,
     RouterModule.forChild([
@@ -21,6 +24,6 @@ import { IonicSelectableModule } from 'ionic-selectable';
     ]),
     // IonicSelectableModule
   ],
-  declarations: [HomePage]
+  declarations: [HomePage,IPadHomeToolComponent]
 })
 export class HomePageModule {}

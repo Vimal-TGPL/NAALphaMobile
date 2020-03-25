@@ -8,6 +8,8 @@ import { PerformancePageRoutingModule } from './performance-routing.module';
 
 import { PerformancePage } from './performance.page';
 
+import { IndexComponent} from '../Components/index/index.component';
+
 @NgModule({
   imports: [
     CommonModule,
@@ -15,6 +17,6 @@ import { PerformancePage } from './performance.page';
     IonicModule,
     PerformancePageRoutingModule
   ],
-  declarations: [PerformancePage]
+  declarations: [PerformancePage,IndexComponent]
 })
 export class PerformancePageModule {}

@@ -4,15 +4,24 @@
     <ion-buttons slot="start" class="toolbar-button">
       <ion-menu-button color="light"></ion-menu-button>
     </ion-buttons>
-    <div class="header-Logo">
-      <img src="../../assets/images/NewAgeAlpha-logo.svg" alt="NewAgeAlpha" height="25px" width="auto">
+    
+    <div class="header-Logo" [ngClass]="{'ipad_Logo': !mobile}">
+      <img src="../../assets/images/NewAgeAlpha-logo.svg" alt="NewAgeAlpha"  width="auto" [ngStyle]="{height: mobile? '25px':'35px'}" >
     </div>
+    <div *ngIf="!mobile" style="position: absolute; top: 10px; right: 25px;">
+      <div style="display: flex; flex-direction: row;">
+      <div class="avatar" (click)="profilePopover($event)">
+        <img src="../../assets/images/Profile_NAA5.svg" alt="Profile">
+      </div>
+    </div>
+    </div>
+    
   </ion-toolbar>
 </ion-header>
 <!-- navBar End -->
 
-<!-- Body -->
-<ion-content id="parent-content" class="overflowOnlyLandscape">
+<!--Mobile Body -->
+<ion-content id="parent-content" class="overflowOnlyLandscape" *ngIf="mobile">
   <div>
     <!-- SearchBar start -->
     <div class="search-Outer-Div">
@@ -433,4 +442,12 @@
   </div>
   
 </ion-content>
-<!-- body -->
+<!--Mobile body -->
+
+<!-- Tablet body -->
+<ion-content *ngIf="!mobile" style="--ion-background-color:linear-gradient(-90deg,#2E4C99, #233771);">
+ <div>
+  <app-ipadhometool></app-ipadhometool>
+ </div>
+</ion-content>
+<!-- Tablet body -->

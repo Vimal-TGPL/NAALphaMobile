@@ -4,7 +4,13 @@
 
 ion-content{
 
-    --ion-background-color:linear-gradient(-90deg,#2E4C99, #233771);;
+    --ion-background-color:linear-gradient(-90deg,#2E4C99, #233771);
+    overflow: hidden;
+    -ms-overflow-style: none;
+
+    ::-webkit-scrollbar {
+        display: none;
+      }
 
 }
 
@@ -44,4 +50,71 @@ p{
 .deatilsDiv{
 padding: 10px;
 text-align: center;
+}
+
+.divider{
+    border-top: 1px solid white;
+    margin: 15px 25px;
+}
+
+.footerDiv{
+    display: flex;
+  justify-content: center;
+
+  .footerText{
+    position: absolute; 
+    bottom: 30px;
+  }
+
+  p{
+    color: white; font-size: 14px;
+  }
+}
+
+@media screen and (orientation:landscape) {
+    .footerText{
+        position: unset !important;
+    }
+
+    #menu-List{
+        margin-bottom:15px;
+    }
+}
+
+.ipadmenu{
+    min-width: 70px !important;
+    max-width: 70px !important;
+    border: 0px !important;
+}
+
+.ipadParentDiv{
+    padding: 30px 10px;
+    // height: 100%;
+
+    ion-list{
+        display: flex;
+        justify-content: center;
+        // height: 100%;
+    }
+
+    ion-item{
+        --padding-start: 0px; 
+        --inner-padding-end: 0px;
+        justify-content: center;
+        display: grid; 
+        padding-bottom: 15px;
+    }
+
+    img{
+        height: 65px;
+    }
+
+    .bottomDiv{
+        position: absolute;
+    bottom: 0px;
+    width: 100%;
+    left: 0px;
+    right: 0px;
+    
+    }
 }
