@@ -8,20 +8,39 @@
   <div style="background-color: #2e4a99; padding: 20px 10px; border-bottom-right-radius: 20px; display: flex; justify-content: center;">
     <img src="../../../assets/images/NewAgeAlpha-logo.svg" alt="Logo">
   </div>
+  <div >
   <div style="display: flex;
   flex-direction: column;
   justify-content: space-evenly;
   height: 50vh;">
     <span class="side-nav-item" [ngClass]="{'item-Active': selectedCountry == item}" *ngFor="let item of CountryClasificationList" (click)="OnItemClick(item)"><ion-label>{{item}}</ion-label></span>
+    
+    
+    
   </div>
+  <span style="padding: 0 15px;"><hr style="border: 1px solid #324784; width: 100%; height: 0px;"></span>
+  <span style="display: flex; justify-content: center;"><ion-item style="--padding-start: 0px;" lines="none" [routerLink]="['/menu/menu/home']" routerDirection="root" [class.active-item]="selectedPath==='/menu/menu/path'" detail=false>
+    <img src="../../../assets/images/H-Factor Icon solid-blue.svg" alt="home" style="height: 65px;">
+  </ion-item></span>
+</div>
   </div>
   <div style="width: 100%;">
     <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 25px 25px 20px 25px;">
-      <ion-text>
-        <h1 style="font-size: 35px; margin: 0px; color: #00b9ff;">H-Factor Indexes</h1>
-      </ion-text>
+      <div style=" display: flex; flex-direction: row;">
+        <ion-text>
+          <h1 style="font-size: 35px; margin: 0px; color: #00b9ff;">H-Factor Indexes</h1>
+        </ion-text>
+        <div style="    position: absolute;
+        right: 35px;
+        top: 20px;">
+        <div class="avatar" (click)="profilePopover($event)">
+          <img src="../../assets/images/Profile_NAA5.svg" alt="Profile">
+        </div>
+      </div>
+      </div>
+      
       <ion-text style="width:75vh;">
-        <p style=" color: #ffffff; font-size: 19px;">To build an index, we start with one of S&P<sup><img src="../../../assets/images/RegisteredTM.svg" alt="Registered" style=" height: 12px;"></sup> Dow Jones<sup><img src="../../../assets/images/RegisteredTM.svg" alt="Registered" style=" height: 12px;"></sup> Indexes. We then develop an investment methodology which is incorporated in a rule book. These documents are forwarded to S&P<sup><img src="../../../assets/images/RegisteredTM.svg" alt="Registered" style=" height: 12px;"></sup> for validation and history calculation. On a quarterly basis we supply H-Factor to S&P<sup><img src="../../../assets/images/RegisteredTM.svg" alt="Registered" style=" height: 12px;"></sup> who rebalance the indexes.<br><br>
+        <p style=" color: #ffffff; font-size: 17px;">To build an index, we start with one of S&P<sup><img src="../../../assets/images/RegisteredTM.svg" alt="Registered" style=" height: 12px;"></sup> Dow Jones<sup><img src="../../../assets/images/RegisteredTM.svg" alt="Registered" style=" height: 12px;"></sup> Indexes. We then develop an investment methodology which is incorporated in a rule book. These documents are forwarded to S&P<sup><img src="../../../assets/images/RegisteredTM.svg" alt="Registered" style=" height: 12px;"></sup> for validation and history calculation. On a quarterly basis we supply H-Factor to S&P<sup><img src="../../../assets/images/RegisteredTM.svg" alt="Registered" style=" height: 12px;"></sup> who rebalance the indexes.<br><br>
           These S&P<sup><img src="../../../assets/images/RegisteredTM.svg" alt="Registered" style=" height: 12px;"></sup> Dow Jones<sup><img src="../../../assets/images/RegisteredTM.svg" alt="Registered" style=" height: 12px;"></sup> calculated indexes then form the basis of our SMAs and all of our investment products.</p>
       </ion-text>
     </div>
@@ -34,12 +53,36 @@
       <h1 style=" font-size: 30px; margin: 0px; color: #00b9ff;">{{selectedCountry}}</h1>
     </ion-text>
     <div *ngIf="SelectedData">
-      <ion-item style="--background:#12203f; --color: #00b9ff; --ion-item-background-activated:#12203f;" lines='none'>
+      <ion-item id="indexSelect" style="--background:#12203f; --color: #00b9ff; --ion-item-background-activated:#12203f;" lines='none'>
         <ion-select [value]="SelectedData.indexName" interface="popover" (ionChange)="onIndexChange($event)">
           <ion-select-option [value]="item.indexName" *ngFor="let item of Index[CountryClasificationList.indexOf(selectedCountry)]">{{item.indexName}}</ion-select-option>
         </ion-select>
       </ion-item>
     </div>
+    
+  </div>
+  <div style="padding: 30px;">
+    <ion-card style="background-color: #ffffff;">
+      <ion-card-content>
+        <div *ngIf="selectedIndexData">
+          <ion-text>
+            <p style="color: #394e8b; font-size: 18px;">{{selectedIndexData.indexName}}</p>
+          </ion-text>
+          <ion-text>
+            <p style="color: #394e8b; font-size: 14px; padding-top: 20px;">{{selectedIndexData.description}}</p>
+          </ion-text>
+          <ion-text>
+            <p style="text-align: right;
+            padding-right: 20px;
+            color: #394e8b;
+            font-size: 15px;
+            font-style: italic;">performace : As of {{selectedIndexData.date}}</p>
+          </ion-text>
+          
+        </div>
+        
+      </ion-card-content>
+    </ion-card>
   </div>
   </div>
   

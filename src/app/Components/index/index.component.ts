@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { PopoverController } from '@ionic/angular';
+import { ProfiledetailsComponent } from '../../Components/profiledetails/profiledetails.component';
 
 @Component({
   selector: 'app-index',
@@ -16,7 +18,7 @@ export class IndexComponent implements OnInit {
   CountryClasificationList: any = ['All', 'USA', 'Europe', 'UK', 'Japan', 'Dev. World', 'Dev. World ex US'];
   performanceAPIUrl = 'https://api.newagealpha.com/api/Indexes/GetIndexPerformance';
   APIUrl = 'https://api.newagealpha.com/api/Indexes/GetIndexDetails';
-  constructor(private httpClient: HttpClient) { }
+  constructor(private httpClient: HttpClient,private popoverController: PopoverController) { }
 
   ngOnInit() {
     this.selectedCountry = 'All';
@@ -47,8 +49,12 @@ export class IndexComponent implements OnInit {
           console.log(temp);
           this.Index.push(temp);
         }
+        
         this.SelectedData=this.Index[this.CountryClasificationList.indexOf(this.selectedCountry)][0];
         console.log(this.SelectedData);
+        var temps = this.PerformanceData.filter(item=>item.indexName == this.SelectedData.indexName);
+        this.selectedIndexData = temps[0];
+        console.log(this.selectedIndexData);
       });
     });
   }
@@ -86,6 +92,25 @@ export class IndexComponent implements OnInit {
   }
 
   onIndexChange(ev){
+    var temp = this.Index[this.CountryClasificationList.indexOf(this.selectedCountry)].filter(item=>item.indexName == ev.target.value);
+    this.SelectedData = temp[0];
+    console.log(this.SelectedData);
+
+    var temp2 = this.PerformanceData.filter(item=>item.indexName == this.SelectedData.indexName);
+    this.selectedIndexData = temp2[0];
+    console.log(this.selectedIndexData);
     console.log(ev.target.value);
   }
+
+  async profilePopover(e:any){
+    console.log("presenting profile Details");
+  const popover = await this.popoverController.create({
+    component:ProfiledetailsComponent,
+    event : e,
+    translucent: true,
+    cssClass:'Custom_profile'
+  });
+
+  return await popover.present();
+}
 }

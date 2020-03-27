@@ -10,12 +10,15 @@ import { PerformancePage } from './performance.page';
 
 import { IndexComponent} from '../Components/index/index.component';
 
+import { NgxDatatableModule } from '@swimlane/ngx-datatable'
+
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    PerformancePageRoutingModule
+    PerformancePageRoutingModule,
+    NgxDatatableModule
   ],
   declarations: [PerformancePage,IndexComponent]
 })

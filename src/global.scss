@@ -67,6 +67,13 @@
 ion-popover{
     --ion-safe-area-right: 15px;
     --width: 300px !important;
+
+    
+}
+
+.Custom_profile .popover-content{
+    max-width: 300px !important;
+    min-width: 300px !important;
 }
 
 ion-select{

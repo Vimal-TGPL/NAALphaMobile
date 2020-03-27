@@ -5,19 +5,55 @@ ion-content{
 }
 
 .card{
-    background-color: #2e4c99;
-    border-radius: 20px;
+    border-radius: 0px;
+    margin: 0;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    // align-items: center;
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    right: 0;
-    left: 0;
-    // width: 100%;
-    // min-height: 96vh;                
+    align-items: center;
+    height: 100vh;
+    --background: linear-gradient(180deg,#2E4C99, #233771);                
+}
+
+.outercard{
+    height: 90%;
+    width: 90%;
+    background: #d3d8dc;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 20px;
+}
+
+.outercardmobile{
+    height: 100% !important;
+    width: 100% !important;
+    margin: 0 !important;
+    border-radius: 0 !important;
+}
+
+.innercard{
+    height: 85%;
+    width: 85%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    --background: linear-gradient(180deg,#2E4C99, #233771);  
+    border-radius: 20px;
+
+    .card-Content{
+        width: 40%;
+    }
+}
+
+.innercardmobile{
+    height: 95% !important;
+    width: 95% !important;
+
+    .card-Content{
+        width: 90% !important;
+    }
 }
 
 .signupBtnDiv{
@@ -26,6 +62,7 @@ ion-content{
 
 .signupBtn{
     --color:#00aeef;
+    text-transform: inherit;
     margin-inline-start: 0px;
     margin-inline-end: 0px;
 }
@@ -41,7 +78,7 @@ ion-content{
 
 .emailLabel{
     color: white;
-    // font-family: Arial, Helvetica, sans-serif;
+    padding-left: 10px;
     font-size: 17px;
 }
 
@@ -70,12 +107,17 @@ ion-content{
 }
 
 .loginBtn{
-    --background: #00aeef;
+    --background: linear-gradient(45deg, #00b9ff 0%, #2e4c99 100%);
+    --background-activated: linear-gradient(45deg, #00b9ff 0%, #2e4c99 100%);
     --color	: #ffffff;
     --ripple-color : #9a9a9a;
-    --color-activated : #2b468f;
+    --color-activated : #ffffff;
     margin-inline-start: 0px;
     margin-inline-end: 0px;
+    --border-radius: 15px;
+    height: 50px;
+    font-size: 22px;
+    text-transform: inherit;
 }
 
 .loginDiv{
@@ -85,6 +127,7 @@ ion-content{
 .forgotPassBtn{
     color: #00aeef;
     height: 16px;
+    text-transform: inherit;
 }
 
 .forgotPassDiv{
@@ -110,5 +153,11 @@ ion-content{
 }
 .overfloscroll::-webkit-scrollbar, *::-webkit-scrollbar { 
     display: none; 
+}
+
+.innercardmobile{
+    .card-Content{
+        width: 50% !important;
+    }
 }
 }

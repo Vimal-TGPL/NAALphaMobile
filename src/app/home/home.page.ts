@@ -1080,8 +1080,8 @@ onLogoutClick(){
   const popover = await this.popoverController.create({
     component:ProfiledetailsComponent,
     event : e,
-    translucent: true
-
+    translucent: true,
+    cssClass:'Custom_profile'
   });
 
   return await popover.present();

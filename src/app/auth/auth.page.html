@@ -2,10 +2,15 @@
     <div style="display: block;">
       <form [formGroup]="loginForm">
     <ion-card class="card">
-      <ion-card-header style="padding: 0px;">
+      <ion-card class="outercard" [ngClass]="{'outercardmobile': mobile}">
+        <ion-card class="innercard" [ngClass]="{'innercardmobile': mobile}">
+          
+        
+      
+      <ion-card-header style="padding: 0px; background: none;">
         <ion-card-title class="cardTitle">Login</ion-card-title>
       </ion-card-header>
-      <ion-card-content class="overfloscroll">
+      <ion-card-content class="overfloscroll card-Content" >
         
         <div class="form">
           <div class="inputdiv">
@@ -14,7 +19,7 @@
             <ion-item class="emailItem">
               <ion-input type="text" (ionInput)="onemialTextInput()" placeholder="Email Address" formControlName="Email" autocomplete="on"></ion-input>
             </ion-item>
-            <div style="color:red; padding-top: 0.2rem; font-size: 12px;" *ngIf="hasError('Email', 'required') && email">Password is required</div>
+            <div style="color: #f44336; padding-top: 0.2rem; font-size: 12px;" *ngIf="hasError('Email', 'required') && email">Email is required</div>
           </div>
           <div class="inputdiv">
             <ion-label class="emailLabel">Password<ion-text color="danger"> *</ion-text>
@@ -23,7 +28,7 @@
               <ion-input calss="passwordInput" (ionInput)="onPwdTextInput()" type="password" placeholder="Password" formControlName="Password">
               </ion-input>
             </ion-item>
-            <div style="color:red; padding-top: 0.2rem; font-size: 12px;" *ngIf="hasError('Password', 'required') && pwd">Password is required</div>
+            <div style="color: #f44336; padding-top: 0.2rem; font-size: 12px;" *ngIf="hasError('Password', 'required') && pwd">Password is required</div>
           </div>
           <!-- <div class="inputdiv">
             <ion-item class="rememberItem" lines="none">
@@ -33,7 +38,7 @@
           </div> -->
           <div class="loginDiv">
             <ion-button class="loginBtn" size="medium" expand="block" [disabled] ="!loginForm.valid" (click)="onLoginClick()">
-              Login
+              <ion-spinner *ngIf="showLoad" name="crescent"></ion-spinner>&nbsp;{{showLoad ? 'Logging in...': 'Login'}}
             </ion-button>
           </div>
         </div>
@@ -48,6 +53,8 @@
           </ion-button>
         </div>
       </ion-card-content>
+    </ion-card>
+    </ion-card>
     </ion-card>
   </form>
   </div>

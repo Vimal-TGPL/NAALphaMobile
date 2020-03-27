@@ -3,6 +3,7 @@ import { Validators, FormGroup, FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
 import { UserService } from '../services/user.service';
 import { ToastController } from '@ionic/angular';
+import { Platform} from '@ionic/angular';
 
 @Component({
   selector: 'app-forgot-password',
@@ -12,11 +13,16 @@ import { ToastController } from '@ionic/angular';
 export class ForgotPasswordPage implements OnInit {
 
   forgotPass: FormGroup;
-  
+  mobile : boolean;
 
-  constructor(private route:Router, private userServices:UserService, private toastController:ToastController) { }
+  constructor(private platform:Platform, private route:Router, private userServices:UserService, private toastController:ToastController) { }
 
   ngOnInit() {
+    if(this.platform.is('ipad') || this.platform.is('tablet')){
+      this.mobile = false;
+    }else{
+      this.mobile = true;
+    }
     this.forgotPass = new FormGroup({
       LastName: new FormControl('',[Validators.required]),
       Email: new FormControl('',[Validators.required,Validators.email]),

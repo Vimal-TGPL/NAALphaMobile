@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
 import { Router } from '@angular/router';
+import { Platform} from '@ionic/angular';
 
 @Component({
   selector: 'app-landing',
@@ -8,11 +9,17 @@ import { Router } from '@angular/router';
   styleUrls: ['./landing.page.scss'],
 })
 export class LandingPage implements OnInit {
+  mobile : boolean;
   signupUrl = 'https://app.newagealpha.com/signUp';
   url = 'https://www.newagealpha.com/';
-  constructor(private iab:InAppBrowser, private route:Router) { }
+  constructor(private platform:Platform, private iab:InAppBrowser, private route:Router) { }
 
   ngOnInit() {
+    if(this.platform.is('ipad') || this.platform.is('tablet')){
+      this.mobile = false;
+    }else{
+      this.mobile = true;
+    }
   }
 
   onSkipClick(){
@@ -21,6 +28,10 @@ export class LandingPage implements OnInit {
 
   onLoginClick(){
     this.route.navigateByUrl('/auth');
+  }
+
+  onForgotPwdClick(){
+    this.route.navigateByUrl('/forgot-password');
   }
 
   onSignupClick(){

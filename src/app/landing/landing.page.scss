@@ -5,73 +5,192 @@ ion-content{
 }
 
 .card{
-    background-color: #2e4c99;
+    --background: linear-gradient(-90deg,#2E4C99, #233771);
+    border-radius: 0px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+   
+    margin: 0px;             
+}
+
+.innercard{
+    height: 90%;
+    width: 90%;
+    background: #d3d8dc;
     border-radius: 20px;
     display: flex;
     justify-content: center;
     align-items: center;
-    flex-direction: column;
-    height: auto ;     
-    position: absolute;
-    top: 0;
-    right: 0;
-    left: 0;
-    bottom: 0;  
-    // min-height: 96vh;                
+}
+
+.innercardmobile{
+    height: 100% !important;
+    width: 100% !important;
+    margin: 0 !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+}
+
+.innercard2{
+    height: 85%;
+    width: 85%;
+    --background: linear-gradient(-90deg,#2E4C99, #233771);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 20px;
+}
+
+.innercard2mobile{
+    height: 95% !important;
+    width: 95% !important;
+}
+
+.ParentDiv{
+    display: block;
 }
 
 .outerdiv{
-    padding: 2%;
-}
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 
-.cardcontent{
-    padding-top: 3%;
-}
-
-.text_div{
-    text-align: center;
-    padding-top: 5%;
-}
-
-.second{
-    font-weight: 500;
-}
-
-.signupbtn{
-    --background: #00b9ff;
-}
-
-.loginbtn{
-    --background: #ffffff;
-    --color: #2b468f;
-    --ripple-color: #00b9ff;
-    --color-activated: black;
-}
-
-.skipbtn{
-    --color: #00b9ff;
-}
-
-.btndiv{
-    padding-top: 2%;
-}
-
-@media screen and (max-height: 650px) {
-    .card{
-        margin: 10px !important;
+    img{
+        width: 250px;
     }
-    .tool-img img{
-        width: 200px;
-         height: 200px;
+
+    .welcomeTextDiv{
+        margin-top: 25px;
+
+        p{
+            display: inline-block;
+            width: 50vh;
+            text-align: center;
+            color: #ffffff;
+            font-size: 20px;
+        }
     }
-    .tool-img{
-        display: flex;
-        justify-content: center;
+
+    .versiondiv{
+        margin-top: 25px;
+
+        p{
+            display: inline-block;
+            width: 50vh;
+            text-align: center;
+            color: #ffffff;
+            font-size: 20px;
+            font-weight: 600;
+        }
     }
-  }
+    
+    .LoginBtnDiv{
+        margin-top: 30px;
+
+        ion-button{
+            --border-radius: 15px; font-size: 22px; height: 50px; 
+            --background: linear-gradient(45deg, #00b9ff 0%, #2e4c99 100%) !important; 
+            color: #ffffff; 
+            width: 30vh;
+        }
+    }
+
+    .forgotPwdDiv{
+        margin-top: 25px;
+
+        ion-button{
+            height: 21px; 
+            color: #00b9ff; 
+            font-size: 17px;
+        }
+    }
+
+    .signUpDiv{
+
+        ion-button{
+            height: 21px; 
+            color: #ffffff; 
+            font-size: 17px;
+
+            span{
+                color: #00b9ff; 
+                padding-left: 5px;
+            }
+        }
+
+    }
+}
+
+.outerdivmobile{
+
+    img{
+        width: 200px !important;
+    }
+
+    .welcomeTextDiv{
+        margin-top: 35px !important;
+        p{
+            width: 45vh !important;
+            font-size: 16px !important;
+        }
+        
+    }
+
+    .versiondiv{
+        p{
+            font-size: 16px !important;
+        }
+    } 
+
+    .LoginBtnDiv{
+        margin-top: 25px !important;
+
+        ion-button{
+            height: 40px !important;
+            font-size: 18px !important;
+            width: 35vh !important;
+            text-transform: inherit !important;
+        }
+    }
+
+    .forgotPwdDiv{
+        margin-top: 20px !important;
+        ion-button{
+            font-size: 14px !important;
+            text-transform: inherit !important;
+        }
+    }
+
+    .signUpDiv{
+
+        ion-button{
+            font-size: 14px !important;
+            text-transform: inherit !important;
+        }
+    }
+}
+
+
+
+// @media screen and (max-height: 650px) {
+//     .card{
+//         // margin: 10px !important;
+//     }
+//     .tool-img img{
+//         width: 200px;
+//          height: 200px;
+//     }
+//     .tool-img{
+//         display: flex;
+//         justify-content: center;
+//     }
+//   }
 
   @media screen and (orientation:landscape) {
-    ion-card-content{
+    .innercard2mobile{
         overflow: auto;
     }
 
@@ -82,6 +201,15 @@ ion-content{
         .button_inner_div{
             width: 400px;
         }
+    }
+
+    .outerdivmobile{
+        .welcomeTextDiv{
+            p{
+                width: 100vh !important;
+            }
+        }
+        
     }
 
 

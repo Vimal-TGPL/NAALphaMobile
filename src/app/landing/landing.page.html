@@ -1,36 +1,43 @@
 <ion-content forceOverscroll = false>
-  <div style="display: block;">
+  <div class="ParentDiv">
     <ion-card class="card">
-        <ion-card-content>
-          <div class="tool-img">
-           <img style="padding-top: 2%;" src="../../assets/images/NAA_aboutUs_tools.png"/>
-          </div>
-            <div class="text_div">
-            <p style="color: white; font-size: 15px; ">The H-Factor System is a free service oﬀered by New Age Alpha that is designed to help you avoid the Human Factor inside your portfolio. This system measures the amount of Human Factor in a stock’s price.</p>
-            </div>
-            <div class="text_div">
-              <p class="second" style="color: white;">H-Factor Scores for Stocks, ETFs and Global Indexes.</p>
-            </div>
-            <div class="button_outer_div">
-              <div class="button_inner_div">
-              <div class="btndiv">
-                <ion-button class="signupbtn" expand="block" (click)="onSignupClick()">
-                    Sign up
+      <ion-card class="innercard" [ngClass]="{'innercardmobile': mobile}">
+        <ion-card class="innercard2" [ngClass]="{'innercard2mobile': mobile}">
+          <ion-card-content>
+            <div class="outerdiv" [ngClass]="{'outerdivmobile': mobile}">
+              <div>
+                <img src="../../assets/images/NAA_aboutUs_tools.png" alt="Logo"/>
+              </div>
+              <div class="welcomeTextDiv">
+                <ion-text>
+                  <p>The H-Factor System is a free service oﬀered by New Age Alpha that is designed to help you avoid the Human Factor inside your portfolio. 
+                    This system measures the amount of Human Factor in a stock’s price.</p>
+                </ion-text>
+              </div>
+              <div class="versiondiv">
+                <ion-text>
+                  <p>Version 1.0</p>
+                </ion-text>
+              </div>
+              <div class="LoginBtnDiv">
+                <ion-button (click)="onLoginClick()" expand="block" fill="clear" >
+                  Login
                 </ion-button>
               </div>
-              <div class="btndiv">
-                <ion-button class="loginbtn" expand="block" (click)="onLoginClick()">
-                    Login
+              <div class="forgotPwdDiv">
+                <ion-button (click)="onForgotPwdClick()" expand="block" fill="clear" shape="round">
+                  Forgot Password?
                 </ion-button>
               </div>
-              <div class="btndiv">
-                  <ion-button class="skipbtn" fill="outline" expand="block" (click)="onSkipClick()">
-                      newagealpha.com
-                  </ion-button>
-                </div>
+              <div class="signUpDiv">
+                <ion-button (click)="onSignupClick()" expand="block" fill="clear" shape="round">
+                  <span> Sign Up</span>
+                </ion-button>
               </div>
             </div>
           </ion-card-content>
+        </ion-card>
+      </ion-card>
     </ion-card>  
 </div>
 </ion-content>
