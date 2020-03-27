@@ -3,7 +3,7 @@ import { AuthenticationService } from '../services/authentication.service';
 import { Storage } from '@ionic/storage';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from '../../environments/environment';
-import { Platform, IonSlides, IonContent } from '@ionic/angular';
+import { Platform, IonSlides, IonContent, MenuController } from '@ionic/angular';
 import * as d3 from 'd3';
 import { IonicSelectableComponent } from 'ionic-selectable';
 import { ScreenOrientation } from '@ionic-native/screen-orientation/ngx';
@@ -105,6 +105,7 @@ export class HomePage implements OnInit, AfterViewInit {
     }else{
       this.mobile = true;
     }
+    // this.menuCtrl.enable(true);
   }
 
   @HostListener('window:resize')
@@ -116,7 +117,7 @@ export class HomePage implements OnInit, AfterViewInit {
     },100);
   }
 
-  constructor(private events:Events, private platform:Platform, private popoverController: PopoverController ,private route:Router, public alertController: AlertController, private screenOrientation: ScreenOrientation, public router: Router, private authService: AuthenticationService, public storage: Storage, private httpclient: HttpClient, private plt: Platform) {
+  constructor(private menuCtrl:MenuController, private events:Events, private platform:Platform, private popoverController: PopoverController ,private route:Router, public alertController: AlertController, private screenOrientation: ScreenOrientation, public router: Router, private authService: AuthenticationService, public storage: Storage, private httpclient: HttpClient, private plt: Platform) {
     this.currentUser = this.authService.currentUserValue();
     if (this.screenOrientation.type == this.screenOrientation.ORIENTATIONS.LANDSCAPE || this.screenOrientation.type == this.screenOrientation.ORIENTATIONS.LANDSCAPE_PRIMARY || this.screenOrientation.type == this.screenOrientation.ORIENTATIONS.LANDSCAPE_SECONDARY) {
       this.stockCollapse = true;

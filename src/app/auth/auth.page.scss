@@ -109,6 +109,8 @@ ion-content{
 .loginBtn{
     --background: linear-gradient(45deg, #00b9ff 0%, #2e4c99 100%);
     --background-activated: linear-gradient(45deg, #00b9ff 0%, #2e4c99 100%);
+    --background-focused: linear-gradient(45deg, #00b9ff 0%, #2e4c99 100%);
+    --background-hover: linear-gradient(45deg, #00b9ff 0%, #2e4c99 100%); 
     --color	: #ffffff;
     --ripple-color : #9a9a9a;
     --color-activated : #ffffff;
