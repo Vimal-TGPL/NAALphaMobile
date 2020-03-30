@@ -17,18 +17,24 @@ import { ScreenOrientation } from '@ionic-native/screen-orientation/ngx';
 import { ProfiledetailsComponent } from './Components/profiledetails/profiledetails.component'
 import { JwtInterceptor } from './_helper/jwt.interceptor';
 import { IonicSelectableComponent } from 'ionic-selectable';
+import { MatTabsModule} from '@angular/material/tabs'
+// import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [AppComponent,ProfiledetailsComponent],
   entryComponents: [ProfiledetailsComponent],
-  imports: [BrowserModule, IonicModule.forRoot(), HttpClientModule, ReactiveFormsModule, AppRoutingModule, IonicStorageModule.forRoot()],
+  imports: [BrowserModule,BrowserAnimationsModule, MatTabsModule, IonicModule.forRoot(), HttpClientModule, ReactiveFormsModule, AppRoutingModule, IonicStorageModule.forRoot()],
   providers: [
     InAppBrowser,
     StatusBar,
+    BrowserModule,
+
     HTTP, 
     SplashScreen,
     ScreenOrientation,
     IonicSelectableComponent,
+    
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     { provide: HTTP_INTERCEPTORS, useClass:JwtInterceptor, multi:true}
   ],

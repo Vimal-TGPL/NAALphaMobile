@@ -1,0 +1,21 @@
+.outerDiv{
+    height: calc( 100vh - 90px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.parentCard{
+    height: 90%;
+    width: 90%;
+    --background:#d3d8dc;
+    border-radius: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    ion-card-content{
+        height: 100%;
+        width: 100%;
+    }
+}

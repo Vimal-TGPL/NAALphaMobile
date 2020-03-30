@@ -12,11 +12,14 @@ import { IndexComponent} from '../Components/index/index.component';
 
 import { NgxDatatableModule } from '@swimlane/ngx-datatable'
 
+import { MatTabsModule } from '@angular/material';
+
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
+    MatTabsModule,
     PerformancePageRoutingModule,
     NgxDatatableModule
   ],
