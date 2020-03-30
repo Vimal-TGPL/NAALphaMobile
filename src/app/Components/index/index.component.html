@@ -1,164 +1,185 @@
- 
- <div style="display: flex; flex-direction: row;     background: linear-gradient(-90deg,#2E4C99, #233771);">
-  
-  <div style="height: 100vh;
-  width: 120px;
-  background-color: #ffffff;
- ">
-  <div style="background-color: #2e4a99; padding: 20px 10px; border-bottom-right-radius: 20px; display: flex; justify-content: center;">
-    <img src="../../../assets/images/NewAgeAlpha-logo.svg" alt="Logo">
+<div class="overallDiv">
+
+  <div class="menu">
+    <div class="logo">
+      <img src="../../../assets/images/NewAgeAlpha-logo.svg" alt="Logo">
+    </div>
+    <div>
+      <div class="menu-item-div">
+        <span class="side-nav-item" [ngClass]="{'item-Active': selectedCountry == item}"
+          *ngFor="let item of CountryClasificationList" (click)="OnItemClick(item)">
+          <ion-label>{{item}}</ion-label>
+        </span>
+      </div>
+      <span class="divider-span">
+        <hr></span>
+      <span class="menu-nav-span">
+        <ion-item lines="none" [routerLink]="['/menu/menu/home']" routerDirection="root"
+          [class.active-item]="selectedPath==='/menu/menu/path'" detail=false>
+          <img src="../../../assets/images/H-Factor Icon solid-blue.svg" alt="home" style="height: 65px;">
+        </ion-item>
+      </span>
+    </div>
   </div>
-  <div >
-  <div style="display: flex;
-  flex-direction: column;
-  justify-content: space-evenly;
-  height: 50vh;">
-    <span class="side-nav-item" [ngClass]="{'item-Active': selectedCountry == item}" *ngFor="let item of CountryClasificationList" (click)="OnItemClick(item)"><ion-label>{{item}}</ion-label></span>
-  </div>
-  <span style="padding: 0 15px;"><hr style="border: 1px solid #324784; margin-left: 15px; margin-right: 15px; height: 0px;"></span>
-  <span style="display: flex; justify-content: center;"><ion-item style="--padding-start: 0px;" lines="none" [routerLink]="['/menu/menu/home']" routerDirection="root" [class.active-item]="selectedPath==='/menu/menu/path'" detail=false>
-    <img src="../../../assets/images/H-Factor Icon solid-blue.svg" alt="home" style="height: 65px;">
-  </ion-item></span>
-</div>
-  </div>
-  <div style="width: 100%;">
-    <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 40px 25px 20px 25px;">
-      <div style=" display: flex; flex-direction: row;">
+  <div class="content-div">
+    <div class="section1-div">
+      <div class="title-Div">
         <ion-text>
-          <h1 style="font-size: 35px; margin: 0px; color: #00b9ff;">H-Factor Indexes</h1>
+          <h1>H-Factor Indexes</h1>
         </ion-text>
-        <div style="    position: absolute;
-        right: 35px;
-        top: 20px;">
-        <div class="avatar" (click)="profilePopover($event)">
-          <img src="../../assets/images/Profile_NAA5.svg" alt="Profile">
+        <div class="profile">
+          <div class="avatar" (click)="profilePopover($event)">
+            <img src="../../assets/images/Profile_NAA5.svg" alt="Profile">
+          </div>
         </div>
       </div>
-      </div>
-      
-      <ion-text style="width:75vh;">
-        <p style=" color: #ffffff; font-size: 17px; margin-top: 30px;">To build an index, we start with one of S&P<sup><img src="../../../assets/images/RegisteredTM.svg" alt="Registered" style=" height: 12px;"></sup> Dow Jones<sup><img src="../../../assets/images/RegisteredTM.svg" alt="Registered" style=" height: 12px;"></sup> Indexes. We then develop an investment methodology which is incorporated in a rule book. These documents are forwarded to S&P<sup><img src="../../../assets/images/RegisteredTM.svg" alt="Registered" style=" height: 12px;"></sup> for validation and history calculation. On a quarterly basis we supply H-Factor to S&P<sup><img src="../../../assets/images/RegisteredTM.svg" alt="Registered" style=" height: 12px;"></sup> who rebalance the indexes.<br><br>
-          These S&P<sup><img src="../../../assets/images/RegisteredTM.svg" alt="Registered" style=" height: 12px;"></sup> Dow Jones<sup><img src="../../../assets/images/RegisteredTM.svg" alt="Registered" style=" height: 12px;"></sup> calculated indexes then form the basis of our SMAs and all of our investment products.</p>
+
+      <ion-text class="sub-title">
+        <p>To build an index, we start with one of
+          S&P<sup><img src="../../../assets/images/RegisteredTM.svg" alt="Registered"></sup> Dow
+          Jones<sup><img src="../../../assets/images/RegisteredTM.svg" alt="Registered"></sup>
+          Indexes. We then develop an investment methodology which is incorporated in a rule book. These documents are
+          forwarded to S&P<sup><img src="../../../assets/images/RegisteredTM.svg" alt="Registered"></sup> for validation
+          and history calculation. On a quarterly basis we supply
+          H-Factor to S&P<sup><img src="../../../assets/images/RegisteredTM.svg" alt="Registered"></sup> who rebalance
+          the indexes.<br><br>
+          These S&P<sup><img src="../../../assets/images/RegisteredTM.svg" alt="Registered"></sup> Dow Jones<sup><img
+              src="../../../assets/images/RegisteredTM.svg" alt="Registered"></sup> calculated indexes then form the
+          basis of our SMAs and all
+          of our investment products.</p>
       </ion-text>
     </div>
-    
-    <div style="display: flex;
-  flex-direction: row; justify-content: space-between;
-    width: 100%; padding: 25px 25px 20px 25px;" >
-    
-    <ion-text>
-      <h1 style=" font-size: 30px; margin: 0px; color: #00b9ff;">{{selectedCountry}}</h1>
-    </ion-text>
-    <div *ngIf="SelectedData">
-      <ion-item id="indexSelect" style="--background:#12203f; --color: #00b9ff; --ion-item-background-activated:#12203f;" lines='none'>
-        <ion-select [value]="SelectedData.indexName" interface="popover" (ionChange)="onIndexChange($event)">
-          <ion-select-option [value]="item.indexName" *ngFor="let item of Index[CountryClasificationList.indexOf(selectedCountry)]">{{item.indexName}}</ion-select-option>
-        </ion-select>
-      </ion-item>
+
+    <div class="section2-div">
+      <ion-text>
+        <h1>{{selectedCountry}}</h1>
+      </ion-text>
+      <div *ngIf="SelectedData">
+        <ion-item id="indexSelect" lines='none'>
+          <ion-select [value]="SelectedData.indexName" interface="popover" (ionChange)="onIndexChange($event)">
+            <ion-select-option [value]="item.indexName"
+              *ngFor="let item of Index[CountryClasificationList.indexOf(selectedCountry)]">{{item.indexName}} ({{item.indexCode}})
+            </ion-select-option>
+          </ion-select>
+        </ion-item>
+      </div>
+
     </div>
-    
+    <div class="section3-div">
+      <mat-tab-group>
+        <mat-tab label="Perfomance">
+          <div class="perfomance-div">
+            <ion-card>
+              <ion-card-content>
+                <div *ngIf="!selectedIndexData" class="loader">
+                  <img src="../../../assets/images/NAA.gif" alt="Loader">
+                </div>
+                <div *ngIf="selectedIndexData" style="width: 100%;">
+                  <ion-text>
+                    <p class="title-p">
+                      {{selectedIndexData.indexName}}</p>
+                  </ion-text>
+                  <ion-text>
+                    <p class="desc-p" [innerHTML]="get_desc(selectedIndexData.description)"></p>
+                  </ion-text>
+                  <ion-text>
+                    <p class="perf-date-p">performace : As of {{selectedIndexData.date}}</p>
+                  </ion-text>
+                  <div>
+                    <ion-grid>
+                      <ion-row class="row-header">
+                        <ion-col size="1.5" class="column-item col-header no-border item-left-center">Name</ion-col>
+                        <ion-col size="1" class="column-item col-header item-center">Value</ion-col>
+                        <ion-col size="1" class="column-item col-header item-center">Daily</ion-col>
+                        <ion-col size="1" class="column-item col-header item-center">YTD</ion-col>
+                        <ion-col size="1" class="column-item col-header item-center">1 Year</ion-col>
+                        <ion-col size="1" class="column-item col-header item-center">3 Year*</ion-col>
+                        <ion-col size="1" class="column-item col-header item-center">5 Year*</ion-col>
+                        <ion-col size="1" class="column-item col-header item-center">10 Year*</ion-col>
+                        <ion-col class="column-item col-header item-center">Cumulative Inception</ion-col>
+                        <ion-col class="column-item col-header item-center">Annualized Inception</ion-col>
+                      </ion-row>
+                      <ion-row class="row-item">
+                        <ion-col size="1.5" class="column-item no-border item-left-center">
+                          {{selectedIndexData.indexName}}</ion-col>
+                        <ion-col size="1" class="column-item item-center">{{roundOf(selectedIndexData.value)}}</ion-col>
+                        <ion-col size="1" class="column-item item-center">
+                          {{roundOf(selectedIndexData.dailyReturn*100)}}%</ion-col>
+                        <ion-col size="1" class="column-item item-center">{{roundOf(selectedIndexData.ytdReturn*100)}}%
+                        </ion-col>
+                        <ion-col size="1" class="column-item item-center">{{roundOf(selectedIndexData.y1Return*100)}}%
+                        </ion-col>
+                        <ion-col size="1" class="column-item item-center">{{roundOf(selectedIndexData.y3Return*100)}}%
+                        </ion-col>
+                        <ion-col size="1" class="column-item item-center">{{roundOf(selectedIndexData.y5Return*100)}}%
+                        </ion-col>
+                        <ion-col size="1" class="column-item item-center">{{roundOf(selectedIndexData.y10Return*100)}}%
+                        </ion-col>
+                        <ion-col class="column-item item-center">{{roundOf(selectedIndexData.cumReturns*100)}}%
+                        </ion-col>
+                        <ion-col class="column-item item-center">{{roundOf(selectedIndexData.annReturns*100)}}%
+                        </ion-col>
+                      </ion-row>
+                    </ion-grid>
+                  </div>
+                  <div class="row2">
+                    <ion-grid fixed>
+                      <ion-row class="row-header">
+                        <ion-col size="1.5" class="column-item col-header no-border item-left-center">Name</ion-col>
+                        <ion-col size="1" class="column-item col-header item-center">2019</ion-col>
+                        <ion-col size="1" class="column-item col-header item-center">2018</ion-col>
+                        <ion-col size="1" class="column-item col-header item-center">2017</ion-col>
+                        <ion-col size="1" class="column-item col-header item-center">2016</ion-col>
+                        <ion-col size="1" class="column-item col-header item-center">2015</ion-col>
+                        <ion-col size="1" class="column-item col-header item-center">2014</ion-col>
+                        <ion-col size="1" class="column-item col-header item-center">2013</ion-col>
+                        <ion-col class="column-item col-header item-center">2012</ion-col>
+                        <ion-col class="column-item col-header item-center">2011</ion-col>
+                        <ion-col class="column-item col-header item-center">2010</ion-col>
+                      </ion-row>
+                      <ion-row class="row-item">
+                        <ion-col size="1.5" class="column-item no-border item-left-center">
+                          {{selectedIndexData.indexName}}</ion-col>
+                        <ion-col size="1" class="column-item item-center">{{roundOf(selectedIndexData.year1*100)}}%
+                        </ion-col>
+                        <ion-col size="1" class="column-item item-center">{{roundOf(selectedIndexData.year2*100)}}%
+                        </ion-col>
+                        <ion-col size="1" class="column-item item-center">{{roundOf(selectedIndexData.year3*100)}}%
+                        </ion-col>
+                        <ion-col size="1" class="column-item item-center">{{roundOf(selectedIndexData.year4*100)}}%
+                        </ion-col>
+                        <ion-col size="1" class="column-item item-center">{{roundOf(selectedIndexData.year5*100)}}%
+                        </ion-col>
+                        <ion-col size="1" class="column-item item-center">{{roundOf(selectedIndexData.year6*100)}}%
+                        </ion-col>
+                        <ion-col size="1" class="column-item item-center">{{roundOf(selectedIndexData.year7*100)}}%
+                        </ion-col>
+                        <ion-col class="column-item item-center">{{roundOf(selectedIndexData.year8*100)}}%</ion-col>
+                        <ion-col class="column-item item-center">{{roundOf(selectedIndexData.year9*100)}}%</ion-col>
+                        <ion-col class="column-item item-center">{{roundOf(selectedIndexData.year10*100)}}%</ion-col>
+                      </ion-row>
+                    </ion-grid>
+                  </div>
+                  <div class="dates-div">
+                    <p>First value date : {{selectedIndexData.firstValueDt}}
+                    </p>
+                    <p class="p-padding">Launch date :
+                      {{selectedIndexData.inception}}</p>
+                  </div>
+                  <div class="image-div">
+                    <img src="../../../assets/images/S&P_1.svg" alt="S&P">
+                  </div>
+                </div>
+
+              </ion-card-content>
+            </ion-card>
+          </div>
+        </mat-tab>
+        <mat-tab disabled label="Construction"> Content 2 </mat-tab>
+      </mat-tab-group>
+
+    </div>
+
   </div>
-  <div>
-    <mat-tab-group>
-      <mat-tab label="Perfomance" style="color: #ffffff;"> <div style="padding: 0 20px;">
-        <ion-card style="background-color: #ffffff;">
-          <ion-card-content style="height: calc(100vh - 500px); display: flex; align-items: center;">
-            <div *ngIf="!selectedIndexData" style="display: flex;
-            justify-content: center;
-            align-items: center;
-            width: 100%;
-            height: 100%;">
-              <img src="../../../assets/images/NAA.gif" alt="Loader" style="width: 50px;">
-            </div>
-            <div *ngIf="selectedIndexData">
-              <ion-text>
-                <p style="color: #394e8b; font-size: 16px; font-weight: 600; padding:0 10px;">{{selectedIndexData.indexName}}</p>
-              </ion-text>
-              <ion-text>
-                <p style="color: #394e8b; font-size: 15px; padding-top: 20px; padding: 20px 10px 20px 10px;">{{selectedIndexData.description}}</p>
-              </ion-text>
-              <ion-text>
-                <p style="text-align: right;
-                padding-right: 20px;
-                color: #394e8b;
-                font-size: 14px;
-                font-style: italic;">performace : As of {{selectedIndexData.date}}</p>
-              </ion-text>
-              <div>
-                <ion-grid fixed>
-                  <ion-row class="row-header">
-                    <ion-col size="1.5" class="column-item col-header no-border item-left-center">Name</ion-col>
-                    <ion-col size="1" class="column-item col-header item-center">Value</ion-col>
-                    <ion-col size="1" class="column-item col-header item-center">Daily</ion-col>
-                    <ion-col size="1" class="column-item col-header item-center">YTD</ion-col>
-                    <ion-col size="1" class="column-item col-header item-center">1 Year</ion-col>
-                    <ion-col size="1" class="column-item col-header item-center">3 Year*</ion-col>
-                    <ion-col size="1" class="column-item col-header item-center">5 Year*</ion-col>
-                    <ion-col size="1" class="column-item col-header item-center">10 Year*</ion-col>
-                    <ion-col class="column-item col-header item-center">Cumulative Inception</ion-col>
-                    <ion-col class="column-item col-header item-center">Annualized Inception</ion-col>
-                  </ion-row>
-                  <ion-row class="row-item">
-                    <ion-col size="1.5" class="column-item no-border item-left-center">{{selectedIndexData.indexName}}</ion-col>
-                    <ion-col size="1" class="column-item item-center">{{roundOf(selectedIndexData.value)}}</ion-col>
-                    <ion-col size="1" class="column-item item-center">{{roundOf(selectedIndexData.dailyReturn*100)}}%</ion-col>
-                    <ion-col size="1" class="column-item item-center">{{roundOf(selectedIndexData.ytdReturn*100)}}%</ion-col>
-                    <ion-col size="1" class="column-item item-center">{{roundOf(selectedIndexData.y1Return*100)}}%</ion-col>
-                    <ion-col size="1" class="column-item item-center">{{roundOf(selectedIndexData.y3Return*100)}}%</ion-col>
-                    <ion-col size="1" class="column-item item-center">{{roundOf(selectedIndexData.y5Return*100)}}%</ion-col>
-                    <ion-col size="1" class="column-item item-center">{{roundOf(selectedIndexData.y10Return*100)}}%</ion-col>
-                    <ion-col class="column-item item-center">{{roundOf(selectedIndexData.cumReturns*100)}}%</ion-col>
-                    <ion-col class="column-item item-center">{{roundOf(selectedIndexData.annReturns*100)}}%</ion-col>
-                  </ion-row>
-                </ion-grid>
-              </div>
-              <div style="margin-top: 25px;">
-                <ion-grid fixed>
-                  <ion-row class="row-header">
-                    <ion-col size="1.5" class="column-item col-header no-border item-left-center">Name</ion-col>
-                    <ion-col size="1" class="column-item col-header item-center">2019</ion-col>
-                    <ion-col size="1" class="column-item col-header item-center">2018</ion-col>
-                    <ion-col size="1" class="column-item col-header item-center">2017</ion-col>
-                    <ion-col size="1" class="column-item col-header item-center">2016</ion-col>
-                    <ion-col size="1" class="column-item col-header item-center">2015</ion-col>
-                    <ion-col size="1" class="column-item col-header item-center">2014</ion-col>
-                    <ion-col size="1" class="column-item col-header item-center">2013</ion-col>
-                    <ion-col class="column-item col-header item-center">2012</ion-col>
-                    <ion-col class="column-item col-header item-center">2011</ion-col>
-                    <ion-col class="column-item col-header item-center">2010</ion-col>
-                  </ion-row>
-                  <ion-row class="row-item">
-                    <ion-col size="1.5" class="column-item no-border item-left-center">{{selectedIndexData.indexName}}</ion-col>
-                    <ion-col size="1" class="column-item item-center">{{roundOf(selectedIndexData.year1*100)}}%</ion-col>
-                    <ion-col size="1" class="column-item item-center">{{roundOf(selectedIndexData.year2*100)}}%</ion-col>
-                    <ion-col size="1" class="column-item item-center">{{roundOf(selectedIndexData.year3*100)}}%</ion-col>
-                    <ion-col size="1" class="column-item item-center">{{roundOf(selectedIndexData.year4*100)}}%</ion-col>
-                    <ion-col size="1" class="column-item item-center">{{roundOf(selectedIndexData.year5*100)}}%</ion-col>
-                    <ion-col size="1" class="column-item item-center">{{roundOf(selectedIndexData.year6*100)}}%</ion-col>
-                    <ion-col size="1" class="column-item item-center">{{roundOf(selectedIndexData.year7*100)}}%</ion-col>
-                    <ion-col class="column-item item-center">{{roundOf(selectedIndexData.year8*100)}}%</ion-col>
-                    <ion-col class="column-item item-center">{{roundOf(selectedIndexData.year9*100)}}%</ion-col>
-                    <ion-col class="column-item item-center">{{roundOf(selectedIndexData.year10*100)}}%</ion-col>
-                  </ion-row>
-                </ion-grid>
-              </div>
-              <div style="display: flex; flex-direction: row; padding: 10px 0 0 10px;">
-                <p style="font-style: italic; color: #394e8b;">First value date : {{selectedIndexData.firstValueDt}}</p>
-                <p style="font-style: italic; padding-left: 20px; color: #394e8b;">Launch date : {{selectedIndexData.inception}}</p>
-              </div>
-              <div style="display: flex; justify-content: flex-end;">
-                <img style="width: 150px;" src="../../../assets/images/S&P_1.svg" alt="S&P">
-              </div>
-            </div>
-            
-          </ion-card-content>
-        </ion-card>
-      </div></mat-tab>
-      <mat-tab disabled label="Construction"> Content 2 </mat-tab>
-    </mat-tab-group>
-    
-  </div>
-  
-  </div>
-  
+
 </div>

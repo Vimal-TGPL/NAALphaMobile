@@ -123,3 +123,16 @@ ion-select-popover, .popover-content{
     background-color: #00b9ff;
     height: 3px;
 }
+
+@media screen and (orientation:portrait){
+    ion-select{
+        max-width: 40vh !important;
+        min-width: 40vh !important;
+    }
+
+    ion-select-popover, .popover-content{
+        max-width: 40vh !important;
+        min-width: 40vh !important;
+        max-height: 25vh !important;
+    }
+}

@@ -24,7 +24,7 @@ export class IndexComponent implements OnInit {
   constructor(private httpClient: HttpClient, private popoverController: PopoverController) { }
 
   ngOnInit() {
-    this.selectedCountry = 'All';
+    this.selectedCountry = 'USA';
     this.LoadData();
   }
 
@@ -120,5 +120,9 @@ export class IndexComponent implements OnInit {
   roundOf(val) {
     var temp = Math.round(val * 100)/100;
     return temp.toFixed(2);
+  }
+
+  get_desc(val){
+    return val.replace(/IndexSM/g, 'Index<sup>SM</sup>').replace(/RiskSelectTM/g, 'RiskSelect<sup>TM</sup>').replace(/Human Factor/g, 'H-Factor')
   }
 }
