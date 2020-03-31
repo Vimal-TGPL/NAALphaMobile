@@ -17,5 +17,57 @@
     ion-card-content{
         height: 100%;
         width: 100%;
+
+        .crect {
+            fill: #fafafa;
+            display: block;
+          }
+
+          .start-ring {
+            stroke-width: 10px;
+            stroke: #0e82e5;
+            fill: #fff;
+          }
     }
 }
+
+#gchart .start-ring {
+    stroke-width: 10px;
+    stroke: #0e82e5;
+    fill: #fff;
+  }
+  .comp {
+    font-family: 'Open Sans SemiBold';
+    font-size: 1px;
+    cursor: pointer;
+    fill: #666666;
+    /*text-transform: uppercase;*/
+  }
+
+  .comp text {
+    display: none;
+  }
+
+  .comp .bgrect {
+    display: none;
+  }
+
+  .comp .on {
+    font-size: 10px;
+    display: block !important;
+    z-index: 10;
+  }
+
+  .comp .recton {
+    fill: #00b9ff;
+  }
+
+  .crect {
+    fill: #fafafa;
+    display: block;
+  }
+
+  .onrect {
+    fill: #333;
+    width: 32px !important;
+  }

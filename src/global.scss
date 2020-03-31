@@ -136,3 +136,12 @@ ion-select-popover, .popover-content{
         max-height: 25vh !important;
     }
 }
+
+#dvSearchBox .searchbar-input.sc-ion-searchbar-ios{
+    font-size: 12.7px;
+    // padding-right: 10px;
+}
+
+#dvSearchBox ion-searchbar #placeholder{
+    text-transform: unset;
+}
