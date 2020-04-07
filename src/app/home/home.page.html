@@ -135,7 +135,7 @@
 
     <!-- Slides/Carousel Start-->
     <div>
-      <ion-slides slidesPerView="1" spaceBetween="1" mode='md' loop="true" (ionSlideDidChange)="onSlideChange()">
+      <ion-slides id="pageslider" [options]="slides" slidesPerView="1" spaceBetween="1" mode='md' loop="true" (ionSlideDidChange)="onSlideChange($event)">
 
         <!-- GICS Slide Start -->
         <ion-slide>
@@ -252,9 +252,11 @@
             <div>
               <ul class="NavTabList">
                 <li class="navTabBtn" [ngClass]="{'tab-active': SelTab == 'Global Universe'}"
-                  (click)="GridHeaderTitle=false; SelTab = 'Global Universe';onNavClick();">Global Index</li>
+                  (click)="GridHeaderTitle=false; SelTab = 'Global Universe';onNavClick();">Equity Index</li>
                 <li class="tab2color" [ngClass]="{'tab-active': SelTab == 'NAA'}"
                   (click)="GridHeaderTitle=false; SelTab = 'NAA';onNavClick();">NAA Index</li>
+                  <li class="ETFNavTabBtn" [ngClass]="{'tab-active': SelTab == 'FI'}"
+                  (click)="GridHeaderTitle=false; SelTab = 'FI';onFINavClick();">FI Index</li>
                 <li class="ETFNavTabBtn" [ngClass]="{'tab-active': SelTab == 'ETF'|| SelTab == 'ETFChild'}"
                   (click)="GridHeaderTitle=false; SelTab = 'ETF'; onNavETFClick();">ETF's</li>
               </ul>
@@ -339,10 +341,33 @@
                 </ion-card-content>
                 <!-- Index Loader -->
 
-                <!-- Global Index List Start -->
-                <ion-card-content *ngIf="SelTab=='Global Universe'" class="company-card-content">
+                 <!-- Global Index List Start -->
+                 <ion-card-content *ngIf="SelTab=='Global Universe' && !selCountry" class="company-card-content">
                   <ion-list class="nav-tab-index">
-                    <ion-item class="nav-tab-item"  lines="none" *ngFor="let item of comGlobalIndex"
+                    <ion-item class="nav-tab-item"  lines="none" *ngFor="let item of GlobalList"
+                      (click)="selCountry=item.country; onCountryClick(item.country)">
+                      <div style="display: flex;
+                      width: 100%;
+                      margin-left: 1px;
+                      align-items: center;">
+                      <span class="index-circle" [style.color]="ApplyTextColor(item.med)"
+                        [style.background-color]="getColor(item.med)">{{item.med}}</span>
+                      <ion-label>{{item.country}}</ion-label>
+                      </div>
+                    </ion-item>
+                  </ion-list>
+                </ion-card-content>
+                <!-- Global Index List End -->
+
+                <!-- Global Index List Start -->
+                <ion-card-content *ngIf="SelTab=='Global Universe' && selCountry" class="company-card-content">
+                  <div style="    padding: 5px 10px 0px 10px;" (click)="onCountryBackClick()">
+                    <p style="text-align: left; color: #01b9ff; display: flex;
+                    flex-direction: row;
+                    align-items: center;"><ion-icon name="arrow-back" style="    padding-right: 10px;"></ion-icon>{{selCountry}}</p>
+                  </div>
+                  <ion-list class="nav-tab-index">
+                    <ion-item class="nav-tab-item"  lines="none" *ngFor="let item of globalselectedcountryList"
                       (click)="onglobalIndexClick(item.name)">
                       <div style="display: flex;
                       width: 100%;

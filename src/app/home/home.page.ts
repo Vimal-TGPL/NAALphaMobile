@@ -20,17 +20,20 @@ import { NavParams, Events } from '@ionic/angular';
 })
 
 export class HomePage implements OnInit, AfterViewInit {
-  
+  // slides={initialSlide: 1};
+  slides:any;
   @ViewChild(IonContent, {static:true}) content: IonContent;
-  @ViewChild(IonSlides, { static: true }) slides: IonSlides;
+  // @ViewChild(IonSlides, { static: true }) slides: IonSlides;
   mobile : boolean;
   backButtonSubscription;
   globalSize:any = 100;
   globalselectorcomp:any = [];
+  globalselectedcountryList:any = [];
   currenturl: string;
   compETFNameList: any = [];
   comNAAIndex: any = [];
   comGlobalIndex: any = [];
+  GlobalList:any = [];
   stockMed: any;
   GridHeaderTitle: boolean = true;
   selSector: any = [];
@@ -46,6 +49,7 @@ export class HomePage implements OnInit, AfterViewInit {
   LoadsearchList: any = [];
   searchSel: string = "";
   selComp: string;
+  selCountry:string ;
   compIndexShow: boolean = false;
   stockIndexShow: boolean = false;
   stockIcon: string = "ios-arrow-dropdown-circle";
@@ -69,6 +73,7 @@ export class HomePage implements OnInit, AfterViewInit {
   heightcard: any = '250px';
   NAAIndex: any = [];
   globalIndex: any = [];
+  FixedIndexData:any = [];
   ETFCatagories: any = [];
   ETFHoldings: any = [];
   globalindexwise: any = [];
@@ -80,8 +85,12 @@ export class HomePage implements OnInit, AfterViewInit {
   res: any = [];
   ETFCatagoriesComp: any = [];
   SelIndexName: string = '';
+  globalcountry:any = [];
   unsortedIndexData: any = [];
+  totalglobalcountry:any = [];
   headermed: any;
+  compglobalCountryInd:any = [];
+  GlobalCountryWiseInd:any = [];
   selectedIndexData: any = [];
   ETFcategory: any = [];
   ETFNameMed: any = [];
@@ -100,10 +109,12 @@ export class HomePage implements OnInit, AfterViewInit {
     this.currenturl = this.router.url;
     this.createData();
     this.GetETFValues();
+    this.GetFixedIndexData();
     if(this.platform.is('ipad') || this.platform.is('tablet')){
       this.mobile = false;
     }else{
       this.mobile = true;
+      this.slides = document.getElementById('pageslider');
     }
     // this.menuCtrl.enable(true);
   }
@@ -125,7 +136,7 @@ export class HomePage implements OnInit, AfterViewInit {
     this.screenOrientation.onChange().subscribe(
       () => {
         setTimeout(() => {
-          console.log("Slide update");
+          // console.log("Slide update");
           this.slides.update();
         }, 500);
         if (this.screenOrientation.type == this.screenOrientation.ORIENTATIONS.LANDSCAPE || this.screenOrientation.type == this.screenOrientation.ORIENTATIONS.LANDSCAPE_PRIMARY || this.screenOrientation.type == this.screenOrientation.ORIENTATIONS.LANDSCAPE_SECONDARY) {
@@ -191,6 +202,7 @@ export class HomePage implements OnInit, AfterViewInit {
     this.httpclient.get(this.api_url + "/Scores/GetNAAIndexScoresCurrent/GLOBAL").subscribe((res: any[]) => {
       res = res.filter(item=> item.companyName != null);
       this.data = res;
+
       this.searchList = this.data.filter(item => item.companyName != null);
       this.searchList = this.searchList.filter(item => item.indexName.indexOf("New Age Alpha") == -1);
       this.LoadsearchList = this.searchList.slice(0, 50).map(i => {
@@ -200,6 +212,8 @@ export class HomePage implements OnInit, AfterViewInit {
       let TotalIndex = filteredData.filter(function (value, index, self) {
         return self.indexOf(value) === index;
       })
+      
+      // console.log(TotalIndex);
       TotalIndex.forEach((element: String) => {
         if (element.includes('New Age Alpha')) {
           this.NAAIndex.push(element);
@@ -207,6 +221,12 @@ export class HomePage implements OnInit, AfterViewInit {
           this.globalIndex.push(element);
         }
       });
+      // console.log(this.data); 
+
+      this.data.forEach(val => {
+        val.countrygroup = val.indexName.indexOf('Europe') > -1? 'Europe' : val.country;
+      });
+      //console.log(this.data);
       var i;
       for (i = 0; i < this.globalIndex.length; i++) {
         let temp = this.data.filter((item) => item.indexName === this.globalIndex[i]);
@@ -220,16 +240,68 @@ export class HomePage implements OnInit, AfterViewInit {
       for (i = 0; i < this.globalIndex.length; i++) {
         this.globalmed.push(this.roundValue(this.getMed(this.globalindexwise[i]) * 100));
       }
+      
+      for (i=0 ; i< this.globalIndex.length; i++){
+        let country = this.globalindexwise[i].map(i=> i = i.countrygroup).filter(function (value, index, self) {
+          return self.indexOf(value) === index;
+        });
+        this.globalcountry.push(country[0]);
+      }
+      // console.log(this.globalcountry);
+      this.totalglobalcountry = this.globalcountry.filter(function (value, index, self) {
+        return self.indexOf(value) === index;
+      });
+      // console.log(this.totalglobalcountry);
+      // console.log(this.globalmed);
       let globaltemp = [];
       for (i = 0; i < this.globalIndex.length; i++) {
         let t: any = [];
-        t = { 'name': this.globalIndex[i], 'med': this.globalmed[i] }
+        t = { 'name': this.globalIndex[i], 'med': this.globalmed[i], 'countrygroup' : this.globalcountry[i] }
         globaltemp.push(t);
       }
+      // console.log(this.globalIndex);
+      //let globalCountrytemp =[];
+      var groupBy = function(xs, key) {
+        return xs.reduce(function(rv, x) {
+          (rv[x[key]] = rv[x[key]] || []).push(x);
+          return rv;
+        }, {});
+      };
+      // console.log(this.globalindexwise);
       this.comGlobalIndex = globaltemp;
       this.comGlobalIndex.sort((a, b) => {
         return a.med - b.med;
       });
+      // console.log(this.comGlobalIndex);
+      this.compglobalCountryInd = groupBy(this.comGlobalIndex,'countrygroup');
+      // console.log(this.compglobalCountryInd);
+      var temp = [];
+      var that =this;
+      this.totalglobalcountry.forEach(e=>{
+        //console.log(e);
+        var t:any = { 'country': e } 
+        var t1 = this.compglobalCountryInd[e].map( i => i.name);
+        
+        var tmed = this.compglobalCountryInd[e].map( i => i.med);
+        // console.log(tmed);
+       var  array = tmed.sort();
+        if (array.length % 2 === 0) { // array with even number elements
+          tmed = (parseFloat(array[array.length / 2]) + parseFloat(array[(array.length / 2) - 1]))/2;
+          tmed = Math.round(tmed * 10) /10
+        }
+        else {
+          tmed = array[(array.length - 1) / 2]; // array with odd number elements
+        }
+        t.index = t1;
+        t.med = tmed;
+        temp.push(t);
+      })
+      // console.log(temp);
+      this.GlobalCountryWiseInd = temp;
+      this.GlobalCountryWiseInd = this.GlobalCountryWiseInd.sort((a,b)=>{
+        return a.med - b.med;
+      })
+      this.GlobalList = this.GlobalCountryWiseInd;
       for (i = 0; i < this.NAAIndex.length; i++) {
         this.naamed.push(this.roundValue(this.getMed(this.naaindexwise[i]) * 100));
       }
@@ -249,6 +321,52 @@ export class HomePage implements OnInit, AfterViewInit {
   }
   /*************** Data Population Start *****************/
 
+  GetFixedIndexData(){
+    this.httpclient.get(this.api_url+'/Scores/GetFixedDataMasterv1').subscribe((res:any[])=>{
+      var groupBy = function(xs, key) {
+        return xs.reduce(function(rv, x) {
+          (rv[x[key]] = rv[x[key]] || []).push(x);
+          return rv;
+        }, {});
+      };
+      
+      this.FixedIndexData = groupBy(res,'country');
+      var that = this;
+      console.log(that.FixedIndexData);
+      var temp = res.map(x=>x.country).filter(function (value, index, self) {
+        return self.indexOf(value) === index;
+      });
+      console.log(temp);
+      temp.forEach(e=>{
+        var t = this.FixedIndexData[e];
+        var tmedlist = t.map(x => this.roundValue(x.medianCont*100)); 
+        var tmed; 
+        var  array = tmedlist.sort();
+        if (array.length % 2 === 0) { // array with even number elements
+          tmed = (parseFloat(array[array.length / 2]) + parseFloat(array[(array.length / 2) - 1]))/2;
+          tmed = Math.round(tmed * 10) /10
+        }
+        else {
+          tmed = array[(array.length - 1) / 2]; // array with odd number elements
+        }
+        this.FixedIndexData[e].med = tmed;
+      });
+      console.log(this.FixedIndexData);
+    })
+  }
+
+  onFINavClick(){
+
+  }
+  onCountryBackClick(){
+    this.selCountry= null;
+  }
+  /*************** On country Select Start *****************/
+  onCountryClick(country){
+    this.globalselectedcountryList = this.compglobalCountryInd[country];
+    // console.log(this.globalselectedcountryList);
+  }
+  /*************** On country Select end *****************/
   /*************** Naa Index Name replaces for the display Start *****************/
   getNaaIndex(element) {
     element = element.replace('New Age Alpha ', '');
@@ -367,7 +485,8 @@ export class HomePage implements OnInit, AfterViewInit {
 
   /*************** After View Start *****************/
   ngAfterViewInit() {
-    
+    this.slides = document.getElementById("pageslider");
+    // console.log(this.slides);
     this.GetETFValues();
   }
 
@@ -727,7 +846,7 @@ export class HomePage implements OnInit, AfterViewInit {
 
       this.selSectorComp = this.globalselectorcomp.slice(0,100);
       this.selSector = this.sectorList[0];
-      console.log(this.selSector);
+      // console.log(this.selSector);
       this.SelSecLevTitle = this.sectorHeadings[this.sectorList.indexOf(this.selSector)];
       this.stockMed = this.roundValue(this.getMed(this.globalselectorcomp) * 100);
       document.getElementById('subIndex-circle').style.background = this.getColor(this.roundValue(this.getMed(this.globalselectorcomp) * 100));
@@ -809,7 +928,7 @@ export class HomePage implements OnInit, AfterViewInit {
   }
   /*************** On Pagination Click End *****************/
   /*************** To slide the Slides/Carousel Start *****************/
-  onSlideChange() {
+  onSlideChange(evt) {
     this.slides.getActiveIndex().then(index => {
       if (index == 0) {
         document.getElementById("slide0dot").style.backgroundColor = "#FFFFFF"
@@ -838,7 +957,7 @@ export class HomePage implements OnInit, AfterViewInit {
   }
   /*************** Scroll to the Selected Company End *****************/
   loadStockData(event) {
-    console.log("Done");
+    // console.log("Done");
     event.target.complete();
     // setTimeout(()=>{
     //   console.log("Done");
@@ -1077,7 +1196,7 @@ onLogoutClick(){
 }
 
   async profilePopover(e:any){
-    console.log("presenting profile Details");
+    // console.log("presenting profile Details");
   const popover = await this.popoverController.create({
     component:ProfiledetailsComponent,
     event : e,

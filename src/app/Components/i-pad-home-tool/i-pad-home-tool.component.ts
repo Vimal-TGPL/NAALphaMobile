@@ -18,6 +18,7 @@ export class IPadHomeToolComponent implements OnInit, AfterContentInit, AfterVie
   SelAssetId: string = "";
   createXrad: any;
   CompetLength: any = "";
+  filteredCompanies:any = [];
   companiesCtrl = new FormControl();
   SelIndexName: string = "";
   SelISIN: string = "";
@@ -31,6 +32,8 @@ export class IPadHomeToolComponent implements OnInit, AfterContentInit, AfterVie
   GridData_c: any = [];
   GridData: any = [];
   virtualScrollerComp: any;
+  searchETFValName: any;
+  selETFCompanyName: any;
   virtualScroller: any;
   SelFilter: string = 'H-Factor Score (ascending)';
   interval: any = null;
@@ -512,6 +515,101 @@ export class IPadHomeToolComponent implements OnInit, AfterContentInit, AfterVie
   createCompetitive(grp1) {
     grp1.append("g").attr("id", "gCompetitive");
   }
+  Replacetxt(val) {
+    return val.replace(/ /g, '_').replace(/&/g, '').replace('Large-Cap', 'LargeCap').replace('U.S.', 'US');
+}
+
+  GetETFHoldings(ctId: string, etfName: string, mode: string) {
+    let that = this;
+    //this.showLoadSpinner = true;
+    $('#SpinLoader').css('display', 'flex');
+    this.SelTab = "Stocks";
+
+    let IndexN = that.Replacetxt(etfName);
+
+    that.searchETFValName = IndexN;
+    // console.log(that.searchETFValName);
+    //this.CheckETFIndexSelectedCompany = true;
+
+
+    that.selETFCompanyName = etfName;
+    d3.selectAll(".circle").classed("is-selected", false);
+    //d3.select("#" + IndexN).classed("is-selected", true);
+
+    this.httpClient.get(this.api_url + "/Scores/GetETFCurrent/" + ctId).subscribe((EtfStocks: any[]) => {
+        let Name = etfName;
+        that.SelAssetId = Name;
+        that.selResData.forEach(function (d, i) {
+            let val = EtfStocks.filter(x => x.isin == d.aisin);
+            if (d.indexName.indexOf("New Age Alpha") == -1) {
+                d.Assets = val.length > 0 ? Name : 0;
+            }
+        });
+
+        let SelISIN = this.selResData.filter(x => x.Assets == Name)[0].isin;
+        let IndexN = this.selResData.filter(x => x.Assets == Name)[0].indexName;
+        if (SelISIN != "") {
+            this.SelIndexName = IndexN;
+            let d = d3.select(".comp[name='" + SelISIN + "_" + IndexN.replace(/ /g, '_') + "']").datum();
+            this.setClock(d.isin, d.deg * 360 / 100, d.company + " (" + d.ticker + ") [" + d3.format(".1f")(d.score) + "%]", mode == "Search" ? "ETFClick" : "ETFClick", d.stockKey, d.score);
+        }
+        //console.log(ctId)
+        //console.log(this.selResData.filter(x => x.Assets == Name))
+        // this.showLoadSpinner = false;
+        $('#SpinLoader').fadeOut();
+        this.fnStockstabclick("Stocks");
+    });
+    //this.SelTab = "ETF";
+    this.IsShowDD = !this.IsShowDD;
+    if (mode == "Search") { this.IsShowDD = false; }
+}
+onsearchchages(val){
+  console.log(val);
+  if(val.length > 0){
+  this.filteredCompanies = this.selResData.filter(item=>{return item.companyName.toLowerCase().indexOf(val) > -1 || item.ticker.toLowerCase().indexOf(val) > -1});
+  console.log(this.filteredCompanies);
+  }else{
+    this.filteredCompanies.length = 0;
+  }
+}
+  GetSelected(value:any) {
+    console.log(value);
+    value=value.toString();
+    this.changedet.detectChanges();
+    this.IsShowDD = false;
+    this.SelTab = "Stocks";
+    d3.selectAll(".card-body").selectAll(".circle").classed("is-selected", false);
+    d3.selectAll(".card-body").selectAll("li").classed("is-selected", false);
+    this.fnStockstabclick("Stocks");
+    // this.closeETF();
+    let selComp = this.Companies.filter(x => x.isin == value.split('_')[0])[0];
+    let selIndex = value.split('_')[1];
+
+    if (selIndex == "ETF") {
+        let selETF = this.ETFIndex.filter(x => x.assetId == value.split('_')[0])[0];
+        this.GetETFHoldings(selETF.assetId, selETF.etfName, "Search");
+
+        // try {
+        //     this.angulartics2.eventTrack.next({
+        //         action: 'Company Search',
+        //         properties: { category: 'HomeTool', label: selETF.company + " (" + selETF.ticker + ")", value: selETF.company + " (" + selETF.ticker + ")" }
+        //     });
+        // } catch (e) { console.log(e); }
+
+    } else {
+        //  d3.select(".comp[name='" + value.replace(/ /g, '_') + "']").dispatch('click');
+        let d = d3.select(".comp[name='" + value.companyName.replace(/ /g, '_') + "']").datum();
+        console.log(d);
+        this.SelIndexName = d.indexName;
+        this.setClock(d.isin, d.deg * 360 / 100, d.company + " (" + d.ticker + ") [" + d3.format(".1f")(d.score) + "%]", "CompClick", d.stockKey, d.score);
+        // try {
+        //     this.angulartics2.eventTrack.next({
+        //         action: 'Company Search',
+        //         properties: { category: 'HomeTool', label: selComp.company + " (" + selComp.ticker + ")", value: selComp.company + " (" + selComp.ticker + ")" }
+        //     });
+        // } catch (e) { console.log(e); }
+    }
+}
 
   CreateComps(oSvg, dta, lvl) {
     let that = this;

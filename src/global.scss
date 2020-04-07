@@ -145,3 +145,44 @@ ion-select-popover, .popover-content{
 #dvSearchBox ion-searchbar #placeholder{
     text-transform: unset;
 }
+
+.comp {
+    font-family: 'Open Sans SemiBold';
+    font-size: 1px;
+    cursor: pointer;
+    fill: #666666;
+    /*text-transform: uppercase;*/
+  }
+
+  .comp text {
+    display: none;
+  }
+
+  .comp .bgrect {
+    display: none;
+  }
+
+  .comp .on {
+    font-size: 10px;
+    display: block !important;
+    z-index: 10;
+  }
+
+  .comp .recton {
+    fill: #00b9ff;
+  }
+
+  .compHighLight .crect {
+    /* fill: #333;*/
+    display: block !important;
+  }
+
+  .crect {
+    fill: #fafafa;
+    display: block;
+  }
+
+  .onrect {
+    fill: #333;
+    width: 32px !important;
+  }

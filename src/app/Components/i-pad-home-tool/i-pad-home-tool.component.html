@@ -2,7 +2,8 @@
 <ion-card class="parentCard">
     <ion-card-content>
         <div style="width: 97%; position: absolute; top: 44%">
-        <div style="display: flex; justify-content: center; opacity: 0;" id="dvSearchBox">
+        <div style="display: flex; justify-content: center; opacity: 0;     align-items: center;
+        flex-direction: column;" id="dvSearchBox">
             <!-- <ion-input type="text" placeholder="Ticker or company/ETF name"  autocomplete="on" style="font-size : 12px; height: 30px; border: 1px solid #666; --padding-start: 10px; border-radius: 20px;--background:#ffffff; max-width: 230px; box-shadow: none; width: 250px; --color:#666;"></ion-input> -->
             <ion-searchbar style="    width: 20%;
             --background: #ffffff;
@@ -11,7 +12,29 @@
             height: 35px;
             border-radius: 20px;
             text-transform: uppercase;
-            " animated="true" autocomplete="on" mode="ios" placeholder="Ticker or company/ETF name" inputmode="text" type="text" (ionChange)="onSearchChange($event)" [debounce]="250"></ion-searchbar>
+            " animated="true" autocomplete="on" mode="ios" placeholder="Ticker or company/ETF name" inputmode="text" type="text" (ionChange)="onsearchchages($event.target.value)" [debounce]="250"></ion-searchbar>
+            <ion-list style="width: 25%; overflow: auto; background: #ffffff; margin-top: 3px; box-shadow: 0 2px 4px -1px rgba(0,0,0,.2), 0 4px 5px 0 rgba(0,0,0,.14), 0 1px 10px 0 rgba(0,0,0,.12); border-radius: 10px; max-height: 30vh;" *ngIf="filteredCompanies.length != 0">
+              <ion-item lines="none"  style="--background: #ffffff;     --padding-start: 10px;
+              --padding-end: 10px;" *ngFor="let item of filteredCompanies" (click)="GetSelected(item.isin+'_'+item.indexName)">
+                <div style="    width: 100%;
+                display: flex;
+                flex-direction: column;">
+                  <ion-text style="color: #666;">
+                    <p style="font-size: 11px; text-overflow: ellipsis; overflow: hidden; white-space: nowrap">{{item.companyName}} ({{item.ticker}})</p>
+                  </ion-text>
+                  <ion-text style="display: flex;
+                  flex-direction: row;
+                  justify-content: space-between; ">
+                    <p style="color: #00b9ff; font-size: 11px; white-space: nowrap;
+                    text-overflow: ellipsis;
+                    overflow: hidden;">{{item.indexName}}</p>
+                    <p style="color: #ffba89; font-size: 11px; white-space: nowrap;">{{item.country}}</p>
+                  </ion-text>
+                  
+                </div>
+                
+              </ion-item>
+            </ion-list>
         </div>
         <div>
 
