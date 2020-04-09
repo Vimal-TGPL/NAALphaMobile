@@ -50,7 +50,11 @@ export class HomePage implements OnInit, AfterViewInit {
   searchSel: string = "";
   selComp: string;
   selCountry:string ;
+  FixedStock:any = [];
   compIndexShow: boolean = false;
+  FISelCountry:string;
+  FIselCatogaryList:any = [];
+  FICountryList:any [];
   stockIndexShow: boolean = false;
   stockIcon: string = "ios-arrow-dropdown-circle";
   stockCollapse: boolean = false;
@@ -202,8 +206,7 @@ export class HomePage implements OnInit, AfterViewInit {
     this.httpclient.get(this.api_url + "/Scores/GetNAAIndexScoresCurrent/GLOBAL").subscribe((res: any[]) => {
       res = res.filter(item=> item.companyName != null);
       this.data = res;
-
-      this.searchList = this.data.filter(item => item.companyName != null);
+      this.searchList = this.data.filter(item => item.companyName != null && item.ticker != null);
       this.searchList = this.searchList.filter(item => item.indexName.indexOf("New Age Alpha") == -1);
       this.LoadsearchList = this.searchList.slice(0, 50).map(i => {
         return i;
@@ -322,7 +325,8 @@ export class HomePage implements OnInit, AfterViewInit {
   /*************** Data Population Start *****************/
 
   GetFixedIndexData(){
-    this.httpclient.get(this.api_url+'/Scores/GetFixedDataMasterv1').subscribe((res:any[])=>{
+    this.httpclient.get(this.api_url+'/Scores/GetFixedDataMaster').subscribe((res:any[])=>{
+      // console.log(res);
       var groupBy = function(xs, key) {
         return xs.reduce(function(rv, x) {
           (rv[x[key]] = rv[x[key]] || []).push(x);
@@ -332,11 +336,12 @@ export class HomePage implements OnInit, AfterViewInit {
       
       this.FixedIndexData = groupBy(res,'country');
       var that = this;
-      console.log(that.FixedIndexData);
+      // console.log(that.FixedIndexData);
       var temp = res.map(x=>x.country).filter(function (value, index, self) {
         return self.indexOf(value) === index;
       });
-      console.log(temp);
+      this.FICountryList = temp;
+      // console.log(temp);
       temp.forEach(e=>{
         var t = this.FixedIndexData[e];
         var tmedlist = t.map(x => this.roundValue(x.medianCont*100)); 
@@ -351,16 +356,57 @@ export class HomePage implements OnInit, AfterViewInit {
         }
         this.FixedIndexData[e].med = tmed;
       });
-      console.log(this.FixedIndexData);
-    })
+      // console.log(this.FixedIndexData);
+    });
   }
 
   onFINavClick(){
-
+    this.stockCollapse = true;
+    this.compIndexShow = true;
+    this.icon = "ios-arrow-dropup-circle";
   }
   onCountryBackClick(){
     this.selCountry= null;
   }
+
+  onFICountryClick(country){
+    console.log(country);
+    this.FISelCountry = country;
+    this.FIselCatogaryList = this.FixedIndexData[country];
+  }
+
+  onFiCountryBackClick(){
+    this.FISelCountry = null;
+  }
+
+  onFixedCatClick(item){
+    // console.log(item);
+    this.httpclient.get(this.api_url+'/Scores/GetBondMappingStocks/'+item.category).subscribe((res:any[]) =>{
+    // console.log(res);
+    // console.log(this.data);
+    this.FixedStock.length = 0;
+    this.headermed = this.roundValue(item.medianCont*100);
+    this.SelIndexName = item.category == 'HY'? 'High Yield' : 'Investment Grade';
+    document.getElementById('header-circle').style.background = this.getColor(this.roundValue(item.medianCont*100));
+    document.getElementById('header-circle').style.color = this.ApplyTextColor(this.roundValue(item.medianCont*100));
+    this.compIndexShow = false;
+    this.icon = "ios-arrow-dropdown-circle";
+    this.parentcard = false;
+    res.forEach(e=>{
+      this.FixedStock.push(this.data.filter(x=> x.stockKey == e.stockKey && x.indexName.indexOf('New Age Alpha') == -1)[0]);
+    });
+    this.FixedStock = this.FixedStock.sort((a,b)=>{
+      return a.scores - b.scores;
+    })
+
+    // console.log(this.FixedStock);
+    this.selectedIndexData = this.FixedStock;
+    this.unsortedIndexData = this.FixedStock
+    // console.log(this.selSectorComp);
+    });
+  }
+
+
   /*************** On country Select Start *****************/
   onCountryClick(country){
     this.globalselectedcountryList = this.compglobalCountryInd[country];
@@ -525,6 +571,7 @@ export class HomePage implements OnInit, AfterViewInit {
         let Etfval = { companyName: obj.etfName, isin: obj.assetId, ticker: obj.ticker, indexName: "ETF", country: obj.category };
         this.searchList.push(Etfval);
       });
+      this.searchList = this.searchList.filter(item => item.companyName != null);
     });
   }
   /*************** ETF Category List End *****************/
@@ -714,24 +761,32 @@ export class HomePage implements OnInit, AfterViewInit {
   onCompanyClick(e) {
     this.selComp = e.companyName;
     this.searchSel = e;
-    if (e.hasOwnProperty('indexType')) {
-      this.getSectorList(e.industry.toString());
+    if(this.SelTab == 'FI'){
       this.SelSearchObj = e;
-      this.SelSearchObj.etfName = this.SelIndexName;
-      this.onSectorClick(e.industry);
-      this.scrollToSel();
-    } else if (e.indexName.indexOf('New Age Alpha ') == -1) {
-      this.onSearchSelect(e);
+       this.SelSearchObj.FIName = e.category == 'HY'? 'High Yield' : 'Investment Grade';
       this.getSectorList(e.industry.toString());
-      this.SelSearchObj = e;
       this.onSectorClick(e.industry);
-    } else {
-      var temp = e;
-      this.getSectorList(temp.industry.toString());
-      this.SelSearchObj = temp;
-      this.onSectorClick(temp.industry);
-      this.scrollToSel();
-    }
+
+    }else if (e.hasOwnProperty('indexType')) {
+        this.getSectorList(e.industry.toString());
+        this.SelSearchObj = e;
+        this.SelSearchObj.etfName = this.SelIndexName;
+        this.onSectorClick(e.industry);
+        this.scrollToSel();
+      } else if (e.indexName.indexOf('New Age Alpha ') == -1) {
+        this.onSearchSelect(e);
+        this.getSectorList(e.industry.toString());
+        this.SelSearchObj = e;
+        this.onSectorClick(e.industry);
+      } else {
+        var temp = e;
+        this.getSectorList(temp.industry.toString());
+        this.SelSearchObj = temp;
+        this.onSectorClick(temp.industry);
+        this.scrollToSel();
+      }
+    
+    
     this.slides.slideTo(0);
   }
   /*************** Company Selected End *****************/
@@ -742,16 +797,19 @@ export class HomePage implements OnInit, AfterViewInit {
     text: string
   }) {
     let text = event.text.trim();
+    console.log(text);
     if (text.length == 0) {
-      this.searchList = this.searchList.filter(item => item.indexName.indexOf("New Age Alpha") == -1);
+      this.searchList = this.searchList.filter(item => item.indexName.indexOf("New Age Alpha") == -1 || item.indexName != null);
       this.LoadsearchList = this.searchList.slice(0, 50).map(i => {
         return i;
       });
     }
     else {
       event.component.items = [];
+      this.searchList = this.searchList.filter(item => item.companyName != null && item.ticker != null);
       event.component.items = this.searchList.filter((item) => {
-        return (item.companyName.toLowerCase().indexOf(text.toLowerCase()) > -1) || (item.ticker.toLowerCase().indexOf(text.toLowerCase()) > -1);
+        // console.log(item.ticker.toLowerCase().indexOf(text.toLowerCase()) > -1); 
+         return (item.companyName.toLowerCase().indexOf(text.toLowerCase()) > -1) || (item.ticker.toLowerCase().indexOf(text.toLowerCase()) > -1);
       });
 
     }
@@ -806,6 +864,7 @@ export class HomePage implements OnInit, AfterViewInit {
   /***************Geting GICS List Start *****************/
   getSectorList(data) {
     var indus = data;
+    console.log(indus);
     var i = 2;
     this.sectorList = [];
     while ((i / 2) < 5) {
@@ -814,8 +873,13 @@ export class HomePage implements OnInit, AfterViewInit {
       this.sectorList.push(temp[0]);
       i = i + 2;
     }
+    console.log(this.sectorList);
     var temp1 = [];
-    temp1 = [{ 'code': 'Index', 'name': this.SelSearchObj.indexName }]
+    if(this.SelSearchObj.hasOwnProperty('FIName')){
+      temp1 = [{ 'code': 'Index', 'name': this.SelSearchObj.FIName }];
+    }else{
+      temp1 = [{ 'code': 'Index', 'name': this.SelSearchObj.indexName }];
+    }
     this.sectorList.unshift(temp1[0]);
     var temp2 = [];
     temp2 = [{ 'code': 'Global Universe', 'name': 'New Age Alpha' }];
@@ -865,14 +929,35 @@ export class HomePage implements OnInit, AfterViewInit {
     }
     else if (key == "Index") {
       this.selSectorComp = this.selectedIndexData;
+      console.log(this.selSectorComp);
       this.selSector = this.sectorList[1];
+      console.log(this.selSector);
       this.SelSecLevTitle = this.sectorHeadings[this.sectorList.indexOf(this.selSector)];
+      console.log(this.SelSecLevTitle);
       this.stockMed = this.roundValue(this.getMed(this.selSectorComp) * 100);
       document.getElementById('subIndex-circle').style.background = this.getColor(this.roundValue(this.getMed(this.selSectorComp) * 100));
       document.getElementById('subIndex-circle').style.color = this.ApplyTextColor(this.roundValue(this.getMed(this.selSectorComp) * 100));
       this.loadData();
       this.scrollToSel();
-    } else {
+    }  else if(this.SelSearchObj.hasOwnProperty('FIName')){
+      console.log(this.selectedIndexData);
+      this.fullSectorComp = this.selectedIndexData.filter(item =>
+        item.industry.toString().substring(0, key.toString().length) == key
+      )
+        this.selSectorComp = this.fullSectorComp.filter(item => item.companyName != null);
+        this.selSectorComp.sort((a, b) => {
+          return a.scores - b.scores;
+      })
+      this.selSector = this.sectorList[((key.toString().length / 2) - 1) + 2];
+      this.SelSecLevTitle = this.sectorHeadings[this.sectorList.indexOf(this.selSector)];
+      this.stockMed = this.roundValue(this.getMed(this.selSectorComp) * 100);
+      document.getElementById('subIndex-circle').style.background = this.getColor(this.roundValue(this.getMed(this.selSectorComp) * 100));
+      document.getElementById('subIndex-circle').style.color = this.ApplyTextColor(this.roundValue(this.getMed(this.selSectorComp) * 100));
+      this.loadData();
+      console.log(this.fullSectorComp);
+
+    }
+    else {
       this.fullSectorComp = this.data.filter(item =>
         item.industry.toString().substring(0, key.toString().length) == key
       )

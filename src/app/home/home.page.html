@@ -88,7 +88,7 @@
           <div class="stock-header" (click)="onStockDivClick()">
             <span class="stock-span">Stocks</span>
             <span class="stock-span"><span style="display: flex;" *ngIf="searchSel!=''"><span style="white-space: nowrap;
-              width: 106px;
+              width: 90px;
               display: inline-block;
               text-overflow: ellipsis;
               overflow: hidden;">{{searchSel.companyName}}</span><span>({{searchSel.ticker}})</span></span></span>
@@ -160,7 +160,7 @@
                       [ngClass]="{'stockicon-active': stockIndexShow}" (click)="onStockBtnClick()">
                       <div class="SubIndex-header-content">
                         <span class="subIndex-header-title">{{SelSecLevTitle}}<span *ngIf="SelSearchObj!=''"> (<span
-                              class="indName">{{SelSearchObj.hasOwnProperty('indexType')?SelSearchObj.etfName:SelSearchObj.indexName}}</span>)</span></span>
+                              class="indName">{{SelSearchObj.hasOwnProperty('indexType')? SelSearchObj.etfName : SelSearchObj.hasOwnProperty('FIName')? SelSearchObj.FIName : SelSearchObj.indexName}}</span>)</span></span>
                         <span class="subIndex-header-subtitle">{{selSector.name}}</span>
                       </div>
                       <ion-icon [name]="stockIcon" class="subindex-icon"></ion-icon>
@@ -253,10 +253,10 @@
               <ul class="NavTabList">
                 <li class="navTabBtn" [ngClass]="{'tab-active': SelTab == 'Global Universe'}"
                   (click)="GridHeaderTitle=false; SelTab = 'Global Universe';onNavClick();">Equity Index</li>
-                <li class="tab2color" [ngClass]="{'tab-active': SelTab == 'NAA'}"
-                  (click)="GridHeaderTitle=false; SelTab = 'NAA';onNavClick();">NAA Index</li>
-                  <li class="ETFNavTabBtn" [ngClass]="{'tab-active': SelTab == 'FI'}"
+                  <li class="tab2color" [ngClass]="{'tab-active': SelTab == 'FI'}"
                   (click)="GridHeaderTitle=false; SelTab = 'FI';onFINavClick();">FI Index</li>
+                <li class="ETFNavTabBtn" [ngClass]="{'tab-active': SelTab == 'NAA'}"
+                  (click)="GridHeaderTitle=false; SelTab = 'NAA';onNavClick();">NAA Index</li>
                 <li class="ETFNavTabBtn" [ngClass]="{'tab-active': SelTab == 'ETF'|| SelTab == 'ETFChild'}"
                   (click)="GridHeaderTitle=false; SelTab = 'ETF'; onNavETFClick();">ETF's</li>
               </ul>
@@ -276,7 +276,7 @@
                       [ngClass]="{'stockicon-active': compIndexShow}" (click)="onCompBtnClick()">
                       <div class="Btn-inner-div">
                         <span
-                          class="subIndex-header-title">{{(SelTab=='ETF' || SelTab=='ETFChild')? 'ETF':'Index'}}</span>
+                          class="subIndex-header-title">{{(SelTab=='ETF' || SelTab=='ETFChild')? 'ETF': SelTab=='FI'? 'Fixed Income':'Index'}}</span>
                         <span class="subIndex-header-subtitle">{{SelIndexName}}</span>
                       </div>
                       <ion-icon [name]='icon' class="subindex-icon"></ion-icon>
@@ -341,7 +341,7 @@
                 </ion-card-content>
                 <!-- Index Loader -->
 
-                 <!-- Global Index List Start -->
+                 <!-- Global country List Start -->
                  <ion-card-content *ngIf="SelTab=='Global Universe' && !selCountry" class="company-card-content">
                   <ion-list class="nav-tab-index">
                     <ion-item class="nav-tab-item"  lines="none" *ngFor="let item of GlobalList"
@@ -353,11 +353,13 @@
                       <span class="index-circle" [style.color]="ApplyTextColor(item.med)"
                         [style.background-color]="getColor(item.med)">{{item.med}}</span>
                       <ion-label>{{item.country}}</ion-label>
+                      
                       </div>
+                      <ion-icon name="ios-arrow-forward"></ion-icon>
                     </ion-item>
                   </ion-list>
                 </ion-card-content>
-                <!-- Global Index List End -->
+                <!-- Global country List End -->
 
                 <!-- Global Index List Start -->
                 <ion-card-content *ngIf="SelTab=='Global Universe' && selCountry" class="company-card-content">
@@ -399,6 +401,39 @@
                   </ion-list>
                 </ion-card-content>
                 <!-- Naa Index List End -->
+
+                <!-- FI Country List Start-->
+                <ion-card-content *ngIf="SelTab=='FI' && !FISelCountry" class="company-card-content">
+                  <ion-list class="nav-tab-index">
+                    <ion-item class="nav-tab-item" lines="none" *ngFor="let item of FICountryList" (click)="onFICountryClick(item)">
+                      <span class="index-circle"
+                        [style.color]="ApplyTextColor(FixedIndexData[item].med)"
+                        [style.background-color]="getColor(FixedIndexData[item].med)">{{FixedIndexData[item].med}}</span>
+                        <ion-label>{{item}}</ion-label>
+                        <ion-icon name="ios-arrow-forward"></ion-icon>
+                    </ion-item>
+                  </ion-list>
+                </ion-card-content>
+                <!-- FI Country List End-->
+
+                <!-- FI category List Start-->
+                <ion-card-content *ngIf="SelTab=='FI' && FISelCountry" class="company-card-content">
+                  <div style="    padding: 5px 10px 0px 10px;" (click)="onFiCountryBackClick()">
+                    <p style="text-align: left; color: #01b9ff; display: flex;
+                    flex-direction: row;
+                    align-items: center;"><ion-icon name="arrow-back" style="    padding-right: 10px;"></ion-icon>{{FISelCountry}}</p>
+                  </div>
+                  <ion-list class="nav-tab-index">
+                    <ion-item class="nav-tab-item" lines="none" *ngFor="let item of FIselCatogaryList" (click)="onFixedCatClick(item)">
+                      <span class="index-circle"
+                        [style.color]="ApplyTextColor(roundValue(item.medianCont*100))"
+                        [style.background-color]="getColor(roundValue(item.medianCont*100))">{{roundValue(item.medianCont*100)}}</span>
+                        <ion-label>{{item.category == 'HY'?'High Yield':'Investment Grade'}}</ion-label>
+                        <ion-icon name="ios-arrow-forward"></ion-icon>
+                    </ion-item>
+                  </ion-list>
+                </ion-card-content>
+                <!-- FI category List End-->
 
                 <!-- ETF Catagory List Start -->
                 <ion-card-content *ngIf="SelTab=='ETF'" class="company-card-content">
