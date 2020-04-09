@@ -224,8 +224,7 @@
               </ion-card>
 
               <!-- GICS List Start -->
-              <ion-card class="stockCompList-card" *ngIf="stockIndexShow==true"
-                >
+              <ion-card class="stockCompList-card" *ngIf="stockIndexShow==true">
                 <ion-card-content  style="padding: 0px; height: calc(100vh - 263px);">
                   <ion-item style="color: black; --background: white;" *ngFor="let item of sectorList"
                    (click)="onSectorClick(item.code)">
