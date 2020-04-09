@@ -174,7 +174,7 @@
             <!-- Stock Company start -->
             <div>
               <ion-card class="stockCompList-card" *ngIf="stockIndexShow==false"
-                [ngClass]="{'Stockcard-extend': stockCollapse}">
+                >
 
                 <!-- Stock On Begin Start -->
                 <ion-card-content *ngIf="selSectorComp==''" class="stockcomplist-card-content"
@@ -189,7 +189,7 @@
                 <ion-card-content style=" padding: 0px;" *ngIf="selSectorComp!=''">
                   
                   
-                    <ion-content  forceOverscroll="true" id="innerContent" style="--overflow: hidden; --background:white; position: fixed;" [ngClass]="{foceScrollOverflow: SelSecLevTitle=='Global Universe'}">
+                    <ion-content class="stockcomplist-card-content" [ngClass]="{'companycard-extend': stockCollapse}" forceOverscroll="true" id="innerContent" style="--overflow: hidden; --background:white; position: fixed;" [ngClass]="{foceScrollOverflow: SelSecLevTitle=='Global Universe'}">
                       <div scrollY="true" id="sectorscrollDiv"
                     [ngClass]="{'stock_companycard-extend': stockCollapse, 'company-list-inner-div': SelSecLevTitle!='Global Universe'}">
                     <ion-list class="company-list">
@@ -225,8 +225,8 @@
 
               <!-- GICS List Start -->
               <ion-card class="stockCompList-card" *ngIf="stockIndexShow==true"
-                [ngClass]="{'Stockcard-extend': stockCollapse}">
-                <ion-card-content style="padding: 0px;">
+                >
+                <ion-card-content  style="padding: 0px; height: calc(100vh - 263px);">
                   <ion-item style="color: black; --background: white;" *ngFor="let item of sectorList"
                    (click)="onSectorClick(item.code)">
                     <ion-label 
@@ -405,8 +405,8 @@
                 <!-- FI Country List Start-->
                 <ion-card-content *ngIf="SelTab=='FI' && !FISelCountry" class="company-card-content">
                   <ion-list class="nav-tab-index">
-                    <ion-item class="nav-tab-item" lines="none" *ngFor="let item of FICountryList" (click)="onFICountryClick(item)">
-                      <span class="index-circle"
+                    <ion-item class="nav-tab-item"  lines="none" *ngFor="let item of FICountryList" (click)="onFICountryClick(item)">
+                      <span class="index-circle" 
                         [style.color]="ApplyTextColor(FixedIndexData[item].med)"
                         [style.background-color]="getColor(FixedIndexData[item].med)">{{FixedIndexData[item].med}}</span>
                         <ion-label>{{item}}</ion-label>
@@ -425,10 +425,15 @@
                   </div>
                   <ion-list class="nav-tab-index">
                     <ion-item class="nav-tab-item" lines="none" *ngFor="let item of FIselCatogaryList" (click)="onFixedCatClick(item)">
-                      <span class="index-circle"
+                      <div style="display: flex;
+                      width: 100%;
+                      margin-left: 1px;
+                      align-items: center;" [ngClass]="{'selectIndex': SelIndexName == (item.category == 'HY'? 'High Yield' : 'Investment Grade')}">
+                      <span class="index-circle" [ngClass]="{'selectedIndexMed': SelIndexName == (item.category == 'HY'? 'High Yield' : 'Investment Grade')}"
                         [style.color]="ApplyTextColor(roundValue(item.medianCont*100))"
                         [style.background-color]="getColor(roundValue(item.medianCont*100))">{{roundValue(item.medianCont*100)}}</span>
-                        <ion-label>{{item.category == 'HY'?'High Yield':'Investment Grade'}}</ion-label>
+                        <ion-label [ngClass]="{'selectedIndexLabel': SelIndexName == (item.category == 'HY'? 'High Yield' : 'Investment Grade')}">{{item.category == 'HY'?'High Yield':'Investment Grade'}}</ion-label>
+                      </div>
                         <ion-icon name="ios-arrow-forward"></ion-icon>
                     </ion-item>
                   </ion-list>

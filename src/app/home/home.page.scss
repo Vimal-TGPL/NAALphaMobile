@@ -719,7 +719,7 @@ border-radius: 25px;
 
 .stockCompList-card{
     background-color: white; 
-    height: calc(100vh - 411px); 
+    // height: calc(100vh - 411px); 
     margin: 3px 0px 0px 0px; 
     border-radius: 10px 10px 0 0; 
     box-shadow: none;
@@ -728,6 +728,7 @@ border-radius: 25px;
 .stockcomplist-card-content{
     padding: 0px;
     display: flex;
+    height: calc(100vh - 411px) !important; 
     justify-content: center;
     align-items: center;
     height: 100%;
@@ -785,7 +786,7 @@ border-radius: 25px;
 }
 
 .Stockcard-extend{
-    height: calc(100vh - 262px) !important;
+    height: calc(100vh - 361px) !important;
 }
 
 .tab2color{
@@ -798,7 +799,7 @@ border-radius: 25px;
     font-size: 13px;
 }
 .companycard-extend{
-    height: calc(100vh - 249px) !important;
+    height: calc(100vh - 261px) !important;
     // height: calc(100vh - 271px) !important;
 }
 
