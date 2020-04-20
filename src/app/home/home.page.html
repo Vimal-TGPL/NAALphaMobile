@@ -1,21 +1,24 @@
 <!-- navBar start -->
 <ion-header class="ion-text-center">
   <ion-toolbar class="toolbar">
-    <ion-buttons slot="start" class="toolbar-button">
+    <ion-buttons slot="start">
       <ion-menu-button color="light"></ion-menu-button>
     </ion-buttons>
-    
+    <ion-buttons slot="end" *ngIf="mobile">
+      <ion-icon style="color:#ffffff; height: 20px; width: 20px; padding: 10px;" (click)="onSortClick()"  [name]="showFilter ? 'close' : 'funnel'"></ion-icon>
+    </ion-buttons>
     <div class="header-Logo" [ngClass]="{'ipad_Logo': !mobile}">
-      <img src="../../assets/images/NewAgeAlpha-logo.svg" alt="NewAgeAlpha"  width="auto" [ngStyle]="{height: mobile? '25px':'35px'}" >
+      <img src="../../assets/images/NewAgeAlpha-logo.svg" alt="NewAgeAlpha" width="auto"
+        [ngStyle]="{height: mobile? '25px':'35px'}">
     </div>
     <div *ngIf="!mobile" style="position: absolute; top: 10px; right: 25px;">
       <div style="display: flex; flex-direction: row;">
-      <div class="avatar" (click)="profilePopover($event)">
-        <img src="../../assets/images/Profile_NAA5.svg" alt="Profile">
+        <div class="avatar" (click)="profilePopover($event)">
+          <img src="../../assets/images/Profile_NAA5.svg" alt="Profile">
+        </div>
       </div>
     </div>
-    </div>
-    
+
   </ion-toolbar>
 </ion-header>
 <!-- navBar End -->
@@ -63,7 +66,7 @@
               justify-content: center;
               align-items: center;
               flex-direction: column;">
-                <img src="../../assets/images/NAA_search_notfound.png" alt="Search Not Found"  height="300">
+                <img src="../../assets/images/NAA_search_notfound.png" alt="Search Not Found" height="300">
                 <p style="font-size: 20px;
                 color: #0569bd;
                 margin: 15px 5px 5px 5px;">Sorry, no result found</p>
@@ -135,7 +138,8 @@
 
     <!-- Slides/Carousel Start-->
     <div>
-      <ion-slides id="pageslider" [options]="slides" slidesPerView="1" spaceBetween="1" mode='md' loop="true" (ionSlideDidChange)="onSlideChange($event)">
+      <ion-slides id="pageslider" [options]="slides" slidesPerView="1" spaceBetween="1" mode='md' loop="true"
+        (ionSlideDidChange)="onSlideChange($event)">
 
         <!-- GICS Slide Start -->
         <ion-slide>
@@ -170,11 +174,10 @@
               </ion-card>
             </div>
             <!-- GICS DropDown End -->
-            
+
             <!-- Stock Company start -->
             <div>
-              <ion-card class="stockCompList-card" *ngIf="stockIndexShow==false"
-                >
+              <ion-card class="stockCompList-card" *ngIf="stockIndexShow==false">
 
                 <!-- Stock On Begin Start -->
                 <ion-card-content *ngIf="selSectorComp==''" class="stockcomplist-card-content"
@@ -187,48 +190,73 @@
 
                 <!-- Stock Company List Start-->
                 <ion-card-content style=" padding: 0px;" *ngIf="selSectorComp!=''">
-                  
-                  
-                    <ion-content class="stockcomplist-card-content" [ngClass]="{'companycard-extend': stockCollapse}" forceOverscroll="true" id="innerContent" style="--overflow: hidden; --background:white; position: fixed;" [ngClass]="{foceScrollOverflow: SelSecLevTitle=='Global Universe'}">
-                      <div scrollY="true" id="sectorscrollDiv"
-                    [ngClass]="{'stock_companycard-extend': stockCollapse, 'company-list-inner-div': SelSecLevTitle!='Global Universe'}">
-                    <ion-list class="company-list">
-                      <ion-item lines='none' [id]=getIDReplace(item.companyName) class="company-list-item" *ngFor="let item of selSectorComp">
-                        <div class="company-label-outer-div" [ngClass]="{'comp-sel': selComp==item.companyName}"
-                          (click)="onCompanyClick(item)" [style.background]="getColor(roundValue(item.scores*100))"
-                          [style.color]="ApplyTextColor(roundValue(item.scores*100))">
-                          <ion-label class="company-label">
-                            <div class="nameExtend" style="width: 193px; overflow: hidden; text-overflow: ellipsis;">
-                              <span class="s-no">{{selSectorComp.indexOf(item)+1}}</span>
-                              <span>{{item.companyName}}</span>
+
+
+                  <ion-content class="stockcomplist-card-content" [ngClass]="{'companycard-extend': stockCollapse}"
+                    forceOverscroll="true" id="innerContent"
+                    style="--overflow: hidden; --background:white; position: fixed;"
+                    [ngClass]="{foceScrollOverflow: SelSecLevTitle=='Global Universe'}">
+                    <div scrollY="true" id="sectorscrollDiv"
+                      [ngClass]="{'stock_companycard-extend': stockCollapse, 'company-list-inner-div': SelSecLevTitle!='Global Universe'}">
+                      <ion-list class="company-list">
+                        <ion-item lines='none' [id]=getIDReplace(item.companyName) class="company-list-item"
+                          *ngFor="let item of selSectorComp">
+                          <div class="company-label-outer-div" [ngClass]="{'comp-sel': selComp==item.companyName}"
+                            (click)="onCompanyClick(item)" (press)="onlongpress(item)" [style.background]="getColor(roundValue(item.scores*100))"
+                            [style.color]="ApplyTextColor(roundValue(item.scores*100))">
+                            <ion-label class="company-label">
+                              <div style="    display: flex;
+                              flex-direction: row;
+                              align-items: center;">
+                                <span class="s-no">{{unsortselSectorComp.indexOf(item)+1}}</span>
+                                <div style="width: 100%;">
+                                <div style="display: flex;
+                                flex-direction: row;
+                                justify-content: space-between;
+                                align-items: center;">
+                                <span style="    width: 32vh;
+                                overflow: hidden;
+                                white-space: nowrap;
+                                text-overflow: ellipsis;">{{item.companyName}}</span>
+                                <!-- <ion-icon name="notifications" style="width: 13px;
+    height: 13px;"></ion-icon> -->
+                                <span style="    background: #ffffff;
+                                padding: 0 10px;
+                                border-radius: 10px;" [style.color]="ApplyPercentColor(roundValue(item.scores*100))">{{roundValue(item.scores*100)}}%</span>
+                              </div>
+                              
+                              <div style="display: flex;
+                              flex-direction: row;
+                              justify-content: space-between;">
+                                <span class="ticker-data">{{item.ticker}}</span>
+                                <span style="padding-right: 5px;" *ngIf="item.price != null">{{item.currency}} {{roundValue(item.price.toFixed(1))}}</span>
+                              </div>
                             </div>
-                            <div>
-                              <span class="ticker-data">({{item.ticker}})</span>
-                              <span>{{roundValue(item.scores*100)}}%</span>
                             </div>
-                          </ion-label>
-                        </div>
-                      </ion-item>
-                     
-                    </ion-list>
-                  <ion-infinite-scroll  [disabled]="selSector.code!='Global Universe'" threshold="100px" position="bottom" (ionInfinite)="onscroll($event)">
-                    <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Loading more data...">
-                    </ion-infinite-scroll-content>
-                  </ion-infinite-scroll>
-                </div>
+                            </ion-label>
+                          </div>
+                        </ion-item>
+
+                      </ion-list>
+                      <ion-infinite-scroll [disabled]="selSector.code!='Global Universe'" threshold="100px"
+                        position="bottom" (ionInfinite)="onscroll($event)">
+                        <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Loading more data...">
+                        </ion-infinite-scroll-content>
+                      </ion-infinite-scroll>
+                    </div>
                   </ion-content>
-                  
-                
+
+
                 </ion-card-content>
                 <!-- Stock Company List End-->
               </ion-card>
 
               <!-- GICS List Start -->
               <ion-card class="stockCompList-card" *ngIf="stockIndexShow==true">
-                <ion-card-content  style="padding: 0px; height: calc(100vh - 263px);">
+                <ion-card-content style="padding: 0px; height: calc(100vh - 263px);">
                   <ion-item style="color: black; --background: white;" *ngFor="let item of sectorList"
-                   (click)="onSectorClick(item.code)">
-                    <ion-label 
+                    (click)="onSectorClick(item.code)">
+                    <ion-label
                       style="display: flex; flex-direction: column; margin: 4px 0px; font-size: 14px; color: black;">
                       <span style="font-size: 12px; color: #666;">{{sectorHeadings[sectorList.indexOf(item)]}}</span>
                       <span style="overflow: hidden; text-overflow: ellipsis;">{{item.name}}</span></ion-label>
@@ -252,8 +280,8 @@
               <ul class="NavTabList">
                 <li class="navTabBtn" [ngClass]="{'tab-active': SelTab == 'Global Universe'}"
                   (click)="GridHeaderTitle=false; SelTab = 'Global Universe';onNavClick();">Equity Index</li>
-                  <li class="tab2color" [ngClass]="{'tab-active': SelTab == 'FI'}"
-                  (click)="GridHeaderTitle=false; SelTab = 'FI';onFINavClick();">FI Index</li>
+                <li class="tab2color" [ngClass]="{'tab-active': SelTab == 'FI'}"
+                  (click)="GridHeaderTitle=false; SelTab = 'FI';onFINavClick();">Fixed Income</li>
                 <li class="ETFNavTabBtn" [ngClass]="{'tab-active': SelTab == 'NAA'}"
                   (click)="GridHeaderTitle=false; SelTab = 'NAA';onNavClick();">NAA Index</li>
                 <li class="ETFNavTabBtn" [ngClass]="{'tab-active': SelTab == 'ETF'|| SelTab == 'ETFChild'}"
@@ -308,17 +336,27 @@
                       <ion-item lines='none' class="company-list-item" *ngFor="let item of selectedIndexData">
                         <div class="company-label-outer-div"
                           [ngClass]="{'comp-sel': selComp==item.companyName && SelSearchObj.indexName==item.indexName}"
-                          (click)="onCompanyClick(item)" [style.background]="getColor(roundValue(item.scores*100))"
+                          (click)="onCompanyClick(item)" (press)="onlongpress(item)" [style.background]="getColor(roundValue(item.scores*100))"
                           [style.color]="ApplyTextColor(roundValue(item.scores*100))">
                           <ion-label class="company-label">
-                            <div class="nameExtend" style="width: 193px; overflow: hidden; text-overflow: ellipsis;">
+                            <!-- <div class="nameExtend" style="width: 193px; overflow: hidden; text-overflow: ellipsis;"> -->
+                            <div class="index-outer-Div">
                               <span class="s-no">{{unsortedIndexData.indexOf(item)+1}}</span>
-                              <span>{{item.companyName}}</span>
+                              <div class="index-inner-Div">
+                                <div class="first-div">
+                                  <span class="comp-Name">{{item.companyName}}</span>
+                                  <!-- <ion-icon name="notifications" style="width: 13px;
+                                  height: 13px;"></ion-icon> -->
+                                  <span class="per-val"
+                                    [style.color]="ApplyPercentColor(roundValue(item.scores*100))">{{roundValue(item.scores*100)}}%</span>
+                                </div>
+                                <div class="second-Div">
+                                  <span class="ticker-data">{{item.ticker}}</span>
+                                  <span *ngIf="item.price !== null">{{item.currency}} {{roundValue(item.price.toFixed(1))}}</span>
+                                </div>
+                              </div>
                             </div>
-                            <div>
-                              <span class="ticker-data">({{item.ticker}})</span>
-                              <span>{{roundValue(item.scores*100)}}%</span>
-                            </div>
+                            <!-- </div> -->
                           </ion-label>
                         </div>
                       </ion-item>
@@ -340,19 +378,19 @@
                 </ion-card-content>
                 <!-- Index Loader -->
 
-                 <!-- Global country List Start -->
-                 <ion-card-content *ngIf="SelTab=='Global Universe' && !selCountry" class="company-card-content">
+                <!-- Global country List Start -->
+                <ion-card-content *ngIf="SelTab=='Global Universe' && !selCountry" class="company-card-content">
                   <ion-list class="nav-tab-index">
-                    <ion-item class="nav-tab-item"  lines="none" *ngFor="let item of GlobalList"
+                    <ion-item class="nav-tab-item" lines="none" *ngFor="let item of GlobalList"
                       (click)="selCountry=item.country; onCountryClick(item.country)">
                       <div style="display: flex;
                       width: 100%;
                       margin-left: 1px;
                       align-items: center;">
-                      <span class="index-circle" [style.color]="ApplyTextColor(item.med)"
-                        [style.background-color]="getColor(item.med)">{{item.med}}</span>
-                      <ion-label>{{item.country}}</ion-label>
-                      
+                        <span class="index-circle" [style.color]="ApplyTextColor(item.med)"
+                          [style.background-color]="getColor(item.med)">{{item.med}}</span>
+                        <ion-label>{{item.country}}</ion-label>
+
                       </div>
                       <ion-icon name="ios-arrow-forward"></ion-icon>
                     </ion-item>
@@ -365,18 +403,22 @@
                   <div style="    padding: 5px 10px 0px 10px;" (click)="onCountryBackClick()">
                     <p style="text-align: left; color: #01b9ff; display: flex;
                     flex-direction: row;
-                    align-items: center;"><ion-icon name="arrow-back" style="    padding-right: 10px;"></ion-icon>{{selCountry}}</p>
+                    align-items: center;">
+                      <ion-icon name="arrow-back" style="    padding-right: 10px;"></ion-icon>{{selCountry}}
+                    </p>
                   </div>
                   <ion-list class="nav-tab-index">
-                    <ion-item class="nav-tab-item"  lines="none" *ngFor="let item of globalselectedcountryList"
+                    <ion-item class="nav-tab-item" lines="none" *ngFor="let item of globalselectedcountryList"
                       (click)="onglobalIndexClick(item.name)">
                       <div style="display: flex;
                       width: 100%;
                       margin-left: 1px;
                       align-items: center;" [ngClass]="{'selectIndex': SelIndexName==item.name}">
-                      <span class="index-circle" [ngClass]="{'selectedIndexMed': SelIndexName==item.name}" [style.color]="ApplyTextColor(item.med)"
-                        [style.background-color]="getColor(item.med)">{{item.med}}</span>
-                      <ion-label [ngClass]="{'selectedIndexLabel': SelIndexName==item.name}">{{getGlobalIndex(item.name)}}</ion-label>
+                        <span class="index-circle" [ngClass]="{'selectedIndexMed': SelIndexName==item.name}"
+                          [style.color]="ApplyTextColor(item.med)"
+                          [style.background-color]="getColor(item.med)">{{item.med}}</span>
+                        <ion-label [ngClass]="{'selectedIndexLabel': SelIndexName==item.name}">
+                          {{getGlobalIndex(item.name)}}</ion-label>
                       </div>
                     </ion-item>
                   </ion-list>
@@ -392,10 +434,12 @@
                       width: 100%;
                       margin-left: 1px;
                       align-items: center;" [ngClass]="{'selectIndex': SelIndexName==item.name}">
-                      <span class="index-circle" [ngClass]="{'selectedIndexMed': SelIndexName==item.name}" [style.color]="ApplyTextColor(item.med)"
-                        [style.background-color]="getColor(item.med)">{{item.med}}</span>
-                      <ion-label [ngClass]="{'selectedIndexLabel': SelIndexName==item.name}">{{getNaaIndex(item.name)}}</ion-label>
-                    </div>
+                        <span class="index-circle" [ngClass]="{'selectedIndexMed': SelIndexName==item.name}"
+                          [style.color]="ApplyTextColor(item.med)"
+                          [style.background-color]="getColor(item.med)">{{item.med}}</span>
+                        <ion-label [ngClass]="{'selectedIndexLabel': SelIndexName==item.name}">
+                          {{getNaaIndex(item.name)}}</ion-label>
+                      </div>
                     </ion-item>
                   </ion-list>
                 </ion-card-content>
@@ -404,12 +448,12 @@
                 <!-- FI Country List Start-->
                 <ion-card-content *ngIf="SelTab=='FI' && !FISelCountry" class="company-card-content">
                   <ion-list class="nav-tab-index">
-                    <ion-item class="nav-tab-item"  lines="none" *ngFor="let item of FICountryList" (click)="onFICountryClick(item)">
-                      <span class="index-circle" 
-                        [style.color]="ApplyTextColor(FixedIndexData[item].med)"
+                    <ion-item class="nav-tab-item" lines="none" *ngFor="let item of FICountryList"
+                      (click)="onFICountryClick(item)">
+                      <span class="index-circle" [style.color]="ApplyTextColor(FixedIndexData[item].med)"
                         [style.background-color]="getColor(FixedIndexData[item].med)">{{FixedIndexData[item].med}}</span>
-                        <ion-label>{{item}}</ion-label>
-                        <ion-icon name="ios-arrow-forward"></ion-icon>
+                      <ion-label>{{item}}</ion-label>
+                      <ion-icon name="ios-arrow-forward"></ion-icon>
                     </ion-item>
                   </ion-list>
                 </ion-card-content>
@@ -420,20 +464,27 @@
                   <div style="    padding: 5px 10px 0px 10px;" (click)="onFiCountryBackClick()">
                     <p style="text-align: left; color: #01b9ff; display: flex;
                     flex-direction: row;
-                    align-items: center;"><ion-icon name="arrow-back" style="    padding-right: 10px;"></ion-icon>{{FISelCountry}}</p>
+                    align-items: center;">
+                      <ion-icon name="arrow-back" style="    padding-right: 10px;"></ion-icon>{{FISelCountry}}
+                    </p>
                   </div>
                   <ion-list class="nav-tab-index">
-                    <ion-item class="nav-tab-item" lines="none" *ngFor="let item of FIselCatogaryList" (click)="onFixedCatClick(item)">
+                    <ion-item class="nav-tab-item" lines="none" *ngFor="let item of FIselCatogaryList"
+                      (click)="onFixedCatClick(item)">
                       <div style="display: flex;
                       width: 100%;
                       margin-left: 1px;
-                      align-items: center;" [ngClass]="{'selectIndex': SelIndexName == (item.category == 'HY'? 'High Yield' : 'Investment Grade')}">
-                      <span class="index-circle" [ngClass]="{'selectedIndexMed': SelIndexName == (item.category == 'HY'? 'High Yield' : 'Investment Grade')}"
-                        [style.color]="ApplyTextColor(roundValue(item.medianCont*100))"
-                        [style.background-color]="getColor(roundValue(item.medianCont*100))">{{roundValue(item.medianCont*100)}}</span>
-                        <ion-label [ngClass]="{'selectedIndexLabel': SelIndexName == (item.category == 'HY'? 'High Yield' : 'Investment Grade')}">{{item.category == 'HY'?'High Yield':'Investment Grade'}}</ion-label>
+                      align-items: center;"
+                        [ngClass]="{'selectIndex': SelIndexName == (item.category == 'HY'? 'High Yield' : 'Investment Grade')}">
+                        <span class="index-circle"
+                          [ngClass]="{'selectedIndexMed': SelIndexName == (item.category == 'HY'? 'High Yield' : 'Investment Grade')}"
+                          [style.color]="ApplyTextColor(roundValue(item.medianCont*100))"
+                          [style.background-color]="getColor(roundValue(item.medianCont*100))">{{roundValue(item.medianCont*100)}}</span>
+                        <ion-label
+                          [ngClass]="{'selectedIndexLabel': SelIndexName == (item.category == 'HY'? 'High Yield' : 'Investment Grade')}">
+                          {{item.category == 'HY'?'High Yield':'Investment Grade'}}</ion-label>
                       </div>
-                        <ion-icon name="ios-arrow-forward"></ion-icon>
+                      <ion-icon name="ios-arrow-forward"></ion-icon>
                     </ion-item>
                   </ion-list>
                 </ion-card-content>
@@ -469,10 +520,12 @@
                           width: 100%;
                           margin-left: 1px;
                           align-items: center;" [ngClass]="{'selectIndex': SelIndexName==item.name}">
-                          <span class="index-circle" [ngClass]="{'selectedIndexMed': SelIndexName==item.name}" [style.color]="ApplyTextColor(item.med)"
-                            [style.background-color]="getColor(item.med)">{{item.med}}</span>
-                          <ion-label class="ETFChild-Label" [ngClass]="{'selectedIndexLabel': SelIndexName==item.name}">{{item.name}}</ion-label>
-                        </div>
+                            <span class="index-circle" [ngClass]="{'selectedIndexMed': SelIndexName==item.name}"
+                              [style.color]="ApplyTextColor(item.med)"
+                              [style.background-color]="getColor(item.med)">{{item.med}}</span>
+                            <ion-label class="ETFChild-Label"
+                              [ngClass]="{'selectedIndexLabel': SelIndexName==item.name}">{{item.name}}</ion-label>
+                          </div>
                         </ion-item>
                       </ion-list>
                     </div>
@@ -504,14 +557,172 @@
     </div>
     <!-- Slides/Carousel Pager End -->
   </div>
-  
+
+  <div *ngIf="showFilter" class="Filter_Div">
+   
+      <ion-list>
+        <div>
+        <ion-label>Sort</ion-label>
+        
+      </div>
+        <ion-radio-group name="sort" [value]="filterby" (ionChange)='onfilterSelect($event)'>
+          <ion-item-divider>
+            <ion-label>Company Name</ion-label>
+          </ion-item-divider>
+          
+          <ion-item lines="none">
+            <ion-label>Low to High</ion-label>
+            <ion-radio value="C_LTH"></ion-radio>
+          </ion-item>
+          <ion-item lines="none">
+            <ion-label>High to Low</ion-label>
+            <ion-radio value="C_HTL"></ion-radio>
+          </ion-item>
+          <ion-item-divider>
+            <ion-label>H-Factor Score</ion-label>
+          </ion-item-divider>
+          <ion-item lines="none">
+            <ion-label>Low to High</ion-label>
+            <ion-radio value="HF_LTH"></ion-radio>
+          </ion-item>
+          <ion-item lines="none">
+            <ion-label>High to Low</ion-label>
+            <ion-radio value="HF_HTL"></ion-radio>
+          </ion-item>
+          <ion-item-divider>
+            <ion-label>Ticker</ion-label>
+          </ion-item-divider>
+          <ion-item lines="none">
+            <ion-label>Low to High</ion-label>
+            <ion-radio value="T_LTH"></ion-radio>
+          </ion-item>
+          <ion-item lines="none">
+            <ion-label>High to Low</ion-label>
+            <ion-radio value="T_HTL"></ion-radio>
+          </ion-item>
+          <ion-item-divider>
+            <ion-label>Price</ion-label>
+          </ion-item-divider>
+          <ion-item lines="none">
+            <ion-label>Low to High</ion-label>
+            <ion-radio value="P_LTH"></ion-radio>
+          </ion-item>
+          <ion-item lines="none">
+            <ion-label>High to Low</ion-label>
+            <ion-radio value="P_HTL"></ion-radio>
+          </ion-item>
+        </ion-radio-group>
+      </ion-list>
+    
+  </div>
+  <div *ngIf="showAlertSetup" style="    position: absolute;
+  z-index: 999;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background-color: rgba(113, 107, 107, 0.50)">
+    <ion-card style="background: white;">
+      <ion-card-content style="    padding: 0px;     padding-bottom: 15px;">
+        <div style="background: #00b9ff; align-items: center; padding: 10px; display: flex; flex-direction: row; justify-content: space-between;">
+          <ion-title style="font-size: 18px; padding: 0px; color: white;">Alert Settings</ion-title>
+          <ion-icon style="color: #ffffff; width: 19px;
+          height: 19px;" name="close" (click)="showAlertSetup= false;"></ion-icon>
+        </div>
+        <div>
+          <p style="text-align: center;
+          padding-top: 15px;
+    color: #394e8b;
+    font-size: 16px;
+    padding: 0 15px;
+    font-weight: 500;">{{SelSearchObj.companyName}} ({{SelSearchObj.ticker}})</p>
+        </div>
+        <div>
+          <ion-item lines="none" style="--background: #ffffff;">
+            <ion-label>Period</ion-label>
+            <ion-select interface="popover" (ionChange)="rangeChange($event)" [(ngModel)]="selPeriod" style="min-width:45% !important;">
+              <ion-select-option value="daily">Daily</ion-select-option>
+              <ion-select-option value="weekly">Weekly</ion-select-option>
+              <ion-select-option value="monthly">Monthly</ion-select-option>
+            </ion-select>
+          </ion-item>
+        </div>
+        <div *ngIf="selPeriod == 'weekly'" style="display: flex;
+        flex-direction: row;
+        justify-content: center;">
+          <span class="alertdayspan" (click)="ondayclick('sunday')" [ngClass]="{'dayActive': selDay == 'sunday'}">S</span>
+          <span class="alertdayspan" (click)="ondayclick('monday')" [ngClass]="{'dayActive': selDay == 'monday'}">M</span>
+          <span class="alertdayspan" (click)="ondayclick('tuesday')" [ngClass]="{'dayActive': selDay == 'tuesday'}">T</span>
+          <span class="alertdayspan" (click)="ondayclick('wednesday')" [ngClass]="{'dayActive': selDay == 'wednesday'}">W</span>
+          <span class="alertdayspan" (click)="ondayclick('thursday')" [ngClass]="{'dayActive': selDay == 'thursday'}">T</span>
+          <span class="alertdayspan" (click)="ondayclick('friday')" [ngClass]="{'dayActive': selDay == 'friday'}">F</span>
+          <span class="alertdayspan" (click)="ondayclick('satuday')" [ngClass]="{'dayActive': selDay == 'satuday'}">S</span>
+        </div>
+        <div *ngIf="selPeriod == 'monthly'" style="display: flex; flex-direction: row;     justify-content: space-between;
+        
+        align-items: center;">
+          
+          <ion-button (click)="openDaypicker()" (ionChange)="rangeChange($event)" expand="block" fill="clear" style="width: 100%;     --padding-start: 15px;
+          --padding-end: 15px; --ripple-color:#666;">
+            <div style="width: 100%; display: flex;
+            flex-direction: row;
+            justify-content: space-between;">
+              <span style="    color: #000000;
+          font-size: 16px;     text-transform: capitalize;
+    font-weight: normal;">Date</span>
+          <span style="color: #000000;">
+           {{selDate}} <ion-icon name="arrow-dropdown" style="height: 18px;
+           width: 18px; margin-left: 10vh; color: #000000;
+            opacity: 0.4;"></ion-icon>
+            </span>
+            </div>
+          </ion-button>
+        </div>
+        <div>
+          <ion-item lines="none" style="--background: #ffffff;" >
+            <ion-checkbox (ionChange)="rangeChange($event)" [(ngModel)]="perChecked" style="--background:#ffffff; --background-checked: #00b9ff;
+            --border-color-checked: #00b9ff;"></ion-checkbox>
+            <ion-label style="padding-left: 10px; font-size: 14px;">If Score Percentage changed by (+/-)</ion-label>
+          </ion-item>
+        </div>
+        <div *ngIf="perChecked">
+          <ion-item style="--background:#ffffff; " lines="none">
+            <ion-range [(ngModel)]="selPer" style="--ion-color-base: #00b9ff !important; padding-left: 0px;
+            padding-right: 0px;"
+              min="1" max="100"
+              pin="true"
+              snaps="true" step="1"
+              ticks="true" value="1"
+              color="primary" (ionChange)="rangeChange($event)">
+
+                <ion-label slot="start">1%</ion-label>
+                <ion-label slot="end">100%</ion-label>
+            </ion-range>
+          </ion-item>
+        </div>
+        <div style="margin: 15px 15%; ">
+          <ion-button *ngIf="showSubmit" [disabled]="selPeriod == '' && !perChecked" style="--background: linear-gradient(45deg,#06aaf1,#2c529e)!important;" (click)="onAlertSubmit()" expand="block" shape="round">
+            Submit
+          </ion-button>
+        </div>
+        <div style="margin: 15px 15%; ">
+          <ion-button *ngIf="showAlertRemove" style="--background: #999 !important; color: white;" (click)="onRemoveAlert()" expand="block" fill="clear" shape="round">
+            Remove
+          </ion-button>
+        </div>
+      </ion-card-content>
+    </ion-card>
+  </div>
 </ion-content>
 <!--Mobile body -->
 
 <!-- Tablet body -->
 <ion-content *ngIf="!mobile" style="--ion-background-color:linear-gradient(-90deg,#2E4C99, #233771);">
- <div>
-  <app-ipadhometool></app-ipadhometool>
- </div>
+  <div>
+    <app-ipadhometool></app-ipadhometool>
+  </div>
 </ion-content>
 <!-- Tablet body -->

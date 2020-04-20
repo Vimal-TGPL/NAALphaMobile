@@ -6,7 +6,6 @@ import { FormControl, Validators } from '@angular/forms';
 import * as jQuery from "jquery";
 import * as $ from "jquery";
 declare var d3VirtualScroller: any;
-// declare var jQuery:any;
 // declare var $: any;
 
 @Component({
@@ -39,6 +38,7 @@ export class IPadHomeToolComponent implements OnInit, AfterContentInit, AfterVie
   interval: any = null;
   CompetCLength: number = 0;
   IsShowAll: boolean = true;
+  showLoader:boolean = false;
   distCnt: any = 0;
   date: any;
   gchart: any;
@@ -98,6 +98,7 @@ export class IPadHomeToolComponent implements OnInit, AfterContentInit, AfterVie
 
   constructor(private changedet: ChangeDetectorRef,private httpClient: HttpClient) { }
   ngAfterViewInit(): void {
+    this.showLoader = true;
     this.GetETFValues();
     d3.select("#dvDD").style('display', 'none');
     $('.slide-menu-control').click(function () {
@@ -137,6 +138,7 @@ export class IPadHomeToolComponent implements OnInit, AfterContentInit, AfterVie
 
   }
   ngAfterContentInit(): void {
+
     this.loadData();
     let position = jQuery("#fobjText").offset();
     if (position != undefined)
@@ -344,6 +346,7 @@ export class IPadHomeToolComponent implements OnInit, AfterContentInit, AfterVie
         }
       });
 
+      this.showLoader = false;
       console.log(that.CountryCatsubIndex);
 
       let lookup = [];
@@ -429,17 +432,6 @@ export class IPadHomeToolComponent implements OnInit, AfterContentInit, AfterVie
       .attr('transform', 'rotate(' + (-90) + ')')
       .on('mousedown', onDown)
       .on("touchstart", onDown)
-      //.on(
-      //  "click", function () {
-        
-      //    that.changedet.detectChanges();
-
-      //    that.CompareClick();
-      //    that.changedet.detectChanges();
-      //    that.CompareClick();
-      //  }
-     // );
-
 
     var rect1 = g.append("rect")
       .attr("class", "sRect1")
@@ -598,7 +590,7 @@ onsearchchages(val){
 
     } else {
         //  d3.select(".comp[name='" + value.replace(/ /g, '_') + "']").dispatch('click');
-        let d = d3.select(".comp[name='" + value.companyName.replace(/ /g, '_') + "']").datum();
+        let d = d3.select(".comp[name='" + value.replace(/ /g, '_') + "']").datum();
         console.log(d);
         this.SelIndexName = d.indexName;
         this.setClock(d.isin, d.deg * 360 / 100, d.company + " (" + d.ticker + ") [" + d3.format(".1f")(d.score) + "%]", "CompClick", d.stockKey, d.score);
@@ -630,17 +622,6 @@ onsearchchages(val){
       .attr('fill','#fff')
       .attr("transform", function (d, i) { return "rotate(" + ((d.deg * 360 / 100) - 90) + ")"; })
       .attr("name", function (d) { return d.isin + "_" + d.indexName.replace(/ /g, '_') })
-      // .on("mouseover", function (d) {
-      //   d3.select("#gCompeOver").style("display", "block");
-      //   that.showCompOver(this, d);
-      //   d3.select(this).raise();
-      //   d3.select(this).select(".crect").classed("onrect", true);
-      // })
-
-      // .on("mouseout", function (elemData) {
-      //   d3.select("#gCompeOver").style("display", "none");
-      //   d3.select(this).select(".crect").classed("onrect", false);
-      // })
 
       .on("click", function (elemData) {
         var gblSelId = d3.select(this).attr("name");
@@ -756,7 +737,7 @@ onsearchchages(val){
         d3.select("#cSlider").style("display", "none"); d3.select("#gPerformance").style("display", "none"); this.indexPerf = []; this.BMPerf = [];
       }
       if (from != "random") {
-        d3.select("#gBreadCrumb").style("display", "block");
+        // d3.select("#gBreadCrumb").style("display", "block");
         d3.select("#viewport4").style("display", "block");
         d3.select(".gHelp").style("display", "none")
         d3.select(".gHand").style("display", "none")
@@ -1044,6 +1025,33 @@ onsearchchages(val){
     }
   }
 
+  GetETFs(ctname: string) {
+    return this.PerfStockIndex.filter(x => x.key == ctname)[0].value.comp;
+  }
+
+  GetETFMed(ctname: string) {
+    return this.PerfStockIndex.filter(x => x.key == ctname)[0].value.med;
+  }
+
+  getColorMed(score) {
+    let gC100 = d3.scaleLinear()
+      .domain([0, 25, 50, 75, 100])
+      //  .range(["#4c9443", "#95a93b", "#ddbb29", "#b87b2b", "#94382d"]);
+      .range(["#40b55c", "#75c254", "#f5ea23", "#f37130", "#ef462f"])
+
+    return gC100(d3.format(".1f")(score));
+  }
+
+  GetGlobalsMedc(ctname: string) {
+    return this.IndexList.filter(x => x.indexName == ctname).length > 0 ? this.IndexList.filter(x => x.indexName == ctname)[0].medc : 0
+  }
+
+  GetGlobalMed(ctname: string) {
+    return this.GrpIndexList.filter(x => x.key == ctname).length > 0 ? this.GrpIndexList.filter(x => x.key == ctname)[0].value.med : 0
+  }
+  GetGlobalMedc(ctname: string) {
+    return this.GrpIndexList.filter(x => x.key == ctname).length > 0 ? this.GrpIndexList.filter(x => x.key == ctname)[0].value.medc : 0
+  }
   navPos(val) {
     var sx, sy = 0;
     sx = Math.cos(((val * 3.6) * Math.PI) / 180);
@@ -1106,315 +1114,6 @@ onsearchchages(val){
         GICSName = that.findIndName(that.dbGICS, v[0].key);
         break;
     }
-
-    var nav = d3.select("#gBreadCrumb")
-
-    var ggics = nav.append("g")
-      .attr("class", "ggicslbl")
-      .attr("transform", "translate(-500,-290)");
-    ggics.append("rect")
-      .attr("width", "220px")
-      .attr("height", "20px")
-      .attr("fill", "#fff")
-      .attr("rx", "10px")
-      .attr("ry", "10px")
-
-    ggics.append("text")
-      .attr("x", "15px")
-      .attr("y", "13px")
-      .text("S&P Global Industry Classification System")
-
-
-
-    nav.selectAll("#nav" + lvl).remove();
-    var navG = nav.append("g")
-      .attr("id", "nav" + lvl)
-      .attr("class", "nav" + lvl)
-      .attr("transform", trans)
-      .style("opacity", 1);
-
-
-    let dec = navG.append("g")
-      .attr("id", "dec" + lvl)
-      .attr("class", "clsdec")
-      // .attr("transform", trans)
-      .attr("transform", "translate(-201,19)")
-      .style("display", "none");
-
-
-    dec.append("rect")
-      .attr("rx", 22)
-      .attr("ry", 22)
-      .attr("y", -40)
-      .attr("width", 232)
-      .attr("height", 130)
-      .attr("fill", "#fff")
-      .style("stroke", "#00b9ff")
-      .style("stroke-width", "2px");;
-    /*
-    dec.append("rect")
-      .attr("x", 15)
-      .attr("y", -1)
-      .attr("width", 170)
-      .attr("height", 3)
-      .attr("fill", "#fff")
-      */
-    //let dectxt = dec.append("g").attr("transform", "translate(-190,32)");
-    //dectxt.append("text").style("text-anchor", "end").attr("x", "80").attr("y", "10").style("fill", "#fff").text("Deciles");
-    //dectxt.append("text").style("text-anchor", "end").attr("x", "180").attr("y", "10").style("fill", "#fff").text("Count"); 
-
-    dec.append("text").style("text-anchor", "middle").attr("x", "55").attr("y", "15").attr("class", "clsdecHdr").text("H-Factor");
-    dec.append("text").attr("class", "dectxtPer").style("text-anchor", "middle").attr("x", "180").attr("y", "15").attr("class", "clsdecHdr").text("Stocks");
-
-
-    dec.append("text").style("text-anchor", "middle").attr("x", "55").attr("y", "30").style("fill", "#666").text("0-25%");
-    dec.append("text").attr("class", "dec1txtPer").style("text-anchor", "middle").attr("x", "180").attr("y", "30").style("fill", "#666").text("");
-
-    dec.append("text").style("text-anchor", "middle").attr("x", "55").attr("y", "45").style("fill", "#666").text("25-50%");
-    dec.append("text").attr("class", "dec2txtPer").style("text-anchor", "middle").attr("x", "180").attr("y", "45").style("fill", "#666").text("");
-
-    dec.append("text").style("text-anchor", "middle").attr("x", "55").attr("y", "60").style("fill", "#666").text("50-75%");
-    dec.append("text").attr("class", "dec3txtPer").style("text-anchor", "middle").attr("x", "180").attr("y", "60").style("fill", "#666").text("");
-
-    dec.append("text").style("text-anchor", "middle").attr("x", "55").attr("y", "75").style("fill", "#666").text("75-100%");
-    dec.append("text").attr("class", "dec4txtPer").style("text-anchor", "middle").attr("x", "180").attr("y", "75").style("fill", "#666").text("");
-
-
-
-    navG.append("rect")
-      .attr("class", function () { return lvl < 0 ? "navrect rectOn" : "navrect" })
-      .attr("x", -200)
-      .attr("y", -20)
-      .attr("rx", 20)
-      .attr("ry", 20)
-      .attr("width", 230)
-      .attr("height", 40)
-      .attr("fill", "#fff")
-    // .attr("stroke", "#00b9ff");
-
-    navG.append("circle")
-      .attr("class", "crl" + lvl)
-      .attr("r", 20.3)
-      .attr("cy", -0)
-      .attr("cx", 10)
-      .style("stroke-width", 0)
-      .attr("fill", gC100(v[0].value.med));
-
-
-    navG.append("text")
-      .attr("class", "med")
-      .attr("y", 3)
-      .attr("x", 10)
-      .style("fill", function (d) { return (v[0].value.med >= 40 && v[0].value.med < 55) ? "#FF9503" : "#fff" })
-      .text(d3.format(".1f")(v[0].value.med))
-
-    navG.append("text")
-      .attr("class", "name")
-      .style("text-anchor", "start")
-      .text(GICSName)
-      .attr("y", 5)
-      .attr("x", -180).call(that.wrap, 170, "top");
-
-    navG.append("text")
-      .attr("class", "subname")
-      .style("text-anchor", "start")
-      // .style("text-transform", "uppercase")
-      //.text("[ " + lvlnm + " ]")
-      .text(lvlnm)
-      .attr("y", -7)
-      .attr("x", -180);
-
-    let PosArray = that.fnPosArray(60, 6, 5);
-    d3.select("#nav-1").attr("transform", function () { return that.navPos(PosArray[0]); })
-    d3.select("#nav0").attr("transform", function () { return that.navPos(PosArray[1]); })
-    d3.select("#nav1").attr("transform", function () { return that.navPos(PosArray[2]); })
-    d3.select("#nav2").attr("transform", function () { return that.navPos(PosArray[3]); })
-    d3.select("#nav3").attr("transform", function () { return that.navPos(PosArray[4]); })
-    d3.select("#nav4").attr("transform", function () { return that.navPos(PosArray[5]); })
-
-
-
-
-    navG.on("click", function (e) {
-      that.changedet.detectChanges()
-      $('#SpinLoader').css('display', 'flex');
-      d3.selectAll(".AddSlider").remove();
-      that.fnStockstabclick('Stocks');
-      if (that.FromClick == "ETFClick") {
-        that.indexPerf = [];
-        that.BMPerf = [];
-      }
-      // that.CompareClick();
-      if (d3.select(this).attr("id") != "nav0") {
-        clearInterval(that.interval);
-      }
-      d3.selectAll(".rectOn").classed("rectOn", false);
-
-      d3.selectAll(".comp").classed("compHighLight", false);
-      let filledcompanies = v[0].value.comp;
-
-      //if (v.length > 1) {
-      //  filledcompanies = filledcompanies.concat(v[1].value.comp);
-      //} 
-      filledcompanies = filledcompanies.sort(function (x, y) {
-        return d3.ascending(x.scores, y.scores);
-      });
-
-      d3.select("#gNav").select(".subname").text(lvlnm);
-      d3.select("#gNav").select(".name").text(GICSName).call(that.wrap, 160, "top");
-
-      d3.select("#gNavCompare").select(".subname").text("New Age Alpha Global Universe");
-      d3.select("#gNavCompare").select(".name").text(GICSName).call(that.wrap, 160, "top");
-
-      d3.select("#gNav").select("circle").attr("fill", gC100(v[0].value.med));
-
-      d3.select("#gNav").select(".med").text(d3.format(".1f")(v[0].value.med)).style("fill", function (d) { return (v[0].value.med >= 40 && v[0].value.med < 55) ? "#FF9503" : "#fff" })
-
-
-      //  d3.select("#gNavCompare").select("circle").attr("fill", gC100(v[0].value.med));
-      //  d3.select("#gNavCompare").select(".med").text(d3.format(".1f")(v[0].value.med)).style("fill", function (d) { return (v[0].value.med >= 40 && v[0].value.med < 55) ? "#FF9503" : "#fff" })
-
-      d3.selectAll(".comp").classed("compHighLight", true);
-
-      d3.select(this).select(".navrect").classed("rectOn", true);
-      if (d3.select(this).attr("id") != "nav-1") {
-        that.fillCompetives(filledcompanies, that.SelISIN, d3.select(this).attr("id").replace("nav", ""));
-        // that.SelIndexName = filledcompanies[0].indexName;
-      }
-      else {
-        var gs = d3.select("#gCompetitive");
-        gs.selectAll("g").remove();
-        //that.SelIndexName = "";
-      }
-      let lookup = [];
-      let items = filledcompanies;
-      let resultData = [];
-
-      items.forEach(function (dt) {
-        if (!(lookup.indexOf(dt.stockKey) > -1)) {
-          lookup.push(dt.stockKey);
-          resultData.push(dt);
-        }
-      });
-
-      let dec1txtPer = resultData.filter(x => x.scores <= .25).length;
-      let dec2txtPer = resultData.filter(x => x.scores >= .25 && x.scores <= .50).length;
-      let dec3txtPer = resultData.filter(x => x.scores >= .50 && x.scores <= .75).length;
-      let dec4txtPer = resultData.filter(x => x.scores >= .75 && x.scores <= 1).length;
-
-      d3.selectAll(".dec1txtPer").text(dec1txtPer);
-      d3.selectAll(".dec2txtPer").text(dec2txtPer);
-      d3.selectAll(".dec3txtPer").text(dec3txtPer);
-      d3.selectAll(".dec4txtPer").text(dec4txtPer);
-
-
-      if (d3.select(this).attr("id").replace("nav", "") == 0 || d3.select(this).attr("id").replace("nav", "") == -1) {
-        that.fnBuildGridCompare(resultData, d3.select(this).attr("id").replace("nav", ""), that.SelISIN);
-      } else {
-
-        var selResData = that.selResData;
-        let Data = [];
-        var index = selResData.filter(function (d) {
-          return d.isin != "";
-        });
-
-        var selData = d3.select(".comp[name='" + that.SelISIN + "_" + that.SelIndexName.replace(/ /g, '_') + "']").datum();
-        var lvl1 = index.filter(function (d) { return d.industry.substring(0, 2) == selData.industry.substring(0, 2) });
-        var lvl2 = lvl1.filter(function (d) { return d.industry.substring(0, 4) == selData.industry.substring(0, 4) });
-        var lvl3 = lvl2.filter(function (d) { return d.industry.substring(0, 6) == selData.industry.substring(0, 6) });
-        var lvl4 = lvl3.filter(function (d) { return d.industry == selData.industry });
-
-        if (d3.select(this).attr("id").replace("nav", "") == -1) {
-          Data = that.getSectorPos(this.selResData, -1);
-        }
-        else if (d3.select(this).attr("id").replace("nav", "") == 0) {
-          Data = that.getSectorPos(index, 0);
-        }
-        else if (d3.select(this).attr("id").replace("nav", "") == 1) {
-          Data = that.getSectorPos(lvl1, 1);
-        }
-        else if (d3.select(this).attr("id").replace("nav", "") == 2) {
-          Data = that.getSectorPos(lvl2, 1);
-        }
-        else if (d3.select(this).attr("id").replace("nav", "") == 3) {
-          Data = that.getSectorPos(lvl3, 1);
-        }
-        else if (d3.select(this).attr("id").replace("nav", "") == 4) {
-          Data = that.getSectorPos(lvl4, 1);
-        }
-        Data = Data[0].value.comp;
-        let lookup1 = [];
-        let resultData1 = [];
-        Data.forEach(function (dt) {
-          if (!(lookup1.indexOf(dt.stockKey) > -1)) {
-            lookup1.push(dt.stockKey);
-            resultData1.push(dt);
-          }
-        });
-
-        that.fnBuildGridCompare(resultData1, d3.select(this).attr("id").replace("nav", ""), that.SelISIN);
-      }
-      //that.fnBuildHLGrid(resultData, d3.select(this).attr("id").replace("nav", ""), that.SelISIN);
-      that.fnBuildGrid(resultData, d3.select(this).attr("id").replace("nav", ""), that.SelISIN);
-
-      if (d3.select(this).attr("id").replace("nav", "") == "4") {
-        d3.select("#gCompetitive").selectAll("text").style("opacity", "1");
-      }
-      else if (d3.select(this).attr("id").replace("nav", "") == "0") {
-        d3.select("#gCompetitive").selectAll("text").style("opacity", "0.015");
-      }
-      else if (d3.select(this).attr("id").replace("nav", "") == "1") {
-        d3.select("#gCompetitive").selectAll("text").style("opacity", "0.25");
-      }
-      else if (d3.select(this).attr("id").replace("nav", "") == "2") {
-        d3.select("#gCompetitive").selectAll("text").style("opacity", "0.50");
-      }
-      else if (d3.select(this).attr("id").replace("nav", "") == "3") {
-        d3.select("#gCompetitive").selectAll("text").style("opacity", "0.75");
-      }
-      else {
-        d3.select("#gCompetitive").selectAll("text").style("opacity", "0.04");
-      }
-
-      let PosArray = that.fnPosArray(60, 6, 5);
-      if (d3.select(this).attr("id") == "nav-1") {
-        PosArray = that.fnPosArray(60, 6, 0);
-      }
-      if (d3.select(this).attr("id") == "nav0") {
-        PosArray = that.fnPosArray(60, 6, 1);
-      }
-      if (d3.select(this).attr("id") == "nav1") {
-        PosArray = that.fnPosArray(60, 6, 2);
-      }
-      if (d3.select(this).attr("id") == "nav2") {
-        PosArray = that.fnPosArray(60, 6, 3);
-      }
-      if (d3.select(this).attr("id") == "nav3") {
-        PosArray = that.fnPosArray(60, 6, 4);
-      }
-      if (d3.select(this).attr("id") == "nav4") {
-        PosArray = that.fnPosArray(60, 6, 5);
-      }
-      d3.select("#nav-1").attr("transform", function () { return that.navPos(PosArray[0]); })
-      d3.select("#nav0").transition().duration(600).attr("transform", function () { return that.navPos(PosArray[1]); })
-      d3.select("#nav1").transition().duration(600).attr("transform", function () { return that.navPos(PosArray[2]); })
-      d3.select("#nav2").transition().duration(600).attr("transform", function () { return that.navPos(PosArray[3]); })
-      d3.select("#nav3").transition().duration(600).attr("transform", function () { return that.navPos(PosArray[4]); })
-      d3.select("#nav4").transition().duration(600).attr("transform", function () { return that.navPos(PosArray[5]); })
-
-      d3.selectAll(".clsdec").style("display", "none");
-      d3.select(this).select(".clsdec").style("display", "block").style("opacity", "0").transition().delay(300).duration(300).style("opacity", "1");
-
-      if (that.IsShowAll)
-        that.refreshGrid();
-      else
-        that.MinimizeGrid();
-      $('#SpinLoader').fadeOut();
-    });
-
-    navG.on("mouseout", function (e) {
-      //  d3.selectAll(".compHighLight").classed("compHighLight", false)
-    });
   }
 
   fnBuildGrid(data, ind, selisin) {
@@ -2441,6 +2140,10 @@ onsearchchages(val){
 
   }
 
+  ApplyColor(val) {
+    return (val >= 40 && val < 55) ? "#FF9503" : "#fff"
+  }
+
   createHomecontent(elemData, val) {
     this.changedet.detectChanges();
     let gC360 = d3.scaleLinear()
@@ -2455,7 +2158,7 @@ onsearchchages(val){
       .text(elemData.companyName + ' (' + elemData.ticker + ')')
       .attr("x", "-" + homeScore1length);
 
-    var homeScore2length = (((parseFloat(elemData.scores) * 100).toFixed(1)).length * 7.5);
+    var homeScore2length = (((parseFloat(elemData.scores) * 100).toFixed(1)).length * 10);
 
     d3.select("#selectedscore").select('.homeScore2').attr("fill", function () { return gC360(val); }).text((parseFloat(elemData.scores) * 100).toFixed(1)+'%')
       .attr("x", "-" + homeScore2length);
@@ -2480,7 +2183,7 @@ onsearchchages(val){
     d3.select(".closePopup").style('display', 'block');
     d3.select(".helpPopup").style('display', 'block');
     d3.select(".expPopup").style('display', 'block');
-    d3.select("#gBreadCrumb").style("display", "block");
+    // d3.select("#gBreadCrumb").style("display", "block");
     d3.select("#viewport4").style("display", "block");
     d3.selectAll(".performance").style("display", "block");
     d3.select(".gHelp").style("display", "none");
@@ -2505,18 +2208,18 @@ onsearchchages(val){
     this.changedet.detectChanges();
     let SelFil = this.FilterList.filter(x => x.Name == this.SelFilter)[0];
     this.FilterGridList(SelFil.value);
-    this.virtualScroller.totalRows(this.GridData.length);
-    this.virtualScroller.viewport(d3.select("#viewport4"));
-    this.virtualScroller.data(this.GridData, function (d) {
-      return d.isin;
-    });
-    this.virtualScrollerComp.totalRows(this.GridData_c.length);
-    this.virtualScrollerComp.viewport(d3.select("#viewportCompare4"));
-    this.virtualScrollerComp.data(this.GridData_c, function (d) {
-      return d.isin;
-    });
-    d3.select(".chartGroup").call(this.virtualScroller);
-    d3.select(".chartGroupComp").call(this.virtualScrollerComp);
+    // this.virtualScroller.totalRows(this.GridData.length);
+    // this.virtualScroller.viewport(d3.select("#viewport4"));
+    // this.virtualScroller.data(this.GridData, function (d) {
+    //   return d.isin;
+    // });
+    // this.virtualScrollerComp.totalRows(this.GridData_c.length);
+    // this.virtualScrollerComp.viewport(d3.select("#viewportCompare4"));
+    // this.virtualScrollerComp.data(this.GridData_c, function (d) {
+    //   return d.isin;
+    // });
+    // d3.select(".chartGroup").call(this.virtualScroller);
+    // d3.select(".chartGroupComp").call(this.virtualScrollerComp);
     d3.selectAll(".viewport").style("overflow-y", "auto");
     d3.selectAll(".txtExpCol").style("display", "none");
     d3.select("#txtCollapse").style("display", "block");

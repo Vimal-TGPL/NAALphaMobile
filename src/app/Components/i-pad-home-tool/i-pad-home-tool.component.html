@@ -40,7 +40,20 @@
 
         </div>
     </div>
-        <svg preserveAspectRatio="xMidYMid meet" id="svgHContainer1" viewBox="200 70 1220 840" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" version="1.1">
+    <div style="    display: flex;
+    flex-direction: row;
+    align-items: center;
+    height: 100%;
+    width: 100%;">
+        <div>
+          <ion-card>
+            <ion-card-content>
+              Awesome content
+            </ion-card-content>
+          </ion-card>
+        </div>
+        
+        <svg preserveAspectRatio="xMidYMid meet" id="svgHContainer1" viewBox="380 70 860 840" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" version="1.1">
             <g id="gchart" transform="translate(810 ,500)"></g>
             <g class="Homecenter" style="opacity:0;" transform="translate(810,380)">
                 <text y="40" style="fill:#00b9ff;text-anchor:middle;text-align:center;font-size:25px;" class="grey-16 blue-heading">
@@ -57,6 +70,30 @@
                 </g>
               </g>
         </svg>
+
+        <div>
+          <ion-card>
+            <ion-card-content>
+              Awesome content
+            </ion-card-content>
+          </ion-card>
+        </div>
+      </div>
+        <div *ngIf="showLoader" style="    position: absolute;
+        height: 100%;
+        width: 100%;
+        left: 0;
+        right: 0;
+        z-index: 99;
+        top: 0;
+        bottom: 0;
+        background-color: rgba(211, 216, 220, 0.60);
+        display: flex;
+    justify-content: center;
+    align-items: center;">
+        <img src="../../../assets/images/NAA.gif" alt="loader" style="    height: 50px;
+        width: 50px;">
+        </div>
     </ion-card-content>
 </ion-card>
 </div>

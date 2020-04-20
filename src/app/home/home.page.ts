@@ -3,15 +3,18 @@ import { AuthenticationService } from '../services/authentication.service';
 import { Storage } from '@ionic/storage';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from '../../environments/environment';
-import { Platform, IonSlides, IonContent, MenuController } from '@ionic/angular';
+import { Platform, IonSlides, IonContent, MenuController, ToastController } from '@ionic/angular';
 import * as d3 from 'd3';
 import { IonicSelectableComponent } from 'ionic-selectable';
 import { ScreenOrientation } from '@ionic-native/screen-orientation/ngx';
 import { Router } from '@angular/router';
-import { AlertController } from '@ionic/angular';
+import { AlertController, PickerController } from '@ionic/angular';
 import { PopoverController } from '@ionic/angular';
 import { ProfiledetailsComponent } from '../Components/profiledetails/profiledetails.component';
 import { NavParams, Events } from '@ionic/angular';
+import { PickerOptions } from '@ionic/core';
+import { AlertService } from '../services/alert.service';
+import { async } from '@angular/core/testing';
 
 @Component({
   selector: 'app-home',
@@ -25,6 +28,17 @@ export class HomePage implements OnInit, AfterViewInit {
   @ViewChild(IonContent, {static:true}) content: IonContent;
   // @ViewChild(IonSlides, { static: true }) slides: IonSlides;
   mobile : boolean;
+  selDate:any = 1;
+  savedAlert:any;
+  showAlertRemove:boolean;
+  selPer:any = 1;
+  perChecked:boolean = false;
+  selPeriod:string;
+  showSubmit:boolean = true;
+  selDay:string = 'monday';
+  showAlertSetup:boolean = false;
+  showFilter:boolean = false;
+  filterby:string = 'HF_LTH';
   backButtonSubscription;
   globalSize:any = 100;
   globalselectorcomp:any = [];
@@ -40,6 +54,7 @@ export class HomePage implements OnInit, AfterViewInit {
   SelSecLevTitle: any = 'Sub Industry';
   fullSectorComp: any = [];
   SelSearchObj: any = [];
+  unsortselSectorComp:any = [];
   selSectorComp: any = [];
   sectorList: any = [];
   dbGICS: any = [];
@@ -132,7 +147,7 @@ export class HomePage implements OnInit, AfterViewInit {
     },100);
   }
 
-  constructor(private menuCtrl:MenuController, private events:Events, private platform:Platform, private popoverController: PopoverController ,private route:Router, public alertController: AlertController, private screenOrientation: ScreenOrientation, public router: Router, private authService: AuthenticationService, public storage: Storage, private httpclient: HttpClient, private plt: Platform) {
+  constructor(private toastCtrl: ToastController,private alertService : AlertService, private pickerCtrl:PickerController, private menuCtrl:MenuController, private events:Events, private platform:Platform, private popoverController: PopoverController ,private route:Router, public alertController: AlertController, private screenOrientation: ScreenOrientation, public router: Router, private authService: AuthenticationService, public storage: Storage, private httpclient: HttpClient, private plt: Platform) {
     this.currentUser = this.authService.currentUserValue();
     if (this.screenOrientation.type == this.screenOrientation.ORIENTATIONS.LANDSCAPE || this.screenOrientation.type == this.screenOrientation.ORIENTATIONS.LANDSCAPE_PRIMARY || this.screenOrientation.type == this.screenOrientation.ORIENTATIONS.LANDSCAPE_SECONDARY) {
       this.stockCollapse = true;
@@ -360,6 +375,114 @@ export class HomePage implements OnInit, AfterViewInit {
     });
   }
 
+  onRemoveAlert(){
+    let userInfo = {
+      userId: this.currentUser.userId,
+      stockKey: this.SelSearchObj.stockKey
+    }
+    this.alertService.deleteAlert(userInfo).subscribe(async (data)=>{
+      console.log(data);
+      const toast = await this.toastCtrl.create({
+        message: 'Alert Removed Sucessfully',
+        duration: 3000
+      });
+      toast.present();
+      this.showAlertSetup = false;
+    })
+  }
+
+  onAlertSubmit(){
+    if(this.selPeriod.length != 0 || this.perChecked){
+      var alerts = {
+        userId: this.currentUser.userId,
+        stockKey: this.SelSearchObj.stockKey,
+        daily: this.selPeriod == 'daily' ? 'Y' : 0,
+        weekly: this.selPeriod == 'weekly' ? 'Y' : 0,
+        weekDay: this.selPeriod == 'weekly' ? this.selDay : 0,
+        monthly: this.selPeriod == 'monthly' ? 'Y' : 0,
+        monthDt: this.selPeriod == 'monthly' ? this.selDate : 0,
+        scoreChange: this.perChecked ? 'Y' : 0,
+        scorePercent: this.perChecked ? this.selPer : 0,
+        mailType: 'H'
+      }
+
+      console.log(alerts);
+      this.alertService.setAlert(alerts).subscribe(async (data)=>{
+        console.log(data);
+        const toast = await this.toastCtrl.create({
+          message:'Alert Submitted Sucessfully',
+          duration: 3000
+        });
+        toast.present();
+        this.showAlertSetup = false;
+      })
+    }
+  }
+  rangeChange(evt){
+      this.showSubmit = true;  
+  }
+
+  getalertData(){
+
+  }
+  async openDaypicker(){
+    console.log('executing');
+    let opts : PickerOptions ={
+      buttons:[{
+        text: 'Cancel',
+        role: 'cancel'
+      },{
+        text: 'Confirm',
+        handler: (val)=>{
+          this.selDate = val.day.text;
+          console.log(val.text);
+        }
+      }
+      ],
+      columns:[{
+        name: 'day',
+        options: [{text:'1',value:'1'},
+        {text:'2',value:'2'},
+        {text:'3',value:'3'},
+        {text:'4',value:'4'},
+        {text:'5',value:'5'},
+        {text:'6',value:'6'},
+        {text:'7',value:'7'},
+        {text:'8',value:'8'},
+        {text:'9',value:'9'},
+        {text:'10',value:'10'},
+        {text:'11',value:'11'},
+        {text:'12',value:'12'},
+        {text:'13',value:'13'},
+        {text:'14',value:'14'},
+        {text:'15',value:'15'},
+        {text:'16',value:'16'},
+        {text:'17',value:'17'},
+        {text:'18',value:'18'},
+        {text:'19',value:'19'},
+        {text:'20',value:'20'},
+        {text:'21',value:'21'},
+        {text:'22',value:'22'},
+        {text:'23',value:'23'},
+        {text:'24',value:'24'},
+        {text:'25',value:'25'},
+        {text:'26',value:'26'},
+        {text:'27',value:'27'},
+        {text:'28',value:'28'},
+        {text:'29',value:'29'},
+        {text:'30',value:'30'},
+      ]
+      }],
+
+    };
+    let picker = await this.pickerCtrl.create(opts);
+    picker.present();
+    picker.onDidDismiss().then(async data=>{
+      let col = await picker.getColumn('day');
+      // this.selDate = col.options[col.selectedIndex].text;
+      console.log(col);
+    })
+  }
   onFINavClick(){
     this.stockCollapse = true;
     this.compIndexShow = true;
@@ -380,11 +503,8 @@ export class HomePage implements OnInit, AfterViewInit {
   }
 
   onFixedCatClick(item){
-    // console.log(item);
     this.httpclient.get(this.api_url+'/Scores/GetBondMappingStocks/'+item.category).subscribe((res:any[]) =>{
-    // console.log(res);
-    // console.log(this.data);
-    this.FixedStock.length = 0;
+    this.selectedIndexData.length = 0;
     this.headermed = this.roundValue(item.medianCont*100);
     this.SelIndexName = item.category == 'HY'? 'High Yield' : 'Investment Grade';
     document.getElementById('header-circle').style.background = this.getColor(this.roundValue(item.medianCont*100));
@@ -393,20 +513,156 @@ export class HomePage implements OnInit, AfterViewInit {
     this.icon = "ios-arrow-dropdown-circle";
     this.parentcard = false;
     res.forEach(e=>{
-      this.FixedStock.push(this.data.filter(x=> x.stockKey == e.stockKey && x.indexName.indexOf('New Age Alpha') == -1)[0]);
+      this.selectedIndexData.push(this.data.filter(x=> x.stockKey == e.stockKey && x.indexName.indexOf('New Age Alpha') == -1)[0]);
+      this.unsortedIndexData.push(this.data.filter(x=> x.stockKey == e.stockKey && x.indexName.indexOf('New Age Alpha') == -1)[0]);
     });
-    this.FixedStock = this.FixedStock.sort((a,b)=>{
+    this.unsortedIndexData.sort((a,b)=>{
       return a.scores - b.scores;
     })
-
-    // console.log(this.FixedStock);
-    this.selectedIndexData = this.FixedStock;
-    this.unsortedIndexData = this.FixedStock
-    // console.log(this.selSectorComp);
+     this.sortComp(this.filterby);
     });
   }
 
+  onSortClick(){
+    if(this.showFilter == false)
+    {this.showFilter = true;} else
+    {
+      this.showFilter = false;
+    }
+    
+  }
 
+  onfilterSelect(evt){
+    // console.log(evt);
+    this.filterby = evt.detail.value;
+    this.showFilter = false;
+    this.sortComp(this.filterby);
+  }
+
+  sortComp(type){
+    if(type == 'C_LTH'){
+      // if(this.selSectorComp.length > 0){
+        this.selSectorComp.sort((a,b)=>{
+          return a.companyName.localeCompare(b.companyName);
+        });
+        this.selectedIndexData.sort((a,b)=>{
+          return a.companyName.localeCompare(b.companyName);
+        });
+    }else if(type == 'C_HTL'){
+      this.selSectorComp.sort((a,b)=>{
+        return b.companyName.localeCompare(a.companyName);
+      });
+      this.selectedIndexData.sort((a,b)=>{
+        return b.companyName.localeCompare(a.companyName);
+      });
+    }else if(type == 'HF_LTH'){
+      this.selSectorComp.sort((a,b)=>{
+        return a.scores - b.scores;
+      });
+      this.selectedIndexData.sort((a, b) => {
+        return a.scores - b.scores;
+      });
+    }else if(type == 'HF_HTL'){
+      this.selSectorComp.sort((a,b)=>{
+        return b.scores - a.scores;
+      });
+     this.selectedIndexData.sort((a, b) => {
+        return b.scores - a.scores;
+      });
+      
+    }else if(type == 'T_LTH'){
+      this.selSectorComp.sort((a,b)=>{
+        return a.ticker.localeCompare(b.ticker);
+      });
+      this.selectedIndexData.sort((a,b)=>{
+        return a.ticker.localeCompare(b.ticker);
+      });
+    }else if(type == 'T_HTL'){
+      this.selSectorComp.sort((a,b)=>{
+        return b.ticker.localeCompare(a.ticker);
+      });
+      this.selectedIndexData.sort((a,b)=>{
+        return b.ticker.localeCompare(a.ticker);
+      });
+    }else if(type == 'P_LTH'){
+      this.selSectorComp.sort((a,b)=>{
+        return a.price - b.price;
+      });
+      this.selectedIndexData.sort((a, b) => {
+        return a.price - b.price;
+      });
+    }else if(type == 'P_HTL'){
+      this.selSectorComp.sort((a,b)=>{
+        return b.price - a.price;
+      });
+      this.selectedIndexData.sort((a, b) => {
+        return b.price - a.price;
+      });
+    }
+  }
+
+  ondayclick(day){
+    this.selDay = day;
+  }
+
+  isAlertexist(key){
+    let userInfo = {
+      userId: this.currentUser.userId,
+      stockKey: key
+    }
+
+    this.alertService.getAlert(userInfo).subscribe((data)=>{
+      if(data[0] != null){
+        return 'visible';
+      }else{
+        return 'hidden';
+      }
+    }); 
+  }
+  onlongpress(itm){
+    if(this.SelSearchObj == null || this.SelSearchObj != itm){
+      this.onCompanyClick(itm);
+    }
+    let userInfo = {
+      userId: this.currentUser.userId,
+      stockKey: this.SelSearchObj.stockKey
+    }
+    this.alertService.getAlert(userInfo).subscribe((data)=>{
+      
+       this.savedAlert = data[0];
+       console.log(this.savedAlert)
+        if(this.savedAlert != null){
+          console.log(data);
+            if(this.savedAlert.daily=='Y') this.selPeriod = 'daily';
+  
+            if(this.savedAlert.weekly=='Y') this.selPeriod = 'weekly';
+  
+            if(this.savedAlert.monthly == 'Y') this.selPeriod = 'monthly';
+  
+            this.selDay = this.savedAlert.weekDay == '0' ? 'monday' : this.savedAlert.weekDay.toString().toLowerCase();;
+  
+            this.selDate = this.savedAlert.monthDt == '0' ? 1 : this.savedAlert.monthDt;
+  
+            this.perChecked = this.savedAlert.scoreChange == 'Y' ? true : false;
+  
+            this.selPer = this.savedAlert.scorePercent == 0? 1 : this.savedAlert.scorePercent;
+
+            this.showSubmit = false;
+            this.showAlertSetup = true;
+            this.showAlertRemove = true;
+        }else{
+          this.selPeriod = '';
+          this.selDay= 'monday';
+          this.selDate = 1;
+          this.perChecked = false;
+          this.selPer= 1;
+          this.showAlertSetup = true;
+          this.showAlertRemove = false;
+        }
+    })
+    
+    
+  }
   /*************** On country Select Start *****************/
   onCountryClick(country){
     this.globalselectedcountryList = this.compglobalCountryInd[country];
@@ -445,6 +701,9 @@ export class HomePage implements OnInit, AfterViewInit {
   }
   /*************** Median Text color End *****************/
 
+  ApplyPercentColor(val){
+    return (val >=45 && val < 55) ? "#FF9503" : this.getColor(val);
+  }
   /*************** Global Index Select Start *****************/
   onglobalIndexClick(i) {
     this.selectedIndexData = this.globalindexwise[this.globalIndex.indexOf(i)].filter(item => item.indexName == i);
@@ -458,18 +717,20 @@ export class HomePage implements OnInit, AfterViewInit {
     this.unsortedIndexData = this.unsortedIndexData.sort((a, b) => {
       return a.scores - b.scores;
     });
-    this.sortcompany();
+    console.log(this.selectedIndexData);
+    this.sortComp(this.filterby);
+    // this.sortcompany();
     this.CompLength = this.selectedIndexData.length;
     this.headermed = this.globalmed[this.globalIndex.indexOf(i)];
     if (this.selComp != undefined) {
       setTimeout(() => {
         var temp = this.selectedIndexData.filter((item) => item.companyName == this.selComp);
         var index = this.selectedIndexData.indexOf(temp[0]) + 1;
-        var manInd = (index * 35) - 240;
+        var manInd = (index * 53) - 240;
         document.getElementById('scrollDiv').scrollTo(0, manInd);
         var sectemp = this.selSectorComp.filter((item) => item.companyName == this.selComp);
         var secInd = this.selSectorComp.indexOf(sectemp[0]) + 1;
-        var mansecInd = (secInd * 35) - 240;
+        var mansecInd = (secInd * 53) - 240;
         document.getElementById('sectorscrollDiv').scrollTo(0, mansecInd);
       }, 100);
     }
@@ -489,7 +750,8 @@ export class HomePage implements OnInit, AfterViewInit {
     this.unsortedIndexData = this.unsortedIndexData.sort((a, b) => {
       return a.scores - b.scores;
     });
-    this.sortcompany();
+    // this.sortcompany();
+    this.sortComp(this.filterby);
     this.CompLength = this.selectedIndexData.length;
     this.headermed = this.naamed[this.NAAIndex.indexOf(i)];
   }
@@ -682,7 +944,8 @@ export class HomePage implements OnInit, AfterViewInit {
       this.unsortedIndexData = this.unsortedIndexData.sort((a, b) => {
         return a.scores - b.scores;
       });
-      this.sortcompany();
+      // this.sortcompany();
+      this.sortComp(this.filterby);
     });
   }
   /*************** ETF Selected End *****************/
@@ -766,23 +1029,27 @@ export class HomePage implements OnInit, AfterViewInit {
        this.SelSearchObj.FIName = e.category == 'HY'? 'High Yield' : 'Investment Grade';
       this.getSectorList(e.industry.toString());
       this.onSectorClick(e.industry);
+      this.sortComp(this.filterby);
 
     }else if (e.hasOwnProperty('indexType')) {
         this.getSectorList(e.industry.toString());
         this.SelSearchObj = e;
         this.SelSearchObj.etfName = this.SelIndexName;
-        this.onSectorClick(e.industry);
+        // this.onSectorClick(e.industry);
         this.scrollToSel();
+        this.sortComp(this.filterby);
       } else if (e.indexName.indexOf('New Age Alpha ') == -1) {
-        this.onSearchSelect(e);
+        // this.onSearchSelect(e);
         this.getSectorList(e.industry.toString());
         this.SelSearchObj = e;
         this.onSectorClick(e.industry);
+        this.sortComp(this.filterby);
       } else {
         var temp = e;
         this.getSectorList(temp.industry.toString());
         this.SelSearchObj = temp;
-        this.onSectorClick(temp.industry);
+        // this.onSectorClick(temp.industry);
+        this.sortComp(this.filterby);
         this.scrollToSel();
       }
     
@@ -797,7 +1064,6 @@ export class HomePage implements OnInit, AfterViewInit {
     text: string
   }) {
     let text = event.text.trim();
-    console.log(text);
     if (text.length == 0) {
       this.searchList = this.searchList.filter(item => item.indexName.indexOf("New Age Alpha") == -1 || item.indexName != null);
       this.LoadsearchList = this.searchList.slice(0, 50).map(i => {
@@ -864,7 +1130,7 @@ export class HomePage implements OnInit, AfterViewInit {
   /***************Geting GICS List Start *****************/
   getSectorList(data) {
     var indus = data;
-    console.log(indus);
+    //console.log(indus);
     var i = 2;
     this.sectorList = [];
     while ((i / 2) < 5) {
@@ -873,7 +1139,7 @@ export class HomePage implements OnInit, AfterViewInit {
       this.sectorList.push(temp[0]);
       i = i + 2;
     }
-    console.log(this.sectorList);
+    //console.log(this.sectorList);
     var temp1 = [];
     if(this.SelSearchObj.hasOwnProperty('FIName')){
       temp1 = [{ 'code': 'Index', 'name': this.SelSearchObj.FIName }];
@@ -909,6 +1175,8 @@ export class HomePage implements OnInit, AfterViewInit {
       });
 
       this.selSectorComp = this.globalselectorcomp.slice(0,100);
+      // console.log(this.selSectorComp);
+      this.unsortselSectorComp = this.globalselectorcomp.slice(0,100);
       this.selSector = this.sectorList[0];
       // console.log(this.selSector);
       this.SelSecLevTitle = this.sectorHeadings[this.sectorList.indexOf(this.selSector)];
@@ -916,6 +1184,7 @@ export class HomePage implements OnInit, AfterViewInit {
       document.getElementById('subIndex-circle').style.background = this.getColor(this.roundValue(this.getMed(this.globalselectorcomp) * 100));
       document.getElementById('subIndex-circle').style.color = this.ApplyTextColor(this.roundValue(this.getMed(this.globalselectorcomp) * 100));
       this.loadData();
+      this.sortComp(this.filterby);
       // setTimeout(()=>{
       //   this.content.scrollToPoint(0,500);
       //   console.log("done");
@@ -928,22 +1197,28 @@ export class HomePage implements OnInit, AfterViewInit {
       // },500); 
     }
     else if (key == "Index") {
+      this.unsortselSectorComp = this.selectedIndexData;
       this.selSectorComp = this.selectedIndexData;
-      console.log(this.selSectorComp);
+      // console.log(this.selSectorComp);
       this.selSector = this.sectorList[1];
-      console.log(this.selSector);
+      // console.log(this.selSector);
       this.SelSecLevTitle = this.sectorHeadings[this.sectorList.indexOf(this.selSector)];
-      console.log(this.SelSecLevTitle);
+      // console.log(this.SelSecLevTitle);
       this.stockMed = this.roundValue(this.getMed(this.selSectorComp) * 100);
       document.getElementById('subIndex-circle').style.background = this.getColor(this.roundValue(this.getMed(this.selSectorComp) * 100));
       document.getElementById('subIndex-circle').style.color = this.ApplyTextColor(this.roundValue(this.getMed(this.selSectorComp) * 100));
       this.loadData();
       this.scrollToSel();
+      this.sortComp(this.filterby);
     }  else if(this.SelSearchObj.hasOwnProperty('FIName')){
-      console.log(this.selectedIndexData);
+      // console.log(this.selectedIndexData);
       this.fullSectorComp = this.selectedIndexData.filter(item =>
         item.industry.toString().substring(0, key.toString().length) == key
       )
+        this.unsortselSectorComp = this.fullSectorComp.filter(item => item.companyName != null);
+        this.unsortselSectorComp.sort((a, b) => {
+          return a.scores - b.scores;
+      })
         this.selSectorComp = this.fullSectorComp.filter(item => item.companyName != null);
         this.selSectorComp.sort((a, b) => {
           return a.scores - b.scores;
@@ -954,7 +1229,8 @@ export class HomePage implements OnInit, AfterViewInit {
       document.getElementById('subIndex-circle').style.background = this.getColor(this.roundValue(this.getMed(this.selSectorComp) * 100));
       document.getElementById('subIndex-circle').style.color = this.ApplyTextColor(this.roundValue(this.getMed(this.selSectorComp) * 100));
       this.loadData();
-      console.log(this.fullSectorComp);
+      this.sortComp(this.filterby);
+      // console.log(this.fullSectorComp);
 
     }
     else {
@@ -971,10 +1247,16 @@ export class HomePage implements OnInit, AfterViewInit {
         this.fullSectorComp = this.fullSectorComp.filter(item => item.indexName.indexOf("New Age Alpha") != -1);
       }
       this.selSectorComp = this.fullSectorComp.filter(item => item.indexName == this.SelSearchObj.indexName);
-      this.selSectorComp = this.selSectorComp.filter(item => item.companyName != null);
-      this.selSectorComp.sort((a, b) => {
+      this.unsortselSectorComp = this.selSectorComp.filter(item => item.companyName != null);
+      this.unsortselSectorComp.sort((a, b) => {
         return a.scores - b.scores;
       })
+      this.selSectorComp = this.selSectorComp.filter(item => item.companyName != null);
+       this.selSectorComp.sort((a, b) => {
+         return b.scores - a.scores;
+       })
+       console.log(this.selSectorComp);
+      // this.sortComp(this.filterby);
       this.selSector = this.sectorList[((key.toString().length / 2) - 1) + 2];
       this.SelSecLevTitle = this.sectorHeadings[this.sectorList.indexOf(this.selSector)];
       this.stockMed = this.roundValue(this.getMed(this.selSectorComp) * 100);
@@ -989,6 +1271,7 @@ export class HomePage implements OnInit, AfterViewInit {
       
       this.scrollToSel();
     }
+    // this.sortComp(this.filterby);
   }
   /*************** On GICS Click End *****************/
 
@@ -1031,11 +1314,11 @@ export class HomePage implements OnInit, AfterViewInit {
       setTimeout(() => {
         var temp = this.selectedIndexData.filter((item) => item.companyName == this.selComp);
         var index = this.selectedIndexData.indexOf(temp[0]) + 1;
-        var manInd = (index * 35) - 240;
+        var manInd = (index * 53) - 240;
         document.getElementById('scrollDiv').scrollTo(0, manInd);
         var sectemp = this.selSectorComp.filter((item) => item.companyName == this.selComp);
         var secInd = this.selSectorComp.indexOf(sectemp[0]) + 1;
-        var mansecInd = (secInd * 35) - 240;
+        var mansecInd = (secInd * 53) - 240;
         document.getElementById('sectorscrollDiv').scrollTo(0, mansecInd);
       }, 100);
     }
@@ -1292,6 +1575,3 @@ onLogoutClick(){
   return await popover.present();
 }
 }
-
-
-
