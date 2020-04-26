@@ -76,6 +76,8 @@ ion-popover{
     min-width: 300px !important;
 }
 
+
+
 ion-select{
     max-width: 60vh !important;
     min-width: 60vh !important;
@@ -84,6 +86,8 @@ ion-select{
         opacity: 1 !important;
     }
 }
+
+
 
 ion-select-popover, .popover-content{
     max-width: 60vh !important;
@@ -103,6 +107,22 @@ ion-select-popover, .popover-content{
         margin-top: 1px;
         margin-bottom: 0px;
         padding: 0px;
+    }
+}
+
+#indexSelect ion-select{
+    max-width: 25vh !important;
+    min-width: 25vh !important;
+}
+
+#indexSelect ion-select-popover, .popover-content{
+    max-width: 25vh !important;
+    min-width: 25vh !important;
+    --background:#ffffff !important;
+
+    ion-item{
+        --background:#ffffff !important;
+        --color: #000000 !important;
     }
 }
 
@@ -137,6 +157,10 @@ ion-select-popover, .popover-content{
         max-height: 25vh !important;
     }
 }
+
+
+
+
 
 #dvSearchBox .searchbar-input.sc-ion-searchbar-ios{
     font-size: 12.7px;

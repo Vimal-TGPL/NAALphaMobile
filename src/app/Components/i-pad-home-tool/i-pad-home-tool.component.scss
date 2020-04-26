@@ -1,13 +1,14 @@
 .outerDiv{
     height: calc( 100vh - 90px);
+    width: calc(100vw - 90px);
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
 .parentCard{
-    height: 90%;
-    width: 90%;
+    height: 95%;
+    width: 95%;
     --background:#d3d8dc;
     border-radius: 20px;
     display: flex;

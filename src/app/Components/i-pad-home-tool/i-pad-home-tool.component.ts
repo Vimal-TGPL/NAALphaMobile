@@ -5,6 +5,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { FormControl, Validators } from '@angular/forms';
 import * as jQuery from "jquery";
 import * as $ from "jquery";
+import { timeout } from 'rxjs/operators';
 declare var d3VirtualScroller: any;
 // declare var $: any;
 
@@ -15,11 +16,40 @@ declare var d3VirtualScroller: any;
 })
 export class IPadHomeToolComponent implements OnInit, AfterContentInit, AfterViewInit {
   SelAssetId: string = "";
+  SelIndex:string;
+  unsortedSelCompanyData:any = [];
+  SelCompanyData:any = [];
+  NAAIndexData:any = [];
+  // NAAIndexList:any = [];
+  curGICSLev:any = 6;
+  selCompany: any;
   createXrad: any;
+  ETFData:any = [];
+  showFICountry:boolean = false;
+  showETFIndex:boolean = false;
+  SelETFSortOrder:string = 'H-Factor Score (ascending)';
+  showETFSort:boolean = false;
+  selETFCat:any;
+  showNaaIndex:boolean = false;
+  FIselCatogaryList:any = [];
+  showFiIndexList:boolean = false;
+  selSortOrder:String = 'H-Factor Score (ascending)';
+  selCountry:any;
+  selIndex:any;
+  selIndexList:any= [];
+  GlobalIndexDtata:any = [];
+  showIndexList:boolean = false;
+  FixedIncomeData:any = [];
+  FICountryList:any = [];
+  showsortList:boolean = false;
+  showCompanyList:boolean = false;
+  showCountryList:boolean = false;
+  countryList:any = [];
   CompetLength: any = "";
   filteredCompanies:any = [];
   companiesCtrl = new FormControl();
   SelIndexName: string = "";
+  SelETFIndexList:any = [];
   SelISIN: string = "";
   FromClick: string = "";
   SelTab: string = 'Stocks';
@@ -32,6 +62,7 @@ export class IPadHomeToolComponent implements OnInit, AfterContentInit, AfterVie
   GridData: any = [];
   virtualScrollerComp: any;
   searchETFValName: any;
+  showETFCategories:boolean = false;
   selETFCompanyName: any;
   virtualScroller: any;
   SelFilter: string = 'H-Factor Score (ascending)';
@@ -98,6 +129,7 @@ export class IPadHomeToolComponent implements OnInit, AfterContentInit, AfterVie
 
   constructor(private changedet: ChangeDetectorRef,private httpClient: HttpClient) { }
   ngAfterViewInit(): void {
+    
     this.showLoader = true;
     this.GetETFValues();
     d3.select("#dvDD").style('display', 'none');
@@ -147,10 +179,373 @@ export class IPadHomeToolComponent implements OnInit, AfterContentInit, AfterVie
 
   ngOnInit() {}
 
+  getColor(med) {
+    let gc100 = d3.scaleLinear()
+      .domain([0, 25, 50, 75, 100])
+      .range(["#40b55c", "#75c254", "#f5ea23", "#f37130", "#ef462f"])
+
+    return gc100(med);
+  }
+
+  getpercentColor(med){
+    return (med >= 45 && med < 55)? "#FF9503" : this.getColor(med);
+  }
+
+  ApplyTextColor(val) {
+    return (val >= 45 && val < 55) ? "#FF9503" : "#fff"
+  }
+
+  onCountryClick(itm){
+    console.log(itm);
+    this.selCountry = itm;
+    this.showIndexList = true;
+    this.showCountryList = false;
+    this.selIndexList.length = 0;
+    var temp = this.GlobalIndexDtata.filter((item)=>{ return item.CountryGroup == itm.Country}).map(x=>x.indexName).filter(function (value, index, self) {
+      return self.indexOf(value) === index;
+    });
+    temp.forEach(val => {
+      var t = [];
+      t = this.GlobalIndexDtata.filter(item => item.indexName == val).map(x=>x.scores);
+      var i = {'indexName':val,'Med':this.getMed(t)};
+      this.selIndexList.push(i);
+    });
+    this.selIndexList.sort((a,b)=>{
+      return a.Med - b.Med;
+    })
+    console.log(this.selIndexList);
+    
+  }
+
+  onIndexClick(itm){
+    console.log(itm);
+    this.selIndex = itm;
+    this.showCompanyList = true;
+    this.SelCompanyData = this.GlobalIndexDtata.filter(item=> item.indexName == itm.indexName );
+    this.unsortedSelCompanyData = this.GlobalIndexDtata.filter(item=> item.indexName == itm.indexName );
+    
+  }
+
+  onETFIndSortTabClick(){
+    if(this.showETFSort == true){
+      this.showETFSort = false;
+    }else{
+      this.showETFSort = true;
+    }
+    
+  }
+
+  GetETFHoldingsData(itm){
+    console.log(itm);
+    this.httpClient.get(this.api_url + "/Scores/GetETFCurrent/" + itm.assetId).subscribe((ETFStocks: any[]) => {
+      console.log(ETFStocks);
+      itm.Med = itm.medianCont;
+      itm.indexName = itm.etfName;
+      this.selIndex = itm;
+      this.SelCompanyData.length = 0;
+      this.unsortedSelCompanyData.length = 0;
+      ETFStocks.forEach(e=>{
+        var t = this.selResData.filter((item)=> { return item.aisin == e.isin && item.indexName.indexOf('New Age Aplha') == -1})[0];
+        this.SelCompanyData.push(t);
+        this.unsortedSelCompanyData.push(t);
+      });
+      this.showCompanyList = true;
+      this.showETFIndex = false;
+      this.showETFCategories = false;
+      //console.log(this.ETFData);
+    })
+  }
+
+  onETFIndsortClick(by){
+    var sortby = by;
+
+    if(sortby == 'ETF_ASC'){
+      this.SelETFSortOrder = 'ETF Name (ascending)';
+      this.SelETFIndexList.sort((a,b)=>{
+        return a.etfName.localeCompare(b.etfName); 
+      })
+    }else if(sortby == 'ETF_DES'){
+      this.SelETFSortOrder = 'ETF Name (descending)';
+      this.SelETFIndexList.sort((a,b)=>{
+        return b.etfName.localeCompare(a.etfName); 
+      })
+    }else if(sortby == 'HF_ASC'){
+      this.SelETFSortOrder = 'H-Factor Score (ascending)';
+      this.SelETFIndexList.sort((a,b)=>{
+        return a.medianCont - b.medianCont;
+      })
+    }else if(sortby == 'HF_DES'){
+      this.SelETFSortOrder = 'H-Factor Score (descending)';
+      this.SelETFIndexList.sort((a,b)=>{
+        return b.medianCont - a.medianCont;
+      })
+    }else if(sortby == 'T_ASC'){
+      this.SelETFSortOrder = 'Ticker (ascending)';
+      this.SelETFIndexList.sort((a,b)=>{
+        return a.ticker.localeCompare(b.ticker); 
+      })
+    }else if(sortby == 'T_DES'){
+      this.SelETFSortOrder = 'Ticker (descending)';
+      this.SelETFIndexList.sort((a,b)=>{
+        return b.ticker.localeCompare(a.ticker); 
+      })
+    }
+    this.showETFSort = false;
+  }
+
+  onFIIndexClick(item){
+    item.Med = item.medianCont;
+    item.indexName = item.category == 'HY'?'High Yield':'Investment Grade';
+    
+    console.log(item);
+     this.selIndex = item;
+     
+    this.httpClient.get(this.api_url+'/Scores/GetBondMappingStocks/'+item.category).subscribe((res:any[]) =>{
+      this.SelCompanyData.length = 0;
+    this.unsortedSelCompanyData.length = 0;
+      console.log(res);
+      res.forEach(e=>{
+        this.SelCompanyData.push(this.GlobalIndexDtata.filter(x=> x.stockKey == e.stockKey && x.indexName.indexOf('New Age Alpha') == -1)[0]);
+        this.unsortedSelCompanyData.push(this.GlobalIndexDtata.filter(x=> x.stockKey == e.stockKey && x.indexName.indexOf('New Age Alpha') == -1)[0]);
+      });
+      this.SelCompanyData.sort((a,b)=>{
+        return a.scores - b.scores;
+      })
+      this.unsortedSelCompanyData.sort((a,b)=>{
+        return a.scores - b.scores;
+      })
+      console.log(this.SelCompanyData);
+      console.log(this.unsortedSelCompanyData);
+      this.showCompanyList = true;
+    });
+  }
+
+  onsorttabClick(){
+    if(this.showsortList){
+      this.showsortList = false;
+    }else{
+      this.showsortList = true;
+    }
+    
+  }
+
+  onsortClick(by){
+    var sortby = by;
+    if(sortby == 'CN_ASC'){
+      this.SelCompanyData.sort((a,b)=>{
+        return a.companyName.localeCompare(b.companyName);
+      });
+      this.selSortOrder = 'Company Name (ascending)';
+    }else if(sortby == 'CN_DES'){
+      this.SelCompanyData.sort((a,b)=>{
+        return b.companyName.localeCompare(a.companyName);
+      });
+      this.selSortOrder = 'Company Name (descending)';
+    }else if(sortby == 'HF_ASC'){
+      this.SelCompanyData.sort((a,b)=>{
+        return a.scores - b.scores;
+      });
+      this.selSortOrder = 'H-Factor Score (ascending)';
+    }else if(sortby == 'HF_DES'){
+      this.SelCompanyData.sort((a,b)=>{
+        return b.scores - a.scores;
+      });
+      this.selSortOrder = 'H-Factor Score (descending)';
+    }else if(sortby == 'T_ASC'){
+      this.SelCompanyData.sort((a,b)=>{
+        return a.ticker.localeCompare(b.ticker);
+      });
+      this.selSortOrder = 'Ticker (ascending)';
+    }else if(sortby == 'T_DES'){
+      this.SelCompanyData.sort((a,b)=>{
+        return b.ticker.localeCompare(a.ticker);
+      });
+      this.selSortOrder = 'Ticker (descending)';
+    }else if(sortby == 'P_ASC'){
+      this.SelCompanyData.sort((a,b)=>{
+        return a.price - b.price;
+      });
+      this.selSortOrder = 'Price (ascending)';
+    }else if(sortby == 'P_DES'){
+      this.SelCompanyData.sort((a,b)=>{
+        return b.price - a.price;
+      });
+      this.selSortOrder = 'Price (descending)';
+    }
+
+    this.showsortList = false;
+  }
+
+  onIndexBackClick(){
+    this.showIndexList = false;
+    this.showCountryList = true;
+  }
+  onIndexSelectClick(){
+    this.selSortOrder = 'H-Factor Score (ascending)';
+    this.showsortList = false;
+      this.showETFSort = false;
+    document.getElementById('RightDiv').style.opacity = '1';
+    if(this.SelIndex == 'Equity Indexes'){
+      this.showCountryList = true;
+      this.showCompanyList = false; 
+      this.showETFCategories = false;
+      
+      // console.log(this.CountryCatsubIndex);
+      this.countryList.length = 0;
+      this.GlobalIndexDtata.forEach(val => {
+        val.CountryGroup = val.indexName.indexOf('Europe') > -1? 'Europe' : val.country;
+      });
+      var temp = [];
+      temp = this.GlobalIndexDtata.map(x=>x.CountryGroup).filter(function (value, index, self) {
+        return self.indexOf(value) === index;
+      });
+      temp.forEach(val =>{
+        var t = [];
+        t = this.GlobalIndexDtata.filter(item => item.CountryGroup == val).map(x=>x.scores);
+        // console.log(t);
+        // console.log(this.getMed(t));
+        var i = {'Country':val,'Med':this.getMed(t)};
+        this.countryList.push(i);
+      })
+      this.countryList.sort((a,b)=>{
+       return a.Med - b.Med;
+      })
+      console.log(this.countryList);
+      console.log(this.GlobalIndexDtata);
+    }else if(this.SelIndex == 'Fixed Income'){
+      this.showFICountry = true;
+      this.showCompanyList = false;
+      this.showIndexList = false;
+      this.showETFCategories = false;
+      // this.showFiIndexList = false;
+    }else if(this.SelIndex == 'NAA Indexes'){
+      this.showNaaIndex = true;
+      this.showCompanyList = false;
+      this.showIndexList = false;
+      this.showFICountry = false;
+      this.showFiIndexList = false;
+      this.showETFCategories = false;
+    }else if(this.SelIndex == 'ETFs'){
+      this.showETFCategories = true;
+      this.showNaaIndex = false;
+      this.showCompanyList = false;
+      this.showIndexList = false;
+      this.showFICountry = false;
+      this.showFiIndexList = false;
+    }
+
+    
+  }
+
+  oncomapnyclick(itm){
+    this.selCompany = itm;
+    console.log(this.selCompany);
+  }
+
+  onNAAIndexClick(itm){
+    itm.Med = itm.med/100;
+    this.selIndex = itm;
+    this.showNaaIndex = false;
+    
+    this.showIndexList = false;
+    this.showFICountry = false;
+    this.showFiIndexList = false;
+    this.SelCompanyData = this.NAAIndexData.filter(item=> item.indexName == itm.indexName);
+    this.unsortedSelCompanyData = this.NAAIndexData.filter(item=> item.indexName == itm.indexName);
+    this.SelCompanyData.sort((a,b)=>{
+      return a.scores - b.scores;
+    });
+    this.unsortedSelCompanyData.sort((a,b)=>{
+      return a.scores - b.scores;
+    });
+    this.showCompanyList = true;
+  }
+
+  onGICSLevelClick(lev){
+    this.curGICSLev = lev;
+  }
+
+  getFixedIncomeData(){
+    this.httpClient.get(this.api_url+'/Scores/GetFixedDataMaster').subscribe((res:any[])=>{
+      console.log(res);
+      var groupBy = function(xs, key) {
+        return xs.reduce(function(rv, x) {
+          (rv[x[key]] = rv[x[key]] || []).push(x);
+          return rv;
+        }, {});
+      };
+
+      this.FixedIncomeData = groupBy(res,'country');
+      console.log(this.FixedIncomeData);
+      var temp = res.map(x=>x.country).filter(function (value, index, self) {
+        return self.indexOf(value) === index;
+      });
+      this.FICountryList = temp;
+      console.log(this.FICountryList);
+      temp.forEach(e=>{
+        var t = this.FixedIncomeData[e];
+        var tmedlist = t.map(x => this.roundofMed(x.medianCont*100));
+        var tmed; 
+        var  array = tmedlist.sort();
+        if (array.length % 2 === 0) { // array with even number elements
+          tmed = (parseFloat(array[array.length / 2]) + parseFloat(array[(array.length / 2) - 1]))/2;
+          tmed = Math.round(tmed * 10) /10
+        }
+        else {
+          tmed = array[(array.length - 1) / 2]; // array with odd number elements
+        }
+        this.FixedIncomeData[e].med = tmed;
+      });
+      console.log(this.FixedIncomeData);
+      
+    });
+  }
+
+  onFICountryClick(itm){
+    this.selCountry = itm;
+    this.showFICountry = false;
+    this.showFiIndexList = true;
+    this.FIselCatogaryList = this.FixedIncomeData[itm];
+  }
+
+  onFIIndexBackClick(){
+    this.showFICountry = true;
+    this.showFiIndexList = false;
+  }
+
+  onETFCatClick(item){
+    this.selETFCat = item;
+    this.showETFCategories = false;
+    this.showETFIndex = true;
+    this.SelETFIndexList = this.GetETFs(item);
+    console.log(this.SelETFIndexList);
+  }
+
+  onETFBackClick(){
+    this.showETFCategories = true;
+    this.showETFIndex = false;
+  }
+
+  roundofMed(val){
+    return (Math.round(val * 10) / 10).toFixed(1);
+  }
+  getMed(array: any) {
+
+    //array = array.map(item => item.scores);
+    //return array.filter(d=>{d.medianCont});
+    array = array.sort();
+    if (array.length % 2 === 0) { // array with even number elements
+      return (array[array.length / 2] + array[(array.length / 2) - 1]) / 2;
+    }
+    else {
+      return array[(array.length - 1) / 2]; // array with odd number elements
+    }
+  }
   GetETFValues() {
     let that = this;
     this.httpClient.get(this.api_url + "/Scores/GetETFMaster").subscribe((stockIndex: any[]) => {
       that.ETFIndex = stockIndex;
+      console.log(this.ETFIndex);
       that.RollUpETF();
     });
   }
@@ -262,15 +657,15 @@ export class IPadHomeToolComponent implements OnInit, AfterContentInit, AfterVie
     fInd = fURL + "siteGICS.csv";
     let that = this;
     
-    
+    this.getFixedIncomeData();
     this.httpClient.get(this.api_url + "/Industry/GetIndustry").subscribe((res: any[]) => {
       that.dbGICS = res;
       console.log(that.dbGICS)
     });
 
-    if (d != "") {
-      APIURL = this.api_url + "/Scores/GetNAAIndexScoresHist/GLOBAL/" + d;
-    }
+    // if (d != "") {
+    //   APIURL = this.api_url + "/Scores/GetNAAIndexScoresHist/GLOBAL/" + d;
+    // }
 
     this.httpClient.get(APIURL).subscribe((res: any[]) => {
       let dbScore = res;
@@ -307,6 +702,9 @@ export class IPadHomeToolComponent implements OnInit, AfterContentInit, AfterVie
         return d.score, d.isin, d.industry, d.deg, d.company, d.ticker, d.indname, d.stockKey, d.indexName, d;
       });
       console.log(that.selResData);
+      that.GlobalIndexDtata = that.selResData.filter((item)=>{ return item.indexName.indexOf('New Age Alpha') == -1});
+      that.NAAIndexData = that.selResData.filter((item)=>{ return item.indexName.indexOf('New Age Alpha') != -1});
+      console.log(this.NAAIndexData);
       let MedianList = that.getIndexPos(that.selResData);
       console.log(MedianList);
       let indexList = MedianList.map(x => x.value);
@@ -418,6 +816,10 @@ export class IPadHomeToolComponent implements OnInit, AfterContentInit, AfterVie
     });
   }
 
+  replacestr(str:String){
+    return str.replace('New Age Alpha ','');
+  }
+
   createCompeOver(grp1) {
     grp1.append("g").attr("id", "gCompeOver");
   }
@@ -514,8 +916,8 @@ export class IPadHomeToolComponent implements OnInit, AfterContentInit, AfterVie
   GetETFHoldings(ctId: string, etfName: string, mode: string) {
     let that = this;
     //this.showLoadSpinner = true;
-    $('#SpinLoader').css('display', 'flex');
-    this.SelTab = "Stocks";
+    // $('#SpinLoader').css('display', 'flex');
+    // this.SelTab = "Stocks";
 
     let IndexN = that.Replacetxt(etfName);
 
@@ -548,8 +950,8 @@ export class IPadHomeToolComponent implements OnInit, AfterContentInit, AfterVie
         //console.log(ctId)
         //console.log(this.selResData.filter(x => x.Assets == Name))
         // this.showLoadSpinner = false;
-        $('#SpinLoader').fadeOut();
-        this.fnStockstabclick("Stocks");
+        // $('#SpinLoader').fadeOut();
+        // this.fnStockstabclick("Stocks");
     });
     //this.SelTab = "ETF";
     this.IsShowDD = !this.IsShowDD;
