@@ -71,31 +71,51 @@ ion-content{
 {
     text-align: center; 
     color: #00aeef; 
-    font-size: 40px; 
+    font-size: 32px; 
     font-weight: bold;
     padding-top: 15px;
+    font-family: Open Sans Bold;
 }
 
 .emailLabel{
+    font-family: Open Sans;
     color: white;
-    padding-left: 10px;
-    font-size: 17px;
+    padding-left: 5px;
+    font-size: 13px;
 }
 
 .emailItem
 {
+    --min-height: 37px!important;
     --background: white;
-    font-size: 18px;
+    font-size: 13px;
+    --padding-start: 5px;
+
+    ion-input{
+    --padding-top: 0;
+    --padding-bottom: 0;
+    --padding-end: 5px;
+    --padding-start: 5px;
+    }
 }
 
 .passwordItem
 {
+    --min-height: 37px!important;
     --background: white;
-    font-size: 16px;
+    font-size: 13px;
+    --padding-start: 5px;
+
+    ion-input{
+        --padding-top: 0;
+        --padding-bottom: 0;
+        --padding-end: 5px;
+        --padding-start: 5px;
+        }
 }
 
 .passwordInput{
-    font-size: 19px !important;
+    // font-size: 19px !important;
 }
 
 .form{
@@ -117,8 +137,9 @@ ion-content{
     margin-inline-start: 0px;
     margin-inline-end: 0px;
     --border-radius: 15px;
-    height: 50px;
-    font-size: 22px;
+    height: 37px;
+    font-family: Open Sans semiBold;
+    font-size: 17px;
     text-transform: inherit;
 }
 
@@ -129,6 +150,8 @@ ion-content{
 .forgotPassBtn{
     color: #00aeef;
     height: 16px;
+    font-family: Open Sans SemiBold;
+    font-size: 13px;
     text-transform: inherit;
 }
 
@@ -159,7 +182,7 @@ ion-content{
 
 .innercardmobile{
     .card-Content{
-        width: 50% !important;
+        width: 45% !important;
     }
 }
 }

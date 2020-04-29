@@ -10,7 +10,7 @@ import { Platform} from '@ionic/angular';
 })
 export class LandingPage implements OnInit {
   mobile : boolean;
-  signupUrl = 'https://app.newagealpha.com/signUp';
+  signupUrl = 'https://blog.newagealpha.com/h-factor';
   url = 'https://www.newagealpha.com/';
   constructor(private platform:Platform, private iab:InAppBrowser, private route:Router) { }
 

@@ -115,7 +115,7 @@ export class HomePage implements OnInit, AfterViewInit {
   ETFNameMed: any = [];
   ETFNameFull: any = [];
   showLoader: any = true;
-  sectorHeadings: any = ['Global Universe', 'Index', 'Sector', 'Industry Group', 'Industry', 'Sub Industry'];
+  sectorHeadings: any = ['Global', 'Index', 'Sector', 'Industry Group', 'Industry', 'Sub Industry'];
   FilterList: any = [
     { "Name": 'Company Name (ascending)', "value": "1" },
     { "Name": 'Company Name (descending)', "value": "2" },
@@ -165,31 +165,31 @@ export class HomePage implements OnInit, AfterViewInit {
     );
   }
 
-  /*************** ETF TAb Clicked Start *****************/
-  ETFNavClick() {
-    //if()
-    this.indexclick = false;
-    this.parentcard = true;
-    this.icon = 'arrow-dropup';
-    if (this.sortcard == false) {
-      this.sorticon = 'arrow-dropdown';
-      this.sortcard = true;
-    }
-    this.GetETFValues();
-    this.httpclient.get(this.api_url + "/Scores/GetETFMaster").subscribe((stockIndex: any[]) => {
-      var vall = stockIndex.map(item => item.category);
-      this.ETFCatagories = vall.filter(function (value, index, self) {
-        return self.indexOf(value) === index;
-      });
-      var i;
-      for (i = 0; i < this.ETFCatagories.length; i++) {
-        let temp = stockIndex.filter((item) => item.category === this.ETFCatagories[i]);
-        this.ETFCatagoriesComp.push(temp);
-      }
-      this.showLoader = false;
-    })
-  }
-  /*************** ETF TAb Clicked End *****************/
+  // /*************** ETF TAb Clicked Start *****************/
+  // ETFNavClick() {
+  //   //if()
+  //   this.indexclick = false;
+  //   this.parentcard = true;
+  //   this.icon = 'arrow-dropup';
+  //   if (this.sortcard == false) {
+  //     this.sorticon = 'arrow-dropdown';
+  //     this.sortcard = true;
+  //   }
+  //   this.GetETFValues();
+  //   this.httpclient.get(this.api_url + "/Scores/GetETFMaster").subscribe((stockIndex: any[]) => {
+  //     var vall = stockIndex.map(item => item.category);
+  //     this.ETFCatagories = vall.filter(function (value, index, self) {
+  //       return self.indexOf(value) === index;
+  //     });
+  //     var i;
+  //     for (i = 0; i < this.ETFCatagories.length; i++) {
+  //       let temp = stockIndex.filter((item) => item.category === this.ETFCatagories[i]);
+  //       this.ETFCatagoriesComp.push(temp);
+  //     }
+  //     this.showLoader = false;
+  //   })
+  // }
+  // /*************** ETF TAb Clicked End *****************/
 
   /*************** Calulate Median Start *****************/
   getMed(array: any) {
@@ -381,7 +381,7 @@ export class HomePage implements OnInit, AfterViewInit {
       stockKey: this.SelSearchObj.stockKey
     }
     this.alertService.deleteAlert(userInfo).subscribe(async (data)=>{
-      console.log(data);
+      // console.log(data);
       const toast = await this.toastCtrl.create({
         message: 'Alert Removed Sucessfully',
         duration: 3000
@@ -406,9 +406,9 @@ export class HomePage implements OnInit, AfterViewInit {
         mailType: 'H'
       }
 
-      console.log(alerts);
+      // console.log(alerts);
       this.alertService.setAlert(alerts).subscribe(async (data)=>{
-        console.log(data);
+        // console.log(data);
         const toast = await this.toastCtrl.create({
           message:'Alert Submitted Sucessfully',
           duration: 3000
@@ -426,7 +426,7 @@ export class HomePage implements OnInit, AfterViewInit {
 
   }
   async openDaypicker(){
-    console.log('executing');
+    // console.log('executing');
     let opts : PickerOptions ={
       buttons:[{
         text: 'Cancel',
@@ -435,7 +435,7 @@ export class HomePage implements OnInit, AfterViewInit {
         text: 'Confirm',
         handler: (val)=>{
           this.selDate = val.day.text;
-          console.log(val.text);
+          // console.log(val.text);
         }
       }
       ],
@@ -480,7 +480,7 @@ export class HomePage implements OnInit, AfterViewInit {
     picker.onDidDismiss().then(async data=>{
       let col = await picker.getColumn('day');
       // this.selDate = col.options[col.selectedIndex].text;
-      console.log(col);
+      // console.log(col);
     })
   }
   onFINavClick(){
@@ -493,7 +493,7 @@ export class HomePage implements OnInit, AfterViewInit {
   }
 
   onFICountryClick(country){
-    console.log(country);
+    // console.log(country);
     this.FISelCountry = country;
     this.FIselCatogaryList = this.FixedIndexData[country];
   }
@@ -630,9 +630,9 @@ export class HomePage implements OnInit, AfterViewInit {
     this.alertService.getAlert(userInfo).subscribe((data)=>{
       
        this.savedAlert = data[0];
-       console.log(this.savedAlert)
+      //  console.log(this.savedAlert)
         if(this.savedAlert != null){
-          console.log(data);
+          // console.log(data);
             if(this.savedAlert.daily=='Y') this.selPeriod = 'daily';
   
             if(this.savedAlert.weekly=='Y') this.selPeriod = 'weekly';
@@ -717,7 +717,7 @@ export class HomePage implements OnInit, AfterViewInit {
     this.unsortedIndexData = this.unsortedIndexData.sort((a, b) => {
       return a.scores - b.scores;
     });
-    console.log(this.selectedIndexData);
+    // console.log(this.selectedIndexData);
     this.sortComp(this.filterby);
     // this.sortcompany();
     this.CompLength = this.selectedIndexData.length;
@@ -727,10 +727,12 @@ export class HomePage implements OnInit, AfterViewInit {
         var temp = this.selectedIndexData.filter((item) => item.companyName == this.selComp);
         var index = this.selectedIndexData.indexOf(temp[0]) + 1;
         var manInd = (index * 53) - 240;
+        // console.log(manInd);
         document.getElementById('scrollDiv').scrollTo(0, manInd);
         var sectemp = this.selSectorComp.filter((item) => item.companyName == this.selComp);
         var secInd = this.selSectorComp.indexOf(sectemp[0]) + 1;
         var mansecInd = (secInd * 53) - 240;
+        // console.log(mansecInd);
         document.getElementById('sectorscrollDiv').scrollTo(0, mansecInd);
       }, 100);
     }
@@ -835,6 +837,18 @@ export class HomePage implements OnInit, AfterViewInit {
       });
       this.searchList = this.searchList.filter(item => item.companyName != null);
     });
+    this.httpclient.get(this.api_url + "/Scores/GetETFMaster").subscribe((stockIndex: any[]) => {
+      var vall = stockIndex.map(item => item.category);
+      this.ETFCatagories = vall.filter(function (value, index, self) {
+        return self.indexOf(value) === index;
+      });
+      var i;
+      for (i = 0; i < this.ETFCatagories.length; i++) {
+        let temp = stockIndex.filter((item) => item.category === this.ETFCatagories[i]);
+        this.ETFCatagoriesComp.push(temp);
+      }
+      // this.GetETFValues();
+    })
   }
   /*************** ETF Category List End *****************/
 
@@ -877,6 +891,7 @@ export class HomePage implements OnInit, AfterViewInit {
       this.selCategory = i;
       var tempp = [];
       tempp = this.ETFCatagoriesComp[this.ETFcategory.indexOf(i) - 1];
+      console.log(this.ETFCatagoriesComp);
       this.ETFNameList = tempp.map(item => item.etfName);
       var j;
       for (i = 0; i < this.ETFNameList.length; i++) {
@@ -964,19 +979,15 @@ export class HomePage implements OnInit, AfterViewInit {
     this.compIndexShow = true;
     this.icon = "ios-arrow-dropup-circle";
     this.parentcard = true;
-    this.GetETFValues();
-    this.httpclient.get(this.api_url + "/Scores/GetETFMaster").subscribe((stockIndex: any[]) => {
-      var vall = stockIndex.map(item => item.category);
-      this.ETFCatagories = vall.filter(function (value, index, self) {
-        return self.indexOf(value) === index;
-      });
-      var i;
-      for (i = 0; i < this.ETFCatagories.length; i++) {
-        let temp = stockIndex.filter((item) => item.category === this.ETFCatagories[i]);
-        this.ETFCatagoriesComp.push(temp);
+    var etfLoaderinterval = setInterval(()=>{
+      if(this.ETFCatagoriesComp.length!=0){
+        this.showLoader = false;
+        clearInterval(etfLoaderinterval);
       }
-      this.showLoader = false;
-    })
+      
+    },100)
+
+    
   }
   /*************** ETF Tab Selected End *****************/
 
@@ -1030,16 +1041,22 @@ export class HomePage implements OnInit, AfterViewInit {
       this.getSectorList(e.industry.toString());
       this.onSectorClick(e.industry);
       this.sortComp(this.filterby);
+      setTimeout(() => {
+        this.loadData();
+      }, 50);
+      
+      // this.onSearchSelect(e);
 
     }else if (e.hasOwnProperty('indexType')) {
         this.getSectorList(e.industry.toString());
         this.SelSearchObj = e;
         this.SelSearchObj.etfName = this.SelIndexName;
-        // this.onSectorClick(e.industry);
+        this.onSectorClick(e.industry);
         this.scrollToSel();
+        this.onSearchSelect(e);
         this.sortComp(this.filterby);
       } else if (e.indexName.indexOf('New Age Alpha ') == -1) {
-        // this.onSearchSelect(e);
+        this.onSearchSelect(e);
         this.getSectorList(e.industry.toString());
         this.SelSearchObj = e;
         this.onSectorClick(e.industry);
@@ -1048,9 +1065,12 @@ export class HomePage implements OnInit, AfterViewInit {
         var temp = e;
         this.getSectorList(temp.industry.toString());
         this.SelSearchObj = temp;
-        // this.onSectorClick(temp.industry);
+        this.onSectorClick(temp.industry);
         this.sortComp(this.filterby);
         this.scrollToSel();
+        setTimeout(() => {
+          this.loadData();
+        }, 50);
       }
     
     
@@ -1148,7 +1168,7 @@ export class HomePage implements OnInit, AfterViewInit {
     }
     this.sectorList.unshift(temp1[0]);
     var temp2 = [];
-    temp2 = [{ 'code': 'Global Universe', 'name': 'New Age Alpha' }];
+    temp2 = [{ 'code': 'Global Universe', 'name': 'NAA' }];
     this.sectorList.unshift(temp2[0]);
   }
   /***************Geting GICS List End *****************/
@@ -1255,7 +1275,7 @@ export class HomePage implements OnInit, AfterViewInit {
        this.selSectorComp.sort((a, b) => {
          return b.scores - a.scores;
        })
-       console.log(this.selSectorComp);
+      //  console.log(this.selSectorComp);
       // this.sortComp(this.filterby);
       this.selSector = this.sectorList[((key.toString().length / 2) - 1) + 2];
       this.SelSecLevTitle = this.sectorHeadings[this.sectorList.indexOf(this.selSector)];
@@ -1314,11 +1334,18 @@ export class HomePage implements OnInit, AfterViewInit {
       setTimeout(() => {
         var temp = this.selectedIndexData.filter((item) => item.companyName == this.selComp);
         var index = this.selectedIndexData.indexOf(temp[0]) + 1;
-        var manInd = (index * 53) - 240;
+        var indheight = document.getElementById('IndexCompanyDiv').clientHeight;
+        var manInd = (index * 52) - (indheight/90);
+        
+        // manInd = manInd;
+        // console.log(manInd);
         document.getElementById('scrollDiv').scrollTo(0, manInd);
         var sectemp = this.selSectorComp.filter((item) => item.companyName == this.selComp);
         var secInd = this.selSectorComp.indexOf(sectemp[0]) + 1;
-        var mansecInd = (secInd * 53) - 240;
+        var mansecInd = (secInd * 42) - 240;
+        var height:any = document.getElementById('stockCompanyDiv').clientHeight;
+        mansecInd = mansecInd - height;
+        // console.log(mansecInd + height);
         document.getElementById('sectorscrollDiv').scrollTo(0, mansecInd);
       }, 100);
     }

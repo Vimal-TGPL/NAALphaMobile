@@ -25,6 +25,67 @@
 @import "~@ionic/angular/css/text-transformation.css";
 @import "~@ionic/angular/css/flex-utils.css";
 
+/* Fonts */
+
+@font-face {
+    font-family: 'Omnes';
+    src: url('assets/fonts/omnes_regular/omnes.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'Open Sans Italic';
+  src: url('./assets/fonts/opensans-font/opensans-italic.ttf') format('truetype'), url('./assets/fonts/opensans-font/opensans-bold.woff');
+}
+
+@font-face {
+  font-family: 'Open Sans Light';
+  src: url('./assets/fonts/opensans-font/opensans-light.ttf') format('truetype'), url('./assets/fonts/opensans-font/opensans-light.woff');
+}
+
+@font-face {
+  font-family: 'Open Sans Light Italic';
+  src: url('./assets/fonts/opensans-font/opensans-lightitalic.ttf') format('truetype'), url('./assets/fonts/opensans-font/opensans-lightitalic.woff');
+}
+
+@font-face {
+  font-family: 'Open Sans';
+  src: url('./assets/fonts/opensans-font/opensans-regular.ttf') format('truetype'), url('./assets/fonts/opensans-font/opensans-regular.woff');
+}
+@font-face {
+  font-family: 'Open Sans Regular';
+  src: url('./assets/fonts/opensans-font/opensans-regular.ttf') format('truetype'), url('./assets/fonts/opensans-font/opensans-regular.woff');
+}
+
+@font-face {
+  font-family: 'Open Sans SemiBold';
+  src: url('./assets/fonts/opensans-font/opensans-semibold.ttf') format('truetype'), url('./assets/fonts/opensans-font/opensans-semibold.woff');
+}
+
+@font-face {
+  font-family: 'Open Sans SemiBold Italic';
+  src: url('./assets/fonts/opensans-font/opensans-semibolditalic.ttf') format('truetype'), url('./assets/fonts/opensans-font/opensans-semibolditalic.woff');
+}
+
+@font-face {
+  font-family: 'Open Sans Bold';
+  src: url('./assets/fonts/opensans-font/opensans-bold.ttf') format('truetype'), url('./assets/fonts/opensans-font/opensans-bold.woff');
+}
+
+@font-face {
+  font-family: 'Open Sans Bold Italic';
+  src: url('./assets/fonts/opensans-font/opensans-bolditalic.ttf') format('truetype'), url('./assets/fonts/opensans-font/opensans-bolditalic.woff');
+}
+
+@font-face {
+  font-family: 'Open Sans ExtraBold';
+  src: url('./assets/fonts/opensans-font/opensans-extrabold.ttf') format('truetype'), url('./assets/fonts/opensans-font/opensans-extrabold.woff');
+}
+
+@font-face {
+  font-family: 'Open Sans ExtraBold Italic';
+  src: url('./assets/fonts/opensans-font/opensans-extrabolditalic.ttf') format('truetype'), url('./assets/fonts/opensans-font/opensans-extrabolditalic.woff');
+}
+
 // .slides-md .swiper-pagination-bullets{
 //     bottom: -20px !important;
 //     left: 0;

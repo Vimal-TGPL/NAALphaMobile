@@ -232,6 +232,8 @@ border-radius: 25px;
     display: flex;
     justify-content: center;
     align-items: center;
+    font-family: Open Sans Semibold;
+    font-size: 12px;
 //     background-color: #2e4c99;
 //   color: white;
 //   font-weight: 600;
@@ -338,6 +340,7 @@ border-radius: 25px;
 
 .test1{
     font-size: 14px;
+    font-family: Open Sans SemiBold;
     color: #666;
     font-weight: 500;
     padding: 8px;
@@ -395,11 +398,10 @@ border-radius: 25px;
 .index-circle{
     // background-color: #d9e81c;
     color: #ff9503;
-    font-weight: 600;
-    font-family: sans-serif;
     margin-right: 10px;
     border-radius: 50%;
-    font-size: 14px;
+    font-size: 12px;
+    font-family: Open sans Semibold;
     max-width: 42px;
     max-height: 42px;
     min-width: 42px;
@@ -424,6 +426,8 @@ border-radius: 25px;
     z-index: 9;
     background-color: white;
     width: 100%;
+    font-family: Open Sans SemiBold;
+    font-size: 13px;
     /* margin-right: -19px; */
     // display: block;
     margin-top: 0px;
@@ -469,6 +473,9 @@ border-radius: 25px;
 
 .ETFChild-Label{
     white-space: normal;
+    font-size: 12px;
+    font-family: Open sans SemiBold;
+    color: #666666;
 }
 
 // .company-card-content{
@@ -535,18 +542,23 @@ border-radius: 25px;
             display: flex;
             flex-direction: row;
             width: 100%;
+            align-items: center;
 
             .comp-Name{
-                width: 32vh;
+                width: 66vw;
                 overflow: hidden;
                 white-space: nowrap;
                 text-overflow: ellipsis;
+                font-family: Open Sans SemiBold;
+                font-size: 11px;
             }
 
             .per-val{
                 background: white;
                 padding: 0 10px;
                 border-radius: 10px;
+                font-family: "Open Sans SemiBold";
+                font-size: 9px;
             }
         }
 
@@ -555,6 +567,7 @@ border-radius: 25px;
             display: flex;
             flex-direction: row;
             justify-content: space-between;
+            align-items: center;
         }
     }
 }
@@ -582,7 +595,8 @@ border-radius: 25px;
     padding: 8px 3px;     
     margin-right: 1px;    
     border-radius: 10px; 
-    font-size: 13px;
+    font-size: 12px;
+    font-family: Open Sans SemiBold;
 }
 
 .FINavTabBtn{
@@ -600,8 +614,9 @@ border-radius: 25px;
     flex: 1; 
     color: white;
     padding: 8px 3px;   
-    border-radius: 10px; 
-    font-size: 13px;
+    border-radius: 10px;
+    font-size: 12px;
+    font-family: Open Sans SemiBold;
 }
 
 
@@ -649,7 +664,8 @@ border-radius: 25px;
 
 .stock-span{
     color:#00b9ff; 
-    font-size: 14px;
+    font-size: 12px;
+    font-family: Open Sans Semibold;
 }
 
 .image-div{
@@ -671,13 +687,14 @@ border-radius: 25px;
 .selected-stock-score{
     text-align: center;
     color: green; 
-    font-size: 30px; 
-    font-weight: bold;
+    font-size: 30px;
+    font-family: Open Sans Extrabold;
 }
 
 .selected-stock-comp{
     color: green; 
-    font-size: 12px;
+    font-size: 9px;
+    font-family: Open Sans Bold;
 }
 
 .slider-div{
@@ -706,6 +723,8 @@ border-radius: 25px;
 .title-p{
     color: #00b9ff; 
     margin-bottom: 0px;
+    font-size: 13px;
+    font-family: Open Sans Semibold;
 }
 
 .subIndex-card-content{
@@ -726,6 +745,8 @@ border-radius: 25px;
     display: flex;
     justify-content: center;
     align-items: center;
+    font-size: 12px;
+    font-family: Open Sans Semibold;
 }
 
 .SubIndex-header-content{
@@ -734,11 +755,15 @@ border-radius: 25px;
     flex-direction: column; 
     text-align: left; 
     width: 100%;
+    font-size: 12px;
+    font-family: Omnes;
+    color: #888888; 
 }
 
 .subIndex-header-title{
-    color: gray; 
-    font-size: 11px;
+    font-size: 12px; 
+    color: #888888; 
+    font-family: Omnes;
 }
 
 .subIndex-header-subtitle{
@@ -750,6 +775,7 @@ border-radius: 25px;
     -webkit-line-clamp: 2; 
     line-height: 1.1; 
     -webkit-box-orient: vertical;
+    font-family: Open Sans Semibold;
 }
 
 .subindex-icon{
@@ -836,7 +862,8 @@ border-radius: 25px;
     padding: 8px 3px;     
     margin-right: 1px;    
     border-radius: 10px; 
-    font-size: 13px;
+    font-size: 12px;
+    font-family: Open Sans SemiBold;
 }
 .companycard-extend{
     height: calc(100vh - 261px) !important;
@@ -850,11 +877,14 @@ border-radius: 25px;
     padding-right: 5px;
     min-width: 28px;
     display: inline-block;
+    font-family: Open Sans SemiBold;
+    font-size: 11px;
 }
 
 .ticker-data{
     // padding-right: 15px;
-    font-weight: bold;
+    font-family: Open Sans Bold;
+    font-size: 11px;
 }
 
 .comp-sel{
@@ -947,7 +977,7 @@ border-radius: 25px;
     color: #ffffff !important;
     font-weight: 500;
 }
-// .stock_companycard-extend{
+.stock_companycard-extend{
  //   height: calc(100vh - 260px) !important;
 // }
 // .ios .company-list-inner-div{
@@ -955,11 +985,11 @@ border-radius: 25px;
 //     height: calc(95vh - 415px) !important;
 // }
 
-// .ios .stockCompList-card{
-//     // height: calc(100vh - 400px) !important;
-//     // height: calc(100vh - 380px) !important;
-//     height: calc(95vh - 410px) !important;
-// }
+.ios .stockCompList-card{
+    // height: calc(100vh - 400px) !important;
+    // height: calc(100vh - 380px) !important;
+    height: calc(95vh - 410px) !important;
+}
 
 // .ios .child-card-content{
 //     // height: calc(100vh - 401px) !important;
@@ -996,7 +1026,7 @@ border-radius: 25px;
 
 // .ios .company-list-inner-div{
 //     height: calc(100vh - 380px) !important;
-// }
+}
 .pager_div{
     display: flex; 
     flex-direction: row; 
@@ -1080,8 +1110,8 @@ border-radius: 25px;
 }
 
 .selectIndex{
-    background: #05baff !important;
-    border-radius: 25px !important;
+    --background: #05baff !important;
+    color: #ffffff !important;
 }
 
 .selectedIndexMed{

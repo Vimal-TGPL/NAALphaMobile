@@ -17,7 +17,7 @@ export class AuthPage implements OnInit {
   showLoad:boolean = false;
   loginForm: FormGroup;
   stayStignedIn : boolean;
-  signupUrl = 'https://app.newagealpha.com/signUp';
+  signupUrl = 'https://blog.newagealpha.com/h-factor';
   pwd:boolean = false;
   email:boolean = false;
 

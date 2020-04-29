@@ -17,10 +17,15 @@ declare var d3VirtualScroller: any;
 export class IPadHomeToolComponent implements OnInit, AfterContentInit, AfterViewInit {
   SelAssetId: string = "";
   SelIndex:string;
+  TotalStockData:any = [];
   unsortedSelCompanyData:any = [];
   SelCompanyData:any = [];
   NAAIndexData:any = [];
+  CurSectorList:any = [];
   // NAAIndexList:any = [];
+  currentPercentCat:any;
+  GICSData:any = [];
+  GICSLevel:any = 0;
   curGICSLev:any = 6;
   selCompany: any;
   createXrad: any;
@@ -223,8 +228,30 @@ export class IPadHomeToolComponent implements OnInit, AfterContentInit, AfterVie
     this.showCompanyList = true;
     this.SelCompanyData = this.GlobalIndexDtata.filter(item=> item.indexName == itm.indexName );
     this.unsortedSelCompanyData = this.GlobalIndexDtata.filter(item=> item.indexName == itm.indexName );
+    this.TotalStockData = this.GlobalIndexDtata.filter(item=> item.indexName == itm.indexName );
+    this.GICSLevel = 2;
+    this.curGICSLev = 2;
+    this.onGICSLevelClick(2);
+  }
+
+  getSectorList(data){
+    var indus = data.industry;
+
+    var i = 2;
+    this.CurSectorList.length = 0;
+    while(i < 9)
+    {
+    var temp = this.dbGICS.filter(x=> x.code == indus.toString().substring(0,i))[0];
+    var tempmed = this.getMed(this.SelCompanyData.filter(x=> x.industry.toString().substring(0,i) == indus.toString().substring(0,i)).map(x=> x.scores));
+    temp.med = tempmed;
+    i = i + 2;
+    this.CurSectorList.push(temp);
+    console.log(temp);
+    }
+    console.log(this.CurSectorList);
     
   }
+
 
   onETFIndSortTabClick(){
     if(this.showETFSort == true){
@@ -244,15 +271,23 @@ export class IPadHomeToolComponent implements OnInit, AfterContentInit, AfterVie
       this.selIndex = itm;
       this.SelCompanyData.length = 0;
       this.unsortedSelCompanyData.length = 0;
+      this.TotalStockData.length = 0;
       ETFStocks.forEach(e=>{
         var t = this.selResData.filter((item)=> { return item.aisin == e.isin && item.indexName.indexOf('New Age Aplha') == -1})[0];
         this.SelCompanyData.push(t);
         this.unsortedSelCompanyData.push(t);
+        this.TotalStockData.push(t);
       });
+
+      this.GICSLevel = 2;
+    this.curGICSLev = 2;
+    this.onGICSLevelClick(2);
       this.showCompanyList = true;
       this.showETFIndex = false;
       this.showETFCategories = false;
-      //console.log(this.ETFData);
+      console.log(ETFStocks);
+      console.log(this.SelCompanyData);
+      console.log(this.unsortedSelCompanyData);
     })
   }
 
@@ -302,11 +337,13 @@ export class IPadHomeToolComponent implements OnInit, AfterContentInit, AfterVie
      
     this.httpClient.get(this.api_url+'/Scores/GetBondMappingStocks/'+item.category).subscribe((res:any[]) =>{
       this.SelCompanyData.length = 0;
-    this.unsortedSelCompanyData.length = 0;
+      this.unsortedSelCompanyData.length = 0;
+      this.TotalStockData.length = 0;
       console.log(res);
       res.forEach(e=>{
         this.SelCompanyData.push(this.GlobalIndexDtata.filter(x=> x.stockKey == e.stockKey && x.indexName.indexOf('New Age Alpha') == -1)[0]);
         this.unsortedSelCompanyData.push(this.GlobalIndexDtata.filter(x=> x.stockKey == e.stockKey && x.indexName.indexOf('New Age Alpha') == -1)[0]);
+        this.TotalStockData.push(this.GlobalIndexDtata.filter(x=> x.stockKey == e.stockKey && x.indexName.indexOf('New Age Alpha') == -1)[0]);
       });
       this.SelCompanyData.sort((a,b)=>{
         return a.scores - b.scores;
@@ -314,9 +351,15 @@ export class IPadHomeToolComponent implements OnInit, AfterContentInit, AfterVie
       this.unsortedSelCompanyData.sort((a,b)=>{
         return a.scores - b.scores;
       })
-      console.log(this.SelCompanyData);
-      console.log(this.unsortedSelCompanyData);
+      this.TotalStockData.sort((a,b)=>{
+        return a.scores - b.scores;
+      })
+      // console.log(this.SelCompanyData);
+      // console.log(this.unsortedSelCompanyData);
       this.showCompanyList = true;
+      this.GICSLevel = 2;
+    this.curGICSLev = 2;
+    this.onGICSLevelClick(2);
     });
   }
 
@@ -381,6 +424,7 @@ export class IPadHomeToolComponent implements OnInit, AfterContentInit, AfterVie
     this.showCountryList = true;
   }
   onIndexSelectClick(){
+    this.GICSLevel = 0;
     this.selSortOrder = 'H-Factor Score (ascending)';
     this.showsortList = false;
       this.showETFSort = false;
@@ -439,6 +483,12 @@ export class IPadHomeToolComponent implements OnInit, AfterContentInit, AfterVie
 
   oncomapnyclick(itm){
     this.selCompany = itm;
+    this.getSectorList(itm);
+    this.curGICSLev = 6;
+    this.GICSLevel = 6;
+    this.onGICSLevelClick(6);
+    this.fnIndexSelClick(itm,'click');
+    // this.setClock(itm.isin, itm.deg * 360 / 100, itm.company + " (" + itm.ticker + ") [" + d3.format(".1f")(itm.score) + "%]", 'click', itm.stockKey, itm.score);
     console.log(this.selCompany);
   }
 
@@ -452,17 +502,58 @@ export class IPadHomeToolComponent implements OnInit, AfterContentInit, AfterVie
     this.showFiIndexList = false;
     this.SelCompanyData = this.NAAIndexData.filter(item=> item.indexName == itm.indexName);
     this.unsortedSelCompanyData = this.NAAIndexData.filter(item=> item.indexName == itm.indexName);
+    this.TotalStockData = this.NAAIndexData.filter(item=> item.indexName == itm.indexName);
     this.SelCompanyData.sort((a,b)=>{
       return a.scores - b.scores;
     });
     this.unsortedSelCompanyData.sort((a,b)=>{
       return a.scores - b.scores;
     });
+    this.TotalStockData.sort((a,b)=>{
+      return a.scores - b.scores;
+    });
+    this.GICSLevel = 2;
+    this.curGICSLev = 2;
+    this.onGICSLevelClick(2);
     this.showCompanyList = true;
   }
 
   onGICSLevelClick(lev){
     this.curGICSLev = lev;
+    // this.TotalStockData = 
+    this.selSortOrder = 'H-Factor Score (ascending)';
+    console.log(lev);
+    if(lev == 1){
+      this.SelCompanyData = [...this.GlobalIndexDtata];
+       this.unsortedSelCompanyData = [...this.GlobalIndexDtata];
+      this.getPercentCategories(this.GlobalIndexDtata);
+    }else if(lev == 2){
+       this.SelCompanyData = [...this.TotalStockData];
+       this.unsortedSelCompanyData = [...this.TotalStockData];
+      console.log(this.SelCompanyData);
+      console.log(this.unsortedSelCompanyData);
+      console.log(this.TotalStockData);
+      this.getPercentCategories(this.SelCompanyData);
+    }else if(lev == 3){
+      this.SelCompanyData = this.TotalStockData.filter(x=> x.industry.toString().substring(0,2) == this.selCompany.industry.toString().substring(0,2));
+      this.unsortedSelCompanyData = this.TotalStockData.filter(x=> x.industry.toString().substring(0,2) == this.selCompany.industry.toString().substring(0,2));
+      this.getPercentCategories(this.SelCompanyData);
+    }else if(lev == 4){
+      this.SelCompanyData = this.TotalStockData.filter(x=> x.industry.toString().substring(0,4) == this.selCompany.industry.toString().substring(0,4));
+      this.unsortedSelCompanyData = this.TotalStockData.filter(x=> x.industry.toString().substring(0,4) == this.selCompany.industry.toString().substring(0,4));
+      this.getPercentCategories(this.SelCompanyData);
+      
+    }else if(lev == 5){
+      this.SelCompanyData = this.TotalStockData.filter(x=> x.industry.toString().substring(0,6) == this.selCompany.industry.toString().substring(0,6));
+      this.unsortedSelCompanyData = this.TotalStockData.filter(x=> x.industry.toString().substring(0,6) == this.selCompany.industry.toString().substring(0,6));
+      this.getPercentCategories(this.SelCompanyData);
+      
+    }else if(lev == 6){
+      this.SelCompanyData = this.TotalStockData.filter(x=> x.industry.toString().substring(0,8) == this.selCompany.industry.toString().substring(0,8));
+      this.unsortedSelCompanyData = this.TotalStockData.filter(x=> x.industry.toString().substring(0,8) == this.selCompany.industry.toString().substring(0,8));
+      this.getPercentCategories(this.SelCompanyData);
+    }
+    
   }
 
   getFixedIncomeData(){
@@ -704,6 +795,7 @@ export class IPadHomeToolComponent implements OnInit, AfterContentInit, AfterVie
       console.log(that.selResData);
       that.GlobalIndexDtata = that.selResData.filter((item)=>{ return item.indexName.indexOf('New Age Alpha') == -1});
       that.NAAIndexData = that.selResData.filter((item)=>{ return item.indexName.indexOf('New Age Alpha') != -1});
+      console.log(this.GlobalIndexDtata);
       console.log(this.NAAIndexData);
       let MedianList = that.getIndexPos(that.selResData);
       console.log(MedianList);
@@ -804,6 +896,11 @@ export class IPadHomeToolComponent implements OnInit, AfterContentInit, AfterVie
             .duration(1000)
             .style('opacity','1');
 
+            d3.select("#IndexSelector")
+            .transition()
+            .duration(1000)
+            .style('opacity','1');
+
             jQuery("#matAuto").show();
           jQuery('#loadSpinner').fadeOut();
           jQuery("#SearchedTxt").show();
@@ -814,6 +911,22 @@ export class IPadHomeToolComponent implements OnInit, AfterContentInit, AfterVie
           });
         });
     });
+  }
+
+  getGlobalMed(){
+    var temp = this.GlobalIndexDtata.map(x=>x.scores);
+    return this.getMed(temp);
+  }
+
+  getPercentCategories(data:any){
+    console.log(data);
+    var t1 = data.filter(x=>x.scores <= .25).length;
+    var t2 = data.filter(x=>x.scores >= .25 && x.scores <= .50).length;
+    var t3 = data.filter(x=>x.scores >= .50 && x.scores <= .75).length;
+    var t4 = data.filter(x=>x.scores >= .75 && x.scores <= 1).length;
+    var temp = [{'Tag':'0-25%', 'value': t1}, {'Tag':'25-50%', 'value': t2}, {'Tag':'50-75%', 'value': t3},{'Tag':'75-100%', 'value': t4}];
+    this.currentPercentCat = temp;
+    console.log(temp);
   }
 
   replacestr(str:String){
@@ -1320,7 +1433,7 @@ onsearchchages(val){
       d3.select(".recton").classed("recton", false);
       d3.select(".comp[name='" + isin + "_" + that.SelIndexName.replace(/ /g, '_') + "']").raise();
       d3.select(".comp[name='" + isin + "_" + that.SelIndexName.replace(/ /g, '_') + "']").select("rect").classed("recton", true)
-
+      console.log(this.SelIndexName);
       var selData = d3.select(".comp[name='" + isin + "_" + that.SelIndexName.replace(/ /g, '_') + "']").datum();
       if (from == "click") { that.companiesCtrl.setValue(selData.isin); }
 
@@ -2547,12 +2660,13 @@ onsearchchages(val){
   }
 
   createHomecontent(elemData, val) {
+    console.log('setting home content');
     this.changedet.detectChanges();
     let gC360 = d3.scaleLinear()
       .domain([0, 90, 180, 270, 360])
       .range(["#40b55c", "#75c254", "#f5ea23", "#f37130", "#ef462f"])
 
-    var homeScore1length = ((parseInt((elemData.companyName + ' (' + elemData.ticker + ')').length.toString()) / 2) / 3) * 17;
+    var homeScore1length = ((parseInt((elemData.companyName + ' (' + elemData.ticker + ')').length.toString()) / 2) / 3) * 17 + 5;
 
     if (parseInt(elemData.companyName + ' (' + elemData.ticker + ')') < 12) homeScore1length = 42;
 
@@ -2560,12 +2674,12 @@ onsearchchages(val){
       .text(elemData.companyName + ' (' + elemData.ticker + ')')
       .attr("x", "-" + homeScore1length);
 
-    var homeScore2length = (((parseFloat(elemData.scores) * 100).toFixed(1)).length * 10);
+    var homeScore2length = (((parseFloat(elemData.scores) * 100).toFixed(1)).length * 7.5 + 5);
 
-    d3.select("#selectedscore").select('.homeScore2').attr("fill", function () { return gC360(val); }).text((parseFloat(elemData.scores) * 100).toFixed(1)+'%')
+    d3.select("#selectedscore").select('.homeScore2').attr("fill", function () { return gC360(val); }).text((parseFloat(elemData.scores) * 100).toFixed(1))
       .attr("x", "-" + homeScore2length);
     this.revGrayOutBtns();
-    d3.select("#selectedscore").select('#currentstock').style("display", "block"); 
+    d3.select("#selectedscore").select('#currentstock').style("display", "block");
     this.changedet.detectChanges();
   }
 
@@ -2577,7 +2691,7 @@ onsearchchages(val){
     d3.select(".clsSetAlert").style("opacity", "1");
     d3.select(".clsSetAlert").style("fill", "#00b9ff");
    // d3.selectAll(".clsSetAlert").attr("class", "setModal");
-    d3.selectAll('.clsSetAlert').node().classList.add("setModal");
+    // d3.selectAll('.clsSetAlert').node().classList.add("setModal");
   }
 
   hideSidebar() {
