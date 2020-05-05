@@ -2,7 +2,8 @@ import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import 'slick-carousel/slick/slick';
 import { createAnimation } from '@ionic/core';
-import { Platform, IonSlides, IonContent } from '@ionic/angular';
+import { Platform, IonSlides, IonContent, PickerController } from '@ionic/angular';
+import { PickerOptions } from '@ionic/core';
 
 @Component({
   selector: 'app-performance',
@@ -12,8 +13,8 @@ import { Platform, IonSlides, IonContent } from '@ionic/angular';
 export class PerformancePage implements OnInit, AfterViewInit {
   ngAfterViewInit() {
     if(this.mobile){
-    var ref = document.getElementById('IndexListCard');
-    ref.onscroll= this.OnCardScroll;
+    // var ref = document.getElementById('IndexListCard');
+    // ref.onscroll= this.OnCardScroll;
     }
   }
 
@@ -25,12 +26,14 @@ export class PerformancePage implements OnInit, AfterViewInit {
   itemActive:boolean = false;
   selectedCountry:any;
   PerformanceData:any = [];
+  showMore:Boolean = false;
+  description:String;
   IndexData:any = [];
   Index:any = [];
   CountryClasificationList:any = ['All','USA','Europe','UK','Japan','Dev. World','Dev. World ex US'];
   performanceAPIUrl = 'https://api.newagealpha.com/api/Indexes/GetIndexPerformance';
   APIUrl = 'https://api.newagealpha.com/api/Indexes/GetIndexDetails';
-  constructor(private platform:Platform, private httpClient:HttpClient) { 
+  constructor(private platform:Platform, private httpClient:HttpClient, private pickerCtrl:PickerController) { 
     this.selWith= window.innerWidth;
     this.selWith = this.selWith- 30; 
   }
@@ -120,29 +123,8 @@ export class PerformancePage implements OnInit, AfterViewInit {
     
     this.itemActive = true;
     this.selectedCountry = item;
-    // var Cardwidth = screen.width-35;
-    // setTimeout(()=>{
-    //   $('#'+item+' ion-card').find('.ActiveItem').css('width',Cardwidth+'px');
-    // },50);
-    
-    setTimeout(()=>{
-      document.getElementById('BottomCardDiv').style.display="block";
-      setTimeout(()=>{
-        document.getElementById('BottomCardDiv').style.opacity="1";
-        
-        setTimeout(()=>{
-          document.getElementById('parentdiv').style.paddingTop="48px";
-          document.getElementById('header').style.display='none';
-         
-          
-        },100);
-      },100);
-    },500);
-    var sec2Div = document.getElementById("sec2");
-    setTimeout(()=>{
-      sec2Div.scrollLeft = (150*this.CountryClasificationList.indexOf(item))-(10*this.CountryClasificationList.indexOf(item));
-    },50);
-    
+    this.selectedIndexName = this.Index[this.CountryClasificationList.indexOf(this.selectedCountry)][0].indexName.replace('New Age Alpha ','');
+    this.onOptionsSelected();    
   }
 
   onIndexItemClick(){
@@ -179,6 +161,100 @@ export class PerformancePage implements OnInit, AfterViewInit {
     setTimeout(()=>{
       this.animateSequenceStart();
     },300);
+  }
+
+  onOptionsSelected(){
+    this.selectedIndex = this.Index[this.CountryClasificationList.indexOf(this.selectedCountry)];
+    var inddata = this.PerformanceData.filter(data => data.indexName.replace('New Age Alpha ','') == this.selectedIndexName);
+    this.selectedIndexData = inddata[0];
+    this.trimstring();
+    this.showMore = false;
+    console.log(this.selectedIndex);
+    console.log(this.selectedIndexData);
+    console.log(this.selectedIndexName);
+  }
+
+  trimstring(){
+    var that = this;
+    if(this.selectedIndexData.description.length > 210 )
+    {
+      if(this.showMore == true){
+        that.description = that.selectedIndexData.description;
+         that.description = that.description.replace(/RiskSelectTM/g,'RiskSelect<sup>TM</sup>').replace(/IndexSM/g,'Index<sup>SM</sup>');
+
+         that.description = that.description+"<a id='ShowLess'>Show Less</a>";
+
+         
+        //  (click)=\"showMore = false; trimstring();\"
+        setTimeout(()=>{
+          document.getElementById('desc').getElementsByTagName('a')[0].onclick = function(){
+            that.showMore = false;
+            that.trimstring();
+          }
+           var desHeight =  document.getElementById('desc').clientHeight;
+           var height = 355 + (desHeight - 82);
+           document.getElementById('DataDiv').style.height = 'calc(100vh - '+ height+'px)';
+        },100);
+        console.log(that.description);
+      }else{
+        that.description = that.selectedIndexData.description.substring(0,210)+'...';
+        that.description = that.description.replace(/RiskSelectTM/g,'RiskSelect<sup>TM</sup>').replace(/IndexSM/g,'Index<sup>SM</sup>');
+        that.description = that.description+"<a id='ShowMore'>Show More</a>";
+        
+        setTimeout(()=>{
+          document.getElementById('desc').getElementsByTagName('a')[0].onclick = function(){
+            that.showMore = true;
+            that.trimstring();
+          }
+
+          document.getElementById('DataDiv').style.height = 'calc(100vh - 355px)';
+        },100);
+        console.log(that.description);
+      }
+    }else{
+      that.description = that.selectedIndexData.description;
+      that.description = that.description.replace(/RiskSelectTM/g,'RiskSelect<sup>TM</sup>').replace(/IndexSM/g,'Index<sup>SM</sup>');
+    }
+    
+  }
+
+  async openPicker(){
+    let opts : PickerOptions ={
+      buttons:[{
+        text: 'Cancel',
+        role: 'cancel'
+      },{
+        text: 'Confirm',
+        handler: (val)=>{
+          this.selectedIndexName = val.Index.text;
+          this.onOptionsSelected();
+          // this.getColumnOptions();
+        }
+      }
+      ],
+      cssClass:'picOptions',
+      columns:[{
+        name: 'Index',
+        
+        options: this.getColumnOptions()
+      }],
+
+    };
+    let picker = await this.pickerCtrl.create(opts);
+    picker.present();
+    // picker.onDidDismiss().then(async data=>{
+    //   let col = await picker.getColumn('day');
+    //   // this.selDate = col.options[col.selectedIndex].text;
+    //   // console.log(col);
+    // })
+  }
+
+  getColumnOptions(){
+    var options = [];
+    this.Index[this.CountryClasificationList.indexOf(this.selectedCountry)].forEach(element => {
+      options.push({text:element.indexName.replace('New Age Alpha ',''),value:element.indexName.replace('New Age Alpha ','')});
+    });
+    return options;
   }
 
   onCancelClick(){

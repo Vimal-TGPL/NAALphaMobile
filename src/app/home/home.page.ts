@@ -725,15 +725,15 @@ export class HomePage implements OnInit, AfterViewInit {
     if (this.selComp != undefined) {
       setTimeout(() => {
         var temp = this.selectedIndexData.filter((item) => item.companyName == this.selComp);
-        var index = this.selectedIndexData.indexOf(temp[0]) + 1;
-        var manInd = (index * 53) - 240;
-        // console.log(manInd);
-        document.getElementById('scrollDiv').scrollTo(0, manInd);
+        // var index = this.selectedIndexData.indexOf(temp[0]) + 1;
+        // var manInd = (index * 45) - (indheight/2);
+        // // console.log(manInd);
+        // document.getElementById('scrollDiv').scrollTo(0, manInd);
         var sectemp = this.selSectorComp.filter((item) => item.companyName == this.selComp);
-        var secInd = this.selSectorComp.indexOf(sectemp[0]) + 1;
-        var mansecInd = (secInd * 53) - 240;
-        // console.log(mansecInd);
-        document.getElementById('sectorscrollDiv').scrollTo(0, mansecInd);
+        // var secInd = this.selSectorComp.indexOf(sectemp[0]) + 1;
+        // var mansecInd = (secInd * 53) - 240;
+        // // console.log(mansecInd);
+        // document.getElementById('sectorscrollDiv').scrollTo(0, mansecInd);
       }, 100);
     }
   }
@@ -1250,6 +1250,7 @@ export class HomePage implements OnInit, AfterViewInit {
       document.getElementById('subIndex-circle').style.color = this.ApplyTextColor(this.roundValue(this.getMed(this.selSectorComp) * 100));
       this.loadData();
       this.sortComp(this.filterby);
+      this.scrollToSel();
       // console.log(this.fullSectorComp);
 
     }
@@ -1335,18 +1336,20 @@ export class HomePage implements OnInit, AfterViewInit {
         var temp = this.selectedIndexData.filter((item) => item.companyName == this.selComp);
         var index = this.selectedIndexData.indexOf(temp[0]) + 1;
         var indheight = document.getElementById('IndexCompanyDiv').clientHeight;
-        var manInd = (index * 52) - (indheight/90);
+        var manInd = (index * 45) - (indheight/2);
         
         // manInd = manInd;
         // console.log(manInd);
         document.getElementById('scrollDiv').scrollTo(0, manInd);
         var sectemp = this.selSectorComp.filter((item) => item.companyName == this.selComp);
         var secInd = this.selSectorComp.indexOf(sectemp[0]) + 1;
-        var mansecInd = (secInd * 42) - 240;
-        var height:any = document.getElementById('stockCompanyDiv').clientHeight;
-        mansecInd = mansecInd - height;
-        // console.log(mansecInd + height);
-        document.getElementById('sectorscrollDiv').scrollTo(0, mansecInd);
+        // var mansecInd = (secInd * 42) - 240;
+        setTimeout(()=>{
+          var stcheight = document.getElementById('stockCompanyDiv').clientHeight;
+          var mansecInd = (secInd * 45) - (stcheight/2);
+          // console.log(mansecInd + height);
+          document.getElementById('sectorscrollDiv').scrollTo(0, mansecInd);
+        },500);
       }, 100);
     }
   }

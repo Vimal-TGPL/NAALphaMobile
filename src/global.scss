@@ -272,3 +272,15 @@ ion-select-popover, .popover-content{
     fill: #333;
     width: 32px !important;
   }
+
+  .picOptions{
+    white-space: nowrap;
+
+    .picker-opt{
+        font-size: 15px !important;
+    }
+    .picker-above-highlight.sc-ion-picker-ios , .picker-below-highlight.sc-ion-picker-ios{
+      background: rgba(255, 255, 255, 0.50) !important;
+    }
+    
+}

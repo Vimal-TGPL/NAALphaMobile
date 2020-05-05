@@ -1180,6 +1180,10 @@ border-radius: 25px;
     display: none;
 }
 @media screen and (orientation:landscape) {
+    #parent-content{
+        --overflow: auto;
+    }
+    
     .ios .stock_companycard-extend{
         height: 300px !important;
     }

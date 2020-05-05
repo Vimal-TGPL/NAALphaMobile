@@ -176,7 +176,7 @@
             <!-- GICS DropDown End -->
 
             <!-- Stock Company start -->
-            <div id='stockCompanyDiv'>
+            <div >
               <ion-card class="stockCompList-card" *ngIf="stockIndexShow==false">
 
                 <!-- Stock On Begin Start -->
@@ -189,10 +189,10 @@
                 <!-- Stock On Begin End -->
 
                 <!-- Stock Company List Start-->
-                <ion-card-content style=" padding: 0px;" *ngIf="selSectorComp!=''">
+                <ion-card-content  style=" padding: 0px;" id='stockCompanyDiv' *ngIf="selSectorComp!=''">
 
 
-                  <ion-content class="stockcomplist-card-content" [ngClass]="{'companycard-extend': stockCollapse}"
+                  <ion-content class="stockcomplist-card-content"  [ngClass]="{'companycard-extend': stockCollapse}"
                     forceOverscroll="true" id="innerContent"
                     style="--overflow: hidden; --background:white;"
                     [ngClass]="{foceScrollOverflow: SelSecLevTitle=='Global Universe'}">
@@ -320,7 +320,7 @@
             </div>
             <!-- Index Dropdown End -->
 
-            <div id='IndexCompanyDiv'>
+            <div >
               <ion-card class="company-card" *ngIf="compIndexShow==false"
                 [ngClass]="{'companycard-extend': stockCollapse}">
 
@@ -334,7 +334,7 @@
                 <!-- Index On Begin End -->
 
                 <!-- Index Company List Start -->
-                <ion-card-content style="padding: 5px 0px 5px 0px;" *ngIf="selectedIndexData.length > 0 "
+                <ion-card-content id='IndexCompanyDiv' style="padding: 5px 0px 5px 0px;" *ngIf="selectedIndexData.length > 0 "
                   class="company-card-content" [ngClass]="{'companycard-extend': stockCollapse}">
                   <div id="scrollDiv" class="company-list-inner-div"
                     [ngClass]="{'Index_companycard-extend': stockCollapse}">
