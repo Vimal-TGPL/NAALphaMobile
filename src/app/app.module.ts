@@ -18,6 +18,7 @@ import { ProfiledetailsComponent } from './Components/profiledetails/profiledeta
 import { JwtInterceptor } from './_helper/jwt.interceptor';
 import { IonicSelectableComponent } from 'ionic-selectable';
 import { MatTabsModule} from '@angular/material/tabs'
+import { Network } from '@ionic-native/network/ngx';
 // import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
@@ -29,7 +30,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     InAppBrowser,
     StatusBar,
     BrowserModule,
-
+    Network,
     HTTP, 
     SplashScreen,
     ScreenOrientation,

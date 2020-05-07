@@ -29,8 +29,8 @@
     <div class="search-Outer-Div">
       <div class="searchDiv">
         <ion-item class="searchItem" lines="none">
-          <ion-label style="text-align: center; margin: 2px 0px; font-size: 14px;">
-            {{searchSel==""? "Ticker or company name":searchSel.companyName}}</ion-label>
+          <ion-label style="text-align: center; margin: 2px 0px; font-size: 14px; color: #888;">
+            Ticker or company name</ion-label>
           <ionic-selectable class="homeSearch" [(ngModel)]="searchSel" [items]="LoadsearchList"
             itemTextField="companyName" [canSearch]="true" (onSearch)="searchCompany($event)"
             (onSelect)="onSearchSelect($event.item)" [hasInfiniteScroll]="true"

@@ -67,7 +67,7 @@ export class PerformancePage implements OnInit, AfterViewInit {
       for(i=0; i<this.CountryClasificationList.length;i++){
         var temp = this.filterIndex(this.CountryClasificationList[i]);
         temp= temp.sort((a, b) => {
-          return a.indexName - b.indexName;
+          return a.sortOrder - b.sortOrder;
         });
         this.Index.push(temp);
      }

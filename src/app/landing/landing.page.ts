@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
 import { Router } from '@angular/router';
 import { Platform} from '@ionic/angular';
+import { Network } from '@ionic-native/network/ngx';
 
 @Component({
   selector: 'app-landing',
@@ -12,7 +13,9 @@ export class LandingPage implements OnInit {
   mobile : boolean;
   signupUrl = 'https://blog.newagealpha.com/h-factor';
   url = 'https://www.newagealpha.com/';
-  constructor(private platform:Platform, private iab:InAppBrowser, private route:Router) { }
+  constructor(private network: Network,private platform:Platform, private iab:InAppBrowser, private route:Router) { 
+   
+  }
 
   ngOnInit() {
     if(this.platform.is('ipad') || this.platform.is('tablet')){
@@ -21,6 +24,8 @@ export class LandingPage implements OnInit {
       this.mobile = true;
     }
   }
+
+  
 
   onSkipClick(){
     this.iab.create(this.url,'_blank','location=no,toolbar=yes,zoom=no');

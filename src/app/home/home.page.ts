@@ -505,6 +505,7 @@ export class HomePage implements OnInit, AfterViewInit {
   onFixedCatClick(item){
     this.httpclient.get(this.api_url+'/Scores/GetBondMappingStocks/'+item.category).subscribe((res:any[]) =>{
     this.selectedIndexData.length = 0;
+    this.unsortedIndexData.length = 0;
     this.headermed = this.roundValue(item.medianCont*100);
     this.SelIndexName = item.category == 'HY'? 'High Yield' : 'Investment Grade';
     document.getElementById('header-circle').style.background = this.getColor(this.roundValue(item.medianCont*100));
@@ -516,6 +517,8 @@ export class HomePage implements OnInit, AfterViewInit {
       this.selectedIndexData.push(this.data.filter(x=> x.stockKey == e.stockKey && x.indexName.indexOf('New Age Alpha') == -1)[0]);
       this.unsortedIndexData.push(this.data.filter(x=> x.stockKey == e.stockKey && x.indexName.indexOf('New Age Alpha') == -1)[0]);
     });
+    console.log(this.selectedIndexData);
+    console.log(this.unsortedIndexData);
     this.unsortedIndexData.sort((a,b)=>{
       return a.scores - b.scores;
     })

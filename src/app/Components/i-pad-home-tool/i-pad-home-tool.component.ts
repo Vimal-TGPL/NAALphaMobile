@@ -15,6 +15,7 @@ declare var d3VirtualScroller: any;
   styleUrls: ['./i-pad-home-tool.component.scss'],
 })
 export class IPadHomeToolComponent implements OnInit, AfterContentInit, AfterViewInit {
+  searchText:any;
   SelAssetId: string = "";
   SelIndex:string;
   TotalStockData:any = [];
@@ -1095,7 +1096,7 @@ onsearchchages(val){
     if (selIndex == "ETF") {
         let selETF = this.ETFIndex.filter(x => x.assetId == value.split('_')[0])[0];
         this.GetETFHoldings(selETF.assetId, selETF.etfName, "Search");
-
+        this.filteredCompanies.length = 0;
         // try {
         //     this.angulartics2.eventTrack.next({
         //         action: 'Company Search',
@@ -1107,6 +1108,8 @@ onsearchchages(val){
         //  d3.select(".comp[name='" + value.replace(/ /g, '_') + "']").dispatch('click');
         let d = d3.select(".comp[name='" + value.replace(/ /g, '_') + "']").datum();
         console.log(d);
+        this.filteredCompanies.length = 0;
+        this.searchText = '';
         this.SelIndexName = d.indexName;
         this.setClock(d.isin, d.deg * 360 / 100, d.company + " (" + d.ticker + ") [" + d3.format(".1f")(d.score) + "%]", "CompClick", d.stockKey, d.score);
         // try {
