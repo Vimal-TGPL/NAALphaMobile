@@ -14,6 +14,7 @@ export class ForgotPasswordPage implements OnInit {
 
   forgotPass: FormGroup;
   mobile : boolean;
+  showLoad:boolean=false;
 
   constructor(private platform:Platform, private route:Router, private userServices:UserService, private toastController:ToastController) { }
 
@@ -24,21 +25,23 @@ export class ForgotPasswordPage implements OnInit {
       this.mobile = true;
     }
     this.forgotPass = new FormGroup({
-      LastName: new FormControl('',[Validators.required]),
       Email: new FormControl('',[Validators.required,Validators.email]),
     });
   }
 
   OnSubmitClick(){
+    this.showLoad = true;
     let data = {
-    LastName: this.forgotPass.controls['LastName'].value,
+    LastName: '',
     Email: this.forgotPass.controls['Email'].value,
     }
     this.userServices.forgotPassword(data).subscribe(data=>{
       this.forgotPass.reset();
+      this.showLoad = false;
       this.route.navigate(['/thankyou'],{ queryParams: { resetPassword: 'successfullyreset' } });
       return false;
     },err=>{
+      this.showLoad = false;
       console.log(err);
       this.presentToast(err.error.message);
     })

@@ -270,6 +270,8 @@ border-radius: 25px;
 .header-btn{
     width: 100%;
     --background: #fff;
+    --background-focused: #fff;
+    --background-hover: #fff;
     --box-shadow: none;
     --color: #dfdfdf;
     text-transform: none;
@@ -515,6 +517,7 @@ border-radius: 25px;
     --min-height: 30px;
     background: rgb(244, 156, 43);
     width: 100%;
+    touch-action: unset !important;
 }
 
 .company-label

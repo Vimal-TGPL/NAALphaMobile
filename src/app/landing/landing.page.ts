@@ -3,6 +3,8 @@ import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
 import { Router } from '@angular/router';
 import { Platform} from '@ionic/angular';
 import { Network } from '@ionic-native/network/ngx';
+import { AlertController } from '@ionic/angular';
+import { async } from '@angular/core/testing';
 
 @Component({
   selector: 'app-landing',
@@ -11,10 +13,17 @@ import { Network } from '@ionic-native/network/ngx';
 })
 export class LandingPage implements OnInit {
   mobile : boolean;
+  showNetError:boolean;
   signupUrl = 'https://blog.newagealpha.com/h-factor';
   url = 'https://www.newagealpha.com/';
-  constructor(private network: Network,private platform:Platform, private iab:InAppBrowser, private route:Router) { 
-   
+  constructor(private alertCtrl : AlertController,private network: Network,private platform:Platform, private iab:InAppBrowser, private route:Router) { 
+  //  var netcon = this.network.onConnect().subscribe(async ()=>{
+  //     document.getElementById('NetError').style.visibility = 'hidden';
+  //  })
+
+  //  var netdis = this.network.onDisconnect().subscribe(async ()=>{
+  //   document.getElementById('NetError').style.visibility = 'visible';
+  //  })
   }
 
   ngOnInit() {

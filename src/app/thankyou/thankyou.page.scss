@@ -21,12 +21,20 @@ ion-content{
 }
 
 .imgdiv{
-    padding: 10%;
+    padding-bottom: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    img{
+        width: 200px;
+    }
 }
 
 .text{
     color: white;
-    font-size: 18px;
+    font-size: 14px;
+    font-family: Open Sans SemiBold;
 }
 
 .textdiv{
@@ -37,16 +45,24 @@ ion-content{
 }
 
 .loginBtn{
-    // --background : white;
-   // --color	: #2b468f;
-    // --ripple-color : #9a9a9a;
-    // --color-activated : #9a9a9a;
-    --ion-color-contrast: #2b468f !important;
-    font-size: 18px;
+    --background: linear-gradient(45deg, #00b9ff 0%, #2e4c99 100%);
+    --background-activated: linear-gradient(45deg, #00b9ff 0%, #2e4c99 100%);
+    --background-focused: linear-gradient(45deg, #00b9ff 0%, #2e4c99 100%);
+    --background-hover: linear-gradient(45deg, #00b9ff 0%, #2e4c99 100%); 
+    --color	: #ffffff;
+    --ripple-color : #9a9a9a;
+    --color-activated : #ffffff;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    --border-radius: 15px;
+    height: 37px;
+    font-family: Open Sans semiBold;
+    font-size: 17px;
+    text-transform: inherit;
 }
 
 .loginDiv{
-    padding-left: 10%;
-    padding-right: 10%;
-    padding-top: 8%;
+    padding-left: 10vw;
+    padding-right: 10vw;
+    padding-top: 5vh;
 }

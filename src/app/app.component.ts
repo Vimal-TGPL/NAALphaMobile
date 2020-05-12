@@ -11,12 +11,17 @@ import { ToastController } from '@ionic/angular';
 // import { debounceTime } from 'rxjs/operators';
 // import { Storage } from '@ionic/storage';
 
+declare var navigator: any;
+declare var Connection: any;
+
 @Component({
   selector: 'app-root',
   templateUrl: 'app.component.html',
   styleUrls: ['app.component.scss']
 })
 export class AppComponent {
+
+  showLoad:boolean = false;
   constructor(
     private platform: Platform,
     private splashScreen: SplashScreen,
@@ -35,13 +40,21 @@ export class AppComponent {
       this.statusBar.styleDefault();
       this.statusBar.overlaysWebView(false);
       this.statusBar.backgroundColorByHexString("#2b468f");
+      
+      var netcon = this.network.onConnect().subscribe(async ()=>{
+        document.getElementById('NetError').style.visibility = 'hidden';
+     });
+  
+     var netdis = this.network.onDisconnect().subscribe(async ()=>{
+      document.getElementById('NetError').style.visibility = 'visible';
+     });
+
       if(this.platform.is('cordova')){
         console.log('device');
         if(this.network.type != 'none' ){
           this.authService.authenticationState.subscribe(state =>{
             console.log("Auth State : "+state);
             if(state){
-              
               this.splashScreen.hide(); 
                   this.router.navigateByUrl('/menu');       
             }else{
@@ -51,7 +64,7 @@ export class AppComponent {
           });
         }else{
           this.splashScreen.hide();
-          this.presentToast();
+          document.getElementById('NetError').style.visibility = 'visible';
         }
       }else{
         console.log('browser');
@@ -71,8 +84,6 @@ export class AppComponent {
           this.presentToast();
         }
       }
-       
-      
     });
   }
 
@@ -82,5 +93,18 @@ export class AppComponent {
       duration: 3000
     });
     toast.present();
+  }
+
+  onTryAgainClick(){
+    this.showLoad = true;
+ var networkState = navigator.connection.type;
+
+    if(networkState !== Connection.NONE){
+      document.getElementById('NetError').style.visibility = 'hidden';
+      this.showLoad = false;
+    }else{
+      document.getElementById('NetError').style.visibility = 'visible';
+      this.showLoad = false;
+    }
   }
 }

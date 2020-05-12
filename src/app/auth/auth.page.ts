@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { Validators, FormGroup, FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { ToastController } from '@ionic/angular';
+import { ToastController, IonInput } from '@ionic/angular';
 import { AuthenticationService } from '../services/authentication.service';
 import { Storage } from '@ionic/storage';
 import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
@@ -21,6 +21,8 @@ export class AuthPage implements OnInit {
   pwd:boolean = false;
   email:boolean = false;
 
+  // @ViewChild('EmailInput',{static: false}) EmailInt;
+
   constructor(private platform:Platform, private route:Router, private iab:InAppBrowser, private http: HttpClient, private toastController:ToastController, private authenticationService: AuthenticationService, private storage:Storage) { }
   hasError = (controlName: string, errorName: string) => {
     return this.loginForm.controls[controlName].hasError(errorName);
@@ -37,6 +39,14 @@ export class AuthPage implements OnInit {
       
     });
   }
+
+  // ionViewDidEnter() {
+  //   setTimeout(()=>{
+  //     // document.getElementById('EmailInput').focus();
+  //     this.EmailInt.setFocus();
+  //   },2000);
+  // }
+
   onemialTextInput(){
     this.email = true;
   }
