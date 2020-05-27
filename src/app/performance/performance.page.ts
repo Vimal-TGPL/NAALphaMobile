@@ -226,7 +226,9 @@ export class PerformancePage implements OnInit, AfterViewInit {
       },{
         text: 'Confirm',
         handler: (val)=>{
-          this.selectedIndexName = val.Index.text;
+          var temp = val.Index.text;
+          temp = temp.slice(0,temp.indexOf('(')-1);
+          this.selectedIndexName = temp;
           this.onOptionsSelected();
           // this.getColumnOptions();
         }
@@ -251,9 +253,14 @@ export class PerformancePage implements OnInit, AfterViewInit {
 
   getColumnOptions(){
     var options = [];
+    
     this.Index[this.CountryClasificationList.indexOf(this.selectedCountry)].forEach(element => {
-      options.push({text:element.indexName.replace('New Age Alpha ',''),value:element.indexName.replace('New Age Alpha ','')});
+      var temp = element.indexName.replace('New Age Alpha ','')
+      temp = temp+" ("+element.indexCode+")";
+      options.push({text:temp,value:temp});
     });
+    console.log(this.Index);
+    console.log(options);
     return options;
   }
 

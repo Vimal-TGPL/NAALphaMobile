@@ -869,7 +869,8 @@ border-radius: 25px;
     font-family: Open Sans SemiBold;
 }
 .companycard-extend{
-    height: calc(100vh - 261px) !important;
+    height: calc(100vh - 259px) !important;
+    // height: calc(100vh - 261px) !important;
     // height: calc(100vh - 271px) !important;
 }
 
@@ -899,7 +900,7 @@ border-radius: 25px;
     --padding-start:0px
 }
 .Index_companycard-extend{
-    height: calc(100vh - 260px) !important;
+    // height: calc(100vh - 260px) !important;
 }
 
 .Filter_Div{
@@ -1114,6 +1115,10 @@ border-radius: 25px;
 
 .selectIndex{
     --background: #05baff !important;
+    color: #ffffff !important;
+}
+
+.selectIndexLabel{
     color: #ffffff !important;
 }
 

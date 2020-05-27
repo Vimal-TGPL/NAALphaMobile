@@ -22,9 +22,11 @@ export class ChangePasswordPage implements OnInit {
   Cpwd:boolean = false;
 
   constructor(private platform:Platform, private menuController:MenuController ,private formBuilder:FormBuilder,private userServices:UserService,private toastController:ToastController, private route:Router) { }
+  
   hasError = (controlName: string, errorName: string) => {
     return this.changePasswordForm.controls[controlName].hasError(errorName);
 }
+
 ionViewDidLeave(){
   this.menuController.enable(true);
 }
@@ -38,7 +40,9 @@ ionViewDidLeave(){
     this.changePasswordForm = this.formBuilder.group({
       Password: ['', [
           Validators.required,
-          Validators.minLength(8)
+          Validators.minLength(8),
+          Validators.maxLength(50)
+          // Validators.pattern('/^[a-zA-Z0-9!@#$%^&*]{8,50}$/')
       ]],
       confirmPassword: ['', [Validators.required, Validators.minLength(8)]]
   }, { validator: passwordMatchValidator });

@@ -31,11 +31,12 @@
         <ion-item class="searchItem" lines="none">
           <ion-label style="text-align: center; margin: 2px 0px; font-size: 14px; color: #888;">
             Ticker or company name</ion-label>
-          <ionic-selectable class="homeSearch" [(ngModel)]="searchSel" [items]="LoadsearchList"
+          <ionic-selectable class="homeSearch" #SearchComponent [(ngModel)]="searchSel" [items]="LoadsearchList"
             itemTextField="companyName" [canSearch]="true" (onSearch)="searchCompany($event)"
             (onSelect)="onSearchSelect($event.item)" [hasInfiniteScroll]="true"
             (onInfiniteScroll)="getMoreSearchComp($event)"
-            [searchFailText]="'Sorry! we could not find any results matching.'">
+            [searchFailText]="'Sorry! we could not find any results matching.'"
+            (onClose)="onSearchClose($event)">
             <ng-template ionicSelectableTitleTemplate>Ticker or company name</ng-template>
             <ng-template ionicSelectableItemTemplate let-LoadsearchList="item">
               <div style="width: 100%;">
@@ -418,7 +419,7 @@
                   </div>
                   <ion-list class="nav-tab-index">
                     <ion-item class="nav-tab-item" lines="none" *ngFor="let item of globalselectedcountryList"
-                      (click)="onglobalIndexClick(item.name)" [ngClass]="{'selectIndex': SelIndexName==item.name}">
+                      (click)="onglobalIndexClick(item.name);" [ngClass]="{'selectIndex': SelIndexName==item.name}">
                       <div style="display: flex;
                       width: 100%;
                       margin-left: 1px;
@@ -448,7 +449,8 @@
                           [style.background-color]="getColor(item.med)">{{item.med}}</span>
                         <ion-label style="font-size: 12px;
                         font-family: Open sans SemiBold;
-                        color: #666666;">
+                        color: #666666;"
+                        [ngClass]="{selectIndexLabel: SelIndexName==item.name}">
                           {{getNaaIndex(item.name)}}</ion-label>
                       </div>
                     </ion-item>
@@ -497,7 +499,7 @@
                         <ion-label style="font-size: 12px;
                         font-family: Open sans SemiBold;
                         color: #666666;"
-                          >
+                          [ngClass]="{'selectIndexLabel': SelIndexName == (item.category == 'HY'? 'High Yield' : 'Investment Grade')}">
                           {{item.category == 'HY'?'High Yield':'Investment Grade'}}</ion-label>
                       </div>
                       <ion-icon name="ios-arrow-forward"></ion-icon>

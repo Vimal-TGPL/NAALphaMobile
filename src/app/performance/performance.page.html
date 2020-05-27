@@ -21,7 +21,7 @@
     <div class="dropDownDiv">
       <ion-button (click)="openPicker()" expand="block" fill="clear" shape="round">
         <div class="innerdropDownDiv">
-          <span class="innerdropDownsapn">{{selectedIndexName}}</span> <span><ion-icon name="ios-arrow-down"></ion-icon></span></div>
+          <span class="innerdropDownsapn" *ngIf="selectedIndexData && selectedIndexName">{{selectedIndexName}} ({{selectedIndexData.indexCode}})</span> <span><ion-icon name="ios-arrow-down"></ion-icon></span></div>
       </ion-button>
     </div>
   </div>

@@ -15,8 +15,13 @@ export class ForgotPasswordPage implements OnInit {
   forgotPass: FormGroup;
   mobile : boolean;
   showLoad:boolean=false;
+  email:boolean = false;
 
   constructor(private platform:Platform, private route:Router, private userServices:UserService, private toastController:ToastController) { }
+
+  hasError = (controlName: string, errorName: string) => {
+    return this.forgotPass.controls[controlName].hasError(errorName);
+}
 
   ngOnInit() {
     if(this.platform.is('ipad') || this.platform.is('tablet')){
@@ -27,6 +32,10 @@ export class ForgotPasswordPage implements OnInit {
     this.forgotPass = new FormGroup({
       Email: new FormControl('',[Validators.required,Validators.email]),
     });
+  }
+
+  onemialTextInput(){
+    this.email = true;
   }
 
   OnSubmitClick(){

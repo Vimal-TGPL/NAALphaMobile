@@ -25,6 +25,7 @@ export class HomePage implements OnInit, AfterViewInit {
   // slides={initialSlide: 1};
   slides:any;
   @ViewChild(IonContent, {static:true}) content: IonContent;
+  @ViewChild('SearchComponent' , {static:true}) SearchComponent: IonicSelectableComponent;
   // @ViewChild(IonSlides, { static: true }) slides: IonSlides;
   mobile : boolean;
   selDate:any = 1;
@@ -738,14 +739,15 @@ export class HomePage implements OnInit, AfterViewInit {
   }
   /*************** Global Index Select Start *****************/
   onglobalIndexClick(i) {
-    this.selectedIndexData = this.globalindexwise[this.globalIndex.indexOf(i)].filter(item => item.indexName == i);
-    this.unsortedIndexData = this.globalindexwise[this.globalIndex.indexOf(i)].filter(item => item.indexName == i);
-    document.getElementById('header-circle').style.background = this.getColor(this.globalmed[this.globalIndex.indexOf(i)]);
-    document.getElementById('header-circle').style.color = this.ApplyTextColor(this.globalmed[this.globalIndex.indexOf(i)]);
     this.SelIndexName = i;
     this.compIndexShow = false;
     this.icon = "ios-arrow-dropdown-circle";
     this.parentcard = false;
+    this.selectedIndexData = this.globalindexwise[this.globalIndex.indexOf(i)].filter(item => item.indexName == i);
+    this.unsortedIndexData = this.globalindexwise[this.globalIndex.indexOf(i)].filter(item => item.indexName == i);
+    document.getElementById('header-circle').style.background = this.getColor(this.globalmed[this.globalIndex.indexOf(i)]);
+    document.getElementById('header-circle').style.color = this.ApplyTextColor(this.globalmed[this.globalIndex.indexOf(i)]);
+    
     this.unsortedIndexData = this.unsortedIndexData.sort((a, b) => {
       return a.scores - b.scores;
     });
@@ -773,14 +775,15 @@ export class HomePage implements OnInit, AfterViewInit {
 
   /*************** NewAgeAlpha Index Select Start *****************/
   onNaaIndexClick(i) {
-    this.selectedIndexData = this.naaindexwise[this.NAAIndex.indexOf(i)].filter(item => item.indexName == i);
-    this.unsortedIndexData = this.naaindexwise[this.NAAIndex.indexOf(i)].filter(item => item.indexName == i);
-    document.getElementById('header-circle').style.background = this.getColor(this.naamed[this.NAAIndex.indexOf(i)]);
-    document.getElementById('header-circle').style.color = this.ApplyTextColor(this.naamed[this.NAAIndex.indexOf(i)]);
     this.compIndexShow = false;
     this.icon = "ios-arrow-dropdown-circle";
     this.parentcard = false;
     this.SelIndexName = i;
+    this.selectedIndexData = this.naaindexwise[this.NAAIndex.indexOf(i)].filter(item => item.indexName == i);
+    this.unsortedIndexData = this.naaindexwise[this.NAAIndex.indexOf(i)].filter(item => item.indexName == i);
+    document.getElementById('header-circle').style.background = this.getColor(this.naamed[this.NAAIndex.indexOf(i)]);
+    document.getElementById('header-circle').style.color = this.ApplyTextColor(this.naamed[this.NAAIndex.indexOf(i)]);
+    
     this.unsortedIndexData = this.unsortedIndexData.sort((a, b) => {
       return a.scores - b.scores;
     });
@@ -1121,7 +1124,7 @@ export class HomePage implements OnInit, AfterViewInit {
     text: string
   }) {
     let text = event.text.trim();
-    // console.log(this.SelTab);
+    console.log(text);
     if(this.SelTab == undefined){
       if(text.length != 0){
         this.LoadsearchList = this.searchList.filter((item)=>{
@@ -1214,6 +1217,12 @@ export class HomePage implements OnInit, AfterViewInit {
   }
   /*************** Search Result End *****************/
 
+  onSearchClose(event: {
+    component: IonicSelectableComponent
+  }){
+    event.component.searchText = '';
+  }
+
   /***************On Company Selected from Search Result Start *****************/
   onSearchSelect(e) {
     this.selComp = e.companyName;
@@ -1273,15 +1282,35 @@ export class HomePage implements OnInit, AfterViewInit {
 
   /***************Search Infinite Scroll Activate Start *****************/
   getMoreSearchComp(event: { component: IonicSelectableComponent, text: string }) {
+    console.log(event);
     let text = (event.text || '').trim().toLowerCase();
     if (this.LoadsearchList.length == this.searchList.length) {
       event.component.disableInfiniteScroll();
       return;
     }
     this.size = this.size + 50;
-    this.LoadsearchList = this.searchList.slice(0, this.size).map(i => {
-      return i;
-    });
+    if(this.SelTab == 'Global Universe'){
+      this.LoadsearchList.length = 0;
+      this.LoadsearchList = this.searchList.slice(0, this.size).map(i => {
+        return i;
+      });
+    }else if(this.SelTab == 'FI'){
+      this.LoadsearchList.length = 0;
+      this.LoadsearchList = this.FISearchList.slice(0, this.size).map(i => {
+        return i;
+      });
+    }else if(this.SelTab == 'NAA'){
+      this.LoadsearchList.length = 0;
+      this.LoadsearchList = this.NaaSearchList.slice(0, this.size).map(i => {
+        return i;
+      });
+    }else if(this.SelTab == 'ETF' || this.SelTab == 'ETFChild'){
+      this.LoadsearchList.length = 0;
+      this.LoadsearchList = this.EtfSearchList.slice(0, this.size).map(i => {
+        return i;
+      });
+    }
+    
     event.component.endInfiniteScroll();
   }
   /***************Search Infinite Scroll Activate End *****************/
@@ -1429,6 +1458,7 @@ export class HomePage implements OnInit, AfterViewInit {
       document.getElementById('subIndex-circle').style.color = this.ApplyTextColor(this.roundValue(this.getMed(this.selSectorComp) * 100));
       this.loadData();
       this.scrollToSel();
+      this.sortComp(this.filterby);
     }
     // this.sortComp(this.filterby);
   }
@@ -1707,8 +1737,8 @@ export class HomePage implements OnInit, AfterViewInit {
 onscroll(event){
   //event.target.
   setTimeout(()=>{
-    //console.log(event)
-    //console.log("scroll running");
+    console.log(event)
+    console.log("scroll running");
     if(this.selSector.code=='Global Universe'){
       if(this.selSectorComp.length != this.globalselectorcomp.length){
         this.globalSize = this.globalSize+100;
