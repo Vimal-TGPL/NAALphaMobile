@@ -29,15 +29,33 @@
     <div class="search-Outer-Div">
       <div class="searchDiv">
         <ion-item class="searchItem" lines="none">
-          <ion-label style="text-align: center; margin: 2px 0px; font-size: 14px; color: #888;">
-            Ticker or company name</ion-label>
+          
+          <ion-label style="    margin: 2px 0px;
+          font-size: 14px;
+          align-items: center;
+          justify-content: center;
+          display: flex;
+          color: #888;">
+            <ion-icon name="search"></ion-icon>
+            <p *ngIf="this.SelTab !== 'ETF' && this.SelTab !== 'ETFChild'">Ticker or company name</p>
+            <p *ngIf="this.SelTab == 'ETF' || this.SelTab == 'ETFChild'">ETF ticker or name</p></ion-label>
           <ionic-selectable class="homeSearch" #SearchComponent [(ngModel)]="searchSel" [items]="LoadsearchList"
             itemTextField="companyName" [canSearch]="true" (onSearch)="searchCompany($event)"
             (onSelect)="onSearchSelect($event.item)" [hasInfiniteScroll]="true"
             (onInfiniteScroll)="getMoreSearchComp($event)"
             [searchFailText]="'Sorry! we could not find any results matching.'"
             (onClose)="onSearchClose($event)">
-            <ng-template ionicSelectableTitleTemplate>Ticker or company name</ng-template>
+            <ng-template ionicSelectableTitleTemplate>
+
+              <p style="    font-family: Open Sans SemiBold;
+              color: #666;
+              font-size: 14px;" *ngIf="this.SelTab !== 'ETF' && this.SelTab !== 'ETFChild'">Ticker or company name</p>
+
+              <p style="    font-family: Open Sans SemiBold;
+              color: #666;
+              font-size: 14px;" *ngIf="this.SelTab == 'ETF' || this.SelTab == 'ETFChild'">ETF ticker or name</p>
+
+              </ng-template>
             <ng-template ionicSelectableItemTemplate let-LoadsearchList="item">
               <div style="width: 100%;">
                 <span style=" font-size: 12px; font-family: Open Sans Regular; color: #666666;">{{LoadsearchList.companyName}} ({{LoadsearchList.ticker}})</span>
@@ -61,12 +79,13 @@
             <ng-template ionicSelectableCloseButtonTemplate>
               <ion-icon name="close-circle" style="font-size: 24px;"></ion-icon>
             </ng-template>
-            <ng-template ionicSelectableSearchFailTemplate>
+            <ng-template ionicSelectableSearchFailTemplate forceOverscroll=true>
+
               <div style="height: calc(100vh - 196px);
               display: flex;
               justify-content: center;
               align-items: center;
-              flex-direction: column;">
+              flex-direction: column;" *ngIf="searchedtext.length > 0">
                 <img src="../../assets/images/NAA_search_notfound.png" alt="Search Not Found" height="300">
                 <p style="font-size: 20px;
                 color: #0569bd;
@@ -75,6 +94,26 @@
                 text-align: center;
                 margin: 5px;">What you searched was unfortunately not found or doesn’t exist.</p>
               </div>
+
+              <div style="height: calc(100vh - 196px);
+              display: flex;
+              /* justify-content: center; */
+              align-items: center;
+              padding-top: 100px;
+              flex-direction: column;" *ngIf="searchedtext.length == 0">
+              <img src="../../assets/images/NAA_Searching.svg" alt="Search" style="    height: 80px;
+              margin-bottom: 50px;">
+              <h1 style="    color: #666;
+              font-family: Open Sans Bold;
+              padding: 0 50px;
+              text-align: center;
+              font-size: 25px;">What Are you searching for?</h1>
+            <p style="    color: #666;
+            padding: 0 40px;
+            text-align: center;
+            font-family: Open Sans SemiBold;
+            font-size: 16px;">Search for your favorite thing or find similar results in this area?</p>
+          </div>
             </ng-template>
           </ionic-selectable>
         </ion-item>
@@ -86,7 +125,7 @@
     <div>
       <ion-card class="stocks-card">
         <ion-card-content style="padding: 2px 0px 3px 0px;">
-          <div *ngIf="stockCollapse" class="arrow">
+          <div *ngIf="stockCollapse" class="arrow" (click)="onStockDivClick()">
             <span></span>
           </div>
           <div class="stock-header" (click)="onStockDivClick()">
@@ -193,12 +232,11 @@
                 <ion-card-content  style=" padding: 0px;" id='stockCompanyDiv' *ngIf="selSectorComp!=''">
 
 
-                  <ion-content class="stockcomplist-card-content"  [ngClass]="{'companycard-extend': stockCollapse}"
+                  <ion-content class="stockcomplist-card-content"  [ngClass]="{'companycard-extend': stockCollapse , 'foceScrollOverflow': SelSecLevTitle=='Global'}"
                     forceOverscroll="true" id="innerContent"
-                    style="--overflow: hidden; --background:white;"
-                    [ngClass]="{foceScrollOverflow: SelSecLevTitle=='Global Universe'}">
+                    style="--overflow: hidden; --background:white;">
                     <div scrollY="true" id="sectorscrollDiv"
-                      [ngClass]="{'stock_companycard-extend': stockCollapse, 'company-list-inner-div': SelSecLevTitle!='Global Universe'}">
+                      [ngClass]="{'stock_companycard-extend': stockCollapse, 'company-list-inner-div': SelSecLevTitle!='Global'}">
                       <ion-list class="company-list">
                         <ion-item lines='none' [id]=getIDReplace(item.companyName) class="company-list-item"
                           *ngFor="let item of selSectorComp">
@@ -221,8 +259,7 @@
                                 overflow: hidden;
                                 white-space: nowrap;
                                 text-overflow: ellipsis;">{{item.companyName}}</span>
-                                <!-- <ion-icon name="notifications" style="width: 13px;
-    height: 13px;"></ion-icon> -->
+                                <!-- <ion-icon name="notifications" style="width: 13px;height: 13px;"></ion-icon> -->
                                 <span style="    background: #ffffff;
                                 padding: 0 10px;
                                 border-radius: 10px;
@@ -246,7 +283,7 @@
                       </ion-list>
                       <ion-infinite-scroll [disabled]="selSector.code!='Global Universe'" threshold="100px"
                         position="bottom" (ionInfinite)="onscroll($event)">
-                        <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Loading more data...">
+                        <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Loading...">
                         </ion-infinite-scroll-content>
                       </ion-infinite-scroll>
                     </div>
@@ -265,8 +302,8 @@
                     <ion-label
                       style="display: flex; flex-direction: column; margin: 4px 0px; font-family: Open Sans SemiBold;
                       font-size: 13px; color: #666666;">
-                      <span >{{sectorHeadings[sectorList.indexOf(item)]}}</span>
-                      <span style="overflow: hidden; text-overflow: ellipsis;">{{item.name}}</span></ion-label>
+                      <span [ngClass]="{'selGICS': SelSecLevTitle==sectorHeadings[sectorList.indexOf(item)]}" style="margin-top: 3px;">{{sectorHeadings[sectorList.indexOf(item)]}}</span>
+                      <span [ngClass]="{'selGICS': SelSecLevTitle==sectorHeadings[sectorList.indexOf(item)]}" style="overflow: hidden; text-overflow: ellipsis; margin-top: 5px;">{{item.name}}</span></ion-label>
                   </ion-item>
                 </ion-card-content>
               </ion-card>

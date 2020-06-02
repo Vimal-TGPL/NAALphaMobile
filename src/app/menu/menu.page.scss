@@ -1,28 +1,26 @@
-.active-item{
+.active-item {
     border-left: 8px solid var(--ion-color-primary);
 }
 
-ion-content{
-
-    --ion-background-color:linear-gradient(-90deg,#2E4C99, #233771);
+ion-content {
+    --ion-background-color: linear-gradient(-90deg, #2e4c99, #233771);
     overflow: hidden;
     -ms-overflow-style: none;
 
     ::-webkit-scrollbar {
         display: none;
-      }
-
+    }
 }
 
-.profile{
+.profile {
     background-color: white;
     height: 100px;
-   
+
     display: flex;
     padding: 12px;
 }
 
-.avatar{
+.avatar {
     height: 80px;
     width: 80px;
     border-radius: 50%;
@@ -31,92 +29,108 @@ ion-content{
     border: 2px solid white;
 }
 
-.avatarDiv{
+.avatarDiv {
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
     margin: 30px 0 0 0;
-    
 }
 
-p{
+p {
     margin-block-start: 0em;
     margin-block-end: 0em;
     color: white;
-    margin-top:5px;
+    margin-top: 5px;
 }
 
-.deatilsDiv{
-padding: 10px;
-text-align: center;
-font-family: 'Open Sans SemiBold';
-font-size: 14px;
+.deatilsDiv {
+    padding: 10px;
+    text-align: center;
+    font-family: "Open Sans SemiBold";
+    font-size: 14px;
 }
 
-.divider{
+.divider {
     border-top: 1px solid white;
     margin: 15px 25px;
 }
 
-.footerDiv{
+.footerDiv {
     display: flex;
-  justify-content: center;
+    justify-content: center;
 
-  .footerText{
-    position: absolute; 
-    bottom: 30px;
-  }
-
-  p{
-    color: white; font-size: 14px;
-  }
-}
-
-@media screen and (orientation:landscape) {
-    .footerText{
-        position: unset !important;
+    .footerText {
+        position: absolute;
+        bottom: 30px;
     }
 
-    #menu-List{
-        margin-bottom:15px;
+    p {
+        color: white;
+        font-size: 14px;
     }
 }
 
-.ipadmenu{
+@media screen and (orientation: landscape) {
+    .footerText {
+        bottom: 25px !important;
+    }
+
+    #menu-List {
+        margin-bottom: unset;
+        height: calc(100vh - 170px);
+        overflow: auto;
+    }
+
+    .avatarDiv {
+        flex-direction: row;
+
+        .avatar {
+            height: 50px;
+            width: 50px;
+            padding: 10px;
+        }
+
+        .deatilsDiv {
+            text-align: left;
+            padding: 0 10px;
+        }
+    }
+}
+
+.ipadmenu {
     min-width: 70px !important;
     max-width: 70px !important;
     border: 0px !important;
 }
 
-.ipadParentDiv{
+.ipadParentDiv {
     padding: 30px 10px;
     // height: 100%;
 
-    ion-list{
+    ion-list {
         display: flex;
         justify-content: center;
         // height: 100%;
     }
 
-    ion-item{
-        --padding-start: 0px; 
+    ion-item {
+        --padding-start: 0px;
         --inner-padding-end: 0px;
         justify-content: center;
-        display: grid; 
+        display: grid;
         padding-bottom: 15px;
     }
 
-    img{
+    img {
         height: 65px;
     }
 
-    .bottomDiv{
+    .bottomDiv {
         position: absolute;
-    bottom: 0px;
-    width: 100%;
-    left: 0px;
-    right: 0px;
-    
+        bottom: 0px;
+        width: 100%;
+        left: 0px;
+        right: 0px;
     }
 }

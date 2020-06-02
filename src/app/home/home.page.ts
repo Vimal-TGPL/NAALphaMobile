@@ -28,7 +28,9 @@ export class HomePage implements OnInit, AfterViewInit {
   @ViewChild('SearchComponent' , {static:true}) SearchComponent: IonicSelectableComponent;
   // @ViewChild(IonSlides, { static: true }) slides: IonSlides;
   mobile : boolean;
+  ionselectablefailimage:any = 'NAA_search_notfound.png';
   selDate:any = 1;
+  searchedtext:any;
   savedAlert:any;
   showAlertRemove:boolean;
   selPer:any = 1;
@@ -170,6 +172,13 @@ export class HomePage implements OnInit, AfterViewInit {
     );
   }
 
+  showLoading() {
+    
+  }
+
+  hideLoading() {
+    this.SearchComponent.hideLoading();
+  }
   // /*************** ETF TAb Clicked Start *****************/
   // ETFNavClick() {
   //   //if()
@@ -514,7 +523,7 @@ export class HomePage implements OnInit, AfterViewInit {
   onFINavClick(){
     this.stockCollapse = true;
     this.compIndexShow = true;
-    this.sectorHeadings[1] = 'ETF';
+    this.sectorHeadings[1] = 'Fixed Income';
     this.icon = "ios-arrow-dropup-circle";
   }
   onCountryBackClick(){
@@ -740,9 +749,11 @@ export class HomePage implements OnInit, AfterViewInit {
   /*************** Global Index Select Start *****************/
   onglobalIndexClick(i) {
     this.SelIndexName = i;
+// setTimeout(() => {
     this.compIndexShow = false;
     this.icon = "ios-arrow-dropdown-circle";
     this.parentcard = false;
+    
     this.selectedIndexData = this.globalindexwise[this.globalIndex.indexOf(i)].filter(item => item.indexName == i);
     this.unsortedIndexData = this.globalindexwise[this.globalIndex.indexOf(i)].filter(item => item.indexName == i);
     document.getElementById('header-circle').style.background = this.getColor(this.globalmed[this.globalIndex.indexOf(i)]);
@@ -756,20 +767,14 @@ export class HomePage implements OnInit, AfterViewInit {
     // this.sortcompany();
     this.CompLength = this.selectedIndexData.length;
     this.headermed = this.globalmed[this.globalIndex.indexOf(i)];
-    if (this.selComp != undefined) {
-      setTimeout(() => {
-        var temp = this.selectedIndexData.filter((item) => item.companyName == this.selComp);
-        // var index = this.selectedIndexData.indexOf(temp[0]) + 1;
-        // var manInd = (index * 45) - (indheight/2);
-        // // console.log(manInd);
-        // document.getElementById('scrollDiv').scrollTo(0, manInd);
-        var sectemp = this.selSectorComp.filter((item) => item.companyName == this.selComp);
-        // var secInd = this.selSectorComp.indexOf(sectemp[0]) + 1;
-        // var mansecInd = (secInd * 53) - 240;
-        // // console.log(mansecInd);
-        // document.getElementById('sectorscrollDiv').scrollTo(0, mansecInd);
-      }, 100);
-    }
+    // if (this.selComp != undefined) {
+    //   setTimeout(() => {
+    //     var temp = this.selectedIndexData.filter((item) => item.companyName == this.selComp);
+    //     var sectemp = this.selSectorComp.filter((item) => item.companyName == this.selComp);
+    //   }, 100);
+    // }
+    // }, 200);
+    
   }
   /*************** Global Index Select End *****************/
 
@@ -833,6 +838,10 @@ export class HomePage implements OnInit, AfterViewInit {
     this.slides = document.getElementById("pageslider");
     // console.log(this.slides);
     this.GetETFValues();
+    setTimeout(() => {
+      this.onSlide1Click();
+    }, 900);
+    
   }
 
   
@@ -1006,7 +1015,7 @@ export class HomePage implements OnInit, AfterViewInit {
     this.stockCollapse = true;
     this.compIndexShow = true;
     this.icon = "ios-arrow-dropup-circle";
-    this.sectorHeadings[1] = 'ETF';
+    this.sectorHeadings[1] = 'Index';
   }
   /*************** Global/NAA Tab Selected End *****************/
 
@@ -1016,7 +1025,7 @@ export class HomePage implements OnInit, AfterViewInit {
     this.compIndexShow = true;
     this.icon = "ios-arrow-dropup-circle";
     this.parentcard = true;
-    this.sectorHeadings[1] = 'ETF';
+    this.sectorHeadings[1] = 'Exchange Traded Funds';
       
     var etfLoaderinterval = setInterval(()=>{
       if(this.ETFCatagoriesComp.length!=0){
@@ -1123,8 +1132,9 @@ export class HomePage implements OnInit, AfterViewInit {
     component: IonicSelectableComponent,
     text: string
   }) {
+   
     let text = event.text.trim();
-    console.log(text);
+    this.searchedtext = text;
     if(this.SelTab == undefined){
       if(text.length != 0){
         this.LoadsearchList = this.searchList.filter((item)=>{
@@ -1184,6 +1194,8 @@ export class HomePage implements OnInit, AfterViewInit {
         this.LoadsearchList.length = 0;
       }
     }
+
+   
 
     // if (text.length == 0) {
     //   this.searchList = this.searchList.filter(item => item.indexName.indexOf("New Age Alpha") == -1 || item.indexName != null);
@@ -1282,7 +1294,7 @@ export class HomePage implements OnInit, AfterViewInit {
 
   /***************Search Infinite Scroll Activate Start *****************/
   getMoreSearchComp(event: { component: IonicSelectableComponent, text: string }) {
-    console.log(event);
+    if(this.LoadsearchList.length > 0){
     let text = (event.text || '').trim().toLowerCase();
     if (this.LoadsearchList.length == this.searchList.length) {
       event.component.disableInfiniteScroll();
@@ -1310,7 +1322,7 @@ export class HomePage implements OnInit, AfterViewInit {
         return i;
       });
     }
-    
+  }
     event.component.endInfiniteScroll();
   }
   /***************Search Infinite Scroll Activate End *****************/
@@ -1475,13 +1487,13 @@ export class HomePage implements OnInit, AfterViewInit {
   onSlide0Click() {
     this.slides.slideTo(0);
     document.getElementById("slide0dot").style.backgroundColor = "#FFFFFF"
-    document.getElementById("slide1dot").style.backgroundColor = "#666"
+    document.getElementById("slide1dot").style.backgroundColor = "#909090"
   }
 
   onSlide1Click() {
     this.slides.slideTo(1);
     document.getElementById("slide1dot").style.backgroundColor = "#FFFFFF"
-    document.getElementById("slide0dot").style.backgroundColor = "#666"
+    document.getElementById("slide0dot").style.backgroundColor = "#909090"
   }
   /*************** On Pagination Click End *****************/
   /*************** To slide the Slides/Carousel Start *****************/
@@ -1489,10 +1501,10 @@ export class HomePage implements OnInit, AfterViewInit {
     this.slides.getActiveIndex().then(index => {
       if (index == 0) {
         document.getElementById("slide0dot").style.backgroundColor = "#FFFFFF"
-        document.getElementById("slide1dot").style.backgroundColor = "#666"
+        document.getElementById("slide1dot").style.backgroundColor = "#909090"
       } else {
         document.getElementById("slide1dot").style.backgroundColor = "#FFFFFF"
-        document.getElementById("slide0dot").style.backgroundColor = "#666"
+        document.getElementById("slide0dot").style.backgroundColor = "#909090"
       }
     });
   }
@@ -1742,7 +1754,9 @@ onscroll(event){
     if(this.selSector.code=='Global Universe'){
       if(this.selSectorComp.length != this.globalselectorcomp.length){
         this.globalSize = this.globalSize+100;
-      this.selSectorComp = this.globalselectorcomp.slice(0,this.globalSize);
+        this.selSectorComp = this.globalselectorcomp.slice(0,this.globalSize);
+        this.unsortselSectorComp = this.globalselectorcomp.slice(0,this.globalSize);
+        // console.log(this.unsortselSectorComp);
       event.target.complete();
       if(this.selSectorComp.length == this.globalselectorcomp.length){
         event.target.disabled = true;

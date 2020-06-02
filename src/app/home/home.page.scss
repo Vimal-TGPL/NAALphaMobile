@@ -1060,7 +1060,7 @@ border-radius: 25px;
     font-size: 13px; 
     width: 12px;
     height: 12px; 
-    background-color: #666;
+    background-color: #909090;
     border-radius: 50%;
 }
 
@@ -1113,7 +1113,16 @@ border-radius: 25px;
     }
 }
 
+.selGICS{
+    color: #25c3ff;
+}
+
 .selectIndex{
+    --background: #05baff !important;
+    color: #ffffff !important;
+}
+
+.nav-tab-item:focus{
     --background: #05baff !important;
     color: #ffffff !important;
 }
@@ -1133,12 +1142,13 @@ border-radius: 25px;
 }
 
 .indName{
-    max-width: 40vw;
+    max-width: 32vw;;
     overflow: hidden;
     text-overflow: ellipsis;
     display: inline-block;
     vertical-align: middle;
 }
+
 /* MEDIA */
 @media (max-width: 340px) and (min-width: 310px) {
     .nav-tab li a{
@@ -1184,9 +1194,12 @@ border-radius: 25px;
 // background-color: #00b9ff !important;
 // }
 
+
+
 ::-webkit-scrollbar {
     display: none;
 }
+
 @media screen and (orientation:landscape) {
     #parent-content{
         --overflow: auto;
@@ -1239,6 +1252,10 @@ border-radius: 25px;
     }
     .stock-header{
         padding: 5px 12px 0px 12px !important;
+    }
+
+    .stockcomplist-card-content{
+        height: 300px !important;
     }
  }
 
