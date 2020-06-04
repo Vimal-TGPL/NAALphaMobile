@@ -919,51 +919,51 @@ border-radius: 25px;
   right: 0;
  position: inherit;
  margin: 0  15px;
- border-radius: 15px;
- background: linear-gradient(-90deg,#2E4C99, #233771);
+ border-radius: 15px 15px 0 0;
+ background: #ffffff;
+ padding: 15px;
 
  div{
     //  text-align: center;
      display: flex;
-    justify-content: center;
-    align-items: center;
+     padding: 0 5px;
     ion-label{
-        text-align: center;
-        color: #ffffff;
+        color: #666666;
+        font-size: 15px;
+        font-family: Open Sans SemiBold;
     }
     ion-icon{
-        position: absolute;
-        right: 10px;
-        color: #ffffff;
+        color: #33529f;
     }
  }
- 
+
+ hr{
+    border-top: 1px solid #666666;
+ }
   }
 
-  ion-item-divider{
-    background: linear-gradient(-90deg,#2E4C99, #233771);
-    ion-label{
-        font-size: 12px;
-        margin: 5px 0;
-        // color: #ffffff;
+ion-button{
+    --color: #000000;
+    --padding-start: 5px;
+    --padding-end: 5px;
+    font-weight: normal;
+    font-size: 14px;
+    font-family: Open Sans Regular;
+
+    span{
+        text-align: left;
+        width: 100%;
     }
-  }
 
-  ion-item{
-    --background: linear-gradient(-90deg,#2E4C99, #233771);
-    --min-height: 30px;
+    ion-icon{
+        font-size: 25px;
+    }
+}
+}
 
-      ion-label{
-        font-size: 12px;
-        margin: 5px 0;
-        color: #ffffff;
-      }
-
-      ion-radio{
-        height: 15px;
-        width: 15px;
-      }
-  }
+.activeSort{
+    --background: linear-gradient(90deg, #00b9ff, #233771) !important;
+    --color: #ffffff !important;
 }
 
 .alertdayspan{

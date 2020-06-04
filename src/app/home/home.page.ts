@@ -25,6 +25,7 @@ export class HomePage implements OnInit, AfterViewInit {
   // slides={initialSlide: 1};
   slides:any;
   @ViewChild(IonContent, {static:true}) content: IonContent;
+  @ViewChild('parent-content', {static:true}) parentContent: IonContent;
   @ViewChild('SearchComponent' , {static:true}) SearchComponent: IonicSelectableComponent;
   // @ViewChild(IonSlides, { static: true }) slides: IonSlides;
   mobile : boolean;
@@ -566,19 +567,75 @@ export class HomePage implements OnInit, AfterViewInit {
   }
 
   onSortClick(){
-    if(this.showFilter == false)
-    {this.showFilter = true;} else
-    {
+    var tempOrientation:any;
+    if(this.showFilter == false){
+      this.showFilter = true;
+      if(this.screenOrientation.type == this.screenOrientation.ORIENTATIONS.PORTRAIT || this.screenOrientation.type == this.screenOrientation.ORIENTATIONS.PORTRAIT_PRIMARY || this.screenOrientation.type == this.screenOrientation.ORIENTATIONS.PORTRAIT_SECONDARY){
+        $('#parent-content').css('--overflow','');
+      }else{
+        document.getElementById('parent-content').scrollTo(0,0);
+        $('#parent-content').css('--overflow','hidden');
+      }      
+      // if(this.screenOrientation.type == this.screenOrientation.ORIENTATIONS.LANDSCAPE || this.screenOrientation.type == this.screenOrientation.ORIENTATIONS.LANDSCAPE_PRIMARY || this.screenOrientation.type == this.screenOrientation.ORIENTATIONS.LANDSCAPE_SECONDARY){
+      // $('#parent-content').css('--overflow','hidden');
+      tempOrientation = this.screenOrientation.onChange().subscribe(
+        () => {
+          if(this.screenOrientation.type == this.screenOrientation.ORIENTATIONS.PORTRAIT || this.screenOrientation.type == this.screenOrientation.ORIENTATIONS.PORTRAIT_PRIMARY || this.screenOrientation.type == this.screenOrientation.ORIENTATIONS.PORTRAIT_SECONDARY){
+            $('#parent-content').css('--overflow','');
+            tempOrientation.unsubscribe();
+          }else{
+            this.parentContent.scrollToTop();
+            if(this.showFilter == true){
+              $('#parent-content').css('--overflow','hidden');
+            }
+          }      
+        }
+     );
+    
+    
+    }else{
       this.showFilter = false;
+      if(this.screenOrientation.type == this.screenOrientation.ORIENTATIONS.LANDSCAPE || this.screenOrientation.type == this.screenOrientation.ORIENTATIONS.LANDSCAPE_PRIMARY || this.screenOrientation.type == this.screenOrientation.ORIENTATIONS.LANDSCAPE_SECONDARY){
+        // tempOrientation.unsubscribe();
+      $('#parent-content').css('--overflow','');
+      }
     }
     
   }
 
-  onfilterSelect(evt){
+  onfilterSelect(key){
     // console.log(evt);
-    this.filterby = evt.detail.value;
+    if(this.screenOrientation.type == this.screenOrientation.ORIENTATIONS.LANDSCAPE || this.screenOrientation.type == this.screenOrientation.ORIENTATIONS.LANDSCAPE_PRIMARY || this.screenOrientation.type == this.screenOrientation.ORIENTATIONS.LANDSCAPE_SECONDARY){
+      $('#parent-content').css('--overflow','');
+      }
+    if(key == 'C'){
+      if(this.filterby == 'C_LTH'){
+        this.filterby = 'C_HTL';
+      }else{
+        this.filterby = 'C_LTH';
+      }
+    }else if(key == 'HF'){
+      if(this.filterby == 'HF_LTH'){
+        this.filterby = 'HF_HTL';
+      }else{
+        this.filterby = 'HF_LTH';
+      }
+    }else if(key == 'T'){
+      if(this.filterby == 'T_LTH'){
+        this.filterby = 'T_HTL';
+      }else{
+        this.filterby = 'T_LTH';
+      }
+    }else if(key == 'P'){
+      if(this.filterby == 'P_LTH'){
+        this.filterby = 'P_HTL';
+      }else{
+        this.filterby = 'P_LTH';
+      }
+    }
     this.showFilter = false;
     this.sortComp(this.filterby);
+    this.scrollToSel();
   }
 
   sortComp(type){

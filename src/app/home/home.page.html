@@ -620,10 +620,36 @@
    
       <ion-list>
         <div>
-        <ion-label>Sort</ion-label>
-        
+        <ion-label>Sort by</ion-label>
       </div>
-        <ion-radio-group name="sort" [value]="filterby" (ionChange)='onfilterSelect($event)'>
+      <hr>
+        <ion-button (click)="onfilterSelect('C')" expand="block" fill="clear" [ngClass]="{'activeSort': filterby == 'C_LTH' || filterby == 'C_HTL'}">
+          <span>Company Name</span>
+          <ion-icon name="arrow-round-up" *ngIf="filterby == 'C_LTH'"></ion-icon>
+          <ion-icon name="arrow-round-down" *ngIf="filterby == 'C_HTL'"></ion-icon>
+        </ion-button>
+      
+        <ion-button (click)="onfilterSelect('HF')" expand="block" fill="clear" [ngClass]="{'activeSort': filterby == 'HF_LTH' || filterby == 'HF_HTL'}">
+         <span>H-Factor Score</span> 
+         <ion-icon name="arrow-round-up" *ngIf="filterby == 'HF_LTH'"></ion-icon>
+          <ion-icon name="arrow-round-down" *ngIf="filterby == 'HF_HTL'"></ion-icon>
+        </ion-button>
+      
+        <ion-button (click)="onfilterSelect('T')" expand="block" fill="clear" [ngClass]="{'activeSort': filterby == 'T_LTH' || filterby == 'T_HTL'}">
+          <span>Ticker</span> 
+          <ion-icon name="arrow-round-up" *ngIf="filterby == 'T_LTH'"></ion-icon>
+          <ion-icon name="arrow-round-down" *ngIf="filterby == 'T_HTL'"></ion-icon>
+        </ion-button>
+      
+        <ion-button (click)="onfilterSelect('P')" expand="block" fill="clear" [ngClass]="{'activeSort': filterby == 'P_LTH' || filterby == 'P_HTL'}">
+         <span>Price</span>
+         <ion-icon name="arrow-round-up" *ngIf="filterby == 'P_LTH'"></ion-icon>
+          <ion-icon name="arrow-round-down" *ngIf="filterby == 'P_HTL'"></ion-icon>
+        </ion-button>
+
+        
+      
+        <!-- <ion-radio-group name="sort" [value]="filterby" (ionChange)='onfilterSelect($event)'>
           <ion-item-divider>
             <ion-label>Company Name</ion-label>
           </ion-item-divider>
@@ -640,7 +666,7 @@
             <ion-label>H-Factor Score</ion-label>
           </ion-item-divider>
           <ion-item lines="none">
-            <ion-label>Low to High</ion-label>
+            <ion-label>Low to High (Preferred)</ion-label>
             <ion-radio value="HF_LTH"></ion-radio>
           </ion-item>
           <ion-item lines="none">
@@ -669,7 +695,7 @@
             <ion-label>High to Low</ion-label>
             <ion-radio value="P_HTL"></ion-radio>
           </ion-item>
-        </ion-radio-group>
+        </ion-radio-group> -->
       </ion-list>
     
   </div>
