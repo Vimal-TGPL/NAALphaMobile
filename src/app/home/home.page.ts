@@ -1035,8 +1035,11 @@ export class HomePage implements OnInit, AfterViewInit {
 
   /*************** ETF Selected Start *****************/
   onETFNameClick(i) {
+    // console.log(i);
     let name = i;
     var tempp = this.ETFNameFull.filter(item => item.etfName == name);
+    // console.log(this.ETFNameFull);
+    // console.log(tempp);
     var CId = tempp[0].assetId;
     this.httpclient.get(this.api_url + "/Scores/GetETFCurrent/" + CId).subscribe((ETFStocks: any[]) => {
       this.SelAssetId = name;
@@ -1142,10 +1145,10 @@ export class HomePage implements OnInit, AfterViewInit {
 
   /*************** Company Selected Start *****************/
   onCompanyClick(e) {
-    console.log(e);
     this.selComp = e.companyName;
     this.searchSel = e;
     if(this.SelTab == 'FI'){
+      // console.log('fi');
       this.SelSearchObj = e;
        this.SelSearchObj.FIName = e.category == 'HY'? 'High Yield' : 'Investment Grade';
       this.getSectorList(e.industry.toString());
@@ -1185,38 +1188,31 @@ export class HomePage implements OnInit, AfterViewInit {
       if(text.length != 0){
         this.LoadsearchList = this.searchList.filter((item)=>{
           return (item.companyName.toLowerCase().indexOf(text.toLowerCase()) === 0) || (item.ticker.toLowerCase().indexOf(text.toLowerCase()) === 0);
-        })  
-        // console.log(this.LoadsearchList)
+        })
       }else{
         this.LoadsearchList.length = 0;
       }
     }else if(this.SelTab == ''){
-      // console.log(this.searchList);
       if(text.length != 0){
         this.LoadsearchList = this.searchList.filter((item)=>{
           return (item.companyName.toLowerCase().indexOf(text.toLowerCase()) === 0) || (item.ticker.toLowerCase().indexOf(text.toLowerCase()) === 0);
-        })  
-        // console.log(this.LoadsearchList)
+        })
       }else{
         this.LoadsearchList.length = 0;
       }
     }else if(this.SelTab == 'Global Universe'){
-      // console.log(this.searchList);
       if(text.length != 0){
         this.LoadsearchList = this.searchList.filter((item)=>{
           return (item.companyName.toLowerCase().indexOf(text.toLowerCase()) === 0) || (item.ticker.toLowerCase().indexOf(text.toLowerCase()) === 0);
-        })  
-        // console.log(this.LoadsearchList)
+        })
       }else{
         this.LoadsearchList.length = 0;
       }
     }else if(this.SelTab == 'FI'){
-      // console.log(this.FISearchList);
       if(text.length != 0){
         this.LoadsearchList = this.FISearchList.filter((item)=>{
           return (item.companyName.toLowerCase().indexOf(text.toLowerCase()) === 0) || (item.ticker.toLowerCase().indexOf(text.toLowerCase()) === 0);
-        })  
-        // console.log(this.LoadsearchList)
+        })
       }else{
         this.LoadsearchList.length = 0;
       }
@@ -1224,18 +1220,15 @@ export class HomePage implements OnInit, AfterViewInit {
       if(text.length != 0){
         this.LoadsearchList = this.NaaSearchList.filter((item)=>{
           return (item.companyName.toLowerCase().indexOf(text.toLowerCase()) === 0) || (item.ticker.toLowerCase().indexOf(text.toLowerCase()) === 0);
-        })  
-        // console.log(this.LoadsearchList)
+        })
       }else{
         this.LoadsearchList.length = 0;
       }
     }else if(this.SelTab == 'ETF' || this.SelTab == 'ETFChild'){
-      // console.log(this.EtfSearchList);
       if(text.length != 0){
         this.LoadsearchList = this.EtfSearchList.filter((item)=>{
           return (item.companyName.toLowerCase().indexOf(text.toLowerCase()) === 0) || (item.ticker.toLowerCase().indexOf(text.toLowerCase()) === 0);
-        })  
-        // console.log(this.LoadsearchList)
+        })
       }else{
         this.LoadsearchList.length = 0;
       }
@@ -1283,58 +1276,49 @@ export class HomePage implements OnInit, AfterViewInit {
 
   /***************On Company Selected from Search Result Start *****************/
   onSearchSelect(e) {
+    // console.log(e);
     this.selComp = e.companyName;
     this.SelSearchObj = e;
-    // console.log(this.SelSearchObj)
     var industryVal = e.industry;
-    if( this.SelTab == 'FI'){
-      this.getSectorList(industryVal.toString())
-      this.onSectorClick(e.industry);
-    }else if (e.indexName == "ETF") {
-      this.onETFCategoryClick("All");
-      this.EtfMed = this.getEtfMed(e.companyName);
-      this.SelTab = '';
-    } else {
-      this.getSectorList(industryVal.toString())
-      this.onSectorClick(e.industry);
-    }
     this.GridHeaderTitle = false;
-    if (e.indexName == 'ETF') {
-      this.SelTab = 'ETF';
-      this.onETFNameClick(e.companyName);
-      this.slides.slideTo(1);
-    } else if(this.SelTab == undefined) {
+
+    if(this.SelTab == undefined) {
       this.SelTab = 'Global Universe';
       this.onglobalIndexClick(e.indexName);
-      this.slides.slideTo(0);
-    }else if(this.SelTab == 'Global Universe') {
-      // this.SelTab = 'Global Universe';
+      this.onCompanyClick(e);
+    }
+    
+    else if(this.SelTab == 'Global Universe') {
+      // console.log('global');
       this.onglobalIndexClick(e.indexName);
-      this.slides.slideTo(0);
-    }else if(this.SelTab == 'FI'){
+      this.onCompanyClick(e);
+    }
+    
+    else if(this.SelTab == 'FI'){
       // console.log(e)
       var temp = this.FIIndexList.filter(item=> item.country === e.fiCountry && item.category === e.fiCategory)[0];
       this.onFixedCatClick(temp);
-      // setTimeout(() => {
-        this.SelSearchObj.FIName = e.category == 'HY'? 'High Yield' : 'Investment Grade';
-      
-      this.slides.slideTo(0);
-      // }, 2000);
-      
-      
-      // setTimeout(() => {
-      //   this.onCompanyClick(e);
-      // }, 500);
-      
-      // console.log(this.FixedIndexData);
-    }else if(this.SelTab == 'NAA'){
-      this.onNaaIndexClick(e.indexName);
-      this.slides.slideTo(0);
+      this.SelSearchObj.FIName = e.category == 'HY'? 'High Yield' : 'Investment Grade';
+      setTimeout(() => {
+        this.onCompanyClick(e);
+      }, 1400);
     }
-    setTimeout(() => {
-      this.loadData();
-    }, 50);
-    // console.log(this.selSectorComp);
+    
+    else if(this.SelTab == 'NAA'){
+      this.onNaaIndexClick(e.indexName);
+      this.onCompanyClick(e);
+    }
+
+    else if (e.indexName == 'ETF') {
+      this.SelTab = 'ETF';
+      this.onETFCategoryClick("All");
+      this.onETFNameClick(e.companyName);
+    }
+    
+    else {
+      this.getSectorList(industryVal.toString())
+      this.onSectorClick(e.industry);
+    }
   }
   /***************On Company Selected from Search Result End *****************/
 
@@ -1403,7 +1387,7 @@ export class HomePage implements OnInit, AfterViewInit {
 
   /*************** On GICS Click Start *****************/
   async onSectorClick(key) {
-    console.log(key);
+    // console.log(key);
     if (this.stockCollapse == true) {
       this.stockIndexShow = false;
       this.compIndexShow = false;
@@ -1411,7 +1395,7 @@ export class HomePage implements OnInit, AfterViewInit {
       this.icon = "ios-arrow-dropdown-circle";
     }
     if (key == "Global Universe") {
-      console.log('Global Universe');
+      // console.log('Global Universe');
       this.globalselectorcomp = this.data.filter(item => item.companyName != null && item.indexName.indexOf("New Age Alpha") == -1);
       this.globalselectorcomp.sort((a, b) => {
         return a.scores - b.scores;
@@ -1440,7 +1424,7 @@ export class HomePage implements OnInit, AfterViewInit {
       // },500); 
     }
     else if (key == "Index") {
-      console.log('Index');
+      // console.log('Index');
       this.unsortselSectorComp = this.selectedIndexData;
       this.selSectorComp = this.selectedIndexData;
       // console.log(this.selSectorComp);
@@ -1458,7 +1442,8 @@ export class HomePage implements OnInit, AfterViewInit {
       this.sortComp(this.filterby);
     }
       else if(this.SelSearchObj.hasOwnProperty('FIName')){
-      console.log('FIName');
+      // console.log('FIName');
+      // console.log(this.selectedIndexData);
       this.fullSectorComp = this.selectedIndexData.filter(item =>
         item.industry.toString().substring(0, key.toString().length) == key
       )
@@ -1480,12 +1465,12 @@ export class HomePage implements OnInit, AfterViewInit {
       // console.log(this.unsortselSectorComp);
       this.loadData();
       this.sortComp(this.filterby);
-      //   this.scrollToSel();
+      this.scrollToSel();
       // console.log(this.selSectorComp)
 
     }
     else {
-      console.log('else');
+      // console.log('else');
       this.fullSectorComp = this.data.filter(item =>
         item.industry.toString().substring(0, key.toString().length) == key
       )
@@ -1628,9 +1613,10 @@ export class HomePage implements OnInit, AfterViewInit {
       // console.log('false part');
       dbScore.push(this.SelSearchObj);
     }
-    this.M_selResData = dbScore.sort((a, b) => {
-      return a.scores - b.scores;
-    });
+    this.M_selResData = dbScore;
+    // .sort((a, b) => {
+    //   return a.scores - b.scores;
+    // });
     // console.log(this.selSectorComp);
     // console.log(dbScore);
     let tradeDt = dbScore[0].tradeDate;
@@ -1793,8 +1779,8 @@ export class HomePage implements OnInit, AfterViewInit {
 onscroll(event){
   //event.target.
   setTimeout(()=>{
-    console.log(event)
-    console.log("scroll running");
+    // console.log(event)
+    // console.log("scroll running");
     if(this.selSector.code=='Global Universe'){
       if(this.selSectorComp.length != this.globalselectorcomp.length){
         this.globalSize = this.globalSize+100;
@@ -1816,9 +1802,9 @@ onscroll(event){
 
 }
 
-onClick(){
-  this.route.navigateByUrl('/test');
-}
+// onClick(){
+//   this.route.navigateByUrl('/test');
+// }
 
 onLogoutClick(){
   this.authService.logout();
