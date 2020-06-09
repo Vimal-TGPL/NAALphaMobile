@@ -573,7 +573,8 @@ export class HomePage implements OnInit, AfterViewInit {
       if(this.screenOrientation.type == this.screenOrientation.ORIENTATIONS.PORTRAIT || this.screenOrientation.type == this.screenOrientation.ORIENTATIONS.PORTRAIT_PRIMARY || this.screenOrientation.type == this.screenOrientation.ORIENTATIONS.PORTRAIT_SECONDARY){
         $('#parent-content').css('--overflow','');
       }else{
-        document.getElementById('parent-content').scrollTo(0,0);
+        // document.getElementById('parent-content').scrollTo(0,0);
+        $('#SlideDiv').css('position','fixed');
         $('#parent-content').css('--overflow','hidden');
       }      
       // if(this.screenOrientation.type == this.screenOrientation.ORIENTATIONS.LANDSCAPE || this.screenOrientation.type == this.screenOrientation.ORIENTATIONS.LANDSCAPE_PRIMARY || this.screenOrientation.type == this.screenOrientation.ORIENTATIONS.LANDSCAPE_SECONDARY){
@@ -581,11 +582,13 @@ export class HomePage implements OnInit, AfterViewInit {
       tempOrientation = this.screenOrientation.onChange().subscribe(
         () => {
           if(this.screenOrientation.type == this.screenOrientation.ORIENTATIONS.PORTRAIT || this.screenOrientation.type == this.screenOrientation.ORIENTATIONS.PORTRAIT_PRIMARY || this.screenOrientation.type == this.screenOrientation.ORIENTATIONS.PORTRAIT_SECONDARY){
+            $('#SlideDiv').css('position','');
             $('#parent-content').css('--overflow','');
             tempOrientation.unsubscribe();
           }else{
-            this.parentContent.scrollToTop();
+            // this.parentContent.scrollToTop();
             if(this.showFilter == true){
+              $('#SlideDiv').css('position','fixed');
               $('#parent-content').css('--overflow','hidden');
             }
           }      
@@ -597,6 +600,7 @@ export class HomePage implements OnInit, AfterViewInit {
       this.showFilter = false;
       if(this.screenOrientation.type == this.screenOrientation.ORIENTATIONS.LANDSCAPE || this.screenOrientation.type == this.screenOrientation.ORIENTATIONS.LANDSCAPE_PRIMARY || this.screenOrientation.type == this.screenOrientation.ORIENTATIONS.LANDSCAPE_SECONDARY){
         // tempOrientation.unsubscribe();
+        $('#SlideDiv').css('position','');
       $('#parent-content').css('--overflow','');
       }
     }
@@ -1138,7 +1142,7 @@ export class HomePage implements OnInit, AfterViewInit {
 
   /*************** Company Selected Start *****************/
   onCompanyClick(e) {
-    
+    console.log(e);
     this.selComp = e.companyName;
     this.searchSel = e;
     if(this.SelTab == 'FI'){
@@ -1147,24 +1151,15 @@ export class HomePage implements OnInit, AfterViewInit {
       this.getSectorList(e.industry.toString());
       this.onSectorClick(e.industry);
       this.sortComp(this.filterby);
-      setTimeout(() => {
-        this.loadData();
-      }, 500);
-      
-      // this.onSearchSelect(e);
-
     }else if (e.hasOwnProperty('indexType')) {
         this.getSectorList(e.industry.toString());
         this.SelSearchObj = e;
         this.SelSearchObj.etfName = this.SelIndexName;
         this.onSectorClick(e.industry);
-        this.scrollToSel();
-        this.onSearchSelect(e);
         this.sortComp(this.filterby);
       } else if (e.indexName.indexOf('New Age Alpha ') == -1) {
-        this.onSearchSelect(e);
         this.getSectorList(e.industry.toString());
-        this.SelSearchObj = e;
+        this.SelSearchObj = e;  
         this.onSectorClick(e.industry);
         this.sortComp(this.filterby);
       } else {
@@ -1173,13 +1168,7 @@ export class HomePage implements OnInit, AfterViewInit {
         this.SelSearchObj = temp;
         this.onSectorClick(temp.industry);
         this.sortComp(this.filterby);
-        this.scrollToSel();
-        setTimeout(() => {
-          this.loadData();
-        }, 50);
       }
-    
-    
     this.slides.slideTo(0);
   }
   /*************** Company Selected End *****************/
@@ -1414,6 +1403,7 @@ export class HomePage implements OnInit, AfterViewInit {
 
   /*************** On GICS Click Start *****************/
   async onSectorClick(key) {
+    console.log(key);
     if (this.stockCollapse == true) {
       this.stockIndexShow = false;
       this.compIndexShow = false;
@@ -1421,13 +1411,7 @@ export class HomePage implements OnInit, AfterViewInit {
       this.icon = "ios-arrow-dropdown-circle";
     }
     if (key == "Global Universe") {
-      // const alert = await this.alertController.create({
-      //   header: 'Global Universe',
-      //   message: 'Coming Soon',
-      //   buttons: ['OK']
-      // });
-  
-      // await alert.present();
+      console.log('Global Universe');
       this.globalselectorcomp = this.data.filter(item => item.companyName != null && item.indexName.indexOf("New Age Alpha") == -1);
       this.globalselectorcomp.sort((a, b) => {
         return a.scores - b.scores;
@@ -1456,6 +1440,7 @@ export class HomePage implements OnInit, AfterViewInit {
       // },500); 
     }
     else if (key == "Index") {
+      console.log('Index');
       this.unsortselSectorComp = this.selectedIndexData;
       this.selSectorComp = this.selectedIndexData;
       // console.log(this.selSectorComp);
@@ -1471,7 +1456,9 @@ export class HomePage implements OnInit, AfterViewInit {
       this.loadData();
       this.scrollToSel();
       this.sortComp(this.filterby);
-    }  else if(this.SelSearchObj.hasOwnProperty('FIName')){
+    }
+      else if(this.SelSearchObj.hasOwnProperty('FIName')){
+      console.log('FIName');
       this.fullSectorComp = this.selectedIndexData.filter(item =>
         item.industry.toString().substring(0, key.toString().length) == key
       )
@@ -1498,7 +1485,7 @@ export class HomePage implements OnInit, AfterViewInit {
 
     }
     else {
-      
+      console.log('else');
       this.fullSectorComp = this.data.filter(item =>
         item.industry.toString().substring(0, key.toString().length) == key
       )

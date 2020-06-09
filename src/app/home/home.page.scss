@@ -925,8 +925,10 @@ border-radius: 25px;
 
  div{
     //  text-align: center;
-     display: flex;
-     padding: 0 5px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
     ion-label{
         color: #666666;
         font-size: 15px;
@@ -935,6 +937,13 @@ border-radius: 25px;
     ion-icon{
         color: #33529f;
     }
+
+    .sortCancelBtn{
+        max-height: 20px;
+        font-size: 14px;
+        --padding-end: 5px;
+        font-family: Open Sans SemiBold;
+    }
  }
 
  hr{
@@ -942,7 +951,7 @@ border-radius: 25px;
  }
   }
 
-ion-button{
+  .filterTypeBtn{
     --color: #000000;
     --padding-start: 5px;
     --padding-end: 5px;
@@ -950,13 +959,23 @@ ion-button{
     font-size: 14px;
     font-family: Open Sans Regular;
 
-    span{
+    #filterLabel{
         text-align: left;
         width: 100%;
     }
 
+    #Filtertype{
+        font-size: 12px;
+    }
+
     ion-icon{
-        font-size: 25px;
+        font-size: 20px;
+    }
+
+    .filterTypeInnerSpan{
+        display: flex;
+        flex-direction: row;
+        align-items: center;
     }
 }
 }
