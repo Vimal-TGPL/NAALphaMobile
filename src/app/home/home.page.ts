@@ -23,60 +23,61 @@ import { AlertService } from '../services/alert.service';
 
 export class HomePage implements OnInit, AfterViewInit {
   // slides={initialSlide: 1};
-  slides:any;
-  @ViewChild(IonContent, {static:true}) content: IonContent;
-  @ViewChild('parent-content', {static:true}) parentContent: IonContent;
-  @ViewChild('SearchComponent' , {static:true}) SearchComponent: IonicSelectableComponent;
+  slides: any;
+  @ViewChild(IonContent, { static: true }) content: IonContent;
+  @ViewChild('parent-content', { static: true }) parentContent: IonContent;
+  @ViewChild('SearchComponent', { static: true }) SearchComponent: IonicSelectableComponent;
   // @ViewChild(IonSlides, { static: true }) slides: IonSlides;
-  mobile : boolean;
-  ionselectablefailimage:any = 'NAA_search_notfound.png';
-  selDate:any = 1;
-  searchedtext:any;
-  savedAlert:any;
-  showAlertRemove:boolean;
-  selPer:any = 1;
-  perChecked:boolean = false;
-  selPeriod:string;
-  showSubmit:boolean = true;
-  selDay:string = 'monday';
-  showAlertSetup:boolean = false;
-  showFilter:boolean = false;
-  filterby:string = 'HF_LTH';
+  mobile: boolean;
+  ionselectablefailimage: any = 'NAA_search_notfound.png';
+  prevSelTab: any = '';
+  selDate: any = 1;
+  searchedtext: any;
+  savedAlert: any;
+  showAlertRemove: boolean;
+  selPer: any = 1;
+  perChecked: boolean = false;
+  selPeriod: string;
+  showSubmit: boolean = true;
+  selDay: string = 'monday';
+  showAlertSetup: boolean = false;
+  showFilter: boolean = false;
+  filterby: string = 'HF_LTH';
   backButtonSubscription;
-  globalSize:any = 100;
-  FIIndexList:any = [];
-  globalselectorcomp:any = [];
-  globalselectedcountryList:any = [];
+  globalSize: any = 100;
+  FIIndexList: any = [];
+  globalselectorcomp: any = [];
+  globalselectedcountryList: any = [];
   currenturl: string;
   compETFNameList: any = [];
   comNAAIndex: any = [];
   comGlobalIndex: any = [];
-  GlobalList:any = [];
+  GlobalList: any = [];
   stockMed: any;
   GridHeaderTitle: boolean = true;
   selSector: any = [];
   SelSecLevTitle: any = 'Sub Industry';
   fullSectorComp: any = [];
   SelSearchObj: any = [];
-  unsortselSectorComp:any = [];
+  unsortselSectorComp: any = [];
   selSectorComp: any = [];
   sectorList: any = [];
   dbGICS: any = [];
   size: any = 50;
   EtfMed: any;
   searchList: any = [];
-  EtfSearchList:any = [];
-  NaaSearchList:any = [];
-  FISearchList:any = [];
+  EtfSearchList: any = [];
+  NaaSearchList: any = [];
+  FISearchList: any = [];
   LoadsearchList: any = [];
   searchSel: string = "";
   selComp: string;
-  selCountry:string ;
-  FixedStock:any = [];
+  selCountry: string;
+  FixedStock: any = [];
   compIndexShow: boolean = false;
-  FISelCountry:string;
-  FIselCatogaryList:any = [];
-  FICountryList:any [];
+  FISelCountry: string;
+  FIselCatogaryList: any = [];
+  FICountryList: any[];
   stockIndexShow: boolean = false;
   stockIcon: string = "ios-arrow-dropdown-circle";
   stockCollapse: boolean = false;
@@ -99,7 +100,7 @@ export class HomePage implements OnInit, AfterViewInit {
   heightcard: any = '250px';
   NAAIndex: any = [];
   globalIndex: any = [];
-  FixedIndexData:any = [];
+  FixedIndexData: any = [];
   ETFCatagories: any = [];
   ETFHoldings: any = [];
   globalindexwise: any = [];
@@ -111,12 +112,12 @@ export class HomePage implements OnInit, AfterViewInit {
   res: any = [];
   ETFCatagoriesComp: any = [];
   SelIndexName: string = '';
-  globalcountry:any = [];
+  globalcountry: any = [];
   unsortedIndexData: any = [];
-  totalglobalcountry:any = [];
+  totalglobalcountry: any = [];
   headermed: any;
-  compglobalCountryInd:any = [];
-  GlobalCountryWiseInd:any = [];
+  compglobalCountryInd: any = [];
+  GlobalCountryWiseInd: any = [];
   selectedIndexData: any = [];
   ETFcategory: any = [];
   ETFNameMed: any = [];
@@ -136,26 +137,34 @@ export class HomePage implements OnInit, AfterViewInit {
     this.createData();
     this.GetETFValues();
     this.GetFixedIndexData();
-    
-    if(this.platform.is('ipad') || this.platform.is('tablet')){
+
+    if (this.platform.is('ipad') || this.platform.is('tablet')) {
       this.mobile = false;
-    }else{
+    } else {
       this.mobile = true;
       this.slides = document.getElementById('pageslider');
     }
     // this.menuCtrl.enable(true);
+    window.addEventListener('mouseup', e => {
+      var sortListcontainer = document.getElementById('sortbyList');
+      if (this.showFilter == true) {
+        if ($(e.target).closest('#sortbyList').length === 0) {
+          this.onSortClick();
+        }
+      }
+    })
   }
 
   @HostListener('window:resize')
-  public onResize(){
-    setTimeout(()=>{
-      if(this.slides){
+  public onResize() {
+    setTimeout(() => {
+      if (this.slides) {
         this.slides.update();
       }
-    },100);
+    }, 100);
   }
 
-  constructor(private toastCtrl: ToastController,private alertService : AlertService, private pickerCtrl:PickerController, private menuCtrl:MenuController, private events:Events, private platform:Platform, private popoverController: PopoverController ,private route:Router, public alertController: AlertController, private screenOrientation: ScreenOrientation, public router: Router, private authService: AuthenticationService, public storage: Storage, private httpclient: HttpClient, private plt: Platform) {
+  constructor(private toastCtrl: ToastController, private alertService: AlertService, private pickerCtrl: PickerController, private menuCtrl: MenuController, private events: Events, private platform: Platform, private popoverController: PopoverController, private route: Router, public alertController: AlertController, private screenOrientation: ScreenOrientation, public router: Router, private authService: AuthenticationService, public storage: Storage, private httpclient: HttpClient, private plt: Platform) {
     this.currentUser = this.authService.currentUserValue();
     if (this.screenOrientation.type == this.screenOrientation.ORIENTATIONS.LANDSCAPE || this.screenOrientation.type == this.screenOrientation.ORIENTATIONS.LANDSCAPE_PRIMARY || this.screenOrientation.type == this.screenOrientation.ORIENTATIONS.LANDSCAPE_SECONDARY) {
       this.stockCollapse = true;
@@ -174,7 +183,7 @@ export class HomePage implements OnInit, AfterViewInit {
   }
 
   showLoading() {
-    
+
   }
 
   hideLoading() {
@@ -234,11 +243,13 @@ export class HomePage implements OnInit, AfterViewInit {
       this.dbGICS = res;
     });
     this.httpclient.get(this.api_url + "/Scores/GetNAAIndexScoresCurrent/GLOBAL").subscribe((res: any[]) => {
-      res = res.filter(item=> item.companyName != null);
+      res = res.filter(item => item.companyName != null);
       this.data = res;
       this.searchList = this.data.filter(item => item.companyName != null && item.ticker != null);
-      this.NaaSearchList = this.searchList.filter(item => item.indexName.indexOf("New Age Alpha") === 0);
-      this.FISearchList = this.searchList.filter(item => item.hasOwnProperty('fi') === true && item.fi !== null);
+      var temp = [...this.searchList];
+      this.NaaSearchList = temp.filter(item => item.indexName.indexOf("New Age Alpha") === 0);
+      var tempfi = [...this.searchList];
+      this.FISearchList = tempfi.filter(item => item.hasOwnProperty('fi') === true && item.fi !== null);
       this.searchList = this.searchList.filter(item => item.indexName.indexOf("New Age Alpha") == -1);
       // this.LoadsearchList = this.searchList.slice(0, 50).map(i => {
       //   return i;
@@ -247,7 +258,7 @@ export class HomePage implements OnInit, AfterViewInit {
       let TotalIndex = filteredData.filter(function (value, index, self) {
         return self.indexOf(value) === index;
       })
-      
+
       // console.log(TotalIndex);
       TotalIndex.forEach((element: String) => {
         if (element.includes('New Age Alpha')) {
@@ -259,7 +270,7 @@ export class HomePage implements OnInit, AfterViewInit {
       // console.log(this.data); 
 
       this.data.forEach(val => {
-        val.countrygroup = val.indexName.indexOf('Europe') > -1? 'Europe' : val.country;
+        val.countrygroup = val.indexName.indexOf('Europe') > -1 ? 'Europe' : val.country;
       });
       //console.log(this.data);
       var i;
@@ -275,9 +286,9 @@ export class HomePage implements OnInit, AfterViewInit {
       for (i = 0; i < this.globalIndex.length; i++) {
         this.globalmed.push(this.roundValue(this.getMed(this.globalindexwise[i]) * 100));
       }
-      
-      for (i=0 ; i< this.globalIndex.length; i++){
-        let country = this.globalindexwise[i].map(i=> i = i.countrygroup).filter(function (value, index, self) {
+
+      for (i = 0; i < this.globalIndex.length; i++) {
+        let country = this.globalindexwise[i].map(i => i = i.countrygroup).filter(function (value, index, self) {
           return self.indexOf(value) === index;
         });
         this.globalcountry.push(country[0]);
@@ -291,13 +302,13 @@ export class HomePage implements OnInit, AfterViewInit {
       let globaltemp = [];
       for (i = 0; i < this.globalIndex.length; i++) {
         let t: any = [];
-        t = { 'name': this.globalIndex[i], 'med': this.globalmed[i], 'countrygroup' : this.globalcountry[i] }
+        t = { 'name': this.globalIndex[i], 'med': this.globalmed[i], 'countrygroup': this.globalcountry[i] }
         globaltemp.push(t);
       }
       // console.log(this.globalIndex);
       //let globalCountrytemp =[];
-      var groupBy = function(xs, key) {
-        return xs.reduce(function(rv, x) {
+      var groupBy = function (xs, key) {
+        return xs.reduce(function (rv, x) {
           (rv[x[key]] = rv[x[key]] || []).push(x);
           return rv;
         }, {});
@@ -308,21 +319,21 @@ export class HomePage implements OnInit, AfterViewInit {
         return a.med - b.med;
       });
       // console.log(this.comGlobalIndex);
-      this.compglobalCountryInd = groupBy(this.comGlobalIndex,'countrygroup');
+      this.compglobalCountryInd = groupBy(this.comGlobalIndex, 'countrygroup');
       // console.log(this.compglobalCountryInd);
       var temp = [];
-      var that =this;
-      this.totalglobalcountry.forEach(e=>{
+      var that = this;
+      this.totalglobalcountry.forEach(e => {
         //console.log(e);
-        var t:any = { 'country': e } 
-        var t1 = this.compglobalCountryInd[e].map( i => i.name);
-        
-        var tmed = this.compglobalCountryInd[e].map( i => i.med);
+        var t: any = { 'country': e }
+        var t1 = this.compglobalCountryInd[e].map(i => i.name);
+
+        var tmed = this.compglobalCountryInd[e].map(i => i.med);
         // console.log(tmed);
-       var  array = tmed.sort();
+        var array = tmed.sort();
         if (array.length % 2 === 0) { // array with even number elements
-          tmed = (parseFloat(array[array.length / 2]) + parseFloat(array[(array.length / 2) - 1]))/2;
-          tmed = Math.round(tmed * 10) /10
+          tmed = (parseFloat(array[array.length / 2]) + parseFloat(array[(array.length / 2) - 1])) / 2;
+          tmed = Math.round(tmed * 10) / 10
         }
         else {
           tmed = array[(array.length - 1) / 2]; // array with odd number elements
@@ -333,7 +344,7 @@ export class HomePage implements OnInit, AfterViewInit {
       })
       // console.log(temp);
       this.GlobalCountryWiseInd = temp;
-      this.GlobalCountryWiseInd = this.GlobalCountryWiseInd.sort((a,b)=>{
+      this.GlobalCountryWiseInd = this.GlobalCountryWiseInd.sort((a, b) => {
         return a.med - b.med;
       })
       this.GlobalList = this.GlobalCountryWiseInd;
@@ -357,19 +368,19 @@ export class HomePage implements OnInit, AfterViewInit {
   }
   /*************** Data Population Start *****************/
 
-  createFiSearchList(){
+  createFiSearchList() {
     this.FIIndexList = [];
     this.FICountryList.filter(item => {
-      this.FixedIndexData[item].filter(it=>{
+      this.FixedIndexData[item].filter(it => {
         this.FIIndexList.push(it);
       });
     });
     // console.log(this.FIIndexList);
-    this.FIIndexList.filter(item=>{
-      this.httpclient.get(this.api_url+'/Scores/GetBondMappingStocks/'+item.category).subscribe((res:any[]) =>{
-        res.filter(it=> {
-          this.FISearchList.filter(x=> x.stockKey == it.stockKey)[0].fiCountry = item.country;
-          this.FISearchList.filter(x=> x.stockKey == it.stockKey)[0].fiCategory = item.category;
+    this.FIIndexList.filter(item => {
+      this.httpclient.get(this.api_url + '/Scores/GetBondMappingStocks/' + item.category).subscribe((res: any[]) => {
+        res.filter(it => {
+          this.FISearchList.filter(x => x.stockKey == it.stockKey)[0].fiCountry = item.country;
+          this.FISearchList.filter(x => x.stockKey == it.stockKey)[0].fiCategory = item.category;
           // var temp = this.FISearchList.filter(x=> x.stockKey == it.stockKey)[0];
           // console.log(temp);
         })
@@ -377,32 +388,32 @@ export class HomePage implements OnInit, AfterViewInit {
     });
   }
 
-  GetFixedIndexData(){
-    this.httpclient.get(this.api_url+'/Scores/GetFixedDataMaster').subscribe((res:any[])=>{
+  GetFixedIndexData() {
+    this.httpclient.get(this.api_url + '/Scores/GetFixedDataMaster').subscribe((res: any[]) => {
       // console.log(res);
-      var groupBy = function(xs, key) {
-        return xs.reduce(function(rv, x) {
+      var groupBy = function (xs, key) {
+        return xs.reduce(function (rv, x) {
           (rv[x[key]] = rv[x[key]] || []).push(x);
           return rv;
         }, {});
       };
-      
-      this.FixedIndexData = groupBy(res,'country');
+
+      this.FixedIndexData = groupBy(res, 'country');
       var that = this;
       // console.log(that.FixedIndexData);
-      var temp = res.map(x=>x.country).filter(function (value, index, self) {
+      var temp = res.map(x => x.country).filter(function (value, index, self) {
         return self.indexOf(value) === index;
       });
       this.FICountryList = temp;
       // console.log(temp);
-      temp.forEach(e=>{
+      temp.forEach(e => {
         var t = this.FixedIndexData[e];
-        var tmedlist = t.map(x => this.roundValue(x.medianCont*100)); 
-        var tmed; 
-        var  array = tmedlist.sort();
+        var tmedlist = t.map(x => this.roundValue(x.medianCont * 100));
+        var tmed;
+        var array = tmedlist.sort();
         if (array.length % 2 === 0) { // array with even number elements
-          tmed = (parseFloat(array[array.length / 2]) + parseFloat(array[(array.length / 2) - 1]))/2;
-          tmed = Math.round(tmed * 10) /10
+          tmed = (parseFloat(array[array.length / 2]) + parseFloat(array[(array.length / 2) - 1])) / 2;
+          tmed = Math.round(tmed * 10) / 10
         }
         else {
           tmed = array[(array.length - 1) / 2]; // array with odd number elements
@@ -413,12 +424,12 @@ export class HomePage implements OnInit, AfterViewInit {
     });
   }
 
-  onRemoveAlert(){
+  onRemoveAlert() {
     let userInfo = {
       userId: this.currentUser.userId,
       stockKey: this.SelSearchObj.stockKey
     }
-    this.alertService.deleteAlert(userInfo).subscribe(async (data)=>{
+    this.alertService.deleteAlert(userInfo).subscribe(async (data) => {
       // console.log(data);
       const toast = await this.toastCtrl.create({
         message: 'Alert Removed Sucessfully',
@@ -429,8 +440,8 @@ export class HomePage implements OnInit, AfterViewInit {
     })
   }
 
-  onAlertSubmit(){
-    if(this.selPeriod.length != 0 || this.perChecked){
+  onAlertSubmit() {
+    if (this.selPeriod.length != 0 || this.perChecked) {
       var alerts = {
         userId: this.currentUser.userId,
         stockKey: this.SelSearchObj.stockKey,
@@ -445,10 +456,10 @@ export class HomePage implements OnInit, AfterViewInit {
       }
 
       // console.log(alerts);
-      this.alertService.setAlert(alerts).subscribe(async (data)=>{
+      this.alertService.setAlert(alerts).subscribe(async (data) => {
         // console.log(data);
         const toast = await this.toastCtrl.create({
-          message:'Alert Submitted Sucessfully',
+          message: 'Alert Submitted Sucessfully',
           duration: 3000
         });
         toast.present();
@@ -456,184 +467,189 @@ export class HomePage implements OnInit, AfterViewInit {
       })
     }
   }
-  rangeChange(evt){
-      this.showSubmit = true;  
+  rangeChange(evt) {
+    this.showSubmit = true;
   }
 
-  getalertData(){
+  getalertData() {
 
   }
-  async openDaypicker(){
+  async openDaypicker() {
     // console.log('executing');
-    let opts : PickerOptions ={
-      buttons:[{
+    let opts: PickerOptions = {
+      buttons: [{
         text: 'Cancel',
         role: 'cancel'
-      },{
+      }, {
         text: 'Confirm',
-        handler: (val)=>{
+        handler: (val) => {
           this.selDate = val.day.text;
           // console.log(val.text);
         }
       }
       ],
-      columns:[{
+      columns: [{
         name: 'day',
-        options: [{text:'1',value:'1'},
-        {text:'2',value:'2'},
-        {text:'3',value:'3'},
-        {text:'4',value:'4'},
-        {text:'5',value:'5'},
-        {text:'6',value:'6'},
-        {text:'7',value:'7'},
-        {text:'8',value:'8'},
-        {text:'9',value:'9'},
-        {text:'10',value:'10'},
-        {text:'11',value:'11'},
-        {text:'12',value:'12'},
-        {text:'13',value:'13'},
-        {text:'14',value:'14'},
-        {text:'15',value:'15'},
-        {text:'16',value:'16'},
-        {text:'17',value:'17'},
-        {text:'18',value:'18'},
-        {text:'19',value:'19'},
-        {text:'20',value:'20'},
-        {text:'21',value:'21'},
-        {text:'22',value:'22'},
-        {text:'23',value:'23'},
-        {text:'24',value:'24'},
-        {text:'25',value:'25'},
-        {text:'26',value:'26'},
-        {text:'27',value:'27'},
-        {text:'28',value:'28'},
-        {text:'29',value:'29'},
-        {text:'30',value:'30'},
-      ]
+        options: [{ text: '1', value: '1' },
+        { text: '2', value: '2' },
+        { text: '3', value: '3' },
+        { text: '4', value: '4' },
+        { text: '5', value: '5' },
+        { text: '6', value: '6' },
+        { text: '7', value: '7' },
+        { text: '8', value: '8' },
+        { text: '9', value: '9' },
+        { text: '10', value: '10' },
+        { text: '11', value: '11' },
+        { text: '12', value: '12' },
+        { text: '13', value: '13' },
+        { text: '14', value: '14' },
+        { text: '15', value: '15' },
+        { text: '16', value: '16' },
+        { text: '17', value: '17' },
+        { text: '18', value: '18' },
+        { text: '19', value: '19' },
+        { text: '20', value: '20' },
+        { text: '21', value: '21' },
+        { text: '22', value: '22' },
+        { text: '23', value: '23' },
+        { text: '24', value: '24' },
+        { text: '25', value: '25' },
+        { text: '26', value: '26' },
+        { text: '27', value: '27' },
+        { text: '28', value: '28' },
+        { text: '29', value: '29' },
+        { text: '30', value: '30' },
+        ]
       }],
 
     };
     let picker = await this.pickerCtrl.create(opts);
     picker.present();
-    picker.onDidDismiss().then(async data=>{
+    picker.onDidDismiss().then(async data => {
       let col = await picker.getColumn('day');
       // this.selDate = col.options[col.selectedIndex].text;
       // console.log(col);
     })
   }
-  onFINavClick(){
+  onFINavClick() {
+    if (this.SelTab != 'FI') {
+      this.prevSelTab = this.SelTab;
+    }
+    console.log(this.prevSelTab);
+    this.SelTab = 'FI';
     this.stockCollapse = true;
     this.compIndexShow = true;
     this.sectorHeadings[1] = 'Fixed Income';
     this.icon = "ios-arrow-dropup-circle";
   }
-  onCountryBackClick(){
-    this.selCountry= null;
+  onCountryBackClick() {
+    this.selCountry = null;
   }
 
-  onFICountryClick(country){
+  onFICountryClick(country) {
     // console.log(country);
     this.FISelCountry = country;
     this.FIselCatogaryList = this.FixedIndexData[country];
   }
 
-  onFiCountryBackClick(){
+  onFiCountryBackClick() {
     this.FISelCountry = null;
   }
 
-  onFixedCatClick(item){
+  onFixedCatClick(item) {
     // console.log(item);
-    this.httpclient.get(this.api_url+'/Scores/GetBondMappingStocks/'+item.category).subscribe((res:any[]) =>{
-    this.selectedIndexData.length = 0;
-    this.unsortedIndexData.length = 0;
-    this.headermed = this.roundValue(item.medianCont*100);
-    this.SelIndexName = item.category == 'HY'? 'High Yield' : 'Investment Grade';
-    document.getElementById('header-circle').style.background = this.getColor(this.roundValue(item.medianCont*100));
-    document.getElementById('header-circle').style.color = this.ApplyTextColor(this.roundValue(item.medianCont*100));
-    this.compIndexShow = false;
-    this.icon = "ios-arrow-dropdown-circle";
-    this.parentcard = false;
-    res.forEach(e=>{
-      this.selectedIndexData.push(this.data.filter(x=> x.stockKey == e.stockKey && x.indexName.indexOf('New Age Alpha') == -1)[0]);
-      this.unsortedIndexData.push(this.data.filter(x=> x.stockKey == e.stockKey && x.indexName.indexOf('New Age Alpha') == -1)[0]);
-    });
-    // console.log(this.selectedIndexData);
-    // console.log(this.unsortedIndexData);
-    this.unsortedIndexData.sort((a,b)=>{
-      return a.scores - b.scores;
-    })
-     this.sortComp(this.filterby);
+    this.httpclient.get(this.api_url + '/Scores/GetBondMappingStocks/' + item.category).subscribe((res: any[]) => {
+      this.selectedIndexData.length = 0;
+      this.unsortedIndexData.length = 0;
+      this.headermed = this.roundValue(item.medianCont * 100);
+      this.SelIndexName = item.category == 'HY' ? 'High Yield' : 'Investment Grade';
+      document.getElementById('header-circle').style.background = this.getColor(this.roundValue(item.medianCont * 100));
+      document.getElementById('header-circle').style.color = this.ApplyTextColor(this.roundValue(item.medianCont * 100));
+      this.compIndexShow = false;
+      this.icon = "ios-arrow-dropdown-circle";
+      this.parentcard = false;
+      res.forEach(e => {
+        this.selectedIndexData.push(this.data.filter(x => x.stockKey == e.stockKey && x.indexName.indexOf('New Age Alpha') == -1)[0]);
+        this.unsortedIndexData.push(this.data.filter(x => x.stockKey == e.stockKey && x.indexName.indexOf('New Age Alpha') == -1)[0]);
+      });
+      // console.log(this.selectedIndexData);
+      // console.log(this.unsortedIndexData);
+      this.unsortedIndexData.sort((a, b) => {
+        return a.scores - b.scores;
+      })
+      this.sortComp(this.filterby);
     });
   }
 
-  onSortClick(){
-    var tempOrientation:any;
-    if(this.showFilter == false){
+  onSortClick() {
+    var tempOrientation: any;
+    if (this.showFilter == false) {
       this.showFilter = true;
-      if(this.screenOrientation.type == this.screenOrientation.ORIENTATIONS.PORTRAIT || this.screenOrientation.type == this.screenOrientation.ORIENTATIONS.PORTRAIT_PRIMARY || this.screenOrientation.type == this.screenOrientation.ORIENTATIONS.PORTRAIT_SECONDARY){
-        $('#parent-content').css('--overflow','');
-      }else{
+      if (this.screenOrientation.type == this.screenOrientation.ORIENTATIONS.PORTRAIT || this.screenOrientation.type == this.screenOrientation.ORIENTATIONS.PORTRAIT_PRIMARY || this.screenOrientation.type == this.screenOrientation.ORIENTATIONS.PORTRAIT_SECONDARY) {
+        $('#parent-content').css('--overflow', '');
+      } else {
         // document.getElementById('parent-content').scrollTo(0,0);
-        $('#SlideDiv').css('position','fixed');
-        $('#parent-content').css('--overflow','hidden');
-      }      
+        $('#SlideDiv').css('position', 'fixed');
+        $('#parent-content').css('--overflow', 'hidden');
+      }
       // if(this.screenOrientation.type == this.screenOrientation.ORIENTATIONS.LANDSCAPE || this.screenOrientation.type == this.screenOrientation.ORIENTATIONS.LANDSCAPE_PRIMARY || this.screenOrientation.type == this.screenOrientation.ORIENTATIONS.LANDSCAPE_SECONDARY){
       // $('#parent-content').css('--overflow','hidden');
       tempOrientation = this.screenOrientation.onChange().subscribe(
         () => {
-          if(this.screenOrientation.type == this.screenOrientation.ORIENTATIONS.PORTRAIT || this.screenOrientation.type == this.screenOrientation.ORIENTATIONS.PORTRAIT_PRIMARY || this.screenOrientation.type == this.screenOrientation.ORIENTATIONS.PORTRAIT_SECONDARY){
-            $('#SlideDiv').css('position','');
-            $('#parent-content').css('--overflow','');
+          if (this.screenOrientation.type == this.screenOrientation.ORIENTATIONS.PORTRAIT || this.screenOrientation.type == this.screenOrientation.ORIENTATIONS.PORTRAIT_PRIMARY || this.screenOrientation.type == this.screenOrientation.ORIENTATIONS.PORTRAIT_SECONDARY) {
+            $('#SlideDiv').css('position', '');
+            $('#parent-content').css('--overflow', '');
             tempOrientation.unsubscribe();
-          }else{
+          } else {
             // this.parentContent.scrollToTop();
-            if(this.showFilter == true){
-              $('#SlideDiv').css('position','fixed');
-              $('#parent-content').css('--overflow','hidden');
+            if (this.showFilter == true) {
+              $('#SlideDiv').css('position', 'fixed');
+              $('#parent-content').css('--overflow', 'hidden');
             }
-          }      
+          }
         }
-     );
-    
-    
-    }else{
+      );
+
+
+    } else {
       this.showFilter = false;
-      if(this.screenOrientation.type == this.screenOrientation.ORIENTATIONS.LANDSCAPE || this.screenOrientation.type == this.screenOrientation.ORIENTATIONS.LANDSCAPE_PRIMARY || this.screenOrientation.type == this.screenOrientation.ORIENTATIONS.LANDSCAPE_SECONDARY){
+      if (this.screenOrientation.type == this.screenOrientation.ORIENTATIONS.LANDSCAPE || this.screenOrientation.type == this.screenOrientation.ORIENTATIONS.LANDSCAPE_PRIMARY || this.screenOrientation.type == this.screenOrientation.ORIENTATIONS.LANDSCAPE_SECONDARY) {
         // tempOrientation.unsubscribe();
-        $('#SlideDiv').css('position','');
-      $('#parent-content').css('--overflow','');
+        $('#SlideDiv').css('position', '');
+        $('#parent-content').css('--overflow', '');
       }
     }
-    
+
   }
 
-  onfilterSelect(key){
+  onfilterSelect(key) {
     // console.log(evt);
-    if(this.screenOrientation.type == this.screenOrientation.ORIENTATIONS.LANDSCAPE || this.screenOrientation.type == this.screenOrientation.ORIENTATIONS.LANDSCAPE_PRIMARY || this.screenOrientation.type == this.screenOrientation.ORIENTATIONS.LANDSCAPE_SECONDARY){
-      $('#parent-content').css('--overflow','');
-      }
-    if(key == 'C'){
-      if(this.filterby == 'C_LTH'){
+    if (this.screenOrientation.type == this.screenOrientation.ORIENTATIONS.LANDSCAPE || this.screenOrientation.type == this.screenOrientation.ORIENTATIONS.LANDSCAPE_PRIMARY || this.screenOrientation.type == this.screenOrientation.ORIENTATIONS.LANDSCAPE_SECONDARY) {
+      $('#parent-content').css('--overflow', '');
+    }
+    if (key == 'C') {
+      if (this.filterby == 'C_LTH') {
         this.filterby = 'C_HTL';
-      }else{
+      } else {
         this.filterby = 'C_LTH';
       }
-    }else if(key == 'HF'){
-      if(this.filterby == 'HF_LTH'){
+    } else if (key == 'HF') {
+      if (this.filterby == 'HF_LTH') {
         this.filterby = 'HF_HTL';
-      }else{
+      } else {
         this.filterby = 'HF_LTH';
       }
-    }else if(key == 'T'){
-      if(this.filterby == 'T_LTH'){
+    } else if (key == 'T') {
+      if (this.filterby == 'T_LTH') {
         this.filterby = 'T_HTL';
-      }else{
+      } else {
         this.filterby = 'T_LTH';
       }
-    }else if(key == 'P'){
-      if(this.filterby == 'P_LTH'){
+    } else if (key == 'P') {
+      if (this.filterby == 'P_LTH') {
         this.filterby = 'P_HTL';
-      }else{
+      } else {
         this.filterby = 'P_LTH';
       }
     }
@@ -642,60 +658,60 @@ export class HomePage implements OnInit, AfterViewInit {
     this.scrollToSel();
   }
 
-  sortComp(type){
-    if(type == 'C_LTH'){
+  sortComp(type) {
+    if (type == 'C_LTH') {
       // if(this.selSectorComp.length > 0){
-        this.selSectorComp.sort((a,b)=>{
-          return a.companyName.localeCompare(b.companyName);
-        });
-        this.selectedIndexData.sort((a,b)=>{
-          return a.companyName.localeCompare(b.companyName);
-        });
-    }else if(type == 'C_HTL'){
-      this.selSectorComp.sort((a,b)=>{
+      this.selSectorComp.sort((a, b) => {
+        return a.companyName.localeCompare(b.companyName);
+      });
+      this.selectedIndexData.sort((a, b) => {
+        return a.companyName.localeCompare(b.companyName);
+      });
+    } else if (type == 'C_HTL') {
+      this.selSectorComp.sort((a, b) => {
         return b.companyName.localeCompare(a.companyName);
       });
-      this.selectedIndexData.sort((a,b)=>{
+      this.selectedIndexData.sort((a, b) => {
         return b.companyName.localeCompare(a.companyName);
       });
-    }else if(type == 'HF_LTH'){
-      this.selSectorComp.sort((a,b)=>{
+    } else if (type == 'HF_LTH') {
+      this.selSectorComp.sort((a, b) => {
         return a.scores - b.scores;
       });
       this.selectedIndexData.sort((a, b) => {
         return a.scores - b.scores;
       });
-    }else if(type == 'HF_HTL'){
-      this.selSectorComp.sort((a,b)=>{
+    } else if (type == 'HF_HTL') {
+      this.selSectorComp.sort((a, b) => {
         return b.scores - a.scores;
       });
-     this.selectedIndexData.sort((a, b) => {
+      this.selectedIndexData.sort((a, b) => {
         return b.scores - a.scores;
       });
-      
-    }else if(type == 'T_LTH'){
-      this.selSectorComp.sort((a,b)=>{
+
+    } else if (type == 'T_LTH') {
+      this.selSectorComp.sort((a, b) => {
         return a.ticker.localeCompare(b.ticker);
       });
-      this.selectedIndexData.sort((a,b)=>{
+      this.selectedIndexData.sort((a, b) => {
         return a.ticker.localeCompare(b.ticker);
       });
-    }else if(type == 'T_HTL'){
-      this.selSectorComp.sort((a,b)=>{
+    } else if (type == 'T_HTL') {
+      this.selSectorComp.sort((a, b) => {
         return b.ticker.localeCompare(a.ticker);
       });
-      this.selectedIndexData.sort((a,b)=>{
+      this.selectedIndexData.sort((a, b) => {
         return b.ticker.localeCompare(a.ticker);
       });
-    }else if(type == 'P_LTH'){
-      this.selSectorComp.sort((a,b)=>{
+    } else if (type == 'P_LTH') {
+      this.selSectorComp.sort((a, b) => {
         return a.price - b.price;
       });
       this.selectedIndexData.sort((a, b) => {
         return a.price - b.price;
       });
-    }else if(type == 'P_HTL'){
-      this.selSectorComp.sort((a,b)=>{
+    } else if (type == 'P_HTL') {
+      this.selSectorComp.sort((a, b) => {
         return b.price - a.price;
       });
       this.selectedIndexData.sort((a, b) => {
@@ -704,70 +720,70 @@ export class HomePage implements OnInit, AfterViewInit {
     }
   }
 
-  ondayclick(day){
+  ondayclick(day) {
     this.selDay = day;
   }
 
-  isAlertexist(key){
+  isAlertexist(key) {
     let userInfo = {
       userId: this.currentUser.userId,
       stockKey: key
     }
 
-    this.alertService.getAlert(userInfo).subscribe((data)=>{
-      if(data[0] != null){
+    this.alertService.getAlert(userInfo).subscribe((data) => {
+      if (data[0] != null) {
         return 'visible';
-      }else{
+      } else {
         return 'hidden';
       }
-    }); 
+    });
   }
-  onlongpress(itm){
-    if(this.SelSearchObj == null || this.SelSearchObj != itm){
+  onlongpress(itm) {
+    if (this.SelSearchObj == null || this.SelSearchObj != itm) {
       this.onCompanyClick(itm);
     }
     let userInfo = {
       userId: this.currentUser.userId,
       stockKey: this.SelSearchObj.stockKey
     }
-    this.alertService.getAlert(userInfo).subscribe((data)=>{
-      
-       this.savedAlert = data[0];
-      //  console.log(this.savedAlert)
-        if(this.savedAlert != null){
-          // console.log(data);
-            if(this.savedAlert.daily=='Y') this.selPeriod = 'daily';
-  
-            if(this.savedAlert.weekly=='Y') this.selPeriod = 'weekly';
-  
-            if(this.savedAlert.monthly == 'Y') this.selPeriod = 'monthly';
-  
-            this.selDay = this.savedAlert.weekDay == '0' ? 'monday' : this.savedAlert.weekDay.toString().toLowerCase();;
-  
-            this.selDate = this.savedAlert.monthDt == '0' ? 1 : this.savedAlert.monthDt;
-  
-            this.perChecked = this.savedAlert.scoreChange == 'Y' ? true : false;
-  
-            this.selPer = this.savedAlert.scorePercent == 0? 1 : this.savedAlert.scorePercent;
+    this.alertService.getAlert(userInfo).subscribe((data) => {
 
-            this.showSubmit = false;
-            this.showAlertSetup = true;
-            this.showAlertRemove = true;
-        }else{
-          this.selPeriod = '';
-          this.selDay= 'monday';
-          this.selDate = 1;
-          this.perChecked = false;
-          this.selPer= 1;
-          this.showAlertSetup = true;
-          this.showAlertRemove = false;
-        }
+      this.savedAlert = data[0];
+      //  console.log(this.savedAlert)
+      if (this.savedAlert != null) {
+        // console.log(data);
+        if (this.savedAlert.daily == 'Y') this.selPeriod = 'daily';
+
+        if (this.savedAlert.weekly == 'Y') this.selPeriod = 'weekly';
+
+        if (this.savedAlert.monthly == 'Y') this.selPeriod = 'monthly';
+
+        this.selDay = this.savedAlert.weekDay == '0' ? 'monday' : this.savedAlert.weekDay.toString().toLowerCase();;
+
+        this.selDate = this.savedAlert.monthDt == '0' ? 1 : this.savedAlert.monthDt;
+
+        this.perChecked = this.savedAlert.scoreChange == 'Y' ? true : false;
+
+        this.selPer = this.savedAlert.scorePercent == 0 ? 1 : this.savedAlert.scorePercent;
+
+        this.showSubmit = false;
+        this.showAlertSetup = true;
+        this.showAlertRemove = true;
+      } else {
+        this.selPeriod = '';
+        this.selDay = 'monday';
+        this.selDate = 1;
+        this.perChecked = false;
+        this.selPer = 1;
+        this.showAlertSetup = true;
+        this.showAlertRemove = false;
+      }
     })
-    
-    
+
+
   }
   /*************** On country Select Start *****************/
-  onCountryClick(country){
+  onCountryClick(country) {
     this.globalselectedcountryList = this.compglobalCountryInd[country];
     // console.log(this.globalselectedcountryList);
   }
@@ -804,22 +820,22 @@ export class HomePage implements OnInit, AfterViewInit {
   }
   /*************** Median Text color End *****************/
 
-  ApplyPercentColor(val){
-    return (val >=45 && val < 55) ? "#FF9503" : this.getColor(val);
+  ApplyPercentColor(val) {
+    return (val >= 45 && val < 55) ? "#FF9503" : this.getColor(val);
   }
   /*************** Global Index Select Start *****************/
   onglobalIndexClick(i) {
     this.SelIndexName = i;
-// setTimeout(() => {
+    // setTimeout(() => {
     this.compIndexShow = false;
     this.icon = "ios-arrow-dropdown-circle";
     this.parentcard = false;
-    
+
     this.selectedIndexData = this.globalindexwise[this.globalIndex.indexOf(i)].filter(item => item.indexName == i);
     this.unsortedIndexData = this.globalindexwise[this.globalIndex.indexOf(i)].filter(item => item.indexName == i);
     document.getElementById('header-circle').style.background = this.getColor(this.globalmed[this.globalIndex.indexOf(i)]);
     document.getElementById('header-circle').style.color = this.ApplyTextColor(this.globalmed[this.globalIndex.indexOf(i)]);
-    
+
     this.unsortedIndexData = this.unsortedIndexData.sort((a, b) => {
       return a.scores - b.scores;
     });
@@ -835,7 +851,7 @@ export class HomePage implements OnInit, AfterViewInit {
     //   }, 100);
     // }
     // }, 200);
-    
+
   }
   /*************** Global Index Select End *****************/
 
@@ -849,7 +865,7 @@ export class HomePage implements OnInit, AfterViewInit {
     this.unsortedIndexData = this.naaindexwise[this.NAAIndex.indexOf(i)].filter(item => item.indexName == i);
     document.getElementById('header-circle').style.background = this.getColor(this.naamed[this.NAAIndex.indexOf(i)]);
     document.getElementById('header-circle').style.color = this.ApplyTextColor(this.naamed[this.NAAIndex.indexOf(i)]);
-    
+
     this.unsortedIndexData = this.unsortedIndexData.sort((a, b) => {
       return a.scores - b.scores;
     });
@@ -902,14 +918,14 @@ export class HomePage implements OnInit, AfterViewInit {
     setTimeout(() => {
       this.onSlide1Click();
     }, 900);
-    
+
   }
 
-  
+
   /*************** After View End *****************/
 
   ionViewDidEnter() {
-    this.backButtonSubscription = this.plt.backButton.subscribe(()=>{
+    this.backButtonSubscription = this.plt.backButton.subscribe(() => {
       navigator['app'].exitApp();
     });
   }
@@ -1074,32 +1090,56 @@ export class HomePage implements OnInit, AfterViewInit {
   }
   /*************** ETF Selected End *****************/
 
-  /*************** Global/NAA Tab Selected Start *****************/
-  onNavClick() {
+  /*************** Global Tab Selected Start *****************/
+  onNavGlobalClick() {
+    if (this.SelTab != 'Global Universe') {
+      this.prevSelTab = this.SelTab;
+    }
+    console.log(this.prevSelTab);
+    this.SelTab = 'Global Universe';
     this.stockCollapse = true;
     this.compIndexShow = true;
     this.icon = "ios-arrow-dropup-circle";
     this.sectorHeadings[1] = 'Index';
   }
-  /*************** Global/NAA Tab Selected End *****************/
+  /*************** Global Tab Selected End *****************/
+
+  /*************** NAA Tab Selected Start *****************/
+  onNavNAAClick() {
+    if (this.SelTab != 'NAA') {
+      this.prevSelTab = this.SelTab;
+    }
+    console.log(this.prevSelTab);
+    this.SelTab = 'NAA';
+    this.stockCollapse = true;
+    this.compIndexShow = true;
+    this.icon = "ios-arrow-dropup-circle";
+    this.sectorHeadings[1] = 'Index';
+  }
+  /*************** NAA Tab Selected End *****************/
 
   /*************** ETF Tab Selected Start *****************/
   onNavETFClick() {
+    if (this.SelTab != 'ETF') {
+      this.prevSelTab = this.SelTab;
+    }
+    console.log(this.prevSelTab);
+    this.SelTab = 'ETF';
     this.stockCollapse = true;
     this.compIndexShow = true;
     this.icon = "ios-arrow-dropup-circle";
     this.parentcard = true;
     this.sectorHeadings[1] = 'Exchange Traded Funds';
-      
-    var etfLoaderinterval = setInterval(()=>{
-      if(this.ETFCatagoriesComp.length!=0){
+
+    var etfLoaderinterval = setInterval(() => {
+      if (this.ETFCatagoriesComp.length != 0) {
         this.showLoader = false;
         clearInterval(etfLoaderinterval);
       }
-      
-    },100)
 
-    
+    }, 100)
+
+
   }
   /*************** ETF Tab Selected End *****************/
 
@@ -1136,6 +1176,34 @@ export class HomePage implements OnInit, AfterViewInit {
       this.stockCollapse = true;
       this.icon = "ios-arrow-dropup-circle";
     } else {
+      if(this.prevSelTab == 'ETF' || this.prevSelTab == 'ETFChild'){
+        for (var i = 0 ; i < this.compETFNameList.length; i++){
+          if(this.compETFNameList[i].name == this.SelIndexName){
+            this.SelTab = 'ETF';
+          }
+        }
+      }else if(this.prevSelTab == 'NAA'){
+        for(var i = 0; i < this.comNAAIndex.length; i++ ){
+          if(this.comNAAIndex[i].name == this.SelIndexName){
+            this.SelTab = 'NAA';
+          }
+        }
+      }else if(this.prevSelTab == 'Global Universe'){
+        for(var x in this.compglobalCountryInd){
+          for(var i = 0; i< this.compglobalCountryInd[x].length; i++){
+            if(this.compglobalCountryInd[x][i].name == this.SelIndexName){
+              this.SelTab = 'Global Universe';
+            }
+          }
+        }
+      }else if(this.prevSelTab == 'FI'){
+        for(var i = 0; i < this.FIselCatogaryList.length; i++){
+          var temp = this.FIselCatogaryList[i].category == 'HY'? 'High Yield' : 'Investment Grade';
+          if(temp == this.SelIndexName){
+            this.SelTab = 'FI';
+          }
+        }
+      }
       this.compIndexShow = false;
       this.icon = "ios-arrow-dropdown-circle";
       this.scrollToSel();
@@ -1145,33 +1213,34 @@ export class HomePage implements OnInit, AfterViewInit {
 
   /*************** Company Selected Start *****************/
   onCompanyClick(e) {
+    // console.log(e);
     this.selComp = e.companyName;
     this.searchSel = e;
-    if(this.SelTab == 'FI'){
+    if (this.SelTab == 'FI') {
       // console.log('fi');
       this.SelSearchObj = e;
-       this.SelSearchObj.FIName = e.category == 'HY'? 'High Yield' : 'Investment Grade';
+      this.SelSearchObj.FIName = e.category == 'HY' ? 'High Yield' : 'Investment Grade';
       this.getSectorList(e.industry.toString());
       this.onSectorClick(e.industry);
       this.sortComp(this.filterby);
-    }else if (e.hasOwnProperty('indexType')) {
-        this.getSectorList(e.industry.toString());
-        this.SelSearchObj = e;
-        this.SelSearchObj.etfName = this.SelIndexName;
-        this.onSectorClick(e.industry);
-        this.sortComp(this.filterby);
-      } else if (e.indexName.indexOf('New Age Alpha ') == -1) {
-        this.getSectorList(e.industry.toString());
-        this.SelSearchObj = e;  
-        this.onSectorClick(e.industry);
-        this.sortComp(this.filterby);
-      } else {
-        var temp = e;
-        this.getSectorList(temp.industry.toString());
-        this.SelSearchObj = temp;
-        this.onSectorClick(temp.industry);
-        this.sortComp(this.filterby);
-      }
+    } else if (e.hasOwnProperty('indexType')) {
+      this.SelSearchObj = e;
+      this.SelSearchObj.etfName = this.SelIndexName;
+      this.getSectorList(e.industry.toString());
+      this.onSectorClick(e.industry);
+      this.sortComp(this.filterby);
+    } else if (e.indexName.indexOf('New Age Alpha ') == -1) {
+      this.SelSearchObj = e;
+      this.getSectorList(e.industry.toString());
+      this.onSectorClick(e.industry);
+      this.sortComp(this.filterby);
+    } else {
+      var temp = e;
+      this.SelSearchObj = temp;
+      this.getSectorList(temp.industry.toString());
+      this.onSectorClick(temp.industry);
+      this.sortComp(this.filterby);
+    }
     this.slides.slideTo(0);
   }
   /*************** Company Selected End *****************/
@@ -1181,60 +1250,62 @@ export class HomePage implements OnInit, AfterViewInit {
     component: IonicSelectableComponent,
     text: string
   }) {
-   
+    //  console.log(event.text.trim());
     let text = event.text.trim();
     this.searchedtext = text;
-    if(this.SelTab == undefined){
-      if(text.length != 0){
-        this.LoadsearchList = this.searchList.filter((item)=>{
+    if (this.SelTab == undefined) {
+      if (text.length != 0) {
+        this.LoadsearchList = this.searchList.filter((item) => {
           return (item.companyName.toLowerCase().indexOf(text.toLowerCase()) === 0) || (item.ticker.toLowerCase().indexOf(text.toLowerCase()) === 0);
         })
-      }else{
+      } else {
         this.LoadsearchList.length = 0;
       }
-    }else if(this.SelTab == ''){
-      if(text.length != 0){
-        this.LoadsearchList = this.searchList.filter((item)=>{
+    } else if (this.SelTab == '') {
+      if (text.length != 0) {
+        this.LoadsearchList = this.searchList.filter((item) => {
           return (item.companyName.toLowerCase().indexOf(text.toLowerCase()) === 0) || (item.ticker.toLowerCase().indexOf(text.toLowerCase()) === 0);
         })
-      }else{
+      } else {
         this.LoadsearchList.length = 0;
       }
-    }else if(this.SelTab == 'Global Universe'){
-      if(text.length != 0){
-        this.LoadsearchList = this.searchList.filter((item)=>{
+    } else if (this.SelTab == 'Global Universe') {
+      if (text.length != 0) {
+        this.searchSel = '';
+        this.LoadsearchList = this.searchList.filter((item) => {
           return (item.companyName.toLowerCase().indexOf(text.toLowerCase()) === 0) || (item.ticker.toLowerCase().indexOf(text.toLowerCase()) === 0);
         })
-      }else{
+      } else {
         this.LoadsearchList.length = 0;
       }
-    }else if(this.SelTab == 'FI'){
-      if(text.length != 0){
-        this.LoadsearchList = this.FISearchList.filter((item)=>{
+    } else if (this.SelTab == 'FI') {
+      if (text.length != 0) {
+        this.searchSel = '';
+        this.LoadsearchList = this.FISearchList.filter((item) => {
           return (item.companyName.toLowerCase().indexOf(text.toLowerCase()) === 0) || (item.ticker.toLowerCase().indexOf(text.toLowerCase()) === 0);
         })
-      }else{
+      } else {
         this.LoadsearchList.length = 0;
       }
-    }else if(this.SelTab == 'NAA'){
-      if(text.length != 0){
-        this.LoadsearchList = this.NaaSearchList.filter((item)=>{
+    } else if (this.SelTab == 'NAA') {
+      if (text.length != 0) {
+        this.LoadsearchList = this.NaaSearchList.filter((item) => {
           return (item.companyName.toLowerCase().indexOf(text.toLowerCase()) === 0) || (item.ticker.toLowerCase().indexOf(text.toLowerCase()) === 0);
         })
-      }else{
+      } else {
         this.LoadsearchList.length = 0;
       }
-    }else if(this.SelTab == 'ETF' || this.SelTab == 'ETFChild'){
-      if(text.length != 0){
-        this.LoadsearchList = this.EtfSearchList.filter((item)=>{
+    } else if (this.SelTab == 'ETF' || this.SelTab == 'ETFChild') {
+      if (text.length != 0) {
+        this.LoadsearchList = this.EtfSearchList.filter((item) => {
           return (item.companyName.toLowerCase().indexOf(text.toLowerCase()) === 0) || (item.ticker.toLowerCase().indexOf(text.toLowerCase()) === 0);
         })
-      }else{
+      } else {
         this.LoadsearchList.length = 0;
       }
     }
 
-   
+
 
     // if (text.length == 0) {
     //   this.searchList = this.searchList.filter(item => item.indexName.indexOf("New Age Alpha") == -1 || item.indexName != null);
@@ -1250,7 +1321,7 @@ export class HomePage implements OnInit, AfterViewInit {
     //        return (item.companyName.toLowerCase().indexOf(text.toLowerCase()) > -1) || (item.ticker.toLowerCase().indexOf(text.toLowerCase()) > -1);
     //     });
     //   }else if(this.SelTab == 'Global Universe'){
-        
+
     //     this.searchList = this.searchList.filter(item => item.indexName.indexOf("New Age Alpha") == -1);
     //     this.LoadsearchList = this.searchList.filter((item) => {
     //       // console.log(item.ticker.toLowerCase().indexOf(text.toLowerCase()) > -1); 
@@ -1262,7 +1333,7 @@ export class HomePage implements OnInit, AfterViewInit {
 
 
     // else {
-      
+
 
     // }
   }
@@ -1270,7 +1341,7 @@ export class HomePage implements OnInit, AfterViewInit {
 
   onSearchClose(event: {
     component: IonicSelectableComponent
-  }){
+  }) {
     event.component.searchText = '';
   }
 
@@ -1282,29 +1353,35 @@ export class HomePage implements OnInit, AfterViewInit {
     var industryVal = e.industry;
     this.GridHeaderTitle = false;
 
-    if(this.SelTab == undefined) {
+    if (this.SelTab == undefined) {
       this.SelTab = 'Global Universe';
       this.onglobalIndexClick(e.indexName);
       this.onCompanyClick(e);
+      setTimeout(() => {
+        this.loadData();
+      }, 50);
     }
-    
-    else if(this.SelTab == 'Global Universe') {
+
+    else if (this.SelTab == 'Global Universe') {
       // console.log('global');
       this.onglobalIndexClick(e.indexName);
       this.onCompanyClick(e);
+      setTimeout(() => {
+        this.loadData();
+      }, 50);
     }
-    
-    else if(this.SelTab == 'FI'){
+
+    else if (this.SelTab == 'FI') {
       // console.log(e)
-      var temp = this.FIIndexList.filter(item=> item.country === e.fiCountry && item.category === e.fiCategory)[0];
+      var temp = this.FIIndexList.filter(item => item.country === e.fiCountry && item.category === e.fiCategory)[0];
       this.onFixedCatClick(temp);
-      this.SelSearchObj.FIName = e.category == 'HY'? 'High Yield' : 'Investment Grade';
+      this.SelSearchObj.FIName = e.category == 'HY' ? 'High Yield' : 'Investment Grade';
       setTimeout(() => {
         this.onCompanyClick(e);
       }, 1400);
     }
-    
-    else if(this.SelTab == 'NAA'){
+
+    else if (this.SelTab == 'NAA') {
       this.onNaaIndexClick(e.indexName);
       this.onCompanyClick(e);
     }
@@ -1313,8 +1390,9 @@ export class HomePage implements OnInit, AfterViewInit {
       this.SelTab = 'ETF';
       this.onETFCategoryClick("All");
       this.onETFNameClick(e.companyName);
+      this.EtfMed = this.getEtfMed(e.companyName);
     }
-    
+
     else {
       this.getSectorList(industryVal.toString())
       this.onSectorClick(e.industry);
@@ -1324,35 +1402,35 @@ export class HomePage implements OnInit, AfterViewInit {
 
   /***************Search Infinite Scroll Activate Start *****************/
   getMoreSearchComp(event: { component: IonicSelectableComponent, text: string }) {
-    if(this.LoadsearchList.length > 0){
-    let text = (event.text || '').trim().toLowerCase();
-    if (this.LoadsearchList.length == this.searchList.length) {
-      event.component.disableInfiniteScroll();
-      return;
+    if (this.LoadsearchList.length > 0) {
+      let text = (event.text || '').trim().toLowerCase();
+      if (this.LoadsearchList.length == this.searchList.length) {
+        event.component.disableInfiniteScroll();
+        return;
+      }
+      this.size = this.size + 50;
+      if (this.SelTab == 'Global Universe') {
+        this.LoadsearchList.length = 0;
+        this.LoadsearchList = this.searchList.slice(0, this.size).map(i => {
+          return i;
+        });
+      } else if (this.SelTab == 'FI') {
+        this.LoadsearchList.length = 0;
+        this.LoadsearchList = this.FISearchList.slice(0, this.size).map(i => {
+          return i;
+        });
+      } else if (this.SelTab == 'NAA') {
+        this.LoadsearchList.length = 0;
+        this.LoadsearchList = this.NaaSearchList.slice(0, this.size).map(i => {
+          return i;
+        });
+      } else if (this.SelTab == 'ETF' || this.SelTab == 'ETFChild') {
+        this.LoadsearchList.length = 0;
+        this.LoadsearchList = this.EtfSearchList.slice(0, this.size).map(i => {
+          return i;
+        });
+      }
     }
-    this.size = this.size + 50;
-    if(this.SelTab == 'Global Universe'){
-      this.LoadsearchList.length = 0;
-      this.LoadsearchList = this.searchList.slice(0, this.size).map(i => {
-        return i;
-      });
-    }else if(this.SelTab == 'FI'){
-      this.LoadsearchList.length = 0;
-      this.LoadsearchList = this.FISearchList.slice(0, this.size).map(i => {
-        return i;
-      });
-    }else if(this.SelTab == 'NAA'){
-      this.LoadsearchList.length = 0;
-      this.LoadsearchList = this.NaaSearchList.slice(0, this.size).map(i => {
-        return i;
-      });
-    }else if(this.SelTab == 'ETF' || this.SelTab == 'ETFChild'){
-      this.LoadsearchList.length = 0;
-      this.LoadsearchList = this.EtfSearchList.slice(0, this.size).map(i => {
-        return i;
-      });
-    }
-  }
     event.component.endInfiniteScroll();
   }
   /***************Search Infinite Scroll Activate End *****************/
@@ -1371,11 +1449,11 @@ export class HomePage implements OnInit, AfterViewInit {
     }
     //console.log(this.sectorList);
     var temp1 = [];
-    if(this.SelSearchObj.hasOwnProperty('FIName')){
+    if (this.SelSearchObj.hasOwnProperty('FIName')) {
       temp1 = [{ 'code': 'Index', 'name': this.SelSearchObj.FIName }];
-    }else if(this.SelSearchObj.hasOwnProperty('etfName')){
+    } else if (this.SelSearchObj.hasOwnProperty('etfName')) {
       temp1 = [{ 'code': 'Index', 'name': this.SelSearchObj.etfName }];
-    }else{
+    } else {
       temp1 = [{ 'code': 'Index', 'name': this.SelSearchObj.indexName }];
     }
     this.sectorList.unshift(temp1[0]);
@@ -1401,9 +1479,9 @@ export class HomePage implements OnInit, AfterViewInit {
         return a.scores - b.scores;
       });
 
-      this.selSectorComp = this.globalselectorcomp.slice(0,100);
+      this.selSectorComp = this.globalselectorcomp.slice(0, 100);
       // console.log(this.selSectorComp);
-      this.unsortselSectorComp = this.globalselectorcomp.slice(0,100);
+      this.unsortselSectorComp = this.globalselectorcomp.slice(0, 100);
       this.selSector = this.sectorList[0];
       // console.log(this.selSector);
       this.SelSecLevTitle = this.sectorHeadings[this.sectorList.indexOf(this.selSector)];
@@ -1416,7 +1494,7 @@ export class HomePage implements OnInit, AfterViewInit {
       //   this.content.scrollToPoint(0,500);
       //   console.log("done");
       // },100);
-      
+
       this.scrollToSel();
       // setTimeout(()=>{
       //   console.log(document.getElementById('sectorscrollDiv'));
@@ -1430,8 +1508,8 @@ export class HomePage implements OnInit, AfterViewInit {
       // console.log(this.selSectorComp);
       this.selSector = this.sectorList[1];
       // console.log(this.selSector);
-      
-      
+
+
       this.SelSecLevTitle = this.sectorHeadings[this.sectorList.indexOf(this.selSector)];
       // console.log(this.SelSecLevTitle);
       this.stockMed = this.roundValue(this.getMed(this.selSectorComp) * 100);
@@ -1441,33 +1519,29 @@ export class HomePage implements OnInit, AfterViewInit {
       this.scrollToSel();
       this.sortComp(this.filterby);
     }
-      else if(this.SelSearchObj.hasOwnProperty('FIName')){
+    else if (this.SelSearchObj.hasOwnProperty('FIName')) {
       // console.log('FIName');
       // console.log(this.selectedIndexData);
       this.fullSectorComp = this.selectedIndexData.filter(item =>
         item.industry.toString().substring(0, key.toString().length) == key
       )
       // console.log(this.fullSectorComp);
-        this.unsortselSectorComp = this.fullSectorComp.filter(item => item.companyName != null);
-        this.unsortselSectorComp.sort((a, b) => {
-          return a.scores - b.scores;
+      this.unsortselSectorComp = this.fullSectorComp.filter(item => item.companyName != null);
+      this.unsortselSectorComp.sort((a, b) => {
+        return a.scores - b.scores;
       })
-        this.selSectorComp = this.fullSectorComp.filter(item => item.companyName != null);
-        this.selSectorComp.sort((a, b) => {
-          return a.scores - b.scores;
+      this.selSectorComp = this.fullSectorComp.filter(item => item.companyName != null);
+      this.selSectorComp.sort((a, b) => {
+        return a.scores - b.scores;
       })
       this.selSector = this.sectorList[((key.toString().length / 2) - 1) + 2];
       this.SelSecLevTitle = this.sectorHeadings[this.sectorList.indexOf(this.selSector)];
       this.stockMed = this.roundValue(this.getMed(this.selSectorComp) * 100);
       document.getElementById('subIndex-circle').style.background = this.getColor(this.roundValue(this.getMed(this.selSectorComp) * 100));
       document.getElementById('subIndex-circle').style.color = this.ApplyTextColor(this.roundValue(this.getMed(this.selSectorComp) * 100));
-      // console.log(this.selSectorComp);
-      // console.log(this.unsortselSectorComp);
       this.loadData();
       this.sortComp(this.filterby);
       this.scrollToSel();
-      // console.log(this.selSectorComp)
-
     }
     else {
       // console.log('else');
@@ -1489,9 +1563,9 @@ export class HomePage implements OnInit, AfterViewInit {
         return a.scores - b.scores;
       })
       this.selSectorComp = this.selSectorComp.filter(item => item.companyName != null);
-       this.selSectorComp.sort((a, b) => {
-         return b.scores - a.scores;
-       })
+      this.selSectorComp.sort((a, b) => {
+        return b.scores - a.scores;
+      })
       this.selSector = this.sectorList[((key.toString().length / 2) - 1) + 2];
       this.SelSecLevTitle = this.sectorHeadings[this.sectorList.indexOf(this.selSector)];
       this.stockMed = this.roundValue(this.getMed(this.selSectorComp) * 100);
@@ -1545,20 +1619,20 @@ export class HomePage implements OnInit, AfterViewInit {
         var temp = this.selectedIndexData.filter((item) => item.companyName == this.selComp);
         var index = this.selectedIndexData.indexOf(temp[0]) + 1;
         var indheight = document.getElementById('IndexCompanyDiv').clientHeight;
-        var manInd = (index * 45) - (indheight/2);
-        
+        var manInd = (index * 45) - (indheight / 2);
+
         // manInd = manInd;
         // console.log(manInd);
         document.getElementById('scrollDiv').scrollTo(0, manInd);
         var sectemp = this.selSectorComp.filter((item) => item.companyName == this.selComp);
         var secInd = this.selSectorComp.indexOf(sectemp[0]) + 1;
         // var mansecInd = (secInd * 42) - 240;
-        setTimeout(()=>{
+        setTimeout(() => {
           var stcheight = document.getElementById('stockCompanyDiv').clientHeight;
-          var mansecInd = (secInd * 45) - (stcheight/2);
+          var mansecInd = (secInd * 45) - (stcheight / 2);
           // console.log(mansecInd + height);
           document.getElementById('sectorscrollDiv').scrollTo(0, mansecInd);
-        },500);
+        }, 500);
       }, 100);
     }
   }
@@ -1581,7 +1655,7 @@ export class HomePage implements OnInit, AfterViewInit {
   M_Companies: any = [];
 
   loadData() {
-    
+
     this.M_gchart = d3.select("#M_gchart");
     this.M_chartMain = this.M_createMainChart(this.M_gchart);
   }
@@ -1774,51 +1848,51 @@ export class HomePage implements OnInit, AfterViewInit {
       .attr("rx", 30)
       .attr("y", -18)
   }
-/*************** Banner Tool End *****************/
+  /*************** Banner Tool End *****************/
 
-onscroll(event){
-  //event.target.
-  setTimeout(()=>{
-    // console.log(event)
-    // console.log("scroll running");
-    if(this.selSector.code=='Global Universe'){
-      if(this.selSectorComp.length != this.globalselectorcomp.length){
-        this.globalSize = this.globalSize+100;
-        this.selSectorComp = this.globalselectorcomp.slice(0,this.globalSize);
-        this.unsortselSectorComp = this.globalselectorcomp.slice(0,this.globalSize);
-        // console.log(this.unsortselSectorComp);
-      event.target.complete();
-      if(this.selSectorComp.length == this.globalselectorcomp.length){
-        event.target.disabled = true;
+  onscroll(event) {
+    //event.target.
+    setTimeout(() => {
+      // console.log(event)
+      // console.log("scroll running");
+      if (this.selSector.code == 'Global Universe') {
+        if (this.selSectorComp.length != this.globalselectorcomp.length) {
+          this.globalSize = this.globalSize + 100;
+          this.selSectorComp = this.globalselectorcomp.slice(0, this.globalSize);
+          this.unsortselSectorComp = this.globalselectorcomp.slice(0, this.globalSize);
+          // console.log(this.unsortselSectorComp);
+          event.target.complete();
+          if (this.selSectorComp.length == this.globalselectorcomp.length) {
+            event.target.disabled = true;
+          }
+        } else {
+          event.target.disabled = true;
+        }
       }
-    }else{
-      event.target.disabled = true;
-    }
-    }
-    
-    
-  },500);
-  
 
-}
 
-// onClick(){
-//   this.route.navigateByUrl('/test');
-// }
+    }, 500);
 
-onLogoutClick(){
-  this.authService.logout();
-}
 
-  async profilePopover(e:any){
+  }
+
+  // onClick(){
+  //   this.route.navigateByUrl('/test');
+  // }
+
+  onLogoutClick() {
+    this.authService.logout();
+  }
+
+  async profilePopover(e: any) {
     // console.log("presenting profile Details");
-  const popover = await this.popoverController.create({
-    component:ProfiledetailsComponent,
-    event : e,
-    translucent: true,
-    cssClass:'Custom_profile'
-  });
+    const popover = await this.popoverController.create({
+      component: ProfiledetailsComponent,
+      event: e,
+      translucent: true,
+      cssClass: 'Custom_profile'
+    });
 
-  return await popover.present();
-}
+    return await popover.present();
+  }
 }

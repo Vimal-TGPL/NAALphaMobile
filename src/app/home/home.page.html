@@ -40,10 +40,11 @@
             <p *ngIf="this.SelTab !== 'ETF' && this.SelTab !== 'ETFChild'">Ticker or company name</p>
             <p *ngIf="this.SelTab == 'ETF' || this.SelTab == 'ETFChild'">ETF ticker or name</p></ion-label>
           <ionic-selectable class="homeSearch" #SearchComponent [(ngModel)]="searchSel" [items]="LoadsearchList"
-            itemTextField="companyName" [canSearch]="true" (onSearch)="searchCompany($event)"
+            itemTextField="companyName" [canSearch]="true" (onSearch)="searchCompany($event);this.searchSel='';"
             (onSelect)="onSearchSelect($event.item)" [hasInfiniteScroll]="true"
             (onInfiniteScroll)="getMoreSearchComp($event)"
             [searchFailText]="'Sorry! we could not find any results matching.'"
+            [isMultiple]="false"
             (onClose)="onSearchClose($event)">
             <ng-template ionicSelectableTitleTemplate>
 
@@ -83,16 +84,23 @@
 
               <div style="height: calc(100vh - 196px);
               display: flex;
-              justify-content: center;
+              /* justify-content: center; */
               align-items: center;
-              flex-direction: column;" *ngIf="searchedtext.length > 0">
+              padding-top: 100px;
+              flex-direction: column;
+              position: fixed;
+              left: 0;
+              right: 0;" *ngIf="searchedtext.length > 0">
                 <img src="../../assets/images/NAA_search_notfound.png" alt="Search Not Found" height="300">
                 <p style="font-size: 20px;
                 color: #0569bd;
-                margin: 15px 5px 5px 5px;">Sorry, no result found</p>
+                margin: 15px 5px 5px 5px; font-family: Open Sans SemiBold;">Sorry, no result found</p>
                 <p style="width: 300px;
                 text-align: center;
-                margin: 5px;">What you searched was unfortunately not found or doesn’t exist.</p>
+                margin: 5px; 
+                color: #666;
+                font-family: Open Sans Regular;
+            font-size: 14px;">What you searched was unfortunately not found or doesn’t exist.</p>
               </div>
 
               <div style="height: calc(100vh - 196px);
@@ -104,15 +112,16 @@
               <img src="../../assets/images/NAA_Searching.svg" alt="Search" style="    height: 80px;
               margin-bottom: 50px;">
               <h1 style="    color: #666;
-              font-family: Open Sans Bold;
+              font-family: Open Sans SemiBold;
               padding: 0 50px;
               text-align: center;
-              font-size: 25px;">What Are you searching for?</h1>
+              font-size: 20px;
+              color: #0569bd;">What Are you searching for?</h1>
             <p style="    color: #666;
-            padding: 0 40px;
+            padding: 0 50px;
             text-align: center;
-            font-family: Open Sans SemiBold;
-            font-size: 16px;">Search for your favorite thing or find similar results in this area?</p>
+            font-family: Open Sans Regular;
+            font-size: 14px;">Search for your favorite thing or find similar results in this area?</p>
           </div>
             </ng-template>
           </ionic-selectable>
@@ -130,11 +139,11 @@
           </div>
           <div class="stock-header" (click)="onStockDivClick()">
             <span class="stock-span">Stocks</span>
-            <span class="stock-span"><span style="display: flex;" *ngIf="searchSel!=''"><span style="white-space: nowrap;
+            <span class="stock-span"><span style="display: flex;" *ngIf="SelSearchObj!=''"><span style="white-space: nowrap;
               width: 90px;
               display: inline-block;
               text-overflow: ellipsis;
-              overflow: hidden;">{{searchSel.companyName}}</span><span>({{searchSel.ticker}})</span></span></span>
+              overflow: hidden;">{{SelSearchObj.companyName}}</span><span>({{SelSearchObj.ticker}})</span></span></span>
           </div>
           <div [ngClass]="{'stock-collapse': stockCollapse}">
             <ion-grid fixed>
@@ -155,16 +164,16 @@
                 <ion-col size="6" class="selected-stock-details">
                   <div>
                     <ion-text>
-                      <p class="selected-stock-score" [style.color]="getColor(roundValue(searchSel.scores*100))"
-                        *ngIf="searchSel!='' && searchSel.indexName!='ETF'">{{roundValue(searchSel.scores*100)}}%</p>
-                      <p class="selected-stock-comp" [style.color]="getColor(roundValue(searchSel.scores*100))"
-                        *ngIf="searchSel!='' && searchSel.indexName!='ETF'">{{searchSel.companyName}}
-                        ({{searchSel.ticker}})</p>
-                      <p class="selected-stock-score" [style.color]="getColor(roundValue(searchSel.scores*100))"
-                        *ngIf="searchSel!='' && searchSel.indexName=='ETF' && EtfMed!='' ">{{EtfMed}}%</p>
-                      <p class="selected-stock-comp" [style.color]="getColor(roundValue(searchSel.scores*100))"
-                        *ngIf="searchSel!='' && searchSel.indexName=='ETF'">{{searchSel.companyName}}
-                        ({{searchSel.ticker}})</p>
+                      <p class="selected-stock-score" [style.color]="getColor(roundValue(SelSearchObj.scores*100))"
+                        *ngIf="SelSearchObj!='' && SelSearchObj.indexName!='ETF'">{{roundValue(SelSearchObj.scores*100)}}%</p>
+                      <p class="selected-stock-comp" [style.color]="getColor(roundValue(SelSearchObj.scores*100))"
+                        *ngIf="SelSearchObj!='' && SelSearchObj.indexName!='ETF'">{{SelSearchObj.companyName}}
+                        ({{SelSearchObj.ticker}})</p>
+                      <p class="selected-stock-score" [style.color]="getColor(roundValue(SelSearchObj.scores*100))"
+                        *ngIf="SelSearchObj!='' && SelSearchObj.indexName=='ETF' && EtfMed!='' ">{{EtfMed}}%</p>
+                      <p class="selected-stock-comp" [style.color]="getColor(roundValue(SelSearchObj.scores*100))"
+                        *ngIf="SelSearchObj!='' && SelSearchObj.indexName=='ETF'">{{SelSearchObj.companyName}}
+                        ({{SelSearchObj.ticker}})</p>
                     </ion-text>
                   </div>
                 </ion-col>
@@ -323,13 +332,13 @@
             <div>
               <ul class="NavTabList">
                 <li class="navTabBtn" [ngClass]="{'tab-active': SelTab == 'Global Universe'}"
-                  (click)="GridHeaderTitle=false; SelTab = 'Global Universe';onNavClick();">Equity Index</li>
+                  (click)="GridHeaderTitle=false; onNavGlobalClick();">Equity Index</li>
                 <li class="tab2color" [ngClass]="{'tab-active': SelTab == 'FI'}"
-                  (click)="GridHeaderTitle=false; SelTab = 'FI';onFINavClick();">Fixed Income</li>
+                  (click)="GridHeaderTitle=false; onFINavClick();">Fixed Income</li>
                 <li class="ETFNavTabBtn" [ngClass]="{'tab-active': SelTab == 'NAA'}"
-                  (click)="GridHeaderTitle=false; SelTab = 'NAA';onNavClick();">NAA Index</li>
+                  (click)="GridHeaderTitle=false; onNavNAAClick();">NAA Index</li>
                 <li class="ETFNavTabBtn" [ngClass]="{'tab-active': SelTab == 'ETF'|| SelTab == 'ETFChild'}"
-                  (click)="GridHeaderTitle=false; SelTab = 'ETF'; onNavETFClick();">ETF's</li>
+                  (click)="GridHeaderTitle=false; onNavETFClick();">ETF's</li>
               </ul>
             </div>
             <!-- Index Tab End  -->
@@ -618,7 +627,7 @@
 
   <div *ngIf="showFilter" class="Filter_Div">
    
-      <ion-list>
+      <ion-list id="sortbyList">
         <div>
         <ion-label>Sort by</ion-label>
         <ion-button class="sortCancelBtn" (click)="onSortClick()" fill="clear">
@@ -669,59 +678,10 @@
           </span>
          
         </ion-button>
-
-        
-      
-        <!-- <ion-radio-group name="sort" [value]="filterby" (ionChange)='onfilterSelect($event)'>
-          <ion-item-divider>
-            <ion-label>Company Name</ion-label>
-          </ion-item-divider>
-          
-          <ion-item lines="none">
-            <ion-label>Low to High</ion-label>
-            <ion-radio value="C_LTH"></ion-radio>
-          </ion-item>
-          <ion-item lines="none">
-            <ion-label>High to Low</ion-label>
-            <ion-radio value="C_HTL"></ion-radio>
-          </ion-item>
-          <ion-item-divider>
-            <ion-label>H-Factor Score</ion-label>
-          </ion-item-divider>
-          <ion-item lines="none">
-            <ion-label>Low to High (Preferred)</ion-label>
-            <ion-radio value="HF_LTH"></ion-radio>
-          </ion-item>
-          <ion-item lines="none">
-            <ion-label>High to Low</ion-label>
-            <ion-radio value="HF_HTL"></ion-radio>
-          </ion-item>
-          <ion-item-divider>
-            <ion-label>Ticker</ion-label>
-          </ion-item-divider>
-          <ion-item lines="none">
-            <ion-label>Low to High</ion-label>
-            <ion-radio value="T_LTH"></ion-radio>
-          </ion-item>
-          <ion-item lines="none">
-            <ion-label>High to Low</ion-label>
-            <ion-radio value="T_HTL"></ion-radio>
-          </ion-item>
-          <ion-item-divider>
-            <ion-label>Price</ion-label>
-          </ion-item-divider>
-          <ion-item lines="none">
-            <ion-label>Low to High</ion-label>
-            <ion-radio value="P_LTH"></ion-radio>
-          </ion-item>
-          <ion-item lines="none">
-            <ion-label>High to Low</ion-label>
-            <ion-radio value="P_HTL"></ion-radio>
-          </ion-item>
-        </ion-radio-group> -->
       </ion-list>
     
   </div>
+
   <div *ngIf="showAlertSetup" style="    position: absolute;
   z-index: 999;
   top: 0;
