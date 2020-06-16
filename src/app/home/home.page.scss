@@ -548,7 +548,7 @@ border-radius: 25px;
             align-items: center;
 
             .comp-Name{
-                width: 66vw;
+                width: 60vw;
                 overflow: hidden;
                 white-space: nowrap;
                 text-overflow: ellipsis;
@@ -697,6 +697,7 @@ border-radius: 25px;
 .selected-stock-comp{
     color: green; 
     font-size: 9px;
+    text-align: center;
     font-family: Open Sans Bold;
 }
 

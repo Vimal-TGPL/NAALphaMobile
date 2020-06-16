@@ -536,7 +536,7 @@ export class HomePage implements OnInit, AfterViewInit {
     if (this.SelTab != 'FI') {
       this.prevSelTab = this.SelTab;
     }
-    console.log(this.prevSelTab);
+    // console.log(this.prevSelTab);
     this.SelTab = 'FI';
     this.stockCollapse = true;
     this.compIndexShow = true;
@@ -575,6 +575,14 @@ export class HomePage implements OnInit, AfterViewInit {
       });
       // console.log(this.selectedIndexData);
       // console.log(this.unsortedIndexData);
+      var Wtsum = 0;
+      this.selectedIndexData.forEach(element => {
+        Wtsum = Wtsum +(1-element.scores);
+      });
+      this.selectedIndexData.forEach(e =>{
+        e.wt = ((1-e.scores)/Wtsum)*100;
+      })
+      // console.log(this.selectedIndexData);
       this.unsortedIndexData.sort((a, b) => {
         return a.scores - b.scores;
       })
@@ -839,6 +847,15 @@ export class HomePage implements OnInit, AfterViewInit {
     this.unsortedIndexData = this.unsortedIndexData.sort((a, b) => {
       return a.scores - b.scores;
     });
+
+    var Wtsum = 0;
+      this.selectedIndexData.forEach(element => {
+        Wtsum = Wtsum +(1-element.scores);
+      });
+      this.selectedIndexData.forEach(e =>{
+        e.wt = ((1-e.scores)/Wtsum)*100;
+      })
+      // console.log(this.selectedIndexData);
     // console.log(this.selectedIndexData);
     this.sortComp(this.filterby);
     // this.sortcompany();
@@ -865,7 +882,14 @@ export class HomePage implements OnInit, AfterViewInit {
     this.unsortedIndexData = this.naaindexwise[this.NAAIndex.indexOf(i)].filter(item => item.indexName == i);
     document.getElementById('header-circle').style.background = this.getColor(this.naamed[this.NAAIndex.indexOf(i)]);
     document.getElementById('header-circle').style.color = this.ApplyTextColor(this.naamed[this.NAAIndex.indexOf(i)]);
-
+    var Wtsum = 0;
+    this.selectedIndexData.forEach(element => {
+      Wtsum = Wtsum +(1-element.scores);
+    });
+    this.selectedIndexData.forEach(e =>{
+      e.wt = ((1-e.scores)/Wtsum)*100;
+    })
+    // console.log(this.selectedIndexData);
     this.unsortedIndexData = this.unsortedIndexData.sort((a, b) => {
       return a.scores - b.scores;
     });
@@ -1073,6 +1097,14 @@ export class HomePage implements OnInit, AfterViewInit {
         }
       }
       this.selectedIndexData = this.ETFHoldings;
+      var Wtsum = 0;
+      this.selectedIndexData.forEach(element => {
+        Wtsum = Wtsum +(1-element.scores);
+      });
+      this.selectedIndexData.forEach(e =>{
+        e.wt = ((1-e.scores)/Wtsum)*100;
+      })
+      // console.log(this.selectedIndexData);
       this.headermed = this.getEtfMed(name);
       document.getElementById('header-circle').style.visibility = 'visible';
       document.getElementById('header-circle').style.background = this.getColor(this.getEtfMed(name));
@@ -1095,7 +1127,7 @@ export class HomePage implements OnInit, AfterViewInit {
     if (this.SelTab != 'Global Universe') {
       this.prevSelTab = this.SelTab;
     }
-    console.log(this.prevSelTab);
+    // console.log(this.prevSelTab);
     this.SelTab = 'Global Universe';
     this.stockCollapse = true;
     this.compIndexShow = true;
@@ -1109,7 +1141,7 @@ export class HomePage implements OnInit, AfterViewInit {
     if (this.SelTab != 'NAA') {
       this.prevSelTab = this.SelTab;
     }
-    console.log(this.prevSelTab);
+    // console.log(this.prevSelTab);
     this.SelTab = 'NAA';
     this.stockCollapse = true;
     this.compIndexShow = true;
@@ -1123,7 +1155,7 @@ export class HomePage implements OnInit, AfterViewInit {
     if (this.SelTab != 'ETF') {
       this.prevSelTab = this.SelTab;
     }
-    console.log(this.prevSelTab);
+    // console.log(this.prevSelTab);
     this.SelTab = 'ETF';
     this.stockCollapse = true;
     this.compIndexShow = true;
@@ -1216,6 +1248,7 @@ export class HomePage implements OnInit, AfterViewInit {
     // console.log(e);
     this.selComp = e.companyName;
     this.searchSel = e;
+    console.log(e);
     if (this.SelTab == 'FI') {
       // console.log('fi');
       this.SelSearchObj = e;
@@ -1480,6 +1513,14 @@ export class HomePage implements OnInit, AfterViewInit {
       });
 
       this.selSectorComp = this.globalselectorcomp.slice(0, 100);
+      var wtsum = 0;
+      this.globalselectorcomp.forEach(element => {
+        wtsum = wtsum+(1-element.scores);        
+      });
+      this.selSectorComp.forEach(element => {
+        element.wt = ((1-element.scores)/wtsum)*100;
+      });
+      // console.log(this.selSectorComp);
       // console.log(this.selSectorComp);
       this.unsortselSectorComp = this.globalselectorcomp.slice(0, 100);
       this.selSector = this.sectorList[0];
@@ -1505,6 +1546,15 @@ export class HomePage implements OnInit, AfterViewInit {
       // console.log('Index');
       this.unsortselSectorComp = this.selectedIndexData;
       this.selSectorComp = this.selectedIndexData;
+
+      var wtsum = 0;
+
+      this.selSectorComp.forEach(element => {
+        wtsum = wtsum+(1-element.scores);        
+      });
+      this.selSectorComp.forEach(element => {
+        element.wt = ((1-element.scores)/wtsum)*100;
+      });
       // console.log(this.selSectorComp);
       this.selSector = this.sectorList[1];
       // console.log(this.selSector);
@@ -1531,6 +1581,15 @@ export class HomePage implements OnInit, AfterViewInit {
         return a.scores - b.scores;
       })
       this.selSectorComp = this.fullSectorComp.filter(item => item.companyName != null);
+      var wtsum = 0;
+
+      this.selSectorComp.forEach(element => {
+        wtsum = wtsum+(1-element.scores);        
+      });
+      this.selSectorComp.forEach(element => {
+        element.wt = ((1-element.scores)/wtsum)*100;
+      });
+      // console.log(this.selSectorComp);
       this.selSectorComp.sort((a, b) => {
         return a.scores - b.scores;
       })
@@ -1563,6 +1622,15 @@ export class HomePage implements OnInit, AfterViewInit {
         return a.scores - b.scores;
       })
       this.selSectorComp = this.selSectorComp.filter(item => item.companyName != null);
+      var wtsum = 0;
+
+      this.selSectorComp.forEach(element => {
+        wtsum = wtsum+(1-element.scores);        
+      });
+      this.selSectorComp.forEach(element => {
+        element.wt = ((1-element.scores)/wtsum)*100;
+      });
+      // console.log(this.selSectorComp);
       this.selSectorComp.sort((a, b) => {
         return b.scores - a.scores;
       })
@@ -1859,6 +1927,14 @@ export class HomePage implements OnInit, AfterViewInit {
         if (this.selSectorComp.length != this.globalselectorcomp.length) {
           this.globalSize = this.globalSize + 100;
           this.selSectorComp = this.globalselectorcomp.slice(0, this.globalSize);
+          var wtsum = 0;
+      this.globalselectorcomp.forEach(element => {
+        wtsum = wtsum+(1-element.scores);        
+      });
+      this.selSectorComp.forEach(element => {
+        element.wt = ((1-element.scores)/wtsum)*100;
+      });
+      // console.log(this.selSectorComp);
           this.unsortselSectorComp = this.globalselectorcomp.slice(0, this.globalSize);
           // console.log(this.unsortselSectorComp);
           event.target.complete();
@@ -1894,5 +1970,9 @@ export class HomePage implements OnInit, AfterViewInit {
     });
 
     return await popover.present();
+  }
+
+  getMaketCap(val){
+    return (val/1000000);
   }
 }

@@ -162,7 +162,8 @@
                   </div>
                 </ion-col>
                 <ion-col size="6" class="selected-stock-details">
-                  <div>
+                  <div style="    max-width: 150px;
+                  min-width: 150px;">
                     <ion-text>
                       <p class="selected-stock-score" [style.color]="getColor(roundValue(SelSearchObj.scores*100))"
                         *ngIf="SelSearchObj!='' && SelSearchObj.indexName!='ETF'">{{roundValue(SelSearchObj.scores*100)}}%</p>
@@ -174,6 +175,23 @@
                       <p class="selected-stock-comp" [style.color]="getColor(roundValue(SelSearchObj.scores*100))"
                         *ngIf="SelSearchObj!='' && SelSearchObj.indexName=='ETF'">{{SelSearchObj.companyName}}
                         ({{SelSearchObj.ticker}})</p>
+                        <div style="display: flex;
+                        flex-direction: row;
+                        justify-content: space-around;
+                        align-items: center;
+                        margin-top: 10px;"><p *ngIf="SelSearchObj!=''" style="display: flex;
+                          flex-direction: column;
+                          justify-content: center;
+                          align-items: center;
+                          font-size: 12px;
+                          font-family: Open Sans SemiBold;"><span style="color: #666;">{{SelSearchObj.currency}} {{roundValue(SelSearchObj.price.toFixed(1))}}</span> <span style="color: #00b9ff; font-family: Open Sans Regular;">Price</span></p>
+                          <p *ngIf="SelSearchObj!=''" style="display: flex;
+                          flex-direction: column;
+                          justify-content: center;
+                          align-items: center;
+                          font-size: 12px;
+                          font-family: Open Sans SemiBold;"><span style="color: #666;">{{getMaketCap(SelSearchObj.marketCap).toFixed(1)}}M</span> <span style="color: #00b9ff; font-family: Open Sans Regular;">Market Cap.</span></p></div>
+                      
                     </ion-text>
                   </div>
                 </ion-col>
@@ -252,12 +270,24 @@
                           <div class="company-label-outer-div" [ngClass]="{'comp-sel': selComp==item.companyName}"
                             (click)="onCompanyClick(item)" (press)="onlongpress(item)" [style.background]="getColor(roundValue(item.scores*100))"
                             [style.color]="ApplyTextColor(roundValue(item.scores*100))">
-                            <ion-label class="company-label">
+                            <ion-label class="company-label" style="    padding: 0px;">
                               <div style="    display: flex;
                               flex-direction: row;
                               align-items: center;">
-                                <span class="s-no">{{unsortselSectorComp.indexOf(item)+1}}</span>
-                                <div style="width: 100%;">
+                                <!-- <span class="s-no">{{unsortselSectorComp.indexOf(item)+1}}</span> -->
+                                <span style="    height: 40px;
+                                width: 40px;
+                                display: inline-flex;
+                                align-items: center;
+                                justify-content: center;
+                                padding: 5px;
+                                margin-left: -1px;
+                                border-radius: 50%;
+                                border: 2px solid #fff;
+                                position: absolute;
+                                font-size: 10px;
+                                font-family: Open Sans SemiBold;">{{roundValue(item.scores*100)}}%</span>
+                                <div style="width: 100%; padding: 5px 10px; padding-left: 50px;">
                                 <div style="display: flex;
                                 flex-direction: row;
                                 justify-content: space-between;
@@ -272,7 +302,7 @@
                                 <span style="    background: #ffffff;
                                 padding: 0 10px;
                                 border-radius: 10px;
-                                font-family: Open Sans SemiBold; font-size: 9px;" [style.color]="ApplyPercentColor(roundValue(item.scores*100))">{{roundValue(item.scores*100)}}%</span>
+                                font-family: Open Sans SemiBold; font-size: 9px;" [style.color]="ApplyPercentColor(roundValue(item.scores*100))">{{roundValue(item.wt)}}%</span>
                               </div>
                               
                               <div style="display: flex;
@@ -332,13 +362,14 @@
             <div>
               <ul class="NavTabList">
                 <li class="navTabBtn" [ngClass]="{'tab-active': SelTab == 'Global Universe'}"
-                  (click)="GridHeaderTitle=false; onNavGlobalClick();">Equity Index</li>
+                  (click)="GridHeaderTitle=false; onNavGlobalClick();">Equities</li>
                 <li class="tab2color" [ngClass]="{'tab-active': SelTab == 'FI'}"
                   (click)="GridHeaderTitle=false; onFINavClick();">Fixed Income</li>
-                <li class="ETFNavTabBtn" [ngClass]="{'tab-active': SelTab == 'NAA'}"
-                  (click)="GridHeaderTitle=false; onNavNAAClick();">NAA Index</li>
                 <li class="ETFNavTabBtn" [ngClass]="{'tab-active': SelTab == 'ETF'|| SelTab == 'ETFChild'}"
-                  (click)="GridHeaderTitle=false; onNavETFClick();">ETF's</li>
+                  (click)="GridHeaderTitle=false; onNavETFClick();">ETFs</li>
+                <li class="ETFNavTabBtn" [ngClass]="{'tab-active': SelTab == 'NAA'}"
+                  (click)="GridHeaderTitle=false; onNavNAAClick();">NAA Indexes</li>
+                
               </ul>
             </div>
             <!-- Index Tab End  -->
@@ -391,17 +422,29 @@
                           [ngClass]="{'comp-sel': selComp==item.companyName && SelSearchObj.indexName==item.indexName}"
                           (click)="onCompanyClick(item)" (press)="onlongpress(item)" [style.background]="getColor(roundValue(item.scores*100))"
                           [style.color]="ApplyTextColor(roundValue(item.scores*100))">
-                          <ion-label class="company-label">
+                          <ion-label class="company-label" style="padding:0px;">
                             <!-- <div class="nameExtend" style="width: 193px; overflow: hidden; text-overflow: ellipsis;"> -->
                             <div class="index-outer-Div">
-                              <span class="s-no">{{unsortedIndexData.indexOf(item)+1}}</span>
-                              <div class="index-inner-Div">
+                              <!-- <span class="s-no">{{unsortedIndexData.indexOf(item)+1}}</span> -->
+                              <span style="height: 40px;
+                              width: 40px;
+                              padding: 5px;
+                              display: inline-flex;
+                              align-items: center;
+                              border-radius: 50%;
+                              font-size: 10px;
+                              margin-left: -1px;
+                              justify-content: center;
+                              font-family: Open Sans SemiBold;
+                              border: 2px solid #fff;
+                              position: absolute;">{{roundValue(item.scores*100)}}%</span>
+                              <div class="index-inner-Div" style="padding: 5px 10px; padding-left: 50px !important;">
                                 <div class="first-div">
                                   <span class="comp-Name">{{item.companyName}}</span>
                                   <!-- <ion-icon name="notifications" style="width: 13px;
                                   height: 13px;"></ion-icon> -->
                                   <span class="per-val"
-                                    [style.color]="ApplyPercentColor(roundValue(item.scores*100))">{{roundValue(item.scores*100)}}%</span>
+                                    [style.color]="ApplyPercentColor(roundValue(item.scores*100))">{{roundValue(item.wt)}}%</span>
                                 </div>
                                 <div class="second-Div">
                                   <span class="ticker-data">{{item.ticker}}</span>

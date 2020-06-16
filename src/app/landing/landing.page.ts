@@ -50,7 +50,12 @@ export class LandingPage implements OnInit {
 
   onSignupClick(){
     //this.route.navigateByUrl('/signup');
-    this.iab.create(this.signupUrl,'_blank','location=no,toolbar=yes,zoom=no');
+     var browser = this.iab.create(this.signupUrl,'_blank','location=no,toolbar=yes,zoom=no');
+
+     browser.on('loadstop').subscribe(event => {
+      browser.insertCSS({code: "#hs_cos_wrapper_module_156318587919491_{display: none !important;"});
+   });
+     
   }
 
 }
