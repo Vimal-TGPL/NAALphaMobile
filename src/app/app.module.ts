@@ -19,6 +19,7 @@ import { JwtInterceptor } from './_helper/jwt.interceptor';
 import { IonicSelectableComponent } from 'ionic-selectable';
 import { MatTabsModule} from '@angular/material/tabs'
 import { Network } from '@ionic-native/network/ngx';
+import { Toast } from '@ionic-native/toast/ngx';
 // import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
@@ -35,6 +36,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     SplashScreen,
     ScreenOrientation,
     IonicSelectableComponent,
+    Toast,
     
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     { provide: HTTP_INTERCEPTORS, useClass:JwtInterceptor, multi:true},

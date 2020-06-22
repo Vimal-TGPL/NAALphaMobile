@@ -1,9 +1,12 @@
 import { Injectable } from "@angular/core";
-import { HttpInterceptor, HttpClient, HttpRequest, HttpHandler, HttpEvent } from '@angular/common/http';
+import { HttpInterceptor, HttpClient, HttpRequest, HttpHandler, HttpEvent, HttpErrorResponse } from '@angular/common/http';
 import { Storage } from '@ionic/storage';
-import { Observable } from 'rxjs';
+import { Observable, throwError } from 'rxjs';
 import { AuthenticationService } from '../services/authentication.service';
-import { UserView } from '../_models/user';
+import { catchError } from 'rxjs/operators';
+import { ToastController } from '@ionic/angular';
+import { AlertController } from '@ionic/angular';
+import { Toast } from '@ionic-native/toast/ngx';
 
 @Injectable()
 export class JwtInterceptor implements HttpInterceptor {
@@ -27,16 +30,40 @@ export class JwtInterceptor implements HttpInterceptor {
                  }
              })
          }
-         return next.handle(request);
+         return next.handle(request)
+         .pipe(
+             catchError(this.handleError)
+         );
+
      }
 
-    constructor(public http: HttpClient, private storage:Storage, private authService: AuthenticationService){
+    constructor(private toast: Toast,public alertController: AlertController,public toastController : ToastController ,public http: HttpClient, private storage:Storage, private authService: AuthenticationService){
     this.currentUser = this.authService.currentUserValue();
+    
+    }
+
+     handleError(error: HttpErrorResponse){
+        console.log("lalalalalalalala");       
+        return throwError(error);
     }
 
     getCurrentUser()
     {
         this.currentUser = this.authService.currentUserValue();
     }
+
+    showtoast(){
+        this.toast.show('Oops! Something went wrong. please do re-login','2000','bottom').subscribe(toast => {
+            console.log(toast);
+            console.log('toast trigger');
+        })
+    }
+    // async presentToast() {
+    //     const toast = await this.toastController.create({
+    //       message: 'Your settings have been saved.',
+    //       duration: 2000
+    //     });
+    //     toast.present();
+    //   }
 
 }

@@ -431,7 +431,8 @@
     transition: 1s;
     align-items: center; opacity: 0;">
           <ion-card id='rightParentcard' style="margin: 0;
-          width: calc(100vh - 780px); --background: #ffffff; border-radius: 20px; transition: 1s;" [ngStyle]="{'height': showsortList ? 'calc(100vh - 300px)' : showETFSort ? 'calc(100vh - 320px)' : 'calc(100vh - 420px)', 'height': showETFSort ? 'calc(100vh - 320px)' : showsortList ? 'calc(100vh - 300px)' : 'calc(100vh - 420px)'}">
+          width: calc(100vh - 780px); --background: #ffffff; border-radius: 20px; transition: 1s;" [ngStyle]="{'height': showsortList ? 'calc(100vh - 300px)' : showETFSort ? 'calc(100vh - 320px)' : 'calc(100vh - 420px)'}">
+          <!-- 'height': showETFSort ? 'calc(100vh - 320px)' : showsortList ? 'calc(100vh - 300px)' : 'calc(100vh - 420px)' -->
           <ion-card-content *ngIf="showCompanyList" style="padding: 0;">
             <div>
               <div style="    display: flex;

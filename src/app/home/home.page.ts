@@ -14,6 +14,8 @@ import { ProfiledetailsComponent } from '../Components/profiledetails/profiledet
 import { NavParams, Events } from '@ionic/angular';
 import { PickerOptions } from '@ionic/core';
 import { AlertService } from '../services/alert.service';
+import { DataHandlerService } from '../services/dataHandler/data-handler.service';
+import { catchError } from 'rxjs/operators';
 
 @Component({
   selector: 'app-home',
@@ -164,7 +166,7 @@ export class HomePage implements OnInit, AfterViewInit {
     }, 100);
   }
 
-  constructor(private toastCtrl: ToastController, private alertService: AlertService, private pickerCtrl: PickerController, private menuCtrl: MenuController, private events: Events, private platform: Platform, private popoverController: PopoverController, private route: Router, public alertController: AlertController, private screenOrientation: ScreenOrientation, public router: Router, private authService: AuthenticationService, public storage: Storage, private httpclient: HttpClient, private plt: Platform) {
+  constructor(private dataHandler: DataHandlerService, private toastCtrl: ToastController, private alertService: AlertService, private pickerCtrl: PickerController, private menuCtrl: MenuController, private events: Events, private platform: Platform, private popoverController: PopoverController, private route: Router, public alertController: AlertController, private screenOrientation: ScreenOrientation, public router: Router, private authService: AuthenticationService, public storage: Storage, private httpclient: HttpClient, private plt: Platform) {
     this.currentUser = this.authService.currentUserValue();
     if (this.screenOrientation.type == this.screenOrientation.ORIENTATIONS.LANDSCAPE || this.screenOrientation.type == this.screenOrientation.ORIENTATIONS.LANDSCAPE_PRIMARY || this.screenOrientation.type == this.screenOrientation.ORIENTATIONS.LANDSCAPE_SECONDARY) {
       this.stockCollapse = true;
@@ -238,11 +240,17 @@ export class HomePage implements OnInit, AfterViewInit {
 
   /*************** Data Population Start *****************/
   createData() {
-    this.httpclient.get(this.api_url + "/Industry/GetIndustry").subscribe((res: any[]) => {
-      //console.log(res);
+
+    // this.httpclient.get(this.api_url + "/Industry/GetIndustry").subscribe((res: any[]) => {
+    //   //console.log(res);
+    //   this.dbGICS = res;
+    // });
+    this.dataHandler.getIndustry().subscribe(res =>{
       this.dbGICS = res;
     });
-    this.httpclient.get(this.api_url + "/Scores/GetNAAIndexScoresCurrent/GLOBAL").subscribe((res: any[]) => {
+
+    this.dataHandler.getGlobalData().subscribe((res: any[]) => {
+      // console.log(res);
       res = res.filter(item => item.companyName != null);
       this.data = res;
       this.searchList = this.data.filter(item => item.companyName != null && item.ticker != null);
@@ -377,7 +385,7 @@ export class HomePage implements OnInit, AfterViewInit {
     });
     // console.log(this.FIIndexList);
     this.FIIndexList.filter(item => {
-      this.httpclient.get(this.api_url + '/Scores/GetBondMappingStocks/' + item.category).subscribe((res: any[]) => {
+      this.dataHandler.getFICatData(item.category).subscribe((res: any[]) => {
         res.filter(it => {
           this.FISearchList.filter(x => x.stockKey == it.stockKey)[0].fiCountry = item.country;
           this.FISearchList.filter(x => x.stockKey == it.stockKey)[0].fiCategory = item.category;
@@ -389,7 +397,7 @@ export class HomePage implements OnInit, AfterViewInit {
   }
 
   GetFixedIndexData() {
-    this.httpclient.get(this.api_url + '/Scores/GetFixedDataMaster').subscribe((res: any[]) => {
+    this.dataHandler.getFIData().subscribe((res: any[]) => {
       // console.log(res);
       var groupBy = function (xs, key) {
         return xs.reduce(function (rv, x) {
@@ -558,8 +566,7 @@ export class HomePage implements OnInit, AfterViewInit {
   }
 
   onFixedCatClick(item) {
-    // console.log(item);
-    this.httpclient.get(this.api_url + '/Scores/GetBondMappingStocks/' + item.category).subscribe((res: any[]) => {
+    this.dataHandler.getFICatData(item.category).subscribe((res: any[]) => {
       this.selectedIndexData.length = 0;
       this.unsortedIndexData.length = 0;
       this.headermed = this.roundValue(item.medianCont * 100);
@@ -959,7 +966,7 @@ export class HomePage implements OnInit, AfterViewInit {
 
   /*************** ETF Category List Start *****************/
   GetETFValues() {
-    this.httpclient.get(this.api_url + "/Scores/GetETFMaster").subscribe((stockIndex: any[]) => {
+    this.dataHandler.getETFData().subscribe((stockIndex: any[]) => {
       this.res = stockIndex;
       this.ETFcategory = stockIndex.map(d => d.category).filter(function (value, index, self) {
         return self.indexOf(value) === index;
@@ -983,7 +990,7 @@ export class HomePage implements OnInit, AfterViewInit {
       });
       this.EtfSearchList = this.EtfSearchList.filter(item => item.companyName != null && item.ticker != null);
     });
-    this.httpclient.get(this.api_url + "/Scores/GetETFMaster").subscribe((stockIndex: any[]) => {
+    this.dataHandler.getETFData().subscribe((stockIndex: any[]) => {
       var vall = stockIndex.map(item => item.category);
       this.ETFCatagories = vall.filter(function (value, index, self) {
         return self.indexOf(value) === index;
@@ -1081,7 +1088,7 @@ export class HomePage implements OnInit, AfterViewInit {
     // console.log(this.ETFNameFull);
     // console.log(tempp);
     var CId = tempp[0].assetId;
-    this.httpclient.get(this.api_url + "/Scores/GetETFCurrent/" + CId).subscribe((ETFStocks: any[]) => {
+    this.dataHandler.getETFCatData(CId).subscribe((ETFStocks: any[]) => {
       this.SelAssetId = name;
       this.ETFHoldings = [];
       this.unsortedIndexData = [];
