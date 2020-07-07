@@ -1,16 +1,17 @@
-import { Component, OnInit, AfterViewInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit, OnDestroy } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import 'slick-carousel/slick/slick';
 import { createAnimation } from '@ionic/core';
 import { Platform, IonSlides, IonContent, PickerController } from '@ionic/angular';
 import { PickerOptions } from '@ionic/core';
+import { ScreenOrientation } from '@ionic-native/screen-orientation/ngx';
 
 @Component({
   selector: 'app-performance',
   templateUrl: './performance.page.html',
   styleUrls: ['./performance.page.scss'],
 })
-export class PerformancePage implements OnInit, AfterViewInit {
+export class PerformancePage implements OnInit, AfterViewInit, OnDestroy {
   ngAfterViewInit() {
     if(this.mobile){
     // var ref = document.getElementById('IndexListCard');
@@ -26,16 +27,25 @@ export class PerformancePage implements OnInit, AfterViewInit {
   itemActive:boolean = false;
   selectedCountry:any;
   PerformanceData:any = [];
+  SelBMIndData:any = [];
   showMore:Boolean = false;
+  EquityList:any = [];
+  ESGList:any = [];
+  FIList:any = [];
+  selectedCard:String = 'value';
   description:String;
+  descModel:Boolean = false;
   IndexData:any = [];
   Index:any = [];
-  CountryClasificationList:any = ['All','USA','Europe','UK','Japan','Dev. World','Dev. World ex US'];
+  CountryClasificationList:any = ['USA','Europe','UK','Japan','Dev. World','Dev. World ex US'];
   performanceAPIUrl = 'https://api.newagealpha.com/api/Indexes/GetIndexPerformance';
   APIUrl = 'https://api.newagealpha.com/api/Indexes/GetIndexDetails';
-  constructor(private platform:Platform, private httpClient:HttpClient, private pickerCtrl:PickerController) { 
+  constructor(private platform:Platform, private httpClient:HttpClient, private pickerCtrl:PickerController, private screenOrientation: ScreenOrientation) { 
     this.selWith= window.innerWidth;
     this.selWith = this.selWith- 30; 
+  }
+  ngOnDestroy(): void {
+    this.screenOrientation.unlock();
   }
 
   ngOnInit() {
@@ -44,6 +54,7 @@ export class PerformancePage implements OnInit, AfterViewInit {
       this.mobile = false;
     }else{
       this.mobile = true;
+      this.screenOrientation.lock(this.screenOrientation.ORIENTATIONS.PORTRAIT);
       this.loadData();
     }
   }
@@ -58,27 +69,39 @@ export class PerformancePage implements OnInit, AfterViewInit {
   loadData(){
     this.httpClient.get(this.performanceAPIUrl).subscribe(data=>{
       this.PerformanceData = data;
-      console.log(this.PerformanceData);
-    
+      // console.log(this.PerformanceData);
+      this.getFIList();
+      this.getESGList();
     this.httpClient.get(this.APIUrl).subscribe(data=>{
       this.IndexData = data
-      console.log(this.IndexData);
+      // console.log(this.IndexData);
       var i = 0;
-      for(i=0; i<this.CountryClasificationList.length;i++){
+      this.Index[0] = undefined;
+      this.getEquityList();
+      for(i=1; i<this.CountryClasificationList.length;i++){
         var temp = this.filterIndex(this.CountryClasificationList[i]);
+        if(this.CountryClasificationList[i] !== 'USA'){
         temp= temp.sort((a, b) => {
           return a.sortOrder - b.sortOrder;
         });
+      }
         this.Index.push(temp);
      }
-     console.log(this.Index);
+    //  console.log(this.Index);
       //console.log(this.selectedIndex);
       this.OnItemClick('USA');
-      document.getElementById('Loader').style.display='none';
+      // document.getElementById('Loader').style.display='none';
     });
   });
   }
 
+  // getUSAlist(){
+  //   var tempFI:any = [];
+  //   var tempESG:any = [];
+  //   var tempEq:any = [];
+  //   var filterStr = 'U.S.';
+    
+  // }
 
 
   filterIndex(item){
@@ -86,12 +109,16 @@ export class PerformancePage implements OnInit, AfterViewInit {
     var index = item;
     //console.log(item);
     var filterStr='U.S.';
-    var ind = [];
-    if(index == 'USA')
-    {
-      filterStr = 'U.S.';
-      ind = this.IndexData.filter((data)=> data.indexName.indexOf(filterStr) != -1);
-    }else if(index == 'Europe'){
+    var ind:any = [];
+    // if(index == 'USA')
+    // {
+    //   var temp = this.getUSAlist()
+    //   setTimeout(() => {
+    //     ind = temp;
+    //   }, 500);
+      
+    // }else 
+    if(index == 'Europe'){
       filterStr = 'Europe'
       ind = this.IndexData.filter((data)=> data.indexName.indexOf(filterStr) != -1);
     }else if(index == 'Europe'){
@@ -109,9 +136,10 @@ export class PerformancePage implements OnInit, AfterViewInit {
     }else if(index == 'Dev. World ex US'){
       filterStr = 'Developed World Ex-US'
       ind = this.IndexData.filter((data)=> data.indexName.indexOf(filterStr) != -1);
-    }else if(index == 'All'){
-      ind = this.IndexData;
     }
+    // else if(index == 'All'){
+    //   ind = this.IndexData;
+    // }
     //console.log(ind);
    // this.selectedIndex = ind[0].indexName;
    // this.selectedIndex = this.selectedIndex.replace('New Age Alpha ','');
@@ -120,10 +148,18 @@ export class PerformancePage implements OnInit, AfterViewInit {
   }
 
   OnItemClick(item){
-    
-    this.itemActive = true;
     this.selectedCountry = item;
-    this.selectedIndexName = this.Index[this.CountryClasificationList.indexOf(this.selectedCountry)][0].indexName.replace('New Age Alpha ','');
+    if(item == 'USA'){
+      this.segmentChanged('Equity');
+      this.selectedIndexName = this.Index[0][0].indexName.replace('New Age Alpha ','');
+    }else{
+      this.selectedIndexName = this.Index[this.CountryClasificationList.indexOf(this.selectedCountry)][0].indexName.replace('New Age Alpha ','');
+      // console.log(this.selectedIndexName);
+    }
+    this.itemActive = true;
+    
+    
+    // console.log(this.selectedIndexName);
     this.onOptionsSelected();    
   }
 
@@ -149,13 +185,13 @@ export class PerformancePage implements OnInit, AfterViewInit {
    // this.selectedIndex = this.selectedIndex.replace('New Age Alpha ','');
     var inddata = this.PerformanceData.filter(data => data.indexName == this.selectedIndex.indexName);
     this.selectedIndexData = inddata[0];
-    console.log(this.selectedIndexData);
-    console.log(event.target.value);
+    // console.log(this.selectedIndexData);
+    // console.log(event.target.value);
     var d =this.IndexData.filter(data=> data.indexName.indexOf(event.target.value) != -1);
     this.selectedIndex = d[0];
     var inddata = this.PerformanceData.filter(data => data.indexName == this.selectedIndex.indexName);
     this.selectedIndexData = inddata[0];
-    console.log(this.selectedIndexData);
+    // console.log(this.selectedIndexData);
     this.onCancelClick();
     
     setTimeout(()=>{
@@ -167,56 +203,116 @@ export class PerformancePage implements OnInit, AfterViewInit {
     this.selectedIndex = this.Index[this.CountryClasificationList.indexOf(this.selectedCountry)];
     var inddata = this.PerformanceData.filter(data => data.indexName.replace('New Age Alpha ','') == this.selectedIndexName);
     this.selectedIndexData = inddata[0];
-    this.trimstring();
+    // this.trimstring();
     this.showMore = false;
-    console.log(this.selectedIndex);
-    console.log(this.selectedIndexData);
-    console.log(this.selectedIndexName);
+    // console.log(this.selectedIndex);
+    // console.log(this.selectedIndexData);
+    // console.log(this.selectedIndexName);
+    this.getBMData();
   }
 
-  trimstring(){
-    var that = this;
-    if(this.selectedIndexData.description.length > 210 )
-    {
-      if(this.showMore == true){
-        that.description = that.selectedIndexData.description;
-         that.description = that.description.replace(/RiskSelectTM/g,'RiskSelect<sup>TM</sup>').replace(/IndexSM/g,'Index<sup>SM</sup>');
-
-         that.description = that.description+"<a id='ShowLess'>Show Less</a>";
-
-         
-        //  (click)=\"showMore = false; trimstring();\"
-        setTimeout(()=>{
-          document.getElementById('desc').getElementsByTagName('a')[0].onclick = function(){
-            that.showMore = false;
-            that.trimstring();
-          }
-           var desHeight =  document.getElementById('desc').clientHeight;
-           var height = 355 + (desHeight - 82);
-           document.getElementById('DataDiv').style.height = 'calc(100vh - '+ height+'px)';
-        },100);
-        console.log(that.description);
-      }else{
-        that.description = that.selectedIndexData.description.substring(0,210)+'...';
-        that.description = that.description.replace(/RiskSelectTM/g,'RiskSelect<sup>TM</sup>').replace(/IndexSM/g,'Index<sup>SM</sup>');
-        that.description = that.description+"<a id='ShowMore'>Show More</a>";
-        
-        setTimeout(()=>{
-          document.getElementById('desc').getElementsByTagName('a')[0].onclick = function(){
-            that.showMore = true;
-            that.trimstring();
-          }
-
-          document.getElementById('DataDiv').style.height = 'calc(100vh - 355px)';
-        },100);
-        console.log(that.description);
-      }
+  getBMData(){
+    var temp = this.PerformanceData.filter(x=>x.indexId == this.selectedIndexData.benchMarkId && x.relatedIndexId == this.selectedIndexData.indexId);
+    if(temp.length != 0){
+      temp[0].indexName = temp[0].indexName.indexOf("(") > -1 ? temp[0].indexName.split("(")[0] : temp[0].indexName
+      this.SelBMIndData = temp[0];
     }else{
-      that.description = that.selectedIndexData.description;
-      that.description = that.description.replace(/RiskSelectTM/g,'RiskSelect<sup>TM</sup>').replace(/IndexSM/g,'Index<sup>SM</sup>');
+      this.SelBMIndData = null ;
     }
     
+    // console.log(this.SelBMIndData);
   }
+
+  segmentChanged(event){
+    // console.log(event);
+    if(event == 'Equity'){
+     this.Index[0] = this.EquityList;
+    }else if(event == 'ESG'){
+      this.Index[0] = this.ESGList;
+    }else if(event == 'Fixed Income'){
+      this.Index[0] = this.FIList;
+    }
+    this.selectedIndexName = this.Index[0][0].indexName.replace('New Age Alpha ','');
+    //  console.log(this.selectedIndexName);
+    setTimeout(() => {
+      this.onOptionsSelected();
+    }, 200);
+    
+    // console.log(this.Index);
+  }
+
+  getFIList(){
+    this.httpClient.get('https://api.newagealpha.com/api/Indexes/GetFIDetails').subscribe(resFI=>{
+      var tempFI:any = resFI;
+      tempFI= tempFI.sort((a, b) => {
+          return a.sortOrder - b.sortOrder;
+        });
+      this.FIList = tempFI;
+    });   
+  }
+
+  getESGList(){
+    this.httpClient.get('https://api.newagealpha.com/api/Indexes/GetESGDetails').subscribe(resESG=>{
+      var tempESG:any = resESG;
+      tempESG= tempESG.sort((a, b) => {
+        return a.sortOrder - b.sortOrder;
+      });
+      this.ESGList = tempESG;
+    });
+  }
+
+  getEquityList(){
+    var filterStr = 'U.S.'
+    var tempEq= this.IndexData.filter((data)=> data.indexName.indexOf(filterStr) != -1);
+        tempEq= tempEq.sort((a, b) => {
+          return a.sortOrder - b.sortOrder;
+        });
+    this.EquityList = tempEq;
+  }
+
+  // trimstring(){
+  //   var that = this;
+  //   if(this.selectedIndexData.description.length > 210 )
+  //   {
+  //     if(this.showMore == true){
+  //       that.description = that.selectedIndexData.description;
+  //        that.description = that.description.replace(/RiskSelectTM/g,'RiskSelect<sup>TM</sup>').replace(/IndexSM/g,'Index<sup>SM</sup>');
+
+  //        that.description = that.description+"<a id='ShowLess'>Show Less</a>";
+
+         
+  //       //  (click)=\"showMore = false; trimstring();\"
+  //       setTimeout(()=>{
+  //         document.getElementById('desc').getElementsByTagName('a')[0].onclick = function(){
+  //           that.showMore = false;
+  //           that.trimstring();
+  //         }
+  //          var desHeight =  document.getElementById('desc').clientHeight;
+  //          var height = 355 + (desHeight - 82);
+  //         //  document.getElementById('DataDiv').style.height = 'calc(100vh - '+ height+'px)';
+  //       },100);
+  //       console.log(that.description);
+  //     }else{
+  //       that.description = that.selectedIndexData.description.substring(0,210)+'...';
+  //       that.description = that.description.replace(/RiskSelectTM/g,'RiskSelect<sup>TM</sup>').replace(/IndexSM/g,'Index<sup>SM</sup>');
+  //       that.description = that.description+"<a id='ShowMore'>Show More</a>";
+        
+  //       setTimeout(()=>{
+  //         document.getElementById('desc').getElementsByTagName('a')[0].onclick = function(){
+  //           that.showMore = true;
+  //           that.trimstring();
+  //         }
+
+  //         // document.getElementById('DataDiv').style.height = 'calc(100vh - 355px)';
+  //       },100);
+  //       console.log(that.description);
+  //     }
+  //   }else{
+  //     that.description = that.selectedIndexData.description;
+  //     that.description = that.description.replace(/RiskSelectTM/g,'RiskSelect<sup>TM</sup>').replace(/IndexSM/g,'Index<sup>SM</sup>');
+  //   }
+    
+  // }
 
   async openPicker(){
     let opts : PickerOptions ={
@@ -259,8 +355,8 @@ export class PerformancePage implements OnInit, AfterViewInit {
       temp = temp+" ("+element.indexCode+")";
       options.push({text:temp,value:temp});
     });
-    console.log(this.Index);
-    console.log(options);
+    // console.log(this.Index);
+    // console.log(options);
     return options;
   }
 
@@ -287,8 +383,15 @@ export class PerformancePage implements OnInit, AfterViewInit {
        
       },500);
     },100);
-    
-    
+  }
+
+  onDescCloseClick(){
+    this.descModel = false;
+  }
+
+  oncardClick(val){
+    // console.log(val);
+    this.selectedCard = val;
   }
 
   roundValue(val){

@@ -1,210 +1,581 @@
-ion-header{
-    z-index: 99;
-}
+// ion-header{
+//     background: none;
+// }
 
 .header-md:after{
     background-image: none !important;
 }
 
-ion-content{
-    --background: #ffffff;
+ion-content {
     --overflow: hidden;
 
-    .HeaderDiv{
-        height: 125px; background: linear-gradient(-90deg,#2E4C99, #233771);
-        border-radius: 0px 45px / 0px 18px;
-        border-top-right-radius: 0px;
-    
-        .CountryDiv::-webkit-scrollbar {
-            display: none;
-        }
+    .CountryDiv::-webkit-scrollbar {
+        display: none;
+    }
 
-        .CountryDiv{
+    .HeaderDiv {
+        // height: 125px;
+        // border-radius: 0px 45px / 0px 18px;
+        // border-top-right-radius: 0px;
+
+        .CountryDiv {
             overflow-x: auto;
             display: flex;
             flex-direction: row;
             -ms-overflow-style: none;
-            padding-top: 10px;
-            height: 60%;
-    
-            .contryItem{
+            // padding-top: 10px;
+            // height: 60%;
+
+            .contryItem {
                 padding: 5px 20px;
-                display: flex; 
-                flex-direction: column;    
+                display: flex;
+                flex-direction: column;
                 // height: 8vh;
-    
-                .CountryP{
+
+                .CountryP {
                     font-size: 20px;
                     margin: 10px 0;
-                    color: #99acde; 
+                    color: #99acde;
                     transition: 0.2s;
-                    font-family: Open Sans SemiBold; 
+                    font-family: Open Sans SemiBold;
                     white-space: nowrap;
+                    transition: 0.3s;
                 }
-    
-                .underScoreSpan{
+
+                .underScoreSpan {
                     width: 25px;
                     height: 4px;
                     background: #ffffff;
                     border-radius: 10px;
+                    transition: 0.3s;
                 }
             }
         }
-    
-        .dropDownDiv{
-            margin-top: 10px;
-    
-            .innerdropDownDiv{
+    }
+
+    .segmentDiv {
+        padding: 0 40px;
+        ion-segment {
+            height: 28px;
+            ion-segment-button {
+                --background: #ffffff;
+                --background-checked: #2a478a;
+                --border-width: 0px;
+                --border-color: #2a478a;
+                --color: #2a478a;
+                --color-checked: #ffffff;
+                transition: 0.3s;
+            }
+        }
+    }
+
+    .dropDownDiv {
+        height: 8vh;
+        // height: calc(100vh - 755px);
+        // min-height: 30px;
+        padding: 0 15px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        .dropDownBtn {
+            --background: #2a478a;
+            --color: #ffffff;
+            height: 30px;
+            font-size: 14px;
+            font-family: Open Sans Regular;
+            --padding-start: 10px;
+            --padding-end: 10px;
+            width: 100%;
+
+            .innerdropDownDiv {
                 text-align: left;
                 width: 100%;
                 display: flex;
                 flex-direction: row;
                 justify-content: space-between;
                 align-items: center;
-                overflow: hidden;color: #00b9ff;
-    
-                .innerdropDownsapn{
+                overflow: hidden;
+                color: #ffffff;
+
+                .innerdropDownsapn {
                     white-space: normal;
                     display: -webkit-box;
                     -webkit-box-orient: vertical;
-                    -webkit-line-clamp: 2;
+                    -webkit-line-clamp: 1;
                     text-transform: none;
                 }
             }
         }
     }
 
-    ion-card{
-        margin: 0; 
-        border-radius: 0; 
-        box-shadow: none;
-        background: linear-gradient(-90deg,#2E4C99, #233771); 
-        height: calc(100vh - 173px);
+    .descDiv {
+        padding: 0 15px;
+        height: calc(100vh - 700px);
+        min-height: 95px;
+        p {
+            font-size: 12px;
+            color: #fff;
+            font-family: Open Sans Regular;
+        }
+    }
 
-        ion-card-content{
-            padding: 5px 15px; 
-            background: white; 
-            border-top-right-radius: 25px; 
-            height: 100%;
+    .PerfomanceDateDiv {
+        padding: 0 20px;
+        display: flex;
+        justify-content: flex-end;
+        height: 3vh;
+        // height: calc(100vh - 790px);
+        // min-height: 15px;
+        align-items: center;
+        p {
+            margin: 0;
+            font-size: 11px;
+            color: #ffffff;
+            font-family: Open Sans Regular;
+            font-style: italic;
+        }
+    }
 
-            .PerfomanceDateDiv{
+    .DataCardsOuterDiv::-webkit-scrollbar {
+        display: none;
+    }
+
+    .DataCardsOuterDiv {
+        overflow-x: scroll;
+    overflow-y: hidden;
+        height: 38vh;
+        transition: 0.3s;
+        // min-height: 32vh;
+        // height: calc(100vh - 500px);
+        // min-height: 270px;
+        // max-height: 340px;
+        display: flex;
+        align-items: center;
+    }
+
+    .DataCardsDiv {
+        display: inline-flex;
+        flex-direction: row;
+
+        ion-card {
+            border-radius: 25px;
+            --background: #103579;
+            border: 1px solid #154284;
+            margin-top: 10px;
+            margin-bottom: 10px;
+            margin-inline-start: 10px;
+            margin-inline-end: 10px;
+            ion-card-content {
+                min-height: 235px;
+                width: 150px;
                 display: flex;
-                flex-direction: row;
+                flex-direction: column;
+                justify-content: space-evenly;
+                align-items: center;
+                padding-top: 5px;
+                padding-bottom: 5px;
+            }
+
+            .perfData {
+                height: calc(100vh - 740px);
+                min-height: 70px;
+                display: flex;
+                flex-direction: column;
                 justify-content: space-between;
-                font-size: 12px;
-                font-family: Open Sans SemiBold;
-                padding-top: 10px;
-
-                .perfLabel{
-                    color: #888;
-                }
-
-                .perfDate{
-                    color: #394e8b;
-                }
-            }
-
-            .descDiv{
-                transition: 0.3s;   
-                min-height: 82px;
-
-                p{
-                    color: #394e8b; 
-                    font-family: Open Sans Regular; 
-                    font-size: 12px; 
-                    padding-top: 10px;
-
-                    span{
-                        white-space: normal; 
-                        line-height: 1.5;
-                        transition: 0.3s;
-                    }
-                }
-            }
-
-            .DataDiv::-webkit-scrollbar {
-                display: none;
-            }
-            
-            .DataDiv{
-                height: calc(100vh - 355px);
-                overflow: auto;
-            
-                ion-item{
-                    --padding-start:0px;
-                    --inner-padding-end: 0px;
-                    --border-color:#dcdcdc;
-            
-                    ion-text{
-                        width: 100%;
-                          display: flex;
-                          flex-direction: row;
-                          justify-content: space-between;
-                          padding: 0 10px;
-            
-                          .rowHeading{
-                            font-size: 13px;
-                            color: #888;
-                            font-family: Open Sans SemiBold;
-                            margin-bottom: 0;
-                        }
-            
-                        .rowValue{
-                            font-size: 14px;
-                            color: #394e8b;
-                            font-family: Open Sans Bold;
-                            margin-bottom: 0;
-                        }
-                    }
-                }
-            }
-
-            .FooterDiv{
-                position: absolute;
-                width: 100%;
-                bottom: 0;
-                left: 0;
-                right: 0;
-                padding: 0 10px;
-                background: #ffffff;
-
-                .Footer1{
+                align-items: center;
+                .DataTitle {
                     display: flex;
-                    flex-direction: row;
-                    justify-content: space-between;
-                    margin-bottom: 10px;
-                    color: #888;
-                
-                    p{
+                    flex-direction: column;
+                    align-items: center;
+                    .ticker {
+                        color: #ffffff;
+                        font-size: 16px;
+                        font-family: Open Sans SemiBold;
+                        margin: 0;
+                        line-height: 1.3;
+                        text-align: center;
+                        -webkit-box-orient: vertical;
+                        -webkit-line-clamp: 2;
+                        overflow: hidden;
+                        display: -webkit-box;
+                    }
+                    .sub-title {
+                        color: #2162c1;
                         font-size: 12px;
                         font-family: Open Sans SemiBold;
+                        margin: 0;
+                        line-height: 1;
                     }
                 }
-                
-                .Footer2{
-                    text-align: center;
-                    margin-bottom: 15px;
-                
-                    p{
-                        font-size: 12px;
-                        color: #394e8b;
-                        font-family: Open Sans SemiBold;
+
+                .DataValue {
+                    display: flex;
+                    justify-content: center;
+                    p {
+                        color: #ffffff;
+                        font-size: 16px;
+                        font-family: Open Sans Regular;
                     }
                 }
             }
+
+            .BMData {
+                height: calc(100vh - 740px);
+                min-height: 80px;
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+                align-items: center;
+                .BMDataTitle {
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: center;
+                    align-items: center;
+                    .BMIndname {
+                        font-size: 16px;
+                        color: #ffffff;
+                        font-family: Open Sans SemiBold;
+                        line-height: 1.3;
+                        margin: 0;
+                        text-align: center;
+                        -webkit-box-orient: vertical;
+                        -webkit-line-clamp: 2;
+                        overflow: hidden;
+                        display: -webkit-box;
+                    }
+                    .BMSubTitle {
+                        color: #2162c1;
+                        font-size: 12px;
+                        font-family: Open Sans SemiBold;
+                        margin: 0;
+                        line-height: 1;
+                    }
+                }
+
+                .BMValue {
+                    display: flex;
+                    justify-content: center;
+                    // margin-top: 20px;
+                    p {
+                        color: #ffffff;
+                        font-size: 16px;
+                        font-family: Open Sans Regular;
+                    }
+                }
+            }
+
+            .container {
+                width: 100%;
+                height: 2px;
+                background-color: black;
+                position: relative;
+            }
+
+            .blue {
+                // margin-top: 20px;
+                background: #2162c1;
+            }
+
+            .circle {
+                display: inline-block;
+                vertical-align: middle;
+                width: 8px;
+                height: 8px;
+                background-color: white;
+                border: solid 1px black;
+                border-radius: 50%;
+                position: absolute;
+                top: -3px;
+                left: calc(50% - 5px);
+            }
+
+            .blue .circle {
+                background: #164591;
+                border-color: #164591;
+            }
+        }
+    }
+
+    .hypenOuterDiv {
+        height: 10vh;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        .hypen {
+            height: 2px;
+            width: 25px;
+            background: #ffffff;
+        }
+    }
+
+    .FooterDataDiv {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        padding: 0 20px;
+
+        p {
+            font-size: 10px;
+            color: #fff;
+            font-family: Open Sans Regular;
+            margin: 0;
+        }
+    }
+
+    .FooterCredit {
+        text-align: center;
+        p {
+            color: #fff;
+            font-family: Open Sans SemiBold;
+            margin: 0;
+            font-size: 10px;
         }
     }
 }
 
-ion-toolbar{
-    --background: linear-gradient(-90deg,#2E4C99, #233771);
-    --border-width: 0px !important;
-    --padding-top: 0px;
-    --padding-bottom: 0px;
+.activeCard{
+    --background: #ffffff !important;
+
+    .ticker{
+        color: #00B9FF !important;
+    }
+
+    .sub-title{
+        color: #103579 !important;
+    }
+
+    .DataValue{
+        p{
+            color: #103579 !important;
+        }
+    }
+
+    .BMIndname{
+        color: #00B9FF !important;
+    }
+
+    .BMSubTitle{
+        color: #103579 !important;
+    }
+
+    .BMValue{
+        p{
+            color: #103579 !important;
+        }
+    }
+
+    .blue{
+        background: #E9ECF0 !important;
+
+        .circle{
+            background: #103579 !important;
+            border-color: #103579 !important;
+        }
+    }
+
+    .hypen{
+        background: #103579 !important;
+    }
 }
 
-.ios{
-    .PageTitle{
+// ion-content{
+// --background: #ffffff;
+
+// .HeaderDiv{
+//     height: 125px; background: linear-gradient(-90deg,#2E4C99, #233771);
+//     border-radius: 0px 45px / 0px 18px;
+//     border-top-right-radius: 0px;
+
+//
+
+//     .CountryDiv{
+//         overflow-x: auto;
+//         display: flex;
+//         flex-direction: row;
+//         -ms-overflow-style: none;
+//         padding-top: 10px;
+//         height: 60%;
+
+//         .contryItem{
+//             padding: 5px 20px;
+//             display: flex;
+//             flex-direction: column;
+//             // height: 8vh;
+
+//             .CountryP{
+//                 font-size: 20px;
+//                 margin: 10px 0;
+//                 color: #99acde;
+//                 transition: 0.2s;
+//                 font-family: Open Sans SemiBold;
+//                 white-space: nowrap;
+//             }
+
+//             .underScoreSpan{
+//                 width: 25px;
+//                 height: 4px;
+//                 background: #ffffff;
+//                 border-radius: 10px;
+//             }
+//         }
+//     }
+
+//     .dropDownDiv{
+//         margin-top: 10px;
+
+//         .innerdropDownDiv{
+//             text-align: left;
+//             width: 100%;
+//             display: flex;
+//             flex-direction: row;
+//             justify-content: space-between;
+//             align-items: center;
+//             overflow: hidden;color: #00b9ff;
+
+//             .innerdropDownsapn{
+//                 white-space: normal;
+//                 display: -webkit-box;
+//                 -webkit-box-orient: vertical;
+//                 -webkit-line-clamp: 2;
+//                 text-transform: none;
+//             }
+//         }
+//     }
+// }
+
+// ion-card{
+//     margin: 0;
+//     border-radius: 0;
+//     box-shadow: none;
+//     background: linear-gradient(-90deg,#2E4C99, #233771);
+//     height: calc(100vh - 173px);
+
+//     ion-card-content{
+//         padding: 5px 15px;
+//         background: white;
+//         border-top-right-radius: 25px;
+//         height: 100%;
+
+//         .PerfomanceDateDiv{
+//             display: flex;
+//             flex-direction: row;
+//             justify-content: space-between;
+//             font-size: 12px;
+//             font-family: Open Sans SemiBold;
+//             padding-top: 10px;
+
+//             .perfLabel{
+//                 color: #888;
+//             }
+
+//             .perfDate{
+//                 color: #394e8b;
+//             }
+//         }
+
+//         .descDiv{
+//             transition: 0.3s;
+//             min-height: 82px;
+
+//             p{
+//                 color: #394e8b;
+//                 font-family: Open Sans Regular;
+//                 font-size: 12px;
+//                 padding-top: 10px;
+
+//                 span{
+//                     white-space: normal;
+//                     line-height: 1.5;
+//                     transition: 0.3s;
+//                 }
+//             }
+//         }
+
+//         .DataDiv::-webkit-scrollbar {
+//             display: none;
+//         }
+
+//         .DataDiv{
+//             height: calc(100vh - 355px);
+//             overflow: auto;
+
+//             ion-item{
+//                 --padding-start:0px;
+//                 --inner-padding-end: 0px;
+//                 --border-color:#dcdcdc;
+
+//                 ion-text{
+//                     width: 100%;
+//                       display: flex;
+//                       flex-direction: row;
+//                       justify-content: space-between;
+//                       padding: 0 10px;
+
+//                       .rowHeading{
+//                         font-size: 13px;
+//                         color: #888;
+//                         font-family: Open Sans SemiBold;
+//                         margin-bottom: 0;
+//                     }
+
+//                     .rowValue{
+//                         font-size: 14px;
+//                         color: #394e8b;
+//                         font-family: Open Sans Bold;
+//                         margin-bottom: 0;
+//                     }
+//                 }
+//             }
+//         }
+
+//         .FooterDiv{
+//             position: absolute;
+//             width: 100%;
+//             bottom: 0;
+//             left: 0;
+//             right: 0;
+//             padding: 0 10px;
+//             background: #ffffff;
+
+//             .Footer1{
+//                 display: flex;
+//                 flex-direction: row;
+//                 justify-content: space-between;
+//                 margin-bottom: 10px;
+//                 color: #888;
+
+//                 p{
+//                     font-size: 12px;
+//                     font-family: Open Sans SemiBold;
+//                 }
+//             }
+
+//             .Footer2{
+//                 text-align: center;
+//                 margin-bottom: 15px;
+
+//                 p{
+//                     font-size: 12px;
+//                     color: #394e8b;
+//                     font-family: Open Sans SemiBold;
+//                 }
+//             }
+//         }
+//     }
+// }
+// }
+
+// ion-toolbar{
+//     --background: linear-gradient(-90deg,#2E4C99, #233771);
+//     --border-width: 0px !important;
+//     --padding-top: 0px;
+//     --padding-bottom: 0px;
+// }
+
+.ios {
+    .PageTitle {
         text-align: left;
         padding: 0px 45px;
         font-size: 18px;
@@ -212,8 +583,8 @@ ion-toolbar{
     }
 }
 
-.md{
-    .PageTitle{
+.md {
+    .PageTitle {
         text-align: left;
         padding: 0px;
         font-size: 18px;
@@ -221,59 +592,71 @@ ion-toolbar{
     }
 }
 
-.loader{
-    position: fixed;
-    z-index: 9999;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    top: 0;
-    right: 0;
-    left: 0;
-    bottom: 0;
-    background-color: rgba(255, 255, 255, 0.85);
-}
+// .loader{
+//     position: absolute;
+//     top: 0;
+//     bottom: 0;
+//     left: 0;
+//     right: 0;
+//     height: 100vh;
+//     width: 100vw;
+//     display: flex;
+//     justify-content: center;
+//     align-items: center;
+//     z-index: 99;
+//     background-color: rgba(255, 255, 255, 0.85);
+// //     position: fixed;
+// //     z-index: 9999;
+// //     display: flex;
+// //     justify-content: center;
+// //     align-items: center;
+// //     width: 100vw;
+// //     top: 0;
+// //     right: 0;
+// //     left: 0;
+// //     bottom: 0;
+// //     background-color: rgba(255, 255, 255, 0.85);
+// }
 
-@media screen and (orientation:landscape) {
-    ion-content{
-        --overflow: auto;
-    }
+// @media screen and (orientation:landscape) {
+//     ion-content{
+//         --overflow: auto;
+//     }
 
-    .content::-webkit-scrollbar {
-        display: none;
-    }
+//     .content::-webkit-scrollbar {
+//         display: none;
+//     }
 
-    ion-card{
-        height: 300px !important;
-    }
+//     ion-card{
+//         height: 300px !important;
+//     }
 
-    .DataDiv{
-        height: calc(100vh - 220px) !important;
-    }
+//     .DataDiv{
+//         height: calc(100vh - 220px) !important;
+//     }
 
-    .CountryDiv{
-        padding-top: 0 !important;
-        height: 55px !important;
-        
-        .contryItem{
-            height: 15vh !important;
-    
-            .CountryP{
-                margin-bottom: 5px !important;
-            }
-        }
-    }
+//     .CountryDiv{
+//         padding-top: 0 !important;
+//         height: 55px !important;
 
-    .descDiv{
-        min-height: 48px !important;
-    }
-    
-    .dropDownDiv{
-        margin-top: 0 !important;
-    }
+//         .contryItem{
+//             height: 15vh !important;
 
-    .HeaderDiv{
-        height: 100px !important;
-    }
-}
+//             .CountryP{
+//                 margin-bottom: 5px !important;
+//             }
+//         }
+//     }
+
+//     .descDiv{
+//         min-height: 48px !important;
+//     }
+
+//     .dropDownDiv{
+//         margin-top: 0 !important;
+//     }
+
+//     .HeaderDiv{
+//         height: 100px !important;
+//     }
+// }

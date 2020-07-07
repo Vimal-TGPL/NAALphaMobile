@@ -17,7 +17,7 @@
   <hr class="divider">
   <ion-list id="menu-List">
       <ion-menu-toggle autoHide="false" >
-        <ion-item lines="none" style="    color: white; --detail-icon-opacity: 1;" [routerLink]="['/menu/menu/home']" routerDirection="root" [class.active-item]="selectedPath==='/menu/menu/path'">
+        <ion-item lines="none" style="    color: white; --detail-icon-opacity: 1;" [routerLink]="['/menu/home']" routerDirection="root" [class.active-item]="selectedPath==='/menu/menu/path'">
           <!-- //<ion-icon name="home-outline" style="color: white; margin-right: 10px;"></ion-icon> -->
           <!-- <ion-icon name="home-outline" style="color: white; margin-right: 10px;"></ion-icon> -->
           <img src="../../assets/images/H-Factor Icon solid.svg" alt="home" style="height: 25px; padding-right: 5px;">
@@ -25,13 +25,13 @@
            H-Factor System
          </ion-text>
         </ion-item>
-        <ion-item lines="none" style="    color: white; --detail-icon-opacity: 1;" [routerLink]="['/performance']" routerLinkActive="router-link-active" >
+        <ion-item lines="none" style="    color: white; --detail-icon-opacity: 1;" [routerLink]="['/menu/menu/performance']" routerLinkActive="router-link-active" >
           <img src="../../assets/images/bar graph.svg" alt="satistics" style="height: 20px; padding-right: 10px;">
           <ion-text color="light" style="font-size: 16px; font-family: Open Sans SemiBold;">
             H-Factor Indexes
           </ion-text>
         </ion-item>
-        <ion-item lines="none" style="    color: white; --detail-icon-opacity: 1;" [routerLink]="['/change-password']" routerLinkActive="router-link-active" >
+        <ion-item lines="none" style="    color: white; --detail-icon-opacity: 1;" [routerLink]="['/menu/menu/change-password']" routerLinkActive="router-link-active" >
           <img src="../../assets/images/password.svg" alt="ChangePassword" style="height: 20px; padding-right: 10px;">
             <ion-text color="light" style="font-size: 16px; font-family: Open Sans SemiBold;">
               Change Password
@@ -60,7 +60,7 @@
         <ion-item lines="none" [routerLink]="['/menu/menu/home']" routerDirection="root" [class.active-item]="selectedPath==='/menu/menu/path'" detail=false>
           <img src="../../assets/images/H-Factor Icon solid.svg" alt="home" >
         </ion-item>
-        <ion-item lines="none" [routerLink]="['/performance']" routerLinkActive="router-link-active" detail=false>
+        <ion-item lines="none" [routerLink]="['menu/menu/performance']" routerLinkActive="router-link-active" detail=false>
           <!-- <img src="../../assets/images/bar graph.svg" alt="satistics" > -->
           <ion-icon name="stats" style=" height: 65px; width: 65px; color:#ffffff;"></ion-icon>
         </ion-item>
