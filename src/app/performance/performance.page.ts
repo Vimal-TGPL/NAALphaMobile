@@ -5,6 +5,10 @@ import { createAnimation } from '@ionic/core';
 import { Platform, IonSlides, IonContent, PickerController } from '@ionic/angular';
 import { PickerOptions } from '@ionic/core';
 import { ScreenOrientation } from '@ionic-native/screen-orientation/ngx';
+import { PhotoViewer } from '@ionic-native/photo-viewer/ngx';
+import { File } from '@ionic-native/file/ngx';
+import * as d3 from 'd3';
+import { throttleTime } from 'rxjs/operators';
 
 @Component({
   selector: 'app-performance',
@@ -19,11 +23,23 @@ export class PerformancePage implements OnInit, AfterViewInit, OnDestroy {
     }
   }
 
+  LEI_E:number = 0;
+  rebalance_dates:any = [];
+  trggtyp:any;
+  VIX_E:number = 0;
+  SP_E:number = 0;
+  Output: number = 4;
+
+  selectedYear:any;
   mobile : boolean;
   selWith:any;
+  yearList:any = [];
+  OptionsList:any = [];
   selectedIndexData:any;
   selectedIndexName:any;
+  selectedOption:any;
   selectedIndex:any;
+  selectedSection:String = 'perfomance';
   itemActive:boolean = false;
   selectedCountry:any;
   PerformanceData:any = [];
@@ -40,7 +56,7 @@ export class PerformancePage implements OnInit, AfterViewInit, OnDestroy {
   CountryClasificationList:any = ['USA','Europe','UK','Japan','Dev. World','Dev. World ex US'];
   performanceAPIUrl = 'https://api.newagealpha.com/api/Indexes/GetIndexPerformance';
   APIUrl = 'https://api.newagealpha.com/api/Indexes/GetIndexDetails';
-  constructor(private platform:Platform, private httpClient:HttpClient, private pickerCtrl:PickerController, private screenOrientation: ScreenOrientation) { 
+  constructor(private file: File,private photoViewer: PhotoViewer,private platform:Platform, private httpClient:HttpClient, private pickerCtrl:PickerController, private screenOrientation: ScreenOrientation) { 
     this.selWith= window.innerWidth;
     this.selWith = this.selWith- 30; 
   }
@@ -95,17 +111,8 @@ export class PerformancePage implements OnInit, AfterViewInit, OnDestroy {
   });
   }
 
-  // getUSAlist(){
-  //   var tempFI:any = [];
-  //   var tempESG:any = [];
-  //   var tempEq:any = [];
-  //   var filterStr = 'U.S.';
-    
-  // }
-
 
   filterIndex(item){
-    //CON
     var index = item;
     //console.log(item);
     var filterStr='U.S.';
@@ -140,7 +147,7 @@ export class PerformancePage implements OnInit, AfterViewInit, OnDestroy {
     // else if(index == 'All'){
     //   ind = this.IndexData;
     // }
-    //console.log(ind);
+    // console.log(ind);
    // this.selectedIndex = ind[0].indexName;
    // this.selectedIndex = this.selectedIndex.replace('New Age Alpha ','');
     //console.log(this.selectedIndex)
@@ -149,6 +156,7 @@ export class PerformancePage implements OnInit, AfterViewInit, OnDestroy {
 
   OnItemClick(item){
     this.selectedCountry = item;
+    this.selectedOption = null;
     if(item == 'USA'){
       this.segmentChanged('Equity');
       this.selectedIndexName = this.Index[0][0].indexName.replace('New Age Alpha ','');
@@ -205,10 +213,11 @@ export class PerformancePage implements OnInit, AfterViewInit, OnDestroy {
     this.selectedIndexData = inddata[0];
     // this.trimstring();
     this.showMore = false;
-    // console.log(this.selectedIndex);
-    // console.log(this.selectedIndexData);
-    // console.log(this.selectedIndexName);
+    console.log(this.selectedIndex);
+    console.log(this.selectedIndexData);
+    console.log(this.selectedIndexName);
     this.getBMData();
+    this.createChart();
   }
 
   getBMData(){
@@ -270,6 +279,19 @@ export class PerformancePage implements OnInit, AfterViewInit, OnDestroy {
     this.EquityList = tempEq;
   }
 
+  onPerfChipClick(){
+    this.selectedSection = 'perfomance';
+  }
+
+  onConstChipClick(){
+    this.selectedSection = 'construction';
+  }
+
+  onimgClick(img,title){
+    
+    this.photoViewer.show(this.file.applicationDirectory+img,title,{share:false});
+  }
+
   // trimstring(){
   //   var that = this;
   //   if(this.selectedIndexData.description.length > 210 )
@@ -314,6 +336,56 @@ export class PerformancePage implements OnInit, AfterViewInit, OnDestroy {
     
   // }
 
+  async onYearClick(){
+    let opts: PickerOptions ={
+      buttons:[{
+        text:'Calcel',
+        role:'cancel'
+      },{
+        text:'Confirm',
+        handler: (val)=>{
+          this.selectedYear = val;
+          console.log(this.selectedYear);
+        }
+      }],
+      columns:[{
+        name:'Year',
+        selectedIndex: this.getselectedYear(),
+        options: this.getYearColumnOptions()
+      }]
+    };
+
+    console.log(this.selectedYear);
+    let picker = await this.pickerCtrl.create(opts);
+    picker.present();
+  }
+
+  getselectedYear(){
+    console.log('running selected year');
+    if(this.selectedYear){
+      console.log(this.yearList);
+      // var temp = this.yearList.filter(i=>{i == this.selectedYear.Year.text})[0];
+      // console.log(temp);
+      // var selectedyearIndex = this.yearList.indexOf(temp);
+      // return selectedyearIndex;
+    }else{
+      return 0;
+    }
+  }
+  getYearColumnOptions(){
+    if(this.rebalance_dates.length != 0){
+      var tempdates = [...this.rebalance_dates];
+      this.yearList.length = 0;
+      this.yearList = tempdates.map(i=>{return i.key});
+      console.log(this.yearList);
+      var temp = [];
+      this.yearList.filter(i=>{
+        temp.push({text:i,value:i})
+      })
+      return temp;
+    }
+  }
+
   async openPicker(){
     let opts : PickerOptions ={
       buttons:[{
@@ -322,6 +394,7 @@ export class PerformancePage implements OnInit, AfterViewInit, OnDestroy {
       },{
         text: 'Confirm',
         handler: (val)=>{
+          this.selectedOption = val;
           var temp = val.Index.text;
           temp = temp.slice(0,temp.indexOf('(')-1);
           this.selectedIndexName = temp;
@@ -331,13 +404,14 @@ export class PerformancePage implements OnInit, AfterViewInit, OnDestroy {
       }
       ],
       cssClass:'picOptions',
-      columns:[{
+      columns:[{  
         name: 'Index',
-        
+        selectedIndex: this.getSelectedIndex(),
         options: this.getColumnOptions()
       }],
 
     };
+    console.log(this.selectedOption);
     let picker = await this.pickerCtrl.create(opts);
     picker.present();
     // picker.onDidDismiss().then(async data=>{
@@ -347,17 +421,28 @@ export class PerformancePage implements OnInit, AfterViewInit, OnDestroy {
     // })
   }
 
+  getSelectedIndex(){
+    if(this.selectedOption)
+    {
+      var temp = this.OptionsList.filter(i=> i.text == this.selectedOption.Index.text);
+      var selectedindexVal = this.OptionsList.indexOf(temp[0]);
+      return selectedindexVal;
+    }else{
+      return undefined;
+    }
+  }
+
   getColumnOptions(){
-    var options = [];
+    this.OptionsList.length = 0;
     
     this.Index[this.CountryClasificationList.indexOf(this.selectedCountry)].forEach(element => {
       var temp = element.indexName.replace('New Age Alpha ','')
       temp = temp+" ("+element.indexCode+")";
-      options.push({text:temp,value:temp});
+      this.OptionsList.push({text:temp,value:temp});
     });
     // console.log(this.Index);
-    // console.log(options);
-    return options;
+    console.log(this.OptionsList);
+    return this.OptionsList;
   }
 
   onCancelClick(){
@@ -539,5 +624,55 @@ export class PerformancePage implements OnInit, AfterViewInit, OnDestroy {
 
   displayNone(){
 
+  }
+
+  createChart(){
+    var that = this;
+    d3.json("https://api.newagealpha.com/api/Indexes/GetRebalanceDates/"+this.selectedIndexData.indexId).then(data=>{
+      console.log(data);
+      if(data.length>0){
+        data.sort((x,y)=>{
+          return d3.descending(x.rebalanceDt, y.rebalanceDt);
+        })
+        that.rebalance_dates = d3.nest()
+        .key(d=>{ return d.rebalanceDt.substring(0,4);})
+        .entries(data).sort((x,y)=>{ d3.descending(x.key,y.key);});
+        console.log(that.rebalance_dates);
+        that.fetchSignal(this.rebalance_dates[0].values[0].rebalanceDt);
+      }
+    })
+  }
+
+  fetchSignal(tradedate){
+    var that = this;
+    d3.json("https://api.newagealpha.com/api/Indexes/GetSignalsByDate/" + this.selectedIndexData.indexId + "/" + tradedate).then(signaldata =>{
+      console.log(signaldata);
+      if(signaldata.length >0 ){
+        that.LEI_E = signaldata[0].lei;
+        that.trggtyp = signaldata[0].triggerType;
+        that.VIX_E = signaldata[0].vix;
+        that.SP_E = signaldata[0].sptr;
+        if (signaldata[0].urltt == 1) {
+          that.Output = 1;
+        }
+        else if (signaldata[0].urlvt == 1) {
+          that.Output = 3;
+        }
+        else if (signaldata[0].cash == 1) {
+          that.Output = 5;
+        }
+        else if (signaldata[0].urltt == .5 && signaldata[0].urlvt == .5) {
+          that.Output = 2;
+        }
+        else if (signaldata[0].urlvt == .5 && signaldata[0].cash == .5) {
+          that.Output = 4;
+        }
+        console.log('LEI_E', that.LEI_E);
+        console.log('trggtyp', that.trggtyp);
+        console.log('VIX_E', that.VIX_E);
+        console.log('SP_E', that.SP_E);
+        console.log('Output', that.Output);
+      }
+    })
   }
 }

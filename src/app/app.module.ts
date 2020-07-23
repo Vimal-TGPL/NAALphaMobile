@@ -22,6 +22,11 @@ import { Network } from '@ionic-native/network/ngx';
 import { Toast } from '@ionic-native/toast/ngx';
 // import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { PhotoViewer } from '@ionic-native/photo-viewer/ngx';
+import { File } from '@ionic-native/file/ngx';
+import { Device } from '@ionic-native/device/ngx';
+import { UserAgent } from '@ionic-native/user-agent/ngx';
+import { AppVersion } from '@ionic-native/app-version/ngx';
 
 @NgModule({
   declarations: [AppComponent,ProfiledetailsComponent],
@@ -37,7 +42,11 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     ScreenOrientation,
     IonicSelectableComponent,
     Toast,
-    
+    PhotoViewer,
+    File,
+    Device,
+    UserAgent,
+    AppVersion,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     { provide: HTTP_INTERCEPTORS, useClass:JwtInterceptor, multi:true},
     

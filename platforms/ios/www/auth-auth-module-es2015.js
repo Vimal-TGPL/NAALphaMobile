@@ -184,7 +184,7 @@ let AuthPage = class AuthPage {
         if (this.loginForm.valid) {
             let username = this.loginForm.controls['Email'].value;
             let password = this.loginForm.controls['Password'].value;
-            let isRemember = 'N';
+            let isRemember = 'Y';
             this.authenticationService.login(username, password, isRemember)
                 .subscribe(data => {
                 this.showLoad = false;

@@ -71,6 +71,15 @@
     <feature name="Toast">
         <param name="ios-package" value="Toast" />
     </feature>
+    <feature name="PhotoViewer">
+        <param name="ios-package" value="PhotoViewer" />
+    </feature>
+    <feature name="UserAgent">
+        <param name="ios-package" value="UserAgent" />
+    </feature>
+    <feature name="AppVersion">
+        <param name="ios-package" value="AppVersion" />
+    </feature>
     <name>NewAgeAlpha</name>
     <description>New Age Alpha: Indexes, Mutual Funds, Asset Management</description>
     <author email="android-support@newagealpha.com" href="https://www.newagealpha.com/">NewAgeAlpha Mobility Solution Team</author>

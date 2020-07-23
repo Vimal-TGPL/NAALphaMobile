@@ -602,7 +602,7 @@ let JwtInterceptor = class JwtInterceptor {
             .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["catchError"])(this.handleError));
     }
     handleError(error) {
-        console.log("lalalalalalalala");
+        // console.log("lalalalalalalala");       
         return Object(rxjs__WEBPACK_IMPORTED_MODULE_4__["throwError"])(error);
     }
     getCurrentUser() {
@@ -628,6 +628,34 @@ JwtInterceptor = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
     tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_ionic_native_toast_ngx__WEBPACK_IMPORTED_MODULE_8__["Toast"], _ionic_angular__WEBPACK_IMPORTED_MODULE_7__["AlertController"], _ionic_angular__WEBPACK_IMPORTED_MODULE_7__["ToastController"], _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpClient"], _ionic_storage__WEBPACK_IMPORTED_MODULE_3__["Storage"], _services_authentication_service__WEBPACK_IMPORTED_MODULE_5__["AuthenticationService"]])
 ], JwtInterceptor);
 
+
+
+/***/ }),
+
+/***/ "./src/app/_models/user.ts":
+/*!*********************************!*\
+  !*** ./src/app/_models/user.ts ***!
+  \*********************************/
+/*! exports provided: User, UserPass, UserView, UserTrack, UserTrackDtls */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "User", function() { return User; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "UserPass", function() { return UserPass; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "UserView", function() { return UserView; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "UserTrack", function() { return UserTrack; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "UserTrackDtls", function() { return UserTrackDtls; });
+class User {
+}
+class UserPass {
+}
+class UserView {
+}
+class UserTrack {
+}
+class UserTrackDtls {
+}
 
 
 /***/ }),
@@ -890,6 +918,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _ionic_native_network_ngx__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! @ionic-native/network/ngx */ "./node_modules/@ionic-native/network/ngx/index.js");
 /* harmony import */ var _ionic_native_toast_ngx__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! @ionic-native/toast/ngx */ "./node_modules/@ionic-native/toast/ngx/index.js");
 /* harmony import */ var _angular_platform_browser_animations__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! @angular/platform-browser/animations */ "./node_modules/@angular/platform-browser/fesm2015/animations.js");
+/* harmony import */ var _ionic_native_photo_viewer_ngx__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! @ionic-native/photo-viewer/ngx */ "./node_modules/@ionic-native/photo-viewer/ngx/index.js");
+/* harmony import */ var _ionic_native_file_ngx__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! @ionic-native/file/ngx */ "./node_modules/@ionic-native/file/ngx/index.js");
+/* harmony import */ var _ionic_native_device_ngx__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! @ionic-native/device/ngx */ "./node_modules/@ionic-native/device/ngx/index.js");
+/* harmony import */ var _ionic_native_user_agent_ngx__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! @ionic-native/user-agent/ngx */ "./node_modules/@ionic-native/user-agent/ngx/index.js");
+/* harmony import */ var _ionic_native_app_version_ngx__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(/*! @ionic-native/app-version/ngx */ "./node_modules/@ionic-native/app-version/ngx/index.js");
 
 
 
@@ -913,6 +946,11 @@ __webpack_require__.r(__webpack_exports__);
 
 // import { BrowserModule } from '@angular/platform-browser';
 
+
+
+
+
+
 let AppModule = class AppModule {
 };
 AppModule = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
@@ -930,6 +968,11 @@ AppModule = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
             _ionic_native_screen_orientation_ngx__WEBPACK_IMPORTED_MODULE_14__["ScreenOrientation"],
             ionic_selectable__WEBPACK_IMPORTED_MODULE_17__["IonicSelectableComponent"],
             _ionic_native_toast_ngx__WEBPACK_IMPORTED_MODULE_20__["Toast"],
+            _ionic_native_photo_viewer_ngx__WEBPACK_IMPORTED_MODULE_22__["PhotoViewer"],
+            _ionic_native_file_ngx__WEBPACK_IMPORTED_MODULE_23__["File"],
+            _ionic_native_device_ngx__WEBPACK_IMPORTED_MODULE_24__["Device"],
+            _ionic_native_user_agent_ngx__WEBPACK_IMPORTED_MODULE_25__["UserAgent"],
+            _ionic_native_app_version_ngx__WEBPACK_IMPORTED_MODULE_26__["AppVersion"],
             { provide: _angular_router__WEBPACK_IMPORTED_MODULE_3__["RouteReuseStrategy"], useClass: _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["IonicRouteStrategy"] },
             { provide: _angular_common_http__WEBPACK_IMPORTED_MODULE_11__["HTTP_INTERCEPTORS"], useClass: _helper_jwt_interceptor__WEBPACK_IMPORTED_MODULE_16__["JwtInterceptor"], multi: true },
         ],
@@ -998,6 +1041,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @ionic/angular */ "./node_modules/@ionic/angular/dist/fesm5.js");
 /* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm2015/index.js");
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm2015/router.js");
+/* harmony import */ var _models_user__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../_models/user */ "./src/app/_models/user.ts");
+/* harmony import */ var _ionic_native_device_ngx__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @ionic-native/device/ngx */ "./node_modules/@ionic-native/device/ngx/index.js");
+/* harmony import */ var _ionic_native_user_agent_ngx__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @ionic-native/user-agent/ngx */ "./node_modules/@ionic-native/user-agent/ngx/index.js");
+/* harmony import */ var _ionic_native_app_version_ngx__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @ionic-native/app-version/ngx */ "./node_modules/@ionic-native/app-version/ngx/index.js");
+
+
+
+
 
 
 
@@ -1008,8 +1059,13 @@ __webpack_require__.r(__webpack_exports__);
 
 
 let AuthenticationService = class AuthenticationService {
-    constructor(http, storage, plt, route, authService) {
+    constructor(platform, appVersion, userAgent, device, toastController, http, storage, plt, route, authService) {
         // this.plt.ready().then(()=>{
+        this.platform = platform;
+        this.appVersion = appVersion;
+        this.userAgent = userAgent;
+        this.device = device;
+        this.toastController = toastController;
         this.http = http;
         this.storage = storage;
         this.plt = plt;
@@ -1041,6 +1097,7 @@ let AuthenticationService = class AuthenticationService {
                     console.log(user);
                     this.storage.set('currentUser', JSON.stringify(user));
                     this.authenticationState.next(true);
+                    this.ProcUserTrack(user);
                     this.CurrentUser = user;
                 }
             }
@@ -1048,7 +1105,19 @@ let AuthenticationService = class AuthenticationService {
         }));
     }
     logout() {
+        var user;
+        var userId;
+        var remToken;
+        this.storage.get('currentUser').then(res => {
+            user = JSON.parse(res);
+            userId = user.userId;
+            console.log(userId);
+            remToken = user.remToken;
+            console.log(remToken);
+            console.log(user);
+        });
         return this.storage.remove('currentUser').then(() => {
+            this.updateUserTrackLogOut(userId, remToken);
             this.authenticationState.next(false);
         });
     }
@@ -1060,14 +1129,117 @@ let AuthenticationService = class AuthenticationService {
         return this.storage.get('currentUser').then(res => {
             let user = JSON.parse(res);
             console.log(user);
-            if (user && user.token) {
-                //console.log(res);
-                this.CurrentUser = user;
-                this.authenticationState.next(true);
+            if (user && user.token && user.remToken) {
+                const httpOptions = {
+                    headers: new _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpHeaders"]({
+                        'Content-Type': 'application/json'
+                    })
+                };
+                console.log(user);
+                var username = user.username;
+                var remToken = user.remToken;
+                console.log(username, remToken);
+                this.http.post(this.api_url + '/Users/AuthRem', { username, remToken }, httpOptions).subscribe(userdata => {
+                    this.CurrentUser = userdata;
+                    this.storage.set('currentUser', JSON.stringify(userdata));
+                    this.authenticationState.next(true);
+                    this.ProcUserTrack(userdata);
+                }, error => {
+                    this.presentToast(error.error.message);
+                });
             }
             else {
                 this.authenticationState.next(false);
             }
+        });
+    }
+    trackUser(userTracking) {
+        const httpOptions = {
+            headers: new _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpHeaders"]({
+                'Content-Type': 'application/json'
+            })
+        };
+        return this.http.post(this.api_url + `/users/Usertrack`, userTracking, httpOptions).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["map"])(u => {
+            return u;
+        }));
+    }
+    trackUserDetails(userTrackdtls) {
+        const httpOptions = {
+            headers: new _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpHeaders"]({
+                'Content-Type': 'application/json'
+            })
+        };
+        return this.http.post(this.api_url + `/users/UserTrackDtls`, userTrackdtls, httpOptions).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["map"])(u => {
+            return u;
+        }));
+    }
+    ProcUserTrack(data) {
+        try {
+            var objTrack = new _models_user__WEBPACK_IMPORTED_MODULE_9__["UserTrack"]();
+            objTrack.TrackingId = 0;
+            objTrack.Userid = data.userId;
+            objTrack.RequestedUrl = window.location.hostname;
+            objTrack.RememberToken = data.remToken;
+            objTrack.LogInTime = new Date();
+            objTrack.LogOutTime = null;
+            objTrack.Status = 'A';
+            console.log(objTrack);
+            this.trackUser(objTrack).pipe().subscribe(trackData => {
+                console.log(trackData);
+                var objtrackdtls = new _models_user__WEBPACK_IMPORTED_MODULE_9__["UserTrackDtls"]();
+                objtrackdtls.TrackingId = trackData['trackingId'];
+                objtrackdtls.Userid = objTrack.Userid;
+                this.userAgent.get().then(res => {
+                    objtrackdtls.UserAgent = res;
+                });
+                objtrackdtls.OS = this.device.platform;
+                objtrackdtls.OSVersion = this.device.version;
+                objtrackdtls.browser = this.device.manufacturer;
+                objtrackdtls.device = this.device.model;
+                objtrackdtls.browserVersion = this.device.serial;
+                objtrackdtls.IsMobile = this.platform.is('mobile') ? 1 : this.platform.is('iphone') ? 1 : 0;
+                objtrackdtls.IsTablet = this.platform.is('ipad') ? 1 : this.platform.is('tablet') ? 1 : 0;
+                objtrackdtls.IsDesktopDevice = this.device.isVirtual ? 1 : 0;
+                objtrackdtls.ScreenPixelsHeight = this.platform.height();
+                objtrackdtls.ScreenPixelsWidth = this.platform.width();
+                // objtrackdtls.UUID = this.device.uuid;
+                // objtrackdtls.appVersion = this.appVersion.getVersionNumber();
+                console.log(objtrackdtls);
+                this.trackUserDetails(objtrackdtls).pipe().subscribe(data => {
+                    console.log(data);
+                });
+            });
+        }
+        catch (e) {
+        }
+    }
+    updateUserTrackLogOut(userid, remToken) {
+        let obj = new _models_user__WEBPACK_IMPORTED_MODULE_9__["UserTrack"]();
+        obj.Userid = parseInt(userid);
+        obj.LogOutTime = new Date();
+        obj.RememberToken = remToken;
+        obj.RequestedUrl = window.location.hostname;
+        obj.IPAddress = "";
+        obj.LogInTime = new Date();
+        obj.Status = "D";
+        obj.TrackingId = 0;
+        const httpOptions = {
+            headers: new _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpHeaders"]({
+                'Content-Type': 'application/json'
+            })
+        };
+        this.http.post(this.api_url + `/users/UpdateUsertrack`, obj, httpOptions)
+            .subscribe(data => {
+            console.log(data);
+        });
+    }
+    presentToast(val) {
+        return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function* () {
+            const toast = yield this.toastController.create({
+                message: val,
+                duration: 5000
+            });
+            toast.present();
         });
     }
     staySignedIn() {
@@ -1078,6 +1250,11 @@ let AuthenticationService = class AuthenticationService {
     }
 };
 AuthenticationService.ctorParameters = () => [
+    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_6__["Platform"] },
+    { type: _ionic_native_app_version_ngx__WEBPACK_IMPORTED_MODULE_12__["AppVersion"] },
+    { type: _ionic_native_user_agent_ngx__WEBPACK_IMPORTED_MODULE_11__["UserAgent"] },
+    { type: _ionic_native_device_ngx__WEBPACK_IMPORTED_MODULE_10__["Device"] },
+    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_6__["ToastController"] },
     { type: _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpClient"] },
     { type: _ionic_storage__WEBPACK_IMPORTED_MODULE_5__["Storage"] },
     { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_6__["Platform"] },
@@ -1088,7 +1265,7 @@ AuthenticationService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
         providedIn: 'root'
     }),
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpClient"], _ionic_storage__WEBPACK_IMPORTED_MODULE_5__["Storage"], _ionic_angular__WEBPACK_IMPORTED_MODULE_6__["Platform"], _angular_router__WEBPACK_IMPORTED_MODULE_8__["Router"], AuthenticationService])
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_ionic_angular__WEBPACK_IMPORTED_MODULE_6__["Platform"], _ionic_native_app_version_ngx__WEBPACK_IMPORTED_MODULE_12__["AppVersion"], _ionic_native_user_agent_ngx__WEBPACK_IMPORTED_MODULE_11__["UserAgent"], _ionic_native_device_ngx__WEBPACK_IMPORTED_MODULE_10__["Device"], _ionic_angular__WEBPACK_IMPORTED_MODULE_6__["ToastController"], _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpClient"], _ionic_storage__WEBPACK_IMPORTED_MODULE_5__["Storage"], _ionic_angular__WEBPACK_IMPORTED_MODULE_6__["Platform"], _angular_router__WEBPACK_IMPORTED_MODULE_8__["Router"], AuthenticationService])
 ], AuthenticationService);
 
 

@@ -122,6 +122,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _services_authentication_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../services/authentication.service */ "./src/app/services/authentication.service.ts");
 /* harmony import */ var _ionic_storage__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @ionic/storage */ "./node_modules/@ionic/storage/fesm2015/ionic-storage.js");
 /* harmony import */ var _ionic_native_in_app_browser_ngx__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @ionic-native/in-app-browser/ngx */ "./node_modules/@ionic-native/in-app-browser/ngx/index.js");
+/* harmony import */ var _ionic_native_device_ngx__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @ionic-native/device/ngx */ "./node_modules/@ionic-native/device/ngx/index.js");
+/* harmony import */ var _ionic_native_user_agent_ngx__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @ionic-native/user-agent/ngx */ "./node_modules/@ionic-native/user-agent/ngx/index.js");
+/* harmony import */ var _ionic_native_app_version_ngx__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @ionic-native/app-version/ngx */ "./node_modules/@ionic-native/app-version/ngx/index.js");
+
+
+
 
 
 
@@ -134,7 +140,10 @@ __webpack_require__.r(__webpack_exports__);
 
 let AuthPage = class AuthPage {
     // @ViewChild('EmailInput',{static: false}) EmailInt;
-    constructor(platform, route, iab, http, toastController, authenticationService, storage) {
+    constructor(appVersion, userAgent, device, platform, route, iab, http, toastController, authenticationService, storage) {
+        this.appVersion = appVersion;
+        this.userAgent = userAgent;
+        this.device = device;
         this.platform = platform;
         this.route = route;
         this.iab = iab;
@@ -184,12 +193,13 @@ let AuthPage = class AuthPage {
         if (this.loginForm.valid) {
             let username = this.loginForm.controls['Email'].value;
             let password = this.loginForm.controls['Password'].value;
-            let isRemember = 'N';
+            let isRemember = 'Y';
             this.authenticationService.login(username, password, isRemember)
                 .subscribe(data => {
                 this.showLoad = false;
                 if (data.isEmailVerified !== "" && data.isEmailVerified == "Y") {
                     this.loginForm.reset();
+                    this.authenticationService.ProcUserTrack(data);
                 }
                 else {
                     this.presentToast("Please verify your email address sent to your inbox");
@@ -201,6 +211,45 @@ let AuthPage = class AuthPage {
             });
         }
     }
+    // ProcUserTrack(data){
+    //   try{
+    //     var objTrack = new UserTrack();
+    //     objTrack.TrackingId = 0;
+    //     objTrack.Userid = data.userId;
+    //     objTrack.RequestedUrl = window.location.hostname;
+    //     objTrack.RememberToken = data.remToken;
+    //     objTrack.LogInTime = new Date();
+    //     objTrack.LogOutTime = null;
+    //     objTrack.Status = 'A';
+    //     console.log(objTrack);
+    //     this.authenticationService.trackUser(objTrack).pipe().subscribe(trackData=>{
+    //       console.log(trackData);
+    //       var objtrackdtls = new UserTrackDtls();
+    //       objtrackdtls.TrackingId = trackData['trackingId'];
+    //       objtrackdtls.Userid = objTrack.Userid;
+    //       this.userAgent.get().then(res=>{
+    //         objtrackdtls.UserAgent = res;
+    //       });
+    //       objtrackdtls.OS = this.device.platform;
+    //       objtrackdtls.OSVersion = this.device.version;
+    //       objtrackdtls.browser = this.device.manufacturer;
+    //       objtrackdtls.device = this.device.model;
+    //       objtrackdtls.browserVersion = this.device.serial;
+    //       objtrackdtls.IsMobile = this.platform.is('mobile') ? 1 : this.platform.is('iphone') ? 1 : 0;
+    //       objtrackdtls.IsTablet = this.platform.is('ipad') ? 1 : this.platform.is('tablet') ? 1 : 0;
+    //       objtrackdtls.IsDesktopDevice = this.device.isVirtual? 1 : 0;
+    //       objtrackdtls.ScreenPixelsHeight = this.platform.height();
+    //       objtrackdtls.ScreenPixelsWidth = this.platform.width();
+    //       // objtrackdtls.UUID = this.device.uuid;
+    //       // objtrackdtls.appVersion = this.appVersion.getVersionNumber();
+    //       console.log(objtrackdtls);
+    //       this.authenticationService.trackUserDetails(objtrackdtls).pipe().subscribe(data=>{
+    //         console.log(data);
+    //       })
+    //     })
+    //   }catch(e){
+    //   }
+    // }
     onSignupClick() {
         //this.route.navigateByUrl('/signup');
         this.iab.create(this.signupUrl, '_blank', 'location=no,toolbar=yes,zoom=no');
@@ -219,6 +268,9 @@ let AuthPage = class AuthPage {
     }
 };
 AuthPage.ctorParameters = () => [
+    { type: _ionic_native_app_version_ngx__WEBPACK_IMPORTED_MODULE_11__["AppVersion"] },
+    { type: _ionic_native_user_agent_ngx__WEBPACK_IMPORTED_MODULE_10__["UserAgent"] },
+    { type: _ionic_native_device_ngx__WEBPACK_IMPORTED_MODULE_9__["Device"] },
     { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_5__["Platform"] },
     { type: _angular_router__WEBPACK_IMPORTED_MODULE_3__["Router"] },
     { type: _ionic_native_in_app_browser_ngx__WEBPACK_IMPORTED_MODULE_8__["InAppBrowser"] },
@@ -233,7 +285,7 @@ AuthPage = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         template: __webpack_require__(/*! raw-loader!./auth.page.html */ "./node_modules/raw-loader/index.js!./src/app/auth/auth.page.html"),
         styles: [__webpack_require__(/*! ./auth.page.scss */ "./src/app/auth/auth.page.scss")]
     }),
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_ionic_angular__WEBPACK_IMPORTED_MODULE_5__["Platform"], _angular_router__WEBPACK_IMPORTED_MODULE_3__["Router"], _ionic_native_in_app_browser_ngx__WEBPACK_IMPORTED_MODULE_8__["InAppBrowser"], _angular_common_http__WEBPACK_IMPORTED_MODULE_4__["HttpClient"], _ionic_angular__WEBPACK_IMPORTED_MODULE_5__["ToastController"], _services_authentication_service__WEBPACK_IMPORTED_MODULE_6__["AuthenticationService"], _ionic_storage__WEBPACK_IMPORTED_MODULE_7__["Storage"]])
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_ionic_native_app_version_ngx__WEBPACK_IMPORTED_MODULE_11__["AppVersion"], _ionic_native_user_agent_ngx__WEBPACK_IMPORTED_MODULE_10__["UserAgent"], _ionic_native_device_ngx__WEBPACK_IMPORTED_MODULE_9__["Device"], _ionic_angular__WEBPACK_IMPORTED_MODULE_5__["Platform"], _angular_router__WEBPACK_IMPORTED_MODULE_3__["Router"], _ionic_native_in_app_browser_ngx__WEBPACK_IMPORTED_MODULE_8__["InAppBrowser"], _angular_common_http__WEBPACK_IMPORTED_MODULE_4__["HttpClient"], _ionic_angular__WEBPACK_IMPORTED_MODULE_5__["ToastController"], _services_authentication_service__WEBPACK_IMPORTED_MODULE_6__["AuthenticationService"], _ionic_storage__WEBPACK_IMPORTED_MODULE_7__["Storage"]])
 ], AuthPage);
 
 

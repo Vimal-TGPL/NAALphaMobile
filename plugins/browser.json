@@ -48,11 +48,19 @@
     },
     "cordova-plugin-x-toast": {
       "PACKAGE_NAME": "com.app.newagealpha"
-    }
-  },
-  "dependent_plugins": {
+    },
+    "com-sarriaroman-photoviewer": {
+      "PACKAGE_NAME": "com.app.newagealpha"
+    },
     "cordova-plugin-file": {
       "PACKAGE_NAME": "io.ionic.starter"
+    },
+    "im.ltdev.cordova.UserAgent": {
+      "PACKAGE_NAME": "com.app.newagealpha"
+    },
+    "cordova-plugin-app-version": {
+      "PACKAGE_NAME": "com.app.newagealpha"
     }
-  }
+  },
+  "dependent_plugins": {}
 }

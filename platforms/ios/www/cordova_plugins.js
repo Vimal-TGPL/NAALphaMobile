@@ -365,6 +365,30 @@ cordova.define('cordova/plugin_list', function(require, exports, module) {
       "clobbers": [
         "window.plugins.toast"
       ]
+    },
+    {
+      "id": "com-sarriaroman-photoviewer.PhotoViewer",
+      "file": "plugins/com-sarriaroman-photoviewer/www/PhotoViewer.js",
+      "pluginId": "com-sarriaroman-photoviewer",
+      "clobbers": [
+        "PhotoViewer"
+      ]
+    },
+    {
+      "id": "im.ltdev.cordova.UserAgent.UserAgent",
+      "file": "plugins/im.ltdev.cordova.UserAgent/www/UserAgent.js",
+      "pluginId": "im.ltdev.cordova.UserAgent",
+      "clobbers": [
+        "UserAgent"
+      ]
+    },
+    {
+      "id": "cordova-plugin-app-version.AppVersionPlugin",
+      "file": "plugins/cordova-plugin-app-version/www/AppVersionPlugin.js",
+      "pluginId": "cordova-plugin-app-version",
+      "clobbers": [
+        "cordova.getAppVersion"
+      ]
     }
   ];
   module.exports.metadata = {
@@ -382,6 +406,9 @@ cordova.define('cordova/plugin_list', function(require, exports, module) {
     "cordova-plugin-android-permissions": "1.0.2",
     "cordova-plugin-network-information": "2.0.2",
     "cordova-plugin-device-orientation": "2.0.1",
-    "cordova-plugin-x-toast": "2.7.2"
+    "cordova-plugin-x-toast": "2.7.2",
+    "com-sarriaroman-photoviewer": "1.2.4",
+    "im.ltdev.cordova.UserAgent": "1.0.1",
+    "cordova-plugin-app-version": "0.1.9"
   };
 });

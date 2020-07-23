@@ -11,7 +11,8 @@
   </div> -->
 </ion-header>
 
-<ion-content *ngIf="mobile" style="--background: url('../../assets/images/Performance_BG.svg') no-repeat center center / cover;" fullscreen>
+<ion-content *ngIf="mobile"
+  style="--background: url('../../assets/images/Performance_BG.svg') no-repeat center center / cover;" fullscreen>
   <div>
     <ion-card style="--background: linear-gradient(rgba(34, 75, 158, 0.4),rgba(28, 54, 117, 0.4));
     box-shadow: 0px -7px 20px -5px rgba(0,0,0,0.1);     margin-inline-start: 10px;
@@ -21,7 +22,7 @@
       padding-inline-end: 5px; 
     /* max-height: 185px; */
  /* height: calc(100vh - 600px); */
- height: 24vh;
+ height: 21vh;
       display: flex;
     flex-direction: column;
     /* min-height: 140px; */
@@ -34,10 +35,11 @@
             </span>
           </div>
         </div>
-      
+
         <div class="segmentDiv" *ngIf="selectedCountry=='USA'">
           <ion-segment value="Equity" (ionChange)="segmentChanged($event.detail.value)" mode='ios'>
-            <ion-segment-button mode='ios' value="Equity" style="border-radius: 15px 0 0 15px;     --border-width: 0px 1px 0 0;">
+            <ion-segment-button mode='ios' value="Equity"
+              style="border-radius: 15px 0 0 15px;     --border-width: 0px 1px 0 0;">
               <ion-label>Equity</ion-label>
             </ion-segment-button>
             <ion-segment-button mode='ios' value="ESG" style="--border-width: 0px 1px 0 0px;">
@@ -52,18 +54,24 @@
         <div class="dropDownDiv" *ngIf="selectedIndexData && selectedCountry!='USA'" style="padding: 0px 10px;">
           <ion-button (click)="openPicker()" expand="block" fill="clear" shape="round" class="dropDownBtn">
             <div class="innerdropDownDiv">
-              <span class="innerdropDownsapn" *ngIf="selectedIndexData && selectedIndexName">{{selectedIndexName}} ({{selectedIndexData.indexCode}})</span> <span><ion-icon name="ios-arrow-down"></ion-icon></span></div>
+              <span class="innerdropDownsapn" *ngIf="selectedIndexData && selectedIndexName">{{selectedIndexName}}
+                ({{selectedIndexData.indexCode}})</span> <span>
+                <ion-icon name="ios-arrow-down"></ion-icon>
+              </span></div>
           </ion-button>
         </div>
       </ion-card-content>
     </ion-card>
   </div>
 
-  
+
   <div class="dropDownDiv" *ngIf="selectedIndexData && selectedCountry=='USA'">
     <ion-button (click)="openPicker()" expand="block" fill="clear" shape="round" class="dropDownBtn">
       <div class="innerdropDownDiv">
-        <span class="innerdropDownsapn" *ngIf="selectedIndexData && selectedIndexName">{{selectedIndexName}} ({{selectedIndexData.indexCode}})</span> <span><ion-icon name="ios-arrow-down"></ion-icon></span></div>
+        <span class="innerdropDownsapn" *ngIf="selectedIndexData && selectedIndexName">{{selectedIndexName}}
+          ({{selectedIndexData.indexCode}})</span> <span>
+          <ion-icon name="ios-arrow-down"></ion-icon>
+        </span></div>
     </ion-button>
   </div>
 
@@ -74,7 +82,17 @@
     </p>
   </div> -->
 
-  <div *ngIf="selectedIndexData" [ngStyle]="{'height': selectedCountry=='USA'? '10vh': '14vh'}" style="padding: 0 15px;
+  <div *ngIf="selectedIndexData" class="ChipsDiv">
+    <ion-chip mode="ios" outline="true" (click)="onPerfChipClick()" [ngClass]="{'activeChip': selectedSection == 'perfomance'}">
+      <ion-label>Perfomance</ion-label>
+    </ion-chip>
+    <ion-chip mode="ios" outline="true" (click)="onConstChipClick()" [ngClass]="{'activeChip': selectedSection == 'construction'}">
+      <ion-label>Construction</ion-label>
+    </ion-chip>
+  </div>
+
+  <div *ngIf="selectedSection == 'perfomance'">
+    <div *ngIf="selectedIndexData" [ngStyle]="{'height': selectedCountry=='USA'? '10vh': '14vh'}" style="padding: 0 15px;
       height: 10vh;
   /* height: calc(100vh - 710px);
   min-height: 70px;
@@ -83,663 +101,672 @@
   justify-content: center;
   transition: 0.3s;
   align-items: center;">
-    <p [ngStyle]="{'-webkit-line-clamp': selectedCountry=='USA'? '3': '5'}" style="    color: #fff;
+      <p [ngStyle]="{'-webkit-line-clamp': selectedCountry=='USA'? '3': '5'}" style="    color: #fff;
     font-size: 12px;
     font-family: Open Sans Regular;
     line-height: 1.4;display: -webkit-box;
   -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;  
   overflow: hidden;" (click)="descModel = true;">{{selectedIndexData.description}}</p>
-  </div>
+    </div>
 
-  <div class="PerfomanceDateDiv" *ngIf="selectedIndexData">
-    <p>Perfomance: As of {{selectedIndexData.date}}</p>
-  </div>
+    <div class="PerfomanceDateDiv" *ngIf="selectedIndexData">
+      <p>Perfomance: As of {{selectedIndexData.date}}</p>
+    </div>
 
-  <div class="DataCardsOuterDiv" *ngIf="selectedIndexData" [ngStyle]="{'height': selectedCountry=='USA'? '38vh': '42vh'}">
-  <div class="DataCardsDiv" *ngIf="selectedIndexData">
-    <ion-card (click)="oncardClick('value')" [ngClass]="{activeCard: selectedCard == 'value'}">
-      <ion-card-content>
-        <div class="perfData">
-          <span class="DataTitle">
-            <p class="ticker">{{selectedIndexData.indexCode}}</p>
-            <p class="sub-title">Value</p>
-          </span>
-          <span class="DataValue">
-            <p>{{roundValue(selectedIndexData.value)}}</p>
-          </span>
-        </div>
-        
-        <div class="container blue">
-          <div class="circle">
-          </div>
-        </div>
-        <div class="BMData" *ngIf="SelBMIndData">
-          <span class="BMDataTitle">
-            <p class="BMIndname">{{SelBMIndData.indexName}}</p>
-            <p class="BMSubTitle">Value</p>
-          </span>
-          <span class="BMValue">
-            <p>{{roundValue(SelBMIndData.value)}}</p>
-          </span>
-        </div>
-      <div *ngIf="!SelBMIndData" class="hypenOuterDiv">
-        <div class="hypen"></div>
+    <div class="DataCardsOuterDiv" *ngIf="selectedIndexData"
+      [ngStyle]="{'height': selectedCountry=='USA'? '38vh': '42vh'}">
+      <div class="DataCardsDiv" *ngIf="selectedIndexData">
+        <ion-card (click)="oncardClick('value')" [ngClass]="{activeCard: selectedCard == 'value'}">
+          <ion-card-content>
+            <div class="perfData">
+              <span class="DataTitle">
+                <p class="ticker">{{selectedIndexData.indexCode}}</p>
+                <p class="sub-title">Value</p>
+              </span>
+              <span class="DataValue">
+                <p>{{roundValue(selectedIndexData.value)}}</p>
+              </span>
+            </div>
+
+            <div class="container blue">
+              <div class="circle">
+              </div>
+            </div>
+            <div class="BMData" *ngIf="SelBMIndData">
+              <span class="BMDataTitle">
+                <p class="BMIndname">{{SelBMIndData.indexName}}</p>
+                <p class="BMSubTitle">Value</p>
+              </span>
+              <span class="BMValue">
+                <p>{{roundValue(SelBMIndData.value)}}</p>
+              </span>
+            </div>
+            <div *ngIf="!SelBMIndData" class="hypenOuterDiv">
+              <div class="hypen"></div>
+            </div>
+          </ion-card-content>
+        </ion-card>
+
+        <ion-card (click)="oncardClick('daily')" [ngClass]="{activeCard: selectedCard == 'daily'}">
+          <ion-card-content>
+            <div class="perfData">
+              <span class="DataTitle">
+                <p class="ticker">{{selectedIndexData.indexCode}}</p>
+                <p class="sub-title">Daily</p>
+              </span>
+              <span class="DataValue">
+                <p>{{roundValue(selectedIndexData.dailyReturn*100)}}%</p>
+              </span>
+            </div>
+
+            <div class="container blue">
+              <div class="circle">
+              </div>
+            </div>
+
+            <div class="BMData" *ngIf="SelBMIndData">
+              <span class="BMDataTitle">
+                <p class="BMIndname">{{SelBMIndData.indexName}}</p>
+                <p class="BMSubTitle">Daily</p>
+              </span>
+              <span class="BMValue">
+                <p>{{roundValue(SelBMIndData.dailyReturn*100)}}%</p>
+              </span>
+            </div>
+            <div *ngIf="!SelBMIndData" class="hypenOuterDiv">
+              <div class="hypen"></div>
+            </div>
+          </ion-card-content>
+        </ion-card>
+
+        <ion-card (click)="oncardClick('ytd')" [ngClass]="{activeCard: selectedCard == 'ytd'}">
+          <ion-card-content>
+            <div class="perfData">
+              <span class="DataTitle">
+                <p class="ticker">{{selectedIndexData.indexCode}}</p>
+                <p class="sub-title">YTD</p>
+              </span>
+              <span class="DataValue">
+                <p>{{roundValue(selectedIndexData.ytdReturn*100)}}%</p>
+              </span>
+            </div>
+
+            <div class="container blue">
+              <div class="circle">
+              </div>
+            </div>
+
+            <div class="BMData" *ngIf="SelBMIndData">
+              <span class="BMDataTitle">
+                <p class="BMIndname">{{SelBMIndData.indexName}}</p>
+                <p class="BMSubTitle">YTD</p>
+              </span>
+              <span class="BMValue">
+                <p>{{roundValue(SelBMIndData.ytdReturn*100)}}%</p>
+              </span>
+            </div>
+
+            <div *ngIf="!SelBMIndData" class="hypenOuterDiv">
+              <div class="hypen"></div>
+            </div>
+          </ion-card-content>
+        </ion-card>
+
+        <ion-card (click)="oncardClick('1 year')" [ngClass]="{activeCard: selectedCard == '1 year'}">
+          <ion-card-content>
+            <div class="perfData">
+              <span class="DataTitle">
+                <p class="ticker">{{selectedIndexData.indexCode}}</p>
+                <p class="sub-title">1 Year</p>
+              </span>
+              <span class="DataValue">
+                <p>{{roundValue(selectedIndexData.y1Return*100)}}%</p>
+              </span>
+            </div>
+
+            <div class="container blue">
+              <div class="circle">
+              </div>
+            </div>
+
+            <div class="BMData" *ngIf="SelBMIndData">
+              <span class="BMDataTitle">
+                <p class="BMIndname">{{SelBMIndData.indexName}}</p>
+                <p class="BMSubTitle">1 Year</p>
+              </span>
+              <span class="BMValue">
+                <p>{{roundValue(SelBMIndData.y1Return*100)}}%</p>
+              </span>
+            </div>
+
+            <div *ngIf="!SelBMIndData" class="hypenOuterDiv">
+              <div class="hypen"></div>
+            </div>
+          </ion-card-content>
+        </ion-card>
+
+        <ion-card (click)="oncardClick('3 year')" [ngClass]="{activeCard: selectedCard == '3 year'}">
+          <ion-card-content>
+            <div class="perfData">
+              <span class="DataTitle">
+                <p class="ticker">{{selectedIndexData.indexCode}}</p>
+                <p class="sub-title">3 Year</p>
+              </span>
+              <span class="DataValue">
+                <p>{{roundValue(selectedIndexData.y3Return*100)}}%</p>
+              </span>
+            </div>
+            <div class="container blue">
+              <div class="circle">
+              </div>
+            </div>
+
+            <div class="BMData" *ngIf="SelBMIndData">
+              <span class="BMDataTitle">
+                <p class="BMIndname">{{SelBMIndData.indexName}}</p>
+                <p class="BMSubTitle">3 Year</p>
+              </span>
+              <span class="BMValue">
+                <p>{{roundValue(SelBMIndData.y3Return*100)}}%</p>
+              </span>
+            </div>
+
+            <div *ngIf="!SelBMIndData" class="hypenOuterDiv">
+              <div class="hypen"></div>
+            </div>
+          </ion-card-content>
+        </ion-card>
+
+        <ion-card (click)="oncardClick('5 year')" [ngClass]="{activeCard: selectedCard == '5 year'}">
+          <ion-card-content>
+            <div class="perfData">
+              <span class="DataTitle">
+                <p class="ticker">{{selectedIndexData.indexCode}}</p>
+                <p class="sub-title">5 Year</p>
+              </span>
+              <span class="DataValue">
+                <p>{{roundValue(selectedIndexData.y5Return*100)}}%</p>
+              </span>
+            </div>
+
+            <div class="container blue">
+              <div class="circle">
+              </div>
+            </div>
+
+            <div class="BMData" *ngIf="SelBMIndData">
+              <span class="BMDataTitle">
+                <p class="BMIndname">{{SelBMIndData.indexName}}</p>
+                <p class="BMSubTitle">5 Year</p>
+              </span>
+              <span class="BMValue">
+                <p>{{roundValue(SelBMIndData.y5Return*100)}}%</p>
+              </span>
+            </div>
+
+            <div *ngIf="!SelBMIndData" class="hypenOuterDiv">
+              <div class="hypen"></div>
+            </div>
+          </ion-card-content>
+        </ion-card>
+
+        <ion-card (click)="oncardClick('10 year')" [ngClass]="{activeCard: selectedCard == '10 year'}">
+          <ion-card-content>
+            <div class="perfData">
+              <span class="DataTitle">
+                <p class="ticker">{{selectedIndexData.indexCode}}</p>
+                <p class="sub-title">10 Year</p>
+              </span>
+              <span class="DataValue">
+                <p>{{roundValue(selectedIndexData.y10Return*100)}}%</p>
+              </span>
+            </div>
+
+            <div class="container blue">
+              <div class="circle">
+              </div>
+            </div>
+
+            <div class="BMData" *ngIf="SelBMIndData">
+              <span class="BMDataTitle">
+                <p class="BMIndname">{{SelBMIndData.indexName}}</p>
+                <p class="BMSubTitle">10 Year</p>
+              </span>
+              <span class="BMValue">
+                <p>{{roundValue(SelBMIndData.y10Return*100)}}%</p>
+              </span>
+            </div>
+
+            <div *ngIf="!SelBMIndData" class="hypenOuterDiv">
+              <div class="hypen"></div>
+            </div>
+          </ion-card-content>
+        </ion-card>
+
+        <ion-card (click)="oncardClick('cumulative inception')"
+          [ngClass]="{activeCard: selectedCard == 'cumulative inception'}">
+          <ion-card-content>
+            <div class="perfData">
+              <span class="DataTitle">
+                <p class="ticker">{{selectedIndexData.indexCode}}</p>
+                <p class="sub-title" style="text-align: center;">Cumulative Inception</p>
+              </span>
+              <span class="DataValue" style=" margin-top: 10px;">
+                <p>{{roundValue(selectedIndexData.cumReturns*100)}}%</p>
+              </span>
+            </div>
+
+            <div class="container blue">
+              <div class="circle">
+              </div>
+            </div>
+
+            <div class="BMData" *ngIf="SelBMIndData">
+              <span class="BMDataTitle">
+                <p class="BMIndname">{{SelBMIndData.indexName}}</p>
+                <p class="BMSubTitle" style="text-align: center;">Cumulative Inception</p>
+              </span>
+              <span class="BMValue" style=" margin-top: 10px;">
+                <p>{{roundValue(SelBMIndData.cumReturns*100)}}%</p>
+              </span>
+            </div>
+
+            <div *ngIf="!SelBMIndData" class="hypenOuterDiv">
+              <div class="hypen"></div>
+            </div>
+          </ion-card-content>
+        </ion-card>
+
+        <ion-card (click)="oncardClick('annualized inception')"
+          [ngClass]="{activeCard: selectedCard == 'annualized inception'}">
+          <ion-card-content>
+            <div class="perfData">
+              <span class="DataTitle">
+                <p class="ticker">{{selectedIndexData.indexCode}}</p>
+                <p class="sub-title" style="text-align: center;">Annualized Inception</p>
+              </span>
+              <span class="DataValue" style=" margin-top: 10px;">
+                <p>{{roundValue(selectedIndexData.annReturns*100)}}%</p>
+              </span>
+            </div>
+
+            <div class="container blue">
+              <div class="circle">
+              </div>
+            </div>
+
+            <div class="BMData" *ngIf="SelBMIndData">
+              <span class="BMDataTitle">
+                <p class="BMIndname">{{SelBMIndData.indexName}}</p>
+                <p class="BMSubTitle" style="text-align: center;">Annualized Inception</p>
+              </span>
+              <span class="BMValue" style=" margin-top: 10px;">
+                <p>{{roundValue(SelBMIndData.annReturns*100)}}%</p>
+              </span>
+            </div>
+
+            <div *ngIf="!SelBMIndData" class="hypenOuterDiv">
+              <div class="hypen"></div>
+            </div>
+          </ion-card-content>
+        </ion-card>
+
+        <ion-card (click)="oncardClick('2019')" [ngClass]="{activeCard: selectedCard == '2019'}">
+          <ion-card-content>
+            <div class="perfData">
+              <span class="DataTitle">
+                <p class="ticker">{{selectedIndexData.indexCode}}</p>
+                <p class="sub-title">2019</p>
+              </span>
+              <span class="DataValue">
+                <p>{{roundValue(selectedIndexData.year1*100)}}%</p>
+              </span>
+            </div>
+
+            <div class="container blue">
+              <div class="circle">
+              </div>
+            </div>
+
+            <div class="BMData" *ngIf="SelBMIndData">
+              <span class="BMDataTitle">
+                <p class="BMIndname">{{SelBMIndData.indexName}}</p>
+                <p class="BMSubTitle">2019</p>
+              </span>
+              <span class="BMValue">
+                <p>{{roundValue(SelBMIndData.year1*100)}}%</p>
+              </span>
+            </div>
+
+            <div *ngIf="!SelBMIndData" class="hypenOuterDiv">
+              <div class="hypen"></div>
+            </div>
+          </ion-card-content>
+        </ion-card>
+
+        <ion-card (click)="oncardClick('2018')" [ngClass]="{activeCard: selectedCard == '2018'}">
+          <ion-card-content>
+            <div class="perfData">
+              <span class="DataTitle">
+                <p class="ticker">{{selectedIndexData.indexCode}}</p>
+                <p class="sub-title">2018</p>
+              </span>
+              <span class="DataValue">
+                <p>{{roundValue(selectedIndexData.year2*100)}}%</p>
+              </span>
+            </div>
+
+            <div class="container blue">
+              <div class="circle">
+              </div>
+            </div>
+
+            <div class="BMData" *ngIf="SelBMIndData">
+              <span class="BMDataTitle">
+                <p class="BMIndname">{{SelBMIndData.indexName}}</p>
+                <p class="BMSubTitle">2018</p>
+              </span>
+              <span class="BMValue">
+                <p>{{roundValue(SelBMIndData.year2*100)}}%</p>
+              </span>
+            </div>
+
+            <div *ngIf="!SelBMIndData" class="hypenOuterDiv">
+              <div class="hypen"></div>
+            </div>
+          </ion-card-content>
+        </ion-card>
+
+        <ion-card (click)="oncardClick('2017')" [ngClass]="{activeCard: selectedCard == '2017'}">
+          <ion-card-content>
+            <div class="perfData">
+              <span class="DataTitle">
+                <p class="ticker">{{selectedIndexData.indexCode}}</p>
+                <p class="sub-title">2017</p>
+              </span>
+              <span class="DataValue">
+                <p>{{roundValue(selectedIndexData.year3*100)}}%</p>
+              </span>
+            </div>
+
+            <div class="container blue">
+              <div class="circle">
+              </div>
+            </div>
+
+            <div class="BMData" *ngIf="SelBMIndData">
+              <span class="BMDataTitle">
+                <p class="BMIndname">{{SelBMIndData.indexName}}</p>
+                <p class="BMSubTitle">2017</p>
+              </span>
+              <span class="BMValue">
+                <p>{{roundValue(SelBMIndData.year3*100)}}%</p>
+              </span>
+            </div>
+
+            <div *ngIf="!SelBMIndData" class="hypenOuterDiv">
+              <div class="hypen"></div>
+            </div>
+          </ion-card-content>
+        </ion-card>
+
+        <ion-card (click)="oncardClick('2016')" [ngClass]="{activeCard: selectedCard == '2016'}">
+          <ion-card-content>
+            <div class="perfData">
+              <span class="DataTitle">
+                <p class="ticker">{{selectedIndexData.indexCode}}</p>
+                <p class="sub-title">2016</p>
+              </span>
+              <span class="DataValue">
+                <p>{{roundValue(selectedIndexData.year4*100)}}%</p>
+              </span>
+            </div>
+
+            <div class="container blue">
+              <div class="circle">
+              </div>
+            </div>
+
+            <div class="BMData" *ngIf="SelBMIndData">
+              <span class="BMDataTitle">
+                <p class="BMIndname">{{SelBMIndData.indexName}}</p>
+                <p class="BMSubTitle">2016</p>
+              </span>
+              <span class="BMValue">
+                <p>{{roundValue(SelBMIndData.year4*100)}}%</p>
+              </span>
+            </div>
+
+            <div *ngIf="!SelBMIndData" class="hypenOuterDiv">
+              <div class="hypen"></div>
+            </div>
+          </ion-card-content>
+        </ion-card>
+
+        <ion-card (click)="oncardClick('2015')" [ngClass]="{activeCard: selectedCard == '2015'}">
+          <ion-card-content>
+            <div class="perfData">
+              <span class="DataTitle">
+                <p class="ticker">{{selectedIndexData.indexCode}}</p>
+                <p class="sub-title">2015</p>
+              </span>
+              <span class="DataValue">
+                <p>{{roundValue(selectedIndexData.year5*100)}}%</p>
+              </span>
+            </div>
+
+            <div class="container blue">
+              <div class="circle">
+              </div>
+            </div>
+
+            <div class="BMData" *ngIf="SelBMIndData">
+              <span class="BMDataTitle">
+                <p class="BMIndname">{{SelBMIndData.indexName}}</p>
+                <p class="BMSubTitle">2015</p>
+              </span>
+              <span class="BMValue">
+                <p>{{roundValue(SelBMIndData.year5*100)}}%</p>
+              </span>
+            </div>
+
+            <div *ngIf="!SelBMIndData" class="hypenOuterDiv">
+              <div class="hypen"></div>
+            </div>
+          </ion-card-content>
+        </ion-card>
+
+        <ion-card (click)="oncardClick('2014')" [ngClass]="{activeCard: selectedCard == '2014'}">
+          <ion-card-content>
+            <div class="perfData">
+              <span class="DataTitle">
+                <p class="ticker">{{selectedIndexData.indexCode}}</p>
+                <p class="sub-title">2014</p>
+              </span>
+              <span class="DataValue">
+                <p>{{roundValue(selectedIndexData.year6*100)}}%</p>
+              </span>
+            </div>
+
+            <div class="container blue">
+              <div class="circle">
+              </div>
+            </div>
+
+            <div class="BMData" *ngIf="SelBMIndData">
+              <span class="BMDataTitle">
+                <p class="BMIndname">{{SelBMIndData.indexName}}</p>
+                <p class="BMSubTitle">2014</p>
+              </span>
+              <span class="BMValue">
+                <p>{{roundValue(SelBMIndData.year6*100)}}%</p>
+              </span>
+            </div>
+
+            <div *ngIf="!SelBMIndData" class="hypenOuterDiv">
+              <div class="hypen"></div>
+            </div>
+          </ion-card-content>
+        </ion-card>
+
+        <ion-card (click)="oncardClick('2013')" [ngClass]="{activeCard: selectedCard == '2013'}">
+          <ion-card-content>
+            <div class="perfData">
+              <span class="DataTitle">
+                <p class="ticker">{{selectedIndexData.indexCode}}</p>
+                <p class="sub-title">2013</p>
+              </span>
+              <span class="DataValue">
+                <p>{{roundValue(selectedIndexData.year7*100)}}%</p>
+              </span>
+            </div>
+
+            <div class="container blue">
+              <div class="circle">
+              </div>
+            </div>
+
+            <div class="BMData" *ngIf="SelBMIndData">
+              <span class="BMDataTitle">
+                <p class="BMIndname">{{SelBMIndData.indexName}}</p>
+                <p class="BMSubTitle">2013</p>
+              </span>
+              <span class="BMValue">
+                <p>{{roundValue(SelBMIndData.year7*100)}}%</p>
+              </span>
+            </div>
+
+            <div *ngIf="!SelBMIndData" class="hypenOuterDiv">
+              <div class="hypen"></div>
+            </div>
+          </ion-card-content>
+        </ion-card>
+
+        <ion-card (click)="oncardClick('2012')" [ngClass]="{activeCard: selectedCard == '2012'}">
+          <ion-card-content>
+            <div class="perfData">
+              <span class="DataTitle">
+                <p class="ticker">{{selectedIndexData.indexCode}}</p>
+                <p class="sub-title">2012</p>
+              </span>
+              <span class="DataValue">
+                <p>{{roundValue(selectedIndexData.year8*100)}}%</p>
+              </span>
+            </div>
+
+            <div class="container blue">
+              <div class="circle">
+              </div>
+            </div>
+
+            <div class="BMData" *ngIf="SelBMIndData">
+              <span class="BMDataTitle">
+                <p class="BMIndname">{{SelBMIndData.indexName}}</p>
+                <p class="BMSubTitle">2012</p>
+              </span>
+              <span class="BMValue">
+                <p>{{roundValue(SelBMIndData.year8*100)}}%</p>
+              </span>
+            </div>
+
+            <div *ngIf="!SelBMIndData" class="hypenOuterDiv">
+              <div class="hypen"></div>
+            </div>
+          </ion-card-content>
+        </ion-card>
+
+        <ion-card (click)="oncardClick('2011')" [ngClass]="{activeCard: selectedCard == '2011'}">
+          <ion-card-content>
+            <div class="perfData">
+              <span class="DataTitle">
+                <p class="ticker">{{selectedIndexData.indexCode}}</p>
+                <p class="sub-title">2011</p>
+              </span>
+              <span class="DataValue">
+                <p>{{roundValue(selectedIndexData.year9*100)}}%</p>
+              </span>
+            </div>
+
+            <div class="container blue">
+              <div class="circle">
+              </div>
+            </div>
+
+            <div class="BMData" *ngIf="SelBMIndData">
+              <span class="BMDataTitle">
+                <p class="BMIndname">{{SelBMIndData.indexName}}</p>
+                <p class="BMSubTitle">2011</p>
+              </span>
+              <span class="BMValue">
+                <p>{{roundValue(SelBMIndData.year9*100)}}%</p>
+              </span>
+            </div>
+
+            <div *ngIf="!SelBMIndData" class="hypenOuterDiv">
+              <div class="hypen"></div>
+            </div>
+          </ion-card-content>
+        </ion-card>
+
+        <ion-card (click)="oncardClick('2010')" [ngClass]="{activeCard: selectedCard == '2010'}">
+          <ion-card-content>
+            <div class="perfData">
+              <span class="DataTitle">
+                <p class="ticker">{{selectedIndexData.indexCode}}</p>
+                <p class="sub-title">2010</p>
+              </span>
+              <span class="DataValue">
+                <p>{{roundValue(selectedIndexData.year10*100)}}%</p>
+              </span>
+            </div>
+
+            <div class="container blue">
+              <div class="circle">
+              </div>
+            </div>
+
+            <div class="BMData" *ngIf="SelBMIndData">
+              <span class="BMDataTitle">
+                <p class="BMIndname">{{SelBMIndData.indexName}}</p>
+                <p class="BMSubTitle">2010</p>
+              </span>
+              <span class="BMValue">
+                <p>{{roundValue(SelBMIndData.year10*100)}}%</p>
+              </span>
+            </div>
+
+            <div *ngIf="!SelBMIndData" class="hypenOuterDiv">
+              <div class="hypen"></div>
+            </div>
+          </ion-card-content>
+        </ion-card>
       </div>
-      </ion-card-content>
-    </ion-card>
+    </div>
 
-    <ion-card (click)="oncardClick('daily')" [ngClass]="{activeCard: selectedCard == 'daily'}">
-      <ion-card-content>
-        <div class="perfData">
-          <span class="DataTitle">
-            <p class="ticker">{{selectedIndexData.indexCode}}</p>
-            <p class="sub-title">Daily</p>
-          </span>
-          <span class="DataValue">
-            <p>{{roundValue(selectedIndexData.dailyReturn*100)}}%</p>
-          </span>
-        </div>
-        
-        <div class="container blue">
-          <div class="circle">
-          </div>
-        </div>
-        
-        <div class="BMData" *ngIf="SelBMIndData">
-          <span class="BMDataTitle">
-            <p class="BMIndname">{{SelBMIndData.indexName}}</p>
-            <p class="BMSubTitle">Daily</p>
-          </span>
-          <span class="BMValue">
-            <p>{{roundValue(SelBMIndData.dailyReturn*100)}}%</p>
-          </span>
-        </div>
-      <div *ngIf="!SelBMIndData" class="hypenOuterDiv">
-        <div class="hypen"></div>
-      </div>
-      </ion-card-content>
-    </ion-card>
-
-    <ion-card (click)="oncardClick('ytd')" [ngClass]="{activeCard: selectedCard == 'ytd'}">
-      <ion-card-content>
-        <div class="perfData">
-          <span class="DataTitle">
-            <p class="ticker">{{selectedIndexData.indexCode}}</p>
-            <p class="sub-title">YTD</p>
-          </span>
-          <span class="DataValue">
-            <p>{{roundValue(selectedIndexData.ytdReturn*100)}}%</p>
-          </span>
-        </div>
-        
-        <div class="container blue">
-          <div class="circle">
-          </div>
-        </div>
-        
-        <div class="BMData" *ngIf="SelBMIndData">
-          <span class="BMDataTitle">
-            <p class="BMIndname">{{SelBMIndData.indexName}}</p>
-            <p class="BMSubTitle">YTD</p>
-          </span>
-          <span class="BMValue">
-            <p>{{roundValue(SelBMIndData.ytdReturn*100)}}%</p>
-          </span>
-        </div>
-      
-      <div *ngIf="!SelBMIndData" class="hypenOuterDiv">
-        <div class="hypen"></div>
-      </div>
-      </ion-card-content>
-    </ion-card>
-
-    <ion-card (click)="oncardClick('1 year')" [ngClass]="{activeCard: selectedCard == '1 year'}">
-      <ion-card-content>
-        <div class="perfData">
-          <span class="DataTitle">
-            <p class="ticker">{{selectedIndexData.indexCode}}</p>
-            <p class="sub-title">1 Year</p>
-          </span>
-          <span class="DataValue">
-            <p>{{roundValue(selectedIndexData.y1Return*100)}}%</p>
-          </span>
-        </div>
-       
-        <div class="container blue">
-          <div class="circle">
-          </div>
-        </div>
-        
-        <div class="BMData" *ngIf="SelBMIndData">
-          <span class="BMDataTitle">
-            <p class="BMIndname">{{SelBMIndData.indexName}}</p>
-            <p class="BMSubTitle">1 Year</p>
-          </span>
-          <span class="BMValue">
-            <p>{{roundValue(SelBMIndData.y1Return*100)}}%</p>
-          </span>
-        </div>
-      
-      <div *ngIf="!SelBMIndData" class="hypenOuterDiv">
-        <div class="hypen"></div>
-      </div>
-      </ion-card-content>
-    </ion-card>
-
-    <ion-card (click)="oncardClick('3 year')" [ngClass]="{activeCard: selectedCard == '3 year'}">
-      <ion-card-content>
-        <div class="perfData">
-          <span class="DataTitle">
-            <p class="ticker">{{selectedIndexData.indexCode}}</p>
-            <p class="sub-title">3 Year</p>
-          </span>
-          <span class="DataValue">
-            <p>{{roundValue(selectedIndexData.y3Return*100)}}%</p>
-          </span>
-        </div>
-        <div class="container blue">
-          <div class="circle">
-          </div>
-        </div>
-        
-        <div class="BMData" *ngIf="SelBMIndData">
-          <span class="BMDataTitle">
-            <p class="BMIndname">{{SelBMIndData.indexName}}</p>
-            <p class="BMSubTitle">3 Year</p>
-          </span>
-          <span class="BMValue">
-            <p>{{roundValue(SelBMIndData.y3Return*100)}}%</p>
-          </span>
-        </div>
-      
-      <div *ngIf="!SelBMIndData" class="hypenOuterDiv">
-        <div class="hypen"></div>
-      </div>
-      </ion-card-content>
-    </ion-card>
-
-    <ion-card (click)="oncardClick('5 year')" [ngClass]="{activeCard: selectedCard == '5 year'}">
-      <ion-card-content>
-        <div class="perfData">
-          <span class="DataTitle">
-            <p class="ticker">{{selectedIndexData.indexCode}}</p>
-            <p class="sub-title">5 Year</p>
-          </span>
-          <span class="DataValue">
-            <p>{{roundValue(selectedIndexData.y5Return*100)}}%</p>
-          </span>
-        </div>
-        
-        <div class="container blue">
-          <div class="circle">
-          </div>
-        </div>
-        
-        <div class="BMData" *ngIf="SelBMIndData">
-          <span class="BMDataTitle">
-            <p class="BMIndname">{{SelBMIndData.indexName}}</p>
-            <p class="BMSubTitle">5 Year</p>
-          </span>
-          <span class="BMValue">
-            <p>{{roundValue(SelBMIndData.y5Return*100)}}%</p>
-          </span>
-        </div>
-      
-      <div *ngIf="!SelBMIndData" class="hypenOuterDiv">
-        <div class="hypen"></div>
-      </div>
-      </ion-card-content>
-    </ion-card>
-
-    <ion-card (click)="oncardClick('10 year')" [ngClass]="{activeCard: selectedCard == '10 year'}">
-      <ion-card-content>
-        <div class="perfData">
-          <span class="DataTitle">
-            <p class="ticker">{{selectedIndexData.indexCode}}</p>
-            <p class="sub-title">10 Year</p>
-          </span>
-          <span class="DataValue">
-            <p>{{roundValue(selectedIndexData.y10Return*100)}}%</p>
-          </span>
-        </div>
-        
-        <div class="container blue">
-          <div class="circle">
-          </div>
-        </div>
-      
-        <div class="BMData" *ngIf="SelBMIndData">
-          <span class="BMDataTitle">
-            <p class="BMIndname">{{SelBMIndData.indexName}}</p>
-            <p class="BMSubTitle">10 Year</p>
-          </span>
-          <span class="BMValue">
-            <p>{{roundValue(SelBMIndData.y10Return*100)}}%</p>
-          </span>
-        </div>
-      
-      <div *ngIf="!SelBMIndData" class="hypenOuterDiv">
-        <div class="hypen"></div>
-      </div>
-      </ion-card-content>
-    </ion-card>
-
-    <ion-card (click)="oncardClick('cumulative inception')" [ngClass]="{activeCard: selectedCard == 'cumulative inception'}">
-      <ion-card-content>
-        <div class="perfData">
-          <span class="DataTitle">
-            <p class="ticker">{{selectedIndexData.indexCode}}</p>
-            <p class="sub-title" style="text-align: center;">Cumulative Inception</p>
-          </span>
-          <span class="DataValue" style=" margin-top: 10px;">
-            <p>{{roundValue(selectedIndexData.cumReturns*100)}}%</p>
-          </span>
-        </div>
-        
-        <div class="container blue">
-          <div class="circle">
-          </div>
-        </div>
-        
-        <div class="BMData" *ngIf="SelBMIndData">
-          <span class="BMDataTitle">
-            <p class="BMIndname">{{SelBMIndData.indexName}}</p>
-            <p class="BMSubTitle" style="text-align: center;">Cumulative Inception</p>
-          </span>
-          <span class="BMValue" style=" margin-top: 10px;">
-            <p>{{roundValue(SelBMIndData.cumReturns*100)}}%</p>
-          </span>
-        </div>
-      
-      <div *ngIf="!SelBMIndData" class="hypenOuterDiv">
-        <div class="hypen"></div>
-      </div>
-      </ion-card-content>
-    </ion-card>
-
-    <ion-card (click)="oncardClick('annualized inception')" [ngClass]="{activeCard: selectedCard == 'annualized inception'}">
-      <ion-card-content>
-        <div class="perfData">
-          <span class="DataTitle">
-            <p class="ticker">{{selectedIndexData.indexCode}}</p>
-            <p class="sub-title" style="text-align: center;">Annualized Inception</p>
-          </span>
-          <span class="DataValue" style=" margin-top: 10px;">
-            <p>{{roundValue(selectedIndexData.annReturns*100)}}%</p>
-          </span>
-        </div>
-        
-        <div class="container blue">
-          <div class="circle">
-          </div>
-        </div>
-        
-        <div class="BMData" *ngIf="SelBMIndData">
-          <span class="BMDataTitle">
-            <p class="BMIndname">{{SelBMIndData.indexName}}</p>
-            <p class="BMSubTitle" style="text-align: center;">Annualized Inception</p>
-          </span>
-          <span class="BMValue" style=" margin-top: 10px;">
-            <p>{{roundValue(SelBMIndData.annReturns*100)}}%</p>
-          </span>
-        </div>
-      
-      <div *ngIf="!SelBMIndData" class="hypenOuterDiv">
-        <div class="hypen"></div>
-      </div>
-      </ion-card-content>
-    </ion-card>
-
-    <ion-card (click)="oncardClick('2019')" [ngClass]="{activeCard: selectedCard == '2019'}">
-      <ion-card-content>
-        <div class="perfData">
-          <span class="DataTitle">
-            <p class="ticker">{{selectedIndexData.indexCode}}</p>
-            <p class="sub-title">2019</p>
-          </span>
-          <span class="DataValue">
-            <p>{{roundValue(selectedIndexData.year1*100)}}%</p>
-          </span>
-        </div>
-        
-        <div class="container blue">
-          <div class="circle">
-          </div>
-        </div>
-        
-        <div class="BMData" *ngIf="SelBMIndData">
-          <span class="BMDataTitle">
-            <p class="BMIndname">{{SelBMIndData.indexName}}</p>
-            <p class="BMSubTitle">2019</p>
-          </span>
-          <span class="BMValue">
-            <p>{{roundValue(SelBMIndData.year1*100)}}%</p>
-          </span>
-        </div>
-      
-      <div *ngIf="!SelBMIndData" class="hypenOuterDiv">
-        <div class="hypen"></div>
-      </div>
-      </ion-card-content>
-    </ion-card>
-
-    <ion-card (click)="oncardClick('2018')" [ngClass]="{activeCard: selectedCard == '2018'}">
-      <ion-card-content>
-        <div class="perfData">
-          <span class="DataTitle">
-            <p class="ticker">{{selectedIndexData.indexCode}}</p>
-            <p class="sub-title">2018</p>
-          </span>
-          <span class="DataValue">
-            <p>{{roundValue(selectedIndexData.year2*100)}}%</p>
-          </span>
-        </div>
-        
-        <div class="container blue">
-          <div class="circle">
-          </div>
-        </div>
-        
-        <div class="BMData" *ngIf="SelBMIndData">
-          <span class="BMDataTitle">
-            <p class="BMIndname">{{SelBMIndData.indexName}}</p>
-            <p class="BMSubTitle">2018</p>
-          </span>
-          <span class="BMValue">
-            <p>{{roundValue(SelBMIndData.year2*100)}}%</p>
-          </span>
-        </div>
-      
-      <div *ngIf="!SelBMIndData" class="hypenOuterDiv">
-        <div class="hypen"></div>
-      </div>
-      </ion-card-content>
-    </ion-card>
-
-    <ion-card (click)="oncardClick('2017')" [ngClass]="{activeCard: selectedCard == '2017'}">
-      <ion-card-content>
-        <div class="perfData">
-          <span class="DataTitle">
-            <p class="ticker">{{selectedIndexData.indexCode}}</p>
-            <p class="sub-title">2017</p>
-          </span>
-          <span class="DataValue">
-            <p>{{roundValue(selectedIndexData.year3*100)}}%</p>
-          </span>
-        </div>
-        
-        <div class="container blue">
-          <div class="circle">
-          </div>
-        </div>
-        
-        <div class="BMData" *ngIf="SelBMIndData">
-          <span class="BMDataTitle">
-            <p class="BMIndname">{{SelBMIndData.indexName}}</p>
-            <p class="BMSubTitle">2017</p>
-          </span>
-          <span class="BMValue">
-            <p>{{roundValue(SelBMIndData.year3*100)}}%</p>
-          </span>
-        </div>
-      
-      <div *ngIf="!SelBMIndData" class="hypenOuterDiv">
-        <div class="hypen"></div>
-      </div>
-      </ion-card-content>
-    </ion-card>
-
-    <ion-card (click)="oncardClick('2016')" [ngClass]="{activeCard: selectedCard == '2016'}">
-      <ion-card-content>
-        <div class="perfData">
-          <span class="DataTitle">
-            <p class="ticker">{{selectedIndexData.indexCode}}</p>
-            <p class="sub-title">2016</p>
-          </span>
-          <span class="DataValue">
-            <p>{{roundValue(selectedIndexData.year4*100)}}%</p>
-          </span>
-        </div>
-        
-        <div class="container blue">
-          <div class="circle">
-          </div>
-        </div>
-        
-        <div class="BMData" *ngIf="SelBMIndData">
-          <span class="BMDataTitle">
-            <p class="BMIndname">{{SelBMIndData.indexName}}</p>
-            <p class="BMSubTitle">2016</p>
-          </span>
-          <span class="BMValue">
-            <p>{{roundValue(SelBMIndData.year4*100)}}%</p>
-          </span>
-        </div>
-      
-      <div *ngIf="!SelBMIndData" class="hypenOuterDiv">
-        <div class="hypen"></div>
-      </div>
-      </ion-card-content>
-    </ion-card>
-
-    <ion-card (click)="oncardClick('2015')" [ngClass]="{activeCard: selectedCard == '2015'}">
-      <ion-card-content>
-        <div class="perfData">
-          <span class="DataTitle">
-            <p class="ticker">{{selectedIndexData.indexCode}}</p>
-            <p class="sub-title">2015</p>
-          </span>
-          <span class="DataValue">
-            <p>{{roundValue(selectedIndexData.year5*100)}}%</p>
-          </span>
-        </div>
-        
-        <div class="container blue">
-          <div class="circle">
-          </div>
-        </div>
-        
-        <div class="BMData" *ngIf="SelBMIndData">
-          <span class="BMDataTitle">
-            <p class="BMIndname">{{SelBMIndData.indexName}}</p>
-            <p class="BMSubTitle">2015</p>
-          </span>
-          <span class="BMValue">
-            <p>{{roundValue(SelBMIndData.year5*100)}}%</p>
-          </span>
-        </div>
-      
-      <div *ngIf="!SelBMIndData" class="hypenOuterDiv">
-        <div class="hypen"></div>
-      </div>
-      </ion-card-content>
-    </ion-card>
-
-    <ion-card (click)="oncardClick('2014')" [ngClass]="{activeCard: selectedCard == '2014'}">
-      <ion-card-content>
-        <div class="perfData">
-          <span class="DataTitle">
-            <p class="ticker">{{selectedIndexData.indexCode}}</p>
-            <p class="sub-title">2014</p>
-          </span>
-          <span class="DataValue">
-            <p>{{roundValue(selectedIndexData.year6*100)}}%</p>
-          </span>
-        </div>
-        
-        <div class="container blue">
-          <div class="circle">
-          </div>
-        </div>
-        
-        <div class="BMData" *ngIf="SelBMIndData">
-          <span class="BMDataTitle">
-            <p class="BMIndname">{{SelBMIndData.indexName}}</p>
-            <p class="BMSubTitle">2014</p>
-          </span>
-          <span class="BMValue">
-            <p>{{roundValue(SelBMIndData.year6*100)}}%</p>
-          </span>
-        </div>
-      
-      <div *ngIf="!SelBMIndData" class="hypenOuterDiv">
-        <div class="hypen"></div>
-      </div>
-      </ion-card-content>
-    </ion-card>
-
-    <ion-card (click)="oncardClick('2013')" [ngClass]="{activeCard: selectedCard == '2013'}">
-      <ion-card-content>
-        <div class="perfData">
-          <span class="DataTitle">
-            <p class="ticker">{{selectedIndexData.indexCode}}</p>
-            <p class="sub-title">2013</p>
-          </span>
-          <span class="DataValue">
-            <p>{{roundValue(selectedIndexData.year7*100)}}%</p>
-          </span>
-        </div>
-        
-        <div class="container blue">
-          <div class="circle">
-          </div>
-        </div>
-        
-        <div class="BMData" *ngIf="SelBMIndData">
-          <span class="BMDataTitle">
-            <p class="BMIndname">{{SelBMIndData.indexName}}</p>
-            <p class="BMSubTitle">2013</p>
-          </span>
-          <span class="BMValue">
-            <p>{{roundValue(SelBMIndData.year7*100)}}%</p>
-          </span>
-        </div>
-      
-      <div *ngIf="!SelBMIndData" class="hypenOuterDiv">
-        <div class="hypen"></div>
-      </div>
-      </ion-card-content>
-    </ion-card>
-
-    <ion-card (click)="oncardClick('2012')" [ngClass]="{activeCard: selectedCard == '2012'}">
-      <ion-card-content>
-        <div class="perfData">
-          <span class="DataTitle">
-            <p class="ticker">{{selectedIndexData.indexCode}}</p>
-            <p class="sub-title">2012</p>
-          </span>
-          <span class="DataValue">
-            <p>{{roundValue(selectedIndexData.year8*100)}}%</p>
-          </span>
-        </div>
-        
-        <div class="container blue">
-          <div class="circle">
-          </div>
-        </div>
-        
-        <div class="BMData" *ngIf="SelBMIndData">
-          <span class="BMDataTitle">
-            <p class="BMIndname">{{SelBMIndData.indexName}}</p>
-            <p class="BMSubTitle">2012</p>
-          </span>
-          <span class="BMValue">
-            <p>{{roundValue(SelBMIndData.year8*100)}}%</p>
-          </span>
-        </div>
-      
-      <div *ngIf="!SelBMIndData" class="hypenOuterDiv">
-        <div class="hypen"></div>
-      </div>
-      </ion-card-content>
-    </ion-card>
-
-    <ion-card (click)="oncardClick('2011')" [ngClass]="{activeCard: selectedCard == '2011'}">
-      <ion-card-content>
-        <div class="perfData">
-          <span class="DataTitle">
-            <p class="ticker">{{selectedIndexData.indexCode}}</p>
-            <p class="sub-title">2011</p>
-          </span>
-          <span class="DataValue">
-            <p>{{roundValue(selectedIndexData.year9*100)}}%</p>
-          </span>
-        </div>
-        
-        <div class="container blue">
-          <div class="circle">
-          </div>
-        </div>
-        
-        <div class="BMData" *ngIf="SelBMIndData">
-          <span class="BMDataTitle">
-            <p class="BMIndname">{{SelBMIndData.indexName}}</p>
-            <p class="BMSubTitle">2011</p>
-          </span>
-          <span class="BMValue">
-            <p>{{roundValue(SelBMIndData.year9*100)}}%</p>
-          </span>
-        </div>
-      
-      <div *ngIf="!SelBMIndData" class="hypenOuterDiv">
-        <div class="hypen"></div>
-      </div>
-      </ion-card-content>
-    </ion-card>
-
-    <ion-card (click)="oncardClick('2010')" [ngClass]="{activeCard: selectedCard == '2010'}">
-      <ion-card-content>
-        <div class="perfData">
-          <span class="DataTitle">
-            <p class="ticker">{{selectedIndexData.indexCode}}</p>
-            <p class="sub-title">2010</p>
-          </span>
-          <span class="DataValue">
-            <p>{{roundValue(selectedIndexData.year10*100)}}%</p>
-          </span>
-        </div>
-        
-        <div class="container blue">
-          <div class="circle">
-          </div>
-        </div>
-        
-        <div class="BMData" *ngIf="SelBMIndData">
-          <span class="BMDataTitle">
-            <p class="BMIndname">{{SelBMIndData.indexName}}</p>
-            <p class="BMSubTitle">2010</p>
-          </span>
-          <span class="BMValue">
-            <p>{{roundValue(SelBMIndData.year10*100)}}%</p>
-          </span>
-        </div>
-      
-      <div *ngIf="!SelBMIndData" class="hypenOuterDiv">
-        <div class="hypen"></div>
-      </div>
-      </ion-card-content>
-    </ion-card>
-  </div>
-</div>
-
-<div style="    
+    <div style="    
 height: 5vh;
 /* height: calc(100vh - 765px);
 max-height: 50px;
 min-height: 35px; */
 display: flex;
 flex-direction: column;
-justify-content: space-around;"  *ngIf="selectedIndexData">
-<div *ngIf="selectedIndexData" class="FooterDataDiv">
-  <span><p>First Value Date: {{selectedIndexData.firstValueDt}}</p></span>
-  <span><p>Launch Date: {{selectedIndexData.inception}}</p></span>
-</div>
+justify-content: space-around;" *ngIf="selectedIndexData">
+      <div *ngIf="selectedIndexData" class="FooterDataDiv">
+        <span>
+          <p>First Value Date: {{selectedIndexData.firstValueDt}}</p>
+        </span>
+        <span>
+          <p>Launch Date: {{selectedIndexData.inception}}</p>
+        </span>
+      </div>
 
-<div class="FooterCredit" *ngIf="selectedIndexData"><p>Calculated by S&P Dow Jones Indices</p></div>
-</div>
+      <div class="FooterCredit" *ngIf="selectedIndexData">
+        <p>Calculated by S&P Dow Jones Indices</p>
+      </div>
+    </div>
 
-<div style="    position: absolute;
+    <div style="    position: absolute;
 left: 0;
 right: 0;
 top: 0;
@@ -748,27 +775,88 @@ display: flex;
 justify-content: center;
 align-items: center;
 background: rgba(0, 0, 0, 0.6);" *ngIf="descModel">
-  <ion-card style="    --background: #ffffff;
+      <ion-card style="    --background: #ffffff;
   width: 85vw;">
-    <ion-card-content>
-      <div *ngIf="selectedIndexData" >
-        <span style="position: absolute;
+        <ion-card-content>
+          <div *ngIf="selectedIndexData">
+            <span style="position: absolute;
         right: 10px;
         top: 10px;">
-          <ion-icon name="close-circle-outline" style="font-size: 18px;" (click)="onDescCloseClick()"></ion-icon>
-        </span>
-        <p style="color: #1c3675;
+              <ion-icon name="close-circle-outline" style="font-size: 18px;" (click)="onDescCloseClick()"></ion-icon>
+            </span>
+            <p style="color: #1c3675;
         font-size: 16px;
         font-family: Open Sans Bold; text-align: center; margin-top: 10px;">{{selectedIndexName}}</p>
-        <p style="color: #1c3675;
+            <p style="color: #1c3675;
         font-size: 14px;
         font-family: Open Sans Regular; margin-top: 25px;">{{selectedIndexData.description}}</p>
-      </div>
-    </ion-card-content>
-  </ion-card>
-</div>
+          </div>
+        </ion-card-content>
+      </ion-card>
+    </div>
+  </div>
 
-<div *ngIf="!selectedIndexData" style="
+  <div *ngIf="selectedSection == 'construction'">
+    
+    <!-- <div>
+      <ion-card style="margin: 0px 0px 0px 20px;
+      border-radius: 20px 0px 0px 20px;
+      background: #fff;">
+        <ion-card-content style="padding-inline-end: 0px; padding: 15px 0px 15px 15px;">
+          <div style=" padding-right: 15px; padding-left: 15px; background: #2a478a;
+          border-radius: 15px 0 0 15px;" (click)="onYearClick()">
+            <span style="    display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center; padding: 5px 0 5px 0; ">
+              <p style="margin: 0px; color: #fff;">Year</p>
+              <span style="display: inherit; align-items: center;"><p style="margin: 0px; margin-right: 20px; font-size: 15px;
+                font-family: Open Sans SemiBold; color: #fff;
+                ">{{selectedYear.Year.text}}</p>
+                <ion-icon name="ios-arrow-down" style="color: #fff;"></ion-icon></span>
+            </span>
+          </div>
+          Awesome content
+        </ion-card-content>
+      </ion-card>
+    </div> -->
+    <div style="height: calc(100vh - 385px);     display: flex;
+    justify-content: center;
+    align-items: center;">
+      <ion-card style="width: 100%;     background: #ffffff;     min-height: 250px;
+      display: flex;
+      justify-content: center;
+      align-items: center;">
+        <ion-card-content style="    margin: 0 10px;
+        padding-inline-start: 0px;
+        padding-inline-end: 0px;
+        width: 100%;">
+          <img *ngIf="selectedIndexData.indexId == 25" src="../../assets/images/Const/HFELVT.svg" (click)="onimgClick('www/assets/images/Const/HFELVT.png','HFELVT')">
+          <img *ngIf="selectedIndexData.indexId == 23" src="../../assets/images/Const/HFETT.svg" (click)="onimgClick('www/assets/images/Const/HFETT.png','HFETT')">
+          <img *ngIf="selectedIndexData.indexId == 21" src="../../assets/images/Const/HFJLVT.svg" (click)="onimgClick('www/assets/images/Const/HFJLVT.png','HFJLVT')">
+          <img *ngIf="selectedIndexData.indexId == 19" src="../../assets/images/Const/HFJTT.svg" (click)="onimgClick('www/assets/images/Const/HFJTT.png','HFJTT')">
+          <img *ngIf="selectedIndexData.indexId == 11" src="../../assets/images/Const/HFLLVT.svg" (click)="onimgClick('www/assets/images/Const/HFLLVT.png','HFLLVT')">
+          <img *ngIf="selectedIndexData.indexId == 8" src="../../assets/images/Const/HFLTT.svg" (click)="onimgClick('www/assets/images/Const/HFLTT.png','HFLTT')">
+          <img *ngIf="selectedIndexData.indexId == 6" src="../../assets/images/Const/HFSLVT.svg" (click)="onimgClick('www/assets/images/Const/HFSLVT.png','HFSLVT')">
+          <img *ngIf="selectedIndexData.indexId == 3" src="../../assets/images/Const/HFSTT.svg" (click)="onimgClick('www/assets/images/Const/HFSTT.png','HFSTT')">
+          <img *ngIf="selectedIndexData.indexId == 17" src="../../assets/images/Const/HFULVT.svg" (click)="onimgClick('www/assets/images/Const/HFULVT.png','HFULVT')">
+          <img *ngIf="selectedIndexData.indexId == 15" src="../../assets/images/Const/HFUTT.svg" (click)="onimgClick('www/assets/images/Const/HFUTT.png','HFUTT')">
+          <img *ngIf="selectedIndexData.indexId == 102" src="../../assets/images/Const/HFSTT50.svg" (click)="onimgClick('www/assets/images/Const/HFSTT50.png','HFSTT50')">
+          <img *ngIf="selectedIndexData.indexId == 103" src="../../assets/images/Const/HFSLVT50.svg" (click)="onimgClick('www/assets/images/Const/HFSLVT50.png','HFSLVT50')">
+          <img *ngIf="selectedIndexData.indexId == 105" src="../../assets/images/Const/HFLTT50.svg" (click)="onimgClick('www/assets/images/Const/HFLTT50.png','HFLTT50')">
+          <img *ngIf="selectedIndexData.indexId == 106" src="../../assets/images/Const/HFLLVT50.svg" (click)="onimgClick('www/assets/images/Const/HFLLVT50.png','HFLLVT50')">
+          <img *ngIf="selectedIndexData.indexId == 66" src="../../assets/images/Const/US_LC_ESG50_Index.svg" (click)="onimgClick('www/assets/images/Const/US_LC_ESG50_Index.png','HFLESG')">
+          <img *ngIf="selectedIndexData.indexId == 68" src="../../assets/images/Const/US_LC_DEF50_Index.svg" (click)="onimgClick('www/assets/images/Const/US_LC_DEF50_Index.png','HFLEDEF5')">
+          <img *ngIf="selectedIndexData.indexId == 67" src="../../assets/images/Const/US_LC_ENV50_Index.svg" (click)="onimgClick('www/assets/images/Const/US_LC_ENV50_Index.png','HFLENV')">
+          <img *ngIf="selectedIndexData.indexId == 65" src="../../assets/images/Const/US_LC_GOV50_Index.svg" (click)="onimgClick('www/assets/images/Const/US_LC_GOV50_Index.jpg','HFLGOV')">
+          <img *ngIf="selectedIndexData.indexId == 64" src="../../assets/images/Const/US_LC_SOC50_Index.svg" (click)="onimgClick('www/assets/images/Const/US_LC_SOC50_Index.png','HFLSOC')">
+          <!-- <img *ngIf="selectedIndexData.indexId == 69" src="../../assets/images/Const/NAA_Index Construction_ESG.svg" (click)="onimgClick('www/assets/images/IndexConst/ESG-Const/NAA_Index Construction_ESG.png','HFLEAT5')"> -->
+        </ion-card-content>
+      </ion-card>
+    </div>
+  </div>
+
+  <div *ngIf="!selectedIndexData" style="
   justify-content: center;
   display: flex;
   align-items: center;
@@ -960,5 +1048,5 @@ background: rgba(0, 0, 0, 0.6);" *ngIf="descModel">
 </ion-content>-->
 
 <ion-content forceOverscroll=false *ngIf="!mobile">
-  <app-index ></app-index>
-</ion-content> 
+  <app-index></app-index>
+</ion-content>

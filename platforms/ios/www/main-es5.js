@@ -925,6 +925,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _ionic_native_network_ngx__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! @ionic-native/network/ngx */ "./node_modules/@ionic-native/network/ngx/index.js");
 /* harmony import */ var _ionic_native_toast_ngx__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! @ionic-native/toast/ngx */ "./node_modules/@ionic-native/toast/ngx/index.js");
 /* harmony import */ var _angular_platform_browser_animations__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! @angular/platform-browser/animations */ "./node_modules/@angular/platform-browser/fesm5/animations.js");
+/* harmony import */ var _ionic_native_photo_viewer_ngx__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! @ionic-native/photo-viewer/ngx */ "./node_modules/@ionic-native/photo-viewer/ngx/index.js");
+/* harmony import */ var _ionic_native_file_ngx__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! @ionic-native/file/ngx */ "./node_modules/@ionic-native/file/ngx/index.js");
 
 
 
@@ -948,6 +950,8 @@ __webpack_require__.r(__webpack_exports__);
 
 // import { BrowserModule } from '@angular/platform-browser';
 
+
+
 var AppModule = /** @class */ (function () {
     function AppModule() {
     }
@@ -966,6 +970,8 @@ var AppModule = /** @class */ (function () {
                 _ionic_native_screen_orientation_ngx__WEBPACK_IMPORTED_MODULE_14__["ScreenOrientation"],
                 ionic_selectable__WEBPACK_IMPORTED_MODULE_17__["IonicSelectableComponent"],
                 _ionic_native_toast_ngx__WEBPACK_IMPORTED_MODULE_20__["Toast"],
+                _ionic_native_photo_viewer_ngx__WEBPACK_IMPORTED_MODULE_22__["PhotoViewer"],
+                _ionic_native_file_ngx__WEBPACK_IMPORTED_MODULE_23__["File"],
                 { provide: _angular_router__WEBPACK_IMPORTED_MODULE_3__["RouteReuseStrategy"], useClass: _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["IonicRouteStrategy"] },
                 { provide: _angular_common_http__WEBPACK_IMPORTED_MODULE_11__["HTTP_INTERCEPTORS"], useClass: _helper_jwt_interceptor__WEBPACK_IMPORTED_MODULE_16__["JwtInterceptor"], multi: true },
             ],
@@ -1102,10 +1108,15 @@ var AuthenticationService = /** @class */ (function () {
         return this.storage.get('currentUser').then(function (res) {
             var user = JSON.parse(res);
             console.log(user);
-            if (user && user.token) {
+            if (user && user.token && user.remToken) {
                 //console.log(res);
-                _this.CurrentUser = user;
-                _this.authenticationState.next(true);
+                var username = user.username;
+                var remToken = user.remToken;
+                return _this.http.post(_this.api_url + "/Users/AuthRem", { username: username, remToken: remToken }).subscribe(function (userdata) {
+                    console.log(userdata);
+                    _this.CurrentUser = user;
+                    _this.authenticationState.next(true);
+                });
             }
             else {
                 _this.authenticationState.next(false);

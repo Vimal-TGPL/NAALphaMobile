@@ -192,7 +192,7 @@ var AuthPage = /** @class */ (function () {
         if (this.loginForm.valid) {
             var username = this.loginForm.controls['Email'].value;
             var password = this.loginForm.controls['Password'].value;
-            var isRemember = 'N';
+            var isRemember = 'Y';
             this.authenticationService.login(username, password, isRemember)
                 .subscribe(function (data) {
                 _this.showLoad = false;

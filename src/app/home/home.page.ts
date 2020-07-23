@@ -15,7 +15,7 @@ import { NavParams, Events } from '@ionic/angular';
 import { PickerOptions } from '@ionic/core';
 import { AlertService } from '../services/alert.service';
 import { DataHandlerService } from '../services/dataHandler/data-handler.service';
-import { catchError } from 'rxjs/operators';
+
 
 @Component({
   selector: 'app-home',
@@ -139,7 +139,21 @@ export class HomePage implements OnInit, AfterViewInit {
     this.createData();
     this.GetETFValues();
     this.GetFixedIndexData();
-
+    const httpOptions = {
+          headers: new HttpHeaders({
+            'Content-Type': 'application/json'
+          })
+        };
+    var username = this.currentUser.username;
+    var remToken = this.currentUser.remToken;
+    // this.httpclient.post(this.api_url+'/Users/AuthRem',{username,remToken},httpOptions).subscribe(userdata=>{
+    //   console.log(userdata);
+    //   this.presentToast('reAuth worked');
+    //   // this.CurrentUser = user;
+    // // this.authenticationState.next(true);
+    // },error=>{
+    //   this.presentToast(error.error.message);
+    // })
     if (this.platform.is('ipad') || this.platform.is('tablet')) {
       this.mobile = false;
     } else {
@@ -155,6 +169,14 @@ export class HomePage implements OnInit, AfterViewInit {
         }
       }
     })
+  }
+
+  async presentToast(val) {
+    const toast = await this.toastCtrl.create({
+      message: val,
+      duration: 5000
+    });
+    toast.present();
   }
 
   @HostListener('window:resize')
@@ -1255,7 +1277,7 @@ export class HomePage implements OnInit, AfterViewInit {
     // console.log(e);
     this.selComp = e.companyName;
     this.searchSel = e;
-    console.log(e);
+    // console.log(e);
     if (this.SelTab == 'FI') {
       // console.log('fi');
       this.SelSearchObj = e;

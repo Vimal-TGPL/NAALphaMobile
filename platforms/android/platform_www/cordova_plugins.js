@@ -1,6 +1,14 @@
 cordova.define('cordova/plugin_list', function(require, exports, module) {
   module.exports = [
     {
+      "id": "com-sarriaroman-photoviewer.PhotoViewer",
+      "file": "plugins/com-sarriaroman-photoviewer/www/PhotoViewer.js",
+      "pluginId": "com-sarriaroman-photoviewer",
+      "clobbers": [
+        "PhotoViewer"
+      ]
+    },
+    {
       "id": "cordova-plugin-file.DirectoryEntry",
       "file": "plugins/cordova-plugin-file/www/DirectoryEntry.js",
       "pluginId": "cordova-plugin-file",
@@ -253,6 +261,30 @@ cordova.define('cordova/plugin_list', function(require, exports, module) {
       ]
     },
     {
+      "id": "cordova-plugin-device-orientation.CompassError",
+      "file": "plugins/cordova-plugin-device-orientation/www/CompassError.js",
+      "pluginId": "cordova-plugin-device-orientation",
+      "clobbers": [
+        "CompassError"
+      ]
+    },
+    {
+      "id": "cordova-plugin-device-orientation.CompassHeading",
+      "file": "plugins/cordova-plugin-device-orientation/www/CompassHeading.js",
+      "pluginId": "cordova-plugin-device-orientation",
+      "clobbers": [
+        "CompassHeading"
+      ]
+    },
+    {
+      "id": "cordova-plugin-device-orientation.compass",
+      "file": "plugins/cordova-plugin-device-orientation/www/compass.js",
+      "pluginId": "cordova-plugin-device-orientation",
+      "clobbers": [
+        "navigator.compass"
+      ]
+    },
+    {
       "id": "cordova-plugin-inappbrowser.inappbrowser",
       "file": "plugins/cordova-plugin-inappbrowser/www/inappbrowser.js",
       "pluginId": "cordova-plugin-inappbrowser",
@@ -275,6 +307,23 @@ cordova.define('cordova/plugin_list', function(require, exports, module) {
       "pluginId": "cordova-plugin-ionic-webview",
       "clobbers": [
         "Ionic.WebView"
+      ]
+    },
+    {
+      "id": "cordova-plugin-network-information.network",
+      "file": "plugins/cordova-plugin-network-information/www/network.js",
+      "pluginId": "cordova-plugin-network-information",
+      "clobbers": [
+        "navigator.connection",
+        "navigator.network.connection"
+      ]
+    },
+    {
+      "id": "cordova-plugin-network-information.Connection",
+      "file": "plugins/cordova-plugin-network-information/www/Connection.js",
+      "pluginId": "cordova-plugin-network-information",
+      "clobbers": [
+        "Connection"
       ]
     },
     {
@@ -308,6 +357,14 @@ cordova.define('cordova/plugin_list', function(require, exports, module) {
       ]
     },
     {
+      "id": "cordova-plugin-x-toast.Toast",
+      "file": "plugins/cordova-plugin-x-toast/www/Toast.js",
+      "pluginId": "cordova-plugin-x-toast",
+      "clobbers": [
+        "window.plugins.toast"
+      ]
+    },
+    {
       "id": "cordova-sqlite-storage.SQLitePlugin",
       "file": "plugins/cordova-sqlite-storage/www/SQLitePlugin.js",
       "pluginId": "cordova-sqlite-storage",
@@ -316,71 +373,41 @@ cordova.define('cordova/plugin_list', function(require, exports, module) {
       ]
     },
     {
-      "id": "cordova-plugin-network-information.network",
-      "file": "plugins/cordova-plugin-network-information/www/network.js",
-      "pluginId": "cordova-plugin-network-information",
+      "id": "im.ltdev.cordova.UserAgent.UserAgent",
+      "file": "plugins/im.ltdev.cordova.UserAgent/www/UserAgent.js",
+      "pluginId": "im.ltdev.cordova.UserAgent",
       "clobbers": [
-        "navigator.connection",
-        "navigator.network.connection"
+        "UserAgent"
       ]
     },
     {
-      "id": "cordova-plugin-network-information.Connection",
-      "file": "plugins/cordova-plugin-network-information/www/Connection.js",
-      "pluginId": "cordova-plugin-network-information",
+      "id": "cordova-plugin-app-version.AppVersionPlugin",
+      "file": "plugins/cordova-plugin-app-version/www/AppVersionPlugin.js",
+      "pluginId": "cordova-plugin-app-version",
       "clobbers": [
-        "Connection"
-      ]
-    },
-    {
-      "id": "cordova-plugin-device-orientation.CompassError",
-      "file": "plugins/cordova-plugin-device-orientation/www/CompassError.js",
-      "pluginId": "cordova-plugin-device-orientation",
-      "clobbers": [
-        "CompassError"
-      ]
-    },
-    {
-      "id": "cordova-plugin-device-orientation.CompassHeading",
-      "file": "plugins/cordova-plugin-device-orientation/www/CompassHeading.js",
-      "pluginId": "cordova-plugin-device-orientation",
-      "clobbers": [
-        "CompassHeading"
-      ]
-    },
-    {
-      "id": "cordova-plugin-device-orientation.compass",
-      "file": "plugins/cordova-plugin-device-orientation/www/compass.js",
-      "pluginId": "cordova-plugin-device-orientation",
-      "clobbers": [
-        "navigator.compass"
-      ]
-    },
-    {
-      "id": "cordova-plugin-x-toast.Toast",
-      "file": "plugins/cordova-plugin-x-toast/www/Toast.js",
-      "pluginId": "cordova-plugin-x-toast",
-      "clobbers": [
-        "window.plugins.toast"
+        "cordova.getAppVersion"
       ]
     }
   ];
   module.exports.metadata = {
+    "com-sarriaroman-photoviewer": "1.2.4",
     "cordova-plugin-file": "6.0.2",
     "cordova-plugin-advanced-http": "2.2.0",
     "cordova-plugin-android-permissions": "1.0.2",
     "cordova-plugin-device": "2.0.2",
+    "cordova-plugin-device-orientation": "2.0.1",
     "cordova-plugin-inappbrowser": "3.1.0",
     "cordova-plugin-ionic-keyboard": "2.2.0",
     "cordova-plugin-ionic-webview": "4.1.3",
+    "cordova-plugin-network-information": "2.0.2",
     "es6-promise-plugin": "4.2.2",
     "cordova-plugin-screen-orientation": "3.0.2",
     "cordova-plugin-splashscreen": "5.0.2",
     "cordova-plugin-statusbar": "2.4.2",
     "cordova-plugin-whitelist": "1.3.3",
+    "cordova-plugin-x-toast": "2.7.2",
     "cordova-sqlite-storage": "4.0.0",
-    "cordova-plugin-network-information": "2.0.2",
-    "cordova-plugin-device-orientation": "2.0.1",
-    "cordova-plugin-x-toast": "2.7.2"
+    "im.ltdev.cordova.UserAgent": "1.0.1",
+    "cordova-plugin-app-version": "0.1.9"
   };
 });

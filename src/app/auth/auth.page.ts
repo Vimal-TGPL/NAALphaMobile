@@ -7,6 +7,11 @@ import { AuthenticationService } from '../services/authentication.service';
 import { Storage } from '@ionic/storage';
 import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
 import { Platform} from '@ionic/angular';
+import { UserTrack, UserTrackDtls } from '../_models/user'
+import { Device } from '@ionic-native/device/ngx';
+import { UserAgent } from '@ionic-native/user-agent/ngx'
+import { AppVersion } from '@ionic-native/app-version/ngx';
+
 @Component({
   selector: 'app-auth',
   templateUrl: './auth.page.html',
@@ -23,7 +28,7 @@ export class AuthPage implements OnInit {
 
   // @ViewChild('EmailInput',{static: false}) EmailInt;
 
-  constructor(private platform:Platform, private route:Router, private iab:InAppBrowser, private http: HttpClient, private toastController:ToastController, private authenticationService: AuthenticationService, private storage:Storage) { }
+  constructor(private appVersion:AppVersion, private userAgent: UserAgent, private device:Device, private platform:Platform, private route:Router, private iab:InAppBrowser, private http: HttpClient, private toastController:ToastController, private authenticationService: AuthenticationService, private storage:Storage) { }
   hasError = (controlName: string, errorName: string) => {
     return this.loginForm.controls[controlName].hasError(errorName);
 }
@@ -55,6 +60,7 @@ export class AuthPage implements OnInit {
     this.pwd = true;
   }
   onLoginClick(){
+    console.log('Login Clicked');
     this.showLoad = true;
     const httpOptions = {
       headers: new HttpHeaders({
@@ -66,7 +72,7 @@ export class AuthPage implements OnInit {
     {
        let username = this.loginForm.controls['Email'].value;
        let password = this.loginForm.controls['Password'].value;
-       let isRemember ='N';
+       let isRemember ='Y';
      
       this.authenticationService.login(username,password,isRemember)
       .subscribe(data=>{
@@ -84,7 +90,6 @@ export class AuthPage implements OnInit {
     } 
   }
 
-  
   onSignupClick(){
     //this.route.navigateByUrl('/signup');
     this.iab.create(this.signupUrl,'_blank','location=no,toolbar=yes,zoom=no');

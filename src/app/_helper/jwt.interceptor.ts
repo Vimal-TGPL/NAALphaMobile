@@ -24,6 +24,7 @@ export class JwtInterceptor implements HttpInterceptor {
 
          this.getCurrentUser();
          if(this.currentUser && this.currentUser.token){
+            console.log(this.currentUser);
              request = request.clone({
                  setHeaders:{
                     Authorization: `Bearer ${this.currentUser.token}`
@@ -39,11 +40,10 @@ export class JwtInterceptor implements HttpInterceptor {
 
     constructor(private toast: Toast,public alertController: AlertController,public toastController : ToastController ,public http: HttpClient, private storage:Storage, private authService: AuthenticationService){
     this.currentUser = this.authService.currentUserValue();
-    
+    console.log(this.currentUser);
     }
 
-     handleError(error: HttpErrorResponse){
-        console.log("lalalalalalalala");       
+     handleError(error: HttpErrorResponse){      
         return throwError(error);
     }
 
@@ -52,12 +52,12 @@ export class JwtInterceptor implements HttpInterceptor {
         this.currentUser = this.authService.currentUserValue();
     }
 
-    showtoast(){
-        this.toast.show('Oops! Something went wrong. please do re-login','2000','bottom').subscribe(toast => {
-            console.log(toast);
-            console.log('toast trigger');
-        })
-    }
+    // showtoast(){
+    //     this.toast.show('Oops! Something went wrong. please do re-login','2000','bottom').subscribe(toast => {
+    //         // console.log(toast);
+    //         // console.log('toast trigger');
+    //     })
+    // }
     // async presentToast() {
     //     const toast = await this.toastController.create({
     //       message: 'Your settings have been saved.',

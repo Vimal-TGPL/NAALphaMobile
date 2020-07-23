@@ -70,7 +70,7 @@ ion-content {
     }
 
     .dropDownDiv {
-        height: 8vh;
+        height: 6vh;
         // height: calc(100vh - 755px);
         // min-height: 30px;
         padding: 0 15px;
@@ -180,6 +180,7 @@ ion-content {
             .perfData {
                 height: calc(100vh - 740px);
                 min-height: 70px;
+                max-height: 90px;
                 display: flex;
                 flex-direction: column;
                 justify-content: space-between;
@@ -223,6 +224,7 @@ ion-content {
             .BMData {
                 height: calc(100vh - 740px);
                 min-height: 80px;
+                max-height: 90px;
                 display: flex;
                 flex-direction: column;
                 justify-content: space-between;
@@ -377,6 +379,28 @@ ion-content {
 
     .hypen{
         background: #103579 !important;
+    }
+}
+
+.ChipsDiv{
+    margin: 0px 15px;
+    height: 5vh;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    ion-chip{
+        border-color: #3880ff;
+        transition: 0.3s;
+        ion-label{
+            color: #3880ff;
+        }
+    }
+
+    .activeChip{
+        border-color: #ffffff !important;
+        ion-label{
+            color: #ffffff;
+        }
     }
 }
 

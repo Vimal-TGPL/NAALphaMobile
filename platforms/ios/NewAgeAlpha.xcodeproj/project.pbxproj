@@ -58,6 +58,9 @@
 		7CC72D753A5C47D0A9463A42 /* Toast+UIView.m in Sources */ = {isa = PBXBuildFile; fileRef = B4E2D3F4E59B4325B65A5ABA /* Toast+UIView.m */; };
 		858D082B021F484D9230327E /* Toast.m in Sources */ = {isa = PBXBuildFile; fileRef = F8C0E8332B314B948B7157F0 /* Toast.m */; };
 		4CFC6D2FE5FE45CD87D9426A /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 877B515B99FE46E18B3E6507 /* QuartzCore.framework */; };
+		9D457875064241A6921042AA /* PhotoViewer.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CB9C64C2E5649EEB95A09FE /* PhotoViewer.m */; };
+		A8111B1D37ED4DEE9B6598D6 /* UserAgent.m in Sources */ = {isa = PBXBuildFile; fileRef = 0666BCE3BF474155A70320E4 /* UserAgent.m */; };
+		F9191A6F5BAA46E088D8296A /* AppVersion.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A28324E3E754A44BE39F418 /* AppVersion.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -187,6 +190,11 @@
 		970029E6AEF944A1A94EE89F /* Toast+UIView.h */ = {isa = PBXFileReference; name = "Toast+UIView.h"; path = "cordova-plugin-x-toast/Toast+UIView.h"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; explicitFileType = undefined; includeInIndex = 0; };
 		121BD60C4957448489E21E90 /* Toast.h */ = {isa = PBXFileReference; name = "Toast.h"; path = "cordova-plugin-x-toast/Toast.h"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; explicitFileType = undefined; includeInIndex = 0; };
 		877B515B99FE46E18B3E6507 /* QuartzCore.framework */ = {isa = PBXFileReference; name = "QuartzCore.framework"; path = "System/Library/Frameworks/QuartzCore.framework"; sourceTree = SDKROOT; fileEncoding = undefined; lastKnownFileType = wrapper.framework; explicitFileType = undefined; includeInIndex = 0; };
+		0CB9C64C2E5649EEB95A09FE /* PhotoViewer.m */ = {isa = PBXFileReference; name = "PhotoViewer.m"; path = "com-sarriaroman-photoviewer/PhotoViewer.m"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; explicitFileType = undefined; includeInIndex = 0; };
+		0666BCE3BF474155A70320E4 /* UserAgent.m */ = {isa = PBXFileReference; name = "UserAgent.m"; path = "im.ltdev.cordova.UserAgent/UserAgent.m"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; explicitFileType = undefined; includeInIndex = 0; };
+		CC7E008A08834E69A89B799A /* UserAgent.h */ = {isa = PBXFileReference; name = "UserAgent.h"; path = "im.ltdev.cordova.UserAgent/UserAgent.h"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; explicitFileType = undefined; includeInIndex = 0; };
+		3A28324E3E754A44BE39F418 /* AppVersion.m */ = {isa = PBXFileReference; name = "AppVersion.m"; path = "cordova-plugin-app-version/AppVersion.m"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; explicitFileType = undefined; includeInIndex = 0; };
+		C3681F0D369D4AC0AAB53501 /* AppVersion.h */ = {isa = PBXFileReference; name = "AppVersion.h"; path = "cordova-plugin-app-version/AppVersion.h"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -379,6 +387,11 @@
 				F8C0E8332B314B948B7157F0 /* Toast.m */,
 				970029E6AEF944A1A94EE89F /* Toast+UIView.h */,
 				121BD60C4957448489E21E90 /* Toast.h */,
+				0CB9C64C2E5649EEB95A09FE /* PhotoViewer.m */,
+				0666BCE3BF474155A70320E4 /* UserAgent.m */,
+				CC7E008A08834E69A89B799A /* UserAgent.h */,
+				3A28324E3E754A44BE39F418 /* AppVersion.m */,
+				C3681F0D369D4AC0AAB53501 /* AppVersion.h */,
 			);
 			name = Plugins;
 			path = "NewAgeAlpha/Plugins";
@@ -541,6 +554,9 @@
 				869E4B967C974CCEA50CC204 /* CDVCompass.m in Sources */,
 				7CC72D753A5C47D0A9463A42 /* Toast+UIView.m in Sources */,
 				858D082B021F484D9230327E /* Toast.m in Sources */,
+				9D457875064241A6921042AA /* PhotoViewer.m in Sources */,
+				A8111B1D37ED4DEE9B6598D6 /* UserAgent.m in Sources */,
+				F9191A6F5BAA46E088D8296A /* AppVersion.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

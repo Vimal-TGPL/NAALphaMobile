@@ -66,6 +66,15 @@
     },
     "cordova-plugin-x-toast": {
       "PACKAGE_NAME": "com.app.newagealpha"
+    },
+    "com-sarriaroman-photoviewer": {
+      "PACKAGE_NAME": "com.app.newagealpha"
+    },
+    "im.ltdev.cordova.UserAgent": {
+      "PACKAGE_NAME": "com.app.newagealpha"
+    },
+    "cordova-plugin-app-version": {
+      "PACKAGE_NAME": "com.app.newagealpha"
     }
   },
   "dependent_plugins": {},
@@ -467,6 +476,30 @@
       "clobbers": [
         "window.plugins.toast"
       ]
+    },
+    {
+      "file": "plugins/com-sarriaroman-photoviewer/www/PhotoViewer.js",
+      "id": "com-sarriaroman-photoviewer.PhotoViewer",
+      "pluginId": "com-sarriaroman-photoviewer",
+      "clobbers": [
+        "PhotoViewer"
+      ]
+    },
+    {
+      "file": "plugins/im.ltdev.cordova.UserAgent/www/UserAgent.js",
+      "id": "im.ltdev.cordova.UserAgent.UserAgent",
+      "pluginId": "im.ltdev.cordova.UserAgent",
+      "clobbers": [
+        "UserAgent"
+      ]
+    },
+    {
+      "file": "plugins/cordova-plugin-app-version/www/AppVersionPlugin.js",
+      "id": "cordova-plugin-app-version.AppVersionPlugin",
+      "pluginId": "cordova-plugin-app-version",
+      "clobbers": [
+        "cordova.getAppVersion"
+      ]
     }
   ],
   "plugin_metadata": {
@@ -484,6 +517,9 @@
     "cordova-plugin-android-permissions": "1.0.2",
     "cordova-plugin-network-information": "2.0.2",
     "cordova-plugin-device-orientation": "2.0.1",
-    "cordova-plugin-x-toast": "2.7.2"
+    "cordova-plugin-x-toast": "2.7.2",
+    "com-sarriaroman-photoviewer": "1.2.4",
+    "im.ltdev.cordova.UserAgent": "1.0.1",
+    "cordova-plugin-app-version": "0.1.9"
   }
 }
