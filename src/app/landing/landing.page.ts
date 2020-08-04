@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { Platform} from '@ionic/angular';
 import { Network } from '@ionic-native/network/ngx';
 import { AlertController } from '@ionic/angular';
-import { async } from '@angular/core/testing';
+import { AuthenticationService } from '../services/authentication.service';
 
 @Component({
   selector: 'app-landing',
@@ -14,9 +14,10 @@ import { async } from '@angular/core/testing';
 export class LandingPage implements OnInit {
   mobile : boolean;
   showNetError:boolean;
+  authState:boolean;
   signupUrl = 'https://blog.newagealpha.com/h-factor';
   url = 'https://www.newagealpha.com/';
-  constructor(private alertCtrl : AlertController,private network: Network,private platform:Platform, private iab:InAppBrowser, private route:Router) { 
+  constructor(private authService : AuthenticationService ,private alertCtrl : AlertController,private network: Network,private platform:Platform, private iab:InAppBrowser, private route:Router) { 
   //  var netcon = this.network.onConnect().subscribe(async ()=>{
   //     document.getElementById('NetError').style.visibility = 'hidden';
   //  })
@@ -27,11 +28,16 @@ export class LandingPage implements OnInit {
   }
 
   ngOnInit() {
+   this.authService.authenticationState.subscribe(state =>{
+    this.authState = state;
+    // console.log('authstate from landing page'+state)
+    })
     if(this.platform.is('ipad') || this.platform.is('tablet')){
       this.mobile = false;
     }else{
       this.mobile = true;
     }
+
   }
 
   

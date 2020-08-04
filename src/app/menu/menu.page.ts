@@ -33,7 +33,7 @@ export class MenuPage implements OnInit {
     });
     this.storage.get('currentUser').then(res=>{
       this.user = JSON.parse(res);
-      console.log(this.user); 
+      // console.log(this.user); 
       this.firstname = this.user.firstName;
       this.lastname = this.user.lastName;
       this.username = this.user.username;

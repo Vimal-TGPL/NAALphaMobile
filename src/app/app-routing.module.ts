@@ -4,7 +4,6 @@ import { AuthGaurdService } from './services/auth-gaurd.service';
 
 const routes: Routes = [
   { path: '', redirectTo: 'landing', pathMatch: 'full' },
-  
   {
     path: 'landing',
     loadChildren: () => import('./landing/landing.module').then( m => m.LandingPageModule)
@@ -22,11 +21,11 @@ const routes: Routes = [
     path: 'forgot-password',
     loadChildren: () => import('./forgot-password/forgot-password.module').then( m => m.ForgotPasswordPageModule)
   },
-  {
-    path : 'home',
-    canActivate : [AuthGaurdService],
-    loadChildren: () => import('./home/home.module').then(m => m.HomePageModule)
-  },
+  // {
+  //   path : 'home',
+  //   canActivate : [AuthGaurdService],
+  //   loadChildren: () => import('./home/home.module').then(m => m.HomePageModule)
+  // },
   {
     path: 'thankyou',
     loadChildren: () => import('./thankyou/thankyou.module').then( m => m.ThankyouPageModule)
@@ -39,10 +38,10 @@ const routes: Routes = [
     path: 'change-password',
     loadChildren: () => import('./change-password/change-password.module').then( m => m.ChangePasswordPageModule)
   },
-  {
-    path: 'performance',
-    loadChildren: () => import('./performance/performance.module').then( m => m.PerformancePageModule)
-  },
+  // {
+  //   path: 'performance',
+  //   loadChildren: () => import('./performance/performance.module').then( m => m.PerformancePageModule)
+  // },
 ];
 
 @NgModule({

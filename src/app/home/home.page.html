@@ -152,7 +152,7 @@
                   <div class="image-div">
                     <img *ngIf="selComp==null" src="../../assets/images/Stock_Mobile_View.svg" alt="img" class="image0">
                     <!-- D3 Tool Start -->
-                    <div *ngIf="selComp!=null" class="Banner_HomeChartcontainer">
+                    <div class="Banner_HomeChartcontainer" [ngStyle]="{'display': selComp== null? 'none': 'block'}">
                       <svg preserveAspectRatio="xMidYMid meet" viewBox="30 110 750 710" width="100%" height="100%"
                         xmlns="http://www.w3.org/2000/svg" version="1.1">
                         <g id="M_gchart" transform="translate(400 ,445)"></g>
@@ -479,7 +479,7 @@
                 <ion-card-content *ngIf="SelTab=='Global Universe' && !selCountry" class="company-card-content">
                   <ion-list class="nav-tab-index">
                     <ion-item class="nav-tab-item" lines="none" *ngFor="let item of GlobalList"
-                      (click)="selCountry=item.country; onCountryClick(item.country)">
+                      (click)="selCountry=item.country;  onCountryClick(item.country)">
                       <div style="display: flex;
                       width: 100%;
                       margin-left: 1px;
@@ -508,7 +508,7 @@
                   </div>
                   <ion-list class="nav-tab-index">
                     <ion-item class="nav-tab-item" lines="none" *ngFor="let item of globalselectedcountryList"
-                      (click)="onglobalIndexClick(item.name);" [ngClass]="{'selectIndex': SelIndexName==item.name}">
+                      (click)="showLoader = true; onglobalIndexClick(item.name);" [ngClass]="{'selectIndex': SelIndexName==item.name}">
                       <div style="display: flex;
                       width: 100%;
                       margin-left: 1px;
@@ -738,7 +738,7 @@
     <ion-card style="background: white;">
       <ion-card-content style="    padding: 0px;     padding-bottom: 15px;">
         <div style="background: #00b9ff; align-items: center; padding: 10px; display: flex; flex-direction: row; justify-content: space-between;">
-          <ion-title style="font-size: 18px; padding: 0px; color: white;">Alert Settings</ion-title>
+          <ion-title style="font-size: 18px; padding: 0px; color: white; position: relative;">Alert Settings</ion-title>
           <ion-icon style="color: #ffffff; width: 19px;
           height: 19px;" name="close" (click)="showAlertSetup= false;"></ion-icon>
         </div>

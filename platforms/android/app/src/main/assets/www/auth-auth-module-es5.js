@@ -192,6 +192,7 @@ var AuthPage = /** @class */ (function () {
     };
     AuthPage.prototype.onLoginClick = function () {
         var _this = this;
+        console.log('Login Clicked');
         this.showLoad = true;
         var httpOptions = {
             headers: new _angular_common_http__WEBPACK_IMPORTED_MODULE_4__["HttpHeaders"]({
@@ -207,7 +208,6 @@ var AuthPage = /** @class */ (function () {
                 _this.showLoad = false;
                 if (data.isEmailVerified !== "" && data.isEmailVerified == "Y") {
                     _this.loginForm.reset();
-                    _this.authenticationService.ProcUserTrack(data);
                 }
                 else {
                     _this.presentToast("Please verify your email address sent to your inbox");
@@ -219,45 +219,6 @@ var AuthPage = /** @class */ (function () {
             });
         }
     };
-    // ProcUserTrack(data){
-    //   try{
-    //     var objTrack = new UserTrack();
-    //     objTrack.TrackingId = 0;
-    //     objTrack.Userid = data.userId;
-    //     objTrack.RequestedUrl = window.location.hostname;
-    //     objTrack.RememberToken = data.remToken;
-    //     objTrack.LogInTime = new Date();
-    //     objTrack.LogOutTime = null;
-    //     objTrack.Status = 'A';
-    //     console.log(objTrack);
-    //     this.authenticationService.trackUser(objTrack).pipe().subscribe(trackData=>{
-    //       console.log(trackData);
-    //       var objtrackdtls = new UserTrackDtls();
-    //       objtrackdtls.TrackingId = trackData['trackingId'];
-    //       objtrackdtls.Userid = objTrack.Userid;
-    //       this.userAgent.get().then(res=>{
-    //         objtrackdtls.UserAgent = res;
-    //       });
-    //       objtrackdtls.OS = this.device.platform;
-    //       objtrackdtls.OSVersion = this.device.version;
-    //       objtrackdtls.browser = this.device.manufacturer;
-    //       objtrackdtls.device = this.device.model;
-    //       objtrackdtls.browserVersion = this.device.serial;
-    //       objtrackdtls.IsMobile = this.platform.is('mobile') ? 1 : this.platform.is('iphone') ? 1 : 0;
-    //       objtrackdtls.IsTablet = this.platform.is('ipad') ? 1 : this.platform.is('tablet') ? 1 : 0;
-    //       objtrackdtls.IsDesktopDevice = this.device.isVirtual? 1 : 0;
-    //       objtrackdtls.ScreenPixelsHeight = this.platform.height();
-    //       objtrackdtls.ScreenPixelsWidth = this.platform.width();
-    //       // objtrackdtls.UUID = this.device.uuid;
-    //       // objtrackdtls.appVersion = this.appVersion.getVersionNumber();
-    //       console.log(objtrackdtls);
-    //       this.authenticationService.trackUserDetails(objtrackdtls).pipe().subscribe(data=>{
-    //         console.log(data);
-    //       })
-    //     })
-    //   }catch(e){
-    //   }
-    // }
     AuthPage.prototype.onSignupClick = function () {
         //this.route.navigateByUrl('/signup');
         this.iab.create(this.signupUrl, '_blank', 'location=no,toolbar=yes,zoom=no');

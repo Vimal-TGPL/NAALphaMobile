@@ -798,7 +798,9 @@ background: rgba(0, 0, 0, 0.6);" *ngIf="descModel">
 
   <div *ngIf="selectedSection == 'construction'">
     
-    <!-- <div>
+    <div *ngIf="selectedIndexData.indexId !== 25 && selectedIndexData.indexId !== 23 && selectedIndexData.indexId !== 21 && selectedIndexData.indexId !== 19 && selectedIndexData.indexId !== 11 && selectedIndexData.indexId !== 8 && selectedIndexData.indexId !== 6 
+    && selectedIndexData.indexId !== 3 && selectedIndexData.indexId !== 17 && selectedIndexData.indexId !== 15 && selectedIndexData.indexId !== 102 && selectedIndexData.indexId !== 103 && selectedIndexData.indexId !== 105 && selectedIndexData.indexId !== 106
+    && selectedIndexData.indexId !== 66 && selectedIndexData.indexId !== 68 && selectedIndexData.indexId !== 67 && selectedIndexData.indexId !== 65 && selectedIndexData.indexId !== 64" style="    margin: 15px 0;">
       <ion-card style="margin: 0px 0px 0px 20px;
       border-radius: 20px 0px 0px 20px;
       background: #fff;">
@@ -812,15 +814,36 @@ background: rgba(0, 0, 0, 0.6);" *ngIf="descModel">
               <p style="margin: 0px; color: #fff;">Year</p>
               <span style="display: inherit; align-items: center;"><p style="margin: 0px; margin-right: 20px; font-size: 15px;
                 font-family: Open Sans SemiBold; color: #fff;
-                ">{{selectedYear.Year.text}}</p>
+                ">{{selectedYear}}</p>
                 <ion-icon name="ios-arrow-down" style="color: #fff;"></ion-icon></span>
             </span>
           </div>
-          Awesome content
+          <div *ngIf="dateList" class="dateDiv" style="overflow-x: auto;
+          overflow-y: hidden;display: flex;
+          flex-direction: row; margin: 10px 5px;">
+            <span *ngFor="let item of dateList" style="    display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background: #0c3b85;
+            color: #fff;
+            width: 35px;
+            height: 65px;
+            margin-right: 15px;
+            padding: 0 5px;
+            border-radius: 20px;" [ngClass]="{activeDate: item.rebalanceDt == selectedDate}" (click)="onDateClick(item.rebalanceDt)">
+              <p>
+                {{getDate(item.rebalanceDt)}}
+              </p>
+              <p>
+                {{getMonth(item.rebalanceDt)}}
+              </p>
+            </span>
+          </div>
         </ion-card-content>
       </ion-card>
-    </div> -->
-    <div style="height: calc(100vh - 385px);     display: flex;
+    </div>
+    <div style="display: flex;
     justify-content: center;
     align-items: center;">
       <ion-card style="width: 100%;     background: #ffffff;     min-height: 250px;
@@ -851,6 +874,14 @@ background: rgba(0, 0, 0, 0.6);" *ngIf="descModel">
           <img *ngIf="selectedIndexData.indexId == 65" src="../../assets/images/Const/US_LC_GOV50_Index.svg" (click)="onimgClick('www/assets/images/Const/US_LC_GOV50_Index.jpg','HFLGOV')">
           <img *ngIf="selectedIndexData.indexId == 64" src="../../assets/images/Const/US_LC_SOC50_Index.svg" (click)="onimgClick('www/assets/images/Const/US_LC_SOC50_Index.png','HFLSOC')">
           <!-- <img *ngIf="selectedIndexData.indexId == 69" src="../../assets/images/Const/NAA_Index Construction_ESG.svg" (click)="onimgClick('www/assets/images/IndexConst/ESG-Const/NAA_Index Construction_ESG.png','HFLEAT5')"> -->
+          <ion-text *ngIf="selectedIndexData.indexId !== 25 && selectedIndexData.indexId !== 23 && selectedIndexData.indexId !== 21 && selectedIndexData.indexId !== 19 && selectedIndexData.indexId !== 11 && selectedIndexData.indexId !== 8 && selectedIndexData.indexId !== 6 
+          && selectedIndexData.indexId !== 3 && selectedIndexData.indexId !== 17 && selectedIndexData.indexId !== 15 && selectedIndexData.indexId !== 102 && selectedIndexData.indexId !== 103 && selectedIndexData.indexId !== 105 && selectedIndexData.indexId !== 106
+          && selectedIndexData.indexId !== 66 && selectedIndexData.indexId !== 68 && selectedIndexData.indexId !== 67 && selectedIndexData.indexId !== 65 && selectedIndexData.indexId !== 64">
+            <h1 style="font-weight: bold;
+            font-family: Open Sans Bold;
+            color: #0e3980;
+            text-align: center;">Comming Soon...</h1>
+          </ion-text>
         </ion-card-content>
       </ion-card>
     </div>

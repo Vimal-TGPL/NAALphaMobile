@@ -7,7 +7,7 @@
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<ion-content forceOverscroll = false>\r\n  <div class=\"ParentDiv\">\r\n    <ion-card class=\"card\">\r\n      <ion-card class=\"innercard\" [ngClass]=\"{'innercardmobile': mobile}\">\r\n        <ion-card class=\"innercard2\" [ngClass]=\"{'innercard2mobile': mobile}\">\r\n          <ion-card-content>\r\n            <div class=\"outerdiv\" [ngClass]=\"{'outerdivmobile': mobile}\">\r\n              <div>\r\n                <img src=\"../../assets/images/NAA_aboutUs_tools.png\" alt=\"Logo\"/>\r\n              </div>\r\n              <div class=\"welcomeTextDiv\">\r\n                <ion-text>\r\n                  <p>The H-Factor System is a free service oﬀered by New Age Alpha that is designed to help you avoid the Human Factor inside your portfolio. \r\n                    This system measures the amount of Human Factor in a stock’s price.</p>\r\n                </ion-text>\r\n              </div>\r\n              <div class=\"versiondiv\">\r\n                <ion-text>\r\n                  <p>Version 1.0</p>\r\n                </ion-text>\r\n              </div>\r\n              <div class=\"LoginBtnDiv\">\r\n                <ion-button (click)=\"onLoginClick()\" expand=\"block\" fill=\"clear\" >\r\n                  Login\r\n                </ion-button>\r\n              </div>\r\n              <div class=\"forgotPwdDiv\">\r\n                <ion-button (click)=\"onForgotPwdClick()\" expand=\"block\" fill=\"clear\" shape=\"round\">\r\n                  Forgot Password?\r\n                </ion-button>\r\n              </div>\r\n              <div class=\"signUpDiv\">\r\n                <ion-button (click)=\"onSignupClick()\" expand=\"block\" fill=\"clear\" shape=\"round\">\r\n                  <span> Sign up</span>\r\n                </ion-button>\r\n              </div>\r\n            </div>\r\n          </ion-card-content>\r\n        </ion-card>\r\n      </ion-card>\r\n    </ion-card>  \r\n</div>\r\n\r\n</ion-content>\r\n"
+module.exports = "<ion-content forceOverscroll = false>\r\n  <div class=\"ParentDiv\">\r\n    <ion-card class=\"card\">\r\n      <ion-card class=\"innercard\" [ngClass]=\"{'innercardmobile': mobile}\">\r\n        <ion-card class=\"innercard2\" [ngClass]=\"{'innercard2mobile': mobile}\">\r\n          <ion-card-content *ngIf=\"authState == false\">\r\n            <div class=\"outerdiv\" [ngClass]=\"{'outerdivmobile': mobile}\">\r\n              <div>\r\n                <img src=\"../../assets/images/NAA_aboutUs_tools.png\" alt=\"Logo\"/>\r\n              </div>\r\n              <div class=\"welcomeTextDiv\">\r\n                <ion-text>\r\n                  <p>The H-Factor System is a free service oﬀered by New Age Alpha that is designed to help you avoid the Human Factor inside your portfolio. \r\n                    This system measures the amount of Human Factor in a stock’s price.</p>\r\n                </ion-text>\r\n              </div>\r\n              <div class=\"versiondiv\">\r\n                <ion-text>\r\n                  <p>Version 1.0</p>\r\n                </ion-text>\r\n              </div>\r\n              <div class=\"LoginBtnDiv\">\r\n                <ion-button (click)=\"onLoginClick()\" expand=\"block\" fill=\"clear\" >\r\n                  Login\r\n                </ion-button>\r\n              </div>\r\n              <div class=\"forgotPwdDiv\">\r\n                <ion-button (click)=\"onForgotPwdClick()\" expand=\"block\" fill=\"clear\" shape=\"round\">\r\n                  Forgot Password?\r\n                </ion-button>\r\n              </div>\r\n              <div class=\"signUpDiv\">\r\n                <ion-button (click)=\"onSignupClick()\" expand=\"block\" fill=\"clear\" shape=\"round\">\r\n                  <span> Sign up</span>\r\n                </ion-button>\r\n              </div>\r\n            </div>\r\n          </ion-card-content>\r\n\r\n          <ion-card-content *ngIf=\"authState\">\r\n            Awesome content\r\n          </ion-card-content>\r\n        </ion-card>\r\n      </ion-card>\r\n    </ion-card>  \r\n</div>\r\n\r\n</ion-content>\r\n"
 
 /***/ }),
 
@@ -123,6 +123,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
 /* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @ionic/angular */ "./node_modules/@ionic/angular/dist/fesm5.js");
 /* harmony import */ var _ionic_native_network_ngx__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @ionic-native/network/ngx */ "./node_modules/@ionic-native/network/ngx/index.js");
+/* harmony import */ var _services_authentication_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../services/authentication.service */ "./src/app/services/authentication.service.ts");
+
 
 
 
@@ -131,10 +133,11 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var LandingPage = /** @class */ (function () {
-    function LandingPage(alertCtrl, network, platform, iab, route) {
+    function LandingPage(authService, alertCtrl, network, platform, iab, route) {
         //  var netcon = this.network.onConnect().subscribe(async ()=>{
         //     document.getElementById('NetError').style.visibility = 'hidden';
         //  })
+        this.authService = authService;
         this.alertCtrl = alertCtrl;
         this.network = network;
         this.platform = platform;
@@ -147,6 +150,11 @@ var LandingPage = /** @class */ (function () {
         //  })
     }
     LandingPage.prototype.ngOnInit = function () {
+        var _this = this;
+        this.authService.authenticationState.subscribe(function (state) {
+            _this.authState = state;
+            console.log('sauthstate from landing page' + state);
+        });
         if (this.platform.is('ipad') || this.platform.is('tablet')) {
             this.mobile = false;
         }
@@ -171,6 +179,7 @@ var LandingPage = /** @class */ (function () {
         });
     };
     LandingPage.ctorParameters = function () { return [
+        { type: _services_authentication_service__WEBPACK_IMPORTED_MODULE_6__["AuthenticationService"] },
         { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["AlertController"] },
         { type: _ionic_native_network_ngx__WEBPACK_IMPORTED_MODULE_5__["Network"] },
         { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["Platform"] },
@@ -183,7 +192,7 @@ var LandingPage = /** @class */ (function () {
             template: __webpack_require__(/*! raw-loader!./landing.page.html */ "./node_modules/raw-loader/index.js!./src/app/landing/landing.page.html"),
             styles: [__webpack_require__(/*! ./landing.page.scss */ "./src/app/landing/landing.page.scss")]
         }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_ionic_angular__WEBPACK_IMPORTED_MODULE_4__["AlertController"], _ionic_native_network_ngx__WEBPACK_IMPORTED_MODULE_5__["Network"], _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["Platform"], _ionic_native_in_app_browser_ngx__WEBPACK_IMPORTED_MODULE_2__["InAppBrowser"], _angular_router__WEBPACK_IMPORTED_MODULE_3__["Router"]])
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_services_authentication_service__WEBPACK_IMPORTED_MODULE_6__["AuthenticationService"], _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["AlertController"], _ionic_native_network_ngx__WEBPACK_IMPORTED_MODULE_5__["Network"], _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["Platform"], _ionic_native_in_app_browser_ngx__WEBPACK_IMPORTED_MODULE_2__["InAppBrowser"], _angular_router__WEBPACK_IMPORTED_MODULE_3__["Router"]])
     ], LandingPage);
     return LandingPage;
 }());

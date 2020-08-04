@@ -2,13 +2,13 @@ import { Component, OnInit, AfterViewInit, OnDestroy } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import 'slick-carousel/slick/slick';
 import { createAnimation } from '@ionic/core';
-import { Platform, IonSlides, IonContent, PickerController } from '@ionic/angular';
+import { Platform, IonSlides, IonContent, PickerController, MenuController } from '@ionic/angular';
 import { PickerOptions } from '@ionic/core';
 import { ScreenOrientation } from '@ionic-native/screen-orientation/ngx';
 import { PhotoViewer } from '@ionic-native/photo-viewer/ngx';
 import { File } from '@ionic-native/file/ngx';
 import * as d3 from 'd3';
-import { throttleTime } from 'rxjs/operators';
+
 
 @Component({
   selector: 'app-performance',
@@ -30,6 +30,8 @@ export class PerformancePage implements OnInit, AfterViewInit, OnDestroy {
   SP_E:number = 0;
   Output: number = 4;
 
+  selectedDate:any;
+  dateList:any = [];
   selectedYear:any;
   mobile : boolean;
   selWith:any;
@@ -56,12 +58,15 @@ export class PerformancePage implements OnInit, AfterViewInit, OnDestroy {
   CountryClasificationList:any = ['USA','Europe','UK','Japan','Dev. World','Dev. World ex US'];
   performanceAPIUrl = 'https://api.newagealpha.com/api/Indexes/GetIndexPerformance';
   APIUrl = 'https://api.newagealpha.com/api/Indexes/GetIndexDetails';
-  constructor(private file: File,private photoViewer: PhotoViewer,private platform:Platform, private httpClient:HttpClient, private pickerCtrl:PickerController, private screenOrientation: ScreenOrientation) { 
+  constructor(private menuController: MenuController ,private file: File,private photoViewer: PhotoViewer,private platform:Platform, private httpClient:HttpClient, private pickerCtrl:PickerController, private screenOrientation: ScreenOrientation) { 
     this.selWith= window.innerWidth;
     this.selWith = this.selWith- 30; 
+    // this.menuController.swipeEnable()
+    this.menuController.enable(false);
   }
   ngOnDestroy(): void {
     this.screenOrientation.unlock();
+    this.menuController.enable(true);
   }
 
   ngOnInit() {
@@ -339,13 +344,16 @@ export class PerformancePage implements OnInit, AfterViewInit, OnDestroy {
   async onYearClick(){
     let opts: PickerOptions ={
       buttons:[{
-        text:'Calcel',
+        text:'Cancel',
         role:'cancel'
       },{
         text:'Confirm',
         handler: (val)=>{
-          this.selectedYear = val;
+          this.selectedYear = val.Year.text;
           console.log(this.selectedYear);
+          this.getYearData();
+          this.selectedDate = this.dateList[0].rebalanceDt;
+          this.fetchSignal(this.selectedDate);
         }
       }],
       columns:[{
@@ -372,6 +380,14 @@ export class PerformancePage implements OnInit, AfterViewInit, OnDestroy {
       return 0;
     }
   }
+
+  getYearData(){
+    var yearIndex = this.yearList.indexOf(this.selectedYear);
+    console.log(yearIndex);
+    this.dateList = this.rebalance_dates[yearIndex].values;
+    console.log(this.dateList);
+  }
+
   getYearColumnOptions(){
     if(this.rebalance_dates.length != 0){
       var tempdates = [...this.rebalance_dates];
@@ -638,12 +654,20 @@ export class PerformancePage implements OnInit, AfterViewInit, OnDestroy {
         .key(d=>{ return d.rebalanceDt.substring(0,4);})
         .entries(data).sort((x,y)=>{ d3.descending(x.key,y.key);});
         console.log(that.rebalance_dates);
-        that.fetchSignal(this.rebalance_dates[0].values[0].rebalanceDt);
+        this.selectedYear = that.rebalance_dates[0].key;
+        
+          this.getYearColumnOptions();
+          this.getYearData();
+        
+        that.selectedDate = this.rebalance_dates[0].values[0].rebalanceDt;
+        that.fetchSignal(that.selectedDate);
+        
       }
     })
   }
 
   fetchSignal(tradedate){
+    console.log(tradedate);
     var that = this;
     d3.json("https://api.newagealpha.com/api/Indexes/GetSignalsByDate/" + this.selectedIndexData.indexId + "/" + tradedate).then(signaldata =>{
       console.log(signaldata);
@@ -674,5 +698,22 @@ export class PerformancePage implements OnInit, AfterViewInit, OnDestroy {
         console.log('Output', that.Output);
       }
     })
+  }
+
+  getDate(rebalanceDT){
+    var tempdt = rebalanceDT.slice(0,4)+"/"+rebalanceDT.slice(4,6)+'/'+rebalanceDT.slice(6,8);
+    var temp = new Date( tempdt);
+    return temp.getDate();
+  }
+
+  getMonth(rebalanceDT){
+    var tempdt = rebalanceDT.slice(0,4)+"/"+rebalanceDT.slice(4,6)+'/'+rebalanceDT.slice(6,8);
+    var temp = new Date(tempdt);
+    return temp.toLocaleString('default', {month: 'short'});
+  }
+
+  onDateClick(rebalancedt){
+    this.selectedDate = rebalancedt;
+    this.fetchSignal(rebalancedt);
   }
 }

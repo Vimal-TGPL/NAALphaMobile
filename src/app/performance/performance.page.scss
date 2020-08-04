@@ -382,6 +382,14 @@ ion-content {
     }
 }
 
+.dateDiv::-webkit-scrollbar {
+    display: none;
+}
+
+.activeDate{
+    color: #00b9ff !important;
+}
+
 .ChipsDiv{
     margin: 0px 15px;
     height: 5vh;

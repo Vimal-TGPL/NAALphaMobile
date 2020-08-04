@@ -10,6 +10,7 @@ import { UserView, UserTrack, UserTrackDtls } from '../_models/user';
 import { Device } from '@ionic-native/device/ngx';
 import { UserAgent } from '@ionic-native/user-agent/ngx'
 import { AppVersion } from '@ionic-native/app-version/ngx';
+import { error } from 'protractor';
 
 @Injectable({
   providedIn: 'root'
@@ -23,12 +24,18 @@ export class AuthenticationService {
     // this.plt.ready().then(()=>{
       
     // setTimeout(() => {
-      this.checkToken();
-    // }, 100);
       
-    //   this.storage.get('currentUser').then( res=>{
-    //     this.CurrentUser = JSON.parse( res);
-    //   // });
+    // }, 100);
+    // this.platform.ready().then(async () => {
+    //   this.checkToken();
+    // });
+      this.storage.get('currentUser').then( res=>{
+        // this.CurrentUser = JSON.parse( res);
+        if(res)
+        {
+          this.checkToken();
+        }
+      });
     // });
     
   }
@@ -48,12 +55,16 @@ export class AuthenticationService {
   .pipe(map(user=>{
     if(user && user.token){
       if(user.isEmailVerified != "" && user.isEmailVerified == "Y"){
-        this.storage.clear();
-        console.log(user);
-        this.storage.set('currentUser',JSON.stringify(user));
+        // this.storage.clear();
+        console.log(user.token);
         this.CurrentUser = user;
+        this.storage.set('currentUser',JSON.stringify(user));
         this.authenticationState.next(true);
         this.ProcUserTrack(user);
+        // this.CurrentUser = userdata;
+        //   this.storage.set('currentUser',JSON.stringify(userdata));
+        //   this.authenticationState.next(true);
+        //   this.ProcUserTrack(userdata);
       }
     }
     return user;
@@ -67,19 +78,18 @@ export class AuthenticationService {
     this.storage.get('currentUser').then(res=>{
       user = JSON.parse(res);
       userId = user.userId;
-      console.log(userId);
+      // console.log(userId);
       remToken = user.remToken;
-      console.log(remToken);
+      // console.log(remToken);
       console.log(user);
     })
-   return this.storage.remove('currentUser').then(()=>{
-     this.updateUserTrackLogOut(userId, remToken);
+   this.storage.remove('currentUser').then(()=>{
+      this.updateUserTrackLogOut(userId, remToken);
       this.authenticationState.next(false);
     })
   }
 
   isAuthenticated(){
-    //console.log(this.CurrentUser);
     return this.authenticationState.value;
   }
 
@@ -87,22 +97,21 @@ export class AuthenticationService {
     return this.storage.get('currentUser').then(res=>{
       
       let user:any = JSON.parse(res);
-      console.log(user);
       if(user && user.token && user.remToken){
         const httpOptions = {
           headers: new HttpHeaders({
             'Content-Type': 'application/json'
           })
         };
-        console.log(user);
+        // console.log(user);
         var username:String = user.username;
         var remToken:String = user.remToken;
-        console.log(username, remToken);
+        // console.log(username, remToken);
         this.http.post<any>(this.api_url+'/Users/AuthRem',{username,remToken},httpOptions).subscribe(userdata=>{
           this.CurrentUser = userdata;
           this.storage.set('currentUser',JSON.stringify(userdata));
           this.authenticationState.next(true);
-          this.ProcUserTrack(userdata)
+          this.ProcUserTrack(userdata);
         },error=>{
           this.presentToast(error.error.message);
         })
@@ -147,10 +156,9 @@ export class AuthenticationService {
       objTrack.LogInTime = new Date();
       objTrack.LogOutTime = null;
       objTrack.Status = 'A';
-      console.log(objTrack);
-      setTimeout(() => {
+      // console.log(objTrack);
+     
       this.trackUser(objTrack).pipe().subscribe(trackData=>{
-        console.log(trackData);
         var objtrackdtls = new UserTrackDtls();
         objtrackdtls.TrackingId = trackData['trackingId'];
         // objtrackdtls.TrackingId = null;
@@ -171,12 +179,16 @@ export class AuthenticationService {
         objtrackdtls.ScreenPixelsWidth = this.platform.width();
         // objtrackdtls.UUID = this.device.uuid;
         // objtrackdtls.appVersion = this.appVersion.getVersionNumber();
-        console.log(objtrackdtls);
+        // console.log(objtrackdtls);
         this.trackUserDetails(objtrackdtls).pipe().subscribe(data=>{
-          console.log(data);
-        })
-      })
-    }, 40);
+          // console.log(data);
+        },error=>{
+
+        });
+      },error=>{
+
+      });
+    
     }catch(e){
 
     }
@@ -200,7 +212,7 @@ export class AuthenticationService {
 
     this.http.post(this.api_url + `/users/UpdateUsertrack`, obj, httpOptions)
       .subscribe(data => {
-        console.log(data);
+        // console.log(data);
       }); 
   }
 
@@ -210,19 +222,5 @@ export class AuthenticationService {
       duration: 5000
     });
     toast.present();
-  }
-
-  staySignedIn(){
-    
-  }
-
-  forceLogout(){
-
-  }
-
-  mainlogout(){
-
-  }
-
-  
+  } 
 }

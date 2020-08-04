@@ -24,12 +24,12 @@ export class JwtInterceptor implements HttpInterceptor {
 
          this.getCurrentUser();
          if(this.currentUser && this.currentUser.token){
-            console.log(this.currentUser);
              request = request.clone({
                  setHeaders:{
                     Authorization: `Bearer ${this.currentUser.token}`
                  }
              })
+             console.log(this.currentUser.token);
          }
          return next.handle(request)
          .pipe(
@@ -40,7 +40,6 @@ export class JwtInterceptor implements HttpInterceptor {
 
     constructor(private toast: Toast,public alertController: AlertController,public toastController : ToastController ,public http: HttpClient, private storage:Storage, private authService: AuthenticationService){
     this.currentUser = this.authService.currentUserValue();
-    console.log(this.currentUser);
     }
 
      handleError(error: HttpErrorResponse){      

@@ -37,6 +37,11 @@ export class DataHandlerService {
     return this.httpclient.get(this.api_url + "/Scores/GetETFCurrent/" + CatID).pipe(map(res => {return res}));
   }
 
+  filterGlobalIndexData(arr,i){
+    var temp = arr;
+    return temp.filter(item => item.indexName == i);
+  }
+
   // handleError(error: HttpErrorResponse){
   //   console.log("lalalalalalalala");
   //   return throwError(error);

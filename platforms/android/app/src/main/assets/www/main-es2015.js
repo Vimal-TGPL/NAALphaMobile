@@ -602,17 +602,10 @@ let JwtInterceptor = class JwtInterceptor {
             .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["catchError"])(this.handleError));
     }
     handleError(error) {
-        // console.log("lalalalalalalala");       
         return Object(rxjs__WEBPACK_IMPORTED_MODULE_4__["throwError"])(error);
     }
     getCurrentUser() {
         this.currentUser = this.authService.currentUserValue();
-    }
-    showtoast() {
-        this.toast.show('Oops! Something went wrong. please do re-login', '2000', 'bottom').subscribe(toast => {
-            console.log(toast);
-            console.log('toast trigger');
-        });
     }
 };
 JwtInterceptor.ctorParameters = () => [
@@ -673,8 +666,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm2015/router.js");
-/* harmony import */ var _services_auth_gaurd_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./services/auth-gaurd.service */ "./src/app/services/auth-gaurd.service.ts");
-
 
 
 
@@ -696,11 +687,11 @@ const routes = [
         path: 'forgot-password',
         loadChildren: () => Promise.all(/*! import() | forgot-password-forgot-password-module */[__webpack_require__.e("common"), __webpack_require__.e("forgot-password-forgot-password-module")]).then(__webpack_require__.bind(null, /*! ./forgot-password/forgot-password.module */ "./src/app/forgot-password/forgot-password.module.ts")).then(m => m.ForgotPasswordPageModule)
     },
-    {
-        path: 'home',
-        canActivate: [_services_auth_gaurd_service__WEBPACK_IMPORTED_MODULE_3__["AuthGaurdService"]],
-        loadChildren: () => Promise.all(/*! import() | home-home-module */[__webpack_require__.e("default~home-home-module~performance-performance-module"), __webpack_require__.e("home-home-module")]).then(__webpack_require__.bind(null, /*! ./home/home.module */ "./src/app/home/home.module.ts")).then(m => m.HomePageModule)
-    },
+    // {
+    //   path : 'home',
+    //   canActivate : [AuthGaurdService],
+    //   loadChildren: () => import('./home/home.module').then(m => m.HomePageModule)
+    // },
     {
         path: 'thankyou',
         loadChildren: () => __webpack_require__.e(/*! import() | thankyou-thankyou-module */ "thankyou-thankyou-module").then(__webpack_require__.bind(null, /*! ./thankyou/thankyou.module */ "./src/app/thankyou/thankyou.module.ts")).then(m => m.ThankyouPageModule)
@@ -712,10 +703,6 @@ const routes = [
     {
         path: 'change-password',
         loadChildren: () => Promise.all(/*! import() | change-password-change-password-module */[__webpack_require__.e("common"), __webpack_require__.e("change-password-change-password-module")]).then(__webpack_require__.bind(null, /*! ./change-password/change-password.module */ "./src/app/change-password/change-password.module.ts")).then(m => m.ChangePasswordPageModule)
-    },
-    {
-        path: 'performance',
-        loadChildren: () => Promise.all(/*! import() | performance-performance-module */[__webpack_require__.e("default~home-home-module~performance-performance-module"), __webpack_require__.e("performance-performance-module")]).then(__webpack_require__.bind(null, /*! ./performance/performance.module */ "./src/app/performance/performance.module.ts")).then(m => m.PerformancePageModule)
     },
 ];
 let AppRoutingModule = class AppRoutingModule {
@@ -772,7 +759,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 let AppComponent = class AppComponent {
-    constructor(platform, splashScreen, statusBar, authService, router, network, toastController) {
+    constructor(platform, splashScreen, statusBar, authService, router, network, toastController, navController) {
         this.platform = platform;
         this.splashScreen = splashScreen;
         this.statusBar = statusBar;
@@ -780,6 +767,7 @@ let AppComponent = class AppComponent {
         this.router = router;
         this.network = network;
         this.toastController = toastController;
+        this.navController = navController;
         this.showLoad = false;
         this.initializeApp();
     }
@@ -795,17 +783,19 @@ let AppComponent = class AppComponent {
                 document.getElementById('NetError').style.visibility = 'visible';
             }));
             if (this.platform.is('cordova')) {
-                console.log('device');
+                // console.log('device');
                 if (this.network.type != 'none') {
                     this.authService.authenticationState.subscribe(state => {
                         console.log("Auth State : " + state);
                         if (state) {
+                            this.navController.navigateRoot(['menu/menu/home']);
+                            // this.router.navigateByUrl('/menu/menu/home');       
                             this.splashScreen.hide();
-                            this.router.navigateByUrl('/menu');
                         }
                         else {
                             this.splashScreen.hide();
-                            this.router.navigateByUrl('/landing');
+                            this.navController.navigateRoot(['landing']);
+                            // this.router.navigateByUrl('/landing');
                         }
                     });
                 }
@@ -815,17 +805,22 @@ let AppComponent = class AppComponent {
                 }
             }
             else {
-                console.log('browser');
+                // console.log('browser');
                 if (navigator.onLine) {
                     this.authService.authenticationState.subscribe(state => {
                         console.log("Auth State : " + state);
                         if (state) {
+                            this.navController.navigateRoot(['menu/menu/home']);
+                            // this.router.navigateByUrl('/menu/menu/home');
+                            // this.router.navigate(['/menu/menu/home'],{
+                            //   skipLocationChange:true
+                            // }); 
                             this.splashScreen.hide();
-                            this.router.navigateByUrl('/menu');
                         }
                         else {
                             this.splashScreen.hide();
-                            this.router.navigateByUrl('/landing');
+                            this.navController.navigateRoot(['landing']);
+                            // this.router.navigateByUrl('/landing');
                         }
                     });
                 }
@@ -865,7 +860,8 @@ AppComponent.ctorParameters = () => [
     { type: _services_authentication_service__WEBPACK_IMPORTED_MODULE_5__["AuthenticationService"] },
     { type: _angular_router__WEBPACK_IMPORTED_MODULE_6__["Router"] },
     { type: _ionic_native_network_ngx__WEBPACK_IMPORTED_MODULE_7__["Network"] },
-    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["ToastController"] }
+    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["ToastController"] },
+    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["NavController"] }
 ];
 AppComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
@@ -879,7 +875,8 @@ AppComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         _services_authentication_service__WEBPACK_IMPORTED_MODULE_5__["AuthenticationService"],
         _angular_router__WEBPACK_IMPORTED_MODULE_6__["Router"],
         _ionic_native_network_ngx__WEBPACK_IMPORTED_MODULE_7__["Network"],
-        _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["ToastController"]])
+        _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["ToastController"],
+        _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["NavController"]])
 ], AppComponent);
 
 
@@ -984,44 +981,6 @@ AppModule = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
 
 /***/ }),
 
-/***/ "./src/app/services/auth-gaurd.service.ts":
-/*!************************************************!*\
-  !*** ./src/app/services/auth-gaurd.service.ts ***!
-  \************************************************/
-/*! exports provided: AuthGaurdService */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AuthGaurdService", function() { return AuthGaurdService; });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
-/* harmony import */ var _authentication_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./authentication.service */ "./src/app/services/authentication.service.ts");
-
-
-
-let AuthGaurdService = class AuthGaurdService {
-    constructor(authService) {
-        this.authService = authService;
-    }
-    canActivate() {
-        return this.authService.isAuthenticated();
-    }
-};
-AuthGaurdService.ctorParameters = () => [
-    { type: _authentication_service__WEBPACK_IMPORTED_MODULE_2__["AuthenticationService"] }
-];
-AuthGaurdService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
-        providedIn: 'root'
-    }),
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_authentication_service__WEBPACK_IMPORTED_MODULE_2__["AuthenticationService"]])
-], AuthGaurdService);
-
-
-
-/***/ }),
-
 /***/ "./src/app/services/authentication.service.ts":
 /*!****************************************************!*\
   !*** ./src/app/services/authentication.service.ts ***!
@@ -1074,10 +1033,18 @@ let AuthenticationService = class AuthenticationService {
         this.CurrentUser = null;
         this.api_url = _environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].api_url;
         this.authenticationState = new rxjs__WEBPACK_IMPORTED_MODULE_7__["BehaviorSubject"](false);
-        this.checkToken();
-        //   this.storage.get('currentUser').then( res=>{
-        //     this.CurrentUser = JSON.parse( res);
-        //   // });
+        // setTimeout(() => {
+        // }, 100);
+        this.platform.ready().then(() => tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function* () {
+            this.checkToken();
+        }));
+        // this.storage.get('currentUser').then( res=>{
+        //   // this.CurrentUser = JSON.parse( res);
+        //   if(res)
+        //   {
+        //     this.checkToken();
+        //   }
+        // });
         // });
     }
     currentUserValue() {
@@ -1093,12 +1060,16 @@ let AuthenticationService = class AuthenticationService {
             .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["map"])(user => {
             if (user && user.token) {
                 if (user.isEmailVerified != "" && user.isEmailVerified == "Y") {
-                    this.storage.clear();
+                    // this.storage.clear();
                     console.log(user);
+                    this.CurrentUser = user;
                     this.storage.set('currentUser', JSON.stringify(user));
                     this.authenticationState.next(true);
                     this.ProcUserTrack(user);
-                    this.CurrentUser = user;
+                    // this.CurrentUser = userdata;
+                    //   this.storage.set('currentUser',JSON.stringify(userdata));
+                    //   this.authenticationState.next(true);
+                    //   this.ProcUserTrack(userdata);
                 }
             }
             return user;
@@ -1116,13 +1087,12 @@ let AuthenticationService = class AuthenticationService {
             console.log(remToken);
             console.log(user);
         });
-        return this.storage.remove('currentUser').then(() => {
+        this.storage.remove('currentUser').then(() => {
             this.updateUserTrackLogOut(userId, remToken);
             this.authenticationState.next(false);
         });
     }
     isAuthenticated() {
-        //console.log(this.CurrentUser);
         return this.authenticationState.value;
     }
     checkToken() {
@@ -1183,15 +1153,17 @@ let AuthenticationService = class AuthenticationService {
             objTrack.LogInTime = new Date();
             objTrack.LogOutTime = null;
             objTrack.Status = 'A';
-            console.log(objTrack);
+            // console.log(objTrack);
             this.trackUser(objTrack).pipe().subscribe(trackData => {
                 console.log(trackData);
                 var objtrackdtls = new _models_user__WEBPACK_IMPORTED_MODULE_9__["UserTrackDtls"]();
                 objtrackdtls.TrackingId = trackData['trackingId'];
+                // objtrackdtls.TrackingId = null;
                 objtrackdtls.Userid = objTrack.Userid;
-                this.userAgent.get().then(res => {
-                    objtrackdtls.UserAgent = res;
-                });
+                // this.userAgent.get().then(res=>{
+                objtrackdtls.UserAgent = null;
+                // });
+                // if()
                 objtrackdtls.OS = this.device.platform;
                 objtrackdtls.OSVersion = this.device.version;
                 objtrackdtls.browser = this.device.manufacturer;
@@ -1241,12 +1213,6 @@ let AuthenticationService = class AuthenticationService {
             });
             toast.present();
         });
-    }
-    staySignedIn() {
-    }
-    forceLogout() {
-    }
-    mainlogout() {
     }
 };
 AuthenticationService.ctorParameters = () => [

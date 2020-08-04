@@ -139,21 +139,6 @@ export class HomePage implements OnInit, AfterViewInit {
     this.createData();
     this.GetETFValues();
     this.GetFixedIndexData();
-    const httpOptions = {
-          headers: new HttpHeaders({
-            'Content-Type': 'application/json'
-          })
-        };
-    var username = this.currentUser.username;
-    var remToken = this.currentUser.remToken;
-    // this.httpclient.post(this.api_url+'/Users/AuthRem',{username,remToken},httpOptions).subscribe(userdata=>{
-    //   console.log(userdata);
-    //   this.presentToast('reAuth worked');
-    //   // this.CurrentUser = user;
-    // // this.authenticationState.next(true);
-    // },error=>{
-    //   this.presentToast(error.error.message);
-    // })
     if (this.platform.is('ipad') || this.platform.is('tablet')) {
       this.mobile = false;
     } else {
@@ -867,9 +852,9 @@ export class HomePage implements OnInit, AfterViewInit {
     this.compIndexShow = false;
     this.icon = "ios-arrow-dropdown-circle";
     this.parentcard = false;
-
-    this.selectedIndexData = this.globalindexwise[this.globalIndex.indexOf(i)].filter(item => item.indexName == i);
-    this.unsortedIndexData = this.globalindexwise[this.globalIndex.indexOf(i)].filter(item => item.indexName == i);
+    var temp = this.dataHandler.filterGlobalIndexData(this.globalindexwise[this.globalIndex.indexOf(i)],i);
+    this.selectedIndexData = [...temp];
+    this.unsortedIndexData = [...temp];
     document.getElementById('header-circle').style.background = this.getColor(this.globalmed[this.globalIndex.indexOf(i)]);
     document.getElementById('header-circle').style.color = this.ApplyTextColor(this.globalmed[this.globalIndex.indexOf(i)]);
 
@@ -890,6 +875,7 @@ export class HomePage implements OnInit, AfterViewInit {
     // this.sortcompany();
     this.CompLength = this.selectedIndexData.length;
     this.headermed = this.globalmed[this.globalIndex.indexOf(i)];
+    this.showLoader = false;
     // if (this.selComp != undefined) {
     //   setTimeout(() => {
     //     var temp = this.selectedIndexData.filter((item) => item.companyName == this.selComp);
@@ -1276,27 +1262,30 @@ export class HomePage implements OnInit, AfterViewInit {
   onCompanyClick(e) {
     // console.log(e);
     this.selComp = e.companyName;
+    // console.log(this.selComp);
     this.searchSel = e;
-    // console.log(e);
     if (this.SelTab == 'FI') {
-      // console.log('fi');
+      // console.log('FI');
       this.SelSearchObj = e;
       this.SelSearchObj.FIName = e.category == 'HY' ? 'High Yield' : 'Investment Grade';
       this.getSectorList(e.industry.toString());
       this.onSectorClick(e.industry);
       this.sortComp(this.filterby);
     } else if (e.hasOwnProperty('indexType')) {
+      // console.log('ETF');
       this.SelSearchObj = e;
       this.SelSearchObj.etfName = this.SelIndexName;
       this.getSectorList(e.industry.toString());
       this.onSectorClick(e.industry);
       this.sortComp(this.filterby);
     } else if (e.indexName.indexOf('New Age Alpha ') == -1) {
+      // console.log('Equity');
       this.SelSearchObj = e;
       this.getSectorList(e.industry.toString());
       this.onSectorClick(e.industry);
       this.sortComp(this.filterby);
     } else {
+      // console.log('NAA');
       var temp = e;
       this.SelSearchObj = temp;
       this.getSectorList(temp.industry.toString());
@@ -1535,7 +1524,6 @@ export class HomePage implements OnInit, AfterViewInit {
       this.icon = "ios-arrow-dropdown-circle";
     }
     if (key == "Global Universe") {
-      // console.log('Global Universe');
       this.globalselectorcomp = this.data.filter(item => item.companyName != null && item.indexName.indexOf("New Age Alpha") == -1);
       this.globalselectorcomp.sort((a, b) => {
         return a.scores - b.scores;
@@ -1560,19 +1548,9 @@ export class HomePage implements OnInit, AfterViewInit {
       document.getElementById('subIndex-circle').style.color = this.ApplyTextColor(this.roundValue(this.getMed(this.globalselectorcomp) * 100));
       this.loadData();
       this.sortComp(this.filterby);
-      // setTimeout(()=>{
-      //   this.content.scrollToPoint(0,500);
-      //   console.log("done");
-      // },100);
-
       this.scrollToSel();
-      // setTimeout(()=>{
-      //   console.log(document.getElementById('sectorscrollDiv'));
-      //   document.getElementById('sectorscrollDiv').scrollTo(0,1500);
-      // },500); 
     }
     else if (key == "Index") {
-      // console.log('Index');
       this.unsortselSectorComp = this.selectedIndexData;
       this.selSectorComp = this.selectedIndexData;
 
@@ -1599,7 +1577,6 @@ export class HomePage implements OnInit, AfterViewInit {
       this.sortComp(this.filterby);
     }
     else if (this.SelSearchObj.hasOwnProperty('FIName')) {
-      // console.log('FIName');
       // console.log(this.selectedIndexData);
       this.fullSectorComp = this.selectedIndexData.filter(item =>
         item.industry.toString().substring(0, key.toString().length) == key
@@ -1632,7 +1609,6 @@ export class HomePage implements OnInit, AfterViewInit {
       this.scrollToSel();
     }
     else {
-      // console.log('else');
       this.fullSectorComp = this.data.filter(item =>
         item.industry.toString().substring(0, key.toString().length) == key
       )
@@ -1754,6 +1730,7 @@ export class HomePage implements OnInit, AfterViewInit {
   loadData() {
 
     this.M_gchart = d3.select("#M_gchart");
+    // console.log(this.M_gchart);
     this.M_chartMain = this.M_createMainChart(this.M_gchart);
   }
 

@@ -617,17 +617,10 @@ var JwtInterceptor = /** @class */ (function () {
             .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["catchError"])(this.handleError));
     };
     JwtInterceptor.prototype.handleError = function (error) {
-        // console.log("lalalalalalalala");       
         return Object(rxjs__WEBPACK_IMPORTED_MODULE_4__["throwError"])(error);
     };
     JwtInterceptor.prototype.getCurrentUser = function () {
         this.currentUser = this.authService.currentUserValue();
-    };
-    JwtInterceptor.prototype.showtoast = function () {
-        this.toast.show('Oops! Something went wrong. please do re-login', '2000', 'bottom').subscribe(function (toast) {
-            console.log(toast);
-            console.log('toast trigger');
-        });
     };
     JwtInterceptor.ctorParameters = function () { return [
         { type: _ionic_native_toast_ngx__WEBPACK_IMPORTED_MODULE_8__["Toast"] },
@@ -709,8 +702,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
-/* harmony import */ var _services_auth_gaurd_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./services/auth-gaurd.service */ "./src/app/services/auth-gaurd.service.ts");
-
 
 
 
@@ -732,11 +723,11 @@ var routes = [
         path: 'forgot-password',
         loadChildren: function () { return Promise.all(/*! import() | forgot-password-forgot-password-module */[__webpack_require__.e("common"), __webpack_require__.e("forgot-password-forgot-password-module")]).then(__webpack_require__.bind(null, /*! ./forgot-password/forgot-password.module */ "./src/app/forgot-password/forgot-password.module.ts")).then(function (m) { return m.ForgotPasswordPageModule; }); }
     },
-    {
-        path: 'home',
-        canActivate: [_services_auth_gaurd_service__WEBPACK_IMPORTED_MODULE_3__["AuthGaurdService"]],
-        loadChildren: function () { return Promise.all(/*! import() | home-home-module */[__webpack_require__.e("default~home-home-module~performance-performance-module"), __webpack_require__.e("home-home-module")]).then(__webpack_require__.bind(null, /*! ./home/home.module */ "./src/app/home/home.module.ts")).then(function (m) { return m.HomePageModule; }); }
-    },
+    // {
+    //   path : 'home',
+    //   canActivate : [AuthGaurdService],
+    //   loadChildren: () => import('./home/home.module').then(m => m.HomePageModule)
+    // },
     {
         path: 'thankyou',
         loadChildren: function () { return __webpack_require__.e(/*! import() | thankyou-thankyou-module */ "thankyou-thankyou-module").then(__webpack_require__.bind(null, /*! ./thankyou/thankyou.module */ "./src/app/thankyou/thankyou.module.ts")).then(function (m) { return m.ThankyouPageModule; }); }
@@ -748,10 +739,6 @@ var routes = [
     {
         path: 'change-password',
         loadChildren: function () { return Promise.all(/*! import() | change-password-change-password-module */[__webpack_require__.e("common"), __webpack_require__.e("change-password-change-password-module")]).then(__webpack_require__.bind(null, /*! ./change-password/change-password.module */ "./src/app/change-password/change-password.module.ts")).then(function (m) { return m.ChangePasswordPageModule; }); }
-    },
-    {
-        path: 'performance',
-        loadChildren: function () { return Promise.all(/*! import() | performance-performance-module */[__webpack_require__.e("default~home-home-module~performance-performance-module"), __webpack_require__.e("performance-performance-module")]).then(__webpack_require__.bind(null, /*! ./performance/performance.module */ "./src/app/performance/performance.module.ts")).then(function (m) { return m.PerformancePageModule; }); }
     },
 ];
 var AppRoutingModule = /** @class */ (function () {
@@ -811,7 +798,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var AppComponent = /** @class */ (function () {
-    function AppComponent(platform, splashScreen, statusBar, authService, router, network, toastController) {
+    function AppComponent(platform, splashScreen, statusBar, authService, router, network, toastController, navController) {
         this.platform = platform;
         this.splashScreen = splashScreen;
         this.statusBar = statusBar;
@@ -819,6 +806,7 @@ var AppComponent = /** @class */ (function () {
         this.router = router;
         this.network = network;
         this.toastController = toastController;
+        this.navController = navController;
         this.showLoad = false;
         this.initializeApp();
     }
@@ -841,17 +829,19 @@ var AppComponent = /** @class */ (function () {
                 });
             }); });
             if (_this.platform.is('cordova')) {
-                console.log('device');
+                // console.log('device');
                 if (_this.network.type != 'none') {
                     _this.authService.authenticationState.subscribe(function (state) {
                         console.log("Auth State : " + state);
                         if (state) {
+                            _this.navController.navigateRoot(['menu/menu/home']);
+                            // this.router.navigateByUrl('/menu/menu/home');       
                             _this.splashScreen.hide();
-                            _this.router.navigateByUrl('/menu');
                         }
                         else {
                             _this.splashScreen.hide();
-                            _this.router.navigateByUrl('/landing');
+                            _this.navController.navigateRoot(['landing']);
+                            // this.router.navigateByUrl('/landing');
                         }
                     });
                 }
@@ -861,17 +851,22 @@ var AppComponent = /** @class */ (function () {
                 }
             }
             else {
-                console.log('browser');
+                // console.log('browser');
                 if (navigator.onLine) {
                     _this.authService.authenticationState.subscribe(function (state) {
                         console.log("Auth State : " + state);
                         if (state) {
+                            _this.navController.navigateRoot(['menu/menu/home']);
+                            // this.router.navigateByUrl('/menu/menu/home');
+                            // this.router.navigate(['/menu/menu/home'],{
+                            //   skipLocationChange:true
+                            // }); 
                             _this.splashScreen.hide();
-                            _this.router.navigateByUrl('/menu');
                         }
                         else {
                             _this.splashScreen.hide();
-                            _this.router.navigateByUrl('/landing');
+                            _this.navController.navigateRoot(['landing']);
+                            // this.router.navigateByUrl('/landing');
                         }
                     });
                 }
@@ -918,7 +913,8 @@ var AppComponent = /** @class */ (function () {
         { type: _services_authentication_service__WEBPACK_IMPORTED_MODULE_5__["AuthenticationService"] },
         { type: _angular_router__WEBPACK_IMPORTED_MODULE_6__["Router"] },
         { type: _ionic_native_network_ngx__WEBPACK_IMPORTED_MODULE_7__["Network"] },
-        { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["ToastController"] }
+        { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["ToastController"] },
+        { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["NavController"] }
     ]; };
     AppComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
@@ -932,7 +928,8 @@ var AppComponent = /** @class */ (function () {
             _services_authentication_service__WEBPACK_IMPORTED_MODULE_5__["AuthenticationService"],
             _angular_router__WEBPACK_IMPORTED_MODULE_6__["Router"],
             _ionic_native_network_ngx__WEBPACK_IMPORTED_MODULE_7__["Network"],
-            _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["ToastController"]])
+            _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["ToastController"],
+            _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["NavController"]])
     ], AppComponent);
     return AppComponent;
 }());
@@ -1042,45 +1039,6 @@ var AppModule = /** @class */ (function () {
 
 /***/ }),
 
-/***/ "./src/app/services/auth-gaurd.service.ts":
-/*!************************************************!*\
-  !*** ./src/app/services/auth-gaurd.service.ts ***!
-  \************************************************/
-/*! exports provided: AuthGaurdService */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AuthGaurdService", function() { return AuthGaurdService; });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _authentication_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./authentication.service */ "./src/app/services/authentication.service.ts");
-
-
-
-var AuthGaurdService = /** @class */ (function () {
-    function AuthGaurdService(authService) {
-        this.authService = authService;
-    }
-    AuthGaurdService.prototype.canActivate = function () {
-        return this.authService.isAuthenticated();
-    };
-    AuthGaurdService.ctorParameters = function () { return [
-        { type: _authentication_service__WEBPACK_IMPORTED_MODULE_2__["AuthenticationService"] }
-    ]; };
-    AuthGaurdService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
-            providedIn: 'root'
-        }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_authentication_service__WEBPACK_IMPORTED_MODULE_2__["AuthenticationService"]])
-    ], AuthGaurdService);
-    return AuthGaurdService;
-}());
-
-
-
-/***/ }),
-
 /***/ "./src/app/services/authentication.service.ts":
 /*!****************************************************!*\
   !*** ./src/app/services/authentication.service.ts ***!
@@ -1120,6 +1078,7 @@ __webpack_require__.r(__webpack_exports__);
 var AuthenticationService = /** @class */ (function () {
     function AuthenticationService(platform, appVersion, userAgent, device, toastController, http, storage, plt, route, authService) {
         // this.plt.ready().then(()=>{
+        var _this = this;
         this.platform = platform;
         this.appVersion = appVersion;
         this.userAgent = userAgent;
@@ -1133,10 +1092,21 @@ var AuthenticationService = /** @class */ (function () {
         this.CurrentUser = null;
         this.api_url = _environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].api_url;
         this.authenticationState = new rxjs__WEBPACK_IMPORTED_MODULE_7__["BehaviorSubject"](false);
-        this.checkToken();
-        //   this.storage.get('currentUser').then( res=>{
-        //     this.CurrentUser = JSON.parse( res);
-        //   // });
+        // setTimeout(() => {
+        // }, 100);
+        this.platform.ready().then(function () { return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](_this, void 0, void 0, function () {
+            return tslib__WEBPACK_IMPORTED_MODULE_0__["__generator"](this, function (_a) {
+                this.checkToken();
+                return [2 /*return*/];
+            });
+        }); });
+        // this.storage.get('currentUser').then( res=>{
+        //   // this.CurrentUser = JSON.parse( res);
+        //   if(res)
+        //   {
+        //     this.checkToken();
+        //   }
+        // });
         // });
     }
     AuthenticationService.prototype.currentUserValue = function () {
@@ -1153,12 +1123,16 @@ var AuthenticationService = /** @class */ (function () {
             .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["map"])(function (user) {
             if (user && user.token) {
                 if (user.isEmailVerified != "" && user.isEmailVerified == "Y") {
-                    _this.storage.clear();
+                    // this.storage.clear();
                     console.log(user);
+                    _this.CurrentUser = user;
                     _this.storage.set('currentUser', JSON.stringify(user));
                     _this.authenticationState.next(true);
                     _this.ProcUserTrack(user);
-                    _this.CurrentUser = user;
+                    // this.CurrentUser = userdata;
+                    //   this.storage.set('currentUser',JSON.stringify(userdata));
+                    //   this.authenticationState.next(true);
+                    //   this.ProcUserTrack(userdata);
                 }
             }
             return user;
@@ -1177,13 +1151,12 @@ var AuthenticationService = /** @class */ (function () {
             console.log(remToken);
             console.log(user);
         });
-        return this.storage.remove('currentUser').then(function () {
+        this.storage.remove('currentUser').then(function () {
             _this.updateUserTrackLogOut(userId, remToken);
             _this.authenticationState.next(false);
         });
     };
     AuthenticationService.prototype.isAuthenticated = function () {
-        //console.log(this.CurrentUser);
         return this.authenticationState.value;
     };
     AuthenticationService.prototype.checkToken = function () {
@@ -1246,15 +1219,17 @@ var AuthenticationService = /** @class */ (function () {
             objTrack.LogInTime = new Date();
             objTrack.LogOutTime = null;
             objTrack.Status = 'A';
-            console.log(objTrack);
+            // console.log(objTrack);
             this.trackUser(objTrack).pipe().subscribe(function (trackData) {
                 console.log(trackData);
                 var objtrackdtls = new _models_user__WEBPACK_IMPORTED_MODULE_9__["UserTrackDtls"]();
                 objtrackdtls.TrackingId = trackData['trackingId'];
+                // objtrackdtls.TrackingId = null;
                 objtrackdtls.Userid = objTrack.Userid;
-                _this.userAgent.get().then(function (res) {
-                    objtrackdtls.UserAgent = res;
-                });
+                // this.userAgent.get().then(res=>{
+                objtrackdtls.UserAgent = null;
+                // });
+                // if()
                 objtrackdtls.OS = _this.device.platform;
                 objtrackdtls.OSVersion = _this.device.version;
                 objtrackdtls.browser = _this.device.manufacturer;
@@ -1312,12 +1287,6 @@ var AuthenticationService = /** @class */ (function () {
                 }
             });
         });
-    };
-    AuthenticationService.prototype.staySignedIn = function () {
-    };
-    AuthenticationService.prototype.forceLogout = function () {
-    };
-    AuthenticationService.prototype.mainlogout = function () {
     };
     AuthenticationService.ctorParameters = function () { return [
         { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_6__["Platform"] },

@@ -1,12 +1,13 @@
 import { Component } from '@angular/core';
 
-import { Platform } from '@ionic/angular';
+import { Platform, NavController } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { AuthenticationService } from './services/authentication.service';
 import { Router } from '@angular/router';
 import { Network } from '@ionic-native/network/ngx';
 import { ToastController } from '@ionic/angular';
+
 // import { NetworkService } from './services/networks/network.service';
 // import { debounceTime } from 'rxjs/operators';
 // import { Storage } from '@ionic/storage';
@@ -29,7 +30,8 @@ export class AppComponent {
     private authService: AuthenticationService,
     private router: Router,
     private network: Network,
-    private toastController: ToastController
+    private toastController: ToastController,
+    private navController : NavController,
   ) {
     this.initializeApp();
   }
@@ -50,16 +52,19 @@ export class AppComponent {
      });
 
       if(this.platform.is('cordova')){
-        console.log('device');
+        // console.log('device');
         if(this.network.type != 'none' ){
           this.authService.authenticationState.subscribe(state =>{
-            console.log("Auth State : "+state);
+            // console.log("Auth State : "+state);
             if(state){
-              this.splashScreen.hide(); 
-                  this.router.navigateByUrl('/menu');       
+                  this.navController.navigateRoot(['menu/menu/home']);
+                  // this.router.navigateByUrl('/menu/menu/home');       
+                  this.splashScreen.hide();
             }else{
               this.splashScreen.hide();
-              this.router.navigateByUrl('/landing');
+              this.navController.navigateRoot(['landing']);
+              // this.router.navigateByUrl('/landing');
+              
             }
           });
         }else{
@@ -67,16 +72,23 @@ export class AppComponent {
           document.getElementById('NetError').style.visibility = 'visible';
         }
       }else{
-        console.log('browser');
+        // console.log('browser');
         if(navigator.onLine){
           this.authService.authenticationState.subscribe(state =>{
-            console.log("Auth State : "+state);
+            // console.log("Auth State : "+state);
             if(state){
-              this.splashScreen.hide(); 
-                  this.router.navigateByUrl('/menu');       
+              this.navController.navigateRoot(['menu/menu/home']);
+                  // this.router.navigateByUrl('/menu/menu/home');
+                  // this.router.navigate(['/menu/menu/home'],{
+                  //   skipLocationChange:true
+                  // }); 
+                  
+                  this.splashScreen.hide(); 
             }else{
               this.splashScreen.hide();
-              this.router.navigateByUrl('/landing');
+              this.navController.navigateRoot(['landing']);
+              // this.router.navigateByUrl('/landing');
+              
             }
           });
         }else{
