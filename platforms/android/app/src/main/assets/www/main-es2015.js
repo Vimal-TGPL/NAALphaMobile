@@ -597,6 +597,7 @@ let JwtInterceptor = class JwtInterceptor {
                     Authorization: `Bearer ${this.currentUser.token}`
                 }
             });
+            console.log(this.currentUser.token);
         }
         return next.handle(request)
             .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["catchError"])(this.handleError));
@@ -786,7 +787,7 @@ let AppComponent = class AppComponent {
                 // console.log('device');
                 if (this.network.type != 'none') {
                     this.authService.authenticationState.subscribe(state => {
-                        console.log("Auth State : " + state);
+                        // console.log("Auth State : "+state);
                         if (state) {
                             this.navController.navigateRoot(['menu/menu/home']);
                             // this.router.navigateByUrl('/menu/menu/home');       
@@ -808,7 +809,7 @@ let AppComponent = class AppComponent {
                 // console.log('browser');
                 if (navigator.onLine) {
                     this.authService.authenticationState.subscribe(state => {
-                        console.log("Auth State : " + state);
+                        // console.log("Auth State : "+state);
                         if (state) {
                             this.navController.navigateRoot(['menu/menu/home']);
                             // this.router.navigateByUrl('/menu/menu/home');
@@ -1035,16 +1036,15 @@ let AuthenticationService = class AuthenticationService {
         this.authenticationState = new rxjs__WEBPACK_IMPORTED_MODULE_7__["BehaviorSubject"](false);
         // setTimeout(() => {
         // }, 100);
-        this.platform.ready().then(() => tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function* () {
-            this.checkToken();
-        }));
-        // this.storage.get('currentUser').then( res=>{
-        //   // this.CurrentUser = JSON.parse( res);
-        //   if(res)
-        //   {
-        //     this.checkToken();
-        //   }
+        // this.platform.ready().then(async () => {
+        //   this.checkToken();
         // });
+        this.storage.get('currentUser').then(res => {
+            // this.CurrentUser = JSON.parse( res);
+            if (res) {
+                this.checkToken();
+            }
+        });
         // });
     }
     currentUserValue() {
@@ -1061,7 +1061,7 @@ let AuthenticationService = class AuthenticationService {
             if (user && user.token) {
                 if (user.isEmailVerified != "" && user.isEmailVerified == "Y") {
                     // this.storage.clear();
-                    console.log(user);
+                    console.log(user.token);
                     this.CurrentUser = user;
                     this.storage.set('currentUser', JSON.stringify(user));
                     this.authenticationState.next(true);
@@ -1082,9 +1082,9 @@ let AuthenticationService = class AuthenticationService {
         this.storage.get('currentUser').then(res => {
             user = JSON.parse(res);
             userId = user.userId;
-            console.log(userId);
+            // console.log(userId);
             remToken = user.remToken;
-            console.log(remToken);
+            // console.log(remToken);
             console.log(user);
         });
         this.storage.remove('currentUser').then(() => {
@@ -1098,17 +1098,16 @@ let AuthenticationService = class AuthenticationService {
     checkToken() {
         return this.storage.get('currentUser').then(res => {
             let user = JSON.parse(res);
-            console.log(user);
             if (user && user.token && user.remToken) {
                 const httpOptions = {
                     headers: new _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpHeaders"]({
                         'Content-Type': 'application/json'
                     })
                 };
-                console.log(user);
+                // console.log(user);
                 var username = user.username;
                 var remToken = user.remToken;
-                console.log(username, remToken);
+                // console.log(username, remToken);
                 this.http.post(this.api_url + '/Users/AuthRem', { username, remToken }, httpOptions).subscribe(userdata => {
                     this.CurrentUser = userdata;
                     this.storage.set('currentUser', JSON.stringify(userdata));
@@ -1155,7 +1154,6 @@ let AuthenticationService = class AuthenticationService {
             objTrack.Status = 'A';
             // console.log(objTrack);
             this.trackUser(objTrack).pipe().subscribe(trackData => {
-                console.log(trackData);
                 var objtrackdtls = new _models_user__WEBPACK_IMPORTED_MODULE_9__["UserTrackDtls"]();
                 objtrackdtls.TrackingId = trackData['trackingId'];
                 // objtrackdtls.TrackingId = null;
@@ -1176,10 +1174,12 @@ let AuthenticationService = class AuthenticationService {
                 objtrackdtls.ScreenPixelsWidth = this.platform.width();
                 // objtrackdtls.UUID = this.device.uuid;
                 // objtrackdtls.appVersion = this.appVersion.getVersionNumber();
-                console.log(objtrackdtls);
+                // console.log(objtrackdtls);
                 this.trackUserDetails(objtrackdtls).pipe().subscribe(data => {
-                    console.log(data);
+                    // console.log(data);
+                }, error => {
                 });
+            }, error => {
             });
         }
         catch (e) {
@@ -1202,7 +1202,7 @@ let AuthenticationService = class AuthenticationService {
         };
         this.http.post(this.api_url + `/users/UpdateUsertrack`, obj, httpOptions)
             .subscribe(data => {
-            console.log(data);
+            // console.log(data);
         });
     }
     presentToast(val) {

@@ -171,7 +171,7 @@ var MenuPage = /** @class */ (function () {
         });
         this.storage.get('currentUser').then(function (res) {
             _this.user = JSON.parse(res);
-            console.log(_this.user);
+            // console.log(this.user); 
             _this.firstname = _this.user.firstName;
             _this.lastname = _this.user.lastName;
             _this.username = _this.user.username;

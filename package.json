@@ -38,6 +38,7 @@
     "@ionic-native/toast": "^5.26.0",
     "@ionic-native/user-agent": "^5.27.0",
     "@ionic/angular": "^4.11.10",
+    "@ionic/cli": "^6.11.0",
     "@ionic/storage": "^2.2.0",
     "@swimlane/ngx-datatable": "^16.0.3",
     "@types/jquery": "^3.3.34",
