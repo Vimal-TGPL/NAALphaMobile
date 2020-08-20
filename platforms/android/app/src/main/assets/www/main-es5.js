@@ -618,6 +618,17 @@ var JwtInterceptor = /** @class */ (function () {
             .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["catchError"])(this.handleError));
     };
     JwtInterceptor.prototype.handleError = function (error) {
+        if (error.status === 401) {
+            this.storage.get('currentUser').then(function (res) {
+                var user = JSON.parse(res);
+                if (user && user.token && user.remToken) {
+                    //  if(this.currentUser.remToken !== null){
+                    //     this.authService.checkToken();
+                    //  }
+                    console.log(user);
+                }
+            });
+        }
         return Object(rxjs__WEBPACK_IMPORTED_MODULE_4__["throwError"])(error);
     };
     JwtInterceptor.prototype.getCurrentUser = function () {

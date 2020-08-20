@@ -31,10 +31,10 @@ export class JwtInterceptor implements HttpInterceptor {
              })
              console.log(this.currentUser.token);
          }
-         return next.handle(request)
-         .pipe(
-             catchError(this.handleError)
-         );
+         return next.handle(request);
+        //  .pipe(
+        //      catchError(this.handleError)
+        //  );
 
      }
 
@@ -42,27 +42,26 @@ export class JwtInterceptor implements HttpInterceptor {
     this.currentUser = this.authService.currentUserValue();
     }
 
-     handleError(error: HttpErrorResponse){      
-        return throwError(error);
-    }
+    //  handleError(error: HttpErrorResponse){    
+    //     if(error.status === 401){
+    //         this.getCurrentUser();
+    //         console.log(this.currentUser);
+    //     //  this.storage.get('currentUser').then(res=>{
+    //     //     let user:any = JSON.parse(res);
+    //     //     if(user && user.token && user.remToken){
+                
+    //     //             //  if(this.currentUser.remToken !== null){
+    //     //             //     this.authService.checkToken();
+    //     //             //  }
+    //     //             console.log(user);
+    //     //     }
+    //     //  });
+    //     }
+    //     return throwError(error);
+    // }
 
     getCurrentUser()
     {
         this.currentUser = this.authService.currentUserValue();
     }
-
-    // showtoast(){
-    //     this.toast.show('Oops! Something went wrong. please do re-login','2000','bottom').subscribe(toast => {
-    //         // console.log(toast);
-    //         // console.log('toast trigger');
-    //     })
-    // }
-    // async presentToast() {
-    //     const toast = await this.toastController.create({
-    //       message: 'Your settings have been saved.',
-    //       duration: 2000
-    //     });
-    //     toast.present();
-    //   }
-
 }

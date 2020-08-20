@@ -603,6 +603,17 @@ let JwtInterceptor = class JwtInterceptor {
             .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["catchError"])(this.handleError));
     }
     handleError(error) {
+        if (error.status === 401) {
+            this.storage.get('currentUser').then(res => {
+                let user = JSON.parse(res);
+                if (user && user.token && user.remToken) {
+                    //  if(this.currentUser.remToken !== null){
+                    //     this.authService.checkToken();
+                    //  }
+                    console.log(user);
+                }
+            });
+        }
         return Object(rxjs__WEBPACK_IMPORTED_MODULE_4__["throwError"])(error);
     }
     getCurrentUser() {

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpHeaders, HttpClient } from '@angular/common/http';
+import { HttpHeaders, HttpClient, HttpHandler } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 import { map } from 'rxjs/operators';
 import { Storage } from '@ionic/storage';
@@ -10,7 +10,6 @@ import { UserView, UserTrack, UserTrackDtls } from '../_models/user';
 import { Device } from '@ionic-native/device/ngx';
 import { UserAgent } from '@ionic-native/user-agent/ngx'
 import { AppVersion } from '@ionic-native/app-version/ngx';
-import { error } from 'protractor';
 
 @Injectable({
   providedIn: 'root'
@@ -20,7 +19,7 @@ export class AuthenticationService {
   private api_url = environment.api_url;
   authenticationState = new BehaviorSubject(false);
 
-  constructor(private platform: Platform, private appVersion:AppVersion, private userAgent: UserAgent, private device:Device, private toastController: ToastController, private http:HttpClient, private storage: Storage, private plt:Platform, private route:Router, private authService:AuthenticationService) { 
+  constructor(private next: HttpHandler,private platform: Platform, private appVersion:AppVersion, private userAgent: UserAgent, private device:Device, private toastController: ToastController, private http:HttpClient, private storage: Storage, private plt:Platform, private route:Router, private authService:AuthenticationService) { 
     // this.plt.ready().then(()=>{
       
     // setTimeout(() => {
@@ -33,7 +32,7 @@ export class AuthenticationService {
         // this.CurrentUser = JSON.parse( res);
         if(res)
         {
-          this.checkToken();
+          this.checkToken(null);
         }
       });
     // });
@@ -93,8 +92,8 @@ export class AuthenticationService {
     return this.authenticationState.value;
   }
 
-  checkToken(){
-    return this.storage.get('currentUser').then(res=>{
+  checkToken(req){
+    this.storage.get('currentUser').then(res=>{
       
       let user:any = JSON.parse(res);
       if(user && user.token && user.remToken){
@@ -107,13 +106,15 @@ export class AuthenticationService {
         var username:String = user.username;
         var remToken:String = user.remToken;
         // console.log(username, remToken);
-        this.http.post<any>(this.api_url+'/Users/AuthRem',{username,remToken},httpOptions).subscribe(userdata=>{
+       return this.http.post<any>(this.api_url+'/Users/AuthRem',{username,remToken},httpOptions).subscribe(userdata=>{
           this.CurrentUser = userdata;
           this.storage.set('currentUser',JSON.stringify(userdata));
           this.authenticationState.next(true);
           this.ProcUserTrack(userdata);
+          return userdata;
         },error=>{
           this.presentToast(error.error.message);
+          return null;
         })
       }else{
         this.authenticationState.next(false);

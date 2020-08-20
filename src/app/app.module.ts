@@ -16,6 +16,7 @@ import { IonicStorageModule } from '@ionic/storage';
 import { ScreenOrientation } from '@ionic-native/screen-orientation/ngx';
 import { ProfiledetailsComponent } from './Components/profiledetails/profiledetails.component'
 import { JwtInterceptor } from './_helper/jwt.interceptor';
+import { ErrorInterceptor } from './_helper/error.interceptor';
 import { IonicSelectableComponent } from 'ionic-selectable';
 import { MatTabsModule} from '@angular/material/tabs'
 import { Network } from '@ionic-native/network/ngx';
@@ -27,6 +28,7 @@ import { File } from '@ionic-native/file/ngx';
 import { Device } from '@ionic-native/device/ngx';
 import { UserAgent } from '@ionic-native/user-agent/ngx';
 import { AppVersion } from '@ionic-native/app-version/ngx';
+import { from } from 'rxjs';
 
 @NgModule({
   declarations: [AppComponent,ProfiledetailsComponent],
@@ -49,7 +51,7 @@ import { AppVersion } from '@ionic-native/app-version/ngx';
     AppVersion,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     { provide: HTTP_INTERCEPTORS, useClass:JwtInterceptor, multi:true},
-    
+    { provide: HTTP_INTERCEPTORS, useClass:ErrorInterceptor, multi:true},
   ],
   bootstrap: [AppComponent]
 })

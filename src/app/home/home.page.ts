@@ -16,7 +16,6 @@ import { PickerOptions } from '@ionic/core';
 import { AlertService } from '../services/alert.service';
 import { DataHandlerService } from '../services/dataHandler/data-handler.service';
 
-
 @Component({
   selector: 'app-home',
   templateUrl: 'home.page.html',
