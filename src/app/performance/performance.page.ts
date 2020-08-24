@@ -8,6 +8,9 @@ import { ScreenOrientation } from '@ionic-native/screen-orientation/ngx';
 import { PhotoViewer } from '@ionic-native/photo-viewer/ngx';
 import { File } from '@ionic-native/file/ngx';
 import * as d3 from 'd3';
+import { ActivatedRoute } from '@angular/router';
+import { DataHandlerService } from '../services/dataHandler/data-handler.service';
+import { Key } from 'protractor';
 
 
 @Component({
@@ -29,6 +32,9 @@ export class PerformancePage implements OnInit, AfterViewInit, OnDestroy {
   VIX_E:number = 0;
   SP_E:number = 0;
   Output: number = 4;
+
+  SelCountryperfData:any;
+  SelCountryData:any;
 
   selectedDate:any;
   dateList:any = [];
@@ -55,22 +61,29 @@ export class PerformancePage implements OnInit, AfterViewInit, OnDestroy {
   descModel:Boolean = false;
   IndexData:any = [];
   Index:any = [];
-  CountryClasificationList:any = ['USA','Europe','UK','Japan','Dev. World','Dev. World ex US'];
+  key:string;
+  CountryClasificationList:any = ['USA','Europe','UK','Japan','Dev. World'];
   performanceAPIUrl = 'https://api.newagealpha.com/api/Indexes/GetIndexPerformance';
   APIUrl = 'https://api.newagealpha.com/api/Indexes/GetIndexDetails';
-  constructor(private menuController: MenuController ,private file: File,private photoViewer: PhotoViewer,private platform:Platform, private httpClient:HttpClient, private pickerCtrl:PickerController, private screenOrientation: ScreenOrientation) { 
+  constructor(private dataHandler: DataHandlerService, private route: ActivatedRoute, private menuController: MenuController ,private file: File,private photoViewer: PhotoViewer,private platform:Platform, private httpClient:HttpClient, private pickerCtrl:PickerController, private screenOrientation: ScreenOrientation) { 
     this.selWith= window.innerWidth;
     this.selWith = this.selWith- 30; 
     // this.menuController.swipeEnable()
-    this.menuController.enable(false);
+    // this.menuController.enable(false);
   }
   ngOnDestroy(): void {
     this.screenOrientation.unlock();
-    this.menuController.enable(true);
+    // this.menuController.enable(true);
   }
 
   ngOnInit() {
-    
+    this.route.params.subscribe(params=>{ 
+      this.key = params['Key'];
+    })
+    if(this.PerformanceData.length == 0){
+      
+    }
+    console.log(this.key);
     if(this.platform.is('ipad') || this.platform.is('tablet')){
       this.mobile = false;
     }else{
@@ -88,92 +101,206 @@ export class PerformancePage implements OnInit, AfterViewInit, OnDestroy {
   }
   
   loadData(){
-    this.httpClient.get(this.performanceAPIUrl).subscribe(data=>{
-      this.PerformanceData = data;
-      // console.log(this.PerformanceData);
-      this.getFIList();
-      this.getESGList();
-    this.httpClient.get(this.APIUrl).subscribe(data=>{
-      this.IndexData = data
-      // console.log(this.IndexData);
-      var i = 0;
-      this.Index[0] = undefined;
-      this.getEquityList();
-      for(i=1; i<this.CountryClasificationList.length;i++){
-        var temp = this.filterIndex(this.CountryClasificationList[i]);
-        if(this.CountryClasificationList[i] !== 'USA'){
-        temp= temp.sort((a, b) => {
-          return a.sortOrder - b.sortOrder;
-        });
-      }
-        this.Index.push(temp);
-     }
+    if(this.key == 'ESG'){
+      this.dataHandler.getPerfData().subscribe(res =>{
+        console.log(res);
+        this.PerformanceData = res;
+      this.dataHandler.getEsgPerfData().subscribe(res => {
+        console.log(res);
+        this.IndexData = res;
+        this.CheckCountry();
+        this.OnItemClick(this.CountryClasificationList[0]);
+      });
+    });
+    }else if(this.key == 'Fixed Income'){
+      this.dataHandler.getPerfData().subscribe(res =>{
+        console.log(res);
+        this.PerformanceData = res;
+      this.dataHandler.getFIPerfData().subscribe(res => {
+        console.log(res);
+        this.IndexData = res;
+        this.CheckCountry();
+        this.OnItemClick(this.CountryClasificationList[0]);
+      });
+    });
+    }else if(this.key == 'Leading Equity'){
+      this.dataHandler.getPerfData().subscribe(res =>{
+        console.log(res);
+        this.PerformanceData = res;
+      this.dataHandler.getEquityPerfIndData().subscribe(res=>{
+        console.log(res);
+       var temp:any = [];
+       temp = res;
+       var LeadingIndex = temp.filter((rec)=> rec.indexName.indexOf('Leading') != -1);
+       console.log(LeadingIndex);
+       this.IndexData = LeadingIndex;
+       this.CheckCountry();
+       this.OnItemClick(this.CountryClasificationList[0]);
+      });
+    });
+    }else if(this.key == 'Long_Short Equity'){
+      this.dataHandler.getPerfData().subscribe(res =>{
+        console.log(res);
+        this.PerformanceData = res;
+      this.dataHandler.getEquityPerfIndData().subscribe(res=>{
+        console.log(res);
+       var temp:any = [];
+       temp = res;
+       var LongShortIndex = temp.filter((rec)=> (rec.indexName.indexOf('Long') != -1 || rec.indexName.indexOf('Short') != -1) && rec.indexName.indexOf('Long-Short') == -1);
+       console.log(LongShortIndex);
+       this.IndexData = LongShortIndex;
+       this.CheckCountry();
+       this.OnItemClick(this.CountryClasificationList[0]);
+       });
+      });
+    }else if(this.key == 'Low Volatility'){
+      this.dataHandler.getPerfData().subscribe(res =>{
+        console.log(res);
+        this.PerformanceData = res;
+      this.dataHandler.getEquityPerfIndData().subscribe(res=>{
+        console.log(res);
+        var temp:any = [];
+       temp = res;
+       var LowVolIndex = temp.filter((rec)=> rec.indexName.indexOf('Low Volatility') != -1);
+       console.log(LowVolIndex);
+       this.IndexData = LowVolIndex;
+       this.CheckCountry();
+       this.OnItemClick(this.CountryClasificationList[0]);
+       });
+      });
+    }
+    // else if(this.key == 'Target Volatility Controlled'){
+    //   this.dataHandler.getEquityPerfIndData().subscribe(res=>{
+    //     console.log(res);
+    //    });
+    // }
+
+
+    // this.httpClient.get(this.performanceAPIUrl).subscribe(data=>{
+    //   // this.PerformanceData = data;
+    //   // console.log(this.PerformanceData);
+    //   this.getFIList();
+    //   // this.getESGList();
+    // this.httpClient.get(this.APIUrl).subscribe(data=>{
+    //   this.IndexData = data
+    //   // console.log(this.IndexData);
+    //   var i = 0;
+    //   this.Index[0] = undefined;
+    //   this.getEquityList();
+    //   for(i=1; i<this.CountryClasificationList.length;i++){
+    //     var temp = this.filterIndex(this.CountryClasificationList[i]);
+    //     if(this.CountryClasificationList[i] !== 'USA'){
+    //     temp= temp.sort((a, b) => {
+    //       return a.sortOrder - b.sortOrder;
+    //     });
+    //   }
+    //     this.Index.push(temp);
+    //  }
     //  console.log(this.Index);
       //console.log(this.selectedIndex);
-      this.OnItemClick('USA');
+      
       // document.getElementById('Loader').style.display='none';
-    });
-  });
+    // });
+  // });
   }
 
-
-  filterIndex(item){
-    var index = item;
-    //console.log(item);
-    var filterStr='U.S.';
-    var ind:any = [];
-    // if(index == 'USA')
-    // {
-    //   var temp = this.getUSAlist()
-    //   setTimeout(() => {
-    //     ind = temp;
-    //   }, 500);
+  // filterIndex(item){
+  //   var index = item;
+  //   //console.log(item);
+  //   var filterStr='U.S.';
+  //   var ind:any = [];
+  //   // if(index == 'USA')
+  //   // {
+  //   //   var temp = this.getUSAlist()
+  //   //   setTimeout(() => {
+  //   //     ind = temp;
+  //   //   }, 500);
       
-    // }else 
-    if(index == 'Europe'){
-      filterStr = 'Europe'
-      ind = this.IndexData.filter((data)=> data.indexName.indexOf(filterStr) != -1);
-    }else if(index == 'Europe'){
-      filterStr = 'Europe'
-      ind = this.IndexData.filter((data)=> data.indexName.indexOf(filterStr) != -1);
-    }else if(index == 'UK'){
-      filterStr = 'UK'
-      ind = this.IndexData.filter((data)=> data.indexName.indexOf(filterStr) != -1 && data.indexName.indexOf('Europe') == -1);
-    }else if(index == 'Japan'){
-      filterStr = 'Japan'
-      ind = this.IndexData.filter((data)=> data.indexName.indexOf(filterStr) != -1);
-    }else if(index == 'Dev. World'){
-      filterStr = 'Developed World'
-      ind = this.IndexData.filter((data)=> data.indexName.indexOf(filterStr) != -1 && data.indexName.indexOf('Developed World Ex-US') == -1);
-    }else if(index == 'Dev. World ex US'){
-      filterStr = 'Developed World Ex-US'
-      ind = this.IndexData.filter((data)=> data.indexName.indexOf(filterStr) != -1);
+  //   // }else 
+  //   if(index == 'Europe'){
+  //     filterStr = 'Europe'
+  //     ind = this.IndexData.filter((data)=> data.indexName.indexOf(filterStr) != -1);
+  //   }else if(index == 'Europe'){
+  //     filterStr = 'Europe'
+  //     ind = this.IndexData.filter((data)=> data.indexName.indexOf(filterStr) != -1);
+  //   }else if(index == 'UK'){
+  //     filterStr = 'UK'
+  //     ind = this.IndexData.filter((data)=> data.indexName.indexOf(filterStr) != -1 && data.indexName.indexOf('Europe') == -1);
+  //   }else if(index == 'Japan'){
+  //     filterStr = 'Japan'
+  //     ind = this.IndexData.filter((data)=> data.indexName.indexOf(filterStr) != -1);
+  //   }else if(index == 'Dev. World'){
+  //     filterStr = 'Developed World'
+  //     ind = this.IndexData.filter((data)=> data.indexName.indexOf(filterStr) != -1 && data.indexName.indexOf('Developed World Ex-US') == -1);
+  //   }else if(index == 'Dev. World ex US'){
+  //     filterStr = 'Developed World Ex-US'
+  //     ind = this.IndexData.filter((data)=> data.indexName.indexOf(filterStr) != -1);
+  //   }
+  //   // else if(index == 'All'){
+  //   //   ind = this.IndexData;
+  //   // }
+  //   // console.log(ind);
+  //  // this.selectedIndex = ind[0].indexName;
+  //  // this.selectedIndex = this.selectedIndex.replace('New Age Alpha ','');
+  //   //console.log(this.selectedIndex)
+  //   return ind;
+  // }
+
+  CheckCountry(){
+    var temp = [];
+    if(this.IndexData.length != 0){
+      if(this.IndexData.filter(data => data.indexName.indexOf('U.S') != -1 || data.indexName.indexOf('USD') != -1).length != 0){
+        temp.push("USA");
+      }
+      if(this.IndexData.filter(data => data.indexName.indexOf('Ex-UK') != -1).length != 0){
+        temp.push("Europe");
+      }
+      if(this.IndexData.filter(data => data.indexName.indexOf('United Kingdom') != -1).length != 0){
+        temp.push("UK");
+      }
+      if(this.IndexData.filter(data => data.indexName.indexOf('Japan') != -1).length != 0){
+        temp.push("Japan");
+      }
+      if(this.IndexData.filter(data => data.indexName.indexOf('Developed World') != -1).length != 0){
+        temp.push("Dev. World");
+      }
+      this.CountryClasificationList = temp;
     }
-    // else if(index == 'All'){
-    //   ind = this.IndexData;
-    // }
-    // console.log(ind);
-   // this.selectedIndex = ind[0].indexName;
-   // this.selectedIndex = this.selectedIndex.replace('New Age Alpha ','');
-    //console.log(this.selectedIndex)
-    return ind;
   }
 
   OnItemClick(item){
+    console.log(item);
     this.selectedCountry = item;
     this.selectedOption = null;
+    console.log(this.IndexData);
     if(item == 'USA'){
-      this.segmentChanged('Equity');
-      this.selectedIndexName = this.Index[0][0].indexName.replace('New Age Alpha ','');
-    }else{
-      this.selectedIndexName = this.Index[this.CountryClasificationList.indexOf(this.selectedCountry)][0].indexName.replace('New Age Alpha ','');
-      // console.log(this.selectedIndexName);
+        this.SelCountryData = this.IndexData.filter(data => data.indexName.indexOf('U.S') != -1 || data.indexName.indexOf('USD') != -1);
+    }else if(item == 'Japan'){
+      this.SelCountryData = this.IndexData.filter(data => data.indexName.indexOf('Japan') != -1);
+    }else if(item == 'Europe'){
+      this.SelCountryData = this.IndexData.filter(data => data.indexName.indexOf('Ex-UK') != -1);
+    }else if(item == 'Dev. World'){
+      this.SelCountryData = this.IndexData.filter(data => data.indexName.indexOf('Developed World') != -1);
+    }else if(item == 'UK'){
+      this.SelCountryData = this.IndexData.filter(data => data.indexName.indexOf('United Kingdom') != -1);
     }
+
+    this.SelCountryData = this.SelCountryData.sort((a,b)=>{
+      return a.sortOrder - b.sortOrder;
+    });
+    console.log(this.SelCountryData);
+    // if(item == 'USA'){
+    //   // this.segmentChanged('Equity');
+    //   this.selectedIndexName = this.Index[0][0].indexName.replace('New Age Alpha ','');
+    // }else{
+    //   this.selectedIndexName = this.Index[this.CountryClasificationList.indexOf(this.selectedCountry)][0].indexName.replace('New Age Alpha ','');
+    //   // console.log(this.selectedIndexName);
+    // }
     this.itemActive = true;
     
     
     // console.log(this.selectedIndexName);
-    this.onOptionsSelected();    
+    this.onOptionsSelected(this.SelCountryData[0].indexId);    
   }
 
   onIndexItemClick(){
@@ -212,18 +339,27 @@ export class PerformancePage implements OnInit, AfterViewInit, OnDestroy {
     },300);
   }
 
-  onOptionsSelected(){
-    this.selectedIndex = this.Index[this.CountryClasificationList.indexOf(this.selectedCountry)];
-    var inddata = this.PerformanceData.filter(data => data.indexName.replace('New Age Alpha ','') == this.selectedIndexName);
-    this.selectedIndexData = inddata[0];
-    // this.trimstring();
-    this.showMore = false;
+  onOptionsSelected(indId){
+    this.selectedIndex = this.SelCountryData.filter(data => data.indexId == indId)[0];
     console.log(this.selectedIndex);
+    this.selectedIndexData = this.PerformanceData.filter(data => data.indexId == indId)[0];
     console.log(this.selectedIndexData);
-    console.log(this.selectedIndexName);
+    this.selectedIndexName = this.selectedIndexData.indexName;
     this.getBMData();
-    this.createChart();
   }
+
+  // onOptionsSelected(){
+  //   this.selectedIndex = this.Index[this.CountryClasificationList.indexOf(this.selectedCountry)];
+  //   var inddata = this.PerformanceData.filter(data => data.indexName.replace('New Age Alpha ','') == this.selectedIndexName);
+  //   this.selectedIndexData = inddata[0];
+  //   // this.trimstring();
+  //   this.showMore = false;
+  //   console.log(this.selectedIndex);
+  //   console.log(this.selectedIndexData);
+  //   console.log(this.selectedIndexName);
+  //   // this.getBMData();
+  //   // this.createChart();
+  // }
 
   getBMData(){
     var temp = this.PerformanceData.filter(x=>x.indexId == this.selectedIndexData.benchMarkId && x.relatedIndexId == this.selectedIndexData.indexId);
@@ -237,43 +373,44 @@ export class PerformancePage implements OnInit, AfterViewInit, OnDestroy {
     // console.log(this.SelBMIndData);
   }
 
-  segmentChanged(event){
-    // console.log(event);
-    if(event == 'Equity'){
-     this.Index[0] = this.EquityList;
-    }else if(event == 'ESG'){
-      this.Index[0] = this.ESGList;
-    }else if(event == 'Fixed Income'){
-      this.Index[0] = this.FIList;
-    }
-    this.selectedIndexName = this.Index[0][0].indexName.replace('New Age Alpha ','');
-    //  console.log(this.selectedIndexName);
-    setTimeout(() => {
-      this.onOptionsSelected();
-    }, 200);
+  // segmentChanged(event){
+  //   // console.log(event);
+  //   if(event == 'Equity'){
+  //    this.Index[0] = this.EquityList;
+  //   }else if(event == 'ESG'){
+  //     this.Index[0] = this.ESGList;
+  //   }else if(event == 'Fixed Income'){
+  //     this.Index[0] = this.FIList;
+  //   }
+  //   this.selectedIndexName = this.Index[0][0].indexName.replace('New Age Alpha ','');
+  //   //  console.log(this.selectedIndexName);
+  //   setTimeout(() => {
+  //     this.onOptionsSelected();
+  //   }, 200);
     
-    // console.log(this.Index);
-  }
+  //   // console.log(this.Index);
+  // }
 
-  getFIList(){
-    this.httpClient.get('https://api.newagealpha.com/api/Indexes/GetFIDetails').subscribe(resFI=>{
-      var tempFI:any = resFI;
-      tempFI= tempFI.sort((a, b) => {
-          return a.sortOrder - b.sortOrder;
-        });
-      this.FIList = tempFI;
-    });   
-  }
+  // getFIList(){
+  //   this.httpClient.get('https://api.newagealpha.com/api/Indexes/GetFIDetails').subscribe(resFI=>{
+  //     var tempFI:any = resFI;
+  //     tempFI= tempFI.sort((a, b) => {
+  //         return a.sortOrder - b.sortOrder;
+  //       });
+  //     this.FIList = tempFI;
+  //   });   
+  // }
 
-  getESGList(){
-    this.httpClient.get('https://api.newagealpha.com/api/Indexes/GetESGDetails').subscribe(resESG=>{
-      var tempESG:any = resESG;
-      tempESG= tempESG.sort((a, b) => {
-        return a.sortOrder - b.sortOrder;
-      });
-      this.ESGList = tempESG;
-    });
-  }
+  // getESGList(){
+  //   this.httpClient.get('https://api.newagealpha.com/api/Indexes/GetESGDetails').subscribe(resESG=>{
+  //     var tempESG:any = resESG;
+  //     tempESG= tempESG.sort((a, b) => {
+  //       return a.sortOrder - b.sortOrder;
+  //     });
+  //     this.ESGList =  tempESG.filter(res=> res.indexName.indexOf('U.S.') != -1);
+  //     console.log(this.ESGList);
+  //   });
+  // }
 
   getEquityList(){
     var filterStr = 'U.S.'
@@ -414,8 +551,8 @@ export class PerformancePage implements OnInit, AfterViewInit, OnDestroy {
           var temp = val.Index.text;
           temp = temp.slice(0,temp.indexOf('(')-1);
           this.selectedIndexName = temp;
-          this.onOptionsSelected();
-          // this.getColumnOptions();
+          this.onOptionsSelected(this.getSelectedDataId(temp));
+          this.getColumnOptions();
         }
       }
       ],
@@ -437,6 +574,13 @@ export class PerformancePage implements OnInit, AfterViewInit, OnDestroy {
     // })
   }
 
+  getSelectedDataId(val){
+    console.log(val);
+    var temp = this.SelCountryData.filter(data => data.indexName.replace('New Age Alpha ','').replace('Total Return ','') == val)[0];
+    console.log(temp);
+    return temp.indexId;
+  }
+
   getSelectedIndex(){
     if(this.selectedOption)
     {
@@ -450,13 +594,21 @@ export class PerformancePage implements OnInit, AfterViewInit, OnDestroy {
 
   getColumnOptions(){
     this.OptionsList.length = 0;
-    
-    this.Index[this.CountryClasificationList.indexOf(this.selectedCountry)].forEach(element => {
-      var temp = element.indexName.replace('New Age Alpha ','')
+
+    console.log(this.SelCountryData);
+
+    this.SelCountryData.forEach(element => {
+      var temp = element.indexName.replace('New Age Alpha ','').replace('Total Return ','');
       temp = temp+" ("+element.indexCode+")";
       this.OptionsList.push({text:temp,value:temp});
     });
-    // console.log(this.Index);
+    
+    // this.Index[this.CountryClasificationList.indexOf(this.selectedCountry)].forEach(element => {
+    //   var temp = element.indexName.replace('New Age Alpha ','')
+    //   temp = temp+" ("+element.indexCode+")";
+    //   this.OptionsList.push({text:temp,value:temp});
+    // });
+    // // console.log(this.Index);
     console.log(this.OptionsList);
     return this.OptionsList;
   }
@@ -715,5 +867,25 @@ export class PerformancePage implements OnInit, AfterViewInit, OnDestroy {
   onDateClick(rebalancedt){
     this.selectedDate = rebalancedt;
     this.fetchSignal(rebalancedt);
+  }
+
+  indexNameReplace(item:string){
+    var temp = item.replace('New Age Alpha ','');
+    temp = temp.replace('Total Return ', '');
+    return temp;
+  }
+
+  getTitle(){
+    if(this.key == 'ESG'){
+      return 'ESG Strategies'
+    }else if(this.key == 'Fixed Income'){
+      return 'Fixed Income Strategies'
+    }else if(this.key == 'Leading Equity'){
+      return 'Leading Equity Strategies'
+    }else if(this.key == 'Long_Short Equity'){
+      return 'Long / Short Equity Strategies'
+    }else if(this.key == 'Low Volatility'){
+      return 'Low Volatility Strategies'
+    }
   }
 }

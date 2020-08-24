@@ -11,7 +11,7 @@ import { Router } from '@angular/router';
 import { AlertController, PickerController } from '@ionic/angular';
 import { PopoverController } from '@ionic/angular';
 import { ProfiledetailsComponent } from '../Components/profiledetails/profiledetails.component';
-import { NavParams, Events } from '@ionic/angular';
+import { NavParams } from '@ionic/angular';
 import { PickerOptions } from '@ionic/core';
 import { AlertService } from '../services/alert.service';
 import { DataHandlerService } from '../services/dataHandler/data-handler.service';
@@ -172,7 +172,7 @@ export class HomePage implements OnInit, AfterViewInit {
     }, 100);
   }
 
-  constructor(private dataHandler: DataHandlerService, private toastCtrl: ToastController, private alertService: AlertService, private pickerCtrl: PickerController, private menuCtrl: MenuController, private events: Events, private platform: Platform, private popoverController: PopoverController, private route: Router, public alertController: AlertController, private screenOrientation: ScreenOrientation, public router: Router, private authService: AuthenticationService, public storage: Storage, private httpclient: HttpClient, private plt: Platform) {
+  constructor(private dataHandler: DataHandlerService, private toastCtrl: ToastController, private alertService: AlertService, private pickerCtrl: PickerController, private menuCtrl: MenuController, private platform: Platform, private popoverController: PopoverController, private route: Router, public alertController: AlertController, private screenOrientation: ScreenOrientation, public router: Router, private authService: AuthenticationService, public storage: Storage, private httpclient: HttpClient, private plt: Platform) {
     this.currentUser = this.authService.currentUserValue();
     if (this.screenOrientation.type == this.screenOrientation.ORIENTATIONS.LANDSCAPE || this.screenOrientation.type == this.screenOrientation.ORIENTATIONS.LANDSCAPE_PRIMARY || this.screenOrientation.type == this.screenOrientation.ORIENTATIONS.LANDSCAPE_SECONDARY) {
       this.stockCollapse = true;

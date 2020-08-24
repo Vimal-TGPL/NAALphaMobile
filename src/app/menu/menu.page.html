@@ -1,5 +1,5 @@
 <ion-split-pane>
- <ion-menu when="main-content" id="ManiMenu" type="push" [ngClass]="{'ipadmenu': !mobile}">
+ <ion-menu when="main-content" id="ManiMenu" type="push" [ngClass]="{'ipadmenu': !mobile}" (ionDidClose)="investmentsolution = false" >
 <ion-content forceOverscroll = false *ngIf="mobile">
   <div>
   <div class = "avatarDiv">
@@ -15,34 +15,94 @@
     </div>
   </div>
   <hr class="divider">
-  <ion-list id="menu-List">
+  <ion-list id="menu-List" >
       <ion-menu-toggle autoHide="false" >
-        <ion-item lines="none" style="    color: white; --detail-icon-opacity: 1;" [routerLink]="['/menu/home']" routerDirection="root" [class.active-item]="selectedPath==='/menu/menu/path'">
-          <!-- //<ion-icon name="home-outline" style="color: white; margin-right: 10px;"></ion-icon> -->
-          <!-- <ion-icon name="home-outline" style="color: white; margin-right: 10px;"></ion-icon> -->
-          <img src="../../assets/images/H-Factor Icon solid.svg" alt="home" style="height: 25px; padding-right: 5px;">
-         <ion-text color="light" style="font-size: 16px; font-family: Open Sans SemiBold;">
-           H-Factor System
-         </ion-text>
-        </ion-item>
-        <ion-item lines="none" style="    color: white; --detail-icon-opacity: 1;" [routerLink]="['/menu/menu/performance']" routerLinkActive="router-link-active" >
-          <img src="../../assets/images/bar graph.svg" alt="satistics" style="height: 20px; padding-right: 10px;">
-          <ion-text color="light" style="font-size: 16px; font-family: Open Sans SemiBold;">
-            H-Factor Indexes
+        <ion-list *ngIf="investmentsolution === false" style="margin-bottom: 0px;">
+          <ion-item lines="none" style="    color: white; --detail-icon-opacity: 1;" [routerLink]="['/menu/home']" routerDirection="root" [class.active-item]="selectedPath==='/menu/menu/path'">
+            <!-- //<ion-icon name="home-outline" style="color: white; margin-right: 10px;"></ion-icon> -->
+            <!-- <ion-icon name="home-outline" style="color: white; margin-right: 10px;"></ion-icon> -->
+            <img src="../../assets/images/H-Factor Icon solid.svg" alt="home" style="height: 25px; padding-right: 5px;">
+           <ion-text color="light" style="font-size: 16px; font-family: Open Sans SemiBold;">
+             H-Factor System
+           </ion-text>
+          </ion-item>
+        </ion-list>
+        
+    </ion-menu-toggle>
+
+
+        <ion-item lines="none" style="    color: white; --detail-icon-opacity: 1;"  (click)="investmentsolution === true? investmentsolution = false : investmentsolution = true" >
+          <img *ngIf="!investmentsolution" src="../../assets/images/bar graph.svg" alt="satistics" style="height: 20px; padding-right: 10px;">
+          <ion-icon [name]="investmentsolution== true? 'ios-arrow-back' : 'ios-arrow-forward'" [slot]="investmentsolution== true? 'start':'end'" style="width: 20px;
+          height: 20px;
+          transition: 0.3s;
+          margin: 0; color: white;"></ion-icon>
+          <ion-text color="light" style="font-family: Open Sans SemiBold; font-size: 16px; " [ngStyle]="{'margin-left': investmentsolution? '10px':'0px'}">
+            Investment Solution
           </ion-text>
         </ion-item>
-        <ion-item lines="none" style="    color: white; --detail-icon-opacity: 1;" [routerLink]="['/menu/menu/change-password']" routerLinkActive="router-link-active" >
-          <img src="../../assets/images/password.svg" alt="ChangePassword" style="height: 20px; padding-right: 10px;">
-            <ion-text color="light" style="font-size: 16px; font-family: Open Sans SemiBold;">
-              Change Password
-            </ion-text>
-          </ion-item>
-        <ion-item lines="none" style="    color: white; --detail-icon-opacity: 1;" (click)="onLogoutClick()">
-            <img src="../../assets/images/power.svg" alt="logout" style="height: 20px; padding-right: 10px;">
-            <ion-text color="light" style="font-size: 16px; font-family: Open Sans SemiBold;">
-                Logout
+
+        <ion-menu-toggle autoHide="false" >
+          <ion-list *ngIf="investmentsolution == true" style="margin-bottom: 0px;">
+            <ion-item lines="none" style="color: white; --detail-icon-opacity: 1;" [routerLink]="['/menu/menu/performance',{'Key':'ESG'}]" routerLinkActive="router-link-active">
+              <ion-text color="light" style="font-size: 15px; font-family: Open Sans Regular;">
+                ESG Strategies
               </ion-text>
-        </ion-item>
+            </ion-item>
+
+            <ion-item lines="none" style="    color: white; --detail-icon-opacity: 1;" [routerLink]="['/menu/menu/performance',{'Key':'Fixed Income'}]" routerLinkActive="router-link-active">
+              <ion-text color="light" style="font-size: 15px; font-family: Open Sans Regular;">
+                Fixed Income Strategies
+              </ion-text>
+            </ion-item>
+
+            <ion-item lines="none" style="    color: white; --detail-icon-opacity: 1;" [routerLink]="['/menu/menu/performance',{'Key':'Leading Equity'}]" routerLinkActive="router-link-active">
+              <ion-text color="light" style="font-size: 15px; font-family: Open Sans Regular;">
+                Leading Equity Strategies
+              </ion-text>
+            </ion-item>
+
+            <ion-item lines="none" style="    color: white; --detail-icon-opacity: 1;" [routerLink]="['/menu/menu/performance',{'Key':'Long_Short Equity'}]" routerLinkActive="router-link-active">
+              <ion-text color="light" style="font-size: 15px; font-family: Open Sans Regular;">
+                Long / Short Equity Strategies
+              </ion-text>
+            </ion-item>
+
+            <ion-item lines="none" style="    color: white; --detail-icon-opacity: 1;" [routerLink]="['/menu/menu/performance',{'Key':'Low Volatility'}]" routerLinkActive="router-link-active">
+              <ion-text color="light" style="font-size: 15px; font-family: Open Sans Regular;">
+                Low Volatility Strategies
+              </ion-text>
+            </ion-item>
+
+            <!-- <ion-item lines="none" style="    color: white; --detail-icon-opacity: 1;" [routerLink]="['/menu/menu/performance',{'Key':'Target Volatility Controlled'}]" routerLinkActive="router-link-active">
+              <ion-text color="light" style="font-size: 15px; font-family: Open Sans Regular;">
+                Target Volatility Controlled Strategies
+              </ion-text>
+            </ion-item> -->
+          </ion-list>
+        </ion-menu-toggle>
+
+        <ion-menu-toggle autoHide="false" >
+          <ion-list *ngIf="investmentsolution === false">
+            <!-- <ion-item lines="none" style="    color: white; --detail-icon-opacity: 1;" [routerLink]="['/menu/menu/performance']" routerLinkActive="router-link-active" >
+              <img src="../../assets/images/bar graph.svg" alt="satistics" style="height: 20px; padding-right: 10px;">
+              <ion-text color="light" style="font-size: 16px; font-family: Open Sans SemiBold;">
+                H-Factor Indexes
+              </ion-text>
+            </ion-item> -->
+            <ion-item lines="none" style="    color: white; --detail-icon-opacity: 1;" [routerLink]="['/menu/menu/change-password']" routerLinkActive="router-link-active" >
+              <img src="../../assets/images/password.svg" alt="ChangePassword" style="height: 20px; padding-right: 10px;">
+                <ion-text color="light" style="font-size: 16px; font-family: Open Sans SemiBold;">
+                  Change Password
+                </ion-text>
+              </ion-item>
+            <ion-item lines="none" style="    color: white; --detail-icon-opacity: 1;" (click)="onLogoutClick()">
+                <img src="../../assets/images/power.svg" alt="logout" style="height: 20px; padding-right: 10px;">
+                <ion-text color="light" style="font-size: 16px; font-family: Open Sans SemiBold;">
+                    Logout
+                  </ion-text>
+            </ion-item>
+          </ion-list>
       </ion-menu-toggle>
   </ion-list>
   <div class="footerDiv">

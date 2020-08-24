@@ -545,6 +545,67 @@ ProfiledetailsComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
 
 /***/ }),
 
+/***/ "./src/app/_helper/error.interceptor.ts":
+/*!**********************************************!*\
+  !*** ./src/app/_helper/error.interceptor.ts ***!
+  \**********************************************/
+/*! exports provided: ErrorInterceptor */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ErrorInterceptor", function() { return ErrorInterceptor; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
+/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm2015/index.js");
+/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! rxjs/operators */ "./node_modules/rxjs/_esm2015/operators/index.js");
+/* harmony import */ var _services_authentication_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../services/authentication.service */ "./src/app/services/authentication.service.ts");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm2015/router.js");
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm2015/http.js");
+
+
+
+
+
+
+
+let ErrorInterceptor = class ErrorInterceptor {
+    constructor(authService, router, httpClient) {
+        this.authService = authService;
+        this.router = router;
+        this.httpClient = httpClient;
+    }
+    intercept(request, next) {
+        var that = this;
+        return next.handle(request).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["catchError"])(err => {
+            console.log(err);
+            this.currentUser = this.authService.currentUserValue();
+            console.log(this.currentUser);
+            if (err.status === 401) {
+                // auto logout if 401 response returned from api
+                if (this.currentUser.remToken !== null) {
+                    this.authService.checkToken(request);
+                }
+            }
+            const error = err.message || err.statusText;
+            return Object(rxjs__WEBPACK_IMPORTED_MODULE_2__["throwError"])(error);
+        }));
+    }
+};
+ErrorInterceptor.ctorParameters = () => [
+    { type: _services_authentication_service__WEBPACK_IMPORTED_MODULE_4__["AuthenticationService"] },
+    { type: _angular_router__WEBPACK_IMPORTED_MODULE_5__["Router"] },
+    { type: _angular_common_http__WEBPACK_IMPORTED_MODULE_6__["HttpClient"] }
+];
+ErrorInterceptor = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])(),
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_services_authentication_service__WEBPACK_IMPORTED_MODULE_4__["AuthenticationService"], _angular_router__WEBPACK_IMPORTED_MODULE_5__["Router"], _angular_common_http__WEBPACK_IMPORTED_MODULE_6__["HttpClient"]])
+], ErrorInterceptor);
+
+
+
+/***/ }),
+
 /***/ "./src/app/_helper/jwt.interceptor.ts":
 /*!********************************************!*\
   !*** ./src/app/_helper/jwt.interceptor.ts ***!
@@ -559,13 +620,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
 /* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm2015/http.js");
 /* harmony import */ var _ionic_storage__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @ionic/storage */ "./node_modules/@ionic/storage/fesm2015/ionic-storage.js");
-/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm2015/index.js");
-/* harmony import */ var _services_authentication_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../services/authentication.service */ "./src/app/services/authentication.service.ts");
-/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! rxjs/operators */ "./node_modules/rxjs/_esm2015/operators/index.js");
-/* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @ionic/angular */ "./node_modules/@ionic/angular/dist/fesm5.js");
-/* harmony import */ var _ionic_native_toast_ngx__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @ionic-native/toast/ngx */ "./node_modules/@ionic-native/toast/ngx/index.js");
-
-
+/* harmony import */ var _services_authentication_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../services/authentication.service */ "./src/app/services/authentication.service.ts");
+/* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @ionic/angular */ "./node_modules/@ionic/angular/dist/fesm5.js");
+/* harmony import */ var _ionic_native_toast_ngx__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @ionic-native/toast/ngx */ "./node_modules/@ionic-native/toast/ngx/index.js");
 
 
 
@@ -597,40 +654,24 @@ let JwtInterceptor = class JwtInterceptor {
                     Authorization: `Bearer ${this.currentUser.token}`
                 }
             });
-            console.log(this.currentUser.token);
         }
-        return next.handle(request)
-            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["catchError"])(this.handleError));
-    }
-    handleError(error) {
-        if (error.status === 401) {
-            this.storage.get('currentUser').then(res => {
-                let user = JSON.parse(res);
-                if (user && user.token && user.remToken) {
-                    //  if(this.currentUser.remToken !== null){
-                    //     this.authService.checkToken();
-                    //  }
-                    console.log(user);
-                }
-            });
-        }
-        return Object(rxjs__WEBPACK_IMPORTED_MODULE_4__["throwError"])(error);
+        return next.handle(request);
     }
     getCurrentUser() {
         this.currentUser = this.authService.currentUserValue();
     }
 };
 JwtInterceptor.ctorParameters = () => [
-    { type: _ionic_native_toast_ngx__WEBPACK_IMPORTED_MODULE_8__["Toast"] },
-    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_7__["AlertController"] },
-    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_7__["ToastController"] },
+    { type: _ionic_native_toast_ngx__WEBPACK_IMPORTED_MODULE_6__["Toast"] },
+    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_5__["AlertController"] },
+    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_5__["ToastController"] },
     { type: _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpClient"] },
     { type: _ionic_storage__WEBPACK_IMPORTED_MODULE_3__["Storage"] },
-    { type: _services_authentication_service__WEBPACK_IMPORTED_MODULE_5__["AuthenticationService"] }
+    { type: _services_authentication_service__WEBPACK_IMPORTED_MODULE_4__["AuthenticationService"] }
 ];
 JwtInterceptor = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])(),
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_ionic_native_toast_ngx__WEBPACK_IMPORTED_MODULE_8__["Toast"], _ionic_angular__WEBPACK_IMPORTED_MODULE_7__["AlertController"], _ionic_angular__WEBPACK_IMPORTED_MODULE_7__["ToastController"], _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpClient"], _ionic_storage__WEBPACK_IMPORTED_MODULE_3__["Storage"], _services_authentication_service__WEBPACK_IMPORTED_MODULE_5__["AuthenticationService"]])
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_ionic_native_toast_ngx__WEBPACK_IMPORTED_MODULE_6__["Toast"], _ionic_angular__WEBPACK_IMPORTED_MODULE_5__["AlertController"], _ionic_angular__WEBPACK_IMPORTED_MODULE_5__["ToastController"], _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpClient"], _ionic_storage__WEBPACK_IMPORTED_MODULE_3__["Storage"], _services_authentication_service__WEBPACK_IMPORTED_MODULE_4__["AuthenticationService"]])
 ], JwtInterceptor);
 
 
@@ -739,7 +780,7 @@ AppRoutingModule = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "ion-backdrop {\n  opacity: 0.5;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvQzpcXFByb2plY3RzXFxOQUFscGhhTW9iaWxlL3NyY1xcYXBwXFxhcHAuY29tcG9uZW50LnNjc3MiLCJzcmMvYXBwL2FwcC5jb21wb25lbnQuc2NzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtFQUNJLFlBQUE7QUNDSiIsImZpbGUiOiJzcmMvYXBwL2FwcC5jb21wb25lbnQuc2NzcyIsInNvdXJjZXNDb250ZW50IjpbImlvbi1iYWNrZHJvcCB7XHJcbiAgICBvcGFjaXR5OiAwLjU7XHJcbn0iLCJpb24tYmFja2Ryb3Age1xuICBvcGFjaXR5OiAwLjU7XG59Il19 */"
+module.exports = "ion-backdrop {\n  opacity: 0.5; }\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvQzpcXFByb2plY3RzXFxOQUFscGhhTW9iaWxlL3NyY1xcYXBwXFxhcHAuY29tcG9uZW50LnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDSSxZQUFZLEVBQUEiLCJmaWxlIjoic3JjL2FwcC9hcHAuY29tcG9uZW50LnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyJpb24tYmFja2Ryb3Age1xyXG4gICAgb3BhY2l0eTogMC41O1xyXG59Il19 */"
 
 /***/ }),
 
@@ -922,16 +963,18 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _ionic_native_screen_orientation_ngx__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! @ionic-native/screen-orientation/ngx */ "./node_modules/@ionic-native/screen-orientation/ngx/index.js");
 /* harmony import */ var _Components_profiledetails_profiledetails_component__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./Components/profiledetails/profiledetails.component */ "./src/app/Components/profiledetails/profiledetails.component.ts");
 /* harmony import */ var _helper_jwt_interceptor__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./_helper/jwt.interceptor */ "./src/app/_helper/jwt.interceptor.ts");
-/* harmony import */ var ionic_selectable__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ionic-selectable */ "./node_modules/ionic-selectable/esm2015/ionic-selectable.min.js");
-/* harmony import */ var _angular_material_tabs__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! @angular/material/tabs */ "./node_modules/@angular/material/esm2015/tabs.js");
-/* harmony import */ var _ionic_native_network_ngx__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! @ionic-native/network/ngx */ "./node_modules/@ionic-native/network/ngx/index.js");
-/* harmony import */ var _ionic_native_toast_ngx__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! @ionic-native/toast/ngx */ "./node_modules/@ionic-native/toast/ngx/index.js");
-/* harmony import */ var _angular_platform_browser_animations__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! @angular/platform-browser/animations */ "./node_modules/@angular/platform-browser/fesm2015/animations.js");
-/* harmony import */ var _ionic_native_photo_viewer_ngx__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! @ionic-native/photo-viewer/ngx */ "./node_modules/@ionic-native/photo-viewer/ngx/index.js");
-/* harmony import */ var _ionic_native_file_ngx__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! @ionic-native/file/ngx */ "./node_modules/@ionic-native/file/ngx/index.js");
-/* harmony import */ var _ionic_native_device_ngx__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! @ionic-native/device/ngx */ "./node_modules/@ionic-native/device/ngx/index.js");
-/* harmony import */ var _ionic_native_user_agent_ngx__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! @ionic-native/user-agent/ngx */ "./node_modules/@ionic-native/user-agent/ngx/index.js");
-/* harmony import */ var _ionic_native_app_version_ngx__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(/*! @ionic-native/app-version/ngx */ "./node_modules/@ionic-native/app-version/ngx/index.js");
+/* harmony import */ var _helper_error_interceptor__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./_helper/error.interceptor */ "./src/app/_helper/error.interceptor.ts");
+/* harmony import */ var ionic_selectable__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ionic-selectable */ "./node_modules/ionic-selectable/esm2015/ionic-selectable.min.js");
+/* harmony import */ var _angular_material_tabs__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! @angular/material/tabs */ "./node_modules/@angular/material/esm2015/tabs.js");
+/* harmony import */ var _ionic_native_network_ngx__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! @ionic-native/network/ngx */ "./node_modules/@ionic-native/network/ngx/index.js");
+/* harmony import */ var _ionic_native_toast_ngx__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! @ionic-native/toast/ngx */ "./node_modules/@ionic-native/toast/ngx/index.js");
+/* harmony import */ var _angular_platform_browser_animations__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! @angular/platform-browser/animations */ "./node_modules/@angular/platform-browser/fesm2015/animations.js");
+/* harmony import */ var _ionic_native_photo_viewer_ngx__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! @ionic-native/photo-viewer/ngx */ "./node_modules/@ionic-native/photo-viewer/ngx/index.js");
+/* harmony import */ var _ionic_native_file_ngx__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! @ionic-native/file/ngx */ "./node_modules/@ionic-native/file/ngx/index.js");
+/* harmony import */ var _ionic_native_device_ngx__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! @ionic-native/device/ngx */ "./node_modules/@ionic-native/device/ngx/index.js");
+/* harmony import */ var _ionic_native_user_agent_ngx__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(/*! @ionic-native/user-agent/ngx */ "./node_modules/@ionic-native/user-agent/ngx/index.js");
+/* harmony import */ var _ionic_native_app_version_ngx__WEBPACK_IMPORTED_MODULE_27__ = __webpack_require__(/*! @ionic-native/app-version/ngx */ "./node_modules/@ionic-native/app-version/ngx/index.js");
+
 
 
 
@@ -966,24 +1009,25 @@ AppModule = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["NgModule"])({
         declarations: [_app_component__WEBPACK_IMPORTED_MODULE_7__["AppComponent"], _Components_profiledetails_profiledetails_component__WEBPACK_IMPORTED_MODULE_15__["ProfiledetailsComponent"]],
         entryComponents: [_Components_profiledetails_profiledetails_component__WEBPACK_IMPORTED_MODULE_15__["ProfiledetailsComponent"]],
-        imports: [_angular_platform_browser__WEBPACK_IMPORTED_MODULE_2__["BrowserModule"], _angular_platform_browser_animations__WEBPACK_IMPORTED_MODULE_21__["BrowserAnimationsModule"], _angular_material_tabs__WEBPACK_IMPORTED_MODULE_18__["MatTabsModule"], _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["IonicModule"].forRoot(), _angular_common_http__WEBPACK_IMPORTED_MODULE_11__["HttpClientModule"], _angular_forms__WEBPACK_IMPORTED_MODULE_10__["ReactiveFormsModule"], _app_routing_module__WEBPACK_IMPORTED_MODULE_8__["AppRoutingModule"], _ionic_storage__WEBPACK_IMPORTED_MODULE_13__["IonicStorageModule"].forRoot()],
+        imports: [_angular_platform_browser__WEBPACK_IMPORTED_MODULE_2__["BrowserModule"], _angular_platform_browser_animations__WEBPACK_IMPORTED_MODULE_22__["BrowserAnimationsModule"], _angular_material_tabs__WEBPACK_IMPORTED_MODULE_19__["MatTabsModule"], _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["IonicModule"].forRoot(), _angular_common_http__WEBPACK_IMPORTED_MODULE_11__["HttpClientModule"], _angular_forms__WEBPACK_IMPORTED_MODULE_10__["ReactiveFormsModule"], _app_routing_module__WEBPACK_IMPORTED_MODULE_8__["AppRoutingModule"], _ionic_storage__WEBPACK_IMPORTED_MODULE_13__["IonicStorageModule"].forRoot()],
         providers: [
             _ionic_native_in_app_browser_ngx__WEBPACK_IMPORTED_MODULE_9__["InAppBrowser"],
             _ionic_native_status_bar_ngx__WEBPACK_IMPORTED_MODULE_6__["StatusBar"],
             _angular_platform_browser__WEBPACK_IMPORTED_MODULE_2__["BrowserModule"],
-            _ionic_native_network_ngx__WEBPACK_IMPORTED_MODULE_19__["Network"],
+            _ionic_native_network_ngx__WEBPACK_IMPORTED_MODULE_20__["Network"],
             _ionic_native_http_ngx__WEBPACK_IMPORTED_MODULE_12__["HTTP"],
             _ionic_native_splash_screen_ngx__WEBPACK_IMPORTED_MODULE_5__["SplashScreen"],
             _ionic_native_screen_orientation_ngx__WEBPACK_IMPORTED_MODULE_14__["ScreenOrientation"],
-            ionic_selectable__WEBPACK_IMPORTED_MODULE_17__["IonicSelectableComponent"],
-            _ionic_native_toast_ngx__WEBPACK_IMPORTED_MODULE_20__["Toast"],
-            _ionic_native_photo_viewer_ngx__WEBPACK_IMPORTED_MODULE_22__["PhotoViewer"],
-            _ionic_native_file_ngx__WEBPACK_IMPORTED_MODULE_23__["File"],
-            _ionic_native_device_ngx__WEBPACK_IMPORTED_MODULE_24__["Device"],
-            _ionic_native_user_agent_ngx__WEBPACK_IMPORTED_MODULE_25__["UserAgent"],
-            _ionic_native_app_version_ngx__WEBPACK_IMPORTED_MODULE_26__["AppVersion"],
+            ionic_selectable__WEBPACK_IMPORTED_MODULE_18__["IonicSelectableComponent"],
+            _ionic_native_toast_ngx__WEBPACK_IMPORTED_MODULE_21__["Toast"],
+            _ionic_native_photo_viewer_ngx__WEBPACK_IMPORTED_MODULE_23__["PhotoViewer"],
+            _ionic_native_file_ngx__WEBPACK_IMPORTED_MODULE_24__["File"],
+            _ionic_native_device_ngx__WEBPACK_IMPORTED_MODULE_25__["Device"],
+            _ionic_native_user_agent_ngx__WEBPACK_IMPORTED_MODULE_26__["UserAgent"],
+            _ionic_native_app_version_ngx__WEBPACK_IMPORTED_MODULE_27__["AppVersion"],
             { provide: _angular_router__WEBPACK_IMPORTED_MODULE_3__["RouteReuseStrategy"], useClass: _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["IonicRouteStrategy"] },
             { provide: _angular_common_http__WEBPACK_IMPORTED_MODULE_11__["HTTP_INTERCEPTORS"], useClass: _helper_jwt_interceptor__WEBPACK_IMPORTED_MODULE_16__["JwtInterceptor"], multi: true },
+            { provide: _angular_common_http__WEBPACK_IMPORTED_MODULE_11__["HTTP_INTERCEPTORS"], useClass: _helper_error_interceptor__WEBPACK_IMPORTED_MODULE_17__["ErrorInterceptor"], multi: true },
         ],
         bootstrap: [_app_component__WEBPACK_IMPORTED_MODULE_7__["AppComponent"]]
     })
@@ -1030,8 +1074,9 @@ __webpack_require__.r(__webpack_exports__);
 
 
 let AuthenticationService = class AuthenticationService {
-    constructor(platform, appVersion, userAgent, device, toastController, http, storage, plt, route, authService) {
+    constructor(next, platform, appVersion, userAgent, device, toastController, http, storage, plt, route, authService) {
         // this.plt.ready().then(()=>{
+        this.next = next;
         this.platform = platform;
         this.appVersion = appVersion;
         this.userAgent = userAgent;
@@ -1053,7 +1098,7 @@ let AuthenticationService = class AuthenticationService {
         this.storage.get('currentUser').then(res => {
             // this.CurrentUser = JSON.parse( res);
             if (res) {
-                this.checkToken();
+                this.checkToken(null);
             }
         });
         // });
@@ -1106,8 +1151,8 @@ let AuthenticationService = class AuthenticationService {
     isAuthenticated() {
         return this.authenticationState.value;
     }
-    checkToken() {
-        return this.storage.get('currentUser').then(res => {
+    checkToken(req) {
+        this.storage.get('currentUser').then(res => {
             let user = JSON.parse(res);
             if (user && user.token && user.remToken) {
                 const httpOptions = {
@@ -1119,13 +1164,15 @@ let AuthenticationService = class AuthenticationService {
                 var username = user.username;
                 var remToken = user.remToken;
                 // console.log(username, remToken);
-                this.http.post(this.api_url + '/Users/AuthRem', { username, remToken }, httpOptions).subscribe(userdata => {
+                return this.http.post(this.api_url + '/Users/AuthRem', { username, remToken }, httpOptions).subscribe(userdata => {
                     this.CurrentUser = userdata;
                     this.storage.set('currentUser', JSON.stringify(userdata));
                     this.authenticationState.next(true);
                     this.ProcUserTrack(userdata);
+                    return userdata;
                 }, error => {
                     this.presentToast(error.error.message);
+                    return null;
                 });
             }
             else {
@@ -1227,6 +1274,7 @@ let AuthenticationService = class AuthenticationService {
     }
 };
 AuthenticationService.ctorParameters = () => [
+    { type: _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpHandler"] },
     { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_6__["Platform"] },
     { type: _ionic_native_app_version_ngx__WEBPACK_IMPORTED_MODULE_12__["AppVersion"] },
     { type: _ionic_native_user_agent_ngx__WEBPACK_IMPORTED_MODULE_11__["UserAgent"] },
@@ -1242,7 +1290,7 @@ AuthenticationService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
         providedIn: 'root'
     }),
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_ionic_angular__WEBPACK_IMPORTED_MODULE_6__["Platform"], _ionic_native_app_version_ngx__WEBPACK_IMPORTED_MODULE_12__["AppVersion"], _ionic_native_user_agent_ngx__WEBPACK_IMPORTED_MODULE_11__["UserAgent"], _ionic_native_device_ngx__WEBPACK_IMPORTED_MODULE_10__["Device"], _ionic_angular__WEBPACK_IMPORTED_MODULE_6__["ToastController"], _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpClient"], _ionic_storage__WEBPACK_IMPORTED_MODULE_5__["Storage"], _ionic_angular__WEBPACK_IMPORTED_MODULE_6__["Platform"], _angular_router__WEBPACK_IMPORTED_MODULE_8__["Router"], AuthenticationService])
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpHandler"], _ionic_angular__WEBPACK_IMPORTED_MODULE_6__["Platform"], _ionic_native_app_version_ngx__WEBPACK_IMPORTED_MODULE_12__["AppVersion"], _ionic_native_user_agent_ngx__WEBPACK_IMPORTED_MODULE_11__["UserAgent"], _ionic_native_device_ngx__WEBPACK_IMPORTED_MODULE_10__["Device"], _ionic_angular__WEBPACK_IMPORTED_MODULE_6__["ToastController"], _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpClient"], _ionic_storage__WEBPACK_IMPORTED_MODULE_5__["Storage"], _ionic_angular__WEBPACK_IMPORTED_MODULE_6__["Platform"], _angular_router__WEBPACK_IMPORTED_MODULE_8__["Router"], AuthenticationService])
 ], AuthenticationService);
 
 

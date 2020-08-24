@@ -4,7 +4,7 @@
     <ion-buttons slot="start">
       <ion-back-button mode='md' style="--color:#ffffff;max-height: 38px;"></ion-back-button>
     </ion-buttons>
-    <ion-title class="PageTitle">H-Factor Indexes</ion-title>
+    <ion-title class="PageTitle">{{getTitle()}}</ion-title>
   </ion-toolbar>
   <!-- <div id="Loader" class='loader'>
     <img src="../../assets/images/NAA.gif" alt="Loader" height="50">
@@ -36,7 +36,7 @@
           </div>
         </div>
 
-        <div class="segmentDiv" *ngIf="selectedCountry=='USA'">
+        <!-- <div class="segmentDiv" *ngIf="selectedCountry=='USA'">
           <ion-segment value="Equity" (ionChange)="segmentChanged($event.detail.value)" mode='ios'>
             <ion-segment-button mode='ios' value="Equity"
               style="border-radius: 15px 0 0 15px;     --border-width: 0px 1px 0 0;">
@@ -49,12 +49,12 @@
               <ion-label>Fixed Income</ion-label>
             </ion-segment-button>
           </ion-segment>
-        </div>
+        </div> -->
 
-        <div class="dropDownDiv" *ngIf="selectedIndexData && selectedCountry!='USA'" style="padding: 0px 10px;">
+        <div class="dropDownDiv" *ngIf="selectedIndexData" style="padding: 0px 10px;">
           <ion-button (click)="openPicker()" expand="block" fill="clear" shape="round" class="dropDownBtn">
             <div class="innerdropDownDiv">
-              <span class="innerdropDownsapn" *ngIf="selectedIndexData && selectedIndexName">{{selectedIndexName}}
+              <span class="innerdropDownsapn" *ngIf="selectedIndexData && selectedIndexName">{{indexNameReplace(selectedIndexName)}}
                 ({{selectedIndexData.indexCode}})</span> <span>
                 <ion-icon name="ios-arrow-down"></ion-icon>
               </span></div>
@@ -65,15 +65,15 @@
   </div>
 
 
-  <div class="dropDownDiv" *ngIf="selectedIndexData && selectedCountry=='USA'">
+  <!-- <div class="dropDownDiv" *ngIf="selectedIndexData && selectedCountry=='USA'">
     <ion-button (click)="openPicker()" expand="block" fill="clear" shape="round" class="dropDownBtn">
       <div class="innerdropDownDiv">
-        <span class="innerdropDownsapn" *ngIf="selectedIndexData && selectedIndexName">{{selectedIndexName}}
+        <span class="innerdropDownsapn" *ngIf="selectedIndexData && selectedIndexName">{{indexNameReplace(selectedIndexName)}}
           ({{selectedIndexData.indexCode}})</span> <span>
           <ion-icon name="ios-arrow-down"></ion-icon>
         </span></div>
     </ion-button>
-  </div>
+  </div> -->
 
   <!-- <div id='desc' class="descDiv">
     <p>
@@ -92,7 +92,7 @@
   </div>
 
   <div *ngIf="selectedSection == 'perfomance'">
-    <div *ngIf="selectedIndexData" [ngStyle]="{'height': selectedCountry=='USA'? '10vh': '14vh'}" style="padding: 0 15px;
+    <div *ngIf="selectedIndexData" style="height:14vh; padding: 0 15px;
       height: 10vh;
   /* height: calc(100vh - 710px);
   min-height: 70px;
@@ -101,7 +101,7 @@
   justify-content: center;
   transition: 0.3s;
   align-items: center;">
-      <p [ngStyle]="{'-webkit-line-clamp': selectedCountry=='USA'? '3': '5'}" style="    color: #fff;
+      <p style=" -webkit-line-clamp: '5';   color: #fff;
     font-size: 12px;
     font-family: Open Sans Regular;
     line-height: 1.4;display: -webkit-box;
@@ -114,8 +114,7 @@
       <p>Perfomance: As of {{selectedIndexData.date}}</p>
     </div>
 
-    <div class="DataCardsOuterDiv" *ngIf="selectedIndexData"
-      [ngStyle]="{'height': selectedCountry=='USA'? '38vh': '42vh'}">
+    <div class="DataCardsOuterDiv" *ngIf="selectedIndexData">
       <div class="DataCardsDiv" *ngIf="selectedIndexData">
         <ion-card (click)="oncardClick('value')" [ngClass]="{activeCard: selectedCard == 'value'}">
           <ion-card-content>

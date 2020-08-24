@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { PopoverController, NavParams, Events } from '@ionic/angular';
+import { PopoverController, Events} from '@ionic/angular';
 import { Storage } from '@ionic/storage';
 import { AuthenticationService } from '../../services/authentication.service';
 import { Router, RouterEvent } from '@angular/router';

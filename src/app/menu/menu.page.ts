@@ -3,7 +3,7 @@ import { Router, RouterEvent } from '@angular/router';
 import { AuthenticationService } from '../services/authentication.service';
 import { Storage } from '@ionic/storage';
 import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
-import { Platform, IonSlides, IonContent } from '@ionic/angular';
+import { Platform, IonSlides, IonContent, MenuController } from '@ionic/angular';
 
 
 @Component({
@@ -25,9 +25,11 @@ export class MenuPage implements OnInit {
     }
   ];
 
+  investmentsolution:boolean;
+
   selectedPath = '';
 
-  constructor(private platform:Platform, private iab:InAppBrowser,private route:Router, private authService:AuthenticationService, private storage:Storage) {
+  constructor(private menuCrtl: MenuController, private platform:Platform, private iab:InAppBrowser,private route:Router, private authService:AuthenticationService, private storage:Storage) {
     this.route.events.subscribe((event:RouterEvent)=>{
       this.selectedPath = event.url;
     });
@@ -41,6 +43,7 @@ export class MenuPage implements OnInit {
    }
 
   ngOnInit() {
+    this.investmentsolution = false;
     if(this.platform.is('ipad') || this.platform.is('tablet')){
       this.mobile = false;
     }else{
