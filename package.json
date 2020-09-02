@@ -1,6 +1,6 @@
 {
   "name": "NewAgeAlpha",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "author": "New Age Alpha",
   "homepage": "https://www.newagealpha.com/",
   "scripts": {
@@ -69,6 +69,7 @@
     "ionic-selectable": "^4.5.1",
     "jquery": "^3.4.1",
     "rxjs": "^6.6.2",
+    "save-svg-as-png": "^1.4.17",
     "slick-carousel": "^1.8.1",
     "tslib": "^1.9.0",
     "zone.js": "~0.9.1"

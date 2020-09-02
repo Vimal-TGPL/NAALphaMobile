@@ -412,6 +412,95 @@ ion-content {
     }
 }
 
+#txtDecisions {
+    text-anchor: middle;
+    font-size: 18px;
+    font-family: Open Sans Bold;
+}
+
+#txtIndicators {
+    text-anchor: middle;
+    font-size: 10px;
+    font-family: Open Sans Bold;
+  }
+
+  
+
+#RiskSelND {
+
+    .clsToptxt4, .clsLowtxt4 {
+        text-anchor: start;
+        font-size: 14px;
+        font-family: Open Sans Bold;
+      }
+
+    .nt3 {
+      font-size: 5.5pt !important;
+    }
+  
+    .disable {
+      fill-opacity: 1 !important;
+      stroke-opacity: 1 !important;
+  
+      text {
+        fill: #d2d8dd;
+      }
+  
+      rect, circle {
+        fill: #d2d8dd;
+        fill-opacity: 1 !important;
+        stroke-opacity: 1 !important;
+      }
+  
+      .rounded-hover {
+        cursor: auto;
+        display: none;
+  
+        .circleHvr {
+          cursor: auto;
+        }
+  
+        circle.Ct0 {
+          fill: #fff;
+        }
+  
+        circle.Ct1 {
+          stroke: #d2d8dd;
+        }
+      }
+  
+      path, line, polygon {
+        &.nt10, &.nt9, &.nt11 {
+          fill: #d2d8dd;
+        }
+  
+        &.nt7 {
+          stroke: #d2d8dd;
+        }
+  
+        &.nt0 {
+          stroke: #d2d8dd;
+          fill-opacity: 1 !important;
+          stroke-opacity: 1 !important;
+          fill: transparent !important;
+        }
+      }
+  
+      .nt5 {
+        fill: #FFFFFF !important;
+      }
+    }
+  
+    .clsLow4, .clsTop4 {
+      text {
+        fill: #fff !important;
+      }
+    }
+  
+    .nt5 {
+      fill: #fff !important;
+    }
+  }
 // ion-content{
 // --background: #ffffff;
 

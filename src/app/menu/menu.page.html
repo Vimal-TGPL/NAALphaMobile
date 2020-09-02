@@ -17,7 +17,7 @@
   <hr class="divider">
   <ion-list id="menu-List" >
       <ion-menu-toggle autoHide="false" >
-        <ion-list *ngIf="investmentsolution === false" style="margin-bottom: 0px;">
+        <ion-list *ngIf="investmentsolution === false" style="margin-bottom: 0px; padding-bottom: 0px;">
           <ion-item lines="none" style="    color: white; --detail-icon-opacity: 1;" [routerLink]="['/menu/home']" routerDirection="root" [class.active-item]="selectedPath==='/menu/menu/path'">
             <!-- //<ion-icon name="home-outline" style="color: white; margin-right: 10px;"></ion-icon> -->
             <!-- <ion-icon name="home-outline" style="color: white; margin-right: 10px;"></ion-icon> -->
@@ -43,7 +43,7 @@
         </ion-item>
 
         <ion-menu-toggle autoHide="false" >
-          <ion-list *ngIf="investmentsolution == true" style="margin-bottom: 0px;">
+          <ion-list *ngIf="investmentsolution == true" style="margin-bottom: 0px; ">
             <ion-item lines="none" style="color: white; --detail-icon-opacity: 1;" [routerLink]="['/menu/menu/performance',{'Key':'ESG'}]" routerLinkActive="router-link-active">
               <ion-text color="light" style="font-size: 15px; font-family: Open Sans Regular;">
                 ESG Strategies
@@ -83,13 +83,19 @@
         </ion-menu-toggle>
 
         <ion-menu-toggle autoHide="false" >
-          <ion-list *ngIf="investmentsolution === false">
+          <ion-list *ngIf="investmentsolution === false" style="padding-top: 0px;">
             <!-- <ion-item lines="none" style="    color: white; --detail-icon-opacity: 1;" [routerLink]="['/menu/menu/performance']" routerLinkActive="router-link-active" >
               <img src="../../assets/images/bar graph.svg" alt="satistics" style="height: 20px; padding-right: 10px;">
               <ion-text color="light" style="font-size: 16px; font-family: Open Sans SemiBold;">
                 H-Factor Indexes
               </ion-text>
             </ion-item> -->
+            <ion-item lines="none" style="    color: white; --detail-icon-opacity: 1;" [routerLink]="['/menu/menu/performance',{'Key':'Market View'}]" routerLinkActive="router-link-active" >
+              <img src="../../assets/images/bar graph.svg" alt="satistics" style="height: 20px; padding-right: 10px;">
+              <ion-text color="light" style="font-size: 16px; font-family: Open Sans SemiBold;">
+                Market View
+              </ion-text>
+            </ion-item>
             <ion-item lines="none" style="    color: white; --detail-icon-opacity: 1;" [routerLink]="['/menu/menu/change-password']" routerLinkActive="router-link-active" >
               <img src="../../assets/images/password.svg" alt="ChangePassword" style="height: 20px; padding-right: 10px;">
                 <ion-text color="light" style="font-size: 16px; font-family: Open Sans SemiBold;">

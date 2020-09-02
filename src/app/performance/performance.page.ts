@@ -1,7 +1,6 @@
-import { Component, OnInit, AfterViewInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, AfterViewInit, OnDestroy} from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import 'slick-carousel/slick/slick';
-import { createAnimation } from '@ionic/core';
 import { Platform, IonSlides, IonContent, PickerController, MenuController } from '@ionic/angular';
 import { PickerOptions } from '@ionic/core';
 import { ScreenOrientation } from '@ionic-native/screen-orientation/ngx';
@@ -10,7 +9,7 @@ import { File } from '@ionic-native/file/ngx';
 import * as d3 from 'd3';
 import { ActivatedRoute } from '@angular/router';
 import { DataHandlerService } from '../services/dataHandler/data-handler.service';
-import { Key } from 'protractor';
+import * as svg from 'save-svg-as-png';
 
 
 @Component({
@@ -26,16 +25,107 @@ export class PerformancePage implements OnInit, AfterViewInit, OnDestroy {
     }
   }
 
+  RelIndexPart: any = [
+    {
+      id: '12',
+      top: 'NAA Japan|Leading Index',
+      mid: 'NAA Japan Low |Vol Index',
+      center: 'NAA Japan |Low Vol Index'
+    },
+    {
+      id: '9',
+      top: 'NAA U.S. LC |Leading Index',
+      mid: 'NAA U.S. LC |Low Vol Index',
+      center: 'NAA U.S. LC|Low Vol Index'
+    },
+    {
+      id: '13',
+      top: 'NAA Europe Ex UK|Leading Index',
+      mid: 'NAA Europe Ex UK |Low Vol Index',
+      center: 'NAA Europe Ex UK |Low Vol Index'
+    },
+    {
+      id: '1',
+      top: 'NAA UK|Leading Index',
+      mid: 'NAA UK |Low Vol Index',
+      center: 'NAA UK Low |Vol Index'
+    },
+    {
+      id: '4',
+      top: 'NAA U.S. SC | Leading Index',
+      mid: 'NAA U.S. SC |Low Vol Index',
+      center: 'NAA U.S. SC |Low Vol Index'
+    },
+    {
+      id: '107',
+      top: 'NAA U.S. LC |Leading 50 Index',
+      mid: 'NAA U.S. LC |Low Vol 50 Index',
+      center: 'NAA U.S. LC|Low Vol 50 Index'
+    },
+    {
+      id: '104',
+      top: 'NAA U.S. SC | Leading 50 Index',
+      mid: 'NAA U.S. SC |Low Vol 50 Index',
+      center: 'NAA U.S. SC |Low Vol 50 Index'
+    },{
+      id: '69',
+      top: 'NAA U.S. LC|ESG 50 Index',
+      mid: 'NAA U.S. LC ESG|Defensive 50 Index',
+      center: 'NAA U.S. LC ESG|Defensive 50 Index'
+    },
+    {
+      id: '108',
+      top: 'NAA UK|ESG 50 Index',
+      mid: 'NAA UK ESG|Defensive 50 Index',
+      center: 'NAA UK ESG|Defensive 50 Index'
+    },
+    {
+      id: '113',
+      top: 'NAA Japan|ESG 50 Index',
+      mid: 'NAA Japan ESG|Defensive 50 Index',
+      center: 'NAA Japan ESG|Defensive 50 Index'
+    }   
+  ];
+
   LEI_E:number = 0;
   rebalance_dates:any = [];
   trggtyp:any;
   VIX_E:number = 0;
   SP_E:number = 0;
   Output: number = 4;
+  LEI: number = 0;
+  VIX: number = 0;
+  SP: number = 0;
+  trgrtyp:any;
+  Europe:any;
+  UK:any;
+  Japan:any;
+  isUnscheduled:any;
+  topOne: any;
+  topTwoTop: any;
+  topTwoLow: any;
+  topThree: any;
+  topFour: any;
+  SelRelIndexPart: any = [];
+  pngLoader:boolean = false;
+  rebalanceDates:any = [];
+  lstDate: any;
+  sLC: any;
+  sSC: any;
+  sUK: any;
+  sEUR: any;
+  sJAP: any;
+  HFLAT: any = "0.00%";
+  HFSAT: any = "0.00%";
+  HFEAT: any = "0.00%";
+  HFUAT: any = "0.00%";
+  HFJAT: any = "0.00%";
+  HFR: any = "0.00%";
 
   SelCountryperfData:any;
   SelCountryData:any;
-
+  ShowAll: boolean = true;
+  showMVCons:boolean = false;
   selectedDate:any;
   dateList:any = [];
   selectedYear:any;
@@ -56,7 +146,7 @@ export class PerformancePage implements OnInit, AfterViewInit, OnDestroy {
   EquityList:any = [];
   ESGList:any = [];
   FIList:any = [];
-  selectedCard:String = 'value';
+  selectedCard:String = 'daily';
   description:String;
   descModel:Boolean = false;
   IndexData:any = [];
@@ -83,7 +173,7 @@ export class PerformancePage implements OnInit, AfterViewInit, OnDestroy {
     if(this.PerformanceData.length == 0){
       
     }
-    console.log(this.key);
+    //console.log(this.key);
     if(this.platform.is('ipad') || this.platform.is('tablet')){
       this.mobile = false;
     }else{
@@ -103,36 +193,44 @@ export class PerformancePage implements OnInit, AfterViewInit, OnDestroy {
   loadData(){
     if(this.key == 'ESG'){
       this.dataHandler.getPerfData().subscribe(res =>{
-        console.log(res);
+    //    console.log(res);
         this.PerformanceData = res;
       this.dataHandler.getEsgPerfData().subscribe(res => {
-        console.log(res);
-        this.IndexData = res;
+    //    console.log(res);
+        var temp:any = [];
+        temp = res;
+        temp = temp.filter(data => data.indexId != 108 && data.indexId != 113 && data.indexId != 69);
+    //    console.log(temp);
+        this.IndexData = temp;
         this.CheckCountry();
         this.OnItemClick(this.CountryClasificationList[0]);
       });
     });
     }else if(this.key == 'Fixed Income'){
       this.dataHandler.getPerfData().subscribe(res =>{
-        console.log(res);
+    //    console.log(res);
         this.PerformanceData = res;
       this.dataHandler.getFIPerfData().subscribe(res => {
-        console.log(res);
-        this.IndexData = res;
+    //    console.log(res);
+        var temp:any = [];
+        temp = res;
+        temp = temp.filter(data => data.indexId != 130);
+    //    console.log(temp);
+        this.IndexData = temp;
         this.CheckCountry();
         this.OnItemClick(this.CountryClasificationList[0]);
       });
     });
     }else if(this.key == 'Leading Equity'){
       this.dataHandler.getPerfData().subscribe(res =>{
-        console.log(res);
+    //    console.log(res);
         this.PerformanceData = res;
       this.dataHandler.getEquityPerfIndData().subscribe(res=>{
-        console.log(res);
+    //    console.log(res);
        var temp:any = [];
        temp = res;
        var LeadingIndex = temp.filter((rec)=> rec.indexName.indexOf('Leading') != -1);
-       console.log(LeadingIndex);
+     //  console.log(LeadingIndex);
        this.IndexData = LeadingIndex;
        this.CheckCountry();
        this.OnItemClick(this.CountryClasificationList[0]);
@@ -140,14 +238,14 @@ export class PerformancePage implements OnInit, AfterViewInit, OnDestroy {
     });
     }else if(this.key == 'Long_Short Equity'){
       this.dataHandler.getPerfData().subscribe(res =>{
-        console.log(res);
+     //   console.log(res);
         this.PerformanceData = res;
       this.dataHandler.getEquityPerfIndData().subscribe(res=>{
-        console.log(res);
+    //    console.log(res);
        var temp:any = [];
        temp = res;
        var LongShortIndex = temp.filter((rec)=> (rec.indexName.indexOf('Long') != -1 || rec.indexName.indexOf('Short') != -1) && rec.indexName.indexOf('Long-Short') == -1);
-       console.log(LongShortIndex);
+     //  console.log(LongShortIndex);
        this.IndexData = LongShortIndex;
        this.CheckCountry();
        this.OnItemClick(this.CountryClasificationList[0]);
@@ -155,19 +253,40 @@ export class PerformancePage implements OnInit, AfterViewInit, OnDestroy {
       });
     }else if(this.key == 'Low Volatility'){
       this.dataHandler.getPerfData().subscribe(res =>{
-        console.log(res);
+    //    console.log(res);
         this.PerformanceData = res;
       this.dataHandler.getEquityPerfIndData().subscribe(res=>{
-        console.log(res);
+    //    console.log(res);
         var temp:any = [];
        temp = res;
        var LowVolIndex = temp.filter((rec)=> rec.indexName.indexOf('Low Volatility') != -1);
-       console.log(LowVolIndex);
+    //   console.log(LowVolIndex);
        this.IndexData = LowVolIndex;
        this.CheckCountry();
        this.OnItemClick(this.CountryClasificationList[0]);
        });
       });
+    }else if(this.key == 'Market View'){
+      // console.log('Market View part');
+      this.dataHandler.getEquityPerfIndData().subscribe(res =>{
+        var temp:any = [];
+         temp = res;
+        temp = temp.filter(data => data.indexId == 107 || data.indexId == 104 || data.indexId == 13 || data.indexId == 1 || data.indexId == 12 || data.indexId == 54);
+        this.IndexData = temp;
+        this.dataHandler.getEsgPerfData().subscribe(res=>{
+          var temp:any = [];
+          temp = res;
+          temp.filter((data) =>{
+            if(data.indexId ==69 || data.indexId == 108 || data.indexId == 113){
+              this.IndexData.push(data);
+            }});
+       //   console.log(this.IndexData);
+          this.CheckCountry();
+          this.onConstChipClick();
+          this.OnItemClick(this.CountryClasificationList[0]);
+          this.showMVCons = true;
+        })
+      })
     }
     // else if(this.key == 'Target Volatility Controlled'){
     //   this.dataHandler.getEquityPerfIndData().subscribe(res=>{
@@ -204,48 +323,6 @@ export class PerformancePage implements OnInit, AfterViewInit, OnDestroy {
   // });
   }
 
-  // filterIndex(item){
-  //   var index = item;
-  //   //console.log(item);
-  //   var filterStr='U.S.';
-  //   var ind:any = [];
-  //   // if(index == 'USA')
-  //   // {
-  //   //   var temp = this.getUSAlist()
-  //   //   setTimeout(() => {
-  //   //     ind = temp;
-  //   //   }, 500);
-      
-  //   // }else 
-  //   if(index == 'Europe'){
-  //     filterStr = 'Europe'
-  //     ind = this.IndexData.filter((data)=> data.indexName.indexOf(filterStr) != -1);
-  //   }else if(index == 'Europe'){
-  //     filterStr = 'Europe'
-  //     ind = this.IndexData.filter((data)=> data.indexName.indexOf(filterStr) != -1);
-  //   }else if(index == 'UK'){
-  //     filterStr = 'UK'
-  //     ind = this.IndexData.filter((data)=> data.indexName.indexOf(filterStr) != -1 && data.indexName.indexOf('Europe') == -1);
-  //   }else if(index == 'Japan'){
-  //     filterStr = 'Japan'
-  //     ind = this.IndexData.filter((data)=> data.indexName.indexOf(filterStr) != -1);
-  //   }else if(index == 'Dev. World'){
-  //     filterStr = 'Developed World'
-  //     ind = this.IndexData.filter((data)=> data.indexName.indexOf(filterStr) != -1 && data.indexName.indexOf('Developed World Ex-US') == -1);
-  //   }else if(index == 'Dev. World ex US'){
-  //     filterStr = 'Developed World Ex-US'
-  //     ind = this.IndexData.filter((data)=> data.indexName.indexOf(filterStr) != -1);
-  //   }
-  //   // else if(index == 'All'){
-  //   //   ind = this.IndexData;
-  //   // }
-  //   // console.log(ind);
-  //  // this.selectedIndex = ind[0].indexName;
-  //  // this.selectedIndex = this.selectedIndex.replace('New Age Alpha ','');
-  //   //console.log(this.selectedIndex)
-  //   return ind;
-  // }
-
   CheckCountry(){
     var temp = [];
     if(this.IndexData.length != 0){
@@ -255,7 +332,7 @@ export class PerformancePage implements OnInit, AfterViewInit, OnDestroy {
       if(this.IndexData.filter(data => data.indexName.indexOf('Ex-UK') != -1).length != 0){
         temp.push("Europe");
       }
-      if(this.IndexData.filter(data => data.indexName.indexOf('United Kingdom') != -1).length != 0){
+      if(this.IndexData.filter(data => (data.indexName.indexOf('United Kingdom') != -1 || data.indexName.indexOf('UK') != -1) && data.indexName.indexOf('Ex-UK') == -1).length != 0 ){
         temp.push("UK");
       }
       if(this.IndexData.filter(data => data.indexName.indexOf('Japan') != -1).length != 0){
@@ -265,14 +342,15 @@ export class PerformancePage implements OnInit, AfterViewInit, OnDestroy {
         temp.push("Dev. World");
       }
       this.CountryClasificationList = temp;
+   //   console.log(temp);
     }
   }
 
   OnItemClick(item){
-    console.log(item);
+  //  console.log(item);
     this.selectedCountry = item;
     this.selectedOption = null;
-    console.log(this.IndexData);
+  //  console.log(this.IndexData);
     if(item == 'USA'){
         this.SelCountryData = this.IndexData.filter(data => data.indexName.indexOf('U.S') != -1 || data.indexName.indexOf('USD') != -1);
     }else if(item == 'Japan'){
@@ -282,13 +360,13 @@ export class PerformancePage implements OnInit, AfterViewInit, OnDestroy {
     }else if(item == 'Dev. World'){
       this.SelCountryData = this.IndexData.filter(data => data.indexName.indexOf('Developed World') != -1);
     }else if(item == 'UK'){
-      this.SelCountryData = this.IndexData.filter(data => data.indexName.indexOf('United Kingdom') != -1);
+      this.SelCountryData = this.IndexData.filter(data => (data.indexName.indexOf('United Kingdom') != -1 || data.indexName.indexOf('UK') != -1) && data.indexName.indexOf('Ex-UK') == -1 );
     }
 
     this.SelCountryData = this.SelCountryData.sort((a,b)=>{
       return a.sortOrder - b.sortOrder;
     });
-    console.log(this.SelCountryData);
+   // console.log(this.SelCountryData);
     // if(item == 'USA'){
     //   // this.segmentChanged('Equity');
     //   this.selectedIndexName = this.Index[0][0].indexName.replace('New Age Alpha ','');
@@ -334,32 +412,34 @@ export class PerformancePage implements OnInit, AfterViewInit, OnDestroy {
     // console.log(this.selectedIndexData);
     this.onCancelClick();
     
-    setTimeout(()=>{
-      this.animateSequenceStart();
-    },300);
+    // setTimeout(()=>{
+    //   // this.animateSequenceStart();
+    // },300);
   }
 
   onOptionsSelected(indId){
-    this.selectedIndex = this.SelCountryData.filter(data => data.indexId == indId)[0];
-    console.log(this.selectedIndex);
-    this.selectedIndexData = this.PerformanceData.filter(data => data.indexId == indId)[0];
-    console.log(this.selectedIndexData);
-    this.selectedIndexName = this.selectedIndexData.indexName;
-    this.getBMData();
+    if(this.key != 'Market View'){
+      this.selectedIndex = this.SelCountryData.filter(data => data.indexId == indId)[0];
+   //   console.log(this.selectedIndex);
+      this.selectedIndexData = this.PerformanceData.filter(data => data.indexId == indId)[0];
+   //   console.log(this.selectedIndexData);
+      this.selectedIndexName = this.selectedIndexData.indexName;
+      this.getBMData();
+      this.createChart();
+    }else{
+      this.selectedIndex = this.SelCountryData.filter(data => data.indexId == indId)[0];
+   //   console.log(this.selectedIndex);
+      this.selectedIndexData = this.SelCountryData.filter(data => data.indexId == indId)[0];
+      this.selectedIndexName = this.selectedIndexData.indexName;
+      // this.getBMData();
+      // if(this.selectedIndexData.indexId == 54){
+        // this.GlobalChartCreate();
+      // }else{
+        this.createChart();
+      // }
+    }
+    
   }
-
-  // onOptionsSelected(){
-  //   this.selectedIndex = this.Index[this.CountryClasificationList.indexOf(this.selectedCountry)];
-  //   var inddata = this.PerformanceData.filter(data => data.indexName.replace('New Age Alpha ','') == this.selectedIndexName);
-  //   this.selectedIndexData = inddata[0];
-  //   // this.trimstring();
-  //   this.showMore = false;
-  //   console.log(this.selectedIndex);
-  //   console.log(this.selectedIndexData);
-  //   console.log(this.selectedIndexName);
-  //   // this.getBMData();
-  //   // this.createChart();
-  // }
 
   getBMData(){
     var temp = this.PerformanceData.filter(x=>x.indexId == this.selectedIndexData.benchMarkId && x.relatedIndexId == this.selectedIndexData.indexId);
@@ -373,46 +453,7 @@ export class PerformancePage implements OnInit, AfterViewInit, OnDestroy {
     // console.log(this.SelBMIndData);
   }
 
-  // segmentChanged(event){
-  //   // console.log(event);
-  //   if(event == 'Equity'){
-  //    this.Index[0] = this.EquityList;
-  //   }else if(event == 'ESG'){
-  //     this.Index[0] = this.ESGList;
-  //   }else if(event == 'Fixed Income'){
-  //     this.Index[0] = this.FIList;
-  //   }
-  //   this.selectedIndexName = this.Index[0][0].indexName.replace('New Age Alpha ','');
-  //   //  console.log(this.selectedIndexName);
-  //   setTimeout(() => {
-  //     this.onOptionsSelected();
-  //   }, 200);
-    
-  //   // console.log(this.Index);
-  // }
-
-  // getFIList(){
-  //   this.httpClient.get('https://api.newagealpha.com/api/Indexes/GetFIDetails').subscribe(resFI=>{
-  //     var tempFI:any = resFI;
-  //     tempFI= tempFI.sort((a, b) => {
-  //         return a.sortOrder - b.sortOrder;
-  //       });
-  //     this.FIList = tempFI;
-  //   });   
-  // }
-
-  // getESGList(){
-  //   this.httpClient.get('https://api.newagealpha.com/api/Indexes/GetESGDetails').subscribe(resESG=>{
-  //     var tempESG:any = resESG;
-  //     tempESG= tempESG.sort((a, b) => {
-  //       return a.sortOrder - b.sortOrder;
-  //     });
-  //     this.ESGList =  tempESG.filter(res=> res.indexName.indexOf('U.S.') != -1);
-  //     console.log(this.ESGList);
-  //   });
-  // }
-
-  getEquityList(){
+    getEquityList(){
     var filterStr = 'U.S.'
     var tempEq= this.IndexData.filter((data)=> data.indexName.indexOf(filterStr) != -1);
         tempEq= tempEq.sort((a, b) => {
@@ -434,50 +475,6 @@ export class PerformancePage implements OnInit, AfterViewInit, OnDestroy {
     this.photoViewer.show(this.file.applicationDirectory+img,title,{share:false});
   }
 
-  // trimstring(){
-  //   var that = this;
-  //   if(this.selectedIndexData.description.length > 210 )
-  //   {
-  //     if(this.showMore == true){
-  //       that.description = that.selectedIndexData.description;
-  //        that.description = that.description.replace(/RiskSelectTM/g,'RiskSelect<sup>TM</sup>').replace(/IndexSM/g,'Index<sup>SM</sup>');
-
-  //        that.description = that.description+"<a id='ShowLess'>Show Less</a>";
-
-         
-  //       //  (click)=\"showMore = false; trimstring();\"
-  //       setTimeout(()=>{
-  //         document.getElementById('desc').getElementsByTagName('a')[0].onclick = function(){
-  //           that.showMore = false;
-  //           that.trimstring();
-  //         }
-  //          var desHeight =  document.getElementById('desc').clientHeight;
-  //          var height = 355 + (desHeight - 82);
-  //         //  document.getElementById('DataDiv').style.height = 'calc(100vh - '+ height+'px)';
-  //       },100);
-  //       console.log(that.description);
-  //     }else{
-  //       that.description = that.selectedIndexData.description.substring(0,210)+'...';
-  //       that.description = that.description.replace(/RiskSelectTM/g,'RiskSelect<sup>TM</sup>').replace(/IndexSM/g,'Index<sup>SM</sup>');
-  //       that.description = that.description+"<a id='ShowMore'>Show More</a>";
-        
-  //       setTimeout(()=>{
-  //         document.getElementById('desc').getElementsByTagName('a')[0].onclick = function(){
-  //           that.showMore = true;
-  //           that.trimstring();
-  //         }
-
-  //         // document.getElementById('DataDiv').style.height = 'calc(100vh - 355px)';
-  //       },100);
-  //       console.log(that.description);
-  //     }
-  //   }else{
-  //     that.description = that.selectedIndexData.description;
-  //     that.description = that.description.replace(/RiskSelectTM/g,'RiskSelect<sup>TM</sup>').replace(/IndexSM/g,'Index<sup>SM</sup>');
-  //   }
-    
-  // }
-
   async onYearClick(){
     let opts: PickerOptions ={
       buttons:[{
@@ -487,7 +484,7 @@ export class PerformancePage implements OnInit, AfterViewInit, OnDestroy {
         text:'Confirm',
         handler: (val)=>{
           this.selectedYear = val.Year.text;
-          console.log(this.selectedYear);
+    //      console.log(this.selectedYear);
           this.getYearData();
           this.selectedDate = this.dateList[0].rebalanceDt;
           this.fetchSignal(this.selectedDate);
@@ -500,19 +497,20 @@ export class PerformancePage implements OnInit, AfterViewInit, OnDestroy {
       }]
     };
 
-    console.log(this.selectedYear);
+  //  console.log(this.selectedYear);
     let picker = await this.pickerCtrl.create(opts);
     picker.present();
   }
 
   getselectedYear(){
-    console.log('running selected year');
+  //  console.log('running selected year');
     if(this.selectedYear){
-      console.log(this.yearList);
-      // var temp = this.yearList.filter(i=>{i == this.selectedYear.Year.text})[0];
-      // console.log(temp);
-      // var selectedyearIndex = this.yearList.indexOf(temp);
-      // return selectedyearIndex;
+  //    console.log(this.yearList);
+  //    console.log(this.selectedYear);
+      var temp = this.yearList.filter(i=>{i == this.selectedYear})[0];
+  //    console.log(temp);
+      var selectedyearIndex = this.yearList.indexOf(temp);
+      return selectedyearIndex;
     }else{
       return 0;
     }
@@ -520,9 +518,9 @@ export class PerformancePage implements OnInit, AfterViewInit, OnDestroy {
 
   getYearData(){
     var yearIndex = this.yearList.indexOf(this.selectedYear);
-    console.log(yearIndex);
+  //  console.log(yearIndex);
     this.dateList = this.rebalance_dates[yearIndex].values;
-    console.log(this.dateList);
+  //  console.log(this.dateList);
   }
 
   getYearColumnOptions(){
@@ -530,7 +528,7 @@ export class PerformancePage implements OnInit, AfterViewInit, OnDestroy {
       var tempdates = [...this.rebalance_dates];
       this.yearList.length = 0;
       this.yearList = tempdates.map(i=>{return i.key});
-      console.log(this.yearList);
+    //  console.log(this.yearList);
       var temp = [];
       this.yearList.filter(i=>{
         temp.push({text:i,value:i})
@@ -564,20 +562,16 @@ export class PerformancePage implements OnInit, AfterViewInit, OnDestroy {
       }],
 
     };
-    console.log(this.selectedOption);
+    //console.log(this.selectedOption);
     let picker = await this.pickerCtrl.create(opts);
     picker.present();
-    // picker.onDidDismiss().then(async data=>{
-    //   let col = await picker.getColumn('day');
-    //   // this.selDate = col.options[col.selectedIndex].text;
-    //   // console.log(col);
-    // })
+    
   }
 
   getSelectedDataId(val){
-    console.log(val);
+   // console.log(val);
     var temp = this.SelCountryData.filter(data => data.indexName.replace('New Age Alpha ','').replace('Total Return ','') == val)[0];
-    console.log(temp);
+  //  console.log(temp);
     return temp.indexId;
   }
 
@@ -595,35 +589,18 @@ export class PerformancePage implements OnInit, AfterViewInit, OnDestroy {
   getColumnOptions(){
     this.OptionsList.length = 0;
 
-    console.log(this.SelCountryData);
+   // console.log(this.SelCountryData);
 
     this.SelCountryData.forEach(element => {
       var temp = element.indexName.replace('New Age Alpha ','').replace('Total Return ','');
       temp = temp+" ("+element.indexCode+")";
       this.OptionsList.push({text:temp,value:temp});
     });
-    
-    // this.Index[this.CountryClasificationList.indexOf(this.selectedCountry)].forEach(element => {
-    //   var temp = element.indexName.replace('New Age Alpha ','')
-    //   temp = temp+" ("+element.indexCode+")";
-    //   this.OptionsList.push({text:temp,value:temp});
-    // });
-    // // console.log(this.Index);
-    console.log(this.OptionsList);
     return this.OptionsList;
   }
 
   onCancelClick(){
     
-    // setTimeout(()=>{
-    //   document.getElementById('BottomCardDiv').style.opacity="0";
-    //   setTimeout(()=>{
-    //     setTimeout(()=>{
-    //       document.getElementById('BottomCardDiv').style.display="none";
-    //     },100);
-    //     document.getElementById('header').style.display='block';
-    //    },200);
-    // },500);
      
     setTimeout(()=>{
       document.getElementById('BottomCardDiv').style.opacity="0";
@@ -652,204 +629,202 @@ export class PerformancePage implements OnInit, AfterViewInit, OnDestroy {
     return v.toFixed(2);
   }
 
-  async animateSequenceStart(){
-    document.getElementById('IndexDataInnerDiv').scrollTop = 0;
-    const valueRef = createAnimation()
-    .addElement(document.getElementById('value'))
-    .duration(100)
-    .fromTo('transform','translateX(-50px)','translateX(0px)');
-
-    
-    const dailyReturnRef = createAnimation()
-    .addElement(document.getElementById('dailyReturn'))
-    .duration(100)
-    .fromTo('transform','translateX(-50px)','translateX(0px)');
-
-    const ytdReturn = createAnimation()
-    .addElement(document.getElementById('ytdReturn'))
-    .duration(100)
-    .fromTo('transform','translateX(-50px)','translateX(0px)');
-
-    const y1Return = createAnimation()
-    .addElement(document.getElementById('y1Return'))
-    .duration(100)
-    .fromTo('transform','translateX(-50px)','translateX(0px)');
-
-    const y3Return = createAnimation()
-    .addElement(document.getElementById('y3Return'))
-    .duration(100)
-    .fromTo('transform','translateX(-50px)','translateX(0px)');
-
-    const y5Return = createAnimation()
-    .addElement(document.getElementById('y5Return'))
-    .duration(100)
-    .fromTo('transform','translateX(-50px)','translateX(0px)');
-
-    const y10Return = createAnimation()
-    .addElement(document.getElementById('y10Return'))
-    .duration(100)
-    .fromTo('transform','translateX(-50px)','translateX(0px)');
-
-    const cumReturns = createAnimation()
-    .addElement(document.getElementById('cumReturns'))
-    .duration(100)
-    .fromTo('transform','translateX(-50px)','translateX(0px)');
-
-    const annReturns = createAnimation()
-    .addElement(document.getElementById('annReturns'))
-    .duration(100)
-    .fromTo('transform','translateX(-50px)','translateX(0px)');
-   
-    const year1 = createAnimation()
-    .addElement(document.getElementById('year1'))
-    .duration(100)
-    .fromTo('transform','translateX(-50px)','translateX(0px)');
-
-    const year2 = createAnimation()
-    .addElement(document.getElementById('year2'))
-    .duration(100)
-    .fromTo('transform','translateX(-50px)','translateX(0px)');
-
-    const year3 = createAnimation()
-    .addElement(document.getElementById('year4'))
-    .duration(100)
-    .fromTo('transform','translateX(-50px)','translateX(0px)');
-
-    const year4 = createAnimation()
-    .addElement(document.getElementById('year4'))
-    .duration(100)
-    .fromTo('transform','translateX(-50px)','translateX(0px)');
-
-    const year5 = createAnimation()
-    .addElement(document.getElementById('year5'))
-    .duration(100)
-    .fromTo('transform','translateX(-50px)','translateX(0px)');
-
-    const year6 = createAnimation()
-    .addElement(document.getElementById('year6'))
-    .duration(100)
-    .fromTo('transform','translateX(-50px)','translateX(0px)');
-
-    const year7 = createAnimation()
-    .addElement(document.getElementById('year7'))
-    .duration(100)
-    .fromTo('transform','translateX(-50px)','translateX(0px)');
-
-    const year8 = createAnimation()
-    .addElement(document.getElementById('year8'))
-    .duration(100)
-    .fromTo('transform','translateX(-50px)','translateX(0px)');
-
-    const year9 = createAnimation()
-    .addElement(document.getElementById('year9'))
-    .duration(100)
-    .fromTo('transform','translateX(-50px)','translateX(0px)');
-
-    const year10 = createAnimation()
-    .addElement(document.getElementById('year10'))
-    .duration(100)
-    .fromTo('transform','translateX(-50px)','translateX(0px)');
-
-    document.getElementById('value').style.display = 'block';
-    await valueRef.play();
-    document.getElementById('dailyReturn').style.display = 'block';
-    await dailyReturnRef.play();
-    document.getElementById('ytdReturn').style.display = 'block';
-    await ytdReturn.play();
-    document.getElementById('y1Return').style.display = 'block';
-    await y1Return.play();
-    document.getElementById('y3Return').style.display = 'block';
-    await y3Return.play();
-    document.getElementById('y5Return').style.display = 'block';
-    await y5Return.play();
-    document.getElementById('y10Return').style.display = 'block';
-    await y10Return.play();
-    document.getElementById('cumReturns').style.display = 'block';
-    await cumReturns.play();
-    document.getElementById('annReturns').style.display = 'block';
-    await annReturns.play();
-    document.getElementById('year1').style.display = 'block';
-    await year1.play();
-    document.getElementById('year2').style.display = 'block';
-    await year2.play();
-    document.getElementById('year3').style.display = 'block';
-    await year3.play();
-    document.getElementById('year4').style.display = 'block';
-    await year4.play();
-    document.getElementById('year5').style.display = 'block';
-    await year5.play();
-    document.getElementById('year6').style.display = 'block';
-    await year6.play();
-    document.getElementById('year7').style.display = 'block';
-    await year7.play();
-    document.getElementById('year8').style.display = 'block';
-    await year8.play();
-    document.getElementById('year9').style.display = 'block';
-    await year9.play();
-    document.getElementById('year10').style.display = 'block';
-    await year10.play();
-  }
-
-  displayNone(){
-
-  }
-
   createChart(){
     var that = this;
-    d3.json("https://api.newagealpha.com/api/Indexes/GetRebalanceDates/"+this.selectedIndexData.indexId).then(data=>{
-      console.log(data);
+    this.dataHandler.getRebalanceDates(this.selectedIndexData.indexId).then(data=>{
+    //  console.log(data);
       if(data.length>0){
         data.sort((x,y)=>{
           return d3.descending(x.rebalanceDt, y.rebalanceDt);
         })
+
         that.rebalance_dates = d3.nest()
         .key(d=>{ return d.rebalanceDt.substring(0,4);})
         .entries(data).sort((x,y)=>{ d3.descending(x.key,y.key);});
-        console.log(that.rebalance_dates);
+
+     //   console.log(that.rebalance_dates);
+
         this.selectedYear = that.rebalance_dates[0].key;
-        
-          this.getYearColumnOptions();
-          this.getYearData();
-        
+     //   console.log(this.selectedYear);
+
+        this.getYearColumnOptions();
+        this.getYearData();
+
         that.selectedDate = this.rebalance_dates[0].values[0].rebalanceDt;
+        that.isUnscheduled = this.rebalance_dates[0].values[0].unscheduled;
+     //   console.log(this.selectedDate);
+     //   console.log(this.isUnscheduled);
         that.fetchSignal(that.selectedDate);
-        
+        this.SelRelIndexPart = this.RelIndexPart.filter(data => data.id == this.selectedIndexData.indexId)[0];
+        // console.log
+        // console.log(this.SelRelIndexPart);
+        this.ShowAll = false;
       }
     })
   }
 
   fetchSignal(tradedate){
-    console.log(tradedate);
+   // console.log(tradedate);
     var that = this;
-    d3.json("https://api.newagealpha.com/api/Indexes/GetSignalsByDate/" + this.selectedIndexData.indexId + "/" + tradedate).then(signaldata =>{
-      console.log(signaldata);
-      if(signaldata.length >0 ){
+    this.dataHandler.getSignalsByDate(this.selectedIndexData.indexId,tradedate).then(signaldata =>{
+  //    console.log(signaldata);
+  if(this.selectedIndexData.indexId == 54){
+    if (signaldata.length > 0) {
+      let USLC = signaldata.filter(x => x.indexCode == 9)[0];
+      let USSC = signaldata.filter(x => x.indexCode == 4)[0];
+      let Euro = signaldata.filter(x => x.indexCode == 13)[0];
+      let Uk = signaldata.filter(x => x.indexCode == 1)[0];
+      let Jap = signaldata.filter(x => x.indexCode == 12)[0];
+  
+      if (USLC != undefined) {
+        if (USLC.urltt == 1) {
+          that.sLC = 1;
+        }
+        else if (USLC.urlvt == 1) {
+          that.sLC = 3;
+        }
+        else if (USLC.cash == 1) {
+          that.sLC = 5;
+        }
+        else if (USLC.urltt == .5 && USLC.urlvt == .5) {
+          that.sLC = 2;
+        }
+        else if (USLC.urlvt == .5 && USLC.cash == .5) {
+          that.sLC = 4;
+        }
+       
+      }
+      if (USSC != undefined) {
+        if (USSC.urltt == 1) {
+          that.sSC = 1;
+        }
+        else if (USSC.urlvt == 1) {
+          that.sSC = 3;
+        }
+        else if (USSC.cash == 1) {
+          that.sSC = 5;
+        }
+        else if (USSC.urltt == .5 && USSC.urlvt == .5) {
+          that.sSC = 2;
+        }
+        else if (USSC.urlvt == .5 && USSC.cash == .5) {
+          that.sSC = 4;
+        }
+      }
+      if (Uk != undefined) {
+        if (Uk.urltt == 1) {
+          that.sUK = 1;
+        }
+        else if (Uk.urlvt == 1) {
+          that.sUK = 3;
+        }
+        else if (Uk.cash == 1) {
+          that.sUK = 5;
+        }
+        else if (Uk.urltt == .5 && Uk.urlvt == .5) {
+          that.sUK = 2;
+        }
+        else if (Uk.urlvt == .5 && Uk.cash == .5) {
+          that.sUK = 4;
+        }
+      }
+      if (Jap != undefined) {
+        if (Jap.urltt == 1) {
+          that.sJAP = 1;
+        }
+        else if (Jap.urlvt == 1) {
+          that.sJAP = 3;
+        }
+        else if (Jap.cash == 1) {
+          that.sJAP = 5;
+        }
+        else if (Jap.urltt == .5 && Jap.urlvt == .5) {
+          that.sJAP = 2;
+        }
+        else if (Jap.urlvt == .5 && Jap.cash == .5) {
+          that.sJAP = 4;
+        }
+      }
+      if (Euro != undefined) {
+        if (Euro.urltt == 1) {
+          that.sEUR = 1;
+        }
+        else if (Euro.urlvt == 1) {
+          that.sEUR = 3;
+        }
+        else if (Euro.cash == 1) {
+          that.sEUR = 5;
+        }
+        else if (Euro.urltt == .5 && Euro.urlvt == .5) {
+          that.sEUR = 2;
+        }
+        else if (Euro.urlvt == .5 && Euro.cash == .5) {
+          that.sEUR = 4;
+        }
+      }
+     
+     // that.EnableGroup();
+
+     this.dataHandler.GetGlobalSignalsByDate(this.selectedIndexData.indexId,tradedate).then(globalsignaldata =>{
+      if (globalsignaldata.length > 0) {
+        that.HFLAT = (globalsignaldata[0].hflat * 100).toFixed(2) + "%";
+        that.HFSAT = (globalsignaldata[0].hfsat * 100).toFixed(2) + "%";
+        that.HFEAT = (globalsignaldata[0].hfeat * 100).toFixed(2) + "%";
+        that.HFJAT = (globalsignaldata[0].hfjat * 100).toFixed(2) + "%";
+        that.HFUAT = (globalsignaldata[0].hfuat * 100).toFixed(2) + "%";
+        that.HFR = ((globalsignaldata[0].hflat + globalsignaldata[0].hfsat) * 100).toFixed(2) + "%";
+
+        that.Europe = (globalsignaldata[0].europe * 100).toFixed(2) + "%";
+        that.UK = (globalsignaldata[0].uk * 100).toFixed(2) + "%";
+        that.Japan = (globalsignaldata[0].japan * 100).toFixed(2) + "%";
+      }
+     })
+    }
+  }else{
+    if(signaldata.length >0 ){
+      if(this.key != 'Market View'){
         that.LEI_E = signaldata[0].lei;
         that.trggtyp = signaldata[0].triggerType;
         that.VIX_E = signaldata[0].vix;
         that.SP_E = signaldata[0].sptr;
-        if (signaldata[0].urltt == 1) {
-          that.Output = 1;
-        }
-        else if (signaldata[0].urlvt == 1) {
-          that.Output = 3;
-        }
-        else if (signaldata[0].cash == 1) {
-          that.Output = 5;
-        }
-        else if (signaldata[0].urltt == .5 && signaldata[0].urlvt == .5) {
-          that.Output = 2;
-        }
-        else if (signaldata[0].urlvt == .5 && signaldata[0].cash == .5) {
-          that.Output = 4;
-        }
-        console.log('LEI_E', that.LEI_E);
-        console.log('trggtyp', that.trggtyp);
-        console.log('VIX_E', that.VIX_E);
-        console.log('SP_E', that.SP_E);
-        console.log('Output', that.Output);
+        that.Europe = that.roundValue(signaldata[0].europe*100)+'%';
+        that.UK = that.roundValue(signaldata[0].uk*100)+'%';
+        that.Japan = that.roundValue(signaldata[0].japan*100)+'%';
+      }else{
+        that.LEI = signaldata[0].lei;
+        that.VIX = signaldata[0].vix;
+        that.SP = signaldata[0].sptr;
+        that.trgrtyp = signaldata[0].triggerType;
       }
-    })
+      
+      if (signaldata[0].urltt == 1) {
+        that.Output = 1;
+      }
+      else if (signaldata[0].urlvt == 1) {
+        that.Output = 3;
+      }
+      else if (signaldata[0].cash == 1) {
+        that.Output = 5;
+      }
+      else if (signaldata[0].urltt == .5 && signaldata[0].urlvt == .5) {
+        that.Output = 2;
+      }
+      else if (signaldata[0].urlvt == .5 && signaldata[0].cash == .5) {
+        that.Output = 4;
+      }
+      
+      if(this.key == 'Market View'){
+        this.EnableGroup();
+      }
+      // console.log('LEI_E', that.LEI_E);
+      // console.log('trggtyp', that.trggtyp);
+      // console.log('VIX_E', that.VIX_E);
+      // console.log('SP_E', that.SP_E);
+      // console.log('Output', that.Output);
+    }
+  
+  }
+})
   }
 
   getDate(rebalanceDT){
@@ -865,7 +840,11 @@ export class PerformancePage implements OnInit, AfterViewInit, OnDestroy {
   }
 
   onDateClick(rebalancedt){
+   // console.log('dateclick');
+    this.ShowAll = false;
     this.selectedDate = rebalancedt;
+    this.isUnscheduled = this.rebalance_dates.filter(data => data.key == this.selectedYear)[0].values.filter(da => da.rebalanceDt == this.selectedDate)[0].unscheduled;
+    // console.log(this.isUnscheduled);
     this.fetchSignal(rebalancedt);
   }
 
@@ -879,13 +858,345 @@ export class PerformancePage implements OnInit, AfterViewInit, OnDestroy {
     if(this.key == 'ESG'){
       return 'ESG Strategies'
     }else if(this.key == 'Fixed Income'){
-      return 'Fixed Income Strategies'
+      return 'Fixed Income Strategies';
     }else if(this.key == 'Leading Equity'){
-      return 'Leading Equity Strategies'
+      return 'Leading Equity Strategies';
     }else if(this.key == 'Long_Short Equity'){
-      return 'Long / Short Equity Strategies'
+      return 'Long / Short Equity Strategies';
     }else if(this.key == 'Low Volatility'){
-      return 'Low Volatility Strategies'
+      return 'Low Volatility Strategies';
+    }else if(this.key == 'Market View'){
+      return 'Market View';
     }
+  }
+
+  onSvgClick(id){
+
+    this.pngLoader = true;
+    let width = 0;
+    let height = 0;
+    let scale = 0;
+    var options;
+    if(this.key == 'Market View'){
+      if(this.selectedIndexData.indexId == 54){
+        options = {
+          width : 600,
+          height : 350,
+          scale : 0.6,
+          backgroundColor : '#ffffff',
+          top: -10,
+          left: 0
+        }
+      }else if(this.isUnscheduled == 'N'){
+        options = {
+          width : 600,
+          height : 300,
+          scale : 0.6,
+          backgroundColor : '#ffffff',
+          top: -30,
+          left: 50
+        }
+      }else{
+        options = {
+          width : 600,
+          height : 300,
+          scale : 0.6,
+          backgroundColor : '#ffffff',
+          top: -30,
+          left: -5
+        }
+      }
+    }else{
+      options = {
+        width : 2000,
+        height : 1000,
+        scale : 0.5,
+        backgroundColor : '#ffffff'
+      }
+      
+    }
+    svg.svgAsPngUri(document.getElementById(id),options, (uri)=>{
+      // console.log(uri);
+      this.photoViewer.show(uri,this.selectedIndex.indexCode,{share:false});
+      this.pngLoader= false;
+    })
+  }
+
+  EnableGroup() {
+    // console.log('enable Group');
+    let that = this;
+
+    let decText = that.selectedIndex.decision;
+  //  console.log(decText);
+    if (that.selectedIndex.indexId == 4 || that.selectedIndex.indexId == 9 || that.selectedIndex.indexId == 107 || that.selectedIndex.indexId == 104) {
+      if (this.trgrtyp == "LEI") {
+        decText = "Leading Economic Index (LEI) Trigger";
+      }
+    }
+    d3.select("#txtDecisions").select("text").remove();
+    d3.select("#txtDecisions").append("text")
+      .attr("x", 0)
+      .attr("y", function () {
+
+        if (that.selectedIndex.indexId == 12) return decText.length < 14 ? 110 : 105;
+        else if (decText.indexOf('LEI') > -1) return 98;
+        else return decText.length < 14 ? 110 : 105;
+      })
+      .style("font-size", "9px")
+      .attr("dy", 0)
+      .attr("fill", "#fff")
+      .attr("class", "st1 st2 st3")
+      .text(decText).call(that.wrap, 55, 42);
+
+    if (that.selectedIndex.indexId == 4 || that.selectedIndex.indexId == 9 || that.selectedIndex.indexId == 107 || that.selectedIndex.indexId == 104) {
+      d3.selectAll("#gDecisions").style("fill-opacity", "0");
+      d3.selectAll("#gDecisions").style("stroke-opacity", "0");
+      d3.selectAll("#RiskSelND").attr("viewBox", "65 0 580 230")
+      if (this.isUnscheduled == "Y") {
+        d3.selectAll("#RiskSelND").attr("viewBox", "-45 0 690 230")
+        d3.selectAll("#gDecisions").style("fill-opacity", "1");
+        d3.selectAll("#gDecisions").style("stroke-opacity", "1"); 
+        d3.select("#txtDecisions").select("text").append("tspan")
+          .attr("x", 42)
+          .attr("dy", "1.4em")
+          .style("font-size", "7px")
+          .style("font-style", "italic")
+          .text("(Unscheduled)");
+      } 
+
+    } 
+    else {
+      d3.selectAll("#gDecisions").style("fill-opacity", "0");
+      d3.selectAll("#gDecisions").style("stroke-opacity", "0");
+      d3.selectAll("#RiskSelND").attr("viewBox", "65 0 570 230");
+      if (this.isUnscheduled == "Y") {
+        d3.select('#txtDecisions').select('text').attr('y', 100);
+        d3.selectAll("#gDecisions").style("fill-opacity", "1");
+        d3.selectAll("#RiskSelND").attr("viewBox", "-45 0 690 230")
+        d3.selectAll("#gDecisions").style("stroke-opacity", "1");
+        d3.select("#txtDecisions").select("text").append("tspan")
+          .attr("x", 42)
+          .attr("dy", "1.4em")
+          .style("font-size", "7px")
+          .style("font-style", "italic")
+          .text("(Unscheduled)");      
+      }
+    }
+
+
+    d3.selectAll(".signalgrp").style("fill-opacity", "1");
+    d3.selectAll(".signalgrp").style("stroke-opacity", "1");
+    d3.selectAll(".signalgrp").classed('disable', false);
+
+    if (!this.ShowAll) {
+      d3.selectAll(".signalgrp").style("fill-opacity", "0.6");
+      //d3.selectAll(".signalgrp").node().classList.add("disable");
+      d3.selectAll(".signalgrp").classed("disable", true);
+      // d3.selectAll(".csignalgrp").select("circle").style("fill", "#EF462F");
+      d3.selectAll(".csignalgrp").style("fill-opacity", "1");
+      if (this.LEI == 1) {
+        d3.select("#LEI").style("fill-opacity", "1");
+        // d3.select("#cLEI").select("circle").style("fill", "#45b65c");
+        d3.select("#cLEI").style("fill-opacity", "0");
+      }
+      if (this.VIX == 1) {
+        d3.select("#VIX").style("fill-opacity", "1");
+        // d3.select("#cVIX").select("circle").style("fill", "#45b65c");
+        d3.select("#cVIX").style("fill-opacity", "0");
+      }
+      if (this.SP == 1) {
+        d3.select("#SP").style("fill-opacity", "1");
+        //d3.select("#cSP").select("circle").style("fill", "#45b65c");
+        d3.select("#cSP").style("fill-opacity", "0");
+      }
+      d3.select("#infoCash").style("display", "none");
+
+      let TotSignal: number = parseInt(this.LEI.toString()) + parseInt(this.VIX.toString()) + parseInt(this.SP.toString());
+      let SignalIndText = "";
+      if (TotSignal >= 2) {
+        SignalIndText = "Two or More Positive Indicators";
+      }
+      if (TotSignal == 1) {
+        SignalIndText = "One Positive Indicator";
+      }
+      if (TotSignal == 0) {
+        SignalIndText = "All Negative Indicator";
+      }
+      if (TotSignal == 1 && that.Output == 5) {
+        SignalIndText = "Continue To Remain In Cash";
+        d3.select("#infoCash").style("display", "block");
+      }
+      
+      d3.selectAll(".clsLowtxt").each(function (d, i) {
+        d3.select(this).selectAll("tspan").each(function (e, j) {
+          that.topTwoLow = that.SelRelIndexPart.mid.split("|")[0] + that.SelRelIndexPart.mid.split("|")[1];
+          that.topTwoLow = that.topTwoLow.replace(/\s+/g, '_');
+          that.topFour = that.SelRelIndexPart.mid.split("|")[0] + that.SelRelIndexPart.mid.split("|")[1];
+          that.topFour = that.topFour.replace(/\s+/g, '_');
+          if (j == 0) {
+            d3.select(this).text(that.SelRelIndexPart.mid.split("|")[0]);
+          }
+          else if (j == 1) {
+            d3.select(this).text(that.SelRelIndexPart.mid.split("|")[1]);
+          }
+        });
+      });
+
+      d3.selectAll(".clsToptxt").each(function (d, i) {
+        d3.select(this).selectAll("tspan").each(function (e, j) {
+          that.topOne = that.SelRelIndexPart.top.split("|")[0] + ' ' + that.SelRelIndexPart.top.split("|")[1];
+          that.topOne = that.topOne.replace(/\s+/g, '_');
+          that.topTwoTop = that.SelRelIndexPart.top.split("|")[0] + ' ' + that.SelRelIndexPart.top.split("|")[1];
+          that.topTwoTop = that.topTwoTop.replace(/\s+/g, '_');
+          if (j == 0) {
+            d3.select(this).text(that.SelRelIndexPart.top.split("|")[0]);
+          }
+          else if (j == 1) {
+            d3.select(this).text(that.SelRelIndexPart.top.split("|")[1]);
+          }
+        });
+      });
+
+
+      d3.selectAll(".clscenter").each(function (d, i) {
+        if (that.SelRelIndexPart.center != undefined) {
+          d3.select(this).selectAll("tspan").each(function (e, j) {
+            that.topThree = that.SelRelIndexPart.center.split("|")[0] + ' ' + that.SelRelIndexPart.center.split("|")[1];
+            that.topThree = that.topThree.replace(/\s+/g, '_');
+            if (j == 0) {
+              d3.select(this).text(that.SelRelIndexPart.center.split("|")[0]);
+            }
+            else if (j == 1) {
+              d3.select(this).text(that.SelRelIndexPart.center.split("|")[1]);
+            }
+            else if (j == 2) {
+              d3.select(this).text(that.SelRelIndexPart.center.split("|")[2]);
+            }
+          });
+        }
+      });
+
+      d3.selectAll(".clsTop4").select("text").remove();
+      d3.select(".clsTop4").append("text")
+        .attr("class", "clsToptxt4")
+        .attr("y", function () {
+          return that.SelRelIndexPart.top.replace("|", " ").length < 25 ? 61 : 58;
+        })
+        .attr("dy", .25)
+        .attr("fill", "#fff")
+        .style("font-size", "5.5px")
+        .style('text-anchor', 'middle')
+        .text(that.SelRelIndexPart.top.replace("|", " ")).call(that.wrap, 31, 333);
+
+
+      d3.selectAll(".clsLow4").select("text").remove();
+      d3.select(".clsLow4").append("text")
+        .attr("class", "clsLowtxt4")
+        .attr("y", function () {
+          return that.SelRelIndexPart.mid.replace("|", " ").length < 36 ? 122 : 118;
+        })
+        .attr("dy", .25)
+        .attr("fill", "#fff")
+        .style("font-size", "5.5px")
+        .style('text-anchor', 'middle')
+        .text(that.SelRelIndexPart.mid.replace("|", " ")).call(that.wrap, 31, 366);
+
+      d3.select("#txtIndicators").select("text").remove();
+      d3.select("#txtIndicators").append("text")
+        .attr("y", 30)
+        .attr("dy", .25)
+        .attr("fill", "#fff")
+        .text(SignalIndText).call(that.wrap, 50, 0);
+
+      d3.selectAll(".gOut").style("fill-opacity", ".5");
+      d3.selectAll(".gOut").style("stroke-opacity", ".2");
+      //d3.selectAll(".gOut").node().classList.add("disable");
+      d3.selectAll(".gOut").classed("disable", true);
+
+      d3.selectAll(".gOut-" + this.Output).style("fill-opacity", "1");
+      d3.selectAll(".gOut-" + this.Output).style("stroke-opacity", "1");
+      d3.selectAll(".gOut-" + this.Output).classed('disable', false);
+
+      d3.selectAll(".glines").style("fill-opacity", ".4");
+      d3.selectAll(".glines").style("stroke-opacity", "0.2");
+      //d3.selectAll(".glines").node().classList.add("disable");
+      d3.selectAll(".glines").classed("disable", true);
+
+      d3.selectAll(".g0").style("fill-opacity", "1");
+      d3.selectAll(".g0").classed('disable', false);
+      //console.log("==" + TotSignal + "==" + this.Output + "==");
+      if (TotSignal >= 2 && this.Output == 1) {
+        d3.selectAll(".g1").style("fill-opacity", "1");
+        d3.selectAll(".g1").style("stroke-opacity", "1");
+        d3.selectAll(".g1").classed('disable', false);
+      }
+      else if (TotSignal == 1 && this.Output == 2) {
+        d3.selectAll(".g2").style("fill-opacity", "1");
+        d3.selectAll(".g2").style("stroke-opacity", "1");
+        d3.selectAll(".g2").classed('disable', false);
+      }
+      else if (TotSignal == 1 && this.Output == 3) {
+        d3.selectAll(".g3").style("fill-opacity", "1");
+        d3.selectAll(".g3").style("stroke-opacity", "1");
+        d3.selectAll(".g3").classed('disable', false);
+      }
+      else if (TotSignal == 0 && this.Output == 3) {
+        d3.selectAll(".g4").style("fill-opacity", "1");
+        d3.selectAll(".g4").style("stroke-opacity", "1");
+        d3.selectAll(".g4").classed('disable', false);
+      }
+      else if (TotSignal == 0 && this.Output == 4) {
+        d3.selectAll(".g5").style("fill-opacity", "1");
+        d3.selectAll(".g5").style("stroke-opacity", "1");
+        d3.selectAll(".g5").classed('disable', false);
+      }
+      else if ((TotSignal == 0 || TotSignal == 1) && this.Output == 5) {
+        d3.selectAll(".g6").style("fill-opacity", "1");
+        d3.selectAll(".g6").style("stroke-opacity", "1");
+        d3.selectAll(".g6").classed('disable', false);
+      }
+
+      d3.selectAll(".info").on("mouseover", function () {
+        //console.log(d3.select(this).attr('id'));
+        d3.select("." + d3.select(this).attr('id') + "pop").style("display", "block");
+      }).on("mouseout", function () {
+        d3.select("." + d3.select(this).attr('id') + "pop").style("display", "none");
+      });
+
+      d3.selectAll(".infoCash").on("mouseover", function () {
+        //console.log(d3.select(this).attr('id'));
+        d3.select("." + d3.select(this).attr('id') + "pop").style("display", "block");
+      }).on("mouseout", function () {
+        d3.select("." + d3.select(this).attr('id') + "pop").style("display", "none");
+      });
+    }
+    $("#const_loader").show().delay(3000).queue(function (n) {
+      $(this).hide(); n();
+    });
+    d3.select("#dvContain").style("display", "block");
+  }
+
+  wrap(text, width, xval) {
+    text.each(function () {
+      var text = d3.select(this),
+        words = text.text().split(/\s+/).reverse(),
+        word,
+        line = [],
+        lineNumber = 0,
+        lineHeight = 1.1, // ems
+        y = text.attr("y"),
+        dy = parseFloat(text.attr("dy")),
+        tspan = text.text(null).append("tspan").attr("x", xval).attr("dy", dy + "em");
+      while (word = words.pop()) {
+        line.push(word);
+        tspan.text(line.join(" "));
+        if (tspan.node().getComputedTextLength() > width) {
+          line.pop();
+          tspan.text(line.join(" "));
+          line = [word];
+          tspan = text.append("tspan").attr("x", xval).attr("dy", lineHeight + dy + "em").text(word);
+        }
+      }
+    });
   }
 }
