@@ -194,6 +194,10 @@ export class HomePage implements OnInit, AfterViewInit {
 
   }
 
+  onhomeClick(){
+    console.log('home clicked');
+  }
+
   hideLoading() {
     this.SearchComponent.hideLoading();
   }

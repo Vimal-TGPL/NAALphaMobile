@@ -1,3 +1,27 @@
+<ion-header>
+  <ion-toolbar style="--background: #2e4c99;
+  --padding-start: 0;
+  --padding-bottom: 0;
+  --padding-end: 0;
+  --padding-top: 0;">
+    <div style="    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 60px;">
+      <img src="../../../assets/images/NewAgeAlpha-logo.svg" alt="logo" style="height: 35px;">
+    </div>
+    <div style="position: absolute; top: 7px; right: 50px;">
+      <div style="display: flex; flex-direction: row;">
+        <div class="avatar" (click)="profilePopover($event)">
+          <img src="../../../assets/images/Profile_NAA5.svg" alt="Profile">
+        </div>
+      </div>
+    </div>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content forceOverscroll=false>
+
 <div class="outerDiv">
 <ion-card class="parentCard">
     <ion-card-content>
@@ -758,3 +782,4 @@
     </ion-card-content>
 </ion-card>
 </div>
+</ion-content>

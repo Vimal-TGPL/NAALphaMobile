@@ -83,11 +83,11 @@
   </div> -->
 
   <div *ngIf="selectedIndexData" class="ChipsDiv">
-    <ion-chip mode="ios" outline="true" *ngIf="key != 'Market View'" (click)="onPerfChipClick()" [ngClass]="{'activeChip': selectedSection == 'perfomance'}">
-      <ion-label>Perfomance</ion-label>
-    </ion-chip>
     <ion-chip mode="ios" outline="true" (click)="onConstChipClick()" [ngClass]="{'activeChip': selectedSection == 'construction'}">
       <ion-label>Construction</ion-label>
+    </ion-chip>
+    <ion-chip mode="ios" outline="true" *ngIf="key != 'Market View'" (click)="onPerfChipClick()" [ngClass]="{'activeChip': selectedSection == 'perfomance'}">
+      <ion-label>Perfomance</ion-label>
     </ion-chip>
   </div>
 
@@ -116,7 +116,7 @@
 
     <div class="DataCardsOuterDiv" *ngIf="selectedIndexData && key != 'Market View'">
       <div class="DataCardsDiv" *ngIf="selectedIndexData">
-        <!-- <ion-card (click)="oncardClick('value')" [ngClass]="{activeCard: selectedCard == 'value'}">
+        <ion-card (click)="oncardClick('value')" [ngClass]="{activeCard: selectedCard == 'value'}">
           <ion-card-content>
             <div class="perfData">
               <span class="DataTitle">
@@ -145,7 +145,7 @@
               <div class="hypen"></div>
             </div>
           </ion-card-content>
-        </ion-card> -->
+        </ion-card>
 
         <ion-card (click)="oncardClick('daily')" [ngClass]="{activeCard: selectedCard == 'daily'}">
           <ion-card-content>
@@ -310,7 +310,7 @@
           </ion-card-content>
         </ion-card>
 
-        <!-- <ion-card (click)="oncardClick('10 year')" [ngClass]="{activeCard: selectedCard == '10 year'}">
+        <ion-card (click)="oncardClick('10 year')" [ngClass]="{activeCard: selectedCard == '10 year'}">
           <ion-card-content>
             <div class="perfData">
               <span class="DataTitle">
@@ -341,7 +341,7 @@
               <div class="hypen"></div>
             </div>
           </ion-card-content>
-        </ion-card> -->
+        </ion-card>
 
         <ion-card (click)="oncardClick('cumulative inception')"
           [ngClass]="{activeCard: selectedCard == 'cumulative inception'}">
@@ -609,7 +609,7 @@
           </ion-card-content>
         </ion-card>
 
-        <!-- <ion-card (click)="oncardClick('2013')" [ngClass]="{activeCard: selectedCard == '2013'}">
+        <ion-card (click)="oncardClick('2013')" [ngClass]="{activeCard: selectedCard == '2013'}">
           <ion-card-content>
             <div class="perfData">
               <span class="DataTitle">
@@ -640,9 +640,9 @@
               <div class="hypen"></div>
             </div>
           </ion-card-content>
-        </ion-card> -->
+        </ion-card>
 
-        <!-- <ion-card (click)="oncardClick('2012')" [ngClass]="{activeCard: selectedCard == '2012'}">
+        <ion-card (click)="oncardClick('2012')" [ngClass]="{activeCard: selectedCard == '2012'}">
           <ion-card-content>
             <div class="perfData">
               <span class="DataTitle">
@@ -673,9 +673,9 @@
               <div class="hypen"></div>
             </div>
           </ion-card-content>
-        </ion-card> -->
+        </ion-card>
 
-        <!-- <ion-card (click)="oncardClick('2011')" [ngClass]="{activeCard: selectedCard == '2011'}">
+        <ion-card (click)="oncardClick('2011')" [ngClass]="{activeCard: selectedCard == '2011'}">
           <ion-card-content>
             <div class="perfData">
               <span class="DataTitle">
@@ -706,9 +706,9 @@
               <div class="hypen"></div>
             </div>
           </ion-card-content>
-        </ion-card> -->
+        </ion-card>
 
-        <!-- <ion-card (click)="oncardClick('2010')" [ngClass]="{activeCard: selectedCard == '2010'}">
+        <ion-card (click)="oncardClick('2010')" [ngClass]="{activeCard: selectedCard == '2010'}">
           <ion-card-content>
             <div class="perfData">
               <span class="DataTitle">
@@ -739,7 +739,7 @@
               <div class="hypen"></div>
             </div>
           </ion-card-content>
-        </ion-card> -->
+        </ion-card>
       </div>
     </div>
 
@@ -795,12 +795,57 @@ background: rgba(0, 0, 0, 0.6);" *ngIf="descModel">
     </div>
   </div>
 
-  <div *ngIf="selectedSection == 'construction'">
+  <div *ngIf="selectedSection == 'construction' && selectedIndexData">
+    <div style="    position: absolute;
+left: 0;
+right: 0;
+top: 0;
+bottom: 0;
+display: flex;
+justify-content: center;
+align-items: center;
+background: rgba(0, 0, 0, 0.6);" *ngIf="descModel">
+      <ion-card style="    --background: #ffffff;
+  width: 85vw;">
+        <ion-card-content>
+          <div *ngIf="selectedIndexData">
+            <span style="position: absolute;
+        right: 10px;
+        top: 10px;">
+              <ion-icon name="close-circle-outline" style="font-size: 18px;" (click)="onDescCloseClick()"></ion-icon>
+            </span>
+            <p style="color: #1c3675;
+        font-size: 16px;
+        font-family: Open Sans Bold; text-align: center; margin-top: 10px;">{{selectedIndexName}}</p>
+            <p style="color: #1c3675;
+        font-size: 14px;
+        font-family: Open Sans Regular; margin-top: 25px;">{{selectedIndexData.description}}</p>
+          </div>
+        </ion-card-content>
+      </ion-card>
+    </div>
+    <div *ngIf="(selectedIndexData && key != 'Market View') && (selectedIndexData.indexId !== 59 && selectedIndexData.indexId !== 60)" style="height:14vh; padding: 0 15px;
+      height: 10vh;
+  /* height: calc(100vh - 710px);
+  min-height: 70px;
+  max-height: 80px; */
+  display: flex;
+  justify-content: center;
+  transition: 0.3s;
+  align-items: center;">
+      <p style=" -webkit-line-clamp: '5';   color: #fff;
+    font-size: 12px;
+    font-family: Open Sans Regular;
+    line-height: 1.4;display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;  
+  overflow: hidden;" (click)="descModel = true;">{{selectedIndexData.description}}</p>
+    </div>
     
     <div *ngIf="selectedIndexData.indexId !== 25 && selectedIndexData.indexId !== 23 && selectedIndexData.indexId !== 21 && selectedIndexData.indexId !== 19 && selectedIndexData.indexId !== 11 && selectedIndexData.indexId !== 8 && selectedIndexData.indexId !== 6 
     && selectedIndexData.indexId !== 3 && selectedIndexData.indexId !== 17 && selectedIndexData.indexId !== 15 && selectedIndexData.indexId !== 102 && selectedIndexData.indexId !== 103 && selectedIndexData.indexId !== 105 && selectedIndexData.indexId !== 106
     && selectedIndexData.indexId !== 66 && selectedIndexData.indexId !== 68 && selectedIndexData.indexId !== 67 && selectedIndexData.indexId !== 65 && selectedIndexData.indexId !== 64 && selectedIndexData.indexId !== 110 && selectedIndexData.indexId !== 109 && selectedIndexData.indexId !== 112 && selectedIndexData.indexId !== 111 
-    && selectedIndexData.indexId !== 76 && selectedIndexData.indexId !== 119 && selectedIndexData.indexId !== 115 && selectedIndexData.indexId !== 54  && showMVCons" style="    margin: 15px 0;">
+    && selectedIndexData.indexId !== 76 && selectedIndexData.indexId !== 119 && selectedIndexData.indexId !== 115 && selectedIndexData.indexId !== 54 && selectedIndexData.indexId !== 130  && showMVCons" style="    margin: 15px 0;">
       <ion-card style="margin: 0px 0px 0px 20px;
       border-radius: 20px 0px 0px 20px;
       background: #fff;">
@@ -879,20 +924,21 @@ width: 30px;" src="../../assets/images/NAA.gif" alt="Loading"></span>
           <img *ngIf="selectedIndexData.indexId == 66" src="../../assets/images/Const/US_LC_ESG50_Index.svg" (click)="onimgClick('www/assets/images/Const/US_LC_ESG50_Index.png','HFLESG')">
           <img *ngIf="selectedIndexData.indexId == 68" src="../../assets/images/Const/US_LC_DEF50_Index.svg" (click)="onimgClick('www/assets/images/Const/US_LC_DEF50_Index.png','HFLEDEF5')">
           <img *ngIf="selectedIndexData.indexId == 67" src="../../assets/images/Const/US_LC_ENV50_Index.svg" (click)="onimgClick('www/assets/images/Const/US_LC_ENV50_Index.png','HFLENV')">
-          <img *ngIf="selectedIndexData.indexId == 65" src="../../assets/images/Const/US_LC_GOV50_Index.svg" (click)="onimgClick('www/assets/images/Const/US_LC_GOV50_Index.jpg','HFLGOV')">
+          <img *ngIf="selectedIndexData.indexId == 65" src="../../assets/images/Const/US_LC_GOV50_Index.svg" (click)="onimgClick('www/assets/images/Const/US_LC_GOV50_Index.png','HFLGOV')">
           <img *ngIf="selectedIndexData.indexId == 64" src="../../assets/images/Const/US_LC_SOC50_Index.svg" (click)="onimgClick('www/assets/images/Const/US_LC_SOC50_Index.png','HFLSOC')">
-          <img *ngIf="selectedIndexData.indexId == 110" src="../../assets/images/Const/HFUEDEF.svg" (click)="onimgClick('www/assets/images/const/HFUEDEF.png','HFUEDEF')">
-          <img *ngIf="selectedIndexData.indexId == 109" src="../../assets/images/Const/HFUESG.svg" (click)="onimgClick('www/assets/images/const/HFUESG.png','HFUESG')">
-          <img *ngIf="selectedIndexData.indexId == 112" src="../../assets/images/Const/HFJEDEF.svg" (click)="onimgClick('www/assets/images/const/HFJEDEF.png','HFJEDEF')">
-          <img *ngIf="selectedIndexData.indexId == 111" src="../../assets/images/Const/HFJESG.svg" (click)="onimgClick('www/assets/images/const/HFJESG.png','HFJESG')">
-          <img *ngIf="selectedIndexData.indexId == 76" src="../../assets/images/Const/HFUHYT.svg" (click)="onimgClick('www/assets/images/const/HFUHYT.png','HFUHYT')">
-          <img *ngIf="selectedIndexData.indexId == 119" src="../../assets/images/Const/HFLL.svg" (click)="onimgClick('www/assets/images/const/HFLL.png','HFLL')">
-          <img *ngIf="selectedIndexData.indexId == 115" src="../../assets/images/Const/HFLS.svg" (click)="onimgClick('www/assets/images/const/HFLS.png','HFLS')">
+          <img *ngIf="selectedIndexData.indexId == 110" src="../../assets/images/Const/HFUEDEF.svg" (click)="onimgClick('www/assets/images/Const/HFUEDEF.png','HFUEDEF')">
+          <img *ngIf="selectedIndexData.indexId == 109" src="../../assets/images/Const/HFUESG.svg" (click)="onimgClick('www/assets/images/Const/HFUESG.png','HFUESG')">
+          <img *ngIf="selectedIndexData.indexId == 112" src="../../assets/images/Const/HFJEDEF.svg" (click)="onimgClick('www/assets/images/Const/HFJEDEF.png','HFJEDEF')">
+          <img *ngIf="selectedIndexData.indexId == 111" src="../../assets/images/Const/HFJESG.svg" (click)="onimgClick('www/assets/images/Const/HFJESG.png','HFJESG')">
+          <img *ngIf="selectedIndexData.indexId == 76" src="../../assets/images/Const/HFUHYT.svg" (click)="onimgClick('www/assets/images/Const/HFUHYT.png','HFUHYT')">
+          <img *ngIf="selectedIndexData.indexId == 119" src="../../assets/images/Const/HFLL.svg" (click)="onimgClick('www/assets/images/Const/HFLL.png','HFLL')">
+          <img *ngIf="selectedIndexData.indexId == 115" src="../../assets/images/Const/HFLS.svg" (click)="onimgClick('www/assets/images/Const/HFLS.png','HFLS')">
+          <img *ngIf="selectedIndexData.indexId == 130" src="../../assets/images/Const/HFUEHYT.svg" (click)="onimgClick('www/assets/images/Const/HFUEHYT.png','HFUEHYT')">
           <!-- <img *ngIf="selectedIndexData.indexId == 69" src="../../assets/images/Const/NAA_Index Construction_ESG.svg" (click)="onimgClick('www/assets/images/IndexConst/ESG-Const/NAA_Index Construction_ESG.png','HFLEAT5')"> -->
           <ion-text *ngIf="selectedIndexData.indexId !== 25 && selectedIndexData.indexId !== 23 && selectedIndexData.indexId !== 21 && selectedIndexData.indexId !== 19 && selectedIndexData.indexId !== 11 && selectedIndexData.indexId !== 8 && selectedIndexData.indexId !== 6 
           && selectedIndexData.indexId !== 3 && selectedIndexData.indexId !== 17 && selectedIndexData.indexId !== 15 && selectedIndexData.indexId !== 102 && selectedIndexData.indexId !== 103 && selectedIndexData.indexId !== 105 && selectedIndexData.indexId !== 106
           && selectedIndexData.indexId !== 66 && selectedIndexData.indexId !== 68 && selectedIndexData.indexId !== 67 && selectedIndexData.indexId !== 65 && selectedIndexData.indexId !== 64 && selectedIndexData.indexId !== 110 && selectedIndexData.indexId !== 109 && selectedIndexData.indexId !== 112 && selectedIndexData.indexId !== 111 
-          && selectedIndexData.indexId !== 76 && selectedIndexData.indexId !== 119 && selectedIndexData.indexId !== 115 && selectedIndexData.indexId !== 59 && selectedIndexData.indexId !== 60 && !showMVCons">
+          && selectedIndexData.indexId !== 76 && selectedIndexData.indexId !== 119 && selectedIndexData.indexId !== 115 && selectedIndexData.indexId !== 59 && selectedIndexData.indexId !== 60 && selectedIndexData.indexId !== 130 && !showMVCons">
             <h1 style="font-weight: bold;
             font-family: Open Sans Bold;
             color: #0e3980;
@@ -1084,8 +1130,19 @@ width: 30px;" src="../../assets/images/NAA.gif" alt="Loading"></span>
   .st39 {
     fill: url(#SVGID_23_);
   }
+
+  .as-Of-date{
+    transform: matrix(1, 0, 0, 1, 1450, 250);
+    font-size: 25px;
+    font-family: Open Sans SemiBold;
+    fill: #2b478f;
+  }
 </style>
+
 <g>
+<g>
+  <text class="as-Of-date">As of {{selectedIndexData.date}}</text>
+</g>
         <g>
         <line class="st24" x1="1224.8" y1="562.5" x2="672.8" y2="562.5" />
 
@@ -1334,8 +1391,17 @@ width: 30px;" src="../../assets/images/NAA.gif" alt="Loading"></span>
          .st39 {
            fill: url(#SVGID_23_);
          }
+         .as-Of-date{
+          transform: matrix(1, 0, 0, 1, 1450, 250);
+          font-size: 25px;
+          font-family: Open Sans SemiBold;
+          fill: #2b478f;
+         }
 </style>
        <g>
+        <g>
+          <text class="as-Of-date">As of {{selectedIndexData.date}}</text>
+        </g>
        <g>
        <line class="st24" x1="1224.8" y1="562.5" x2="672.8" y2="562.5" />
 
@@ -1411,7 +1477,7 @@ width: 30px;" src="../../assets/images/NAA.gif" alt="Loading"></span>
           
           <div *ngIf="showMVCons && selectedIndexData.indexId !== 54" (click)="onSvgClick('RiskSelND')">
             <svg version="1.1" id="RiskSelND" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-                 viewBox="0 0 590 230" xml:space="preserve" width="100%" height="100%">
+                 viewBox="0 0 590 250" xml:space="preserve" width="100%" height="100%">
 <style type="text/css">
   #RiskSelND .nt0 {
     fill: #D1D8DD;
@@ -1528,8 +1594,17 @@ width: 30px;" src="../../assets/images/NAA.gif" alt="Loading"></span>
     font-size: 16px;
     font-family: Open Sans Bold;
   }
+
+  #RiskSelND .as-of-date{
+    transform: matrix(1, 0, 0, 1, 500, 0);
+    font-size: 8px;
+    font-family: Open Sans SemiBold;
+    fill: #2b478f;
+  }
 </style>
-    
+    <g>
+      <text class="as-of-date">As of {{Rbdisplaydate(selectedDate)}}</text>
+    </g>
 <g class="glines g1">
             <text transform="matrix(1 0 0 1 287.76 25.875)" class="nt4 nt2 nt12">2 or 3</text>
             <path class="nt5" d="M312.3,18.5c2.3,0,4.2,1.9,4.2,4.2c0,2.3-1.9,4.2-4.2,4.2c-2.3,0-4.2-1.9-4.2-4.2v0
@@ -2066,7 +2141,7 @@ width: 30px;" src="../../assets/images/NAA.gif" alt="Loading"></span>
             <path class="nt5" d="M229.8,22.1h-1.4v-0.6h1.4V20h0.6v1.4h1.4v0.6h-1.4v1.4h-0.6V22.1z" />
 
         </g>
-            <g *ngIf="LEI==1 && (SelIndex == 4 || SelIndex == 9 || SelIndex == 107 || SelIndex == 104)" class="info-eco" style="cursor:pointer">
+            <g *ngIf="LEI==1 && (selectedIndexData.indexId == 4 || selectedIndexData.indexId == 9 || selectedIndexData.indexId == 107 || selectedIndexData.indexId == 104)" class="info-eco" style="cursor:pointer">
             <svg xmlns="http://www.w3.org/2000/svg" x="253px" y="12px" width="11" height="11"
                  viewBox="0 0 172 172" style=" fill:#000000;">
             <g transform="translate(4.73,4.73) scale(0.945,0.945)"><g fill="none" fill-rule="nonzero" stroke="none" stroke-width="none" stroke-linecap="butt" stroke-linejoin="none" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal"><g stroke="#cccccc" stroke-width="10" stroke-linejoin="round"><path d="M157.66667,86c0,39.57792 -32.08875,71.66667 -71.66667,71.66667c-39.57792,0 -71.66667,-32.08875 -71.66667,-71.66667c0,-39.57792 32.08875,-71.66667 71.66667,-71.66667c39.57792,0 71.66667,32.08875 71.66667,71.66667z" fill="#2b478f"></path><path d="M78.83333,78.83333h14.33333v39.41667h-14.33333zM94.95833,59.125c0,4.94142 -4.01692,8.95833 -8.95833,8.95833c-4.94142,0 -8.95833,-4.01692 -8.95833,-8.95833c0,-4.94142 4.01692,-8.95833 8.95833,-8.95833c4.94142,0 8.95833,4.01692 8.95833,8.95833z" fill="#ffffff"></path></g><path d="M0,172v-172h172v172z" fill="none" stroke="none" stroke-width="1" stroke-linejoin="miter"></path><g stroke="none" stroke-width="1" stroke-linejoin="miter"><path d="M157.66667,86c0,39.57792 -32.08875,71.66667 -71.66667,71.66667c-39.57792,0 -71.66667,-32.08875 -71.66667,-71.66667c0,-39.57792 32.08875,-71.66667 71.66667,-71.66667c39.57792,0 71.66667,32.08875 71.66667,71.66667z" fill="#2b478f"></path><path d="M78.83333,78.83333h14.33333v39.41667h-14.33333zM94.95833,59.125c0,4.94142 -4.01692,8.95833 -8.95833,8.95833c-4.94142,0 -8.95833,-4.01692 -8.95833,-8.95833c0,-4.94142 4.01692,-8.95833 8.95833,-8.95833c4.94142,0 8.95833,4.01692 8.95833,8.95833z" fill="#ffffff"></path></g><path d="" fill="none" stroke="none" stroke-width="1" stroke-linejoin="miter"></path></g></g>
@@ -2151,15 +2226,15 @@ width: 30px;" src="../../assets/images/NAA.gif" alt="Loading"></span>
           </g>
         </g>
       </g>
-            <g *ngIf="(SelIndex == 4 || SelIndex == 9 || SelIndex == 107 || SelIndex == 104)" class="info-eco" style="cursor:pointer">
-              <text x="115" y="242" style="fill: #284d95;font-family: 'OpenSans-Semibold';font-size: 5pt;font-style: italic;">When benchmark interest rate is zero, the unscheduled rebalance will be triggered when the LEI Indicator changes sign.</text>
+            <g *ngIf="(selectedIndexData.indexId == 4 || selectedIndexData.indexId == 9 || selectedIndexData.indexId == 107 || selectedIndexData.indexId == 104)" class="info-eco" style="cursor:pointer">
+              <text x="115" y="242" style="fill: #284d95;font-family: 'Open Sans SemiBold';font-size: 5pt;font-style: italic;">When benchmark interest rate is zero, the unscheduled rebalance will be triggered when the LEI Indicator changes sign.</text>
             <!--<text x="115" y="260" style="fill: #284d95;font-family: 'OpenSans-Semibold';font-size: 5pt;font-style: italic;"></text>-->
       </g>
 </svg>
           </div>
           <div *ngIf="selectedIndexData.indexId == 54" (click)="onSvgClick('dvSvgGlobal')">
             <svg version="1.1" class="devWorld" id="dvSvgGlobal" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-                 viewBox="-20 0 680 320" style="width:100%;height:100%" xml:space="preserve">
+                 viewBox="-20 -10 680 330" style="width:100%;height:100%" xml:space="preserve">
 <style type="text/css">
   .devWorld .st0 {
     fill: #324D91;
@@ -2226,6 +2301,13 @@ width: 30px;" src="../../assets/images/NAA.gif" alt="Loading"></span>
   .devWorld .st14 {
     fill: #D3D8DC;
   }
+
+  .as-of-date{
+    transform: matrix(1, 0, 0, 1, 500, 10);
+    font-size: 8px;
+    font-family: Open Sans SemiBold;
+    fill: #2b478f;
+  }
 </style>
 <text transform="matrix(1 0 0 1 97.6956 18)" class="st0 st1 st2">New Age Alpha</text>
 <text transform="matrix(1 0 0 1 97.6956 30.5466)" class="st3 st1 st4" style="cursor:pointer" (click)="riskSelDev('US LC')">U.S. Large-Cap RiskSelect Index</text>
@@ -2234,6 +2316,9 @@ width: 30px;" src="../../assets/images/NAA.gif" alt="Loading"></span>
 <text transform="matrix(1 0 0 1 134.6202 192.2264)" class="st3 st1 st4" style="cursor:pointer" (click)="riskSelDev('UK')">U.K. RiskSelect Index</text>
 <text transform="matrix(1 0 0 1 121.3547 244.1064)" class="st3 st1 st4" style="cursor:pointer" (click)="riskSelDev('Japan')">Japan RiskSelect Index</text>
 <!-- Large Cap -->
+<g>
+  <text class="as-of-date">As of {{Rbdisplaydate(selectedDate)}}</text>
+</g>
 <g class="LC">
             <g class="LC-1" *ngIf="sLC == '1'">
             <path class="st11" d="M99.1,55h224.1c4.4,0,8,3.6,8,8v80.1c0,2.2,1.8,4,4,4h56.2" />

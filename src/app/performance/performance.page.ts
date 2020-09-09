@@ -137,7 +137,7 @@ export class PerformancePage implements OnInit, AfterViewInit, OnDestroy {
   selectedIndexName:any;
   selectedOption:any;
   selectedIndex:any;
-  selectedSection:String = 'perfomance';
+  selectedSection:String = 'construction';
   itemActive:boolean = false;
   selectedCountry:any;
   PerformanceData:any = [];
@@ -214,8 +214,8 @@ export class PerformancePage implements OnInit, AfterViewInit, OnDestroy {
     //    console.log(res);
         var temp:any = [];
         temp = res;
-        temp = temp.filter(data => data.indexId != 130);
-    //    console.log(temp);
+        // temp = temp.filter(data => data.indexId != 130);
+       console.log(temp);
         this.IndexData = temp;
         this.CheckCountry();
         this.OnItemClick(this.CountryClasificationList[0]);
@@ -398,6 +398,7 @@ export class PerformancePage implements OnInit, AfterViewInit, OnDestroy {
 
   onIndexChange(event){
     this.selectedIndex = this.Index[this.CountryClasificationList.indexOf(this.selectedCountry)][0];
+    // console.log(this.selectedIndex);
     this.selectedIndexName = this.Index[this.CountryClasificationList.indexOf(this.selectedCountry)][0].indexName.replace('New Age Alpha ','')
    // this.selectedIndex = this.filterIndex(item)[0].IndexName;
    // this.selectedIndex = this.selectedIndex.replace('New Age Alpha ','');
@@ -420,17 +421,18 @@ export class PerformancePage implements OnInit, AfterViewInit, OnDestroy {
   onOptionsSelected(indId){
     if(this.key != 'Market View'){
       this.selectedIndex = this.SelCountryData.filter(data => data.indexId == indId)[0];
-   //   console.log(this.selectedIndex);
+    //  console.log(this.selectedIndex);
       this.selectedIndexData = this.PerformanceData.filter(data => data.indexId == indId)[0];
-   //   console.log(this.selectedIndexData);
+      // console.log(this.selectedIndexData);
       this.selectedIndexName = this.selectedIndexData.indexName;
       this.getBMData();
       this.createChart();
     }else{
       this.selectedIndex = this.SelCountryData.filter(data => data.indexId == indId)[0];
-   //   console.log(this.selectedIndex);
+    //  console.log(this.selectedIndex);
       this.selectedIndexData = this.SelCountryData.filter(data => data.indexId == indId)[0];
       this.selectedIndexName = this.selectedIndexData.indexName;
+      // console.log(this.selectedIndexData);
       // this.getBMData();
       // if(this.selectedIndexData.indexId == 54){
         // this.GlobalChartCreate();
@@ -503,13 +505,13 @@ export class PerformancePage implements OnInit, AfterViewInit, OnDestroy {
   }
 
   getselectedYear(){
-  //  console.log('running selected year');
+  //  console.log(''+this.selectedYear);
     if(this.selectedYear){
-  //    console.log(this.yearList);
-  //    console.log(this.selectedYear);
-      var temp = this.yearList.filter(i=>{i == this.selectedYear})[0];
-  //    console.log(temp);
+      // console.log(this.yearList);
+      var temp = this.yearList.filter(i=> i == this.selectedYear)[0];
+    //  console.log(temp);
       var selectedyearIndex = this.yearList.indexOf(temp);
+      // console.log(selectedyearIndex);
       return selectedyearIndex;
     }else{
       return 0;
@@ -524,10 +526,11 @@ export class PerformancePage implements OnInit, AfterViewInit, OnDestroy {
   }
 
   getYearColumnOptions(){
+    var that = this;
     if(this.rebalance_dates.length != 0){
       var tempdates = [...this.rebalance_dates];
-      this.yearList.length = 0;
-      this.yearList = tempdates.map(i=>{return i.key});
+      // that.yearList.length = 0;
+      that.yearList = tempdates.map(i=>{return i.key});
     //  console.log(this.yearList);
       var temp = [];
       this.yearList.filter(i=>{
@@ -535,6 +538,7 @@ export class PerformancePage implements OnInit, AfterViewInit, OnDestroy {
       })
       return temp;
     }
+    // console.log(this.yearList);
   }
 
   async openPicker(){
@@ -652,7 +656,7 @@ export class PerformancePage implements OnInit, AfterViewInit, OnDestroy {
 
         that.selectedDate = this.rebalance_dates[0].values[0].rebalanceDt;
         that.isUnscheduled = this.rebalance_dates[0].values[0].unscheduled;
-     //   console.log(this.selectedDate);
+      //  console.log(this.selectedDate);
      //   console.log(this.isUnscheduled);
         that.fetchSignal(that.selectedDate);
         this.SelRelIndexPart = this.RelIndexPart.filter(data => data.id == this.selectedIndexData.indexId)[0];
@@ -951,9 +955,9 @@ export class PerformancePage implements OnInit, AfterViewInit, OnDestroy {
     if (that.selectedIndex.indexId == 4 || that.selectedIndex.indexId == 9 || that.selectedIndex.indexId == 107 || that.selectedIndex.indexId == 104) {
       d3.selectAll("#gDecisions").style("fill-opacity", "0");
       d3.selectAll("#gDecisions").style("stroke-opacity", "0");
-      d3.selectAll("#RiskSelND").attr("viewBox", "65 0 580 230")
+      d3.selectAll("#RiskSelND").attr("viewBox", "60 -10 550 260")
       if (this.isUnscheduled == "Y") {
-        d3.selectAll("#RiskSelND").attr("viewBox", "-45 0 690 230")
+        d3.selectAll("#RiskSelND").attr("viewBox", "-30 -20 650 270")
         d3.selectAll("#gDecisions").style("fill-opacity", "1");
         d3.selectAll("#gDecisions").style("stroke-opacity", "1"); 
         d3.select("#txtDecisions").select("text").append("tspan")
@@ -968,11 +972,11 @@ export class PerformancePage implements OnInit, AfterViewInit, OnDestroy {
     else {
       d3.selectAll("#gDecisions").style("fill-opacity", "0");
       d3.selectAll("#gDecisions").style("stroke-opacity", "0");
-      d3.selectAll("#RiskSelND").attr("viewBox", "65 0 570 230");
+      d3.selectAll("#RiskSelND").attr("viewBox", "60 -10 550 260");
       if (this.isUnscheduled == "Y") {
         d3.select('#txtDecisions').select('text').attr('y', 100);
         d3.selectAll("#gDecisions").style("fill-opacity", "1");
-        d3.selectAll("#RiskSelND").attr("viewBox", "-45 0 690 230")
+        d3.selectAll("#RiskSelND").attr("viewBox", "-30 -20 650 270")
         d3.selectAll("#gDecisions").style("stroke-opacity", "1");
         d3.select("#txtDecisions").select("text").append("tspan")
           .attr("x", 42)
@@ -1198,5 +1202,12 @@ export class PerformancePage implements OnInit, AfterViewInit, OnDestroy {
         }
       }
     });
+  }
+
+  Rbdisplaydate(val){
+    if(val != undefined){
+      var temp = val.slice(4,6)+'/'+val.slice(6,8)+'/'+val.slice(0,4);
+      return temp;
+    }
   }
 }

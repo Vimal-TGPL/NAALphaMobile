@@ -6,6 +6,8 @@ import { FormControl, Validators } from '@angular/forms';
 import * as jQuery from "jquery";
 import * as $ from "jquery";
 import { timeout } from 'rxjs/operators';
+import { ProfiledetailsComponent } from '../profiledetails/profiledetails.component';
+import { PopoverController } from '@ionic/angular';
 declare var d3VirtualScroller: any;
 // declare var $: any;
 
@@ -133,7 +135,7 @@ export class IPadHomeToolComponent implements OnInit, AfterContentInit, AfterVie
     { "index": "New Age Alpha Japan Low Volatility Index", "order": 20 }
   ];
 
-  constructor(private changedet: ChangeDetectorRef,private httpClient: HttpClient) { }
+  constructor(private popoverController: PopoverController ,private changedet: ChangeDetectorRef,private httpClient: HttpClient) { }
   ngAfterViewInit(): void {
     
     this.showLoader = true;
@@ -678,10 +680,12 @@ export class IPadHomeToolComponent implements OnInit, AfterContentInit, AfterVie
   loadData(){
     this.gC360 = d3.scaleLinear()
       .domain([0, 90, 180, 270, 360])
+      //  .range(["#4c9443", "#95a93b", "#ddbb29", "#b87b2b", "#94382d"])
       .range(["#40b55c", "#75c254", "#f5ea23", "#f37130", "#ef462f"])
 
     this.gC100 = d3.scaleLinear()
       .domain([0, 25, 50, 75, 100])
+      //  .range(["#4c9443", "#95a93b", "#ddbb29", "#b87b2b", "#94382d"])
       .range(["#40b55c", "#75c254", "#f5ea23", "#f37130", "#ef462f"])
 
     var ContainerDiv = document.getElementById("svgHContainer");
@@ -689,7 +693,7 @@ export class IPadHomeToolComponent implements OnInit, AfterContentInit, AfterVie
     this.gchart = d3.select("#gchart")
 
     let that = this;
-    this.chartMain = this.createMainChart(this.gchart);
+    this.chartMain = this.createMainChart(this.gchart); // Create Main Chart circle
   }
 
   createMainChart(obj){
@@ -765,6 +769,7 @@ export class IPadHomeToolComponent implements OnInit, AfterContentInit, AfterVie
       that.selResData = dbScore.sort(function (x, y) {
         return d3.ascending(x.scores, y.scores);
       });
+      this.selResData = this.selResData.filter(d => d.indexName != null);
       // that.IndexData = dbScore;
       console.log(that.selResData);
       var sMin = Math.min.apply(Math, that.selResData.map(function (d) { return d.scores; }));
@@ -778,20 +783,22 @@ export class IPadHomeToolComponent implements OnInit, AfterContentInit, AfterVie
       console.log(that.tradeDt);
       console.log(that.date);
       that.selResData.forEach(function (d, i) {
-        d.score = d.scores * 100;
-        d.deg = d.score;
-        d.indname = that.findIndName(that.dbGICS, d.industry);
-        d.industry = d.industry + "";
-        d.companyName = d.companyName != null ? d.companyName.trim() : "";
-        d.company = d.companyName != null ? d.companyName : null;
-        d.ticker = d.ticker;
-        d.stockKey = d.stockKey;
-        d.aisin = d.isin;
-        d.isin = "a" + d.stockKey;
-        d.indexName = d.indexName.replace("UR ", "S&P ");
-        let flt = that.IndexOrder.filter(function (x) { return x.index == d.indexName });
-        d.sortOrder = flt.length > 0 ? flt[0].order : null;
-        return d.score, d.isin, d.industry, d.deg, d.company, d.ticker, d.indname, d.stockKey, d.indexName, d;
+       
+          d.score = d.scores * 100;
+          d.deg = d.score;
+          d.indname = that.findIndName(that.dbGICS, d.industry);
+          d.industry = d.industry + "";
+          d.companyName = d.companyName != null ? d.companyName.trim() : "";
+          d.company = d.companyName != null ? d.companyName : null;
+          d.ticker = d.ticker;
+          d.stockKey = d.stockKey;
+          d.aisin = d.isin;
+          d.isin = "a" + d.stockKey;
+          d.indexName = d.indexName.replace("UR ", "S&P ");
+          let flt = that.IndexOrder.filter(function (x) { return x.index == d.indexName });
+          d.sortOrder = flt.length > 0 ? flt[0].order : null;
+          return d.score, d.isin, d.industry, d.deg, d.company, d.ticker, d.indname, d.stockKey, d.indexName, d;
+        
       });
       console.log(that.selResData);
       that.GlobalIndexDtata = that.selResData.filter((item)=>{ return item.indexName.indexOf('New Age Alpha') == -1});
@@ -1053,6 +1060,7 @@ export class IPadHomeToolComponent implements OnInit, AfterContentInit, AfterVie
                 d.Assets = val.length > 0 ? Name : 0;
             }
         });
+
 
         let SelISIN = this.selResData.filter(x => x.Assets == Name)[0].isin;
         let IndexN = this.selResData.filter(x => x.Assets == Name)[0].indexName;
@@ -3171,6 +3179,18 @@ onsearchchages(val){
       if (dta[i].code == code) { industry = dta[i].name; break; }
     }
     return industry;
+  }
+
+  async profilePopover(e: any) {
+    // console.log("presenting profile Details");
+    const popover = await this.popoverController.create({
+      component: ProfiledetailsComponent,
+      event: e,
+      translucent: true,
+      cssClass: 'Custom_profile'
+    });
+
+    return await popover.present();
   }
 }
 

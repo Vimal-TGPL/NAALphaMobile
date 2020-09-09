@@ -740,11 +740,11 @@ const routes = [
         path: 'forgot-password',
         loadChildren: () => Promise.all(/*! import() | forgot-password-forgot-password-module */[__webpack_require__.e("common"), __webpack_require__.e("forgot-password-forgot-password-module")]).then(__webpack_require__.bind(null, /*! ./forgot-password/forgot-password.module */ "./src/app/forgot-password/forgot-password.module.ts")).then(m => m.ForgotPasswordPageModule)
     },
-    // {
-    //   path : 'home',
-    //   canActivate : [AuthGaurdService],
-    //   loadChildren: () => import('./home/home.module').then(m => m.HomePageModule)
-    // },
+    {
+        path: 'home',
+        // canActivate : [AuthGaurdService],
+        loadChildren: () => Promise.all(/*! import() | home-home-module */[__webpack_require__.e("default~home-home-module~performance-performance-module~tabs-tabs-module"), __webpack_require__.e("common"), __webpack_require__.e("home-home-module")]).then(__webpack_require__.bind(null, /*! ./home/home.module */ "./src/app/home/home.module.ts")).then(m => m.HomePageModule)
+    },
     {
         path: 'thankyou',
         loadChildren: () => __webpack_require__.e(/*! import() | thankyou-thankyou-module */ "thankyou-thankyou-module").then(__webpack_require__.bind(null, /*! ./thankyou/thankyou.module */ "./src/app/thankyou/thankyou.module.ts")).then(m => m.ThankyouPageModule)
@@ -756,6 +756,10 @@ const routes = [
     {
         path: 'change-password',
         loadChildren: () => Promise.all(/*! import() | change-password-change-password-module */[__webpack_require__.e("common"), __webpack_require__.e("change-password-change-password-module")]).then(__webpack_require__.bind(null, /*! ./change-password/change-password.module */ "./src/app/change-password/change-password.module.ts")).then(m => m.ChangePasswordPageModule)
+    },
+    {
+        path: 'tabs',
+        loadChildren: () => Promise.all(/*! import() | tabs-tabs-module */[__webpack_require__.e("default~home-home-module~performance-performance-module~tabs-tabs-module"), __webpack_require__.e("default~performance-performance-module~tabs-tabs-module"), __webpack_require__.e("tabs-tabs-module")]).then(__webpack_require__.bind(null, /*! ./tabs/tabs.module */ "./src/app/tabs/tabs.module.ts")).then(m => m.TabsPageModule)
     },
 ];
 let AppRoutingModule = class AppRoutingModule {
@@ -841,9 +845,15 @@ let AppComponent = class AppComponent {
                     this.authService.authenticationState.subscribe(state => {
                         // console.log("Auth State : "+state);
                         if (state) {
-                            this.navController.navigateRoot(['menu/menu/home']);
-                            // this.router.navigateByUrl('/menu/menu/home');       
-                            this.splashScreen.hide();
+                            if (this.platform.is('ipad') || this.platform.is('tablet')) {
+                                this.navController.navigateRoot(['tabs/home']);
+                                this.splashScreen.hide();
+                            }
+                            else {
+                                this.navController.navigateRoot(['menu/menu/home']);
+                                // this.router.navigateByUrl('/menu/menu/home');       
+                                this.splashScreen.hide();
+                            }
                         }
                         else {
                             this.splashScreen.hide();
@@ -863,12 +873,20 @@ let AppComponent = class AppComponent {
                     this.authService.authenticationState.subscribe(state => {
                         // console.log("Auth State : "+state);
                         if (state) {
-                            this.navController.navigateRoot(['menu/menu/home']);
-                            // this.router.navigateByUrl('/menu/menu/home');
-                            // this.router.navigate(['/menu/menu/home'],{
-                            //   skipLocationChange:true
-                            // }); 
-                            this.splashScreen.hide();
+                            if (this.platform.is('ipad') || this.platform.is('tablet')) {
+                                console.log('ipad/tablet');
+                                this.navController.navigateRoot(['tabs/home']);
+                                this.splashScreen.hide();
+                            }
+                            else {
+                                this.navController.navigateRoot(['menu/menu/home']);
+                                console.log('iphone/mobile');
+                                // this.router.navigateByUrl('/menu/menu/home');
+                                // this.router.navigate(['/menu/menu/home'],{
+                                //   skipLocationChange:true
+                                // }); 
+                                this.splashScreen.hide();
+                            }
                         }
                         else {
                             this.splashScreen.hide();

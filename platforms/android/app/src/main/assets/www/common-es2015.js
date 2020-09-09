@@ -681,6 +681,196 @@ const findCheckedOption = (el, tagName) => {
 
 /***/ }),
 
+/***/ "./src/app/services/dataHandler/data-handler.service.ts":
+/*!**************************************************************!*\
+  !*** ./src/app/services/dataHandler/data-handler.service.ts ***!
+  \**************************************************************/
+/*! exports provided: DataHandlerService */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "DataHandlerService", function() { return DataHandlerService; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm2015/http.js");
+/* harmony import */ var _environments_environment__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../environments/environment */ "./src/environments/environment.ts");
+/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm2015/index.js");
+/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! rxjs/operators */ "./node_modules/rxjs/_esm2015/operators/index.js");
+/* harmony import */ var d3__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! d3 */ "./node_modules/d3/index.js");
+
+
+
+
+
+
+
+let DataHandlerService = class DataHandlerService {
+    constructor(httpclient) {
+        this.httpclient = httpclient;
+        this.api_url = _environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].api_url;
+    }
+    getIndustry() {
+        return this.httpclient.get(this.api_url + "/Industry/GetIndustry").pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["retryWhen"])(err => err.pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["scan"])(count => {
+            if (count > 5)
+                throw err;
+            else {
+                count++;
+                return count;
+            }
+        }, 0), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["delayWhen"])(() => Object(rxjs__WEBPACK_IMPORTED_MODULE_4__["timer"])(1000))))).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["map"])(res => { return res; }));
+    }
+    getGlobalData() {
+        return this.httpclient.get(this.api_url + "/Scores/GetNAAIndexScoresCurrent/GLOBAL").pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["retryWhen"])(err => err.pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["scan"])(count => {
+            if (count > 5)
+                throw err;
+            else {
+                count++;
+                return count;
+            }
+        }, 0), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["delayWhen"])(() => Object(rxjs__WEBPACK_IMPORTED_MODULE_4__["timer"])(1000))))).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["map"])(res => { return res; }));
+    }
+    getFICatData(cat) {
+        return this.httpclient.get(this.api_url + '/Scores/GetBondMappingStocks/' + cat).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["retryWhen"])(err => err.pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["scan"])(count => {
+            if (count > 5)
+                throw err;
+            else {
+                count++;
+                return count;
+            }
+        }, 0), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["delayWhen"])(() => Object(rxjs__WEBPACK_IMPORTED_MODULE_4__["timer"])(1000))))).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["map"])(res => { return res; }));
+    }
+    getFIData() {
+        return this.httpclient.get(this.api_url + '/Scores/GetFixedDataMaster').pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["retryWhen"])(err => err.pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["scan"])(count => {
+            if (count > 5)
+                throw err;
+            else {
+                count++;
+                return count;
+            }
+        }, 0), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["delayWhen"])(() => Object(rxjs__WEBPACK_IMPORTED_MODULE_4__["timer"])(1000))))).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["map"])(res => { return res; }));
+    }
+    getETFData() {
+        return this.httpclient.get(this.api_url + "/Scores/GetETFMaster").pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["retryWhen"])(err => err.pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["scan"])(count => {
+            if (count > 5)
+                throw err;
+            else {
+                count++;
+                return count;
+            }
+        }, 0), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["delayWhen"])(() => Object(rxjs__WEBPACK_IMPORTED_MODULE_4__["timer"])(1000))))).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["map"])(res => { return res; }));
+    }
+    getETFCatData(CatID) {
+        return this.httpclient.get(this.api_url + "/Scores/GetETFCurrent/" + CatID).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["retryWhen"])(err => err.pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["scan"])(count => {
+            if (count > 5)
+                throw err;
+            else {
+                count++;
+                return count;
+            }
+        }, 0), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["delayWhen"])(() => Object(rxjs__WEBPACK_IMPORTED_MODULE_4__["timer"])(1000))))).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["map"])(res => { return res; }));
+    }
+    filterGlobalIndexData(arr, i) {
+        var temp = arr;
+        return temp.filter(item => item.indexName == i);
+    }
+    getEsgPerfData() {
+        return this.httpclient.get(this.api_url + "/Indexes/GetESGDetails").pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["retryWhen"])(err => err.pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["scan"])(count => {
+            if (count > 5)
+                throw err;
+            else {
+                count++;
+                return count;
+            }
+        }, 0), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["delayWhen"])(() => Object(rxjs__WEBPACK_IMPORTED_MODULE_4__["timer"])(1000))))).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["map"])(res => { return res; }));
+    }
+    getFIPerfData() {
+        return this.httpclient.get(this.api_url + '/Indexes/GetFIDetails').pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["retryWhen"])(err => err.pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["scan"])(count => {
+            if (count > 5)
+                throw err;
+            else {
+                count++;
+                return count;
+            }
+        }, 0), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["delayWhen"])(() => Object(rxjs__WEBPACK_IMPORTED_MODULE_4__["timer"])(1000))))).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["map"])(res => { return res; }));
+    }
+    getPerfData() {
+        return this.httpclient.get(this.api_url + '/Indexes/GetIndexPerformance').pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["retryWhen"])(err => err.pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["scan"])(count => {
+            if (count > 5)
+                throw err;
+            else {
+                count++;
+                return count;
+            }
+        }, 0), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["delayWhen"])(() => Object(rxjs__WEBPACK_IMPORTED_MODULE_4__["timer"])(1000))))).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["map"])(res => { return res; }));
+    }
+    getEquityPerfIndData() {
+        return this.httpclient.get(this.api_url + '/Indexes/GetIndexDetails').pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["retryWhen"])(err => err.pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["scan"])(count => {
+            if (count > 5)
+                throw err;
+            else {
+                count++;
+                return count;
+            }
+        }, 0), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["delayWhen"])(() => Object(rxjs__WEBPACK_IMPORTED_MODULE_4__["timer"])(1000))))).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["map"])(res => { return res; }));
+    }
+    getRebalanceDates(id) {
+        if (id != 59 && id != 60 && id != 54) {
+            return d3__WEBPACK_IMPORTED_MODULE_6__["json"](this.api_url + '/Indexes/GetRebalanceDates/' + id).then(data => {
+                //  console.log(data);
+                return data;
+            });
+        }
+        else {
+            return d3__WEBPACK_IMPORTED_MODULE_6__["json"](this.api_url + '/Indexes/GetGlobalRebalances/' + id).then(data => {
+                //  console.log(data);
+                return data;
+            });
+        }
+    }
+    getSignalsByDate(id, tradedate) {
+        var temp = tradedate.slice(0, 4) + '-' + tradedate.slice(4, 6) + '-' + tradedate.slice(6, 8);
+        if (id != 59 && id != 60 && id != 107 && id != 104 && id != 69 && id != 13 && id != 1 && id != 108 && id != 12 && id != 113) {
+            return d3__WEBPACK_IMPORTED_MODULE_6__["json"](this.api_url + '/Indexes/GetSignalsByDate/' + temp).then(data => {
+                //  console.log(data);
+                return data;
+            });
+        }
+        else if (id == 107 || id == 104 || id == 69 || id == 13 || id == 1 || id == 108 || id == 12 || id == 113) {
+            return d3__WEBPACK_IMPORTED_MODULE_6__["json"](this.api_url + '/Indexes/GetSignalsByDate/' + id + '/' + temp).then(data => {
+                //  console.log(data);
+                return data;
+            });
+        }
+        else {
+            return d3__WEBPACK_IMPORTED_MODULE_6__["json"](this.api_url + '/Indexes/GetGlobalSignalsByDate/' + id + '/' + temp).then(data => {
+                //  console.log(data);
+                return data;
+            });
+        }
+    }
+    GetGlobalSignalsByDate(id, tradedate) {
+        var temp = tradedate.slice(0, 4) + '-' + tradedate.slice(4, 6) + '-' + tradedate.slice(6, 8);
+        return d3__WEBPACK_IMPORTED_MODULE_6__["json"](this.api_url + '/Indexes/GetGlobalSignalsByDate/' + id + '/' + temp).then(data => {
+            //  console.log(data);
+            return data;
+        });
+    }
+};
+DataHandlerService.ctorParameters = () => [
+    { type: _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpClient"] }
+];
+DataHandlerService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
+        providedIn: 'root'
+    }),
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpClient"]])
+], DataHandlerService);
+
+
+
+/***/ }),
+
 /***/ "./src/app/services/user.service.ts":
 /*!******************************************!*\
   !*** ./src/app/services/user.service.ts ***!

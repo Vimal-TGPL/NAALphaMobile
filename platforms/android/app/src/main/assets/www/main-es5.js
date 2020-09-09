@@ -778,11 +778,11 @@ var routes = [
         path: 'forgot-password',
         loadChildren: function () { return Promise.all(/*! import() | forgot-password-forgot-password-module */[__webpack_require__.e("common"), __webpack_require__.e("forgot-password-forgot-password-module")]).then(__webpack_require__.bind(null, /*! ./forgot-password/forgot-password.module */ "./src/app/forgot-password/forgot-password.module.ts")).then(function (m) { return m.ForgotPasswordPageModule; }); }
     },
-    // {
-    //   path : 'home',
-    //   canActivate : [AuthGaurdService],
-    //   loadChildren: () => import('./home/home.module').then(m => m.HomePageModule)
-    // },
+    {
+        path: 'home',
+        // canActivate : [AuthGaurdService],
+        loadChildren: function () { return Promise.all(/*! import() | home-home-module */[__webpack_require__.e("default~home-home-module~performance-performance-module~tabs-tabs-module"), __webpack_require__.e("common"), __webpack_require__.e("home-home-module")]).then(__webpack_require__.bind(null, /*! ./home/home.module */ "./src/app/home/home.module.ts")).then(function (m) { return m.HomePageModule; }); }
+    },
     {
         path: 'thankyou',
         loadChildren: function () { return __webpack_require__.e(/*! import() | thankyou-thankyou-module */ "thankyou-thankyou-module").then(__webpack_require__.bind(null, /*! ./thankyou/thankyou.module */ "./src/app/thankyou/thankyou.module.ts")).then(function (m) { return m.ThankyouPageModule; }); }
@@ -794,6 +794,10 @@ var routes = [
     {
         path: 'change-password',
         loadChildren: function () { return Promise.all(/*! import() | change-password-change-password-module */[__webpack_require__.e("common"), __webpack_require__.e("change-password-change-password-module")]).then(__webpack_require__.bind(null, /*! ./change-password/change-password.module */ "./src/app/change-password/change-password.module.ts")).then(function (m) { return m.ChangePasswordPageModule; }); }
+    },
+    {
+        path: 'tabs',
+        loadChildren: function () { return Promise.all(/*! import() | tabs-tabs-module */[__webpack_require__.e("default~home-home-module~performance-performance-module~tabs-tabs-module"), __webpack_require__.e("default~performance-performance-module~tabs-tabs-module"), __webpack_require__.e("tabs-tabs-module")]).then(__webpack_require__.bind(null, /*! ./tabs/tabs.module */ "./src/app/tabs/tabs.module.ts")).then(function (m) { return m.TabsPageModule; }); }
     },
 ];
 var AppRoutingModule = /** @class */ (function () {
@@ -889,9 +893,15 @@ var AppComponent = /** @class */ (function () {
                     _this.authService.authenticationState.subscribe(function (state) {
                         // console.log("Auth State : "+state);
                         if (state) {
-                            _this.navController.navigateRoot(['menu/menu/home']);
-                            // this.router.navigateByUrl('/menu/menu/home');       
-                            _this.splashScreen.hide();
+                            if (_this.platform.is('ipad') || _this.platform.is('tablet')) {
+                                _this.navController.navigateRoot(['tabs/home']);
+                                _this.splashScreen.hide();
+                            }
+                            else {
+                                _this.navController.navigateRoot(['menu/menu/home']);
+                                // this.router.navigateByUrl('/menu/menu/home');       
+                                _this.splashScreen.hide();
+                            }
                         }
                         else {
                             _this.splashScreen.hide();
@@ -911,12 +921,20 @@ var AppComponent = /** @class */ (function () {
                     _this.authService.authenticationState.subscribe(function (state) {
                         // console.log("Auth State : "+state);
                         if (state) {
-                            _this.navController.navigateRoot(['menu/menu/home']);
-                            // this.router.navigateByUrl('/menu/menu/home');
-                            // this.router.navigate(['/menu/menu/home'],{
-                            //   skipLocationChange:true
-                            // }); 
-                            _this.splashScreen.hide();
+                            if (_this.platform.is('ipad') || _this.platform.is('tablet')) {
+                                console.log('ipad/tablet');
+                                _this.navController.navigateRoot(['tabs/home']);
+                                _this.splashScreen.hide();
+                            }
+                            else {
+                                _this.navController.navigateRoot(['menu/menu/home']);
+                                console.log('iphone/mobile');
+                                // this.router.navigateByUrl('/menu/menu/home');
+                                // this.router.navigate(['/menu/menu/home'],{
+                                //   skipLocationChange:true
+                                // }); 
+                                _this.splashScreen.hide();
+                            }
                         }
                         else {
                             _this.splashScreen.hide();

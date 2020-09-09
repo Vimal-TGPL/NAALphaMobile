@@ -57,9 +57,15 @@ export class AppComponent {
           this.authService.authenticationState.subscribe(state =>{
             // console.log("Auth State : "+state);
             if(state){
+              if(this.platform.is('ipad') || this.platform.is('tablet'))
+              {
+                this.navController.navigateRoot(['tabs/home']);
+                this.splashScreen.hide();
+              }else{
                   this.navController.navigateRoot(['menu/menu/home']);
                   // this.router.navigateByUrl('/menu/menu/home');       
                   this.splashScreen.hide();
+                }
             }else{
               this.splashScreen.hide();
               this.navController.navigateRoot(['landing']);
@@ -77,13 +83,21 @@ export class AppComponent {
           this.authService.authenticationState.subscribe(state =>{
             // console.log("Auth State : "+state);
             if(state){
-              this.navController.navigateRoot(['menu/menu/home']);
-                  // this.router.navigateByUrl('/menu/menu/home');
-                  // this.router.navigate(['/menu/menu/home'],{
-                  //   skipLocationChange:true
-                  // }); 
-                  
-                  this.splashScreen.hide(); 
+              if(this.platform.is('ipad') || this.platform.is('tablet')){
+                console.log('ipad/tablet');
+                this.navController.navigateRoot(['tabs/home']);
+                this.splashScreen.hide();
+              }else{
+                this.navController.navigateRoot(['menu/menu/home']);
+                console.log('iphone/mobile');
+                // this.router.navigateByUrl('/menu/menu/home');
+                // this.router.navigate(['/menu/menu/home'],{
+                //   skipLocationChange:true
+                // }); 
+                
+                this.splashScreen.hide(); 
+              }
+              
             }else{
               this.splashScreen.hide();
               this.navController.navigateRoot(['landing']);
