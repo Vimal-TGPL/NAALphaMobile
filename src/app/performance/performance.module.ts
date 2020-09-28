@@ -23,6 +23,6 @@ import { MatTabsModule } from '@angular/material';
     PerformancePageRoutingModule,
     NgxDatatableModule
   ],
-  declarations: [PerformancePage,IndexComponent]
+  declarations: [PerformancePage]
 })
 export class PerformancePageModule {}

@@ -1,0 +1,45 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/tabs/home" (click)="onbackClick($event)"></ion-back-button>
+    </ion-buttons>
+    <ion-searchbar animated placeholder="Ticker or Company Name" [(ngModel)]="searchText" inputmode="text" type="text" (ionChange)="onSearchChange($event)" [debounce]="500" showCancelButton="never"></ion-searchbar>
+  </ion-toolbar>
+  <ion-segment [value]="selTab" (ionChange)="segmentChanged($event)">
+    <ion-segment-button value="Equities">
+      <ion-label>Equities</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="Fixed Income">
+      <ion-label>Fixed Income</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="ETF's">
+      <ion-label>ETF's</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="NAA Indexes">
+      <ion-label>NAA Indexes</ion-label>
+    </ion-segment-button>
+  </ion-segment>  
+</ion-header>
+
+<ion-content forceOverscroll=false>
+  <div *ngIf="_searchRes" >
+    <ion-item *ngFor="let item of _searchRes" (click)="onItemSelect(item)">
+        <ion-text *ngIf="selTab != 'ETF\'s'" style="display: flex;
+        flex-direction: row;
+        align-items: center;
+        width: 100%;">
+          <p style="width: 45%;"><span>{{item.companyName}}</span><span>&nbsp;&nbsp;({{item.ticker}})</span></p>
+          <p style="width: 45%;">{{item.indexName}}</p>          
+          <p style="width: 10%;">{{item.country}}</p>
+        </ion-text>
+        <ion-text *ngIf="selTab == 'ETF\'s'" style="display: flex;
+        flex-direction: row;
+        align-items: center;
+        width: 100%;">
+          <p style="width: 45%;"><span>{{item.etfName}}</span><span>&nbsp;&nbsp;({{item.ticker}})</span></p>
+          <p style="width: 45%;">ETF</p>          
+          <p style="width: 10%;">{{item.category}}</p>
+        </ion-text>
+    </ion-item>
+  </div>
+</ion-content>

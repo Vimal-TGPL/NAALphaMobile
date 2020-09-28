@@ -15,6 +15,7 @@ import { NavParams } from '@ionic/angular';
 import { PickerOptions } from '@ionic/core';
 import { AlertService } from '../services/alert.service';
 import { DataHandlerService } from '../services/dataHandler/data-handler.service';
+declare var $:any;
 
 @Component({
   selector: 'app-home',
@@ -80,7 +81,7 @@ export class HomePage implements OnInit, AfterViewInit {
   FIselCatogaryList: any = [];
   FICountryList: any[];
   stockIndexShow: boolean = false;
-  stockIcon: string = "ios-arrow-dropdown-circle";
+  stockIcon: string = "chevron-down-circle";
   stockCollapse: boolean = false;
   slideOptions: any;
   api_url = environment.api_url;
@@ -89,8 +90,8 @@ export class HomePage implements OnInit, AfterViewInit {
   data: any;
   user: any;
   SelTab: string;
-  icon: string = 'ios-arrow-dropdown-circle';
-  sorticon: string = 'arrow-dropdown'
+  icon: string = 'chevron-down-circle';
+  sorticon: string = 'chevron-down-circle-outline'
   indexclick: boolean = true;
   parentcard: boolean = false;
   SelFilter: string = 'Human Factor Score (ascending)';
@@ -142,6 +143,7 @@ export class HomePage implements OnInit, AfterViewInit {
       this.mobile = false;
     } else {
       this.mobile = true;
+      console.log(this.mobile);
       this.slides = document.getElementById('pageslider');
     }
     // this.menuCtrl.enable(true);
@@ -559,7 +561,7 @@ export class HomePage implements OnInit, AfterViewInit {
     this.stockCollapse = true;
     this.compIndexShow = true;
     this.sectorHeadings[1] = 'Fixed Income';
-    this.icon = "ios-arrow-dropup-circle";
+    this.icon = "chevron-up-circle";
   }
   onCountryBackClick() {
     this.selCountry = null;
@@ -584,7 +586,7 @@ export class HomePage implements OnInit, AfterViewInit {
       document.getElementById('header-circle').style.background = this.getColor(this.roundValue(item.medianCont * 100));
       document.getElementById('header-circle').style.color = this.ApplyTextColor(this.roundValue(item.medianCont * 100));
       this.compIndexShow = false;
-      this.icon = "ios-arrow-dropdown-circle";
+      this.icon = "chevron-down-circle";
       this.parentcard = false;
       res.forEach(e => {
         this.selectedIndexData.push(this.data.filter(x => x.stockKey == e.stockKey && x.indexName.indexOf('New Age Alpha') == -1)[0]);
@@ -853,7 +855,7 @@ export class HomePage implements OnInit, AfterViewInit {
     this.SelIndexName = i;
     // setTimeout(() => {
     this.compIndexShow = false;
-    this.icon = "ios-arrow-dropdown-circle";
+    this.icon = "chevron-down-circle";
     this.parentcard = false;
     var temp = this.dataHandler.filterGlobalIndexData(this.globalindexwise[this.globalIndex.indexOf(i)],i);
     this.selectedIndexData = [...temp];
@@ -893,7 +895,7 @@ export class HomePage implements OnInit, AfterViewInit {
   /*************** NewAgeAlpha Index Select Start *****************/
   onNaaIndexClick(i) {
     this.compIndexShow = false;
-    this.icon = "ios-arrow-dropdown-circle";
+    this.icon = "chevron-down-circle";
     this.parentcard = false;
     this.SelIndexName = i;
     this.selectedIndexData = this.naaindexwise[this.NAAIndex.indexOf(i)].filter(item => item.indexName == i);
@@ -1128,7 +1130,7 @@ export class HomePage implements OnInit, AfterViewInit {
       document.getElementById('header-circle').style.background = this.getColor(this.getEtfMed(name));
       document.getElementById('header-circle').style.color = this.ApplyTextColor(this.getEtfMed(name));
       this.compIndexShow = false;
-      this.icon = "ios-arrow-dropdown-circle";
+      this.icon = "chevron-down-circle";
       this.parentcard = false;
       this.SelIndexName = i;
       this.unsortedIndexData = this.unsortedIndexData.sort((a, b) => {
@@ -1149,7 +1151,7 @@ export class HomePage implements OnInit, AfterViewInit {
     this.SelTab = 'Global Universe';
     this.stockCollapse = true;
     this.compIndexShow = true;
-    this.icon = "ios-arrow-dropup-circle";
+    this.icon = "chevron-up-circle";
     this.sectorHeadings[1] = 'Index';
   }
   /*************** Global Tab Selected End *****************/
@@ -1163,7 +1165,7 @@ export class HomePage implements OnInit, AfterViewInit {
     this.SelTab = 'NAA';
     this.stockCollapse = true;
     this.compIndexShow = true;
-    this.icon = "ios-arrow-dropup-circle";
+    this.icon = "chevron-up-circle";
     this.sectorHeadings[1] = 'Index';
   }
   /*************** NAA Tab Selected End *****************/
@@ -1177,7 +1179,7 @@ export class HomePage implements OnInit, AfterViewInit {
     this.SelTab = 'ETF';
     this.stockCollapse = true;
     this.compIndexShow = true;
-    this.icon = "ios-arrow-dropup-circle";
+    this.icon = "chevron-up-circle";
     this.parentcard = true;
     this.sectorHeadings[1] = 'Exchange Traded Funds';
 
@@ -1199,8 +1201,8 @@ export class HomePage implements OnInit, AfterViewInit {
       this.stockCollapse = false;
       this.stockIndexShow = false;
       this.compIndexShow = false;
-      this.stockIcon = "ios-arrow-dropdown-circle";
-      this.icon = "ios-arrow-dropdown-circle";
+      this.stockIcon = "chevron-down-circle";
+      this.icon = "chevron-down-circle";
     }
   }
   /*************** GICS Selected UI Start *****************/
@@ -1210,10 +1212,10 @@ export class HomePage implements OnInit, AfterViewInit {
     if (this.stockIndexShow == false) {
       this.stockCollapse = true;
       this.stockIndexShow = true;
-      this.stockIcon = "ios-arrow-dropup-circle";
+      this.stockIcon = "chevron-up-circle";
     } else {
       this.stockIndexShow = false;
-      this.stockIcon = "ios-arrow-dropdown-circle";
+      this.stockIcon = "chevron-down-circle";
       this.scrollToSel();
     }
   }
@@ -1224,7 +1226,7 @@ export class HomePage implements OnInit, AfterViewInit {
     if (this.compIndexShow == false) {
       this.compIndexShow = true;
       this.stockCollapse = true;
-      this.icon = "ios-arrow-dropup-circle";
+      this.icon = "chevron-up-circle";
     } else {
       if(this.prevSelTab == 'ETF' || this.prevSelTab == 'ETFChild'){
         for (var i = 0 ; i < this.compETFNameList.length; i++){
@@ -1255,7 +1257,7 @@ export class HomePage implements OnInit, AfterViewInit {
         }
       }
       this.compIndexShow = false;
-      this.icon = "ios-arrow-dropdown-circle";
+      this.icon = "chevron-down-circle";
       this.scrollToSel();
     }
   }
@@ -1523,8 +1525,8 @@ export class HomePage implements OnInit, AfterViewInit {
     if (this.stockCollapse == true) {
       this.stockIndexShow = false;
       this.compIndexShow = false;
-      this.stockIcon = "ios-arrow-dropdown-circle";
-      this.icon = "ios-arrow-dropdown-circle";
+      this.stockIcon = "chevron-down-circle";
+      this.icon = "chevron-down-circle";
     }
     if (key == "Global Universe") {
       this.globalselectorcomp = this.data.filter(item => item.companyName != null && item.indexName.indexOf("New Age Alpha") == -1);

@@ -1,4 +1,4 @@
-<div class="overallDiv">
+<!-- <div class="overallDiv">
 
   <div class="menu">
     <div class="logo">
@@ -182,4 +182,48 @@
 
   </div>
 
-</div>
+</div> -->
+
+<ion-header>
+  <ion-toolbar style="--background: #2e4c99;
+  --padding-start: 0;
+  --padding-bottom: 0;
+  --padding-end: 0;
+  --padding-top: 0;">
+    <div style="    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 60px;">
+      <img src="../../../assets/images/NewAgeAlpha-logo.svg" alt="logo" style="height: 35px;">
+    </div>
+    <div style="position: absolute; top: 7px; right: 50px;">
+      <div style="display: flex; flex-direction: row;">
+        <div class="avatar" (click)="profilePopover($event)">
+          <img src="../../../assets/images/Profile_NAA5.svg" alt="Profile">
+        </div>
+      </div>
+    </div>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content forceOverscroll=false>
+  <div class="parentDiv">
+    <ion-card class="leftCard">
+      <ion-card-content>
+        Awesome content
+      </ion-card-content>
+    </ion-card>
+  <ion-card class="rightCard">
+    <ion-card-content>
+      <div>
+        <ion-item lines="none">
+          <ion-select value="peperoni" multiple="false" placeholder="Select Pizza" interface="popover">
+            <ion-select-option value="peperoni">Peperoni</ion-select-option>
+            <ion-select-option value="hawaii">Hawaii</ion-select-option>
+          </ion-select>
+        </ion-item>
+      </div>
+    </ion-card-content>
+  </ion-card>
+  </div>
+</ion-content>

@@ -1298,3 +1298,17 @@ border-radius: 25px;
     height: 45px;
 }
 
+@media(max-width: 340px){
+    .ETFNavTabBtn{
+        flex: auto !important;
+    }
+
+    .tab2color{
+        flex: auto !important;
+    }
+
+    .navTabBtn{
+        flex: auto !important;
+    }
+}
+

@@ -10,7 +10,7 @@ import * as d3 from 'd3';
 import { ActivatedRoute } from '@angular/router';
 import { DataHandlerService } from '../services/dataHandler/data-handler.service';
 import * as svg from 'save-svg-as-png';
-
+declare var $:any;
 
 @Component({
   selector: 'app-performance',
@@ -146,7 +146,7 @@ export class PerformancePage implements OnInit, AfterViewInit, OnDestroy {
   EquityList:any = [];
   ESGList:any = [];
   FIList:any = [];
-  selectedCard:String = 'daily';
+  selectedCard:String = 'value';
   description:String;
   descModel:Boolean = false;
   IndexData:any = [];

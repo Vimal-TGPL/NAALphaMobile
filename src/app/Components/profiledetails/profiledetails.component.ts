@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { PopoverController, Events} from '@ionic/angular';
+import { PopoverController} from '@ionic/angular';
 import { Storage } from '@ionic/storage';
 import { AuthenticationService } from '../../services/authentication.service';
 import { Router, RouterEvent } from '@angular/router';
@@ -17,7 +17,7 @@ export class ProfiledetailsComponent implements OnInit {
   lastname:string;
   username:string;
 
-  constructor(private events: Events, private route:Router, private authService: AuthenticationService, private popoverController: PopoverController,private storage:Storage) { }
+  constructor( private route:Router, private authService: AuthenticationService, private popoverController: PopoverController,private storage:Storage) { }
 
   ngOnInit() {
     this.storage.get('currentUser').then(res=>{
@@ -30,7 +30,7 @@ export class ProfiledetailsComponent implements OnInit {
   }
 
   eventFromPopover() {
-    this.events.publish('fromPopoverEvent');
+    // this.events.publish('fromPopoverEvent');
     this.popoverController.dismiss();
   }
 

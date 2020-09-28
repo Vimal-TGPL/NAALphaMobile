@@ -8,6 +8,69 @@
 
 ion-content {
     --overflow: hidden;
+    --background: url('../../assets/images/Performance_BG.svg') no-repeat center center / cover;
+
+    .sec1{
+        ion-card{
+            --background: linear-gradient(rgba(34, 75, 158, 0.4),rgba(28, 54, 117, 0.4));
+            box-shadow: 0px -7px 20px -5px rgba(0,0,0,0.1);
+            margin-inline-start: 10px;
+            margin-inline-end: 10px; 
+            margin-top: 15px;
+            margin-bottom: 15px;
+
+            ion-card-content{
+                padding-inline-start: 5px;
+                padding-inline-end: 5px; 
+                height: 21vh;
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+            }
+        }
+
+    }
+
+    .descDiv{
+        padding: 0 15px;
+        height: 10vh;
+        display: flex;
+        justify-content: center;
+        transition: 0.3s;
+        align-items: center;
+
+        p{
+            color: #fff;
+            font-size: 12px;
+            font-family: Open Sans Regular;
+            line-height: 1.4;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;  
+            overflow: hidden;
+        }
+    }
+
+    .consDescDiv{
+        padding: 0 15px;
+        height: 10vh;
+        display: flex;
+        justify-content: center;
+        transition: 0.3s;
+        align-items: center;
+
+        p{
+            -webkit-line-clamp: '5';
+            color: #fff;
+            font-size: 12px;
+            font-family: Open Sans Regular;
+            line-height: 1.4;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;  
+            overflow: hidden;
+        }
+    }
 
     .CountryDiv::-webkit-scrollbar {
         display: none;
@@ -104,21 +167,12 @@ ion-content {
                     -webkit-box-orient: vertical;
                     -webkit-line-clamp: 1;
                     text-transform: none;
+                    line-height: 1.4;
                 }
             }
         }
     }
 
-    .descDiv {
-        padding: 0 15px;
-        height: calc(100vh - 700px);
-        min-height: 95px;
-        p {
-            font-size: 12px;
-            color: #fff;
-            font-family: Open Sans Regular;
-        }
-    }
 
     .PerfomanceDateDiv {
         padding: 0 20px;
@@ -781,3 +835,55 @@ ion-content {
 //         height: 100px !important;
 //     }
 // }
+
+@media (max-height: 600px){
+    .descDiv, .consDescDiv{
+        height: 8vh !important;
+        margin-top: 5px;
+        p{
+            -webkit-line-clamp : 2 !important;
+        }
+    }
+
+    .DataCardsDiv{
+        ion-card{
+            ion-card-content{
+                min-height: 200px !important;
+                width: 130px !important;
+            }
+        }
+    }
+
+    .DataCardsOuterDiv{
+        height: 40vh !important;
+    }
+
+    .dropDownBtn{
+        height: 25px !important;
+    }
+
+    .ChipsDiv{
+        ion-chip{
+            height: 28px !important;
+        }
+    }
+
+    .sec1{
+        ion-card{
+            margin-top: 10px !important;
+            margin-bottom: 10px !important;
+        }
+    }
+
+    .innerdropDownsapn{
+        font-size: 12px !important;
+    }
+
+    .BMIndname{
+        font-size: 14px !important;
+    }
+
+    .ticker{
+        font-size: 14px !important;
+    }
+}

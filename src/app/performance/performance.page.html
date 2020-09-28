@@ -11,22 +11,10 @@
   </div> -->
 </ion-header>
 
-<ion-content *ngIf="mobile"
-  style="--background: url('../../assets/images/Performance_BG.svg') no-repeat center center / cover;" fullscreen>
-  <div>
-    <ion-card style="--background: linear-gradient(rgba(34, 75, 158, 0.4),rgba(28, 54, 117, 0.4));
-    box-shadow: 0px -7px 20px -5px rgba(0,0,0,0.1);     margin-inline-start: 10px;
-    margin-inline-end: 10px; margin-top: 15px;
-    margin-bottom: 15px;">
-      <ion-card-content style="padding-inline-start: 5px;
-      padding-inline-end: 5px; 
-    /* max-height: 185px; */
- /* height: calc(100vh - 600px); */
- height: 21vh;
-      display: flex;
-    flex-direction: column;
-    /* min-height: 140px; */
-    justify-content: space-between;">
+<ion-content *ngIf="mobile" fullscreen>
+  <div class="sec1">
+    <ion-card >
+      <ion-card-content>
         <div class="HeaderDiv">
           <div class="CountryDiv">
             <span class="contryItem" (click)="OnItemClick(item)" *ngFor="let item of CountryClasificationList">
@@ -36,51 +24,18 @@
           </div>
         </div>
 
-        <!-- <div class="segmentDiv" *ngIf="selectedCountry=='USA'">
-          <ion-segment value="Equity" (ionChange)="segmentChanged($event.detail.value)" mode='ios'>
-            <ion-segment-button mode='ios' value="Equity"
-              style="border-radius: 15px 0 0 15px;     --border-width: 0px 1px 0 0;">
-              <ion-label>Equity</ion-label>
-            </ion-segment-button>
-            <ion-segment-button mode='ios' value="ESG" style="--border-width: 0px 1px 0 0px;">
-              <ion-label>ESG</ion-label>
-            </ion-segment-button>
-            <ion-segment-button mode='ios' value="Fixed Income" style="border-radius:0 15px 15px 0;">
-              <ion-label>Fixed Income</ion-label>
-            </ion-segment-button>
-          </ion-segment>
-        </div> -->
-
         <div class="dropDownDiv" *ngIf="selectedIndexData" style="padding: 0px 10px;">
           <ion-button (click)="openPicker()" expand="block" fill="clear" shape="round" class="dropDownBtn">
             <div class="innerdropDownDiv">
               <span class="innerdropDownsapn" *ngIf="selectedIndexData && selectedIndexName">{{indexNameReplace(selectedIndexName)}}
                 ({{selectedIndexData.indexCode}})</span> <span>
-                <ion-icon name="ios-arrow-down"></ion-icon>
+                <ion-icon name="chevron-down-outline"></ion-icon>
               </span></div>
           </ion-button>
         </div>
       </ion-card-content>
     </ion-card>
   </div>
-
-
-  <!-- <div class="dropDownDiv" *ngIf="selectedIndexData && selectedCountry=='USA'">
-    <ion-button (click)="openPicker()" expand="block" fill="clear" shape="round" class="dropDownBtn">
-      <div class="innerdropDownDiv">
-        <span class="innerdropDownsapn" *ngIf="selectedIndexData && selectedIndexName">{{indexNameReplace(selectedIndexName)}}
-          ({{selectedIndexData.indexCode}})</span> <span>
-          <ion-icon name="ios-arrow-down"></ion-icon>
-        </span></div>
-    </ion-button>
-  </div> -->
-
-  <!-- <div id='desc' class="descDiv">
-    <p>
-    <span id="desc" [innerHTML]='description'>
-    </span>
-    </p>
-  </div> -->
 
   <div *ngIf="selectedIndexData" class="ChipsDiv">
     <ion-chip mode="ios" outline="true" (click)="onConstChipClick()" [ngClass]="{'activeChip': selectedSection == 'construction'}">
@@ -92,22 +47,8 @@
   </div>
 
   <div *ngIf="selectedSection == 'perfomance' && key != 'Market View'">
-    <div *ngIf="selectedIndexData" style="height:14vh; padding: 0 15px;
-      height: 10vh;
-  /* height: calc(100vh - 710px);
-  min-height: 70px;
-  max-height: 80px; */
-  display: flex;
-  justify-content: center;
-  transition: 0.3s;
-  align-items: center;">
-      <p style=" -webkit-line-clamp: '5';   color: #fff;
-    font-size: 12px;
-    font-family: Open Sans Regular;
-    line-height: 1.4;display: -webkit-box;
-  -webkit-line-clamp: 3;
-  -webkit-box-orient: vertical;  
-  overflow: hidden;" (click)="descModel = true;">{{selectedIndexData.description}}</p>
+    <div *ngIf="selectedIndexData" class="descDiv">
+      <p (click)="descModel = true;">{{selectedIndexData.description}}</p>
     </div>
 
     <div class="PerfomanceDateDiv" *ngIf="selectedIndexData && key != 'Market View'">
@@ -824,28 +765,14 @@ background: rgba(0, 0, 0, 0.6);" *ngIf="descModel">
         </ion-card-content>
       </ion-card>
     </div>
-    <div *ngIf="(selectedIndexData && key != 'Market View') && (selectedIndexData.indexId !== 59 && selectedIndexData.indexId !== 60)" style="height:14vh; padding: 0 15px;
-      height: 10vh;
-  /* height: calc(100vh - 710px);
-  min-height: 70px;
-  max-height: 80px; */
-  display: flex;
-  justify-content: center;
-  transition: 0.3s;
-  align-items: center;">
-      <p style=" -webkit-line-clamp: '5';   color: #fff;
-    font-size: 12px;
-    font-family: Open Sans Regular;
-    line-height: 1.4;display: -webkit-box;
-  -webkit-line-clamp: 3;
-  -webkit-box-orient: vertical;  
-  overflow: hidden;" (click)="descModel = true;">{{selectedIndexData.description}}</p>
+    <div *ngIf="(selectedIndexData && key != 'Market View') && (selectedIndexData.indexId !== 59 && selectedIndexData.indexId !== 60)" class="consDescDiv">
+      <p (click)="descModel = true;">{{selectedIndexData.description}}</p>
     </div>
     
     <div *ngIf="selectedIndexData.indexId !== 25 && selectedIndexData.indexId !== 23 && selectedIndexData.indexId !== 21 && selectedIndexData.indexId !== 19 && selectedIndexData.indexId !== 11 && selectedIndexData.indexId !== 8 && selectedIndexData.indexId !== 6 
     && selectedIndexData.indexId !== 3 && selectedIndexData.indexId !== 17 && selectedIndexData.indexId !== 15 && selectedIndexData.indexId !== 102 && selectedIndexData.indexId !== 103 && selectedIndexData.indexId !== 105 && selectedIndexData.indexId !== 106
     && selectedIndexData.indexId !== 66 && selectedIndexData.indexId !== 68 && selectedIndexData.indexId !== 67 && selectedIndexData.indexId !== 65 && selectedIndexData.indexId !== 64 && selectedIndexData.indexId !== 110 && selectedIndexData.indexId !== 109 && selectedIndexData.indexId !== 112 && selectedIndexData.indexId !== 111 
-    && selectedIndexData.indexId !== 76 && selectedIndexData.indexId !== 119 && selectedIndexData.indexId !== 115 && selectedIndexData.indexId !== 54 && selectedIndexData.indexId !== 130  && showMVCons" style="    margin: 15px 0;">
+    && selectedIndexData.indexId !== 76 && selectedIndexData.indexId !== 119 && selectedIndexData.indexId !== 115 && selectedIndexData.indexId !== 54 && selectedIndexData.indexId !== 130  && showMVCons" style="    margin: 15px 0 5px 0;">
       <ion-card style="margin: 0px 0px 0px 20px;
       border-radius: 20px 0px 0px 20px;
       background: #fff;">
@@ -860,12 +787,12 @@ background: rgba(0, 0, 0, 0.6);" *ngIf="descModel">
               <span style="display: inherit; align-items: center;"><p style="margin: 0px; margin-right: 20px; font-size: 15px;
                 font-family: Open Sans SemiBold; color: #fff;
                 ">{{selectedYear}}</p>
-                <ion-icon name="ios-arrow-down" style="color: #fff;"></ion-icon></span>
+                <ion-icon name="chevron-down-outline" style="color: #fff;"></ion-icon></span>
             </span>
           </div>
           <div *ngIf="dateList" class="dateDiv" style="overflow-x: auto;
           overflow-y: hidden;display: flex;
-          flex-direction: row; margin: 10px 5px;">
+          flex-direction: row; margin:10px 5px 0px 5px;">
             <span *ngFor="let item of dateList" style="    display: flex;
             flex-direction: column;
             justify-content: center;
@@ -3706,7 +3633,7 @@ width: 30px;" src="../../assets/images/NAA.gif" alt="Loading"></span>
     <div class="dropDownDiv">
       <ion-button (click)="openPicker()" expand="block" fill="clear" shape="round">
         <div class="innerdropDownDiv">
-          <span class="innerdropDownsapn" *ngIf="selectedIndexData && selectedIndexName">{{selectedIndexName}} ({{selectedIndexData.indexCode}})</span> <span><ion-icon name="ios-arrow-down"></ion-icon></span></div>
+          <span class="innerdropDownsapn" *ngIf="selectedIndexData && selectedIndexName">{{selectedIndexName}} ({{selectedIndexData.indexCode}})</span> <span><ion-icon name="chevron-down-outline"></ion-icon></span></div>
       </ion-button>
     </div>
   </div>
@@ -3873,5 +3800,5 @@ width: 30px;" src="../../assets/images/NAA.gif" alt="Loading"></span>
 </ion-content>-->
 
 <ion-content forceOverscroll=false *ngIf="!mobile">
-  <app-index></app-index>
+  <!-- <app-index></app-index> -->
 </ion-content>

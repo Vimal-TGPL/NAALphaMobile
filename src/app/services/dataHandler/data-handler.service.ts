@@ -192,4 +192,100 @@ export class DataHandlerService {
         return data;
       })
   }
+
+  getDbGICSData(): Observable<Object> {
+    return this.httpclient.get('../../../assets/data/siteGICS.csv', { responseType: 'text' }).pipe(retryWhen(err => err.pipe(
+      scan(count => {
+        if (count > 5) throw err;
+        else {
+          count++;
+          return count;
+        }
+      }, 0),
+      delayWhen(() => timer(1000))
+    ))).pipe(map(res => {
+      return res;
+    }));
+  }
+
+  getIpadGlobalData(): Observable<Object> {
+    return this.httpclient.get(this.api_url + "/Scores/GetNAAIndexScoresCurrent/GLOBAL").pipe(retryWhen(err => err.pipe(
+      scan(count => {
+        if (count > 5) throw err;
+        else {
+          count++;
+          return count;
+        }
+      }, 0),
+      delayWhen(() => timer(1000))
+    ))).pipe(map(res => {
+      return res;
+    }));
+  }
+
+  getIpadHistGlobalData(d){
+    return this.httpclient.get(this.api_url + "/Scores/GetNAAIndexScoresHist/GLOBAL/" + d).pipe(retryWhen(err => err.pipe(
+      scan(count => {
+        if (count > 5) throw err;
+        else {
+          count++;
+          return count;
+        }
+      }, 0),
+      delayWhen(() => timer(1000))
+    ))).pipe(map(res => {
+      return res;
+    }));
+  }
+
+  getQDateData(selrow, indName, Isin): Observable<Object> {
+    var apiUrl
+    if (selrow.country == 'USA') {
+      apiUrl = this.api_url + "/Scores/GetAnnScoresData/" + indName + "/" + Isin + "/0";
+    } else {
+      apiUrl = this.api_url + "/Scores/GetQuaterlyScoresData/" + indName + "/" + Isin + "/0";
+    }
+    return this.httpclient.get(apiUrl).pipe(retryWhen(err => err.pipe(
+      scan(count => {
+        if (count > 5) throw err;
+        else {
+          count++;
+          return count;
+        }
+      }, 0),
+      delayWhen(() => timer(1000))
+    ))).pipe(map(res => {
+      return res;
+    }));
+  }
+
+  getQtrData(trdate, industry, IndId, indName): Observable<Object> {
+    return this.httpclient.get(this.api_url + '/Scores/GetNAAIndexScoresHistByIndustryIndex/' + trdate + '/' + industry + '/' + IndId + '/' + indName).pipe(retryWhen(err => err.pipe(
+      scan(count => {
+        if (count > 5) throw err;
+        else {
+          count++;
+          return count;
+        }
+      }, 0),
+      delayWhen(() => timer(1000))
+    ))).pipe(map(res => {
+      return res;
+    }));
+  }
+
+  getIndexRunsData(indexid, GICSid, Ctype): Observable<Object> {
+    return this.httpclient.get(this.api_url + "/Indexes/GetIndexRuns/" + "/" + indexid + "/" + GICSid + "/" + Ctype).pipe(retryWhen(err => err.pipe(
+      scan(count => {
+        if (count > 5) throw err;
+        else {
+          count++;
+          return count;
+        }
+      }, 0),
+      delayWhen(() => timer(1000))
+    ))).pipe(map(res => {
+      return res;
+    }));
+  }
 }

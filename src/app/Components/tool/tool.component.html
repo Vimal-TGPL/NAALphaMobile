@@ -1,0 +1,26 @@
+<div class="searchDiv">
+  <ion-item lines=none>
+    <img slot="start" src="../../../assets/images/search.svg" alt="search">
+    <ion-input readonly="true" type="text" placeholder="Ticker or company name" (click)="onSearchInputClick($event)"></ion-input>
+    <ion-select slot="end" interface="popover" [value]="selTab" multiple="false" placeholder="Select Pizza" (ionChange)="onSelectClick($event)">
+        <ion-select-option value="Equities">Equities</ion-select-option>
+        <ion-select-option value="Fixed Income">Fixed Income</ion-select-option>
+        <ion-select-option value="ETF's">ETF's</ion-select-option>
+        <ion-select-option value="NAA Indexes">NAA Indexes</ion-select-option>
+    </ion-select>
+  </ion-item>
+</div>
+<svg preserveAspectRatio="xMidYMid meet" id="svgHContainer1" viewBox="200 70 1220 700" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" version="1.1">
+  <g id="gchart" transform="translate(810 ,420)"></g>
+  <g class="Homecenter" style="opacity:0;" transform="translate(810,300)">
+    <text y="45" style="letter-spacing:1px;text-align:center;font-family:'Open Sans Regular';fill:#00b9ff;text-anchor:middle;font-size:11px;font-weight:500;">WELCOME TO THE</text>
+    <text y="80" style="text-align:center;font-family:'Open Sans Bold';fill:#00b9ff;text-anchor:middle;text-align:center;font-size:25px;font-weight:500;" class="grey-16 blue-heading">
+      <tspan x="0">H-Factor System</tspan>
+    </text>
+    <circle cx="0" cy="0" r="32" stroke="#00b9ff" stroke-width="1" fill="transparent" transform="translate(-50, 175)" />
+    <circle cx="0" cy="0" r="3" stroke="#00b9ff" stroke-width="0" fill="#00b9ff" transform="translate(-50, 207)" />
+    <text y="183" style="text-align:center;font-family:'Open Sans Bold';fill:#00b9ff;text-anchor:middle;text-align:center;font-size:19px;font-weight:500;" class="grey-16 blue-heading">
+      <tspan x="-47">Avoid </tspan><tspan x="34" style="font-family: Open Sans Semibold;">the Losers</tspan>
+    </text>
+  </g>
+</svg>

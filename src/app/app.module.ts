@@ -21,6 +21,7 @@ import { IonicSelectableComponent } from 'ionic-selectable';
 import { MatTabsModule} from '@angular/material/tabs'
 import { Network } from '@ionic-native/network/ngx';
 import { Toast } from '@ionic-native/toast/ngx';
+import { DatePipe } from '@angular/common/';
 // import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { PhotoViewer } from '@ionic-native/photo-viewer/ngx';
@@ -29,6 +30,7 @@ import { Device } from '@ionic-native/device/ngx';
 import { UserAgent } from '@ionic-native/user-agent/ngx';
 import { AppVersion } from '@ionic-native/app-version/ngx';
 import { from } from 'rxjs';
+import { SearchtoolComponent } from './Components/searchtool/searchtool.component';
 
 @NgModule({
   declarations: [AppComponent,ProfiledetailsComponent],
@@ -36,7 +38,7 @@ import { from } from 'rxjs';
   imports: [BrowserModule,BrowserAnimationsModule, MatTabsModule, IonicModule.forRoot(), HttpClientModule, ReactiveFormsModule, AppRoutingModule, IonicStorageModule.forRoot()],
   providers: [
     InAppBrowser,
-    StatusBar,
+    StatusBar,DatePipe,
     BrowserModule,
     Network,
     HTTP, 

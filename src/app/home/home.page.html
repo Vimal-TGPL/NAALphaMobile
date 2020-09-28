@@ -490,7 +490,7 @@
                         font-family: Open sans Semibold; color:#666666">{{item.country}}</ion-label>
 
                       </div>
-                      <ion-icon name="ios-arrow-forward"></ion-icon>
+                      <ion-icon name="chevron-forward-outline"></ion-icon>
                     </ion-item>
                   </ion-list>
                 </ion-card-content>
@@ -557,7 +557,7 @@
                       <ion-label style="font-size: 12px;
                       font-family: Open sans SemiBold;
                       color: #666666;">{{item}}</ion-label>
-                      <ion-icon name="ios-arrow-forward"></ion-icon>
+                      <ion-icon name="chevron-forward-outline"></ion-icon>
                     </ion-item>
                   </ion-list>
                 </ion-card-content>
@@ -591,7 +591,7 @@
                           [ngClass]="{'selectIndexLabel': SelIndexName == (item.category == 'HY'? 'High Yield' : 'Investment Grade')}">
                           {{item.category == 'HY'?'High Yield':'Investment Grade'}}</ion-label>
                       </div>
-                      <ion-icon name="ios-arrow-forward"></ion-icon>
+                      <ion-icon name="chevron-forward-outline"></ion-icon>
                     </ion-item>
                   </ion-list>
                 </ion-card-content>
@@ -608,7 +608,7 @@
                       <ion-label style="font-size: 12px;
                       font-family: Open sans SemiBold;
                       color: #666666;">{{item}}</ion-label>
-                      <ion-icon name="ios-arrow-forward"></ion-icon>
+                      <ion-icon name="chevron-forward-outline"></ion-icon>
                     </ion-item>
                   </ion-list>
                 </ion-card-content>
@@ -683,8 +683,8 @@
           <span class="filterTypeInnerSpan">
             <span id="Filtertype" *ngIf="filterby == 'C_LTH'">(A - Z)</span>
             <span id="Filtertype" *ngIf="filterby == 'C_HTL'">(Z - A)</span>
-            <ion-icon name="arrow-round-up" *ngIf="filterby == 'C_LTH'"></ion-icon>
-          <ion-icon name="arrow-round-down" *ngIf="filterby == 'C_HTL'"></ion-icon>
+            <ion-icon name="arrow-up-outline" *ngIf="filterby == 'C_LTH'"></ion-icon>
+          <ion-icon name="arrow-down-outline" *ngIf="filterby == 'C_HTL'"></ion-icon>
           </span>
           
         </ion-button>
@@ -694,8 +694,8 @@
          <span class="filterTypeInnerSpan">
             <span id="Filtertype" *ngIf="filterby == 'HF_LTH'">(Low - High)</span>
             <span id="Filtertype" *ngIf="filterby == 'HF_HTL'">(High - Low)</span>
-            <ion-icon name="arrow-round-up" *ngIf="filterby == 'HF_LTH'"></ion-icon>
-          <ion-icon name="arrow-round-down" *ngIf="filterby == 'HF_HTL'"></ion-icon>
+            <ion-icon name="arrow-up-outline" *ngIf="filterby == 'HF_LTH'"></ion-icon>
+          <ion-icon name="arrow-down-outline" *ngIf="filterby == 'HF_HTL'"></ion-icon>
           </span>
          
         </ion-button>
@@ -705,8 +705,8 @@
           <span class="filterTypeInnerSpan">
             <span id="Filtertype" *ngIf="filterby == 'T_LTH'">(A - Z)</span>
             <span id="Filtertype" *ngIf="filterby == 'T_HTL'">(Z - A)</span>
-            <ion-icon name="arrow-round-up" *ngIf="filterby == 'T_LTH'"></ion-icon>
-          <ion-icon name="arrow-round-down" *ngIf="filterby == 'T_HTL'"></ion-icon>
+            <ion-icon name="arrow-up-outline" *ngIf="filterby == 'T_LTH'"></ion-icon>
+          <ion-icon name="arrow-down-outline" *ngIf="filterby == 'T_HTL'"></ion-icon>
           </span>
           
         </ion-button>
@@ -716,8 +716,8 @@
          <span class="filterTypeInnerSpan">
             <span id="Filtertype" *ngIf="filterby == 'P_LTH'">(Low - High)</span>
             <span id="Filtertype" *ngIf="filterby == 'P_HTL'">(High - Low)</span>
-            <ion-icon name="arrow-round-up" *ngIf="filterby == 'P_LTH'"></ion-icon>
-         <ion-icon name="arrow-round-down" *ngIf="filterby == 'P_HTL'"></ion-icon>
+            <ion-icon name="arrow-up-outline" *ngIf="filterby == 'P_LTH'"></ion-icon>
+         <ion-icon name="arrow-down-outline" *ngIf="filterby == 'P_HTL'"></ion-icon>
           </span>
          
         </ion-button>
@@ -784,7 +784,7 @@
           font-size: 16px;     text-transform: capitalize;
     font-weight: normal;">Date</span>
           <span style="color: #000000;">
-           {{selDate}} <ion-icon name="arrow-dropdown" style="height: 18px;
+           {{selDate}} <ion-icon name="chevron-down-circle-outline" style="height: 18px;
            width: 18px; margin-left: 10vh; color: #000000;
             opacity: 0.4;"></ion-icon>
             </span>

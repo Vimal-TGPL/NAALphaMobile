@@ -8,14 +8,21 @@ import { TabsPageRoutingModule } from './tabs-routing.module';
 
 import { TabsPage } from './tabs.page';
 import { IPadHomeToolComponent } from '../Components/i-pad-home-tool/i-pad-home-tool.component';
+import { IndexComponent } from '../Components/index/index.component';
+import { MatTabsModule } from '@angular/material';
+import { ToolComponent } from '../Components/tool/tool.component';
+import { SearchtoolComponent } from '../Components/searchtool/searchtool.component';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    TabsPageRoutingModule
+    TabsPageRoutingModule,
+    MatTabsModule
   ],
-  declarations: [TabsPage,IPadHomeToolComponent]
+  declarations: [TabsPage,IPadHomeToolComponent,IndexComponent,ToolComponent,SearchtoolComponent],
+  entryComponents: [SearchtoolComponent]
+
 })
 export class TabsPageModule {}

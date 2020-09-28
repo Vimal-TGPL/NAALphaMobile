@@ -22,10 +22,10 @@ const routes: Routes = [
         path: 'performance',
         loadChildren: () => import('../performance/performance.module').then( m => m.PerformancePageModule)
       },
-      {
-        path: 'investment-solutions',
-        loadChildren: () => import('../investment-solutions/investment-solutions.module').then( m => m.InvestmentSolutionsPageModule)
-      },
+      // {
+      //   path: 'investment-solutions',
+      //   loadChildren: () => import('../investment-solutions/investment-solutions.module').then( m => m.InvestmentSolutionsPageModule)
+      // },
     ]
   },
   {

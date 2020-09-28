@@ -1,6 +1,6 @@
 <ion-content forceOverscroll = false>
   <div class="ParentDiv">
-    <ion-card class="card">
+    <ion-card class="card" [ngClass]="{'tab_background': !mobile}">
       <ion-card class="innercard" [ngClass]="{'innercardmobile': mobile}">
         <ion-card class="innercard2" [ngClass]="{'innercard2mobile': mobile}">
           <ion-card-content>

@@ -1,0 +1,12 @@
+ion-segment{
+    height: 35px;
+    margin-top: 10px;
+
+    ion-segment-button{
+        --indicator-color: #224b9e;
+        --color-checked: #ffffff;
+        --color:#224b9e;
+        --border-radius: 20px !important;
+    }
+}
+

@@ -1,8 +1,9 @@
-import { NgModule } from '@angular/core';
+import { NgModule, Component } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 import { TabsPage } from './tabs.page';
 import { IPadHomeToolComponent } from '../Components/i-pad-home-tool/i-pad-home-tool.component';
+import { IndexComponent } from '../Components/index/index.component';
 
 const routes: Routes = [
   {
@@ -12,6 +13,10 @@ const routes: Routes = [
       {
         path: 'home',
         component: IPadHomeToolComponent
+      },
+      {
+        path: 'investment_solution',
+        component: IndexComponent
       },
       {
         path: '',
