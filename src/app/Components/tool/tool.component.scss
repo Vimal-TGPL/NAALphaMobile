@@ -38,6 +38,9 @@
       --padding-end: 5px;
       width: 35%;
       padding: 0px 5px 0 15px;
+      transition: .5s;
+      max-width: unset;
+      position: relative;
     }
   }
 }
@@ -86,4 +89,11 @@
 
   ion-select::part(icon){
     opacity: 1;
+  }
+
+  .first-select{
+    width: 100% !important;
+    max-width: 100% !important;
+    border-left: none !important;
+    padding: 0 5px 0 5px !important;
   }

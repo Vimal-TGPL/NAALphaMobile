@@ -29,13 +29,16 @@ import { File } from '@ionic-native/file/ngx';
 import { Device } from '@ionic-native/device/ngx';
 import { UserAgent } from '@ionic-native/user-agent/ngx';
 import { AppVersion } from '@ionic-native/app-version/ngx';
-import { from } from 'rxjs';
-import { SearchtoolComponent } from './Components/searchtool/searchtool.component';
 
+import { faAngleDoubleLeft } from '@fortawesome/free-solid-svg-icons';
+import { library } from '@fortawesome/fontawesome-svg-core'
+import { FaConfig, FaIconLibrary, FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+
+library.add(faAngleDoubleLeft);
 @NgModule({
   declarations: [AppComponent,ProfiledetailsComponent],
   entryComponents: [ProfiledetailsComponent],
-  imports: [BrowserModule,BrowserAnimationsModule, MatTabsModule, IonicModule.forRoot(), HttpClientModule, ReactiveFormsModule, AppRoutingModule, IonicStorageModule.forRoot()],
+  imports: [BrowserModule,BrowserAnimationsModule, MatTabsModule, IonicModule.forRoot(), HttpClientModule, ReactiveFormsModule, AppRoutingModule, IonicStorageModule.forRoot(),FontAwesomeModule],
   providers: [
     InAppBrowser,
     StatusBar,DatePipe,
@@ -51,6 +54,8 @@ import { SearchtoolComponent } from './Components/searchtool/searchtool.componen
     Device,
     UserAgent,
     AppVersion,
+    FaConfig,
+    FaIconLibrary,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     { provide: HTTP_INTERCEPTORS, useClass:JwtInterceptor, multi:true},
     { provide: HTTP_INTERCEPTORS, useClass:ErrorInterceptor, multi:true},

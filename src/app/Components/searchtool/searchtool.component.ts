@@ -12,6 +12,8 @@ export class SearchtoolComponent implements OnInit, OnDestroy {
   _selTabSub:any;
   data:any = [];
   _searchRes:any = [];
+  _etfData:any = [];
+  etfsub:any;
   searchText:string = null;
   constructor(private modalCtrl: ModalController, private dataService: DataService) { 
     this._selTabSub = this.dataService.selTab.subscribe(d =>{
@@ -24,6 +26,7 @@ export class SearchtoolComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.getSearchdata();
+    this.dataService.getETFdata();
   }
 
   onSearchChange(e){
@@ -39,7 +42,10 @@ export class SearchtoolComponent implements OnInit, OnDestroy {
         })
       }else{
         console.log(this.data.filter(i=> i.ticker == null));
-        this._searchRes = this.data.filter(i => i.etfName.toString().toLowerCase().startsWith(serText) || i.ticker != undefined ?i.ticker.toString().toLowerCase().startsWith(serText): true);
+        this._searchRes = this.data.filter(i => i.etfName.toString().toLowerCase().startsWith(serText));
+        this._searchRes.sort((a,b)=>{
+          return a.etfName > b.etfName;
+        })
       }      
       console.log(this._searchRes);
     }else{
@@ -64,24 +70,24 @@ export class SearchtoolComponent implements OnInit, OnDestroy {
   }
 
   getSearchdata(){
-    if(this.selTab == 'Equities'){
+    if(this.selTab == 'Equities & FI'){
       // this.data = 
       this.dataService.getEquitiesdata().then(d =>{
         this.data = d;
-        console.log(this.data);
-      })
-    }else if(this.selTab == 'NAA Indexes'){
-      this.dataService.getNAAIndexesData().then(d =>{
-        this.data = d;
-        console.log(this.data);
-      })
-    }else if(this.selTab == 'Fixed Income'){
-      this.dataService.getFIdataList().then(d =>{
-        this.data = d;
-        console.log(this.data);
+        this.dataService.getFIdataList().then(d =>{
+          this.data.push(d[0]);
+          console.log(this.data);
+        });
       });
-    }else if(this.selTab == "ETF's"){
-      this.dataService.getETFdata();
+    }
+    // else if(this.selTab == 'NAA Indexes'){
+    //   this.dataService.getNAAIndexesData().then(d =>{
+    //     this.data = d;
+    //     console.log(this.data);
+    //   })
+    // }
+    else if(this.selTab == "ETF's"){
+      
       var etfsub = this.dataService.ETFIndex.subscribe(d => {
         if (d.length != 0) {
           this.data = d;

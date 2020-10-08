@@ -3,21 +3,21 @@
     <ion-buttons slot="start">
       <ion-back-button defaultHref="/tabs/home" (click)="onbackClick($event)"></ion-back-button>
     </ion-buttons>
-    <ion-searchbar animated placeholder="Ticker or Company Name" [(ngModel)]="searchText" inputmode="text" type="text" (ionChange)="onSearchChange($event)" [debounce]="500" showCancelButton="never"></ion-searchbar>
+    <ion-searchbar animated [placeholder]="selTab != 'ETF\'s' ? 'Ticker or company name' : 'ETF ticker or name'" [(ngModel)]="searchText" inputmode="text" type="text" (ionChange)="onSearchChange($event)" [debounce]="500" showCancelButton="never"></ion-searchbar>
   </ion-toolbar>
   <ion-segment [value]="selTab" (ionChange)="segmentChanged($event)">
-    <ion-segment-button value="Equities">
-      <ion-label>Equities</ion-label>
+    <ion-segment-button value="Equities & FI">
+      <ion-label>Equities & Fixed Income</ion-label>
     </ion-segment-button>
-    <ion-segment-button value="Fixed Income">
+    <!-- <ion-segment-button value="Fixed Income">
       <ion-label>Fixed Income</ion-label>
-    </ion-segment-button>
+    </ion-segment-button> -->
     <ion-segment-button value="ETF's">
-      <ion-label>ETF's</ion-label>
+      <ion-label>Exchange Traded Funds</ion-label>
     </ion-segment-button>
-    <ion-segment-button value="NAA Indexes">
+    <!-- <ion-segment-button value="NAA Indexes">
       <ion-label>NAA Indexes</ion-label>
-    </ion-segment-button>
+    </ion-segment-button> -->
   </ion-segment>  
 </ion-header>
 

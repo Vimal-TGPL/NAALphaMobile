@@ -1,8 +1,8 @@
-import { AfterContentInit, AfterViewInit, ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
+import { AfterContentInit, AfterViewInit, ChangeDetectorRef, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 declare var $: any;
 import * as d3 from 'd3/';
 import { DataService } from '../../services/shareddata/data.service';
-import { ModalController } from '@ionic/angular';
+import { ModalController, PopoverController } from '@ionic/angular';
 import { SearchtoolComponent } from '../searchtool/searchtool.component';
 
 
@@ -23,24 +23,29 @@ export class ToolComponent implements OnInit, AfterContentInit, AfterViewInit,On
   FromClick: string = "";
   currentStockkey = "";
   createXrad: any;
-  selTab:string = 'Equities';
+  selTab:string = '';
   _selTabSub:any;
+  showGrid:boolean;
+  _showGridSub:any;
   // SelTab: string = 'Stocks';
   // SelMode: string = 'Global';
   // SeltabFilter: string = "Global";
 
-  constructor(private modelCtrl: ModalController ,private dataService:DataService, private changedet: ChangeDetectorRef) { 
+  constructor(private modelCtrl: ModalController ,private dataService:DataService, private changedet: ChangeDetectorRef, private popoverCtrl:PopoverController) { 
     this._selTabSub = this.dataService.selTab.subscribe(d=>{
       this.selTab = d;
-      // console.log(this.selTab);
+      console.log(this.selTab);
     })
+    this._showGridSub = this.dataService.showGrid.subscribe(d =>{
+      this.showGrid = d;
+    });
   }
   ngOnDestroy(): void {
     this._selTabSub.unsubscribe();
   }
 
   ngAfterViewInit(): void {
-   
+    this.dataService.getETFdata();
   }
 
   ngAfterContentInit(): void {
@@ -455,6 +460,9 @@ export class ToolComponent implements OnInit, AfterContentInit, AfterViewInit,On
   onSelectClick(e){
     this.selTab = e.target.value;
     this.dataService.selTab.next(this.selTab);
+    this.showGrid = true;
+    this.dataService.showGrid.next(this.showGrid);
+    console.log(this.showGrid);
   }
 
   async onSearchInputClick(e){

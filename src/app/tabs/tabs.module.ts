@@ -12,6 +12,10 @@ import { IndexComponent } from '../Components/index/index.component';
 import { MatTabsModule } from '@angular/material';
 import { ToolComponent } from '../Components/tool/tool.component';
 import { SearchtoolComponent } from '../Components/searchtool/searchtool.component';
+import { GridComponent } from '../Components/grid/grid.component';
+
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { GicsComponent } from '../Components/gics/gics.component';
 
 @NgModule({
   imports: [
@@ -19,9 +23,10 @@ import { SearchtoolComponent } from '../Components/searchtool/searchtool.compone
     FormsModule,
     IonicModule,
     TabsPageRoutingModule,
-    MatTabsModule
+    MatTabsModule,
+    FontAwesomeModule
   ],
-  declarations: [TabsPage,IPadHomeToolComponent,IndexComponent,ToolComponent,SearchtoolComponent],
+  declarations: [TabsPage,IPadHomeToolComponent,IndexComponent,ToolComponent,SearchtoolComponent,GridComponent,GicsComponent],
   entryComponents: [SearchtoolComponent]
 
 })

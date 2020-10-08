@@ -235,18 +235,18 @@ ion-popover .popover-arrow::after{
     height: 3px;
 }
 
-@media screen and (orientation:portrait){
-    ion-select{
-        max-width: 40vh !important;
-        min-width: 40vh !important;
-    }
+// @media screen and (orientation:portrait){
+//     ion-select{
+//         max-width: 40vh !important;
+//         min-width: 40vh !important;
+//     }
 
-    ion-select-popover, .popover-content{
-        max-width: 40vh !important;
-        min-width: 40vh !important;
-        max-height: 25vh !important;
-    }
-}
+//     ion-select-popover, .popover-content{
+//         max-width: 40vh !important;
+//         min-width: 40vh !important;
+//         max-height: 25vh !important;
+//     }
+// }
 
 
 

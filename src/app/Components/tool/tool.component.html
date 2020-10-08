@@ -1,12 +1,13 @@
 <div class="searchDiv">
   <ion-item lines=none>
-    <img slot="start" src="../../../assets/images/search.svg" alt="search">
-    <ion-input readonly="true" type="text" placeholder="Ticker or company name" (click)="onSearchInputClick($event)"></ion-input>
-    <ion-select slot="end" interface="popover" [value]="selTab" multiple="false" placeholder="Select Pizza" (ionChange)="onSelectClick($event)">
-        <ion-select-option value="Equities">Equities</ion-select-option>
-        <ion-select-option value="Fixed Income">Fixed Income</ion-select-option>
-        <ion-select-option value="ETF's">ETF's</ion-select-option>
-        <ion-select-option value="NAA Indexes">NAA Indexes</ion-select-option>
+    <img slot="start" src="../../../assets/images/search.svg" alt="search" *ngIf="selTab">
+    <ion-input *ngIf="selTab" readonly="true" type="text" [placeholder]="selTab != 'ETF\'s' ? 'Ticker or company name' : 'ETF ticker or name'" (tap)='onSearchInputClick($event)'  (click)="onSearchInputClick($event)"></ion-input>
+    <!-- <ion-label (click)="onSearchInputClick($event)">{{selTab != "ETF's"?'Ticker or company name':'ETF ticker or name'}}</ion-label> -->
+    <ion-select slot="end" [selectedText]="selTab" interface="popover" placeholder='Please select' [value]="selTab" multiple="false" (ionChange)="onSelectClick($event)" [ngClass]="{'first-select': selTab.length == 0}">
+        <ion-select-option style="width: 400px;" value="Equities & FI">Equities & Fixed Income</ion-select-option>
+        <ion-select-option value="ETF's">Exchange Tradeed Funds</ion-select-option>
+        <!-- <ion-select-option value="ETF's">ETF's</ion-select-option>
+        <ion-select-option value="NAA Indexes">NAA Indexes</ion-select-option> -->
     </ion-select>
   </ion-item>
 </div>

@@ -1,7 +1,8 @@
 {
   "name": "NAAlphaMobile",
   "integrations": {
-    "cordova": {}
+    "cordova": {},
+    "capacitor": {}
   },
   "type": "angular",
   "id": "6bae25a7"

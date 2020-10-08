@@ -2,7 +2,6 @@ import { Injectable, OnInit } from '@angular/core';
 import { DataHandlerService } from '../dataHandler/data-handler.service';
 import * as d3 from 'd3/';
 import { BehaviorSubject } from 'rxjs';
-import { throwMatDialogContentAlreadyAttachedError } from '@angular/material';
 
 @Injectable({
   providedIn: 'root'
@@ -17,7 +16,20 @@ export class DataService{
   _ETFIndex: any = [];
   FIIndex:BehaviorSubject<any>;
   selTab:any;
-  _selTab:string = "Equities";
+  _selTab:string = "";
+  _showGrid:boolean = false;
+  showGrid:BehaviorSubject<boolean>;
+  showGICS:BehaviorSubject<boolean>;
+  _showGICS:boolean = false;
+  selIndex:BehaviorSubject<any>;
+  _selIndex:any;
+  _globalGICS:any;
+  globalGICS:BehaviorSubject<any>;
+  indexWise:BehaviorSubject<any>;
+  _indexWise:any;
+  secLevel:BehaviorSubject<any>;
+  _secLevel:any;
+
   IndexOrder = [
     { "index": "S&P 500", "order": 1 },
     { "index": "S&P 400", "order": 2 },
@@ -54,6 +66,12 @@ export class DataService{
     this.dbScore = new BehaviorSubject<any>(this.dbScoretemp);
     this.selTab = new BehaviorSubject<string>(this._selTab);
     this.ETFIndex = new BehaviorSubject<any>(this._ETFIndex);
+    this.showGrid = new BehaviorSubject<boolean>(this._showGrid);
+    this.showGICS = new BehaviorSubject<boolean>(this._showGICS);
+    this.selIndex = new BehaviorSubject<any>(this._selIndex);
+    this.globalGICS = new BehaviorSubject<any>(this._globalGICS);
+    this.indexWise = new BehaviorSubject<any>(this._indexWise);
+    this.secLevel = new BehaviorSubject<any>(this._secLevel);
    }
 
   getDbGICSData(){
@@ -96,8 +114,39 @@ export class DataService{
         });
         console.log(this.dbScoretemp);
         this.dbScore.next(this.dbScoretemp);
+        this.setglobalGICS();
       })
     }   
+  }
+
+  setglobalGICS(){
+    var temp = {
+      count: this.dbScoretemp.length,
+      med:this.roundValue(this.getMed(this.dbScoretemp)*100),
+      name: 'New Age Alpha',
+      upto25 : this.dbScoretemp.filter(i=> (i.scores*100) < 25).length,
+      upto50 : this.dbScoretemp.filter(i=> (i.scores*100) >= 25 && (i.scores*100) < 50).length,
+      upto75 : this.dbScoretemp.filter(i=> (i.scores*100) >= 50 && (i.scores*100) < 75).length,
+      upto100 : this.dbScoretemp.filter(i=> (i.scores*100) >= 75 && (i.scores*100) < 100).length,
+    }
+    this._globalGICS = temp;
+    console.log(this._globalGICS);
+    this.globalGICS.next(this._globalGICS);
+  }
+
+  roundValue(val) {
+    return (Math.round(val * 10) / 10).toFixed(1);
+  }
+
+  getMed(arr){
+    arr = arr.map(item => item.scores);
+    arr = arr.sort();
+    if (arr.length % 2 === 0) { // array with even number elements
+      return (parseFloat(arr[arr.length / 2])  + parseFloat(arr[(arr.length /2) - 1])) / 2;
+    }
+    else {
+      return parseFloat(arr[(arr.length - 1) / 2]); // array with odd number elements
+    }
   }
 
   findIndName(data,code){
