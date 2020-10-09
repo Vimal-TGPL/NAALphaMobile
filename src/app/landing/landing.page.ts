@@ -13,7 +13,7 @@ import { AuthenticationService } from '../services/authentication.service';
 })
 export class LandingPage implements OnInit {
   mobile : boolean;
-  showNetError:boolean;
+  showNetError:boolean; 
   authState:boolean;
   signupUrl = 'https://blog.newagealpha.com/h-factor';
   url = 'https://www.newagealpha.com/';

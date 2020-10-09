@@ -12,7 +12,7 @@ ion-content{
     justify-content: center;
     align-items: center;
     height: 100vh;
-    --background: linear-gradient(180deg,#2E4C99, #233771);                
+    --background: #274b9e;                
 }
 
 .outercard{
@@ -32,6 +32,14 @@ ion-content{
     border-radius: 0 !important;
 }
 
+.login-header .in-toolbar{
+    --background: #274b9e;
+    padding: 10px;
+}
+.header-ios ion-toolbar:last-of-type {
+    --border-width: 0 0 0;
+}
+
 .innercard{
     height: 85%;
     width: 85%;
@@ -39,8 +47,7 @@ ion-content{
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    --background: linear-gradient(180deg,#2E4C99, #233771);  
-    border-radius: 20px;
+    --background: #274b9e;
 
     .card-Content{
         width: 40%;
@@ -48,8 +55,11 @@ ion-content{
 }
 
 .innercardmobile{
-    height: 95% !important;
-    width: 95% !important;
+    height: 100% !important;
+    width: 100% !important;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    border-radius: 0;
 
     .card-Content{
         width: 90% !important;
@@ -127,10 +137,11 @@ ion-content{
 }
 
 .loginBtn{
-    --background: linear-gradient(45deg, #00b9ff 0%, #2e4c99 100%);
-    --background-activated: linear-gradient(45deg, #00b9ff 0%, #2e4c99 100%);
-    --background-focused: linear-gradient(45deg, #00b9ff 0%, #2e4c99 100%);
-    --background-hover: linear-gradient(45deg, #00b9ff 0%, #2e4c99 100%); 
+    --border-radius: 15px; font-size: 22px; height: 50px; 
+            --background: #00b9ff;
+            --background-activated:  #00b9ff;
+            --background-focused:  #00b9ff;
+            --background-hover: #00b9ff;
     --color	: #ffffff;
     --ripple-color : #9a9a9a;
     --color-activated : #ffffff;
