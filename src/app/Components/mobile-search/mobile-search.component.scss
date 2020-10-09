@@ -1,0 +1,49 @@
+ion-header{
+    ion-toolbar{
+        ion-icon{
+            height: 20px;
+            width: 20px;
+            color: #00b9ff;
+        }
+    }
+}
+
+ion-content{
+    --background:transparent;
+
+    ion-list{
+        ion-item{
+            div{
+                width: 100%;
+                display: flex;
+                justify-content: space-between;
+                align-items: flex-end;
+                flex-direction: row;
+
+                span{
+                    p{
+                        margin: 0;
+                        font-size: 12px;
+                        font-family: Open Sans SemiBold;
+                    }
+                }
+
+                span:first-child{
+                    p:first-child{
+                        color: #666;
+                    }
+                    p:last-child{
+                        color:  #00b9ff;
+                    }
+                }
+
+                span:last-child{
+                    p{
+                        color: #ffb47e;
+                    }
+                }
+            }
+
+        }
+    }
+}

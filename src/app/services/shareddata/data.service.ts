@@ -8,7 +8,8 @@ import { BehaviorSubject } from 'rxjs';
 })
 export class DataService{
 
-  dbGICS:any = [];
+  dbGICS:BehaviorSubject<any>;
+  _dbGICS:any =[];
   dbScoretemp:any = [];
   dbScore:BehaviorSubject<any>;
   dbHistScore:any = [];
@@ -29,6 +30,8 @@ export class DataService{
   _indexWise:any;
   secLevel:BehaviorSubject<any>;
   _secLevel:any;
+  _mobSelComp:any;
+  mobSelComp:BehaviorSubject<any>;
 
   IndexOrder = [
     { "index": "S&P 500", "order": 1 },
@@ -62,7 +65,7 @@ export class DataService{
   ];
 
   constructor(private dataHandler:DataHandlerService) {
-    this.dbGICS = this.getDbGICSData();
+    this.dbGICS = new BehaviorSubject<any>(this._dbGICS);
     this.dbScore = new BehaviorSubject<any>(this.dbScoretemp);
     this.selTab = new BehaviorSubject<string>(this._selTab);
     this.ETFIndex = new BehaviorSubject<any>(this._ETFIndex);
@@ -72,20 +75,24 @@ export class DataService{
     this.globalGICS = new BehaviorSubject<any>(this._globalGICS);
     this.indexWise = new BehaviorSubject<any>(this._indexWise);
     this.secLevel = new BehaviorSubject<any>(this._secLevel);
+    this.mobSelComp = new BehaviorSubject<any>(this._mobSelComp);
+    this.getDbGICSData();
+    this.getGlobalData();
    }
 
   getDbGICSData(){
-    if(this.dbGICS.length == 0){
-      this.dataHandler.getDbGICSData().subscribe(data => {
-        this.dbGICS = d3.csvParse(data);
-      });
+    if(this._dbGICS.length == 0){
+      // this.dataHandler.getDbGICSData().subscribe(data => {
+      //   this.dbGICS = d3.csvParse(data);
+      // });
+      this.dataHandler.getIndustryList().subscribe(data =>{
+        this._dbGICS = data;
+        this.dbGICS.next(this._dbGICS);
+      })
     }
     return this.dbGICS;
   }
 
-  setGlobalData(){
-    
-  }
   getGlobalData(){
     var that =this;
     if(this.dbScoretemp.length == 0){
@@ -98,7 +105,7 @@ export class DataService{
           d.countrygroup = d.indexName.indexOf('Europe') > -1 ? 'Europe' : d.country;
           d.score = d.scores * 100;
           d.deg = d.score;
-          d.indname = that.findIndName(that.dbGICS, d.industry);
+          d.indname = that.findIndName(that._dbGICS, d.industry);
           d.industry = d.industry + "";
           d.companyName = d.companyName != null ? d.companyName.trim() : "";
           d.company = d.companyName != null ? d.companyName : null;

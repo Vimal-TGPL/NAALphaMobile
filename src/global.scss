@@ -132,9 +132,14 @@
     
 // }
 
-.Custom_profile .popover-content{
-    max-width: 300px !important;
-    min-width: 300px !important;
+// .Custom_profile .popover-content{
+//     max-width: 300px !important;
+//     min-width: 300px !important;
+// }
+
+.sec-popover{
+  .popover-content{
+  }
 }
 
 
@@ -189,32 +194,32 @@
 //     }
 // }
 
-ion-select-popover{
-  ion-list{
-    margin-bottom: 0px !important;
-    ion-item{
-      --background:#00b9ff;
-      color:#ffffff;
-      --border-width: 0;
-      --inner-border-width: 0;
-      --min-height: 30px;
-      --background-activated: #2da1c9 !important;
-      --color-activated: #ffffff !important;
-      ion-label{
-        font-size: 14px !important;
-        margin: 0px;
-      }
-      ion-radio{
-        margin: 0px;
-        --color-checked: #ffffff !important;
-      }
-    }
-  }
-}
+// ion-select-popover{
+//   ion-list{
+//     margin-bottom: 0px !important;
+//     ion-item{
+//       --background:#00b9ff;
+//       color:#ffffff;
+//       --border-width: 0;
+//       --inner-border-width: 0;
+//       --min-height: 30px;
+//       --background-activated: #2da1c9 !important;
+//       --color-activated: #ffffff !important;
+//       ion-label{
+//         font-size: 14px !important;
+//         margin: 0px;
+//       }
+//       ion-radio{
+//         margin: 0px;
+//         --color-checked: #ffffff !important;
+//       }
+//     }
+//   }
+// }
 
-ion-popover .popover-arrow::after{
-  background:#00b9ff !important;
-}
+// ion-popover .popover-arrow::after{
+//   background:#00b9ff !important;
+// }
 
 .mat-tab-label{
     color: #ffffff !important;
@@ -328,4 +333,8 @@ ion-popover .popover-arrow::after{
       top: 15px;
     }
   }
+}
+
+.searchModel{
+  --background: transparent;
 }

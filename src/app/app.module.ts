@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { Injector, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouteReuseStrategy } from '@angular/router';
 
@@ -33,11 +33,13 @@ import { AppVersion } from '@ionic-native/app-version/ngx';
 import { faAngleDoubleLeft } from '@fortawesome/free-solid-svg-icons';
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { FaConfig, FaIconLibrary, FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { MobileSearchComponent } from './Components/mobile-search/mobile-search.component';
+import { SectorPopoverComponent } from './Components/sector-popover/sector-popover.component';
 
 library.add(faAngleDoubleLeft);
 @NgModule({
-  declarations: [AppComponent,ProfiledetailsComponent],
-  entryComponents: [ProfiledetailsComponent],
+  declarations: [AppComponent,ProfiledetailsComponent,MobileSearchComponent,SectorPopoverComponent],
+  entryComponents: [ProfiledetailsComponent,MobileSearchComponent,SectorPopoverComponent],
   imports: [BrowserModule,BrowserAnimationsModule, MatTabsModule, IonicModule.forRoot(), HttpClientModule, ReactiveFormsModule, AppRoutingModule, IonicStorageModule.forRoot(),FontAwesomeModule],
   providers: [
     InAppBrowser,

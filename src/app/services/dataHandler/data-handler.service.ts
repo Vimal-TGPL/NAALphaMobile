@@ -288,4 +288,19 @@ export class DataHandlerService {
       return res;
     }));
   }
+
+  getIndustryList(){
+    return this.httpclient.get(this.api_url+"/Industry/GetIndustry").pipe(retryWhen(err => err.pipe(
+      scan(count => {
+        if (count > 5) throw err;
+        else {
+          count++;
+          return count;
+        }
+      }, 0),
+      delayWhen(() => timer(1000))
+    ))).pipe(map(res => {
+      return res;
+    }));
+  }
 }

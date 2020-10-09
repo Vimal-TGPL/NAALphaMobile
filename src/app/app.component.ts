@@ -7,6 +7,7 @@ import { AuthenticationService } from './services/authentication.service';
 import { Router } from '@angular/router';
 import { Network } from '@ionic-native/network/ngx';
 import { ToastController } from '@ionic/angular';
+import { DataService } from './services/shareddata/data.service';
 
 // import { NetworkService } from './services/networks/network.service';
 // import { debounceTime } from 'rxjs/operators';
@@ -31,7 +32,7 @@ export class AppComponent {
     private router: Router,
     private network: Network,
     private toastController: ToastController,
-    private navController : NavController,
+    private navController : NavController
   ) {
     this.initializeApp();
   }

@@ -1,17 +1,12 @@
-.toolbar{
-    --background: #2e4c99;
-   
-}
-
-.toolbar-button{
-    position: absolute;
-}
-
 .header-Logo{
     display: flex;
     padding-left: 10px;
     align-items: center;
     justify-content: space-between;
+    padding-right: 5px;
+    img{
+        height: 30px;
+    }
     div{
         width: 50%;
         background: white;
@@ -29,6 +24,7 @@
             width: 35px;
             padding: 5px;
             margin-right: 10px;
+            margin-left: -1px;
         }
         p{
             margin: 0;
@@ -39,16 +35,21 @@
     }
 }
 
-
-
-#parent-content{
-
-    --ion-background-color:#d3d8dc;
-
-}
-
-.search-Outer-Div{
-    padding: 0px 15px;
+ion-header{
+    ion-toolbar{
+    --background: #274b9e;
+    }
+    ion-toolbar:nth-child(1){
+        padding-top: 5px;
+    }
+    ion-toolbar:nth-child(2){
+        padding: 0 25px;
+    }
+    hr{
+        margin: 0;
+        height: 0;
+        border: 2px solid #1a356a;
+    }
 }
 
 .searchBtn{
@@ -74,12 +75,31 @@
 
 .searchItem{
     --border-width:2px;
-    --border-color:#33529f; 
+    --border-color: #00b9ff; 
     --inner-padding-end: 5px;
-    --background: white; 
+    --background: transparent; 
     --border-radius: 25px;
     --min-height: 28px;
-
+    ion-label{
+        margin: 2px 0px;
+        font-size: 14px;
+        align-items: center;
+        padding: 0 10px;
+        display: flex;
+        color: #888;
+        ion-icon{
+            color: #00b9ff;
+            -webkit-transform: scaleX(-1);
+            transform: scaleX(-1);
+            font-size: 18px;
+            margin-right: 10px;
+        }
+        p{
+            font-size: 16px;
+            color: #fff;
+            font-family: Open Sans Regular;
+        }
+    }
 }
 
 .searchDiv{
@@ -87,1257 +107,133 @@
     padding-top: 2%;
 }
 
-
-
-.nav-tab{
-    display: flex;
-    list-style: none;
-    padding: 0px 25px 0px;
-    margin: 0px;
-}
-
-.nav-item{
-    display: flex;
-    justify-content: center;
-    position: relative;
-    box-sizing: border-box;
-    flex-wrap: nowrap;
-    color: white;
-    z-index: 1;
-    flex: 1;
-}
-.nav-item::after{
-    content: "";
-    background-color: #01b9ff;
-    position: absolute;
-    width: 100%;
-    height: 25px;
-    transform: perspective(3px) rotateX(2.5deg);
-    z-index: -1;
-}
-
-.index-loader{
-    align-items: center;
-    justify-content: center;
-    display: flex;
-    height: calc(100vh - 251px);
-}
-
-.loader{
-    height: 40px;
-    width: 40px;
-}
-
-.nav-tab-index{
-    background: white;
-    // padding: 0px 10px;
-    padding: 0px 4px;
-}
-
-.nav-tab-item{
-    --background: white;
-     color: #666;
-     font-size: 14px;
-     margin: 5px 0 5px 0;
-}
-
-.nav-tab-card-content{
-    padding: 0px;
-}
-
-.ETFnav-item{
-    display: flex;
-    justify-content: center;
-    position: relative;
-    box-sizing: border-box;
-    flex-wrap: nowrap;
-    color: white;
-    z-index: 0;
-    flex: 1;
-}
-
-.ETFnav-item::after{
-    content: "";
-    background-color: #3879b4;
-    position: absolute;
-    width: 100%;
-    height: 25px;
-    transform: perspective(3px) rotateX(2.5deg);
-    z-index: -1;
-}
-
-.nav-tab li a{
-    line-height: 2;
-    color: white;
-    font-size: 11px;
-    padding: 5px 5px 0px 5px;
-}
-
-.nav-tab .nav-item.active::after{
-    background-color: #ffffff;
-   // z-index: 1;
-}
-
-.nav-tab .ETFnav-item.active::after{
-    background-color: #ffffff;
-   // z-index: 1;
-}
-
-
-.nav-tab .nav-item.active a{
-    color:#01b9ff;
-    z-index: 2;
-}
-
-.nav-tab .ETFnav-item.active a{
-    color:#01b9ff;
-    z-index: 2;
-}
-
-.nav-tab .nav-item.active{
-    z-index: 2;
-}
-
-.nav-tab .ETFnav-item.active{
-    z-index: 2;
-}
-
-.tab-content{
-    padding-bottom: 25px;
-    margin-top: -1px;
-    z-index: 101;
-    position: relative;
-}
-
-.tab-pane{
-    background: #fff;
-    border-radius: 25px 25px 12px 12px
-}
-
-.tab-content  .tab-pane.active{
-    display: block;
-} 
-
-.accordion{
-    background: white;
-    border-radius: 20px 20px 12px 12px;
-}
-
-.card:first-child {
-border-radius: 25px;
-}
-
-.card-header{
-    border: none;
-  background: #fff;
-  border-radius: 20px 20px 0 0;
-}
-
-.accordion-section{
-    display: flex;
-    justify-content: space-between;
-    min-height: 50px;
-}
-
-.parent-card{
-    width: 100%;
-    padding: 0px;
-    margin: 0px;
-    background: #fff;
-    position: relative;
-    z-index: 2;
-    box-shadow: none;
-    border-radius: 20px 20px 12px 12px;
-
-}
-
-.header-circle{
-    background-color: #2e4c99; 
-    height: 40px; 
-    width: 40px; 
-    min-width: 40px;
-    min-height: 40px; 
-    border-radius: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-family: Open Sans Semibold;
-    font-size: 12px;
-//     background-color: #2e4c99;
-//   color: white;
-//   font-weight: 600;
-//   /* font-family: open sans; */
-//   font-family: sans-serif;
-//   padding: 5px;
-//   border-radius: 50%;
-//   font-size: 14px;
-//   max-width: 48px;
-//   max-height: 48px;
-//   min-width: 48px;
-//   min-height: 48px;
-//   display: flex;
-//   margin-left: -1px;
-//   margin-top: 0px;
-//   align-items: center;
-//   justify-content: center;
-// //    visibility:hidden;
-}
-
-.parent-card-header{
-    padding: 0px;
-    display: flex;
-    border-bottom: 1.3px solid #d4d7db;
-}
-
-.card-header-title{
-    padding-left: 20px;
-    font-size: 14px;
-    font-weight: 400;
-    color: #666;
-}
-
-.header-btn{
-    width: 100%;
-    --background: #fff;
-    --background-focused: #fff;
-    --background-hover: #fff;
-    --box-shadow: none;
-    --color: #dfdfdf;
-    text-transform: none;
-    --color-activated: #dfdfdf;
-    --ripple-color: transparent;
-    --background-activated: #fff;
-    min-height: 50px;
-    --padding-start: 0px;
-    --padding-end: 0px;
-    margin:0px;
-    min-height: 0px;
-    height: auto;
-}
-
-.header-title-div{
-    text-align: left;
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-}
-
-.header-title-span{
-    font-size: 14px;
-    font-weight: 400;
-}
-
-.header-comp-span{
-    font-size: 13px;
-    white-space: normal;
-}
-
-.parent-card-content{
-    padding: 0px;
-}
-
-.index-card{
-    margin: 0px;
-    height: calc( 100vh - 330px );
-    box-shadow: none;
-    overflow: auto;
-}
-
-.collapse{
-    display: none;
-}
-
-.child-card{
-    margin: 0px;
-    
-    height: calc( 100vh - 330px );
-    box-shadow: none;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.child-card-content{
-    --ion-background-color: white;
-    height: calc(100vh - 399px); 
-    display: flex; 
-    justify-content: center; 
-    align-items: center;
-}
-
-.collapse-parent{
-    display: none;
-}
-
-.test1{
-    font-size: 14px;
-    font-family: Open Sans SemiBold;
-    color: #666;
-    font-weight: 500;
-    padding: 8px;
-    margin-bottom: .5rem!important;
-}
-
-.sort-card{
-    box-shadow: none;
-    padding: 0px;
-    margin: 0px;
-}
-
-.sort-card-header{
-    padding: 0px;
-    border-bottom: 1.3px solid #d4d7db;
-    border-top: 1.3px solid #d4d7db;
-}
-
-.sort-header-btn{
-    width: 100%;
-    --background: #fff;
-    --box-shadow: none;
-    --color: #666;
-    text-transform: none;
-    --color-activated: #666;
-    --ripple-color: transparent;
-    --background-activated: #fff;
-    padding: 0px 0px 0px 10px;
-}
-
-.sort-header-title-div{
-    text-align: left;
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-}
-
-.sort-header-title{
-    font-size: 15px;
-    font-weight: 400;
-    color: #666;
-    padding-bottom: 4px;
-}
-
-.collapse-sort{
-    display: none;
-}
-
-.totalScore{
-    font-size: 15px;
-    font-weight: 500;
-    padding: 0px 0px 0px 10px;
-}
-
-.index-circle{
-    // background-color: #d9e81c;
-    color: #ff9503;
-    margin-right: 10px;
-    border-radius: 50%;
-    font-size: 12px;
-    font-family: Open sans Semibold;
-    max-width: 42px;
-    max-height: 42px;
-    min-width: 42px;
-    min-height: 42px;
-    display: -webkit-box;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-}
-
-#parent-content {
-    height: 100vh;
+ion-content{
+    --background: #274b9e;
     --overflow: hidden;
-}
 
-.backBtn{
-    display: flex;
-    align-items: center;
-    padding: 10px 10px 5px;
-    // position: fixed;
-    z-index: 9;
-    background-color: white;
-    width: 100%;
-    font-family: Open Sans SemiBold;
-    font-size: 13px;
-    /* margin-right: -19px; */
-    // display: block;
-    margin-top: 0px;
-    
-}
-/*.backBtn::after{
-    content: "";
-    background-color: #ffffff;
-    position: absolute;
-    width: 100%;
-}*/
-
-.backText-label{
-    padding-left: 10px;
-}
-.backText{
-    color: #01b9ff;
-}
-.col-first{
-    border-right: 1px solid #ddd;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.ETFChild-Div{
-    // padding: 32px 10px 0px 10px;
-    overflow: auto;
-}
-
-.ETFChild-List{
-    background: white;
-    padding: 0px 4px
-}
-
-.ETFChild-Item{
-    --padding-start: 0px;
-    --inner-padding-end: 0px;
-    --background: white;
-    color: #666;
-    font-size: 14px;
-}
-
-.ETFChild-Label{
-    white-space: normal;
-    font-size: 12px;
-    font-family: Open sans SemiBold;
-    color: #666666;
-}
-
-// .company-card-content{
-//     width: 100%;
-//     padding: 0px;
-// }
-
-.company-list-inner-div{
-    // height: calc(100vh - 410px);
-    // overflow: auto;
-    overflow: scroll;
-    height: 100%;
-
-}
-
-.foceScrollOverflow{
-    --overflow:auto !important;
-}
-
-.company-list{
-    background-color: white;
-    padding: 0px;
-}
-
-.company-list-item{
-    --background: white;
-    margin: 5px 0px;
-    padding: 0px;
-    --min-height: 30px;
-    --padding-start: 15px;
-    --padding-end: 15px;
-    --inner-padding-end: 0px;
-}
-
-.company-label-outer-div{
-    border-radius: 30px;
-    --min-height: 30px;
-    background: rgb(244, 156, 43);
-    width: 100%;
-    touch-action: unset !important;
-}
-
-.company-label
-{
-    margin: 0px;
-    padding: 5px 11px; 
-    display: flex; 
-    font-size: 12px;
-    // justify-content: space-between;
-    flex-direction: column;
-}
-
-.index-outer-Div{
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-
-    .index-inner-Div{
-        display: flex;
-        flex-direction: column;
-        width: 100%;
-
-        .first-div{
-            justify-content: space-between;
-            display: flex;
-            flex-direction: row;
-            width: 100%;
-            align-items: center;
-
-            .comp-Name{
-                width: 60vw;
-                overflow: hidden;
-                white-space: nowrap;
-                text-overflow: ellipsis;
-                font-family: Open Sans SemiBold;
-                font-size: 11px;
-            }
-
-            .per-val{
-                background: white;
-                padding: 0 10px;
-                border-radius: 10px;
-                font-family: "Open Sans SemiBold";
-                font-size: 9px;
-            }
-        }
-
-        .second-Div{
-            padding-right: 5px;
-            display: flex;
-            flex-direction: row;
-            justify-content: space-between;
-            align-items: center;
+    div{
+        ion-text{
+            color: #fff;
+            font-size: 14px;
+            text-align: center;
+            font-family: Open Sans Regular;        
         }
     }
-}
 
-.company-label-inner-span{
-    text-overflow: ellipsis;
-    overflow: hidden; 
-    width: 60%;
-}
-
-.swiper-container{
-    overflow: visible;
-}
-
-.tab-active{
-    background-color: #ffffff !important;
-    color: #05baff !important;
-    border-radius: 10px 10px 0 0 !important;
-}
-
-.navTabBtn{
-    background-color: #00b9ff;  
-    flex: 1; 
-    color: white;
-    padding: 8px 3px;     
-    margin-right: 1px;    
-    border-radius: 10px; 
-    font-size: 12px;
-    font-family: Open Sans SemiBold;
-}
-
-.FINavTabBtn{
-    background-color: #2889ae;  
-    flex: 1; 
-    color: white;
-    padding: 8px 3px;   
-    border-radius: 10px; 
-    font-size: 13px;
-}
-
-.ETFNavTabBtn
-{
-    background-color: #2889ae;  
-    flex: 1; 
-    color: white;
-    padding: 8px 3px;   
-    border-radius: 10px;
-    font-size: 12px;
-    font-family: Open Sans SemiBold;
-}
-
-
-
-.index-header{
-    margin: 0px;
-    box-shadow: none;
-    background-color: white;
-    border-radius: 10px;
-}
-
-.active-left{
-    border-radius: 0px 10px 10px 10px;
-}
-
-.active-right{
-    border-radius: 10px 0px 10px 10px;
-}
-
-.slides-md{
-    --bullet-background-active: #ffffff;
-    --bullet-background: #666;
-}
-
-.slides-ios{
-    --bullet-background-active: #ffffff;
-    --bullet-background: #666;
-}
-.stocks-card{
-    border-radius: 10px;
-    background-color: white; 
-    margin: 0px; 
-    box-shadow: none;
-}
-
-.stock-card-content{
-    padding: 0px;
-}
-
-.stock-header{
-    padding: 3px 15px 0px 15px;
-    display: flex; 
-    justify-content: space-between;
-}
-
-.stock-span{
-    color:#00b9ff; 
-    font-size: 12px;
-    font-family: Open Sans Semibold;
-}
-
-.image-div{
-    margin: 0px;
-}
-
-.image{
-    height: 100px;
-    width: 120px;
-}
-
-.selected-stock-details{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 0px 0px 0px 10px;
-}
-
-.selected-stock-score{
-    text-align: center;
-    color: green; 
-    font-size: 30px;
-    font-family: Open Sans Extrabold;
-}
-
-.selected-stock-comp{
-    color: green; 
-    font-size: 9px;
-    text-align: center;
-    font-family: Open Sans Bold;
-}
-
-.slider-div{
-    width: 100%;
-}
-
-.title-card{
-    background-color: white;    
-    box-shadow: none;  
-    margin: 3px 0px 0px 0px; 
-    border-radius: 10px;
-    
-}
-
-.title-card-content{
-    padding: 1px; 
-    width: 100%; 
-    display: flex; 
-    justify-content: center;
-}
-
-.title-text{
-    padding: 4px 2px;
-}
-
-.title-p{
-    color: #00b9ff; 
-    margin-bottom: 0px;
-    font-size: 13px;
-    font-family: Open Sans Semibold;
-}
-
-.subIndex-card-content{
-    padding: 10px 10px 10px 20px;
-}
-
-.subIndex-div{
-    display: flex; align-items: center;
-}
-
-.subIndex-circle{
-    background-color: #2e4c99; 
-    height: 40px; 
-    width: 40px; 
-    min-width: 40px;
-    min-height: 40px; 
-    border-radius: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 12px;
-    font-family: Open Sans Semibold;
-}
-
-.SubIndex-header-content{
-    margin-left: 15px; 
-    display: flex; 
-    flex-direction: column; 
-    text-align: left; 
-    width: 100%;
-    font-size: 12px;
-    font-family: Omnes;
-    color: #888888; 
-}
-
-.subIndex-header-title{
-    font-size: 12px; 
-    color: #888888; 
-    font-family: Omnes;
-}
-
-.subIndex-header-subtitle{
-    margin-top:5px; 
-    font-size: 12px; 
-    color: #666666; 
-    white-space: normal; 
-    display: -webkit-box; 
-    -webkit-line-clamp: 2; 
-    line-height: 1.1; 
-    -webkit-box-orient: vertical;
-    font-family: Open Sans Semibold;
-}
-
-.subindex-icon{
-    height: 40px; 
-    width: 40px;
-}
-
-.stockCompList-card{
-    background-color: white; 
-    // height: calc(100vh - 411px); 
-    margin: 3px 0px 0px 0px; 
-    border-radius: 10px 10px 0 0; 
-    box-shadow: none;
-}
-
-.stockcomplist-card-content{
-    padding: 0px;
-    display: flex;
-    height: calc(100vh - 411px) !important; 
-    justify-content: center;
-    align-items: center;
-    height: 100%;
-}
-
-.NavTabList{
-    list-style-type: none; 
-    display: flex; 
-    flex-direction: row; 
-    justify-content: center; 
-    align-items: center; 
-    padding: 0px; 
-    margin: 3px 0px 0px 0px;
-}
-
-.index-header-card-content{
-    padding: 10px 10px 10px 20px;
-}
-
-.index-header-card-div{
-    display: flex;
-}
-
-.index-header-circle{
-    min-width: 40px; 
-    min-height: 40px; 
-    height: 40px; 
-    width:40px; 
-    border-radius: 50%; 
-    background-color: #2e4c99;
-}
-
-.Btn-inner-div{
-    margin-left: 15px;
-    display: flex;
-    flex-direction: column;
-    text-align: left;
-    width: 100%;
-}
-
-.company-card{
-    margin: 3px 0px 0px 0px;
-    box-shadow: none;
-    background-color: white;
-    border-radius: 10px 10px 0px 0px;
-}
-
-.company-card-content{
-    padding: 0px; 
-    height: calc(100vh - 399px);
-}
-
-.stock-collapse{
-    display: none;
-}
-
-.Stockcard-extend{
-    height: calc(100vh - 361px) !important;
-}
-
-.tab2color{
-    background-color: #3098cb;
-    flex: 1; 
-    color: white;
-    padding: 8px 3px;     
-    margin-right: 1px;    
-    border-radius: 10px; 
-    font-size: 12px;
-    font-family: Open Sans SemiBold;
-}
-.companycard-extend{
-    height: calc(100vh - 259px) !important;
-    // height: calc(100vh - 261px) !important;
-    // height: calc(100vh - 271px) !important;
-}
-
-.stockicon-active{
-    --color: #05baff;
-}
-.s-no{
-    padding-right: 5px;
-    min-width: 28px;
-    display: inline-block;
-    font-family: Open Sans SemiBold;
-    font-size: 11px;
-}
-
-.ticker-data{
-    // padding-right: 15px;
-    font-family: Open Sans Bold;
-    font-size: 11px;
-}
-
-.comp-sel{
-    background: #00b9ff !important;
-    color: white !important;
-}
-
-.searchItem{
-    --padding-start:0px
-}
-.Index_companycard-extend{
-    // height: calc(100vh - 260px) !important;
-}
-
-.Filter_Div{
-    position: absolute;
-  height: 100%;
-  z-index: 999;
-  bottom: 0px;
-  left: 0;
-  right: 0;
-  top: 0;
-  background-color: rgba(66, 65, 65, 0.8);
-  
-  ion-list{
-    bottom: 0;
-  left: 0;
-  right: 0;
- position: inherit;
- margin: 0  15px;
- border-radius: 15px 15px 0 0;
- background: #ffffff;
- padding: 15px;
-
- div{
-    //  text-align: center;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
-    ion-label{
-        color: #666666;
-        font-size: 15px;
-        font-family: Open Sans SemiBold;
-    }
-    ion-icon{
-        color: #33529f;
-    }
-
-    .sortCancelBtn{
-        max-height: 20px;
-        font-size: 14px;
-        --padding-end: 5px;
-        font-family: Open Sans SemiBold;
-    }
- }
-
- hr{
-    border-top: 1px solid #666666;
- }
-  }
-
-  .filterTypeBtn{
-    --color: #000000;
-    --padding-start: 5px;
-    --padding-end: 5px;
-    font-weight: normal;
-    font-size: 14px;
-    font-family: Open Sans Regular;
-
-    #filterLabel{
-        text-align: left;
-        width: 100%;
-    }
-
-    #Filtertype{
-        font-size: 12px;
-    }
-
-    ion-icon{
-        font-size: 20px;
-    }
-
-    .filterTypeInnerSpan{
+    .footor_icon_div{
         display: flex;
         flex-direction: row;
+        justify-content: space-evenly;
+        position: absolute;
+        height: 15%;
+        bottom: 0;
+        left: 0;
+        right: 0;
         align-items: center;
-    }
-}
-}
 
-.activeSort{
-    --background: linear-gradient(90deg, #00b9ff, #233771) !important;
-    --color: #ffffff !important;
-}
-
-.alertdayspan{
-    display: flex; 
-    border-radius: 50%; 
-    justify-content: center; 
-    align-items: center; 
-    height: 25px; 
-    width: 25px;
-    color: #000000;
-}
-
-.dayActive{
-    background: #00b9ff!important;
-    color: #ffffff !important;
-    font-weight: 500;
-}
-.stock_companycard-extend{
- //   height: calc(100vh - 260px) !important;
-// }
-// .ios .company-list-inner-div{
-//     // height: calc(100vh - 390px) !important;
-//     height: calc(95vh - 415px) !important;
-// }
-
-.ios .stockCompList-card{
-    // height: calc(100vh - 400px) !important;
-    // height: calc(100vh - 380px) !important;
-    height: calc(95vh - 410px) !important;
-}
-
-// .ios .child-card-content{
-//     // height: calc(100vh - 401px) !important;
-//     // height: calc(100vh - 381px) !important;
-//     height: calc(95vh - 412px) !important
-// }
-// .ios .stock_companycard-extend{
-//     // height: calc(100vh - 239px) !important;
-//     height: calc(95vh - 270px) !important;
-// }
-
-// .ios .Index_companycard-extend{
-//     // height: calc(100vh - 239px) !important;
-//     // height: calc(100vh - 261px) !important;
-//     height: calc(95vh - 266px) !important;
-// }
-
-// .ios .Stockcard-extend{
-//     // height: calc(100vh - 231px) !important;
-//     // height: calc(100vh - 229px) !important;
-//     height: calc(95vh - 260px) !important;
-// }
-
-// .ios .company-card-content{
-//     height: calc(95vh - 410px) !important;
-// }
-// .ios .companycard-extend{
-//     // height: calc(100vh - 251px) !important;
-//     // height: calc(100vh - 231px) !important;
-//     // height: calc(100vh - 230px) !important;
-//     height: calc(95vh - 262px) !important;
-//     // height: calc(100vh - 271px) !important;
-// }
-
-// .ios .company-list-inner-div{
-//     height: calc(100vh - 380px) !important;
-}
-.pager_div{
-    display: flex; 
-    flex-direction: row; 
-    justify-content: center; 
-    padding: 10px 0px;
-    background: #d3d8dc;
-    // align-items: center;
-    
-}
-
-.ios .pager_div{
-    height: 50px;
-    padding-top: 12px;
-}
-
-.dot0p{
-    margin: 0px 10px 0px 0px; 
-    font-size: 13px; 
-    width: 12px;
-    height: 12px; 
-    border-radius: 50%; 
-    background-color: white;
-}
-
-.dot1P{
-    margin: 0px; 
-    font-size: 13px; 
-    width: 12px;
-    height: 12px; 
-    background-color: #909090;
-    border-radius: 50%;
-}
-
-.image0{
-    height: 129px;
-    width: 171px;
-    padding: 30px;
-}
-
-.ionic-selectable-item{
-    --padding-end:16px !important;
-}
-
-.arrow{
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%,-50%);
-}
-.arrow span{
-    display: block;
-    width: 10px;
-    height: 10px;
-    border-bottom: 3px solid #d3d8dc;
-    border-right: 3px solid #d3d8dc;
-    transform: rotate(45deg);
-    margin: -10px;
-    animation: animate 2s infinite;
-}
-
-.arrow span:nth-child(2){
-    animation-delay: -0.2s;
-}
-
-.arrow span:nth-child(3){
-    animation-delay: -0.4s;
-}
-
-@keyframes animate {
-    0%{
-        opacity: 0;
-        transform: rotate(45deg) translate(-5px,-5px);
-    }
-    50%{
-        opacity: 1;
-    }
-    100%{
-        opacity: 0;
-        transform: rotate(45deg) translate(5px,5px);
-    }
-}
-
-.selGICS{
-    color: #25c3ff;
-}
-
-.selectIndex{
-    --background: #05baff !important;
-    color: #ffffff !important;
-}
-
-.nav-tab-item:focus{
-    --background: #05baff !important;
-    color: #ffffff !important;
-}
-
-.selectIndexLabel{
-    color: #ffffff !important;
-}
-
-.selectedIndexMed{
-    color: #ffffff !important;
-    background-color: #05baff !important;
-    margin-left: -1px !important;
-}
-
-.selectedIndexLabel{
-    color: white !important;
-}
-
-.indName{
-    max-width: 32vw;;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    display: inline-block;
-    vertical-align: middle;
-}
-
-/* MEDIA */
-@media (max-width: 340px) and (min-width: 310px) {
-    .nav-tab li a{
-        font-size: 10px;
-    }
-}
-@media (max-width: 310px) and (min-width: 280px) {
-    .nav-tab li a{
-        font-size: 9px;
-    }
-}
-@media (max-width: 500px) and (min-width: 420px) {
-.nav-tab {
-    margin: 0px 5px;
-    }
-}
-
-@media (min-width: 768px) {
-.nav-tab {
-    margin: 0px 20px !important;
-    }
-}
-@media (min-width: 500px) {
-    .nav-tab {
-        margin: 0px 12px;
+        img{
+            height: 40px;
         }
-}
-// ::-webkit-scrollbar-track
-// {
-// border-radius: 5px!important;
-// background-color: #d3d8dc !important;
-// }
+        img:first-child, img:last-child{
+            margin-bottom: 75px; 
+        }
 
-// ::-webkit-scrollbar
-// {
-// width: 5px!important;
-// background-color: #d3d8dc !important;
-// }
+        img:nth-child(2), img:nth-child(4){
+            margin-bottom: 25px;
+        }
 
-// ::-webkit-scrollbar-thumb
-// {
-// border-radius: 5px!important;
-// background-color: #00b9ff !important;
-// }
-
-
-
-::-webkit-scrollbar {
-    display: none;
-}
-
-@media screen and (orientation:landscape) {
-    #parent-content{
-        --overflow: auto;
-    }
-    
-    .ios .stock_companycard-extend{
-        height: 300px !important;
-    }
-    .ios .Stockcard-extend{
-        height: 300px !important;
-    }
-    .ios .Index_companycard-extend{
-        height: 300px !important;
-    }
-    .Index_companycard-extend{
-        height: 300px !important;
-    }
-    .Stockcard-extend{
-        height: 300px !important;
-    }
-    .companycard-extend{
-        height: 300px !important;
-    }
-    .ios .companycard-extend{
-        height: 300px !important;
-    }
-    .overflowOnlyLandscape{
-        --overflow: auto;
-    }
-    .stockCompList-card{
-        height: 300px !important;
-    }
-    .child-card-content{
-        height: 300px !important;
-    }
-    .ios .child-card-content{
-        height: 300px !important;
-    }
-    .index-loader{
-        height: 300px !important;
-    }
-    .nameExtend{
-        width: 350px !important;
-    }
-    // .company-list-inner-div{
-        // height: 300px !important;
-    // }
-    .company-card-content{
-        height: 300px !important;
-    }
-    .stock-header{
-        padding: 5px 12px 0px 12px !important;
-    }
-
-    .stockcomplist-card-content{
-        height: 300px !important;
-    }
- }
-
-//  Tool Styling
-.Banner_HomeChartcontainer svg{
-    height:123px;
-  }
-
-.ipad_Logo{
-    height: 60px;
-    display: flex;
-    align-items: center;
-}
-
-.avatar{
-    border-radius: 50%;
-    padding: 10px;
-    border: 2px solid white;
-    width: 45px;
-    height: 45px;
-}
-
-@media(max-width: 340px){
-    .ETFNavTabBtn{
-        flex: auto !important;
-    }
-
-    .tab2color{
-        flex: auto !important;
-    }
-
-    .navTabBtn{
-        flex: auto !important;
+        img:first-child, img:nth-child(2){
+            opacity: 0.5;
+        }
     }
 }
 
+ion-content:nth-child(2){
+    ion-item{
+        --background: #00b9ff;
+    border-radius: 25px;
+    --padding-start: 0;
+    --padding-end: 5px;
+    --padding-top: 0;
+    --padding-bottom: 0;
+    margin: 10px 15px;
+        div{
+            width: 100%;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            .sec_Detail{
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                width: 90%;
+                .medItemSpan{
+                    height: 50px;
+                    width: 50px;
+                    background: #fff;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    border-radius: 50%;
+                    margin-right: 5px;
+                    p{
+                        font-family: Open Sans SemiBold;
+                        margin: 0;
+                        font-size: 14px;
+                        color: #fff;
+                    }
+                }
+                .Sec_Details_Sub{
+                    width: 75%;
+                    p{
+                        margin: 0;
+                        font-size: 14px;
+                        color: #fff;
+                    }
+                    p:first-child{
+                        font-family: Open Sans Regular;
+                        white-space: nowrap;
+                        overflow: hidden;
+                        text-overflow: ellipsis;
+                    }
+                    p:last-child{
+                        font-family: Open Sans SemiBold;
+                        white-space: nowrap;
+                        overflow: hidden;
+                        text-overflow: ellipsis;
+                    }
+                }
+                // span{
+                //     p{
+                //         margin: 0;
+                //         font-size: 14px;
+                //         color: #fff;
+                //         font-family: Open Sans Regular;
+                //     }
+                // }
+                // span:nth-child(2){
+                //     display: flex;
+                //     flex-direction: column;
+                    
+                //     p{
+                //         display: flex;
+                //         flex-direction: row;
+                //         font-size: 14px;
+                //         font-family: Open Sans SemiBold;
+                //     }
+                //     // p:nth-child(2){
+                //     //     font-family: Open Sans SemiBold;
+                //     // }
+                // }
+            }
+
+            ion-icon{
+                height: 40px;
+                width: 40px;
+                color: #fff;
+            }
+        }
+
+        
+    }
+}
