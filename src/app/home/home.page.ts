@@ -176,6 +176,7 @@ export class HomePage implements OnInit, AfterViewInit {
 
   constructor(private dataHandler: DataHandlerService, private toastCtrl: ToastController, private alertService: AlertService, private pickerCtrl: PickerController, private menuCtrl: MenuController, private platform: Platform, private popoverController: PopoverController, private route: Router, public alertController: AlertController, private screenOrientation: ScreenOrientation, public router: Router, private authService: AuthenticationService, public storage: Storage, private httpclient: HttpClient, private plt: Platform) {
     this.currentUser = this.authService.currentUserValue();
+    console.log(this.currentUser);
     if (this.screenOrientation.type == this.screenOrientation.ORIENTATIONS.LANDSCAPE || this.screenOrientation.type == this.screenOrientation.ORIENTATIONS.LANDSCAPE_PRIMARY || this.screenOrientation.type == this.screenOrientation.ORIENTATIONS.LANDSCAPE_SECONDARY) {
       this.stockCollapse = true;
     }
