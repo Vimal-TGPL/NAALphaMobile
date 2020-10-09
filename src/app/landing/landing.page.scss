@@ -1,26 +1,11 @@
 ion-content{
-
-    --ion-background-color:#d3d8dc;
-    
-}
-
-.card{
     --background: #274b9e;
-    border-radius: 0px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-   
-    margin: 0px;             
 }
 
-.login-header .in-toolbar{
+ion-header ion-toolbar{
     --background: #274b9e;
     padding: 10px;
-}
-.header-ios ion-toolbar:last-of-type {
-    --border-width: 0 0 0;
+    --border-width:0;
 }
 
 .innercard{
@@ -88,7 +73,7 @@ ion-content{
         margin-top: 25px;
 
         p{
-            font-family: Open Sans SemiBold;
+            font-family: Open Sans Regular;
             display: inline-block;
             width: 50vh;
             text-align: center;
@@ -144,6 +129,7 @@ ion-content{
 .outerdivmobile{
 
     padding-bottom: 20px;
+    height: 100%;
 
     img{
         width: 200px !important;
@@ -152,16 +138,16 @@ ion-content{
     .welcomeTextDiv{
         margin-top: 35px !important;
         p{
-            font-family: Open sans;
+            font-family: Open sans Regular;
             width: 85vw !important;
-            font-size: 14px !important;
+            font-size: 16px !important;
         }
         
     }
 
     .versiondiv{
         p{
-            font-size: 16px !important;
+            font-size: 14px !important;
         }
     } 
 
