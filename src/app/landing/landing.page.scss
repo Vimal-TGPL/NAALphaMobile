@@ -5,7 +5,7 @@ ion-content{
 }
 
 .card{
-    --background: linear-gradient(-90deg,#2E4C99, #233771);
+    --background: #274b9e;
     border-radius: 0px;
     display: flex;
     justify-content: center;
@@ -15,10 +15,18 @@ ion-content{
     margin: 0px;             
 }
 
+.login-header .in-toolbar{
+    --background: #274b9e;
+    padding: 10px;
+}
+.header-ios ion-toolbar:last-of-type {
+    --border-width: 0 0 0;
+}
+
 .innercard{
     height: 90%;
     width: 90%;
-    background: #d3d8dc;
+    // background: #d3d8dc;
     border-radius: 20px;
     display: flex;
     justify-content: center;
@@ -36,16 +44,18 @@ ion-content{
 .innercard2{
     height: 85%;
     width: 85%;
-    --background: linear-gradient(-90deg,#2E4C99, #233771);
+    --background: #274b9e;
     display: flex;
     justify-content: center;
     align-items: center;
-    border-radius: 20px;
+    border-radius: 0px;
 }
 
 .innercard2mobile{
-    height: 95% !important;
-    width: 95% !important;
+    height: 100% !important;
+    width: 100% !important;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
 }
 
 .ParentDiv{
@@ -93,10 +103,10 @@ ion-content{
 
         ion-button{
             --border-radius: 15px; font-size: 22px; height: 50px; 
-            --background: linear-gradient(45deg, #00b9ff 0%, #2e4c99 100%);
-            --background-activated: linear-gradient(45deg, #00b9ff 0%, #2e4c99 100%);
-            --background-focused: linear-gradient(45deg, #00b9ff 0%, #2e4c99 100%);
-            --background-hover: linear-gradient(45deg, #00b9ff 0%, #2e4c99 100%); 
+            --background: #00b9ff;
+            --background-activated:  #00b9ff;
+            --background-focused:  #00b9ff;
+            --background-hover: #00b9ff;
             color: #ffffff; 
             width: 30vh;
             font-family: Open Sans semiBold;
@@ -169,7 +179,7 @@ ion-content{
     .forgotPwdDiv{
         margin-top: 20px !important;
         ion-button{
-            font-size: 12px !important;
+            font-size: 13px !important;
             text-transform: inherit !important;
         }
     }
@@ -177,7 +187,7 @@ ion-content{
     .signUpDiv{
 
         ion-button{
-            font-size: 12px !important;
+            font-size: 13px !important;
             text-transform: inherit !important;
         }
     }
