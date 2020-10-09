@@ -5,7 +5,7 @@ import { Platform} from '@ionic/angular';
 import { Network } from '@ionic-native/network/ngx';
 import { AlertController } from '@ionic/angular';
 import { AuthenticationService } from '../services/authentication.service';
-
+// santhosh
 @Component({
   selector: 'app-landing',
   templateUrl: './landing.page.html',
