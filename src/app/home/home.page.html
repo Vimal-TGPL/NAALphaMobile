@@ -42,7 +42,7 @@
   <hr>
 </ion-header>
 
-<ion-content forceOverscroll="false" *ngIf="!selComp">
+<ion-content forceOverscroll="false" *ngIf="!selComp && !AvoidLosersec && !AlertSec && !ReportSec">
   <div>
     <ion-text>
       <p>To begin, use the Search Bar</p>
@@ -58,8 +58,8 @@
   </div>
 </ion-content>
 
-<ion-content forceOverscroll="false" *ngIf="selComp">
-    <ion-item *ngIf="selSec" lines="none" (click)="openSecPopOver($event)">
+<ion-content forceOverscroll="false" *ngIf="selComp && !AvoidLosersec && !AlertSec && !ReportSec" class="MainContent">
+    <ion-item *ngIf="selSec" lines="none" (click)="openSecPopOver($event)" class="secDropDown">
       <div>
         <span class="sec_Detail">
           <span class="medItemSpan"><p [style.color]="getColor(selSec.secMed)">{{selSec.secMed}}</p></span>
@@ -71,6 +71,100 @@
       <ion-icon name="chevron-down-circle-outline"></ion-icon>
       </div>
     </ion-item>
+    <div class="arrow_div">
+      <ion-icon [name]="CurrSlide == 0 ? 'chevron-back-circle' : 'chevron-back-circle-outline'" (click)="onArrowClick(0);" [style.color]="CurrSlide==0? '#00b9ff' : '#fff'"></ion-icon>
+      <ion-icon [name]="CurrSlide == 1 ? 'chevron-forward-circle' : 'chevron-forward-circle-outline'" (click)="onArrowClick(1);" [style.color]="CurrSlide==1? '#00b9ff' : '#fff'"></ion-icon>
+    </div>
+    <ion-slides id='MainSlider' mode="ios" [options]='slideOpts' (ionSlideDidChange)="onSlideChange($event)">
+      <ion-slide class="CompSlide">
+        <ion-list id="CompList">
+          <ion-item *ngFor="let item of selIndexData" lines="none" class="compItem" [class.active]="selComp === item" (click)="onCompanyClick(item)">
+              <span [style.color]="getColor(roundMed(item.scores *100))">{{roundMed(item.scores *100)}}</span>
+              <div><p [style.color]="selComp === item? getColor(roundMed(item.scores *100)) : '#fff'">{{item.companyName}}</p>
+              <p [style.color]="selComp === item? getColor(roundMed(item.scores *100)) : '#fff'">{{item.ticker}}</p></div>
+          </ion-item>
+        </ion-list>
+      </ion-slide>
+      <ion-slide class="circleSlide">
+        <svg preserveAspectRatio="xMidYMid meet" id="svgHContainer1" viewBox="0 0 700 550" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" version="1.1">
+          <g id="gchart" transform="translate(335 ,260)"></g>
+        </svg>
+      </ion-slide>  
+    </ion-slides>
+  <div class="footor_icon_div">
+    <img src="../../assets/images/Portfolio_Icon_Mobile.svg">
+    <img src="../../assets/images/Compare_Icon_Mobile.svg">
+    <img [src]="AvoidLosersec? '../../assets/images/Avoid Loser_Blue_Icon_Mobile.svg' : '../../assets/images/Avoid Loser_Icon_Mobile.svg'" (click)="onAvoidLoserClick()">
+    <img [src]="AlertSec? '../../assets/images/Notification_Blue_Icon_Mobile.svg' : '../../assets/images/Notification_Icon_Mobile.svg'" (click)="onAlertClick()">
+    <img [src]="ReportSec? '../../assets/images/Report_Download_Blue_Icon_Mobile.svg' : '../../assets/images/Report_Download_Icon_Mobile.svg'" (click)="onReportClick()">
+  </div>
+</ion-content>
+
+<ion-content *ngIf="selComp && AvoidLosersec">
+  <div class="footor_icon_div">
+    <img src="../../assets/images/Portfolio_Icon_Mobile.svg">
+    <img src="../../assets/images/Compare_Icon_Mobile.svg">
+    <img [src]="AvoidLosersec? '../../assets/images/Avoid Loser_Blue_Icon_Mobile.svg' : '../../assets/images/Avoid Loser_Icon_Mobile.svg'" (click)="onAvoidLoserClick()">
+    <img [src]="AlertSec? '../../assets/images/Notification_Blue_Icon_Mobile.svg' : '../../assets/images/Notification_Icon_Mobile.svg'" (click)="onAlertClick()">
+    <img [src]="ReportSec? '../../assets/images/Report_Download_Blue_Icon_Mobile.svg' : '../../assets/images/Report_Download_Icon_Mobile.svg'" (click)="onReportClick()">
+  </div>
+</ion-content>
+
+<ion-content *ngIf="selComp && AlertSec" class="AlertContent">
+  <div class="arrow_div">
+    <ion-icon name="chevron-back-circle-outline"></ion-icon>
+    <h1 class="Sub_title">Alert Settings</h1>
+    <ion-icon name="chevron-forward-circle-outline"></ion-icon>
+  </div>
+  <div class="alertDiv">
+    <ion-text>
+      <h2>Set Alert For:&nbsp;{{selComp.companyName}}&nbsp;({{selComp.ticker}})</h2>
+    </ion-text>
+    <div class="radioBtnDiv">
+      <ion-list>
+        <ion-radio-group name="auto" value="daily" mode="md">
+          <ion-item lines="none">
+            <ion-radio value="daily"></ion-radio>
+            <ion-label>Daily</ion-label>
+          </ion-item>
+          <ion-item lines="none">
+            <ion-radio value="weekly"></ion-radio>
+            <ion-label>Weekly</ion-label>
+          </ion-item>
+          <ion-item lines="none">
+            <ion-radio value="monthly"></ion-radio>
+            <ion-label>Monthly</ion-label>
+          </ion-item>
+        </ion-radio-group>
+      </ion-list>
+      <ion-list>
+        <ion-radio-group name="auto" value="percentage" mode="md" allowEmptySelection=true>
+          <ion-item lines="none">
+            <ion-radio value="percentage"></ion-radio>
+            <ion-label>If score percentage changes by (+/-)</ion-label>
+          </ion-item>
+        </ion-radio-group>
+      </ion-list>
+    </div>
+      <ion-button (click)="onAlertSubmit()"  shape="round">
+        Submit
+      </ion-button>
+  </div>
+  <div class="footor_icon_div">
+    <img src="../../assets/images/Portfolio_Icon_Mobile.svg">
+    <img src="../../assets/images/Compare_Icon_Mobile.svg">
+    <img [src]="AvoidLosersec? '../../assets/images/Avoid Loser_Blue_Icon_Mobile.svg' : '../../assets/images/Avoid Loser_Icon_Mobile.svg'" (click)="onAvoidLoserClick()">
+    <img [src]="AlertSec? '../../assets/images/Notification_Blue_Icon_Mobile.svg' : '../../assets/images/Notification_Icon_Mobile.svg'" (click)="onAlertClick()">
+    <img [src]="ReportSec? '../../assets/images/Report_Download_Blue_Icon_Mobile.svg' : '../../assets/images/Report_Download_Icon_Mobile.svg'" (click)="onReportClick()">
+  </div>
+</ion-content>
+
+<ion-content *ngIf="selComp && ReportSec">
+  <div class="arrow_div">
+    <ion-icon [name]="CurrSlide == 0 ? 'chevron-back-circle' : 'chevron-back-circle-outline'" (click)="onArrowClick(0);" [style.color]="CurrSlide==0? '#00b9ff' : '#fff'"></ion-icon>
+    <h1>Download Report</h1>
+    <ion-icon [name]="CurrSlide == 1 ? 'chevron-forward-circle' : 'chevron-forward-circle-outline'" (click)="onArrowClick(1);" [style.color]="CurrSlide==1? '#00b9ff' : '#fff'"></ion-icon>
+  </div>
   <div class="footor_icon_div">
     <img src="../../assets/images/Portfolio_Icon_Mobile.svg">
     <img src="../../assets/images/Compare_Icon_Mobile.svg">

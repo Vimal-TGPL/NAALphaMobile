@@ -139,7 +139,20 @@
 
 .sec-popover{
   .popover-content{
+    --width: 90%;
+    top: calc(165px + var(--ion-safe-area-top, 0px)) !important;
+    left: calc(18px + var(--ion-safe-area-left, 0px)) !important;
   }
+}
+
+#gCompetitive{
+
+  text{
+      font-size: 14px;
+      fill: #fff !important;
+      font-family: 'Open Sans Bold';
+  }
+  
 }
 
 

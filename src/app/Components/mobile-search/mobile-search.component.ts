@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { ModalController } from '@ionic/angular';
+import { ModalController} from '@ionic/angular';
 import { DataService } from 'src/app/services/shareddata/data.service';
 
 @Component({
@@ -20,6 +20,7 @@ export class MobileSearchComponent implements OnInit, OnDestroy {
       this.data = d;
       // console.log(this.data);
     })
+
   }
 
   ngOnDestroy(): void {
@@ -33,7 +34,10 @@ export class MobileSearchComponent implements OnInit, OnDestroy {
   SearchCompany(evt){
     // console.log(evt);
     var serText = evt.detail.value;
+    if(serText.length != 0)
     this._searchRes = this.data.filter(item=> item.companyName.toString().toLowerCase().startsWith(serText) || item.ticker.toString().toLowerCase().startsWith(serText));
+    else
+    this._searchRes = [];
     // console.log(this._searchRes);
   }
 
@@ -43,5 +47,4 @@ export class MobileSearchComponent implements OnInit, OnDestroy {
     this.dataService.mobSelComp.next(this._selcomp);
     this.closeSearch();
   }
-
 }

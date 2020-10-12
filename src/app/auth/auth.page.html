@@ -4,18 +4,17 @@
   </ion-toolbar>
 </ion-header>
 <ion-content forceOverscroll=false>
-    <div style="display: block;">
+    <div class="outerDiv">
       <form [formGroup]="loginForm">
-    <ion-card class="card" [ngClass]="{'tab_background': !mobile}">
-      <ion-card class="outercard" [ngClass]="{'outercardmobile': mobile}">
-        <ion-card class="innercard" [ngClass]="{'innercardmobile': mobile}">
-          
         
-      
-      <ion-card-header style="padding: 0px; background: none;">
+        <ion-text>
+          <h1 class="cardTitle">Login</h1>
+        </ion-text>
+        
+        <!-- <ion-card-header style="padding: 0px; background: none;">
         <ion-card-title class="cardTitle">Login</ion-card-title>
-      </ion-card-header>
-      <ion-card-content class="overfloscroll card-Content" >
+      </ion-card-header> -->
+      <!-- <ion-card-content class="overfloscroll card-Content" > -->
         
         <div class="form">
           <div class="inputdiv">
@@ -57,10 +56,6 @@
             Sign up
           </ion-button>
         </div>
-      </ion-card-content>
-    </ion-card>
-    </ion-card>
-    </ion-card>
   </form>
   </div>
 </ion-content>

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { NavParams } from '@ionic/angular';
+import { NavParams, PopoverController } from '@ionic/angular';
 
 @Component({
   selector: 'app-sector-popover',
@@ -11,14 +11,18 @@ export class SectorPopoverComponent implements OnInit {
   sectorList:any = [];
   selComp:any;
 
-  constructor(private navParams: NavParams) {
+  constructor(private navParams: NavParams,private popoverCtrl: PopoverController) {
     
     this.sectorList = this.navParams.get('sectorList');
     this.selComp = this.navParams.get('selComp');
-    console.log(this.sectorList);
-    console.log(this.selComp);
+    // console.log(this.sectorList);
+    // console.log(this.selComp);
    }
 
   ngOnInit() {}
+
+  onSecItemClick(i){
+    this.popoverCtrl.dismiss(i);
+  }
 
 }
