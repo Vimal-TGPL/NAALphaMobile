@@ -3,12 +3,12 @@
       <ion-icon name="close-circle" (click)="closeSearch()"></ion-icon>
   </ion-toolbar>
   <ion-toolbar>
-    <ion-searchbar placeholder="Ticker or company name" (ionChange)="SearchCompany($event)" debounce=400></ion-searchbar>
+    <ion-searchbar placeholder="Ticker or company name" (ionChange)="SearchCompany($event)" debounce=400 id="searchbar"></ion-searchbar>
   </ion-toolbar>
 </ion-header>
 
 <ion-content forceOverscroll=false>
-  <ion-list *ngIf="_searchRes.length != 0">
+  <ion-list *ngIf="_searchRes.length != 0 && data.length != 0">
     <ion-item *ngFor="let item of _searchRes" (click)="onCompanyClick(item)">
       <div>
         <span>
@@ -22,4 +22,12 @@
       <ion-label></ion-label>
     </ion-item>
   </ion-list>
+  <div *ngIf="data.length == 0 && _searchRes.length == 0" style="    height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;">
+    <img src="../../../assets/images/NAA.gif" alt="Loading..." style="height: 35px;
+    width: 35px;">
+  </div>
 </ion-content>

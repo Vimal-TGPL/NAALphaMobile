@@ -35,11 +35,12 @@ import { library } from '@fortawesome/fontawesome-svg-core'
 import { FaConfig, FaIconLibrary, FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { MobileSearchComponent } from './Components/mobile-search/mobile-search.component';
 import { SectorPopoverComponent } from './Components/sector-popover/sector-popover.component';
+import { LineChartComponent } from './Components/line-chart/line-chart.component';
 
 library.add(faAngleDoubleLeft);
 @NgModule({
-  declarations: [AppComponent,ProfiledetailsComponent,MobileSearchComponent,SectorPopoverComponent],
-  entryComponents: [ProfiledetailsComponent,MobileSearchComponent,SectorPopoverComponent],
+  declarations: [AppComponent,ProfiledetailsComponent,MobileSearchComponent,SectorPopoverComponent,LineChartComponent],
+  entryComponents: [ProfiledetailsComponent,MobileSearchComponent,SectorPopoverComponent,LineChartComponent],
   imports: [BrowserModule,BrowserAnimationsModule, MatTabsModule, IonicModule.forRoot(), HttpClientModule, ReactiveFormsModule, AppRoutingModule, IonicStorageModule.forRoot(),FontAwesomeModule],
   providers: [
     InAppBrowser,

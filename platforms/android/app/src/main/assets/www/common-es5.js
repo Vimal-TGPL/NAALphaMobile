@@ -1,301 +1,392 @@
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([["common"],{
 
-/***/ "./node_modules/@ionic/core/dist/esm-es5/cubic-bezier-2812fda3.js":
-/*!************************************************************************!*\
-  !*** ./node_modules/@ionic/core/dist/esm-es5/cubic-bezier-2812fda3.js ***!
-  \************************************************************************/
-/*! exports provided: P, g */
+/***/ "./node_modules/@ionic/core/dist/esm-es5/button-active-5da929d4.js":
+/*!*************************************************************************!*\
+  !*** ./node_modules/@ionic/core/dist/esm-es5/button-active-5da929d4.js ***!
+  \*************************************************************************/
+/*! exports provided: c */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "P", function() { return Point; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "g", function() { return getTimeGivenProgression; });
-/**
- * Based on:
- * https://stackoverflow.com/questions/7348009/y-coordinate-for-a-given-x-cubic-bezier
- * https://math.stackexchange.com/questions/26846/is-there-an-explicit-form-for-cubic-b%C3%A9zier-curves
- * TODO: Reduce rounding error
- */
-var Point = /** @class */ (function () {
-    function Point(x, y) {
-        this.x = x;
-        this.y = y;
-    }
-    return Point;
-}());
-/**
- * Given a cubic-bezier curve, get the x value (time) given
- * the y value (progression).
- * Ex: cubic-bezier(0.32, 0.72, 0, 1);
- * P0: (0, 0)
- * P1: (0.32, 0.72)
- * P2: (0, 1)
- * P3: (1, 1)
- *
- * If you give a cubic bezier curve that never reaches the
- * provided progression, this function will return NaN.
- */
-var getTimeGivenProgression = function (p0, p1, p2, p3, progression) {
-    var tValues = solveCubicBezier(p0.y, p1.y, p2.y, p3.y, progression);
-    return solveCubicParametricEquation(p0.x, p1.x, p2.x, p3.x, tValues[0]); // TODO: Add better strategy for dealing with multiple solutions
-};
-/**
- * Solve a cubic equation in one dimension (time)
- */
-var solveCubicParametricEquation = function (p0, p1, p2, p3, t) {
-    var partA = (3 * p1) * Math.pow(t - 1, 2);
-    var partB = (-3 * p2 * t) + (3 * p2) + (p3 * t);
-    var partC = p0 * Math.pow(t - 1, 3);
-    return t * (partA + (t * partB)) - partC;
-};
-/**
- * Find the `t` value for a cubic bezier using Cardano's formula
- */
-var solveCubicBezier = function (p0, p1, p2, p3, refPoint) {
-    p0 -= refPoint;
-    p1 -= refPoint;
-    p2 -= refPoint;
-    p3 -= refPoint;
-    var roots = solveCubicEquation(p3 - 3 * p2 + 3 * p1 - p0, 3 * p2 - 6 * p1 + 3 * p0, 3 * p1 - 3 * p0, p0);
-    return roots.filter(function (root) { return root >= 0 && root <= 1; });
-};
-var solveQuadraticEquation = function (a, b, c) {
-    var discriminant = b * b - 4 * a * c;
-    if (discriminant < 0) {
-        return [];
-    }
-    else {
-        return [
-            (-b + Math.sqrt(discriminant)) / (2 * a),
-            (-b - Math.sqrt(discriminant)) / (2 * a)
-        ];
-    }
-};
-var solveCubicEquation = function (a, b, c, d) {
-    if (a === 0) {
-        return solveQuadraticEquation(b, c, d);
-    }
-    b /= a;
-    c /= a;
-    d /= a;
-    var p = (3 * c - b * b) / 3;
-    var q = (2 * b * b * b - 9 * b * c + 27 * d) / 27;
-    if (p === 0) {
-        return [Math.pow(-q, 1 / 3)];
-    }
-    else if (q === 0) {
-        return [Math.sqrt(-p), -Math.sqrt(-p)];
-    }
-    var discriminant = Math.pow(q / 2, 2) + Math.pow(p / 3, 3);
-    if (discriminant === 0) {
-        return [Math.pow(q / 2, 1 / 2) - b / 3];
-    }
-    else if (discriminant > 0) {
-        return [Math.pow(-(q / 2) + Math.sqrt(discriminant), 1 / 3) - Math.pow((q / 2) + Math.sqrt(discriminant), 1 / 3) - b / 3];
-    }
-    var r = Math.sqrt(Math.pow(-(p / 3), 3));
-    var phi = Math.acos(-(q / (2 * Math.sqrt(Math.pow(-(p / 3), 3)))));
-    var s = 2 * Math.pow(r, 1 / 3);
-    return [
-        s * Math.cos(phi / 3) - b / 3,
-        s * Math.cos((phi + 2 * Math.PI) / 3) - b / 3,
-        s * Math.cos((phi + 4 * Math.PI) / 3) - b / 3
-    ];
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return createButtonActiveGesture; });
+/* harmony import */ var _index_92848855_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./index-92848855.js */ "./node_modules/@ionic/core/dist/esm-es5/index-92848855.js");
+/* harmony import */ var _index_eea61379_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./index-eea61379.js */ "./node_modules/@ionic/core/dist/esm-es5/index-eea61379.js");
+/* harmony import */ var _haptic_7b8ba70a_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./haptic-7b8ba70a.js */ "./node_modules/@ionic/core/dist/esm-es5/haptic-7b8ba70a.js");
+
+
+
+var createButtonActiveGesture = function (el, isButton) {
+    var currentTouchedButton;
+    var initialTouchedButton;
+    var activateButtonAtPoint = function (x, y, hapticFeedbackFn) {
+        if (typeof document === 'undefined') {
+            return;
+        }
+        var target = document.elementFromPoint(x, y);
+        if (!target || !isButton(target)) {
+            clearActiveButton();
+            return;
+        }
+        if (target !== currentTouchedButton) {
+            clearActiveButton();
+            setActiveButton(target, hapticFeedbackFn);
+        }
+    };
+    var setActiveButton = function (button, hapticFeedbackFn) {
+        currentTouchedButton = button;
+        if (!initialTouchedButton) {
+            initialTouchedButton = currentTouchedButton;
+        }
+        var buttonToModify = currentTouchedButton;
+        Object(_index_92848855_js__WEBPACK_IMPORTED_MODULE_0__["c"])(function () { return buttonToModify.classList.add('ion-activated'); });
+        hapticFeedbackFn();
+    };
+    var clearActiveButton = function (dispatchClick) {
+        if (dispatchClick === void 0) { dispatchClick = false; }
+        if (!currentTouchedButton) {
+            return;
+        }
+        var buttonToModify = currentTouchedButton;
+        Object(_index_92848855_js__WEBPACK_IMPORTED_MODULE_0__["c"])(function () { return buttonToModify.classList.remove('ion-activated'); });
+        /**
+         * Clicking on one button, but releasing on another button
+         * does not dispatch a click event in browsers, so we
+         * need to do it manually here. Some browsers will
+         * dispatch a click if clicking on one button, dragging over
+         * another button, and releasing on the original button. In that
+         * case, we need to make sure we do not cause a double click there.
+         */
+        if (dispatchClick && initialTouchedButton !== currentTouchedButton) {
+            currentTouchedButton.click();
+        }
+        currentTouchedButton = undefined;
+    };
+    return Object(_index_eea61379_js__WEBPACK_IMPORTED_MODULE_1__["createGesture"])({
+        el: el,
+        gestureName: 'buttonActiveDrag',
+        threshold: 0,
+        onStart: function (ev) { return activateButtonAtPoint(ev.currentX, ev.currentY, _haptic_7b8ba70a_js__WEBPACK_IMPORTED_MODULE_2__["a"]); },
+        onMove: function (ev) { return activateButtonAtPoint(ev.currentX, ev.currentY, _haptic_7b8ba70a_js__WEBPACK_IMPORTED_MODULE_2__["b"]); },
+        onEnd: function () {
+            clearActiveButton(true);
+            Object(_haptic_7b8ba70a_js__WEBPACK_IMPORTED_MODULE_2__["h"])();
+            initialTouchedButton = undefined;
+        }
+    });
 };
 
 
 
 /***/ }),
 
-/***/ "./node_modules/@ionic/core/dist/esm-es5/haptic-c8f1473e.js":
+/***/ "./node_modules/@ionic/core/dist/esm-es5/framework-delegate-d1eb6504.js":
+/*!******************************************************************************!*\
+  !*** ./node_modules/@ionic/core/dist/esm-es5/framework-delegate-d1eb6504.js ***!
+  \******************************************************************************/
+/*! exports provided: a, d */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return attachComponent; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return detachComponent; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+
+var attachComponent = function (delegate, container, component, cssClasses, componentProps) { return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(void 0, void 0, void 0, function () {
+    var el;
+    return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__generator"])(this, function (_a) {
+        switch (_a.label) {
+            case 0:
+                if (delegate) {
+                    return [2 /*return*/, delegate.attachViewToDom(container, component, componentProps, cssClasses)];
+                }
+                if (typeof component !== 'string' && !(component instanceof HTMLElement)) {
+                    throw new Error('framework delegate is missing');
+                }
+                el = (typeof component === 'string')
+                    ? container.ownerDocument && container.ownerDocument.createElement(component)
+                    : component;
+                if (cssClasses) {
+                    cssClasses.forEach(function (c) { return el.classList.add(c); });
+                }
+                if (componentProps) {
+                    Object.assign(el, componentProps);
+                }
+                container.appendChild(el);
+                if (!el.componentOnReady) return [3 /*break*/, 2];
+                return [4 /*yield*/, el.componentOnReady()];
+            case 1:
+                _a.sent();
+                _a.label = 2;
+            case 2: return [2 /*return*/, el];
+        }
+    });
+}); };
+var detachComponent = function (delegate, element) {
+    if (element) {
+        if (delegate) {
+            var container = element.parentElement;
+            return delegate.removeViewFromDom(container, element);
+        }
+        element.remove();
+    }
+    return Promise.resolve();
+};
+
+
+
+/***/ }),
+
+/***/ "./node_modules/@ionic/core/dist/esm-es5/haptic-7b8ba70a.js":
 /*!******************************************************************!*\
-  !*** ./node_modules/@ionic/core/dist/esm-es5/haptic-c8f1473e.js ***!
+  !*** ./node_modules/@ionic/core/dist/esm-es5/haptic-7b8ba70a.js ***!
   \******************************************************************/
-/*! exports provided: a, b, c, h */
+/*! exports provided: a, b, c, d, h */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return hapticSelectionStart; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return hapticSelectionChanged; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return hapticSelectionEnd; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "h", function() { return hapticSelection; });
-/**
- * Check to see if the Haptic Plugin is available
- * @return Returns `true` or false if the plugin is available
- */
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return hapticSelection; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return hapticImpact; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "h", function() { return hapticSelectionEnd; });
+var HapticEngine = {
+    getEngine: function () {
+        var win = window;
+        return (win.TapticEngine) || (win.Capacitor && win.Capacitor.isPluginAvailable('Haptics') && win.Capacitor.Plugins.Haptics);
+    },
+    available: function () {
+        return !!this.getEngine();
+    },
+    isCordova: function () {
+        return !!window.TapticEngine;
+    },
+    isCapacitor: function () {
+        var win = window;
+        return !!win.Capacitor;
+    },
+    impact: function (options) {
+        var engine = this.getEngine();
+        if (!engine) {
+            return;
+        }
+        var style = this.isCapacitor() ? options.style.toUpperCase() : options.style;
+        engine.impact({ style: style });
+    },
+    notification: function (options) {
+        var engine = this.getEngine();
+        if (!engine) {
+            return;
+        }
+        var style = this.isCapacitor() ? options.style.toUpperCase() : options.style;
+        engine.notification({ style: style });
+    },
+    selection: function () {
+        this.impact({ style: 'light' });
+    },
+    selectionStart: function () {
+        var engine = this.getEngine();
+        if (!engine) {
+            return;
+        }
+        if (this.isCapacitor()) {
+            engine.selectionStart();
+        }
+        else {
+            engine.gestureSelectionStart();
+        }
+    },
+    selectionChanged: function () {
+        var engine = this.getEngine();
+        if (!engine) {
+            return;
+        }
+        if (this.isCapacitor()) {
+            engine.selectionChanged();
+        }
+        else {
+            engine.gestureSelectionChanged();
+        }
+    },
+    selectionEnd: function () {
+        var engine = this.getEngine();
+        if (!engine) {
+            return;
+        }
+        if (this.isCapacitor()) {
+            engine.selectionEnd();
+        }
+        else {
+            engine.gestureSelectionEnd();
+        }
+    }
+};
 /**
  * Trigger a selection changed haptic event. Good for one-time events
  * (not for gestures)
  */
 var hapticSelection = function () {
-    var engine = window.TapticEngine;
-    if (engine) {
-        engine.selection();
-    }
+    HapticEngine.selection();
 };
 /**
  * Tell the haptic engine that a gesture for a selection change is starting.
  */
 var hapticSelectionStart = function () {
-    var engine = window.TapticEngine;
-    if (engine) {
-        engine.gestureSelectionStart();
-    }
+    HapticEngine.selectionStart();
 };
 /**
  * Tell the haptic engine that a selection changed during a gesture.
  */
 var hapticSelectionChanged = function () {
-    var engine = window.TapticEngine;
-    if (engine) {
-        engine.gestureSelectionChanged();
-    }
+    HapticEngine.selectionChanged();
 };
 /**
  * Tell the haptic engine we are done with a gesture. This needs to be
  * called lest resources are not properly recycled.
  */
 var hapticSelectionEnd = function () {
-    var engine = window.TapticEngine;
-    if (engine) {
-        engine.gestureSelectionEnd();
-    }
+    HapticEngine.selectionEnd();
+};
+/**
+ * Use this to indicate success/failure/warning to the user.
+ * options should be of the type `{ style: 'light' }` (or `medium`/`heavy`)
+ */
+var hapticImpact = function (options) {
+    HapticEngine.impact(options);
 };
 
 
 
 /***/ }),
 
-/***/ "./node_modules/@ionic/core/dist/esm-es5/index-3476b023.js":
-/*!*****************************************************************!*\
-  !*** ./node_modules/@ionic/core/dist/esm-es5/index-3476b023.js ***!
-  \*****************************************************************/
-/*! exports provided: s */
+/***/ "./node_modules/@ionic/core/dist/esm-es5/spinner-configs-c78e170e.js":
+/*!***************************************************************************!*\
+  !*** ./node_modules/@ionic/core/dist/esm-es5/spinner-configs-c78e170e.js ***!
+  \***************************************************************************/
+/*! exports provided: S */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "s", function() { return sanitizeDOMString; });
-/**
- * Does a simple sanitization of all elements
- * in an untrusted string
- */
-var sanitizeDOMString = function (untrustedString) {
-    try {
-        if (typeof untrustedString !== 'string' || untrustedString === '') {
-            return untrustedString;
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "S", function() { return SPINNERS; });
+var spinners = {
+    'bubbles': {
+        dur: 1000,
+        circles: 9,
+        fn: function (dur, index, total) {
+            var animationDelay = (dur * index / total) - dur + "ms";
+            var angle = 2 * Math.PI * index / total;
+            return {
+                r: 5,
+                style: {
+                    'top': 9 * Math.sin(angle) + "px",
+                    'left': 9 * Math.cos(angle) + "px",
+                    'animation-delay': animationDelay,
+                }
+            };
         }
-        /**
-         * Create a document fragment
-         * separate from the main DOM,
-         * create a div to do our work in
-         */
-        var documentFragment_1 = document.createDocumentFragment();
-        var workingDiv = document.createElement('div');
-        documentFragment_1.appendChild(workingDiv);
-        workingDiv.innerHTML = untrustedString;
-        /**
-         * Remove any elements
-         * that are blocked
-         */
-        blockedTags.forEach(function (blockedTag) {
-            var getElementsToRemove = documentFragment_1.querySelectorAll(blockedTag);
-            for (var elementIndex = getElementsToRemove.length - 1; elementIndex >= 0; elementIndex--) {
-                var element = getElementsToRemove[elementIndex];
-                if (element.parentNode) {
-                    element.parentNode.removeChild(element);
+    },
+    'circles': {
+        dur: 1000,
+        circles: 8,
+        fn: function (dur, index, total) {
+            var step = index / total;
+            var animationDelay = (dur * step) - dur + "ms";
+            var angle = 2 * Math.PI * step;
+            return {
+                r: 5,
+                style: {
+                    'top': 9 * Math.sin(angle) + "px",
+                    'left': 9 * Math.cos(angle) + "px",
+                    'animation-delay': animationDelay,
                 }
-                else {
-                    documentFragment_1.removeChild(element);
-                }
-                /**
-                 * We still need to sanitize
-                 * the children of this element
-                 * as they are left behind
-                 */
-                var childElements = getElementChildren(element);
-                /* tslint:disable-next-line */
-                for (var childIndex = 0; childIndex < childElements.length; childIndex++) {
-                    sanitizeElement(childElements[childIndex]);
-                }
-            }
-        });
-        /**
-         * Go through remaining elements and remove
-         * non-allowed attribs
-         */
-        // IE does not support .children on document fragments, only .childNodes
-        var dfChildren = getElementChildren(documentFragment_1);
-        /* tslint:disable-next-line */
-        for (var childIndex = 0; childIndex < dfChildren.length; childIndex++) {
-            sanitizeElement(dfChildren[childIndex]);
+            };
         }
-        // Append document fragment to div
-        var fragmentDiv = document.createElement('div');
-        fragmentDiv.appendChild(documentFragment_1);
-        // First child is always the div we did our work in
-        var getInnerDiv = fragmentDiv.querySelector('div');
-        return (getInnerDiv !== null) ? getInnerDiv.innerHTML : fragmentDiv.innerHTML;
-    }
-    catch (err) {
-        console.error(err);
-        return '';
+    },
+    'circular': {
+        dur: 1400,
+        elmDuration: true,
+        circles: 1,
+        fn: function () {
+            return {
+                r: 20,
+                cx: 48,
+                cy: 48,
+                fill: 'none',
+                viewBox: '24 24 48 48',
+                transform: 'translate(0,0)',
+                style: {}
+            };
+        }
+    },
+    'crescent': {
+        dur: 750,
+        circles: 1,
+        fn: function () {
+            return {
+                r: 26,
+                style: {}
+            };
+        }
+    },
+    'dots': {
+        dur: 750,
+        circles: 3,
+        fn: function (_, index) {
+            var animationDelay = -(110 * index) + 'ms';
+            return {
+                r: 6,
+                style: {
+                    'left': 9 - (9 * index) + "px",
+                    'animation-delay': animationDelay,
+                }
+            };
+        }
+    },
+    'lines': {
+        dur: 1000,
+        lines: 12,
+        fn: function (dur, index, total) {
+            var transform = "rotate(" + (30 * index + (index < 6 ? 180 : -180)) + "deg)";
+            var animationDelay = (dur * index / total) - dur + "ms";
+            return {
+                y1: 17,
+                y2: 29,
+                style: {
+                    'transform': transform,
+                    'animation-delay': animationDelay,
+                }
+            };
+        }
+    },
+    'lines-small': {
+        dur: 1000,
+        lines: 12,
+        fn: function (dur, index, total) {
+            var transform = "rotate(" + (30 * index + (index < 6 ? 180 : -180)) + "deg)";
+            var animationDelay = (dur * index / total) - dur + "ms";
+            return {
+                y1: 12,
+                y2: 20,
+                style: {
+                    'transform': transform,
+                    'animation-delay': animationDelay,
+                }
+            };
+        }
     }
 };
-/**
- * Clean up current element based on allowed attributes
- * and then recursively dig down into any child elements to
- * clean those up as well
- */
-var sanitizeElement = function (element) {
-    // IE uses childNodes, so ignore nodes that are not elements
-    if (element.nodeType && element.nodeType !== 1) {
-        return;
-    }
-    for (var i = element.attributes.length - 1; i >= 0; i--) {
-        var attribute = element.attributes.item(i);
-        var attributeName = attribute.name;
-        // remove non-allowed attribs
-        if (!allowedAttributes.includes(attributeName.toLowerCase())) {
-            element.removeAttribute(attributeName);
-            continue;
-        }
-        // clean up any allowed attribs
-        // that attempt to do any JS funny-business
-        var attributeValue = attribute.value;
-        /* tslint:disable-next-line */
-        if (attributeValue != null && attributeValue.toLowerCase().includes('javascript:')) {
-            element.removeAttribute(attributeName);
-        }
-    }
-    /**
-     * Sanitize any nested children
-     */
-    var childElements = getElementChildren(element);
-    /* tslint:disable-next-line */
-    for (var i = 0; i < childElements.length; i++) {
-        sanitizeElement(childElements[i]);
-    }
-};
-/**
- * IE doesn't always support .children
- * so we revert to .childNodes instead
- */
-var getElementChildren = function (el) {
-    return (el.children != null) ? el.children : el.childNodes;
-};
-var allowedAttributes = ['class', 'id', 'href', 'src', 'name', 'slot'];
-var blockedTags = ['script', 'style', 'iframe', 'meta', 'link', 'object', 'embed'];
+var SPINNERS = spinners;
 
 
 
 /***/ }),
 
-/***/ "./node_modules/@ionic/core/dist/esm-es5/theme-18cbe2cc.js":
+/***/ "./node_modules/@ionic/core/dist/esm-es5/theme-5641d27f.js":
 /*!*****************************************************************!*\
-  !*** ./node_modules/@ionic/core/dist/esm-es5/theme-18cbe2cc.js ***!
+  !*** ./node_modules/@ionic/core/dist/esm-es5/theme-5641d27f.js ***!
   \*****************************************************************/
 /*! exports provided: c, g, h, o */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
@@ -314,13 +405,9 @@ var hostContext = function (selector, el) {
 /**
  * Create the mode and color classes for the component based on the classes passed in
  */
-var createColorClasses = function (color) {
+var createColorClasses = function (color, cssClassMap) {
     var _a;
-    return (typeof color === 'string' && color.length > 0) ? (_a = {
-            'ion-color': true
-        },
-        _a["ion-color-" + color] = true,
-        _a) : undefined;
+    return (typeof color === 'string' && color.length > 0) ? Object.assign((_a = { 'ion-color': true }, _a["ion-color-" + color] = true, _a), cssClassMap) : cssClassMap;
 };
 var getClassList = function (classes) {
     if (classes !== undefined) {
@@ -338,7 +425,7 @@ var getClassMap = function (classes) {
     return map;
 };
 var SCHEME = /^[a-z][a-z0-9+\-.]*:/;
-var openURL = function (url, ev, direction) { return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(void 0, void 0, void 0, function () {
+var openURL = function (url, ev, direction, animation) { return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(void 0, void 0, void 0, function () {
     var router;
     return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__generator"])(this, function (_a) {
         if (url != null && url[0] !== '#' && !SCHEME.test(url)) {
@@ -347,248 +434,12 @@ var openURL = function (url, ev, direction) { return Object(tslib__WEBPACK_IMPOR
                 if (ev != null) {
                     ev.preventDefault();
                 }
-                return [2 /*return*/, router.push(url, direction)];
+                return [2 /*return*/, router.push(url, direction, animation)];
             }
         }
         return [2 /*return*/, false];
     });
 }); };
-
-
-
-/***/ }),
-
-/***/ "./node_modules/@ionic/core/dist/esm-es5/watch-options-2af96011.js":
-/*!*************************************************************************!*\
-  !*** ./node_modules/@ionic/core/dist/esm-es5/watch-options-2af96011.js ***!
-  \*************************************************************************/
-/*! exports provided: f, w */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "f", function() { return findCheckedOption; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "w", function() { return watchForOptions; });
-var watchForOptions = function (containerEl, tagName, onChange) {
-    var mutation = new MutationObserver(function (mutationList) {
-        onChange(getSelectedOption(mutationList, tagName));
-    });
-    mutation.observe(containerEl, {
-        childList: true,
-        subtree: true
-    });
-    return mutation;
-};
-var getSelectedOption = function (mutationList, tagName) {
-    var newOption;
-    mutationList.forEach(function (mut) {
-        // tslint:disable-next-line: prefer-for-of
-        for (var i = 0; i < mut.addedNodes.length; i++) {
-            newOption = findCheckedOption(mut.addedNodes[i], tagName) || newOption;
-        }
-    });
-    return newOption;
-};
-var findCheckedOption = function (el, tagName) {
-    if (el.nodeType !== 1) {
-        return undefined;
-    }
-    var options = (el.tagName === tagName.toUpperCase())
-        ? [el]
-        : Array.from(el.querySelectorAll(tagName));
-    return options.find(function (o) { return o.checked === true; });
-};
-
-
-
-/***/ }),
-
-/***/ "./src/app/services/dataHandler/data-handler.service.ts":
-/*!**************************************************************!*\
-  !*** ./src/app/services/dataHandler/data-handler.service.ts ***!
-  \**************************************************************/
-/*! exports provided: DataHandlerService */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "DataHandlerService", function() { return DataHandlerService; });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
-/* harmony import */ var _environments_environment__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../environments/environment */ "./src/environments/environment.ts");
-/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm5/index.js");
-/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! rxjs/operators */ "./node_modules/rxjs/_esm5/operators/index.js");
-/* harmony import */ var d3__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! d3 */ "./node_modules/d3/index.js");
-
-
-
-
-
-
-
-var DataHandlerService = /** @class */ (function () {
-    function DataHandlerService(httpclient) {
-        this.httpclient = httpclient;
-        this.api_url = _environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].api_url;
-    }
-    DataHandlerService.prototype.getIndustry = function () {
-        return this.httpclient.get(this.api_url + "/Industry/GetIndustry").pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["retryWhen"])(function (err) { return err.pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["scan"])(function (count) {
-            if (count > 5)
-                throw err;
-            else {
-                count++;
-                return count;
-            }
-        }, 0), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["delayWhen"])(function () { return Object(rxjs__WEBPACK_IMPORTED_MODULE_4__["timer"])(1000); })); })).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["map"])(function (res) { return res; }));
-    };
-    DataHandlerService.prototype.getGlobalData = function () {
-        return this.httpclient.get(this.api_url + "/Scores/GetNAAIndexScoresCurrent/GLOBAL").pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["retryWhen"])(function (err) { return err.pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["scan"])(function (count) {
-            if (count > 5)
-                throw err;
-            else {
-                count++;
-                return count;
-            }
-        }, 0), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["delayWhen"])(function () { return Object(rxjs__WEBPACK_IMPORTED_MODULE_4__["timer"])(1000); })); })).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["map"])(function (res) { return res; }));
-    };
-    DataHandlerService.prototype.getFICatData = function (cat) {
-        return this.httpclient.get(this.api_url + '/Scores/GetBondMappingStocks/' + cat).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["retryWhen"])(function (err) { return err.pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["scan"])(function (count) {
-            if (count > 5)
-                throw err;
-            else {
-                count++;
-                return count;
-            }
-        }, 0), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["delayWhen"])(function () { return Object(rxjs__WEBPACK_IMPORTED_MODULE_4__["timer"])(1000); })); })).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["map"])(function (res) { return res; }));
-    };
-    DataHandlerService.prototype.getFIData = function () {
-        return this.httpclient.get(this.api_url + '/Scores/GetFixedDataMaster').pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["retryWhen"])(function (err) { return err.pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["scan"])(function (count) {
-            if (count > 5)
-                throw err;
-            else {
-                count++;
-                return count;
-            }
-        }, 0), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["delayWhen"])(function () { return Object(rxjs__WEBPACK_IMPORTED_MODULE_4__["timer"])(1000); })); })).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["map"])(function (res) { return res; }));
-    };
-    DataHandlerService.prototype.getETFData = function () {
-        return this.httpclient.get(this.api_url + "/Scores/GetETFMaster").pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["retryWhen"])(function (err) { return err.pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["scan"])(function (count) {
-            if (count > 5)
-                throw err;
-            else {
-                count++;
-                return count;
-            }
-        }, 0), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["delayWhen"])(function () { return Object(rxjs__WEBPACK_IMPORTED_MODULE_4__["timer"])(1000); })); })).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["map"])(function (res) { return res; }));
-    };
-    DataHandlerService.prototype.getETFCatData = function (CatID) {
-        return this.httpclient.get(this.api_url + "/Scores/GetETFCurrent/" + CatID).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["retryWhen"])(function (err) { return err.pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["scan"])(function (count) {
-            if (count > 5)
-                throw err;
-            else {
-                count++;
-                return count;
-            }
-        }, 0), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["delayWhen"])(function () { return Object(rxjs__WEBPACK_IMPORTED_MODULE_4__["timer"])(1000); })); })).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["map"])(function (res) { return res; }));
-    };
-    DataHandlerService.prototype.filterGlobalIndexData = function (arr, i) {
-        var temp = arr;
-        return temp.filter(function (item) { return item.indexName == i; });
-    };
-    DataHandlerService.prototype.getEsgPerfData = function () {
-        return this.httpclient.get(this.api_url + "/Indexes/GetESGDetails").pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["retryWhen"])(function (err) { return err.pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["scan"])(function (count) {
-            if (count > 5)
-                throw err;
-            else {
-                count++;
-                return count;
-            }
-        }, 0), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["delayWhen"])(function () { return Object(rxjs__WEBPACK_IMPORTED_MODULE_4__["timer"])(1000); })); })).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["map"])(function (res) { return res; }));
-    };
-    DataHandlerService.prototype.getFIPerfData = function () {
-        return this.httpclient.get(this.api_url + '/Indexes/GetFIDetails').pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["retryWhen"])(function (err) { return err.pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["scan"])(function (count) {
-            if (count > 5)
-                throw err;
-            else {
-                count++;
-                return count;
-            }
-        }, 0), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["delayWhen"])(function () { return Object(rxjs__WEBPACK_IMPORTED_MODULE_4__["timer"])(1000); })); })).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["map"])(function (res) { return res; }));
-    };
-    DataHandlerService.prototype.getPerfData = function () {
-        return this.httpclient.get(this.api_url + '/Indexes/GetIndexPerformance').pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["retryWhen"])(function (err) { return err.pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["scan"])(function (count) {
-            if (count > 5)
-                throw err;
-            else {
-                count++;
-                return count;
-            }
-        }, 0), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["delayWhen"])(function () { return Object(rxjs__WEBPACK_IMPORTED_MODULE_4__["timer"])(1000); })); })).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["map"])(function (res) { return res; }));
-    };
-    DataHandlerService.prototype.getEquityPerfIndData = function () {
-        return this.httpclient.get(this.api_url + '/Indexes/GetIndexDetails').pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["retryWhen"])(function (err) { return err.pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["scan"])(function (count) {
-            if (count > 5)
-                throw err;
-            else {
-                count++;
-                return count;
-            }
-        }, 0), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["delayWhen"])(function () { return Object(rxjs__WEBPACK_IMPORTED_MODULE_4__["timer"])(1000); })); })).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["map"])(function (res) { return res; }));
-    };
-    DataHandlerService.prototype.getRebalanceDates = function (id) {
-        if (id != 59 && id != 60 && id != 54) {
-            return d3__WEBPACK_IMPORTED_MODULE_6__["json"](this.api_url + '/Indexes/GetRebalanceDates/' + id).then(function (data) {
-                //  console.log(data);
-                return data;
-            });
-        }
-        else {
-            return d3__WEBPACK_IMPORTED_MODULE_6__["json"](this.api_url + '/Indexes/GetGlobalRebalances/' + id).then(function (data) {
-                //  console.log(data);
-                return data;
-            });
-        }
-    };
-    DataHandlerService.prototype.getSignalsByDate = function (id, tradedate) {
-        var temp = tradedate.slice(0, 4) + '-' + tradedate.slice(4, 6) + '-' + tradedate.slice(6, 8);
-        if (id != 59 && id != 60 && id != 107 && id != 104 && id != 69 && id != 13 && id != 1 && id != 108 && id != 12 && id != 113) {
-            return d3__WEBPACK_IMPORTED_MODULE_6__["json"](this.api_url + '/Indexes/GetSignalsByDate/' + temp).then(function (data) {
-                //  console.log(data);
-                return data;
-            });
-        }
-        else if (id == 107 || id == 104 || id == 69 || id == 13 || id == 1 || id == 108 || id == 12 || id == 113) {
-            return d3__WEBPACK_IMPORTED_MODULE_6__["json"](this.api_url + '/Indexes/GetSignalsByDate/' + id + '/' + temp).then(function (data) {
-                //  console.log(data);
-                return data;
-            });
-        }
-        else {
-            return d3__WEBPACK_IMPORTED_MODULE_6__["json"](this.api_url + '/Indexes/GetGlobalSignalsByDate/' + id + '/' + temp).then(function (data) {
-                //  console.log(data);
-                return data;
-            });
-        }
-    };
-    DataHandlerService.prototype.GetGlobalSignalsByDate = function (id, tradedate) {
-        var temp = tradedate.slice(0, 4) + '-' + tradedate.slice(4, 6) + '-' + tradedate.slice(6, 8);
-        return d3__WEBPACK_IMPORTED_MODULE_6__["json"](this.api_url + '/Indexes/GetGlobalSignalsByDate/' + id + '/' + temp).then(function (data) {
-            //  console.log(data);
-            return data;
-        });
-    };
-    DataHandlerService.ctorParameters = function () { return [
-        { type: _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpClient"] }
-    ]; };
-    DataHandlerService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
-            providedIn: 'root'
-        }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpClient"]])
-    ], DataHandlerService);
-    return DataHandlerService;
-}());
 
 
 

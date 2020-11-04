@@ -301,6 +301,89 @@ ion-content{
     --background: #fff !important;
 }
 
+.ReportContent{
+    .arrow_div{
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        padding: 5px 15px;
+        font-size: 40px;
+        color: #fff;
+        margin-top : 5px;
+
+        .Sub_title{
+            color: #fff;
+            font-family: Open Sans Bold;
+            margin: 0;
+            font-size: 25px;
+        }
+    }
+
+    .reportDiv{
+        height: calc(100vh - 275px);
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+
+        ion-button{
+            height: 35px;
+            width: 30%;
+            --background: #00b9ff;
+            --background-activated: #00b9ff;
+            --color: #fff;
+        }
+
+        ion-list{
+            background: #274b9e;
+
+            ion-list-header{
+                padding-inline-start: 0;
+                margin-bottom: 5%;
+
+                .list_header{
+                    color: #fff;
+                    font-size: 20px;
+                    font-family: 'Open Sans SemiBold';
+                    text-align: center;
+                }
+            }
+            
+
+            ion-item{
+                --background: transparent;
+                --ripple-color: transparent;
+
+                ion-radio{
+                    --color-checked: #00b9ff;
+                    --color: #fff;
+                    margin-right: 10px;
+                }
+
+                ion-radio::part(container){
+                    border-color: #fff !important;
+                }
+
+                ion-label{
+                    --color: #fff;
+                    font-size: 16px;
+                    font-family: 'Open Sans';
+                }
+            }
+        }
+
+        .pdfBtn{
+                margin-bottom: 20%;
+        }
+
+        .sendBtn{
+            margin-top: 12%;
+        }
+    }
+}
+
 .AlertContent{
     .arrow_div{
         display: flex;
@@ -313,7 +396,7 @@ ion-content{
         margin-top : 5px;
 
         .Sub_title{
-            color: #00b9ff;
+            color: #fff;
             font-family: Open Sans Bold;
             margin: 0;
             font-size: 25px;
@@ -337,7 +420,7 @@ ion-content{
 
         .radioBtnDiv{
             width: 85%;
-            margin-top: 20%;
+            margin-top: 15%;
 
             ion-list{
                 background: transparent;
@@ -362,10 +445,60 @@ ion-content{
                         border-color: #fff !important;
                     }
                 }
+
+                .weekly_Div{
+                    display: flex;
+                    justify-content: space-evenly;
+                    align-items: center;
+                    span{
+                        height: 30px;
+                        width: 30px;
+                        border-radius: 50%;
+                        color: #fff;
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        background: transparent;
+                        transition: .3s;
+                    }
+                    .active{
+                        background: #00b9ff;
+                    }
+                }
+
+                .monthly_Div{
+                    display: flex;
+                    flex-direction: row;
+                    justify-content: space-between;
+                    align-items: center;
+                    overflow: scroll;
+                    p{
+                        margin: 0;
+                        font-size: 16px;
+                        font-family: Open Sans SemiBold;
+                    }
+                }
             }
 
             ion-list:nth-child(2){
                 margin-top: 20px;
+            }
+
+            .per_range{
+                padding-left: 0;
+                padding-right: 0;
+                --knob-background: #00b9ff;
+                --knob-border-radius: 25px;
+                --knob-size: 15px;
+                --bar-background: #fff;
+                --bar-background-active: #00b9ff;
+            }
+
+            .per_range::part(pin){
+                transform: translate3d(0px, 0px, 0px) scale(1);
+                color: #fff;
+                font-size: 12px;
+                font-family: 'Open Sans Regular';
             }
         }
 
@@ -382,4 +515,144 @@ ion-content{
         
     }
 
+}
+
+.avoid_looser_content{
+    .arrow_div{
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        padding: 5px 15px;
+        font-size: 40px;
+        color: #fff;
+    }
+    .secDropDown{
+        --background: #00b9ff;
+    border-radius: 25px;
+    --padding-start: 0;
+    --padding-end: 5px;
+    --padding-top: 0;
+    --padding-bottom: 0;
+    margin: 10px 15px;
+        div{
+            width: 100%;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            .sec_Detail{
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                width: 90%;
+                .medItemSpan{
+                    height: 50px;
+                    width: 50px;
+                    background: #fff;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    border-radius: 50%;
+                    margin-right: 5px;
+                    p{
+                        font-family: Open Sans SemiBold;
+                        margin: 0;
+                        font-size: 14px;
+                        color: #fff;
+                    }
+                }
+                .Sec_Details_Sub{
+                    width: 75%;
+                    p{
+                        margin: 0;
+                        font-size: 14px;
+                        color: #fff;
+                    }
+                    p:first-child{
+                        font-family: Open Sans Regular;
+                        white-space: nowrap;
+                        overflow: hidden;
+                        text-overflow: ellipsis;
+                    }
+                    p:last-child{
+                        font-family: Open Sans SemiBold;
+                        white-space: nowrap;
+                        overflow: hidden;
+                        text-overflow: ellipsis;
+                    }
+                }
+            }
+
+            ion-icon{
+                height: 40px;
+                width: 40px;
+                color: #fff;
+            }
+        }
+
+        
+    }
+
+    ion-slides{
+        ion-slide{
+            height: calc(100vh - 340px);
+        }
+
+        .CompSlide{
+            ion-list::-webkit-scrollbar {
+                display: none;
+              }
+            ion-list{
+                height: 100%;
+                overflow: scroll;
+                background: transparent;
+                width: 75%;
+
+                
+
+                .compItem{
+                    --background: #00b9ff;
+                    display: flex;
+                    flex-direction: row;
+                    font-size: 12px;
+                    font-family: Open Sans SemiBold;
+                    border-radius: 25px;
+                    --padding-start: 0;
+                    --padding-top: 0;
+                    --padding-end: 0;
+                    --padding-bottom: 0;
+                    --inner-padding-start: 0;
+                    --inner-padding-end: 0;
+                    margin-bottom: 10px;
+                    p{
+                        margin: 0;
+                        color: #fff;
+                    }
+
+                    span{
+                        height: 45px;
+                        width: 45px;
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        border-radius: 50%;
+                        background: #fff;
+                        margin-right: 10px;
+                        border: 2px solid #274b9e;
+                        margin-left: -2px;
+                    }
+
+                    div{
+                        display: flex;
+                        flex-direction: column;
+                        align-items: unset;
+                        
+                        p:last-child{
+                            font-family: Open Sans SemiBold;
+                        }
+                    }
+                }
+            }
+        }
+    }
 }

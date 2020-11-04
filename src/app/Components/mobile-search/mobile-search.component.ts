@@ -1,5 +1,5 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { ModalController} from '@ionic/angular';
+import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { IonSearchbar, ModalController} from '@ionic/angular';
 import { DataService } from 'src/app/services/shareddata/data.service';
 
 @Component({
@@ -7,12 +7,24 @@ import { DataService } from 'src/app/services/shareddata/data.service';
   templateUrl: './mobile-search.component.html',
   styleUrls: ['./mobile-search.component.scss'],
 })
-export class MobileSearchComponent implements OnInit, OnDestroy {
-  data:any;
+export class MobileSearchComponent implements OnInit, OnDestroy,AfterViewInit {
+  data:any = [];
   _dataSub:any;
   _searchRes:any = [];
   _selcomp:any;
+  // searchbar:any;
+  
+  @ViewChild(IonSearchbar,{static:false}) searchbar:IonSearchbar;
   constructor(private dataService: DataService,private modalCtrl:ModalController) { }
+  
+  ngAfterViewInit(): void {
+    setTimeout(() => {
+      this.searchbar.setFocus().then(d=>{
+
+      });
+    }, 100);
+    
+  }
   
 
   ngOnInit() {
@@ -20,7 +32,8 @@ export class MobileSearchComponent implements OnInit, OnDestroy {
       this.data = d;
       // console.log(this.data);
     })
-
+    // this.searchbar = document.getElementById("searchbar");
+    // console.log(this.searchbar);
   }
 
   ngOnDestroy(): void {
@@ -33,7 +46,7 @@ export class MobileSearchComponent implements OnInit, OnDestroy {
 
   SearchCompany(evt){
     // console.log(evt);
-    var serText = evt.detail.value;
+    var serText = evt.detail.value.toLowerCase();
     if(serText.length != 0)
     this._searchRes = this.data.filter(item=> item.companyName.toString().toLowerCase().startsWith(serText) || item.ticker.toString().toLowerCase().startsWith(serText));
     else

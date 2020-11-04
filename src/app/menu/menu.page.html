@@ -1,7 +1,7 @@
-<ion-content forceOverscroll="false">
+<ion-content class="menuContent"  forceOverscroll="false">
 <ion-split-pane contentId="menu-content" when="xs" [disabled]="true" (ionSplitPaneVisible)="onSplitPaneVisible(event)">
   <ion-menu contentId="menu-content" menuId="menu-content" side="end" type="overlay" *ngIf="mobile" (ionDidClose)="investmentsolution = false">
-    <ion-content forceOverscroll = false *ngIf="mobile">
+    <ion-content class="menuContent" forceOverscroll = false *ngIf="mobile">
       <div>
       <div class = "avatarDiv">
           <div class = "avatar">
@@ -32,7 +32,7 @@
         </ion-menu-toggle>
     
     
-            <ion-item lines="none" style="    color: white; --detail-icon-opacity: 1;"  (click)="investmentsolution === true? investmentsolution = false : investmentsolution = true" >
+            <!-- <ion-item lines="none" style="    color: white; --detail-icon-opacity: 1;"  (click)="investmentsolution === true? investmentsolution = false : investmentsolution = true" >
               <img *ngIf="!investmentsolution" src="../../assets/images/bar graph.svg" alt="satistics" style="height: 20px; padding-right: 10px;">
               <ion-icon [name]="investmentsolution== true? 'chevron-back-outline' : 'chevron-forward-outline'" [slot]="investmentsolution== true? 'start':'end'" style="width: 20px;
               height: 20px;
@@ -41,7 +41,7 @@
               <ion-text color="light" style="font-family: Open Sans SemiBold; font-size: 16px; " [ngStyle]="{'margin-left': investmentsolution? '10px':'0px'}">
                 Investment Solution
               </ion-text>
-            </ion-item>
+            </ion-item> -->
     
             <ion-menu-toggle autoHide="false" >
               <ion-list *ngIf="investmentsolution == true" style="margin-bottom: 0px; ">
@@ -91,12 +91,12 @@
                     H-Factor Indexes
                   </ion-text>
                 </ion-item> -->
-                <ion-item lines="none" style="    color: white; --detail-icon-opacity: 1;" [routerLink]="['/menu/menu/performance',{'Key':'Market View'}]" routerLinkActive="router-link-active" >
+                <!-- <ion-item lines="none" style="    color: white; --detail-icon-opacity: 1;" [routerLink]="['/menu/menu/performance',{'Key':'Market View'}]" routerLinkActive="router-link-active" >
                   <img src="../../assets/images/Market view.svg" alt="satistics" style="height: 20px; padding-right: 10px;">
                   <ion-text color="light" style="font-size: 16px; font-family: Open Sans SemiBold;">
                     Market View
                   </ion-text>
-                </ion-item>
+                </ion-item> -->
                 <ion-item lines="none" style="    color: white; --detail-icon-opacity: 1;" [routerLink]="['/menu/menu/change-password']" routerLinkActive="router-link-active" >
                   <img src="../../assets/images/password.svg" alt="ChangePassword" style="height: 20px; padding-right: 10px;">
                     <ion-text color="light" style="font-size: 16px; font-family: Open Sans SemiBold;">

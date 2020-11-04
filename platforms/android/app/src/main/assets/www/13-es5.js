@@ -1,86 +1,97 @@
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([[13],{
 
-/***/ "./node_modules/@ionic/core/dist/esm-es5/ion-backdrop-ios.entry.js":
-/*!*************************************************************************!*\
-  !*** ./node_modules/@ionic/core/dist/esm-es5/ion-backdrop-ios.entry.js ***!
-  \*************************************************************************/
-/*! exports provided: ion_backdrop */
+/***/ "./node_modules/@ionic/core/dist/esm-es5/ion-img.entry.js":
+/*!****************************************************************!*\
+  !*** ./node_modules/@ionic/core/dist/esm-es5/ion-img.entry.js ***!
+  \****************************************************************/
+/*! exports provided: ion_img */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ion_backdrop", function() { return Backdrop; });
-/* harmony import */ var _core_ca0488fc_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./core-ca0488fc.js */ "./node_modules/@ionic/core/dist/esm-es5/core-ca0488fc.js");
-/* harmony import */ var _config_3c7f3790_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./config-3c7f3790.js */ "./node_modules/@ionic/core/dist/esm-es5/config-3c7f3790.js");
-/* harmony import */ var _helpers_46f4a262_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./helpers-46f4a262.js */ "./node_modules/@ionic/core/dist/esm-es5/helpers-46f4a262.js");
-/* harmony import */ var _index_624eea58_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./index-624eea58.js */ "./node_modules/@ionic/core/dist/esm-es5/index-624eea58.js");
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ion_img", function() { return Img; });
+/* harmony import */ var _index_92848855_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./index-92848855.js */ "./node_modules/@ionic/core/dist/esm-es5/index-92848855.js");
+/* harmony import */ var _ionic_global_23e7365a_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ionic-global-23e7365a.js */ "./node_modules/@ionic/core/dist/esm-es5/ionic-global-23e7365a.js");
 
 
-
-
-var Backdrop = /** @class */ (function () {
-    function Backdrop(hostRef) {
-        Object(_core_ca0488fc_js__WEBPACK_IMPORTED_MODULE_0__["r"])(this, hostRef);
-        this.lastClick = -10000;
-        this.blocker = _index_624eea58_js__WEBPACK_IMPORTED_MODULE_3__["GESTURE_CONTROLLER"].createBlocker({
-            disableScroll: true
-        });
-        /**
-         * If `true`, the backdrop will be visible.
-         */
-        this.visible = true;
-        /**
-         * If `true`, the backdrop will can be clicked and will emit the `ionBackdropTap` event.
-         */
-        this.tappable = true;
-        /**
-         * If `true`, the backdrop will stop propagation on tap.
-         */
-        this.stopPropagation = true;
-        this.ionBackdropTap = Object(_core_ca0488fc_js__WEBPACK_IMPORTED_MODULE_0__["c"])(this, "ionBackdropTap", 7);
+var imgCss = ":host{display:block;-o-object-fit:contain;object-fit:contain}img{display:block;width:100%;height:100%;-o-object-fit:inherit;object-fit:inherit;-o-object-position:inherit;object-position:inherit}";
+var Img = /** @class */ (function () {
+    function Img(hostRef) {
+        var _this = this;
+        Object(_index_92848855_js__WEBPACK_IMPORTED_MODULE_0__["r"])(this, hostRef);
+        this.ionImgWillLoad = Object(_index_92848855_js__WEBPACK_IMPORTED_MODULE_0__["e"])(this, "ionImgWillLoad", 7);
+        this.ionImgDidLoad = Object(_index_92848855_js__WEBPACK_IMPORTED_MODULE_0__["e"])(this, "ionImgDidLoad", 7);
+        this.ionError = Object(_index_92848855_js__WEBPACK_IMPORTED_MODULE_0__["e"])(this, "ionError", 7);
+        this.onLoad = function () {
+            _this.ionImgDidLoad.emit();
+        };
+        this.onError = function () {
+            _this.ionError.emit();
+        };
     }
-    Backdrop.prototype.connectedCallback = function () {
-        if (this.stopPropagation) {
-            this.blocker.block();
+    Img.prototype.srcChanged = function () {
+        this.addIO();
+    };
+    Img.prototype.componentDidLoad = function () {
+        this.addIO();
+    };
+    Img.prototype.addIO = function () {
+        var _this = this;
+        if (this.src === undefined) {
+            return;
+        }
+        if (typeof window !== 'undefined' &&
+            'IntersectionObserver' in window &&
+            'IntersectionObserverEntry' in window &&
+            'isIntersecting' in window.IntersectionObserverEntry.prototype) {
+            this.removeIO();
+            this.io = new IntersectionObserver(function (data) {
+                // because there will only ever be one instance
+                // of the element we are observing
+                // we can just use data[0]
+                if (data[0].isIntersecting) {
+                    _this.load();
+                    _this.removeIO();
+                }
+            });
+            this.io.observe(this.el);
+        }
+        else {
+            // fall back to setTimeout for Safari and IE
+            setTimeout(function () { return _this.load(); }, 200);
         }
     };
-    Backdrop.prototype.disconnectedCallback = function () {
-        this.blocker.unblock();
+    Img.prototype.load = function () {
+        this.loadError = this.onError;
+        this.loadSrc = this.src;
+        this.ionImgWillLoad.emit();
     };
-    Backdrop.prototype.onTouchStart = function (ev) {
-        this.lastClick = Object(_helpers_46f4a262_js__WEBPACK_IMPORTED_MODULE_2__["n"])(ev);
-        this.emitTap(ev);
-    };
-    Backdrop.prototype.onMouseDown = function (ev) {
-        if (this.lastClick < Object(_helpers_46f4a262_js__WEBPACK_IMPORTED_MODULE_2__["n"])(ev) - 2500) {
-            this.emitTap(ev);
+    Img.prototype.removeIO = function () {
+        if (this.io) {
+            this.io.disconnect();
+            this.io = undefined;
         }
     };
-    Backdrop.prototype.emitTap = function (ev) {
-        if (this.stopPropagation) {
-            ev.preventDefault();
-            ev.stopPropagation();
-        }
-        if (this.tappable) {
-            this.ionBackdropTap.emit();
-        }
+    Img.prototype.render = function () {
+        return (Object(_index_92848855_js__WEBPACK_IMPORTED_MODULE_0__["h"])(_index_92848855_js__WEBPACK_IMPORTED_MODULE_0__["H"], { class: Object(_ionic_global_23e7365a_js__WEBPACK_IMPORTED_MODULE_1__["b"])(this) }, Object(_index_92848855_js__WEBPACK_IMPORTED_MODULE_0__["h"])("img", { decoding: "async", src: this.loadSrc, alt: this.alt, onLoad: this.onLoad, onError: this.loadError, part: "image" })));
     };
-    Backdrop.prototype.render = function () {
-        var _a;
-        var mode = Object(_core_ca0488fc_js__WEBPACK_IMPORTED_MODULE_0__["d"])(this);
-        return (Object(_core_ca0488fc_js__WEBPACK_IMPORTED_MODULE_0__["h"])(_core_ca0488fc_js__WEBPACK_IMPORTED_MODULE_0__["H"], { tabindex: "-1", class: (_a = {},
-                _a[mode] = true,
-                _a['backdrop-hide'] = !this.visible,
-                _a['backdrop-no-tappable'] = !this.tappable,
-                _a) }));
-    };
-    Object.defineProperty(Backdrop, "style", {
-        get: function () { return ":host{left:0;right:0;top:0;bottom:0;display:block;position:absolute;-webkit-transform:translateZ(0);transform:translateZ(0);contain:strict;cursor:pointer;opacity:.01;-ms-touch-action:none;touch-action:none;z-index:2}:host(.backdrop-hide){background:transparent}:host(.backdrop-no-tappable){cursor:auto}:host{background-color:var(--ion-backdrop-color,#000)}"; },
-        enumerable: true,
+    Object.defineProperty(Img.prototype, "el", {
+        get: function () { return Object(_index_92848855_js__WEBPACK_IMPORTED_MODULE_0__["i"])(this); },
+        enumerable: false,
         configurable: true
     });
-    return Backdrop;
+    Object.defineProperty(Img, "watchers", {
+        get: function () {
+            return {
+                "src": ["srcChanged"]
+            };
+        },
+        enumerable: false,
+        configurable: true
+    });
+    return Img;
 }());
+Img.style = imgCss;
 
 
 

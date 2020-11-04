@@ -119,7 +119,7 @@ export class DataService{
           d.sortOrder = flt.length > 0 ? flt[0].order : null;
           return d
         });
-        console.log(this.dbScoretemp);
+        // console.log(this.dbScoretemp);
         this.dbScore.next(this.dbScoretemp);
         this.setglobalGICS();
       })
@@ -137,7 +137,7 @@ export class DataService{
       upto100 : this.dbScoretemp.filter(i=> (i.scores*100) >= 75 && (i.scores*100) < 100).length,
     }
     this._globalGICS = temp;
-    console.log(this._globalGICS);
+    // console.log(this._globalGICS);
     this.globalGICS.next(this._globalGICS);
   }
 
@@ -185,7 +185,7 @@ export class DataService{
           d.sortOrder = flt.length > 0 ? flt[0].order : null;
           return d
         });
-        console.log(this.dbHistScore);
+        // console.log(this.dbHistScore);
         this.dbScore.next(this.dbHistScore);
       })
   }
@@ -232,7 +232,7 @@ export class DataService{
   getETFdata(){
     if(this._ETFIndex.length == 0){
       this.dataHandler.getETFData().subscribe((data)=>{
-        console.log(data);
+        // console.log(data);
         this._ETFIndex = data;
         this.ETFIndex.next(this._ETFIndex);
       })

@@ -1,364 +1,303 @@
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([[0],{
 
-/***/ "./node_modules/@ionic/core/dist/esm-es5/framework-delegate-c2e2e1f4.js":
-/*!******************************************************************************!*\
-  !*** ./node_modules/@ionic/core/dist/esm-es5/framework-delegate-c2e2e1f4.js ***!
-  \******************************************************************************/
-/*! exports provided: a, d */
+/***/ "./node_modules/@ionic/core/dist/esm-es5/ion-action-sheet.entry.js":
+/*!*************************************************************************!*\
+  !*** ./node_modules/@ionic/core/dist/esm-es5/ion-action-sheet.entry.js ***!
+  \*************************************************************************/
+/*! exports provided: ion_action_sheet */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return attachComponent; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return detachComponent; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ion_action_sheet", function() { return ActionSheet; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _index_92848855_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./index-92848855.js */ "./node_modules/@ionic/core/dist/esm-es5/index-92848855.js");
+/* harmony import */ var _ionic_global_23e7365a_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./ionic-global-23e7365a.js */ "./node_modules/@ionic/core/dist/esm-es5/ionic-global-23e7365a.js");
+/* harmony import */ var _helpers_5c745fbd_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./helpers-5c745fbd.js */ "./node_modules/@ionic/core/dist/esm-es5/helpers-5c745fbd.js");
+/* harmony import */ var _animation_a635a2fc_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./animation-a635a2fc.js */ "./node_modules/@ionic/core/dist/esm-es5/animation-a635a2fc.js");
+/* harmony import */ var _gesture_controller_89173521_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./gesture-controller-89173521.js */ "./node_modules/@ionic/core/dist/esm-es5/gesture-controller-89173521.js");
+/* harmony import */ var _index_eea61379_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./index-eea61379.js */ "./node_modules/@ionic/core/dist/esm-es5/index-eea61379.js");
+/* harmony import */ var _hardware_back_button_7b6ede21_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./hardware-back-button-7b6ede21.js */ "./node_modules/@ionic/core/dist/esm-es5/hardware-back-button-7b6ede21.js");
+/* harmony import */ var _overlays_2cc140a1_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./overlays-2cc140a1.js */ "./node_modules/@ionic/core/dist/esm-es5/overlays-2cc140a1.js");
+/* harmony import */ var _haptic_7b8ba70a_js__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./haptic-7b8ba70a.js */ "./node_modules/@ionic/core/dist/esm-es5/haptic-7b8ba70a.js");
+/* harmony import */ var _button_active_5da929d4_js__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./button-active-5da929d4.js */ "./node_modules/@ionic/core/dist/esm-es5/button-active-5da929d4.js");
+/* harmony import */ var _theme_5641d27f_js__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./theme-5641d27f.js */ "./node_modules/@ionic/core/dist/esm-es5/theme-5641d27f.js");
 
-var attachComponent = function (delegate, container, component, cssClasses, componentProps) { return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(void 0, void 0, void 0, function () {
-    var el;
-    return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__generator"])(this, function (_a) {
-        switch (_a.label) {
-            case 0:
-                if (delegate) {
-                    return [2 /*return*/, delegate.attachViewToDom(container, component, componentProps, cssClasses)];
-                }
-                if (typeof component !== 'string' && !(component instanceof HTMLElement)) {
-                    throw new Error('framework delegate is missing');
-                }
-                el = (typeof component === 'string')
-                    ? container.ownerDocument && container.ownerDocument.createElement(component)
-                    : component;
-                if (cssClasses) {
-                    cssClasses.forEach(function (c) { return el.classList.add(c); });
-                }
-                if (componentProps) {
-                    Object.assign(el, componentProps);
-                }
-                container.appendChild(el);
-                if (!el.componentOnReady) return [3 /*break*/, 2];
-                return [4 /*yield*/, el.componentOnReady()];
-            case 1:
-                _a.sent();
-                _a.label = 2;
-            case 2: return [2 /*return*/, el];
-        }
-    });
-}); };
-var detachComponent = function (delegate, element) {
-    if (element) {
-        if (delegate) {
-            var container = element.parentElement;
-            return delegate.removeViewFromDom(container, element);
-        }
-        element.remove();
-    }
-    return Promise.resolve();
+
+
+
+
+
+
+
+
+
+
+
+/**
+ * iOS Action Sheet Enter Animation
+ */
+var iosEnterAnimation = function (baseEl) {
+    var baseAnimation = Object(_animation_a635a2fc_js__WEBPACK_IMPORTED_MODULE_4__["c"])();
+    var backdropAnimation = Object(_animation_a635a2fc_js__WEBPACK_IMPORTED_MODULE_4__["c"])();
+    var wrapperAnimation = Object(_animation_a635a2fc_js__WEBPACK_IMPORTED_MODULE_4__["c"])();
+    backdropAnimation
+        .addElement(baseEl.querySelector('ion-backdrop'))
+        .fromTo('opacity', 0.01, 'var(--backdrop-opacity)')
+        .beforeStyles({
+        'pointer-events': 'none'
+    })
+        .afterClearStyles(['pointer-events']);
+    wrapperAnimation
+        .addElement(baseEl.querySelector('.action-sheet-wrapper'))
+        .fromTo('transform', 'translateY(100%)', 'translateY(0%)');
+    return baseAnimation
+        .addElement(baseEl)
+        .easing('cubic-bezier(.36,.66,.04,1)')
+        .duration(400)
+        .addAnimation([backdropAnimation, wrapperAnimation]);
 };
-
-
-
-/***/ }),
-
-/***/ "./node_modules/@ionic/core/dist/esm-es5/index-6826f2f6.js":
-/*!*****************************************************************!*\
-  !*** ./node_modules/@ionic/core/dist/esm-es5/index-6826f2f6.js ***!
-  \*****************************************************************/
-/*! exports provided: d, g, l, s, t */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return deepReady; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "g", function() { return getIonPageElement; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "l", function() { return lifecycle; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "s", function() { return setPageHidden; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "t", function() { return transition; });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
-/* harmony import */ var _core_ca0488fc_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./core-ca0488fc.js */ "./node_modules/@ionic/core/dist/esm-es5/core-ca0488fc.js");
-/* harmony import */ var _constants_3c3e1099_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./constants-3c3e1099.js */ "./node_modules/@ionic/core/dist/esm-es5/constants-3c3e1099.js");
-
-
-
-var iosTransitionAnimation = function () { return __webpack_require__.e(/*! import() | ios-transition-071bd421-js */ "ios-transition-071bd421-js").then(__webpack_require__.bind(null, /*! ./ios.transition-071bd421.js */ "./node_modules/@ionic/core/dist/esm-es5/ios.transition-071bd421.js")); };
-var mdTransitionAnimation = function () { return __webpack_require__.e(/*! import() | md-transition-15a81b08-js */ "md-transition-15a81b08-js").then(__webpack_require__.bind(null, /*! ./md.transition-15a81b08.js */ "./node_modules/@ionic/core/dist/esm-es5/md.transition-15a81b08.js")); };
-var transition = function (opts) {
-    return new Promise(function (resolve, reject) {
-        Object(_core_ca0488fc_js__WEBPACK_IMPORTED_MODULE_1__["w"])(function () {
-            beforeTransition(opts);
-            runTransition(opts).then(function (result) {
-                if (result.animation) {
-                    result.animation.destroy();
+/**
+ * iOS Action Sheet Leave Animation
+ */
+var iosLeaveAnimation = function (baseEl) {
+    var baseAnimation = Object(_animation_a635a2fc_js__WEBPACK_IMPORTED_MODULE_4__["c"])();
+    var backdropAnimation = Object(_animation_a635a2fc_js__WEBPACK_IMPORTED_MODULE_4__["c"])();
+    var wrapperAnimation = Object(_animation_a635a2fc_js__WEBPACK_IMPORTED_MODULE_4__["c"])();
+    backdropAnimation
+        .addElement(baseEl.querySelector('ion-backdrop'))
+        .fromTo('opacity', 'var(--backdrop-opacity)', 0);
+    wrapperAnimation
+        .addElement(baseEl.querySelector('.action-sheet-wrapper'))
+        .fromTo('transform', 'translateY(0%)', 'translateY(100%)');
+    return baseAnimation
+        .addElement(baseEl)
+        .easing('cubic-bezier(.36,.66,.04,1)')
+        .duration(450)
+        .addAnimation([backdropAnimation, wrapperAnimation]);
+};
+/**
+ * MD Action Sheet Enter Animation
+ */
+var mdEnterAnimation = function (baseEl) {
+    var baseAnimation = Object(_animation_a635a2fc_js__WEBPACK_IMPORTED_MODULE_4__["c"])();
+    var backdropAnimation = Object(_animation_a635a2fc_js__WEBPACK_IMPORTED_MODULE_4__["c"])();
+    var wrapperAnimation = Object(_animation_a635a2fc_js__WEBPACK_IMPORTED_MODULE_4__["c"])();
+    backdropAnimation
+        .addElement(baseEl.querySelector('ion-backdrop'))
+        .fromTo('opacity', 0.01, 'var(--backdrop-opacity)')
+        .beforeStyles({
+        'pointer-events': 'none'
+    })
+        .afterClearStyles(['pointer-events']);
+    wrapperAnimation
+        .addElement(baseEl.querySelector('.action-sheet-wrapper'))
+        .fromTo('transform', 'translateY(100%)', 'translateY(0%)');
+    return baseAnimation
+        .addElement(baseEl)
+        .easing('cubic-bezier(.36,.66,.04,1)')
+        .duration(400)
+        .addAnimation([backdropAnimation, wrapperAnimation]);
+};
+/**
+ * MD Action Sheet Leave Animation
+ */
+var mdLeaveAnimation = function (baseEl) {
+    var baseAnimation = Object(_animation_a635a2fc_js__WEBPACK_IMPORTED_MODULE_4__["c"])();
+    var backdropAnimation = Object(_animation_a635a2fc_js__WEBPACK_IMPORTED_MODULE_4__["c"])();
+    var wrapperAnimation = Object(_animation_a635a2fc_js__WEBPACK_IMPORTED_MODULE_4__["c"])();
+    backdropAnimation
+        .addElement(baseEl.querySelector('ion-backdrop'))
+        .fromTo('opacity', 'var(--backdrop-opacity)', 0);
+    wrapperAnimation
+        .addElement(baseEl.querySelector('.action-sheet-wrapper'))
+        .fromTo('transform', 'translateY(0%)', 'translateY(100%)');
+    return baseAnimation
+        .addElement(baseEl)
+        .easing('cubic-bezier(.36,.66,.04,1)')
+        .duration(450)
+        .addAnimation([backdropAnimation, wrapperAnimation]);
+};
+var actionSheetIosCss = ".sc-ion-action-sheet-ios-h{--color:initial;--button-color-activated:var(--button-color);--button-color-focused:var(--button-color);--button-color-hover:var(--button-color);--button-color-selected:var(--button-color);--min-width:auto;--width:100%;--max-width:500px;--min-height:auto;--height:100%;--max-height:calc(100% - (var(--ion-safe-area-top) + var(--ion-safe-area-bottom)));-moz-osx-font-smoothing:grayscale;-webkit-font-smoothing:antialiased;left:0;right:0;top:0;bottom:0;display:block;position:fixed;outline:none;font-family:var(--ion-font-family, inherit);-ms-touch-action:none;touch-action:none;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;z-index:1001}.overlay-hidden.sc-ion-action-sheet-ios-h{display:none}.action-sheet-wrapper.sc-ion-action-sheet-ios{left:0;right:0;bottom:0;margin-left:auto;margin-right:auto;margin-top:auto;margin-bottom:auto;-webkit-transform:translate3d(0,  100%,  0);transform:translate3d(0,  100%,  0);display:block;position:absolute;width:var(--width);min-width:var(--min-width);max-width:var(--max-width);height:var(--height);min-height:var(--min-height);max-height:var(--max-height);z-index:10;pointer-events:none}@supports ((-webkit-margin-start: 0) or (margin-inline-start: 0)) or (-webkit-margin-start: 0){.action-sheet-wrapper.sc-ion-action-sheet-ios{margin-left:unset;margin-right:unset;-webkit-margin-start:auto;margin-inline-start:auto;-webkit-margin-end:auto;margin-inline-end:auto}}.action-sheet-button.sc-ion-action-sheet-ios{display:block;position:relative;width:100%;border:0;outline:none;background:var(--button-background);color:var(--button-color);font-family:inherit;overflow:hidden}.action-sheet-button-inner.sc-ion-action-sheet-ios{display:-ms-flexbox;display:flex;position:relative;-ms-flex-flow:row nowrap;flex-flow:row nowrap;-ms-flex-negative:0;flex-shrink:0;-ms-flex-align:center;align-items:center;-ms-flex-pack:center;justify-content:center;pointer-events:none;width:100%;height:100%;z-index:1}.action-sheet-container.sc-ion-action-sheet-ios{display:-ms-flexbox;display:flex;-ms-flex-flow:column;flex-flow:column;-ms-flex-pack:end;justify-content:flex-end;height:100%;max-height:100%}.action-sheet-group.sc-ion-action-sheet-ios{-ms-flex-negative:2;flex-shrink:2;overscroll-behavior-y:contain;overflow-y:auto;-webkit-overflow-scrolling:touch;pointer-events:all;background:var(--background)}.action-sheet-group.sc-ion-action-sheet-ios::-webkit-scrollbar{display:none}.action-sheet-group-cancel.sc-ion-action-sheet-ios{-ms-flex-negative:0;flex-shrink:0;overflow:hidden}.action-sheet-button.sc-ion-action-sheet-ios::after{left:0;right:0;top:0;bottom:0;position:absolute;content:\"\";opacity:0}.action-sheet-selected.sc-ion-action-sheet-ios{color:var(--button-color-selected)}.action-sheet-selected.sc-ion-action-sheet-ios::after{background:var(--button-background-selected);opacity:var(--button-background-selected-opacity)}.action-sheet-button.ion-activated.sc-ion-action-sheet-ios{color:var(--button-color-activated)}.action-sheet-button.ion-activated.sc-ion-action-sheet-ios::after{background:var(--button-background-activated);opacity:var(--button-background-activated-opacity)}.action-sheet-button.ion-focused.sc-ion-action-sheet-ios{color:var(--button-color-focused)}.action-sheet-button.ion-focused.sc-ion-action-sheet-ios::after{background:var(--button-background-focused);opacity:var(--button-background-focused-opacity)}@media (any-hover: hover){.action-sheet-button.sc-ion-action-sheet-ios:hover{color:var(--button-color-hover)}.action-sheet-button.sc-ion-action-sheet-ios:hover::after{background:var(--button-background-hover);opacity:var(--button-background-hover-opacity)}}.sc-ion-action-sheet-ios-h{--background:var(--ion-overlay-background-color, var(--ion-color-step-100, #f9f9f9));--backdrop-opacity:var(--ion-backdrop-opacity, 0.4);--button-background:linear-gradient(0deg, rgba(var(--ion-text-color-rgb, 0, 0, 0), 0.08), rgba(var(--ion-text-color-rgb, 0, 0, 0), 0.08) 50%, transparent 50%) bottom/100% 1px no-repeat transparent;--button-background-activated:var(--ion-text-color, #000);--button-background-activated-opacity:.08;--button-background-hover:currentColor;--button-background-hover-opacity:.04;--button-background-focused:currentColor;--button-background-focused-opacity:.12;--button-background-selected:var(--ion-color-step-150, var(--ion-background-color, #fff));--button-background-selected-opacity:1;--button-color:var(--ion-color-primary, #3880ff);--color:var(--ion-color-step-400, #999999);text-align:center}.action-sheet-wrapper.sc-ion-action-sheet-ios{margin-left:auto;margin-right:auto;margin-top:var(--ion-safe-area-top, 0);margin-bottom:var(--ion-safe-area-bottom, 0)}@supports ((-webkit-margin-start: 0) or (margin-inline-start: 0)) or (-webkit-margin-start: 0){.action-sheet-wrapper.sc-ion-action-sheet-ios{margin-left:unset;margin-right:unset;-webkit-margin-start:auto;margin-inline-start:auto;-webkit-margin-end:auto;margin-inline-end:auto}}.action-sheet-container.sc-ion-action-sheet-ios{padding-left:8px;padding-right:8px;padding-top:0;padding-bottom:0}@supports ((-webkit-margin-start: 0) or (margin-inline-start: 0)) or (-webkit-margin-start: 0){.action-sheet-container.sc-ion-action-sheet-ios{padding-left:unset;padding-right:unset;-webkit-padding-start:8px;padding-inline-start:8px;-webkit-padding-end:8px;padding-inline-end:8px}}.action-sheet-group.sc-ion-action-sheet-ios{border-radius:13px;margin-bottom:8px}.action-sheet-group.sc-ion-action-sheet-ios:first-child{margin-top:10px}.action-sheet-group.sc-ion-action-sheet-ios:last-child{margin-bottom:10px}@supports ((-webkit-backdrop-filter: blur(0)) or (backdrop-filter: blur(0))){.action-sheet-translucent.sc-ion-action-sheet-ios-h .action-sheet-group.sc-ion-action-sheet-ios{background-color:transparent;-webkit-backdrop-filter:saturate(280%) blur(20px);backdrop-filter:saturate(280%) blur(20px)}.action-sheet-translucent.sc-ion-action-sheet-ios-h .action-sheet-title.sc-ion-action-sheet-ios,.action-sheet-translucent.sc-ion-action-sheet-ios-h .action-sheet-button.sc-ion-action-sheet-ios{background-color:transparent;background-image:-webkit-gradient(linear, left bottom, left top, from(rgba(var(--ion-background-color-rgb, 255, 255, 255), 0.8)), to(rgba(var(--ion-background-color-rgb, 255, 255, 255), 0.8))), -webkit-gradient(linear, left bottom, left top, from(rgba(var(--ion-background-color-rgb, 255, 255, 255), 0.4)), color-stop(50%, rgba(var(--ion-background-color-rgb, 255, 255, 255), 0.4)), color-stop(50%, rgba(var(--ion-background-color-rgb, 255, 255, 255), 0.8)));background-image:linear-gradient(0deg, rgba(var(--ion-background-color-rgb, 255, 255, 255), 0.8), rgba(var(--ion-background-color-rgb, 255, 255, 255), 0.8) 100%), linear-gradient(0deg, rgba(var(--ion-background-color-rgb, 255, 255, 255), 0.4), rgba(var(--ion-background-color-rgb, 255, 255, 255), 0.4) 50%, rgba(var(--ion-background-color-rgb, 255, 255, 255), 0.8) 50%);background-repeat:no-repeat;background-position:top, bottom;background-size:100% calc(100% - 1px), 100% 1px;-webkit-backdrop-filter:saturate(120%);backdrop-filter:saturate(120%)}.action-sheet-translucent.sc-ion-action-sheet-ios-h .action-sheet-button.ion-activated.sc-ion-action-sheet-ios{background-color:rgba(var(--ion-background-color-rgb, 255, 255, 255), 0.7);background-image:none}.action-sheet-translucent.sc-ion-action-sheet-ios-h .action-sheet-cancel.sc-ion-action-sheet-ios{background:var(--button-background-selected)}}.action-sheet-title.sc-ion-action-sheet-ios{background:-webkit-gradient(linear, left bottom, left top, from(rgba(var(--ion-text-color-rgb, 0, 0, 0), 0.08)), color-stop(50%, rgba(var(--ion-text-color-rgb, 0, 0, 0), 0.08)), color-stop(50%, transparent)) bottom/100% 1px no-repeat transparent;background:linear-gradient(0deg, rgba(var(--ion-text-color-rgb, 0, 0, 0), 0.08), rgba(var(--ion-text-color-rgb, 0, 0, 0), 0.08) 50%, transparent 50%) bottom/100% 1px no-repeat transparent}.action-sheet-title.sc-ion-action-sheet-ios{padding-left:10px;padding-right:10px;padding-top:14px;padding-bottom:13px;color:var(--color, var(--ion-color-step-400, #999999));font-size:13px;font-weight:400;text-align:center}@supports ((-webkit-margin-start: 0) or (margin-inline-start: 0)) or (-webkit-margin-start: 0){.action-sheet-title.sc-ion-action-sheet-ios{padding-left:unset;padding-right:unset;-webkit-padding-start:10px;padding-inline-start:10px;-webkit-padding-end:10px;padding-inline-end:10px}}.action-sheet-sub-title.sc-ion-action-sheet-ios{padding-left:0;padding-right:0;padding-top:15px;padding-bottom:0;font-size:12px}.action-sheet-button.sc-ion-action-sheet-ios{padding-left:18px;padding-right:18px;padding-top:18px;padding-bottom:18px;height:56px;font-size:20px;contain:strict}@supports ((-webkit-margin-start: 0) or (margin-inline-start: 0)) or (-webkit-margin-start: 0){.action-sheet-button.sc-ion-action-sheet-ios{padding-left:unset;padding-right:unset;-webkit-padding-start:18px;padding-inline-start:18px;-webkit-padding-end:18px;padding-inline-end:18px}}.action-sheet-button.sc-ion-action-sheet-ios .action-sheet-icon.sc-ion-action-sheet-ios{margin-right:0.1em;font-size:28px;pointer-events:none}@supports ((-webkit-margin-start: 0) or (margin-inline-start: 0)) or (-webkit-margin-start: 0){.action-sheet-button.sc-ion-action-sheet-ios .action-sheet-icon.sc-ion-action-sheet-ios{margin-right:unset;-webkit-margin-end:0.1em;margin-inline-end:0.1em}}.action-sheet-button.sc-ion-action-sheet-ios:last-child{background-image:none}.action-sheet-selected.sc-ion-action-sheet-ios{font-weight:bold}.action-sheet-cancel.sc-ion-action-sheet-ios{font-weight:600}.action-sheet-cancel.sc-ion-action-sheet-ios::after{background:var(--button-background-selected);opacity:var(--button-background-selected-opacity)}.action-sheet-destructive.sc-ion-action-sheet-ios,.action-sheet-destructive.ion-activated.sc-ion-action-sheet-ios,.action-sheet-destructive.ion-focused.sc-ion-action-sheet-ios{color:var(--ion-color-danger, #eb445a)}@media (any-hover: hover){.action-sheet-destructive.sc-ion-action-sheet-ios:hover{color:var(--ion-color-danger, #eb445a)}}";
+var actionSheetMdCss = ".sc-ion-action-sheet-md-h{--color:initial;--button-color-activated:var(--button-color);--button-color-focused:var(--button-color);--button-color-hover:var(--button-color);--button-color-selected:var(--button-color);--min-width:auto;--width:100%;--max-width:500px;--min-height:auto;--height:100%;--max-height:calc(100% - (var(--ion-safe-area-top) + var(--ion-safe-area-bottom)));-moz-osx-font-smoothing:grayscale;-webkit-font-smoothing:antialiased;left:0;right:0;top:0;bottom:0;display:block;position:fixed;outline:none;font-family:var(--ion-font-family, inherit);-ms-touch-action:none;touch-action:none;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;z-index:1001}.overlay-hidden.sc-ion-action-sheet-md-h{display:none}.action-sheet-wrapper.sc-ion-action-sheet-md{left:0;right:0;bottom:0;margin-left:auto;margin-right:auto;margin-top:auto;margin-bottom:auto;-webkit-transform:translate3d(0,  100%,  0);transform:translate3d(0,  100%,  0);display:block;position:absolute;width:var(--width);min-width:var(--min-width);max-width:var(--max-width);height:var(--height);min-height:var(--min-height);max-height:var(--max-height);z-index:10;pointer-events:none}@supports ((-webkit-margin-start: 0) or (margin-inline-start: 0)) or (-webkit-margin-start: 0){.action-sheet-wrapper.sc-ion-action-sheet-md{margin-left:unset;margin-right:unset;-webkit-margin-start:auto;margin-inline-start:auto;-webkit-margin-end:auto;margin-inline-end:auto}}.action-sheet-button.sc-ion-action-sheet-md{display:block;position:relative;width:100%;border:0;outline:none;background:var(--button-background);color:var(--button-color);font-family:inherit;overflow:hidden}.action-sheet-button-inner.sc-ion-action-sheet-md{display:-ms-flexbox;display:flex;position:relative;-ms-flex-flow:row nowrap;flex-flow:row nowrap;-ms-flex-negative:0;flex-shrink:0;-ms-flex-align:center;align-items:center;-ms-flex-pack:center;justify-content:center;pointer-events:none;width:100%;height:100%;z-index:1}.action-sheet-container.sc-ion-action-sheet-md{display:-ms-flexbox;display:flex;-ms-flex-flow:column;flex-flow:column;-ms-flex-pack:end;justify-content:flex-end;height:100%;max-height:100%}.action-sheet-group.sc-ion-action-sheet-md{-ms-flex-negative:2;flex-shrink:2;overscroll-behavior-y:contain;overflow-y:auto;-webkit-overflow-scrolling:touch;pointer-events:all;background:var(--background)}.action-sheet-group.sc-ion-action-sheet-md::-webkit-scrollbar{display:none}.action-sheet-group-cancel.sc-ion-action-sheet-md{-ms-flex-negative:0;flex-shrink:0;overflow:hidden}.action-sheet-button.sc-ion-action-sheet-md::after{left:0;right:0;top:0;bottom:0;position:absolute;content:\"\";opacity:0}.action-sheet-selected.sc-ion-action-sheet-md{color:var(--button-color-selected)}.action-sheet-selected.sc-ion-action-sheet-md::after{background:var(--button-background-selected);opacity:var(--button-background-selected-opacity)}.action-sheet-button.ion-activated.sc-ion-action-sheet-md{color:var(--button-color-activated)}.action-sheet-button.ion-activated.sc-ion-action-sheet-md::after{background:var(--button-background-activated);opacity:var(--button-background-activated-opacity)}.action-sheet-button.ion-focused.sc-ion-action-sheet-md{color:var(--button-color-focused)}.action-sheet-button.ion-focused.sc-ion-action-sheet-md::after{background:var(--button-background-focused);opacity:var(--button-background-focused-opacity)}@media (any-hover: hover){.action-sheet-button.sc-ion-action-sheet-md:hover{color:var(--button-color-hover)}.action-sheet-button.sc-ion-action-sheet-md:hover::after{background:var(--button-background-hover);opacity:var(--button-background-hover-opacity)}}.sc-ion-action-sheet-md-h{--background:var(--ion-overlay-background-color, var(--ion-background-color, #fff));--backdrop-opacity:var(--ion-backdrop-opacity, 0.32);--button-background:transparent;--button-background-selected:currentColor;--button-background-selected-opacity:0;--button-background-activated:transparent;--button-background-activated-opacity:0;--button-background-hover:currentColor;--button-background-hover-opacity:.04;--button-background-focused:currentColor;--button-background-focused-opacity:.12;--button-color:var(--ion-color-step-850, #262626);--color:rgba(var(--ion-text-color-rgb, 0, 0, 0), 0.54)}.action-sheet-title.sc-ion-action-sheet-md{padding-left:16px;padding-right:16px;padding-top:20px;padding-bottom:17px;height:60px;color:var(--color, rgba(var(--ion-text-color-rgb, 0, 0, 0), 0.54));font-size:16px;text-align:start}@supports ((-webkit-margin-start: 0) or (margin-inline-start: 0)) or (-webkit-margin-start: 0){.action-sheet-title.sc-ion-action-sheet-md{padding-left:unset;padding-right:unset;-webkit-padding-start:16px;padding-inline-start:16px;-webkit-padding-end:16px;padding-inline-end:16px}}.action-sheet-sub-title.sc-ion-action-sheet-md{padding-left:0;padding-right:0;padding-top:16px;padding-bottom:0;font-size:14px}.action-sheet-group.sc-ion-action-sheet-md:first-child{padding-top:0}.action-sheet-group.sc-ion-action-sheet-md:last-child{padding-bottom:0}.action-sheet-button.sc-ion-action-sheet-md{padding-left:16px;padding-right:16px;padding-top:0;padding-bottom:0;position:relative;height:52px;font-size:16px;text-align:start;contain:strict;overflow:hidden}@supports ((-webkit-margin-start: 0) or (margin-inline-start: 0)) or (-webkit-margin-start: 0){.action-sheet-button.sc-ion-action-sheet-md{padding-left:unset;padding-right:unset;-webkit-padding-start:16px;padding-inline-start:16px;-webkit-padding-end:16px;padding-inline-end:16px}}.action-sheet-icon.sc-ion-action-sheet-md{padding-bottom:4px;margin-left:0;margin-right:32px;margin-top:0;margin-bottom:0;color:var(--color);font-size:24px}@supports ((-webkit-margin-start: 0) or (margin-inline-start: 0)) or (-webkit-margin-start: 0){.action-sheet-icon.sc-ion-action-sheet-md{margin-left:unset;margin-right:unset;-webkit-margin-start:0;margin-inline-start:0;-webkit-margin-end:32px;margin-inline-end:32px}}.action-sheet-button-inner.sc-ion-action-sheet-md{-ms-flex-pack:start;justify-content:flex-start}.action-sheet-selected.sc-ion-action-sheet-md{font-weight:bold}";
+var ActionSheet = /** @class */ (function () {
+    function class_1(hostRef) {
+        var _this = this;
+        Object(_index_92848855_js__WEBPACK_IMPORTED_MODULE_1__["r"])(this, hostRef);
+        this.didPresent = Object(_index_92848855_js__WEBPACK_IMPORTED_MODULE_1__["e"])(this, "ionActionSheetDidPresent", 7);
+        this.willPresent = Object(_index_92848855_js__WEBPACK_IMPORTED_MODULE_1__["e"])(this, "ionActionSheetWillPresent", 7);
+        this.willDismiss = Object(_index_92848855_js__WEBPACK_IMPORTED_MODULE_1__["e"])(this, "ionActionSheetWillDismiss", 7);
+        this.didDismiss = Object(_index_92848855_js__WEBPACK_IMPORTED_MODULE_1__["e"])(this, "ionActionSheetDidDismiss", 7);
+        this.presented = false;
+        /**
+         * If `true`, the keyboard will be automatically dismissed when the overlay is presented.
+         */
+        this.keyboardClose = true;
+        /**
+         * An array of buttons for the action sheet.
+         */
+        this.buttons = [];
+        /**
+         * If `true`, the action sheet will be dismissed when the backdrop is clicked.
+         */
+        this.backdropDismiss = true;
+        /**
+         * If `true`, the action sheet will be translucent.
+         * Only applies when the mode is `"ios"` and the device supports
+         * [`backdrop-filter`](https://developer.mozilla.org/en-US/docs/Web/CSS/backdrop-filter#Browser_compatibility).
+         */
+        this.translucent = false;
+        /**
+         * If `true`, the action sheet will animate.
+         */
+        this.animated = true;
+        this.onBackdropTap = function () {
+            _this.dismiss(undefined, _overlays_2cc140a1_js__WEBPACK_IMPORTED_MODULE_8__["B"]);
+        };
+        this.dispatchCancelHandler = function (ev) {
+            var role = ev.detail.role;
+            if (Object(_overlays_2cc140a1_js__WEBPACK_IMPORTED_MODULE_8__["i"])(role)) {
+                var cancelButton = _this.getButtons().find(function (b) { return b.role === 'cancel'; });
+                _this.callButtonHandler(cancelButton);
+            }
+        };
+    }
+    /**
+     * Present the action sheet overlay after it has been created.
+     */
+    class_1.prototype.present = function () {
+        return Object(_overlays_2cc140a1_js__WEBPACK_IMPORTED_MODULE_8__["d"])(this, 'actionSheetEnter', iosEnterAnimation, mdEnterAnimation);
+    };
+    class_1.prototype.connectedCallback = function () {
+        Object(_overlays_2cc140a1_js__WEBPACK_IMPORTED_MODULE_8__["e"])(this.el);
+    };
+    /**
+     * Dismiss the action sheet overlay after it has been presented.
+     *
+     * @param data Any data to emit in the dismiss events.
+     * @param role The role of the element that is dismissing the action sheet.
+     * This can be useful in a button handler for determining which button was
+     * clicked to dismiss the action sheet.
+     * Some examples include: ``"cancel"`, `"destructive"`, "selected"`, and `"backdrop"`.
+     */
+    class_1.prototype.dismiss = function (data, role) {
+        return Object(_overlays_2cc140a1_js__WEBPACK_IMPORTED_MODULE_8__["f"])(this, data, role, 'actionSheetLeave', iosLeaveAnimation, mdLeaveAnimation);
+    };
+    /**
+     * Returns a promise that resolves when the action sheet did dismiss.
+     */
+    class_1.prototype.onDidDismiss = function () {
+        return Object(_overlays_2cc140a1_js__WEBPACK_IMPORTED_MODULE_8__["g"])(this.el, 'ionActionSheetDidDismiss');
+    };
+    /**
+     * Returns a promise that resolves when the action sheet will dismiss.
+     *
+     */
+    class_1.prototype.onWillDismiss = function () {
+        return Object(_overlays_2cc140a1_js__WEBPACK_IMPORTED_MODULE_8__["g"])(this.el, 'ionActionSheetWillDismiss');
+    };
+    class_1.prototype.buttonClick = function (button) {
+        return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, function () {
+            var role, shouldDismiss;
+            return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__generator"])(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        role = button.role;
+                        if (Object(_overlays_2cc140a1_js__WEBPACK_IMPORTED_MODULE_8__["i"])(role)) {
+                            return [2 /*return*/, this.dismiss(undefined, role)];
+                        }
+                        return [4 /*yield*/, this.callButtonHandler(button)];
+                    case 1:
+                        shouldDismiss = _a.sent();
+                        if (shouldDismiss) {
+                            return [2 /*return*/, this.dismiss(undefined, button.role)];
+                        }
+                        return [2 /*return*/, Promise.resolve()];
                 }
-                afterTransition(opts);
-                resolve(result);
-            }, function (error) {
-                afterTransition(opts);
-                reject(error);
             });
         });
-    });
-};
-var beforeTransition = function (opts) {
-    var enteringEl = opts.enteringEl;
-    var leavingEl = opts.leavingEl;
-    setZIndex(enteringEl, leavingEl, opts.direction);
-    if (opts.showGoBack) {
-        enteringEl.classList.add('can-go-back');
-    }
-    else {
-        enteringEl.classList.remove('can-go-back');
-    }
-    setPageHidden(enteringEl, false);
-    if (leavingEl) {
-        setPageHidden(leavingEl, false);
-    }
-};
-var runTransition = function (opts) { return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(void 0, void 0, void 0, function () {
-    var animationBuilder, ani;
-    return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__generator"])(this, function (_a) {
-        switch (_a.label) {
-            case 0: return [4 /*yield*/, getAnimationBuilder(opts)];
-            case 1:
-                animationBuilder = _a.sent();
-                ani = (animationBuilder)
-                    ? animation(animationBuilder, opts)
-                    : noAnimation(opts);
-                return [2 /*return*/, ani];
-        }
-    });
-}); };
-var afterTransition = function (opts) {
-    var enteringEl = opts.enteringEl;
-    var leavingEl = opts.leavingEl;
-    enteringEl.classList.remove('ion-page-invisible');
-    if (leavingEl !== undefined) {
-        leavingEl.classList.remove('ion-page-invisible');
-    }
-};
-var getAnimationBuilder = function (opts) { return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(void 0, void 0, void 0, function () {
-    var getAnimation, _a;
-    return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__generator"])(this, function (_b) {
-        switch (_b.label) {
-            case 0:
-                if (!opts.leavingEl || !opts.animated || opts.duration === 0) {
-                    return [2 /*return*/, undefined];
+    };
+    class_1.prototype.callButtonHandler = function (button) {
+        return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, function () {
+            var rtn;
+            return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__generator"])(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        if (!button) return [3 /*break*/, 2];
+                        return [4 /*yield*/, Object(_overlays_2cc140a1_js__WEBPACK_IMPORTED_MODULE_8__["s"])(button.handler)];
+                    case 1:
+                        rtn = _a.sent();
+                        if (rtn === false) {
+                            // if the return value of the handler is false then do not dismiss
+                            return [2 /*return*/, false];
+                        }
+                        _a.label = 2;
+                    case 2: return [2 /*return*/, true];
                 }
-                if (opts.animationBuilder) {
-                    return [2 /*return*/, opts.animationBuilder];
-                }
-                if (!(opts.mode === 'ios')) return [3 /*break*/, 2];
-                return [4 /*yield*/, iosTransitionAnimation()];
-            case 1:
-                _a = (_b.sent()).iosTransitionAnimation;
-                return [3 /*break*/, 4];
-            case 2: return [4 /*yield*/, mdTransitionAnimation()];
-            case 3:
-                _a = (_b.sent()).mdTransitionAnimation;
-                _b.label = 4;
-            case 4:
-                getAnimation = _a;
-                return [2 /*return*/, getAnimation];
+            });
+        });
+    };
+    class_1.prototype.getButtons = function () {
+        return this.buttons.map(function (b) {
+            return (typeof b === 'string')
+                ? { text: b }
+                : b;
+        });
+    };
+    class_1.prototype.disconnectedCallback = function () {
+        if (this.gesture) {
+            this.gesture.destroy();
+            this.gesture = undefined;
         }
-    });
-}); };
-var animation = function (animationBuilder, opts) { return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(void 0, void 0, void 0, function () {
-    var trans, mod, err_1, didComplete;
-    return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__generator"])(this, function (_a) {
-        switch (_a.label) {
-            case 0: return [4 /*yield*/, waitForReady(opts, true)];
-            case 1:
-                _a.sent();
-                _a.label = 2;
-            case 2:
-                _a.trys.push([2, 5, , 6]);
-                return [4 /*yield*/, __webpack_require__.e(/*! import() | index-69c37885-js */ "index-69c37885-js").then(__webpack_require__.bind(null, /*! ./index-69c37885.js */ "./node_modules/@ionic/core/dist/esm-es5/index-69c37885.js"))];
-            case 3:
-                mod = _a.sent();
-                return [4 /*yield*/, mod.create(animationBuilder, opts.baseEl, opts)];
-            case 4:
-                trans = _a.sent();
-                return [3 /*break*/, 6];
-            case 5:
-                err_1 = _a.sent();
-                trans = animationBuilder(opts.baseEl, opts);
-                return [3 /*break*/, 6];
-            case 6:
-                fireWillEvents(opts.enteringEl, opts.leavingEl);
-                return [4 /*yield*/, playTransition(trans, opts)];
-            case 7:
-                didComplete = _a.sent();
-                if (opts.progressCallback) {
-                    opts.progressCallback(undefined);
-                }
-                if (didComplete) {
-                    fireDidEvents(opts.enteringEl, opts.leavingEl);
-                }
-                return [2 /*return*/, {
-                        hasCompleted: didComplete,
-                        animation: trans
-                    }];
+    };
+    class_1.prototype.componentDidLoad = function () {
+        var _this = this;
+        /**
+         * Do not create gesture if:
+         * 1. A gesture already exists
+         * 2. App is running in MD mode
+         * 3. A wrapper ref does not exist
+         */
+        var _a = this, groupEl = _a.groupEl, wrapperEl = _a.wrapperEl;
+        if (this.gesture || Object(_ionic_global_23e7365a_js__WEBPACK_IMPORTED_MODULE_2__["b"])(this) === 'md' || !wrapperEl || !groupEl) {
+            return;
         }
-    });
-}); };
-var noAnimation = function (opts) { return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(void 0, void 0, void 0, function () {
-    var enteringEl, leavingEl;
-    return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__generator"])(this, function (_a) {
-        switch (_a.label) {
-            case 0:
-                enteringEl = opts.enteringEl;
-                leavingEl = opts.leavingEl;
-                return [4 /*yield*/, waitForReady(opts, false)];
-            case 1:
-                _a.sent();
-                fireWillEvents(enteringEl, leavingEl);
-                fireDidEvents(enteringEl, leavingEl);
-                return [2 /*return*/, {
-                        hasCompleted: true
-                    }];
-        }
-    });
-}); };
-var waitForReady = function (opts, defaultDeep) { return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(void 0, void 0, void 0, function () {
-    var deep, promises;
-    return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__generator"])(this, function (_a) {
-        switch (_a.label) {
-            case 0:
-                deep = opts.deepWait !== undefined ? opts.deepWait : defaultDeep;
-                promises = deep ? [
-                    deepReady(opts.enteringEl),
-                    deepReady(opts.leavingEl),
-                ] : [
-                    shallowReady(opts.enteringEl),
-                    shallowReady(opts.leavingEl),
-                ];
-                return [4 /*yield*/, Promise.all(promises)];
-            case 1:
-                _a.sent();
-                return [4 /*yield*/, notifyViewReady(opts.viewIsReady, opts.enteringEl)];
-            case 2:
-                _a.sent();
-                return [2 /*return*/];
-        }
-    });
-}); };
-var notifyViewReady = function (viewIsReady, enteringEl) { return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(void 0, void 0, void 0, function () {
-    return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__generator"])(this, function (_a) {
-        switch (_a.label) {
-            case 0:
-                if (!viewIsReady) return [3 /*break*/, 2];
-                return [4 /*yield*/, viewIsReady(enteringEl)];
-            case 1:
-                _a.sent();
-                _a.label = 2;
-            case 2: return [2 /*return*/];
-        }
-    });
-}); };
-var playTransition = function (trans, opts) {
-    var progressCallback = opts.progressCallback;
-    // TODO: Remove AnimationBuilder
-    var promise = new Promise(function (resolve) {
-        trans.onFinish(function (currentStep) {
-            if (typeof currentStep === 'number') {
-                resolve(currentStep === 1);
-            }
-            else if (trans.hasCompleted !== undefined) {
-                resolve(trans.hasCompleted);
+        Object(_index_92848855_js__WEBPACK_IMPORTED_MODULE_1__["f"])(function () {
+            var isScrollable = groupEl.scrollHeight > groupEl.clientHeight;
+            if (!isScrollable) {
+                _this.gesture = Object(_button_active_5da929d4_js__WEBPACK_IMPORTED_MODULE_10__["c"])(wrapperEl, function (refEl) { return refEl.classList.contains('action-sheet-button'); });
+                _this.gesture.enable(true);
             }
         });
+    };
+    class_1.prototype.render = function () {
+        var _a;
+        var _this = this;
+        var mode = Object(_ionic_global_23e7365a_js__WEBPACK_IMPORTED_MODULE_2__["b"])(this);
+        var allButtons = this.getButtons();
+        var cancelButton = allButtons.find(function (b) { return b.role === 'cancel'; });
+        var buttons = allButtons.filter(function (b) { return b.role !== 'cancel'; });
+        return (Object(_index_92848855_js__WEBPACK_IMPORTED_MODULE_1__["h"])(_index_92848855_js__WEBPACK_IMPORTED_MODULE_1__["H"], { role: "dialog", "aria-modal": "true", tabindex: "-1", style: {
+                zIndex: "" + (20000 + this.overlayIndex),
+            }, class: Object.assign(Object.assign((_a = {}, _a[mode] = true, _a), Object(_theme_5641d27f_js__WEBPACK_IMPORTED_MODULE_11__["g"])(this.cssClass)), { 'action-sheet-translucent': this.translucent }), onIonActionSheetWillDismiss: this.dispatchCancelHandler, onIonBackdropTap: this.onBackdropTap }, Object(_index_92848855_js__WEBPACK_IMPORTED_MODULE_1__["h"])("ion-backdrop", { tappable: this.backdropDismiss }), Object(_index_92848855_js__WEBPACK_IMPORTED_MODULE_1__["h"])("div", { tabindex: "0" }), Object(_index_92848855_js__WEBPACK_IMPORTED_MODULE_1__["h"])("div", { class: "action-sheet-wrapper ion-overlay-wrapper", role: "dialog", ref: function (el) { return _this.wrapperEl = el; } }, Object(_index_92848855_js__WEBPACK_IMPORTED_MODULE_1__["h"])("div", { class: "action-sheet-container" }, Object(_index_92848855_js__WEBPACK_IMPORTED_MODULE_1__["h"])("div", { class: "action-sheet-group", ref: function (el) { return _this.groupEl = el; } }, this.header !== undefined &&
+            Object(_index_92848855_js__WEBPACK_IMPORTED_MODULE_1__["h"])("div", { class: "action-sheet-title" }, this.header, this.subHeader && Object(_index_92848855_js__WEBPACK_IMPORTED_MODULE_1__["h"])("div", { class: "action-sheet-sub-title" }, this.subHeader)), buttons.map(function (b) { return Object(_index_92848855_js__WEBPACK_IMPORTED_MODULE_1__["h"])("button", { type: "button", class: buttonClass(b), onClick: function () { return _this.buttonClick(b); } }, Object(_index_92848855_js__WEBPACK_IMPORTED_MODULE_1__["h"])("span", { class: "action-sheet-button-inner" }, b.icon && Object(_index_92848855_js__WEBPACK_IMPORTED_MODULE_1__["h"])("ion-icon", { icon: b.icon, lazy: false, class: "action-sheet-icon" }), b.text), mode === 'md' && Object(_index_92848855_js__WEBPACK_IMPORTED_MODULE_1__["h"])("ion-ripple-effect", null)); })), cancelButton &&
+            Object(_index_92848855_js__WEBPACK_IMPORTED_MODULE_1__["h"])("div", { class: "action-sheet-group action-sheet-group-cancel" }, Object(_index_92848855_js__WEBPACK_IMPORTED_MODULE_1__["h"])("button", { type: "button", class: buttonClass(cancelButton), onClick: function () { return _this.buttonClick(cancelButton); } }, Object(_index_92848855_js__WEBPACK_IMPORTED_MODULE_1__["h"])("span", { class: "action-sheet-button-inner" }, cancelButton.icon &&
+                Object(_index_92848855_js__WEBPACK_IMPORTED_MODULE_1__["h"])("ion-icon", { icon: cancelButton.icon, lazy: false, class: "action-sheet-icon" }), cancelButton.text), mode === 'md' && Object(_index_92848855_js__WEBPACK_IMPORTED_MODULE_1__["h"])("ion-ripple-effect", null))))), Object(_index_92848855_js__WEBPACK_IMPORTED_MODULE_1__["h"])("div", { tabindex: "0" })));
+    };
+    Object.defineProperty(class_1.prototype, "el", {
+        get: function () { return Object(_index_92848855_js__WEBPACK_IMPORTED_MODULE_1__["i"])(this); },
+        enumerable: false,
+        configurable: true
     });
-    // cool, let's do this, start the transition
-    if (progressCallback) {
-        // this is a swipe to go back, just get the transition progress ready
-        // kick off the swipe animation start
-        trans.progressStart(true);
-        progressCallback(trans);
-    }
-    else {
-        // only the top level transition should actually start "play"
-        // kick it off and let it play through
-        // ******** DOM WRITE ****************
-        trans.play();
-    }
-    // create a callback for when the animation is done
-    return promise;
+    return class_1;
+}());
+var buttonClass = function (button) {
+    var _a;
+    return Object.assign((_a = { 'action-sheet-button': true, 'ion-activatable': true, 'ion-focusable': true }, _a["action-sheet-" + button.role] = button.role !== undefined, _a), Object(_theme_5641d27f_js__WEBPACK_IMPORTED_MODULE_11__["g"])(button.cssClass));
 };
-var fireWillEvents = function (enteringEl, leavingEl) {
-    lifecycle(leavingEl, _constants_3c3e1099_js__WEBPACK_IMPORTED_MODULE_2__["b"]);
-    lifecycle(enteringEl, _constants_3c3e1099_js__WEBPACK_IMPORTED_MODULE_2__["L"]);
-};
-var fireDidEvents = function (enteringEl, leavingEl) {
-    lifecycle(enteringEl, _constants_3c3e1099_js__WEBPACK_IMPORTED_MODULE_2__["a"]);
-    lifecycle(leavingEl, _constants_3c3e1099_js__WEBPACK_IMPORTED_MODULE_2__["c"]);
-};
-var lifecycle = function (el, eventName) {
-    if (el) {
-        var ev = new CustomEvent(eventName, {
-            bubbles: false,
-            cancelable: false,
-        });
-        el.dispatchEvent(ev);
-    }
-};
-var shallowReady = function (el) {
-    if (el && el.componentOnReady) {
-        return el.componentOnReady();
-    }
-    return Promise.resolve();
-};
-var deepReady = function (el) { return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(void 0, void 0, void 0, function () {
-    var element, stencilEl;
-    return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__generator"])(this, function (_a) {
-        switch (_a.label) {
-            case 0:
-                element = el;
-                if (!element) return [3 /*break*/, 4];
-                if (!(element.componentOnReady != null)) return [3 /*break*/, 2];
-                return [4 /*yield*/, element.componentOnReady()];
-            case 1:
-                stencilEl = _a.sent();
-                if (stencilEl != null) {
-                    return [2 /*return*/];
-                }
-                _a.label = 2;
-            case 2: return [4 /*yield*/, Promise.all(Array.from(element.children).map(deepReady))];
-            case 3:
-                _a.sent();
-                _a.label = 4;
-            case 4: return [2 /*return*/];
-        }
-    });
-}); };
-var setPageHidden = function (el, hidden) {
-    if (hidden) {
-        el.setAttribute('aria-hidden', 'true');
-        el.classList.add('ion-page-hidden');
-    }
-    else {
-        el.hidden = false;
-        el.removeAttribute('aria-hidden');
-        el.classList.remove('ion-page-hidden');
-    }
-};
-var setZIndex = function (enteringEl, leavingEl, direction) {
-    if (enteringEl !== undefined) {
-        enteringEl.style.zIndex = (direction === 'back')
-            ? '99'
-            : '101';
-    }
-    if (leavingEl !== undefined) {
-        leavingEl.style.zIndex = '100';
-    }
-};
-var getIonPageElement = function (element) {
-    if (element.classList.contains('ion-page')) {
-        return element;
-    }
-    var ionPage = element.querySelector(':scope > .ion-page, :scope > ion-nav, :scope > ion-tabs');
-    if (ionPage) {
-        return ionPage;
-    }
-    // idk, return the original element so at least something animates and we don't have a null pointer
-    return element;
+ActionSheet.style = {
+    ios: actionSheetIosCss,
+    md: actionSheetMdCss
 };
 
 

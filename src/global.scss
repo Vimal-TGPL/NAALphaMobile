@@ -149,14 +149,39 @@
 
   text{
       font-size: 14px;
-      fill: #fff !important;
+      fill: #fff;
       font-family: 'Open Sans Bold';
   }
   
 }
 
+.innerComp{
+  font-size: 20px;
+  font-family: Open Sans Bold;
+  fill: #274b9e;
+}
 
+.innerCompMed{
+  font-size: 35px;
+  font-family: Open Sans Bold;
+}
 
+.CurveText{
+  font-size: 12px;
+  font-family: Open Sans SemiBold;
+}
+
+.inText1{
+  font-size: 24px;
+  fill: #fff;
+  font-family: Open Sans SemiBold;
+}
+
+.inText2{
+  font-size: 60px;
+  fill: #fff;
+  font-family: Open Sans Bold;
+}
 // ion-select{
 //     max-width: 60vh !important;
 //     min-width: 60vh !important;
@@ -349,5 +374,9 @@
 }
 
 .searchModel{
+  --background: transparent;
+}
+
+.AL_LChart{
   --background: transparent;
 }

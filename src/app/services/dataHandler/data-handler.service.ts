@@ -303,4 +303,64 @@ export class DataHandlerService {
       return res;
     }));
   }
+
+  getAlert(alert) {
+    return this.httpclient.post(this.api_url + '/Users/GetAlerts', alert).pipe(retryWhen(err => err.pipe(
+      scan(count => {
+        if (count > 5) throw err;
+        else {
+          count++;
+          return count;
+        }
+      }, 0),
+      delayWhen(() => timer(1000))
+    ))).pipe(map(res => {
+      return res;
+    }));
+  }
+
+  setAlert(alert) {
+    return this.httpclient.post(this.api_url + '/Users/PostAlertsSettings', alert).pipe(retryWhen(err => err.pipe(
+      scan(count => {
+        if (count > 5) throw err;
+        else {
+          count++;
+          return count;
+        }
+      }, 0),
+      delayWhen(() => timer(1000))
+    ))).pipe(map(res => {
+      return res;
+    }));
+  }
+
+  deleteAlert(alert) {
+    return this.httpclient.post(this.api_url + '/Users/RemoveAlerts', alert).pipe(retryWhen(err => err.pipe(
+      scan(count => {
+        if (count > 5) throw err;
+        else {
+          count++;
+          return count;
+        }
+      }, 0),
+      delayWhen(() => timer(1000))
+    ))).pipe(map(res => {
+      return res;
+    }));
+  }
+
+  getIndexPreRuns(indexid, GICSid, Ctype, Range): Observable<Object> {
+    return this.httpclient.get(this.api_url + "/Indexes/GetIndexPreRuns" + "/" + indexid + "/" + GICSid + "/" + Ctype + "/" + Range).pipe(retryWhen(err => err.pipe(
+      scan(count => {
+        if (count > 5) throw err;
+        else {
+          count++;
+          return count;
+        }
+      }, 0),
+      delayWhen(() => timer(1000))
+    ))).pipe(map(res => {
+      return res;
+    }));
+  }
 }

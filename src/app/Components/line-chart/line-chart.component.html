@@ -1,0 +1,42 @@
+<ion-header mode='ios'>
+  <ion-toolbar>
+    <img slot="start" src="../../../assets/images/NAA_Logo_Mobile.svg" alt="logo" style="height: 30px;">
+    <ion-title>Avoid the Losers</ion-title>
+    <ion-button slot="end" (click)="onCloseClick($event)" fill="clear">
+      Close
+    </ion-button>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <div class="rangeDiv">
+    <div class="rangeInnerDiv">
+      <ion-range mode='ios'
+      min="0" max="95"
+      dualKnobs="false" pin="true"
+      snaps="true" step="5"
+      ticks="true" [(value)]="range"
+      (ionChange)="rangeChange($event)">
+      <ion-label slot="start">All</ion-label>
+      <ion-label slot="end">95</ion-label>
+      </ion-range>
+    </div>
+  </div>
+  <div class="LChartOuter">
+    <div id="lineChartModal" class="LChart"></div>
+  </div>
+  
+</ion-content>
+<!-- <div class="AL_outerDiv"> -->
+<!-- <div class="AL_innerDiv"> -->
+  <!-- <div class="LC_TitleDiv">
+    <p></p>
+    <ion-icon name="close-circle" (click)="onCloseClick($event)"></ion-icon>
+  </div> -->
+  <!-- <div class="AL_rangeDiv">    
+    
+  </div>
+  
+
+  </div> -->
+<!-- </div> -->
+<!-- </div> -->

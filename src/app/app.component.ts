@@ -8,6 +8,7 @@ import { Router } from '@angular/router';
 import { Network } from '@ionic-native/network/ngx';
 import { ToastController } from '@ionic/angular';
 import { DataService } from './services/shareddata/data.service';
+import { ScreenOrientation } from '@ionic-native/screen-orientation/ngx';
 
 // import { NetworkService } from './services/networks/network.service';
 // import { debounceTime } from 'rxjs/operators';
@@ -32,7 +33,8 @@ export class AppComponent {
     private router: Router,
     private network: Network,
     private toastController: ToastController,
-    private navController : NavController
+    private navController : NavController,
+    private screenOrientation: ScreenOrientation
   ) {
     this.initializeApp();
   }
@@ -53,6 +55,7 @@ export class AppComponent {
      });
 
       if(this.platform.is('cordova')){
+        this.screenOrientation.lock(this.screenOrientation.ORIENTATIONS.PORTRAIT);
         // console.log('device');
         if(this.network.type != 'none' ){
           this.authService.authenticationState.subscribe(state =>{

@@ -2,8 +2,8 @@
     border-left: 8px solid var(--ion-color-primary);
 }
 
-ion-content {
-    --ion-background-color: linear-gradient(-90deg, #2e4c99, #233771);
+.menuContent {
+    --background: #274b9e;
     overflow: hidden;
     -ms-overflow-style: none;
 
@@ -71,12 +71,17 @@ p {
     }
 }
 
+#menu-List {
+    --ion-background-color: #274b9e;
+}
+
 @media screen and (orientation: landscape) {
     .footerText {
         bottom: 25px !important;
     }
 
     #menu-List {
+        --ion-background-color: #274b9e;
         margin-bottom: unset;
         height: calc(100vh - 170px);
         overflow: auto;
