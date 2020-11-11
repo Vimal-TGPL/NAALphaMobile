@@ -31,6 +31,12 @@
             font-size: 14px;
             font-family: Open Sans SemiBold;
             color: #00b9ff;
+            width: 70%;
+            text-align: left;
+            
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
         }
     }
 }
@@ -227,7 +233,7 @@ ion-content{
 
     ion-slides{
         ion-slide{
-            height: calc(100vh - 340px);
+            height: calc(100vh - 345px);
         }
 
         .CompSlide{
@@ -420,7 +426,7 @@ ion-content{
 
         .radioBtnDiv{
             width: 85%;
-            margin-top: 15%;
+            margin-top: 5%;
 
             ion-list{
                 background: transparent;
@@ -428,6 +434,7 @@ ion-content{
                 ion-item{
                     --background: transparent;
                     --ripple-color: transparent;
+                    --min-height: 30px;
     
                     ion-label{
                         color: #fff;
@@ -503,7 +510,7 @@ ion-content{
         }
 
         ion-button{
-            margin-top: 10%;
+            margin-top: 5%;
             --background: #00b9ff;
             height: 30px;
             width: 30%;
@@ -595,7 +602,7 @@ ion-content{
 
     ion-slides{
         ion-slide{
-            height: calc(100vh - 340px);
+            height: calc(100vh - 345px);
         }
 
         .CompSlide{

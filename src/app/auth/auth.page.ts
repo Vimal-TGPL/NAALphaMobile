@@ -81,10 +81,9 @@ export class AuthPage implements OnInit {
             }else {
               this.presentToast("Please verify your email address sent to your inbox");
           }
-      },err=>{
+      }
+      ,err=>{
         this.showLoad = false;
-          this.presentToast(err.error.message);
-          console.log(err);
         })
     } 
   }

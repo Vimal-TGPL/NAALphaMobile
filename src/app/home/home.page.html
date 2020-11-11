@@ -13,7 +13,7 @@
     </div>
     
   </ion-toolbar>
-  <ion-toolbar>
+  <ion-toolbar> 
     <!-- SearchBar start -->
       <div class="searchDiv">
         <ion-item class="searchItem" lines="none" (click)="openSearch()">
@@ -59,8 +59,10 @@
       </div>
     </ion-item>
     <div class="arrow_div">
-      <ion-icon [name]="CurrSlide == 0 ? 'chevron-back-circle' : 'chevron-back-circle-outline'" (click)="onArrowClick(0);" [style.color]="CurrSlide==0? '#00b9ff' : '#fff'"></ion-icon>
-      <ion-icon [name]="CurrSlide == 1 ? 'chevron-forward-circle' : 'chevron-forward-circle-outline'" (click)="onArrowClick(1);" [style.color]="CurrSlide==1? '#00b9ff' : '#fff'"></ion-icon>
+      <ion-icon *ngIf="CurrSlide == 1" name='chevron-back-circle-outline' (click)="onArrowClick(0);" style="color: #fff;"></ion-icon>
+      <img *ngIf="CurrSlide == 0" src="../../assets/images/Left Arrow Active.svg" alt="LA" style="height: 35px;">
+      <ion-icon *ngIf="CurrSlide == 0" name='chevron-forward-circle-outline' (click)="onArrowClick(1);" style="color: #fff;"></ion-icon>
+      <img *ngIf="CurrSlide == 1" src="../../assets/images/Right Arrow Active.svg" alt="RA" style="height: 35px;">
     </div>
     <ion-slides id='MainSlider' mode="ios" [options]='slideOpts' (ionSlideDidChange)="onSlideChange($event)">
       <ion-slide class="CompSlide">
@@ -116,18 +118,25 @@
   </svg>
 </div>
 <div class="arrow_div" *ngIf="avoidSlides">
-  <ion-icon [name]="AL_CurrSlide == 0 ? 'chevron-back-circle' : 'chevron-back-circle-outline'" (click)="onALArrowClick('prev');" [style.color]="AL_CurrSlide==0? '#00b9ff' : '#fff'"></ion-icon>
-  <ion-icon [name]="AL_CurrSlide == 2 ? 'chevron-forward-circle' : 'chevron-forward-circle-outline'" (click)="onALArrowClick('frwd');" [style.color]="AL_CurrSlide==2? '#00b9ff' : '#fff'"></ion-icon>
+  <ion-icon *ngIf="AL_CurrSlide != 0" name='chevron-back-circle-outline' (click)="onALArrowClick('prev');" style="color: #fff;"></ion-icon>
+  <img *ngIf="AL_CurrSlide == 0" src="../../assets/images/Left Arrow Active.svg" alt="LA" style="height: 35px;">
+  <ion-icon *ngIf="AL_CurrSlide != 2" name='chevron-forward-circle-outline' (click)="onALArrowClick('frwd');" style="color: #fff;"></ion-icon>
+  <img *ngIf="AL_CurrSlide == 2" src="../../assets/images/Right Arrow Active.svg" alt="RA" style="height: 35px;">
 </div>
 <ion-slides mode="ios" *ngIf="avoidSlides" [options]='slideOpts' (ionSlideDidChange)="onALSlideChange($event)" id="AL_Slider">
   <ion-slide class="CompSlide">
-    <ion-list id="CompList">
+    <ion-list id="CompList" *ngIf="AL_FilteredList.length != 0">
       <ion-item *ngFor="let item of AL_FilteredList" lines="none" class="compItem" [class.active]="selComp === item">
           <span [style.color]="getColor(roundMed(item.scores *100))">{{roundMed(item.scores *100)}}</span>
           <div><p [style.color]="selComp === item? getColor(roundMed(item.scores *100)) : '#fff'">{{item.companyName}}</p>
           <p [style.color]="selComp === item? getColor(roundMed(item.scores *100)) : '#fff'">{{item.ticker}}</p></div>
       </ion-item>
     </ion-list>
+    <div *ngIf="AL_FilteredList.length == 0">
+      <p style="    font-family: 'Open Sans SemiBold';
+      color: #fff;
+      font-size: 16px;">No company to show</p>
+    </div>
   </ion-slide>
   <ion-slide class="CircleSlider">
     <svg *ngIf="AL_mainCircle" preserveAspectRatio="xMidYMid meet" id="svgHContainer1" viewBox="0 0 700 550" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" version="1.1">
@@ -193,7 +202,7 @@
             <ion-label>Monthly</ion-label>
           </ion-item>
           <ion-item (click)="showMonthlyPicker($event)" lines="none" *ngIf="monthlyBtn" style="    display: flex;
-            align-items: center;">
+            align-items: center; --min-height: 30px;">
               <ion-label slot="start">Date</ion-label>
               <ion-label slot="end">{{monthlyDate}}</ion-label>
             </ion-item>
@@ -207,7 +216,7 @@
           </ion-item>
         </ion-radio-group>
         <ion-item *ngIf="percentageRage" lines="none" style="    --padding-start: 0;">
-          <ion-range class="per_range" min="1" max="100" pin=true [value]='rangePer' *ngIf="percentageRage" (ionChange)="setRangePer($event)">
+          <ion-range class="per_range" min="1" max="100" mode="ios" pin=true [value]='rangePer' *ngIf="percentageRage" (ionChange)="setRangePer($event)">
             <ion-label slot="start">1%</ion-label>
             <ion-label slot="end">100%</ion-label>
           </ion-range>
@@ -221,12 +230,13 @@
       <ion-button *ngIf="alertSubmitBtn" (click)="onAlertSubmit($event)"  shape="round">
         Submit
       </ion-button>
-      <ion-button *ngIf="!alertSubmitBtn" (click)="onRemoveAlert($event)" shape="round">
-        Remove
-      </ion-button>
       <ion-button *ngIf="alertUpdateBtn" (click)="onAlertSubmit($event)" shape="round">
         Update
       </ion-button>
+      <ion-button *ngIf="!alertSubmitBtn" (click)="onRemoveAlert($event)" shape="round">
+        Remove
+      </ion-button>
+      
     </div>
   </div>
   <div class="footor_icon_div">
@@ -240,9 +250,9 @@
 
 <ion-content *ngIf="selComp && ReportSec" class="ReportContent">
   <div class="arrow_div">
-    <ion-icon name="chevron-back-circle-outline"></ion-icon>
+    <ion-icon name="chevron-back-circle-outline" (click)="onReportClick()"></ion-icon>
     <h1 class="Sub_title">Download Report</h1>
-    <ion-icon name="chevron-forward-circle-outline"></ion-icon>
+    <ion-icon name="chevron-forward-circle-outline" (click)="onReportClick()"></ion-icon>
   </div>
   <div class="reportDiv">
     <ion-button (click)="onPDFClick()" shape="round" class="pdfBtn" disabled=true>
@@ -261,7 +271,7 @@
       </ion-radio-group>
     </ion-list>
 
-    <ion-button (click)="onClick()" shape="round" class="sendBtn" disabled=true>
+    <ion-button (click)="onSendClick()" shape="round" class="sendBtn" disabled=true>
       Send
     </ion-button>
   </div>
@@ -297,7 +307,8 @@ bottom: 0;
 display: flex;
 justify-content: center;
 align-items: center;
-background: rgb(0, 0, 0, 0.5);">
+/* background: rgb(0, 0, 0, 0.5); */
+">
   <img src="../../assets/images/NAA.gif" alt="Loading..." style="height: 35px;
   width: 35px;">
 </div>

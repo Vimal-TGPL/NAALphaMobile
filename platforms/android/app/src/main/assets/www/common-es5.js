@@ -472,9 +472,11 @@ var UserService = /** @class */ (function () {
         this.storage = storage;
         this.api_url = _environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].api_url;
         this.storage.get('currentUser').then(function (res) {
-            var users = JSON.parse(res);
-            _this.uname = users.username;
-            _this.tok = users.token;
+            if (res != null) {
+                var users = JSON.parse(res);
+                _this.uname = users.username;
+                _this.tok = users.token;
+            }
         });
     }
     UserService.prototype.register = function (user) {

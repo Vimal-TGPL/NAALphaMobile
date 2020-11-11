@@ -20,12 +20,9 @@ export class MobileSearchComponent implements OnInit, OnDestroy,AfterViewInit {
   ngAfterViewInit(): void {
     setTimeout(() => {
       this.searchbar.setFocus().then(d=>{
-
       });
-    }, 100);
-    
+    }, 800);
   }
-  
 
   ngOnInit() {
    this._dataSub = this.dataService.dbScore.subscribe(d =>{

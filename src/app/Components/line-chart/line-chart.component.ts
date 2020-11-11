@@ -62,8 +62,9 @@ export class LineChartComponent implements OnInit,OnDestroy {
         GICSId = that.selComp.industry.slice(0,2*(this.selSecLvl-1));
       }
       range = 'top'+this.currentData.e;
+      console.log(range);
       this.dataHandler.getIndexPreRuns(this.indexId,GICSId,Ctype,range).subscribe((res:any[]) =>{
-        
+        console.log(res);
         if(res.length > 0){
 
           if (that.lgChart != null) {
@@ -92,12 +93,14 @@ export class LineChartComponent implements OnInit,OnDestroy {
             lineWidth: 0.8
           });
 
-          if (0 < that.range && 100 > that.range && (that.range != 25 && that.range != 75)) {
+          if (0 < that.range && 100 > that.range) {
             for (let i = 0; i <= (res.length - 1); ++i) {
               //indexValue.push(res[i][that.clkdRgeText + that.SRValue]);
               indexValue.push(res[i]["range"]);
               date.push(res[i]['date']);
             }
+
+            console.log(indexValue);
 
             var d = new Date(date[date.length - 1]);
             var formatdate1 = that.formatedates(d.getMonth() + 1) + '/' + that.formatedates(d.getDate()) + '/' + d.getFullYear();

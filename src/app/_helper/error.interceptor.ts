@@ -6,11 +6,12 @@ import { catchError, retry, delay, retryWhen, concatMap } from 'rxjs/operators';
 import { AuthenticationService } from '../services/authentication.service';
 import { Router } from '@angular/router';
 import { HttpClient} from '@angular/common/http';
+import { ToastController } from '@ionic/angular';
 
 @Injectable()
 export class ErrorInterceptor implements HttpInterceptor {
     currentUser:any;
-  constructor(private authService: AuthenticationService, private router: Router,private httpClient : HttpClient) { }
+  constructor(private toastController: ToastController ,private authService: AuthenticationService, private router: Router,private httpClient : HttpClient) { }
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
 
@@ -26,9 +27,19 @@ export class ErrorInterceptor implements HttpInterceptor {
         if (this.currentUser.remToken !== null) {
           this.authService.checkToken(request);
         }
+      }else{
+        this.presentToast(err.error.message);
       }
       const error = err.message || err.statusText;
       return throwError(error);
     }))
+}
+
+async presentToast(msg) {
+  const toast = await this.toastController.create({
+    message: msg,
+    duration: 3000
+  });
+  toast.present();
 }
 }

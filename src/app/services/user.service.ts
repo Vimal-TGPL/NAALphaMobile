@@ -17,9 +17,11 @@ export class UserService {
 
   constructor(private http: HttpClient, private storage: Storage) { 
     this.storage.get('currentUser').then(res => {
-      let users = JSON.parse(res);
-      this.uname = users.username;
-      this.tok = users.token;
+      if(res!= null){
+        let users = JSON.parse(res);
+        this.uname = users.username;
+        this.tok = users.token;
+      }
     });
   }
 

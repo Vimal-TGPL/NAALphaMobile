@@ -1,5 +1,5 @@
 <ion-content class="menuContent"  forceOverscroll="false">
-<ion-split-pane contentId="menu-content" when="xs" [disabled]="true" (ionSplitPaneVisible)="onSplitPaneVisible(event)">
+<ion-split-pane contentId="menu-content" when="xs" [disabled]="true">
   <ion-menu contentId="menu-content" menuId="menu-content" side="end" type="overlay" *ngIf="mobile" (ionDidClose)="investmentsolution = false">
     <ion-content class="menuContent" forceOverscroll = false *ngIf="mobile">
       <div>

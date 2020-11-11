@@ -17,7 +17,6 @@ import { ScreenOrientation } from '@ionic-native/screen-orientation/ngx';
 import { ProfiledetailsComponent } from './Components/profiledetails/profiledetails.component'
 import { JwtInterceptor } from './_helper/jwt.interceptor';
 import { ErrorInterceptor } from './_helper/error.interceptor';
-import { IonicSelectableComponent } from 'ionic-selectable';
 import { MatTabsModule} from '@angular/material/tabs'
 import { Network } from '@ionic-native/network/ngx';
 import { Toast } from '@ionic-native/toast/ngx';
@@ -50,7 +49,6 @@ library.add(faAngleDoubleLeft);
     HTTP, 
     SplashScreen,
     ScreenOrientation,
-    IonicSelectableComponent,
     Toast,
     PhotoViewer,
     File,

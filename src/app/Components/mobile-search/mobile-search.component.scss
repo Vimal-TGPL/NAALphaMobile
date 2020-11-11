@@ -1,9 +1,15 @@
 ion-header{
     ion-toolbar{
         ion-icon{
-            height: 20px;
-            width: 20px;
-            color: #00b9ff;
+            height: 25px;
+            width: 25px;
+            color: #333333;
+            margin: 0 5px;
+        }
+
+        ion-searchbar{
+            padding-top: unset;
+            padding-bottom: unset;
         }
     }
 }

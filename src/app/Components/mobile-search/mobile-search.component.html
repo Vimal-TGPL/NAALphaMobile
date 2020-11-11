@@ -1,10 +1,19 @@
 <ion-header>
-  <ion-toolbar>
-      <ion-icon name="close-circle" (click)="closeSearch()"></ion-icon>
+  <ion-toolbar style="--min-height: 35px; padding: 5px 0;">
+    <!-- <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons> -->
+    <!-- <ion-icon ></ion-icon> -->
+    <div style="display: flex;
+    align-items: center;">
+      <ion-icon slot="start" name="chevron-back-outline" (click)="closeSearch()"></ion-icon>
+      <ion-searchbar placeholder="Ticker or company name" (ionChange)="SearchCompany($event)" id="searchbar"></ion-searchbar>
+    </div>
+      
   </ion-toolbar>
-  <ion-toolbar>
-    <ion-searchbar placeholder="Ticker or company name" (ionChange)="SearchCompany($event)" debounce=400 id="searchbar"></ion-searchbar>
-  </ion-toolbar>
+  <!-- <ion-toolbar>
+    
+  </ion-toolbar> -->
 </ion-header>
 
 <ion-content forceOverscroll=false>

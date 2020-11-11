@@ -460,9 +460,11 @@ let UserService = class UserService {
         this.storage = storage;
         this.api_url = _environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].api_url;
         this.storage.get('currentUser').then(res => {
-            let users = JSON.parse(res);
-            this.uname = users.username;
-            this.tok = users.token;
+            if (res != null) {
+                let users = JSON.parse(res);
+                this.uname = users.username;
+                this.tok = users.token;
+            }
         });
     }
     register(user) {

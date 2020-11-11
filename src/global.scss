@@ -138,12 +138,27 @@
 // }
 
 .sec-popover{
-  .popover-content{
+  --ion-backdrop-opacity: 0;
+
+  .popover-content.sc-ion-popover-md{
+    --width: 90%;
+    top: calc(185px + var(--ion-safe-area-top, 0px)) !important;
+    left: calc(20px + var(--ion-safe-area-left, 0px)) !important;
+  }
+  .popover-content.sc-ion-popover-ios{
     --width: 90%;
     top: calc(165px + var(--ion-safe-area-top, 0px)) !important;
     left: calc(18px + var(--ion-safe-area-left, 0px)) !important;
   }
 }
+
+// .platform-md .sec-popover{
+//   .popover-content{
+//     --width: 90%;
+//     top: calc(160px + var(--ion-safe-area-top, 0px)) !important;
+//     left: calc(16px + var(--ion-safe-area-left, 0px)) !important;
+//   }
+// }
 
 #gCompetitive{
 
@@ -379,4 +394,8 @@
 
 .AL_LChart{
   --background: transparent;
+}
+
+.center{
+  text-align: center;
 }

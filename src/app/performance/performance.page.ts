@@ -1210,4 +1210,10 @@ export class PerformancePage implements OnInit, AfterViewInit, OnDestroy {
       return temp;
     }
   }
+
+  riskSelDev(val){
+
+  }
+
+  valueHtop:any = null;
 }

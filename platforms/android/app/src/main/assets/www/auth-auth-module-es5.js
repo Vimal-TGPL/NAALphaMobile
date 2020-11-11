@@ -214,8 +214,6 @@ var AuthPage = /** @class */ (function () {
                 }
             }, function (err) {
                 _this.showLoad = false;
-                _this.presentToast(err.error.message);
-                console.log(err);
             });
         }
     };

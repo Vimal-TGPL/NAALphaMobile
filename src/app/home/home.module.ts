@@ -5,15 +5,12 @@ import { FormsModule } from '@angular/forms';
 import { RouterModule, Routes, Router  } from '@angular/router';
 
 import { HomePage } from './home.page';
-import { IonicSelectableModule } from 'ionic-selectable';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
-    
     IonicModule,
-    IonicSelectableModule,
     RouterModule.forChild([
       {
         path: '',

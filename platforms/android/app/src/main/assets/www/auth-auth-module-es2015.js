@@ -206,8 +206,6 @@ let AuthPage = class AuthPage {
                 }
             }, err => {
                 this.showLoad = false;
-                this.presentToast(err.error.message);
-                console.log(err);
             });
         }
     }
