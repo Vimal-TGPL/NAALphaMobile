@@ -5,6 +5,7 @@ import { Platform} from '@ionic/angular';
 import { Network } from '@ionic-native/network/ngx';
 import { AlertController } from '@ionic/angular';
 import { AuthenticationService } from '../services/authentication.service';
+import { DataService } from '../services/shareddata/data.service';
 // santhosh
 @Component({
   selector: 'app-landing',
@@ -17,7 +18,8 @@ export class LandingPage implements OnInit {
   authState:boolean;
   signupUrl = 'https://blog.newagealpha.com/h-factor';
   url = 'https://www.newagealpha.com/';
-  constructor(private authService : AuthenticationService ,private alertCtrl : AlertController,private network: Network,private platform:Platform, private iab:InAppBrowser, private route:Router) { 
+  showSplashLoader:boolean = true;
+  constructor(private dataService: DataService ,private authService : AuthenticationService ,private alertCtrl : AlertController,private network: Network,private platform:Platform, private iab:InAppBrowser, private route:Router) { 
   //  var netcon = this.network.onConnect().subscribe(async ()=>{
   //     document.getElementById('NetError').style.visibility = 'hidden';
   //  })
@@ -28,9 +30,16 @@ export class LandingPage implements OnInit {
   }
 
   ngOnInit() {
+  this.dataService.showsplashLoader.subscribe(d =>{
+    this.showSplashLoader = d;
+  })
    this.authService.authenticationState.subscribe(state =>{
     this.authState = state;
-    // console.log('authstate from landing page'+state)
+      // if(this.authState == false){
+      //   this.dataService.showsplashLoader.next(false);
+      // }else{
+      //   this.dataService.showsplashLoader.next(true);
+      // }
     })
     if(this.platform.is('ipad') || this.platform.is('tablet')){
       this.mobile = false;

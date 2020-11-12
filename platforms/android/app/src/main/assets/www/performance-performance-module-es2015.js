@@ -21750,6 +21750,7 @@ let PerformancePage = class PerformancePage {
         this.CountryClasificationList = ['USA', 'Europe', 'UK', 'Japan', 'Dev. World'];
         this.performanceAPIUrl = 'https://api.newagealpha.com/api/Indexes/GetIndexPerformance';
         this.APIUrl = 'https://api.newagealpha.com/api/Indexes/GetIndexDetails';
+        this.valueHtop = null;
         this.selWith = window.innerWidth;
         this.selWith = this.selWith - 30;
         // this.menuController.swipeEnable()
@@ -22740,6 +22741,8 @@ let PerformancePage = class PerformancePage {
             var temp = val.slice(4, 6) + '/' + val.slice(6, 8) + '/' + val.slice(0, 4);
             return temp;
         }
+    }
+    riskSelDev(val) {
     }
 };
 PerformancePage.ctorParameters = () => [

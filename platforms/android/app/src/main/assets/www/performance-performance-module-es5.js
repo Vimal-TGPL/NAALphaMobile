@@ -23034,6 +23034,7 @@ var PerformancePage = /** @class */ (function () {
         this.CountryClasificationList = ['USA', 'Europe', 'UK', 'Japan', 'Dev. World'];
         this.performanceAPIUrl = 'https://api.newagealpha.com/api/Indexes/GetIndexPerformance';
         this.APIUrl = 'https://api.newagealpha.com/api/Indexes/GetIndexDetails';
+        this.valueHtop = null;
         this.selWith = window.innerWidth;
         this.selWith = this.selWith - 30;
         // this.menuController.swipeEnable()
@@ -24053,6 +24054,8 @@ var PerformancePage = /** @class */ (function () {
             var temp = val.slice(4, 6) + '/' + val.slice(6, 8) + '/' + val.slice(0, 4);
             return temp;
         }
+    };
+    PerformancePage.prototype.riskSelDev = function (val) {
     };
     PerformancePage.ctorParameters = function () { return [
         { type: _services_dataHandler_data_handler_service__WEBPACK_IMPORTED_MODULE_10__["DataHandlerService"] },

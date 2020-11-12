@@ -1,9 +1,15 @@
-<ion-header class="ion-no-border">
+<ion-content forceOverscroll=false *ngIf="showSplashLoader">
+  <div style="height: 100%; width: 100%; display: flex; justify-content: center; align-items:center;">
+    <img src="../../assets/images/NAA.gif" alt="loading..." height="35px">
+  </div>
+</ion-content>
+
+<ion-header class="ion-no-border" *ngIf="!showSplashLoader">
   <ion-toolbar>
     <img src="../../assets/images/NAA_Logo_Mobile.svg" height="35" alt="Logo">
   </ion-toolbar>
 </ion-header>
-<ion-content forceOverscroll=false>
+<ion-content forceOverscroll=false *ngIf="!showSplashLoader">
   <div class="outerdiv outerdivmobile">
     <div>
       <img src="../../assets/images/NAA_aboutUs_tools.png" alt="Tool" />

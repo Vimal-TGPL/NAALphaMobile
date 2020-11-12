@@ -7,7 +7,7 @@
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<ion-header class=\"ion-no-border\">\r\n  <ion-toolbar>\r\n    <img src=\"../../assets/images/NAA_Logo_Mobile.svg\" height=\"35\" alt=\"Logo\">\r\n  </ion-toolbar>\r\n</ion-header>\r\n<ion-content forceOverscroll=false>\r\n  <div class=\"outerdiv outerdivmobile\">\r\n    <div>\r\n      <img src=\"../../assets/images/NAA_aboutUs_tools.png\" alt=\"Tool\" />\r\n    </div>\r\n    <div class=\"welcomeTextDiv\">\r\n      <ion-text>\r\n        <p>The H-Factor System is a free service oﬀered by New Age Alpha that is designed to help you avoid the H-Factor inside your portfolio.\r\n          This system measures the amount of H-Factor in a stock’s price.</p>\r\n      </ion-text>\r\n    </div>\r\n    <div class=\"versiondiv\">\r\n      <ion-text>\r\n        <p>mobile version 1.0</p>\r\n      </ion-text>\r\n    </div>\r\n    <div class=\"LoginBtnDiv\">\r\n      <ion-button (click)=\"onLoginClick()\" expand=\"block\" fill=\"clear\">\r\n        Login\r\n      </ion-button>\r\n    </div>\r\n    <div class=\"forgotPwdDiv\">\r\n      <ion-button (click)=\"onForgotPwdClick()\" expand=\"block\" fill=\"clear\" shape=\"round\">\r\n        Forgot Password?\r\n      </ion-button>\r\n    </div>\r\n    <div class=\"signUpDiv\">\r\n      <ion-button (click)=\"onSignupClick()\" expand=\"block\" fill=\"clear\" shape=\"round\">\r\n        <span> Sign up</span>\r\n      </ion-button>\r\n    </div>\r\n  </div>\r\n</ion-content>"
+module.exports = "<ion-content forceOverscroll=false *ngIf=\"showSplashLoader\">\r\n  <div style=\"height: 100%; width: 100%; display: flex; justify-content: center; align-items:center;\">\r\n    <img src=\"../../assets/images/NAA.gif\" alt=\"loading...\" height=\"35px\">\r\n  </div>\r\n</ion-content>\r\n\r\n<ion-header class=\"ion-no-border\" *ngIf=\"!showSplashLoader\">\r\n  <ion-toolbar>\r\n    <img src=\"../../assets/images/NAA_Logo_Mobile.svg\" height=\"35\" alt=\"Logo\">\r\n  </ion-toolbar>\r\n</ion-header>\r\n<ion-content forceOverscroll=false *ngIf=\"!showSplashLoader\">\r\n  <div class=\"outerdiv outerdivmobile\">\r\n    <div>\r\n      <img src=\"../../assets/images/NAA_aboutUs_tools.png\" alt=\"Tool\" />\r\n    </div>\r\n    <div class=\"welcomeTextDiv\">\r\n      <ion-text>\r\n        <p>The H-Factor System is a free service oﬀered by New Age Alpha that is designed to help you avoid the H-Factor inside your portfolio.\r\n          This system measures the amount of H-Factor in a stock’s price.</p>\r\n      </ion-text>\r\n    </div>\r\n    <div class=\"versiondiv\">\r\n      <ion-text>\r\n        <p>mobile version 1.0</p>\r\n      </ion-text>\r\n    </div>\r\n    <div class=\"LoginBtnDiv\">\r\n      <ion-button (click)=\"onLoginClick()\" expand=\"block\" fill=\"clear\">\r\n        Login\r\n      </ion-button>\r\n    </div>\r\n    <div class=\"forgotPwdDiv\">\r\n      <ion-button (click)=\"onForgotPwdClick()\" expand=\"block\" fill=\"clear\" shape=\"round\">\r\n        Forgot Password?\r\n      </ion-button>\r\n    </div>\r\n    <div class=\"signUpDiv\">\r\n      <ion-button (click)=\"onSignupClick()\" expand=\"block\" fill=\"clear\" shape=\"round\">\r\n        <span> Sign up</span>\r\n      </ion-button>\r\n    </div>\r\n  </div>\r\n</ion-content>"
 
 /***/ }),
 
@@ -124,6 +124,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @ionic/angular */ "./node_modules/@ionic/angular/fesm5/ionic-angular.js");
 /* harmony import */ var _ionic_native_network_ngx__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @ionic-native/network/ngx */ "./node_modules/@ionic-native/network/ngx/index.js");
 /* harmony import */ var _services_authentication_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../services/authentication.service */ "./src/app/services/authentication.service.ts");
+/* harmony import */ var _services_shareddata_data_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../services/shareddata/data.service */ "./src/app/services/shareddata/data.service.ts");
+
 
 
 
@@ -134,10 +136,11 @@ __webpack_require__.r(__webpack_exports__);
 
 // santhosh
 var LandingPage = /** @class */ (function () {
-    function LandingPage(authService, alertCtrl, network, platform, iab, route) {
+    function LandingPage(dataService, authService, alertCtrl, network, platform, iab, route) {
         //  var netcon = this.network.onConnect().subscribe(async ()=>{
         //     document.getElementById('NetError').style.visibility = 'hidden';
         //  })
+        this.dataService = dataService;
         this.authService = authService;
         this.alertCtrl = alertCtrl;
         this.network = network;
@@ -146,15 +149,23 @@ var LandingPage = /** @class */ (function () {
         this.route = route;
         this.signupUrl = 'https://blog.newagealpha.com/h-factor';
         this.url = 'https://www.newagealpha.com/';
+        this.showSplashLoader = true;
         //  var netdis = this.network.onDisconnect().subscribe(async ()=>{
         //   document.getElementById('NetError').style.visibility = 'visible';
         //  })
     }
     LandingPage.prototype.ngOnInit = function () {
         var _this = this;
+        this.dataService.showsplashLoader.subscribe(function (d) {
+            _this.showSplashLoader = d;
+        });
         this.authService.authenticationState.subscribe(function (state) {
             _this.authState = state;
-            // console.log('authstate from landing page'+state)
+            // if(this.authState == false){
+            //   this.dataService.showsplashLoader.next(false);
+            // }else{
+            //   this.dataService.showsplashLoader.next(true);
+            // }
         });
         if (this.platform.is('ipad') || this.platform.is('tablet')) {
             this.mobile = false;
@@ -180,6 +191,7 @@ var LandingPage = /** @class */ (function () {
         });
     };
     LandingPage.ctorParameters = function () { return [
+        { type: _services_shareddata_data_service__WEBPACK_IMPORTED_MODULE_7__["DataService"] },
         { type: _services_authentication_service__WEBPACK_IMPORTED_MODULE_6__["AuthenticationService"] },
         { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["AlertController"] },
         { type: _ionic_native_network_ngx__WEBPACK_IMPORTED_MODULE_5__["Network"] },
@@ -193,7 +205,7 @@ var LandingPage = /** @class */ (function () {
             template: __webpack_require__(/*! raw-loader!./landing.page.html */ "./node_modules/raw-loader/index.js!./src/app/landing/landing.page.html"),
             styles: [__webpack_require__(/*! ./landing.page.scss */ "./src/app/landing/landing.page.scss")]
         }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_services_authentication_service__WEBPACK_IMPORTED_MODULE_6__["AuthenticationService"], _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["AlertController"], _ionic_native_network_ngx__WEBPACK_IMPORTED_MODULE_5__["Network"], _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["Platform"], _ionic_native_in_app_browser_ngx__WEBPACK_IMPORTED_MODULE_2__["InAppBrowser"], _angular_router__WEBPACK_IMPORTED_MODULE_3__["Router"]])
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_services_shareddata_data_service__WEBPACK_IMPORTED_MODULE_7__["DataService"], _services_authentication_service__WEBPACK_IMPORTED_MODULE_6__["AuthenticationService"], _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["AlertController"], _ionic_native_network_ngx__WEBPACK_IMPORTED_MODULE_5__["Network"], _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["Platform"], _ionic_native_in_app_browser_ngx__WEBPACK_IMPORTED_MODULE_2__["InAppBrowser"], _angular_router__WEBPACK_IMPORTED_MODULE_3__["Router"]])
     ], LandingPage);
     return LandingPage;
 }());

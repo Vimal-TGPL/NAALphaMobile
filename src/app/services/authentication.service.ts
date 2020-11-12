@@ -10,6 +10,7 @@ import { UserView, UserTrack, UserTrackDtls } from '../_models/user';
 import { Device } from '@ionic-native/device/ngx';
 import { UserAgent } from '@ionic-native/user-agent/ngx'
 import { AppVersion } from '@ionic-native/app-version/ngx';
+import { DataService } from './shareddata/data.service';
 
 @Injectable({
   providedIn: 'root'
@@ -19,7 +20,7 @@ export class AuthenticationService {
   private api_url = environment.api_url;
   authenticationState = new BehaviorSubject(false);
 
-  constructor(private next: HttpHandler,private platform: Platform, private appVersion:AppVersion, private userAgent: UserAgent, private device:Device, private toastController: ToastController, private http:HttpClient, private storage: Storage, private plt:Platform, private route:Router, private authService:AuthenticationService) { 
+  constructor(private dataService: DataService,private next: HttpHandler,private platform: Platform, private appVersion:AppVersion, private userAgent: UserAgent, private device:Device, private toastController: ToastController, private http:HttpClient, private storage: Storage, private plt:Platform, private route:Router, private authService:AuthenticationService) { 
     // this.plt.ready().then(()=>{
       
     // setTimeout(() => {
@@ -33,6 +34,8 @@ export class AuthenticationService {
         if(res)
         {
           this.checkToken(null);
+        }else{
+          this.dataService.showsplashLoader.next(false);
         }
       });
     // });
@@ -84,8 +87,10 @@ export class AuthenticationService {
     })
    this.storage.remove('currentUser').then(()=>{
       this.updateUserTrackLogOut(userId, remToken);
+      this.dataService.showsplashLoader.next(false);
       this.authenticationState.next(false);
     })
+    
   }
 
   isAuthenticated(){
@@ -117,6 +122,7 @@ export class AuthenticationService {
           return null;
         })
       }else{
+        this.dataService.showsplashLoader.next(false);
         this.authenticationState.next(false);
       }
     })

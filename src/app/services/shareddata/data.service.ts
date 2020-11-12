@@ -32,6 +32,8 @@ export class DataService{
   _secLevel:any;
   _mobSelComp:any;
   mobSelComp:BehaviorSubject<any>;
+  showsplashLoader:BehaviorSubject<boolean>;
+  _showsplashLoader:boolean = true;
 
   IndexOrder = [
     { "index": "S&P 500", "order": 1 },
@@ -76,6 +78,7 @@ export class DataService{
     this.indexWise = new BehaviorSubject<any>(this._indexWise);
     this.secLevel = new BehaviorSubject<any>(this._secLevel);
     this.mobSelComp = new BehaviorSubject<any>(this._mobSelComp);
+    this.showsplashLoader = new BehaviorSubject<boolean>(this._showsplashLoader);
     this.getDbGICSData();
     this.getGlobalData();
    }
