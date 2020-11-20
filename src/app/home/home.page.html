@@ -1,5 +1,5 @@
 <!-- navBar start -->
-<ion-header class="ion-text-center" *ngIf="mobile">
+<ion-header class="ion-text-center ion-no-border" *ngIf="mobile">
   <ion-toolbar class="toolbar">
     <div class="header-Logo" [ngClass]="{'ipad_Logo': !mobile}">
       <img src="../../assets/images/NAA_Logo_Mobile.svg" alt="NewAgeAlpha" width="auto">
@@ -64,7 +64,7 @@
       <ion-icon *ngIf="CurrSlide == 0" name='chevron-forward-circle-outline' (click)="onArrowClick(1);" style="color: #fff;"></ion-icon>
       <img *ngIf="CurrSlide == 1" src="../../assets/images/Right Arrow Active.svg" alt="RA" style="height: 35px;">
     </div>
-    <ion-slides id='MainSlider' mode="ios" [options]='slideOpts' (ionSlideDidChange)="onSlideChange($event)">
+    <ion-slides id='MainSlider' [ngClass]="{'mdSlides': plt=='android', 'iosSlides': plt =='ios'}" mode="ios" [options]='slideOpts' (ionSlideDidChange)="onSlideChange($event)">
       <ion-slide class="CompSlide">
         <ion-list id="CompList">
           <ion-item *ngFor="let item of selIndexData" lines="none" class="compItem" [class.active]="selComp === item" (click)="onCompanyClick(item)">
@@ -84,8 +84,8 @@
         justify-content: center;
         align-items: center;
         position: absolute;" >
-          <img src="../../assets/images/NAA.gif" alt="Loading..." style="    height: 30px;
-          width: 30px;">
+          <img src="../../assets/images/NAA.gif" alt="Loading..." style="    height: 35px;
+          width: 35px;">
         </div>
       </ion-slide>  
     </ion-slides>
@@ -123,7 +123,7 @@
   <ion-icon *ngIf="AL_CurrSlide != 2" name='chevron-forward-circle-outline' (click)="onALArrowClick('frwd');" style="color: #fff;"></ion-icon>
   <img *ngIf="AL_CurrSlide == 2" src="../../assets/images/Right Arrow Active.svg" alt="RA" style="height: 35px;">
 </div>
-<ion-slides mode="ios" *ngIf="avoidSlides" [options]='slideOpts' (ionSlideDidChange)="onALSlideChange($event)" id="AL_Slider">
+<ion-slides mode="ios" *ngIf="avoidSlides" [ngClass]="{'mdSlides': plt=='android' , 'iosSlides': plt =='ios'}" [options]='slideOpts' (ionSlideDidChange)="onALSlideChange($event)" id="AL_Slider">
   <ion-slide class="CompSlide">
     <ion-list id="CompList" *ngIf="AL_FilteredList.length != 0">
       <ion-item *ngFor="let item of AL_FilteredList" lines="none" class="compItem" [class.active]="selComp === item">

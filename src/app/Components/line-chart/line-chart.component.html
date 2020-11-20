@@ -14,7 +14,8 @@
       min="0" max="95"
       dualKnobs="false" pin="true"
       snaps="true" step="5"
-      ticks="true" [(value)]="range"
+      debounce = 200
+      ticks="true" [(value)]="range == 100 ? 0 : range"
       (ionChange)="rangeChange($event)">
       <ion-label slot="start">All</ion-label>
       <ion-label slot="end">95</ion-label>

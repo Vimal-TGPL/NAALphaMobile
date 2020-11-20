@@ -1,7 +1,7 @@
-import { Component, OnInit, AfterViewInit, ViewChild, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { AuthenticationService } from '../services/authentication.service';
 import { Storage } from '@ionic/storage';
-import { Platform, IonSlides, MenuController, ModalController, PickerController, ToastController } from '@ionic/angular';
+import { Platform,  MenuController, ModalController, PickerController, ToastController } from '@ionic/angular';
 import * as d3 from 'd3';
 import { AlertController } from '@ionic/angular';
 import { PopoverController } from '@ionic/angular';
@@ -12,9 +12,11 @@ import { SectorPopoverComponent } from '../Components/sector-popover/sector-popo
 import { PickerOptions } from '@ionic/core';
 declare var $:any;
 import * as HighCharts from 'highcharts';
-import { throwMatDialogContentAlreadyAttachedError } from '@angular/material';
 import { LineChartComponent } from '../Components/line-chart/line-chart.component';
 import { ScreenOrientation } from '@ionic-native/screen-orientation/ngx';
+import { BehaviorSubject } from 'rxjs';
+import { on } from 'process';
+import { resolve } from 'url';
 
 @Component({
   selector: 'app-home',
@@ -24,6 +26,7 @@ import { ScreenOrientation } from '@ionic-native/screen-orientation/ngx';
 
 export class HomePage implements OnInit, OnDestroy {
   // slides={initialSlide: 1};
+  plt:any;
   draggedHandle:boolean;
   rangePer:any = 1;
   alertSubmitBtn:boolean = true;
@@ -65,8 +68,9 @@ export class HomePage implements OnInit, OnDestroy {
   AL_FilteredList:any = [];
   IndexId:any = 0;
   smChart:any;
-  cumReturn: any = "0.0%";
-  annReturn: any = "0.0%";
+  _authstateSub:any;
+  cumReturn: any = "0.00%";
+  annReturn: any = "0.00%";
   CurrSliderData:any = {'a': 0,
     'aAngle': 0,
     'e': 100,
@@ -90,6 +94,13 @@ export class HomePage implements OnInit, OnDestroy {
   
   ngOnInit() {
     this.screenOrientation.lock(this.screenOrientation.ORIENTATIONS.PORTRAIT);
+    if(this.platform.is('android')){
+      this.plt = 'android';
+    }else if(this.platform.is('ios')){
+      this.plt = 'ios';
+    }else{
+      this.plt = 'android';
+    }
     if (this.platform.is('ipad') || this.platform.is('tablet')) {
       this.mobile = false;
     } else {
@@ -101,25 +112,36 @@ export class HomePage implements OnInit, OnDestroy {
       if(d.length != 0){
         this.data = d;
         // console.log(d);
+      }else{
+        this.dataService.getDbGICSData();
+        this.dataService.getGlobalData();
       }
     });
     this._selCompsub = this.dataService.mobSelComp.subscribe(d =>{
       if(d){
         if(this.selComp == undefined){
           this.selComp = d;
-          // console.log(this.selComp);
-          this.indexClassifier();
-          this.sectorClassifier();
-          this.createIndexData();
-          setTimeout(() => {
+          this.indexClassifier().then(res=>{
+            this.sectorClassifier().then(res=>{
+              this.createIndexData().then(res=>{
+                setTimeout(() => {
             this.loadData();
-          }, 100);
+          }, 500);
+                // this.loadData();
+              });
+            });
+          });
+          
+          
+          
         }else{
           this.selComp = d;
           this.AL_mainCircle = false;
           this.AL_rangeCircle = false;
           this.AvoidLosersec = false;
           this.avoidSlides = false;
+          this.firstLoad = true;
+          this.alertUpdateBtn = false;
           if(this.AlertSec){
             this.AlertSec = false;
           }
@@ -136,7 +158,7 @@ export class HomePage implements OnInit, OnDestroy {
           setTimeout(() => {
             // this.CreateComps();
             // this.createCompetitive(this.chartMain);
-            // this.fillCompetives();
+            // this.fillCompetives(); 
             // this.CreateCompCircle();
             // setTimeout(() => {
             //   this.creatClockSlider();
@@ -151,7 +173,25 @@ export class HomePage implements OnInit, OnDestroy {
     this._dbGICSSub = this.dataService.dbGICS.subscribe(d =>{
       if(d.length != 0){
         this.dbGICS = d;
-        // console.log(this.dbGICS);
+      }
+    })
+
+    this._authstateSub = this.authService.authenticationState.subscribe(res=>{
+      if(res == false){
+        this.AL_mainCircle = false;
+          this.AL_rangeCircle = false;
+          this.AvoidLosersec = false;
+          this.avoidSlides = false;
+          this.firstLoad = true;
+          this.alertUpdateBtn = false;
+          this.AlertSec=false;
+          this.ReportSec=false;
+          this.selComp=null;
+          this.dataService.mobSelComp.next(null);
+          this.dataService.dbScore.next('');
+          this.dataService.dbGICS.next('');
+          this.dataService._dbGICS = '';
+          this.dataService.dbScoretemp ='';
       }
     })
   }
@@ -159,10 +199,13 @@ export class HomePage implements OnInit, OnDestroy {
   constructor(private screenOrientation:ScreenOrientation, private toastCtrl:ToastController,private popoverCtrl: PopoverController,private modalCtrl:ModalController ,private dataService: DataService, private dataHandler: DataHandlerService, private menuCtrl: MenuController, private platform: Platform, public alertController: AlertController,private authService: AuthenticationService, public storage: Storage, public pickerCtrl: PickerController) {
     this.currentUser = this.authService.currentUserValue();
     // console.log(this.currentUser);
-    
   }
-  ngOnDestroy(): void {
+  ngOnDestroy() {
     this.screenOrientation.unlock();
+    this._selCompsub.unsubscribe();
+    this._dataSub.unsubscribe();
+    this._dbGICSSub.unsubscribe();
+    this._authstateSub.unsubscribe();
   }
 
   openMenu(){
@@ -178,26 +221,35 @@ export class HomePage implements OnInit, OnDestroy {
   }
 
   sectorClassifier(){
-    this.sectorList = [];
-    var selCompInd =  this.selComp.industry;
-    // console.log(selCompInd);
-    this.sectorOrder.forEach(i =>{
-      var temp = {
-        secTitle:i.name,
-        secName: this.getSectorname(i.order,selCompInd),
-        secCount: this.getSecCount(i.order,selCompInd),
-        secMed:this.getSecMed(i.order,selCompInd)
-      }
-      this.sectorList.push(temp);
-    });
-    // console.log(this.sectorList);
-    this.selSec = this.sectorList[1];
-    // console.log(this.selSec);
+    return new Promise((resolve,reject)=>{
+      this.sectorList = [];
+      var selCompInd =  this.selComp.industry;
+      // console.log(selCompInd);
+    this.sectorOrder.forEach((i,ind) =>{
+        var temp = {
+          secTitle:i.name,
+          secName: this.getSectorname(i.order,selCompInd),
+          secCount: this.getSecCount(i.order,selCompInd),
+          secMed:this.getSecMed(i.order,selCompInd)
+        }
+        this.sectorList.push(temp);
+
+        if(ind == this.sectorOrder.length -1 ){
+          resolve();
+        }
+      });
+      // console.log(this.sectorList);
+      this.selSec = this.sectorList[1];
+      // console.log(this.selSec);
+    })
+    
   }
 
   indexClassifier(){
-    this.indexData = this.data.filter(i=>i.indexName == this.selComp.indexName);
-    // console.log(this.indexData);
+    return new Promise((resolve,reject)=>{
+      this.indexData = this.data.filter(i=>i.indexName == this.selComp.indexName);
+      resolve();
+    });
   }
 
   getSectorname(lev,ind){
@@ -290,6 +342,9 @@ export class HomePage implements OnInit, OnDestroy {
       this.AvoidLosersec = true;
       this.ReportSec = false;
       this.AlertSec = false;
+      this.weeklyDiv=false;
+      this.monthlyBtn = false;
+      this.percentageRage =false;
       setTimeout(() => {
         this.loadData();
       }, 50);
@@ -299,12 +354,16 @@ export class HomePage implements OnInit, OnDestroy {
   onAlertClick(){
     if(this.AlertSec){
       this.AlertSec = false;
+      this.weeklyDiv=false;
+      this.monthlyBtn = false;
+      this.percentageRage =false;
       if(!this.AvoidLosersec && !this.ReportSec){
         setTimeout(() => {
           this.loadData();
         }, 50);
       } 
     }else{
+      document.getElementById('Circleloader').style.display= 'none';
       this.showLoader = true;
       this.firstLoad = true;
       this.AvoidLosersec = false;
@@ -439,6 +498,9 @@ export class HomePage implements OnInit, OnDestroy {
       this.AvoidLosersec = false;
       this.AlertSec = false;
       this.firstLoad = true;
+      this.weeklyDiv=false;
+      this.monthlyBtn = false;
+      this.percentageRage =false;
     }
   }
 
@@ -490,6 +552,8 @@ export class HomePage implements OnInit, OnDestroy {
           'e': 100,
           'eAngle': 360};
           setTimeout(() => {
+            this.AL_List = this.selIndexData;
+            this.OnAL_listChange(this.CurrSliderData);
             this.loadData();
           }, 100);
         }else if(this.AvoidLosersec && this.AL_mainCircle && !this.AL_rangeCircle){
@@ -499,9 +563,9 @@ export class HomePage implements OnInit, OnDestroy {
           'e': 100,
           'eAngle': 360};
           setTimeout(() => {
-            this.loadData();
             this.AL_List = this.selIndexData;
             this.OnAL_listChange(this.CurrSliderData);
+            this.loadData();
           }, 100);
         }
         
@@ -511,22 +575,26 @@ export class HomePage implements OnInit, OnDestroy {
   }
 
   createIndexData(){
-    if(this.selSec.length != 0){
-      var selSecLvl = this.sectorOrder.filter(i=> i.name == this.selSec.secTitle)[0].order;
-      // console.log(selSecLvl);
-      if(selSecLvl == 1){
-        this.selIndexData = this.indexData;
-      }else if(selSecLvl == 2){
-        this.selIndexData = this.indexData.filter(i => i.industry.slice(0,2) == this.selComp.industry.slice(0,2));
-      }else if(selSecLvl == 3){
-        this.selIndexData = this.indexData.filter(i => i.industry.slice(0,4) == this.selComp.industry.slice(0,4));
-      }else if(selSecLvl == 4){
-        this.selIndexData = this.indexData.filter(i => i.industry.slice(0,6) == this.selComp.industry.slice(0,6));
-      }else if(selSecLvl == 5){
-        this.selIndexData = this.indexData.filter(i => i.industry== this.selComp.industry);
+    return new Promise((resolve,reject)=>{
+      if(this.selSec.length != 0){
+        var selSecLvl = this.sectorOrder.filter(i=> i.name == this.selSec.secTitle)[0].order;
+        // console.log(selSecLvl);
+        if(selSecLvl == 1){
+          this.selIndexData = this.indexData;
+        }else if(selSecLvl == 2){
+          this.selIndexData = this.indexData.filter(i => i.industry.slice(0,2) == this.selComp.industry.slice(0,2));
+        }else if(selSecLvl == 3){
+          this.selIndexData = this.indexData.filter(i => i.industry.slice(0,4) == this.selComp.industry.slice(0,4));
+        }else if(selSecLvl == 4){
+          this.selIndexData = this.indexData.filter(i => i.industry.slice(0,6) == this.selComp.industry.slice(0,6));
+        }else if(selSecLvl == 5){
+          this.selIndexData = this.indexData.filter(i => i.industry== this.selComp.industry);
+        }
+        // console.log(this.selIndexData);
       }
-      // console.log(this.selIndexData);
-    }
+      resolve();
+    })
+    
   }
 
   onArrowClick(d){
@@ -564,7 +632,7 @@ export class HomePage implements OnInit, OnDestroy {
   }
 
   onALSlideChange(evt){
-    console.log(evt);
+    // console.log(evt);
     
     this.AL_CurrSlide = evt.target.swiper.activeIndex;
     let prev_ind = evt.target.swiper.previousIndex;
@@ -958,53 +1026,39 @@ export class HomePage implements OnInit, OnDestroy {
       }else{
         if((this.AvoidLosersec && !this.AL_rangeCircle && !this.AL_mainCircle) || !this.AvoidLosersec)
         document.getElementById('Circleloader').style.display = "none"; 
-        that.CreateComps();
-        that.createCompetitive(this.chartMain);
-        that.fillCompetives();
-        if(!this.AvoidLosersec){
-          that.CreateCompCircle();
-        }else if(that.AvoidLosersec && that.AL_mainCircle){
-          that.createALinnerCircle();
-        }
+        that.CreateComps().then(res => {
+          that.createCompetitive(this.chartMain).then(res=>{
+            that.fillCompetives().then(res=>{
+              if(!this.AvoidLosersec){
+                that.CreateCompCircle().then(res=>{
+                  that.creatClockSlider().then(res =>{
+                    that.setClock(this.selComp.isin, (this.selIndexData.indexOf(this.selComp) *360/this.selIndexData.length)-90, this.selComp.ticker);
+                  });
+                });
+              }else if(that.AvoidLosersec && that.AL_mainCircle){
+                that.createALinnerCircle().then(res => {
+                  if(that.AL_FilteredList.filter(data => data.isin === this.selComp.isin).length != 0){
+                      that.creatClockSlider().then(res =>{
+                        that.setClock(this.selComp.isin, (this.AL_List.indexOf(this.selComp) *360/ this.AL_List.length) - 90, this.selComp.ticker);
+                      });
+                  }     
+                });
+              }
+            });
+          })
+        });
+        
+        
         
         
         setTimeout(() => {
-          if(!this.AvoidLosersec){
-            that.creatClockSlider();
-            that.setClock(this.selComp.isin, (this.selIndexData.indexOf(this.selComp) *360/this.selIndexData.length)-90, this.selComp.ticker);
-          }else if(this.AvoidLosersec && this.AL_mainCircle && this.AL_FilteredList.filter(data => data.isin === this.selComp.isin).length != 0){
-            // if(){
-              that.creatClockSlider();
-            that.setClock(this.selComp.isin, (this.AL_List.indexOf(this.selComp) *360/ this.AL_List.length) - 90, this.selComp.ticker);
-            // }
-          }          
+               
         }, 300);
-
-      // if(!this.AvoidLosersec){
-        
-      // }else{
-      //   if(this.AL_rangeCircle){
-      //     console.log('Range Circle');
-      //     that.circleRange({ "start": sMin, "end": sMax });
-      //   }else if(this.AL_mainCircle){
-      //     console.log('Main Circle');
-      //     document.getElementById('Circleloader').style.display = "none"; 
-      //     that.CreateComps();
-      //     that.createCompetitive(this.chartMain);
-      //     that.fillCompetives();
-      //     that.CreateCompCircle();
-      //     setTimeout(() => {
-      //       that.creatClockSlider();
-      //     that.setClock(this.selComp.isin, this.selComp.deg *360/100, this.selComp.ticker);
-      //     }, 300);
-      //   }
-      //   else if(){
-          
-      //   }
       }
   }
 
   CreateComps(){
+    return new Promise((resolve,reject)=>{   
     let that = this;
     var oSvg = this.chartMain;
     var compLst;
@@ -1084,16 +1138,23 @@ export class HomePage implements OnInit, OnDestroy {
             return wtdwidth + 2;
           }
         });
+
+        resolve();
+      });
   }
 
   createCompetitive(grp1) {
-    grp1.append("g").attr("id", "gCompetitive");
+    return new Promise((resolve,reject)=>{
+      grp1.append("g").attr("id", "gCompetitive");
+      resolve();
+    });
   }
 
   creatClockSlider(){
+    return new Promise((resolve,reject)=>{
     let that = this;
-    var r = d3.select("#maincircle").attr("r");
-    that.createXrad = parseInt(r);
+    var r = that.radius+4;
+    that.createXrad = r;
     d3.select("#cSlider").remove();
     var g = d3.select("#crlChart").append("g")
       .attr("id", "cSlider")
@@ -1126,9 +1187,14 @@ export class HomePage implements OnInit, OnDestroy {
       .style("font-family","Open Sans Bold")
       .style("display", "none")
       .text("0.00");
+      resolve();
+    });
   }
 
   fillCompetives(){
+    return new Promise((resolve,reject)=>{
+
+    
     let that = this;
     var dta = this.selIndexData;
     // console.log(this.selIndexData);
@@ -1153,7 +1219,7 @@ export class HomePage implements OnInit, OnDestroy {
       .attr("transform", function (d,i) {
         // return "rotate(" + ((i * 360 / dta.length) - 90) + ")";
         var cx  = ((i * 360 / dta.length) - 90);
-        console.log(d,cx,i);
+        // console.log(d,cx,i);
         if (cx <= 90) {
           return "rotate(" + (cx + 1.0) + ")";
         } else {
@@ -1251,16 +1317,22 @@ export class HomePage implements OnInit, OnDestroy {
           return d.company.slice(0, (17 - rsvcnt1)).trim() + "... (" + d.ticker + ")";
         }
       });
+      resolve();
+    });
   }
 
   createALinnerCircle(){
+    return new Promise((resolve,reject)=>{
+
+    
+
     let that = this;
     var cradius = 150;
     var oSvg = that.chartMain;
     d3.select('#innerCircleGrp').remove();
     var innerCirclegrp = oSvg.append("g").attr('id',"innerCirclegrp");
     var TI_Grp = innerCirclegrp.append("g").attr('id','TIGrp')
-      .attr('transform','translate(-40,-110)');
+      .attr('transform','translate(-50,-110)');
 
     // var innerCircle = TI_Grp.append("circle")
     // .attr("id", "inmaincircle")
@@ -1281,7 +1353,12 @@ export class HomePage implements OnInit, OnDestroy {
       })
       .style('font-size','16')
       .style('font-family','Open Sans ExtraBold')
-      .attr('dx','-18')
+      .attr('dx',function(){
+        if( Number(that.roundMed(that.selComp.scores*100)) < 10)
+        return '-12';
+        else
+        return '-18';
+      })
       .attr('dy','5')
       .text(function(){
         return that.roundMed(that.selComp.scores*100);
@@ -1291,7 +1368,7 @@ export class HomePage implements OnInit, OnDestroy {
       .style('font-size','18')
       .style('font-family','Open Sans ExtraBold')
       .style('fill','#224b9e')
-      .attr('dx','40')
+      .attr('dx','35')
       .attr('dy','5')
       .text(function(){
         return "("+that.selComp.ticker+")";
@@ -1299,11 +1376,11 @@ export class HomePage implements OnInit, OnDestroy {
 
     var Sec_Top = innerCirclegrp.append('g')
       .attr('id','Sec_Top')
-      .attr('transform','translate(-90,-50)');
+      .attr('transform','translate(-100,-55)');
 
     Sec_Top.append('circle')
     .attr('id','ST_mCircle')
-    .attr('r','35')
+    .attr('r','32')
     .style('stroke','#e5e5e5')
     .style('fill','none');
 
@@ -1412,11 +1489,9 @@ export class HomePage implements OnInit, OnDestroy {
         that.onChartClick();
       })
 
-      that.highChartLine(chart);
-
-     
-      setTimeout(() => {
-        if(this.chartData){
+      that.highChartLine(chart).then( res =>{
+        // if(this.chartData){
+          setTimeout(() => {
         var addInfoDiv = FO_Chart.append('xhtml:p')
       .attr('xmlns','http://www.w3.org/1999/xhtml')
       .text('Additional Return')
@@ -1442,7 +1517,6 @@ export class HomePage implements OnInit, OnDestroy {
       .style('padding','0px 5px')
       .style('justify-content','space-between');
 
-
       infoSpan.append('xhtml:p')
       .attr('xmlns','http://www.w3.org/1999/xhtml')
       .text(function(){
@@ -1464,13 +1538,18 @@ export class HomePage implements OnInit, OnDestroy {
       .style('color','#224b9e')
       .style('line-height','1.4')
       .style('margin','0');
-      }
-      }, 1500);
+      // }
+    }, 500);
+    });
+      resolve();
+    })
   }
 
   
 
-  highChartLine(chart){
+  async highChartLine(chart){
+    return new Promise((resolve,reject)=>{
+
     var that = this;
     if(this.selComp != ""){
       let indexValue = [];
@@ -1484,11 +1563,11 @@ export class HomePage implements OnInit, OnDestroy {
       }else{
         GICSId = that.selComp.industry.slice(0,2*(selSecLvl-1));
       }
-      range = 'top'+this.CurrSliderData.e;
+      range = 'top'+Math.round(this.CurrSliderData.e);
       // console.log(this.IndexId,GICSId,Ctype,range);
 
       this.dataHandler.getIndexPreRuns(this.IndexId,GICSId,Ctype,range).subscribe((res:any[]) =>{
-        console.log(res);
+        // console.log(res);
         if(res.length != 0){
           that.chartData = true;
         if(that.smChart != null){
@@ -1558,7 +1637,7 @@ export class HomePage implements OnInit, OnDestroy {
           });
 
           ReturnVal1 = that.calcCumAndAnnReturns(indexValue, date);
-          console.log('ReturnVal1',ReturnVal1);
+          // console.log('ReturnVal1',ReturnVal1);
           if((ReturnVal1[0] - ReturnVal[0]) > 0){
             that.cumReturn = '+'+(ReturnVal1[0] - ReturnVal[0]).toFixed(2)+'%';
           }else{
@@ -1570,9 +1649,12 @@ export class HomePage implements OnInit, OnDestroy {
             that.annReturn = (ReturnVal1[1] - ReturnVal[1]).toFixed(2)+'%';
           }
 
-          console.log('cumReturn',that.cumReturn);
-          console.log('annReturn',that.annReturn);
+          // console.log('cumReturn',that.cumReturn);
+          // console.log('annReturn',that.annReturn);
           
+        }else{
+          that.cumReturn = '0.00%';
+          this.annReturn = '0.00%';
         }
 
         that.smChart = HighCharts.chart({
@@ -1710,8 +1792,12 @@ export class HomePage implements OnInit, OnDestroy {
         .style('color','#999')
         .text('No Data');
       }
+      resolve();
       });
     }
+
+    // resolve();
+  });
   }
 
   async onChartClick(){
@@ -1763,6 +1849,10 @@ export class HomePage implements OnInit, OnDestroy {
   }
 
   CreateCompCircle(){
+
+    return new Promise((resolve,reject)=>{
+
+    
     let that = this;
     var cradius = 150;
     var oSvg = that.chartMain;
@@ -1794,16 +1884,22 @@ export class HomePage implements OnInit, OnDestroy {
     .attr("x", function(d){return '0'})
     .attr("y", function(d){return ((txt.length / 20)+2)+'%'})
     .attr("dy",function(d){
-      if(txt.length < 40)
+      // if(txt.length < 25){
+      //   return ((txt.length / 20)-1.5)+"rem";
+      // }
+      // else 
+      if(txt.length < 35)
         return ((txt.length / 20)-2)+"rem";
       else
-      return ((txt.length / 20)-1)+"rem";
+      return ((txt.length / 20)-0.8)+"rem";
     })
     .attr("dominant-baseline","middle")
     .attr("text-anchor","middle")
     .attr('class', 'innerCompMed')
     .style('fill',that.getColor(med))
     .text(med);
+    resolve();
+  })
 
     // comptext.append("tspan")
     // .attr('class','innerCompMed')
@@ -1914,7 +2010,9 @@ export class HomePage implements OnInit, OnDestroy {
   setClock(isin, val, txt) {
     
     // console.log(isin,val,txt);
+    return new Promise((resolve,reject)=>{
 
+    
     let that = this;
     if (txt != null) {
         d3.select("#cSlider").style("display", "none");
@@ -1943,7 +2041,7 @@ export class HomePage implements OnInit, OnDestroy {
         .attr("transform", function () {
           //  return val > 180 ? "rotate(180 " + (+r + 140) + ", 0)" : null;
           //cx <= 90
-          console.log(val);
+          // console.log(val);
           return val >= 90 ? "rotate(180)" : null;
         })
         .style("text-anchor", function () {
@@ -2048,6 +2146,8 @@ export class HomePage implements OnInit, OnDestroy {
         // }
     
         // console.log(that.IndexId);  
+        resolve();
+      });
   }
 
 
@@ -2171,7 +2271,7 @@ export class HomePage implements OnInit, OnDestroy {
   }
   function writeTimeInfo(sliderObject) {
     
-    console.log('writeTimeInfo');
+    // console.log('writeTimeInfo');
     // if((that.AvoidLosersec && !that.AL_mainCircle && !that.AL_rangeCircle) || ( that.AvoidLosersec && that.AL_rangeCircle && !that.AL_mainCircle)){
     if((that.AvoidLosersec && !that.AL_mainCircle && !that.AL_rangeCircle) || (that.AvoidLosersec && that.AL_rangeCircle )) {
       that.CurrSliderData = sliderObject;
@@ -2179,12 +2279,10 @@ export class HomePage implements OnInit, OnDestroy {
     }
     if(that.AvoidLosersec && that.AL_rangeCircle && !that.AL_mainCircle)
       {
-        // console.log('setInfo started');
-        setTimeout(() => {
-          SetInfo(that.CurrSliderData);
-        }, 500);
+          SetInfo(that.CurrSliderData);          
       }
-
+    
+    
      helper.calculateUpdateHandleData({ "start": sliderObject.a, "end": sliderObject.e });
   }
   var tau = 2 * Math.PI;
@@ -2239,7 +2337,7 @@ export class HomePage implements OnInit, OnDestroy {
   }
 
   function drawHandles() {
-    console.log('drawHandles');
+    // console.log('drawHandles');
     var handlerContainer = handles.selectAll('.handlercontainer').data(helper.getData());
     var circles = handlerContainer.enter()
       .append('g')
@@ -2281,7 +2379,7 @@ export class HomePage implements OnInit, OnDestroy {
     //.text(function (d) { if (d.label == "a") return '\uf054'; else return '\uf053'; }); //http://fontawesome.io/3.2.1/cheatsheet/
   }
   function drawTickers() {
-    console.log('drawTickers');
+    // console.log('drawTickers');
     var checkPoi = (sliderEndValue - sliderInitValue) <= 20 ? 1 : 0;
 
     /////////Ticks Inside the Tool circle
@@ -2317,7 +2415,7 @@ export class HomePage implements OnInit, OnDestroy {
     roTicker.select(".tick50").select("text").style("font-family", "Open Sans Semibold").style("fill", tickColor1);
   }
   function dragmoveHandles(d, i) {
-    console.log('dragmoveHandles');
+    // console.log('dragmoveHandles');
     //issue is here for 100
     var coordinates = d3.mouse(svg.node());
     // console.log(coordinates);
@@ -2342,7 +2440,7 @@ export class HomePage implements OnInit, OnDestroy {
     }
   }
   function updateArc(value, label, angle) {
-    console.log('updateArc');
+    // console.log('updateArc');
     var handlerContainer = d3.selectAll('#handles .handlercontainer'); //select all handles
     var startValue = 0;
     var endValue = 0;
@@ -2366,7 +2464,7 @@ export class HomePage implements OnInit, OnDestroy {
     dragLiveData = currentData;
   }
   function updateHandles(dd) {
-    console.log('updateHandles');
+    // console.log('updateHandles');
     if (dd.label === 'a') {
       d3.select('#handles').select('.a1').attr('transform', 'rotate(' + dd.angle + ') translate(0,' + (radius) * -1 + ')');
     } else {
@@ -2395,7 +2493,7 @@ export class HomePage implements OnInit, OnDestroy {
   }
 
   function checkHandlesPosition(labelOfDagedHandle) {
-    console.log('checkHandlesPosition');
+    // console.log('checkHandlesPosition');
     var allHandles = handles.selectAll('.handlercontainer');
     // console.log(allHandles);
     var currentData = {
@@ -2439,7 +2537,7 @@ export class HomePage implements OnInit, OnDestroy {
   }
 
   function SetInfo(data){
-    console.log('SetInfo');
+    // console.log('SetInfo');
     // console.log(data);
     d3.select('#innerText').remove();
     var oSvg = d3.select('#crlChart');
@@ -2457,7 +2555,7 @@ export class HomePage implements OnInit, OnDestroy {
       .attr('x',0)
     .attr("dy", 20)
       .text(function(){
-        return data.e+'%'
+        return Math.round(data.e)+'%'
       });
       text.transition()
       .duration(300);

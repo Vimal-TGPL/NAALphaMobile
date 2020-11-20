@@ -21814,7 +21814,7 @@ let PerformancePage = class PerformancePage {
                     var temp = [];
                     temp = res;
                     // temp = temp.filter(data => data.indexId != 130);
-                    console.log(temp);
+                    //  console.log(temp);
                     this.IndexData = temp;
                     this.CheckCountry();
                     this.OnItemClick(this.CountryClasificationList[0]);

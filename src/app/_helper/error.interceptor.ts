@@ -19,16 +19,18 @@ export class ErrorInterceptor implements HttpInterceptor {
     
 
     return next.handle(request).pipe(catchError(err => {
-      console.log(err);
+      // console.log(err);
       this.currentUser = this.authService.currentUserValue();
-      console.log(this.currentUser);
+      // console.log(this.currentUser);
       if (err.status === 401) {
         // auto logout if 401 response returned from api
         if (this.currentUser.remToken !== null) {
           this.authService.checkToken(request);
         }
       }else{
-        this.presentToast(err.error.message);
+        if(err.error.message.length != 0){
+          this.presentToast(err.error.message);
+        }
       }
       const error = err.message || err.statusText;
       return throwError(error);
@@ -38,7 +40,8 @@ export class ErrorInterceptor implements HttpInterceptor {
 async presentToast(msg) {
   const toast = await this.toastController.create({
     message: msg,
-    duration: 3000
+    duration: 3000,
+    cssClass: 'center'
   });
   toast.present();
 }

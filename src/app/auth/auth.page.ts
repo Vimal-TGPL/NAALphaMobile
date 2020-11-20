@@ -59,7 +59,7 @@ export class AuthPage implements OnInit {
     this.pwd = true;
   }
   onLoginClick(){
-    console.log('Login Clicked');
+    // console.log('Login Clicked');
     this.showLoad = true;
     const httpOptions = {
       headers: new HttpHeaders({
@@ -100,7 +100,8 @@ export class AuthPage implements OnInit {
   async presentToast(msg) {
     const toast = await this.toastController.create({
       message: msg,
-      duration: 3000
+      duration: 3000,
+      cssClass: 'center'
     });
     toast.present();
   }

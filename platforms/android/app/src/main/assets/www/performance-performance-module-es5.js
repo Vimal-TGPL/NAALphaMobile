@@ -23100,7 +23100,7 @@ var PerformancePage = /** @class */ (function () {
                     var temp = [];
                     temp = res;
                     // temp = temp.filter(data => data.indexId != 130);
-                    console.log(temp);
+                    //  console.log(temp);
                     _this.IndexData = temp;
                     _this.CheckCountry();
                     _this.OnItemClick(_this.CountryClasificationList[0]);

@@ -51,10 +51,10 @@ export class ForgotPasswordPage implements OnInit {
       return false;
     },err=>{
       this.showLoad = false;
-      console.log(err);
+      // console.log(err);
       this.presentToast(err.error.message);
     })
-    console.log(data);
+    // console.log(data);
   }
 
   OnLoginClick(){

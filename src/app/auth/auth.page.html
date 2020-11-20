@@ -20,19 +20,20 @@
           <div class="inputdiv">
             <ion-label class="emailLabel">Email<ion-text color="danger"> *</ion-text>
             </ion-label>
-            <ion-item class="emailItem">
+            <ion-item class="emailItem" lines="none">
               <ion-input autofocus="true" inputmode="email" (ionInput)="onemialTextInput()" placeholder="Email Address" formControlName="Email" autocomplete="on"></ion-input>
             </ion-item>
-            <div style="color: #f44336; padding-top: 0.2rem; font-size: 11px; font-family: Open Sans;" *ngIf="hasError('Email', 'required') && email">Email is required</div>
+            <div style="color: #f44336; padding-top: 0.2rem; font-size: 11px; font-family: Open Sans;" *ngIf="hasError('Email', 'required') && email">An email address is required</div>
+            <div style="color: #f44336; padding-top: 0.2rem; font-size: 11px; font-family: Open Sans;" *ngIf="hasError('Email', 'email') && email">Please enter a valid email address</div>
           </div>
           <div class="inputdiv">
             <ion-label class="emailLabel">Password<ion-text color="danger"> *</ion-text>
             </ion-label>
-            <ion-item class="passwordItem">
+            <ion-item class="passwordItem" lines="none">
               <ion-input class="passwordInput" (keyup.enter)='onLoginClick()'  (ionInput)="onPwdTextInput()" type="password" inputmode="text" enterkeyhint="Login" placeholder="Password" formControlName="Password">
               </ion-input>
             </ion-item>
-            <div style="color: #f44336; padding-top: 0.2rem; font-size: 11px; font-family: Open Sans;" *ngIf="hasError('Password', 'required') && pwd">Password is required</div>
+            <div style="color: #f44336; padding-top: 0.2rem; font-size: 11px; font-family: Open Sans;" *ngIf="hasError('Password', 'required') && pwd">A password is required</div>
           </div>
           <!-- <div class="inputdiv">
             <ion-item class="rememberItem" lines="none">

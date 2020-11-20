@@ -11,6 +11,8 @@ import { Device } from '@ionic-native/device/ngx';
 import { UserAgent } from '@ionic-native/user-agent/ngx'
 import { AppVersion } from '@ionic-native/app-version/ngx';
 import { DataService } from './shareddata/data.service';
+import { throwError, timer } from 'rxjs';
+import { catchError, retry, retryWhen, delayWhen, scan } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -58,7 +60,7 @@ export class AuthenticationService {
     if(user && user.token){
       if(user.isEmailVerified != "" && user.isEmailVerified == "Y"){
         // this.storage.clear();
-        console.log(user.token);
+        //console.log(user.token);
         this.CurrentUser = user;
         this.storage.set('currentUser',JSON.stringify(user));
         this.authenticationState.next(true);
@@ -80,17 +82,16 @@ export class AuthenticationService {
     this.storage.get('currentUser').then(res=>{
       user = JSON.parse(res);
       userId = user.userId;
-      // console.log(userId);
       remToken = user.remToken;
-      // console.log(remToken);
-      console.log(user);
-    })
-   this.storage.remove('currentUser').then(()=>{
-      this.updateUserTrackLogOut(userId, remToken);
-      this.dataService.showsplashLoader.next(false);
-      this.authenticationState.next(false);
-    })
-    
+      this.updateUserTrackLogOut(userId, remToken).subscribe((res:any)=>{
+        if(res.status == 'D'){
+          this.storage.remove('currentUser').then(()=>{
+          this.dataService.showsplashLoader.next(false);
+          this.authenticationState.next(false);
+          });
+        }
+      });
+    });
   }
 
   isAuthenticated(){
@@ -201,7 +202,7 @@ export class AuthenticationService {
     }
   }
 
-  updateUserTrackLogOut(userid,remToken){
+  updateUserTrackLogOut(userid,remToken):Observable<Object>{
     let obj = new UserTrack();
     obj.Userid =parseInt(userid);
     obj.LogOutTime = new Date();
@@ -217,10 +218,20 @@ export class AuthenticationService {
       })
     };
 
-    this.http.post(this.api_url + `/users/UpdateUsertrack`, obj, httpOptions)
-      .subscribe(data => {
-        // console.log(data);
-      }); 
+    return this.http.post(this.api_url + `/users/UpdateUsertrack`, obj, httpOptions).pipe(retryWhen(err=> err.pipe(
+      scan(count=>{
+         if(count > 5) throw err;
+         else{
+           count++;
+           return count;
+         }
+      },0),
+      delayWhen(()=> timer(1000))
+    ))).pipe(map(res => {return res}));
+    // .pipe(data => {
+    //     console.log(data);
+    //     return data;
+    //   }); 
   }
 
   async presentToast(val) {

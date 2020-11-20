@@ -215,7 +215,7 @@ export class PerformancePage implements OnInit, AfterViewInit, OnDestroy {
         var temp:any = [];
         temp = res;
         // temp = temp.filter(data => data.indexId != 130);
-       console.log(temp);
+      //  console.log(temp);
         this.IndexData = temp;
         this.CheckCountry();
         this.OnItemClick(this.CountryClasificationList[0]);

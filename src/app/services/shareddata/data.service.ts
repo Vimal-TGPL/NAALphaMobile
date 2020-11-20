@@ -2,6 +2,8 @@ import { Injectable, OnInit } from '@angular/core';
 import { DataHandlerService } from '../dataHandler/data-handler.service';
 import * as d3 from 'd3/';
 import { BehaviorSubject } from 'rxjs';
+import { AuthenticationService } from '../authentication.service';
+import { Storage } from '@ionic/storage';
 
 @Injectable({
   providedIn: 'root'
@@ -34,6 +36,7 @@ export class DataService{
   mobSelComp:BehaviorSubject<any>;
   showsplashLoader:BehaviorSubject<boolean>;
   _showsplashLoader:boolean = true;
+  currentUser:any;
 
   IndexOrder = [
     { "index": "S&P 500", "order": 1 },
@@ -66,7 +69,7 @@ export class DataService{
     { "index": "New Age Alpha Japan Low Volatility Index", "order": 20 }
   ];
 
-  constructor(private dataHandler:DataHandlerService) {
+  constructor(private dataHandler:DataHandlerService, private storage: Storage) {
     this.dbGICS = new BehaviorSubject<any>(this._dbGICS);
     this.dbScore = new BehaviorSubject<any>(this.dbScoretemp);
     this.selTab = new BehaviorSubject<string>(this._selTab);
@@ -79,8 +82,12 @@ export class DataService{
     this.secLevel = new BehaviorSubject<any>(this._secLevel);
     this.mobSelComp = new BehaviorSubject<any>(this._mobSelComp);
     this.showsplashLoader = new BehaviorSubject<boolean>(this._showsplashLoader);
-    this.getDbGICSData();
-    this.getGlobalData();
+    this.storage.get('currentUser').then( res=>{
+      if(res){
+        this.getDbGICSData();
+        this.getGlobalData();
+      }
+    });
    }
 
   getDbGICSData(){

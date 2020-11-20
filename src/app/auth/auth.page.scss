@@ -140,6 +140,10 @@ ion-content{
     // font-size: 19px !important;
 }
 
+.no-validation-line .item-inner {
+    box-shadow: none !important;
+  }
+
 .form{
     padding-top: 0px;
 }

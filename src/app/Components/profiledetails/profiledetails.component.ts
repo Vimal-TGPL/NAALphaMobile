@@ -3,6 +3,7 @@ import { PopoverController} from '@ionic/angular';
 import { Storage } from '@ionic/storage';
 import { AuthenticationService } from '../../services/authentication.service';
 import { Router, RouterEvent } from '@angular/router';
+import { DataService } from 'src/app/services/shareddata/data.service';
 
 @Component({
   selector: 'app-profiledetails',
@@ -17,7 +18,7 @@ export class ProfiledetailsComponent implements OnInit {
   lastname:string;
   username:string;
 
-  constructor( private route:Router, private authService: AuthenticationService, private popoverController: PopoverController,private storage:Storage) { }
+  constructor(private dataServeice: DataService, private route:Router, private authService: AuthenticationService, private popoverController: PopoverController,private storage:Storage) { }
 
   ngOnInit() {
     this.storage.get('currentUser').then(res=>{

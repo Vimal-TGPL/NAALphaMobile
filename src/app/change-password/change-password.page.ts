@@ -75,7 +75,8 @@ ionViewDidLeave(){
    async presentToast(msg) {
     const toast = await this.toastController.create({
       message: msg,
-      duration: 3000
+      duration: 3000,
+      cssClass: 'center'
     });
     toast.present();
   }

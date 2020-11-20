@@ -1,9 +1,8 @@
 import { Injectable } from "@angular/core";
 import { HttpInterceptor, HttpClient, HttpRequest, HttpHandler, HttpEvent, HttpErrorResponse } from '@angular/common/http';
 import { Storage } from '@ionic/storage';
-import { Observable, throwError } from 'rxjs';
+import { Observable } from 'rxjs';
 import { AuthenticationService } from '../services/authentication.service';
-import { catchError } from 'rxjs/operators';
 import { ToastController } from '@ionic/angular';
 import { AlertController } from '@ionic/angular';
 import { Toast } from '@ionic-native/toast/ngx';

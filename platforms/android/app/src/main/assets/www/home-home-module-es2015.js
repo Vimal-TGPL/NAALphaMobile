@@ -7,7 +7,7 @@
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<!-- navBar start -->\r\n<ion-header class=\"ion-text-center\" *ngIf=\"mobile\">\r\n  <ion-toolbar class=\"toolbar\">\r\n    <div class=\"header-Logo\" [ngClass]=\"{'ipad_Logo': !mobile}\">\r\n      <img src=\"../../assets/images/NAA_Logo_Mobile.svg\" alt=\"NewAgeAlpha\" width=\"auto\">\r\n      \r\n        <div (click)=\"openMenu()\">\r\n          <ion-avatar>\r\n            <img src=\"../../assets/images/Profile_NAA5.svg\" />\r\n          </ion-avatar>\r\n            <p>{{currentUser.firstName}}&nbsp;{{currentUser.lastName}}</p>\r\n        </div>\r\n    </div>\r\n    \r\n  </ion-toolbar>\r\n  <ion-toolbar> \r\n    <!-- SearchBar start -->\r\n      <div class=\"searchDiv\">\r\n        <ion-item class=\"searchItem\" lines=\"none\" (click)=\"openSearch()\">\r\n          <ion-label>\r\n            <ion-icon name=\"search\" ></ion-icon>\r\n            <p>Ticker or company name</p>\r\n            <!-- <p *ngIf=\"this.SelTab == 'ETF' || this.SelTab == 'ETFChild'\">ETF ticker or name</p> -->\r\n            </ion-label>\r\n        </ion-item>\r\n      </div>\r\n       <!-- SearchBar End-->\r\n  </ion-toolbar>\r\n  <hr>\r\n</ion-header>\r\n\r\n<ion-content forceOverscroll=\"false\" *ngIf=\"!selComp && !AvoidLosersec && !AlertSec && !ReportSec\">\r\n  <div>\r\n    <ion-text>\r\n      <p>To begin, use the Search Bar</p>\r\n      <p>to select a stock.</p>\r\n    </ion-text>\r\n  </div>\r\n  <div class=\"footor_icon_div\">\r\n    <img src=\"../../assets/images/Portfolio_Icon_Mobile.svg\">\r\n    <img src=\"../../assets/images/Compare_Icon_Mobile.svg\">\r\n    <img src='../../assets/images/Avoid Loser_Icon_Mobile.svg' style=\"opacity:0.5 ;\">\r\n    <img src='../../assets/images/Notification_Icon_Mobile.svg' style=\"opacity:0.5 ;\">\r\n    <img src='../../assets/images/Report_Download_Icon_Mobile.svg' style=\"opacity:0.5 ;\">\r\n  </div>\r\n</ion-content>\r\n\r\n<ion-content forceOverscroll=\"false\" *ngIf=\"selComp && !AvoidLosersec && !AlertSec && !ReportSec\" class=\"MainContent\">\r\n    <ion-item *ngIf=\"selSec\" lines=\"none\" (click)=\"openSecPopOver($event)\" class=\"secDropDown\">\r\n      <div>\r\n        <span class=\"sec_Detail\">\r\n          <span class=\"medItemSpan\"><p [style.color]=\"getColor(selSec.secMed)\">{{selSec.secMed}}</p></span>\r\n          <span class=\"Sec_Details_Sub\">\r\n            <p>{{selSec.secTitle}}&nbsp;(<span>{{selComp.indexName}}</span>)</p>\r\n            <p>{{selSec.secName}}</p>\r\n          </span>\r\n      </span>\r\n      <ion-icon name=\"chevron-down-circle-outline\"></ion-icon>\r\n      </div>\r\n    </ion-item>\r\n    <div class=\"arrow_div\">\r\n      <ion-icon *ngIf=\"CurrSlide == 1\" name='chevron-back-circle-outline' (click)=\"onArrowClick(0);\" style=\"color: #fff;\"></ion-icon>\r\n      <img *ngIf=\"CurrSlide == 0\" src=\"../../assets/images/Left Arrow Active.svg\" alt=\"LA\" style=\"height: 35px;\">\r\n      <ion-icon *ngIf=\"CurrSlide == 0\" name='chevron-forward-circle-outline' (click)=\"onArrowClick(1);\" style=\"color: #fff;\"></ion-icon>\r\n      <img *ngIf=\"CurrSlide == 1\" src=\"../../assets/images/Right Arrow Active.svg\" alt=\"RA\" style=\"height: 35px;\">\r\n    </div>\r\n    <ion-slides id='MainSlider' mode=\"ios\" [options]='slideOpts' (ionSlideDidChange)=\"onSlideChange($event)\">\r\n      <ion-slide class=\"CompSlide\">\r\n        <ion-list id=\"CompList\">\r\n          <ion-item *ngFor=\"let item of selIndexData\" lines=\"none\" class=\"compItem\" [class.active]=\"selComp === item\" (click)=\"onCompanyClick(item)\">\r\n              <span [style.color]=\"getColor(roundMed(item.scores *100))\">{{roundMed(item.scores *100)}}</span>\r\n              <div><p [style.color]=\"selComp === item? getColor(roundMed(item.scores *100)) : '#fff'\">{{item.companyName}}</p>\r\n              <p [style.color]=\"selComp === item? getColor(roundMed(item.scores *100)) : '#fff'\">{{item.ticker}}</p></div>\r\n          </ion-item>\r\n        </ion-list>\r\n      </ion-slide>\r\n      <ion-slide class=\"circleSlide\">\r\n        <svg preserveAspectRatio=\"xMidYMid meet\" id=\"svgHContainer1\" viewBox=\"0 0 700 550\" width=\"100%\" height=\"100%\" xmlns=\"http://www.w3.org/2000/svg\" version=\"1.1\">\r\n          <g id=\"gchart\" transform=\"translate(345 ,260)\"></g>\r\n        </svg>\r\n        <div id=\"Circleloader\" style=\"height: 100%;\r\n        width: 100%;\r\n        display: none;\r\n        justify-content: center;\r\n        align-items: center;\r\n        position: absolute;\" >\r\n          <img src=\"../../assets/images/NAA.gif\" alt=\"Loading...\" style=\"    height: 30px;\r\n          width: 30px;\">\r\n        </div>\r\n      </ion-slide>  \r\n    </ion-slides>\r\n  <div class=\"footor_icon_div\">\r\n    <img src=\"../../assets/images/Portfolio_Icon_Mobile.svg\">\r\n    <img src=\"../../assets/images/Compare_Icon_Mobile.svg\">\r\n    <img [src]=\"AvoidLosersec? '../../assets/images/Avoid Loser_Blue_Icon_Mobile.svg' : '../../assets/images/Avoid Loser_Icon_Mobile.svg'\" (click)=\"onAvoidLoserClick()\">\r\n    <img [src]=\"AlertSec? '../../assets/images/Notification_Blue_Icon_Mobile.svg' : '../../assets/images/Notification_Icon_Mobile.svg'\" (click)=\"onAlertClick()\">\r\n    <img [src]=\"ReportSec? '../../assets/images/Report_Download_Blue_Icon_Mobile.svg' : '../../assets/images/Report_Download_Icon_Mobile.svg'\" (click)=\"onReportClick()\">\r\n  </div>\r\n</ion-content>\r\n\r\n<ion-content *ngIf=\"selComp && AvoidLosersec\" class=\"avoid_looser_content\">\r\n  <ion-item *ngIf=\"selSec\" lines=\"none\" (click)=\"openSecPopOver($event)\" class=\"secDropDown\">\r\n    <div>\r\n      <span class=\"sec_Detail\">\r\n        <span class=\"medItemSpan\"><p [style.color]=\"getColor(selSec.secMed)\">{{selSec.secMed}}</p></span>\r\n        <span class=\"Sec_Details_Sub\">\r\n          <p>{{selSec.secTitle}}&nbsp;(<span>{{selComp.indexName}}</span>)</p>\r\n          <p>{{selSec.secName}}</p>\r\n        </span>\r\n    </span>\r\n    <ion-icon name=\"chevron-down-circle-outline\"></ion-icon>\r\n    </div>\r\n  </ion-item>\r\n  <div style=\"width: 100%;\r\n  height: calc(100vh - 285px);\" *ngIf=\"!avoidSlides\" class=\"R_slider\">\r\n  <svg preserveAspectRatio=\"xMidYMid meet\" id=\"svgHContainer1\" viewBox=\"0 0 450 550\" width=\"100%\" height=\"100%\" xmlns=\"http://www.w3.org/2000/svg\" version=\"1.1\">\r\n    <g id=\"gchart\" transform=\"translate(225 ,260)\"></g>\r\n  </svg>\r\n</div>\r\n<div class=\"arrow_div\" *ngIf=\"avoidSlides\">\r\n  <ion-icon *ngIf=\"AL_CurrSlide != 0\" name='chevron-back-circle-outline' (click)=\"onALArrowClick('prev');\" style=\"color: #fff;\"></ion-icon>\r\n  <img *ngIf=\"AL_CurrSlide == 0\" src=\"../../assets/images/Left Arrow Active.svg\" alt=\"LA\" style=\"height: 35px;\">\r\n  <ion-icon *ngIf=\"AL_CurrSlide != 2\" name='chevron-forward-circle-outline' (click)=\"onALArrowClick('frwd');\" style=\"color: #fff;\"></ion-icon>\r\n  <img *ngIf=\"AL_CurrSlide == 2\" src=\"../../assets/images/Right Arrow Active.svg\" alt=\"RA\" style=\"height: 35px;\">\r\n</div>\r\n<ion-slides mode=\"ios\" *ngIf=\"avoidSlides\" [options]='slideOpts' (ionSlideDidChange)=\"onALSlideChange($event)\" id=\"AL_Slider\">\r\n  <ion-slide class=\"CompSlide\">\r\n    <ion-list id=\"CompList\" *ngIf=\"AL_FilteredList.length != 0\">\r\n      <ion-item *ngFor=\"let item of AL_FilteredList\" lines=\"none\" class=\"compItem\" [class.active]=\"selComp === item\">\r\n          <span [style.color]=\"getColor(roundMed(item.scores *100))\">{{roundMed(item.scores *100)}}</span>\r\n          <div><p [style.color]=\"selComp === item? getColor(roundMed(item.scores *100)) : '#fff'\">{{item.companyName}}</p>\r\n          <p [style.color]=\"selComp === item? getColor(roundMed(item.scores *100)) : '#fff'\">{{item.ticker}}</p></div>\r\n      </ion-item>\r\n    </ion-list>\r\n    <div *ngIf=\"AL_FilteredList.length == 0\">\r\n      <p style=\"    font-family: 'Open Sans SemiBold';\r\n      color: #fff;\r\n      font-size: 16px;\">No company to show</p>\r\n    </div>\r\n  </ion-slide>\r\n  <ion-slide class=\"CircleSlider\">\r\n    <svg *ngIf=\"AL_mainCircle\" preserveAspectRatio=\"xMidYMid meet\" id=\"svgHContainer1\" viewBox=\"0 0 700 550\" width=\"100%\" height=\"100%\" xmlns=\"http://www.w3.org/2000/svg\" version=\"1.1\">\r\n      <g id=\"gchart\" transform=\"translate(345 ,260)\"></g>\r\n      <!-- <g id=\"AL_CircleContent\" transform=\"translate(345 ,260)\">\r\n        <foreignobject height=\"200\" width=\"200\" style=\"  background: #fff; transform: translate(-151px, -31px); border-radius: 50%;\">\r\n          <xhtml:div class=\"AL_outerDiv\">\r\n            <xhtml:div style=\"height: 50px;width: 50px;\">\r\n\r\n          </xhtml:div>\r\n          </xhtml:div>\r\n        </foreignobject>\r\n      </g> -->\r\n    </svg>\r\n  </ion-slide>\r\n  <ion-slide class=\"rangeSlide R_slider\">\r\n    <svg *ngIf=\"AL_rangeCircle\" preserveAspectRatio=\"xMidYMid meet\" id=\"svgHContainer1\" viewBox=\"0 0 450 550\" width=\"100%\" height=\"100%\" xmlns=\"http://www.w3.org/2000/svg\" version=\"1.1\">\r\n      <g id=\"gchart\" transform=\"translate(225 ,260)\"></g>\r\n    </svg>\r\n  </ion-slide>\r\n</ion-slides>\r\n  <div class=\"footor_icon_div\">\r\n    <img src=\"../../assets/images/Portfolio_Icon_Mobile.svg\">\r\n    <img src=\"../../assets/images/Compare_Icon_Mobile.svg\">\r\n    <img [src]=\"AvoidLosersec? '../../assets/images/Avoid Loser_Blue_Icon_Mobile.svg' : '../../assets/images/Avoid Loser_Icon_Mobile.svg'\" (click)=\"onAvoidLoserClick()\">\r\n    <img [src]=\"AlertSec? '../../assets/images/Notification_Blue_Icon_Mobile.svg' : '../../assets/images/Notification_Icon_Mobile.svg'\" (click)=\"onAlertClick()\">\r\n    <img [src]=\"ReportSec? '../../assets/images/Report_Download_Blue_Icon_Mobile.svg' : '../../assets/images/Report_Download_Icon_Mobile.svg'\" (click)=\"onReportClick()\">\r\n  </div>\r\n</ion-content>\r\n\r\n<ion-content *ngIf=\"selComp && AlertSec\" class=\"AlertContent\">\r\n  <div class=\"arrow_div\">\r\n    <ion-icon name=\"chevron-back-circle-outline\" (click)=\"onAlertClick()\"></ion-icon>\r\n    <h1 class=\"Sub_title\">Alert Settings</h1>\r\n    <ion-icon name=\"chevron-forward-circle-outline\" (click)=\"onAlertClick()\"></ion-icon>\r\n  </div>\r\n  <div class=\"alertDiv\">\r\n    <ion-text>\r\n      <h2>Set Alert For:&nbsp;{{selComp.companyName}}&nbsp;({{selComp.ticker}})</h2>\r\n    </ion-text>\r\n    <div class=\"radioBtnDiv\">\r\n      <ion-list>\r\n        <ion-radio-group name=\"auto\" [value]=\"selctedradioopts\" mode=\"md\" (ionChange)=\"onradioChange($event)\">\r\n          <ion-item lines=\"none\">\r\n            <ion-radio value=\"daily\"></ion-radio>\r\n            <ion-label>Daily</ion-label>\r\n          </ion-item>\r\n          <ion-item lines=\"none\">\r\n            <ion-radio value=\"weekly\"></ion-radio>\r\n            <ion-label>Weekly</ion-label>\r\n          </ion-item>\r\n          <div class=\"weekly_Div\" *ngIf=\"weeklyDiv\">\r\n            <span [ngClass]=\"{'active': selWeeklyday == 'Sunday'}\" (click)=\"onWeeklyClick('Sunday')\">S</span>\r\n            <span [ngClass]=\"{'active': selWeeklyday == 'Monday'}\" (click)=\"onWeeklyClick('Monday')\">M</span>\r\n            <span [ngClass]=\"{'active': selWeeklyday == 'Tuesday'}\" (click)=\"onWeeklyClick('Tuesday')\">T</span>\r\n            <span [ngClass]=\"{'active': selWeeklyday == 'Wednesday'}\" (click)=\"onWeeklyClick('Wednesday')\">W</span>\r\n            <span [ngClass]=\"{'active': selWeeklyday == 'Thursday'}\" (click)=\"onWeeklyClick('Thursday')\">T</span>\r\n            <span [ngClass]=\"{'active': selWeeklyday == 'Friday'}\" (click)=\"onWeeklyClick('Friday')\">F</span>\r\n            <span [ngClass]=\"{'active': selWeeklyday == 'Saturday'}\" (click)=\"onWeeklyClick('Saturday')\">S</span>\r\n          </div>\r\n          <ion-item lines=\"none\">\r\n            <ion-radio value=\"monthly\"></ion-radio>\r\n            <ion-label>Monthly</ion-label>\r\n          </ion-item>\r\n          <ion-item (click)=\"showMonthlyPicker($event)\" lines=\"none\" *ngIf=\"monthlyBtn\" style=\"    display: flex;\r\n            align-items: center; --min-height: 30px;\">\r\n              <ion-label slot=\"start\">Date</ion-label>\r\n              <ion-label slot=\"end\">{{monthlyDate}}</ion-label>\r\n            </ion-item>\r\n        </ion-radio-group>\r\n      </ion-list>\r\n      <ion-list>\r\n        <ion-radio-group name=\"auto\" mode=\"md\" [value]=\"perRadioGrp\" allowEmptySelection=true (ionChange)=\"onperRadioChange($event)\">\r\n          <ion-item lines=\"none\">\r\n            <ion-radio value=\"percentage\"></ion-radio>\r\n            <ion-label>If score percentage changes by (+/-)</ion-label>\r\n          </ion-item>\r\n        </ion-radio-group>\r\n        <ion-item *ngIf=\"percentageRage\" lines=\"none\" style=\"    --padding-start: 0;\">\r\n          <ion-range class=\"per_range\" min=\"1\" max=\"100\" mode=\"ios\" pin=true [value]='rangePer' *ngIf=\"percentageRage\" (ionChange)=\"setRangePer($event)\">\r\n            <ion-label slot=\"start\">1%</ion-label>\r\n            <ion-label slot=\"end\">100%</ion-label>\r\n          </ion-range>\r\n        </ion-item>\r\n      </ion-list>\r\n    </div>\r\n    <div style=\"width: 80%;\r\n    display: flex;\r\n    justify-content: space-evenly;\r\n    align-items: center;\">\r\n      <ion-button *ngIf=\"alertSubmitBtn\" (click)=\"onAlertSubmit($event)\"  shape=\"round\">\r\n        Submit\r\n      </ion-button>\r\n      <ion-button *ngIf=\"alertUpdateBtn\" (click)=\"onAlertSubmit($event)\" shape=\"round\">\r\n        Update\r\n      </ion-button>\r\n      <ion-button *ngIf=\"!alertSubmitBtn\" (click)=\"onRemoveAlert($event)\" shape=\"round\">\r\n        Remove\r\n      </ion-button>\r\n      \r\n    </div>\r\n  </div>\r\n  <div class=\"footor_icon_div\">\r\n    <img src=\"../../assets/images/Portfolio_Icon_Mobile.svg\">\r\n    <img src=\"../../assets/images/Compare_Icon_Mobile.svg\">\r\n    <img [src]=\"AvoidLosersec? '../../assets/images/Avoid Loser_Blue_Icon_Mobile.svg' : '../../assets/images/Avoid Loser_Icon_Mobile.svg'\" (click)=\"onAvoidLoserClick()\">\r\n    <img [src]=\"AlertSec? '../../assets/images/Notification_Blue_Icon_Mobile.svg' : '../../assets/images/Notification_Icon_Mobile.svg'\" (click)=\"onAlertClick()\">\r\n    <img [src]=\"ReportSec? '../../assets/images/Report_Download_Blue_Icon_Mobile.svg' : '../../assets/images/Report_Download_Icon_Mobile.svg'\" (click)=\"onReportClick()\">\r\n  </div>\r\n</ion-content>\r\n\r\n<ion-content *ngIf=\"selComp && ReportSec\" class=\"ReportContent\">\r\n  <div class=\"arrow_div\">\r\n    <ion-icon name=\"chevron-back-circle-outline\" (click)=\"onReportClick()\"></ion-icon>\r\n    <h1 class=\"Sub_title\">Download Report</h1>\r\n    <ion-icon name=\"chevron-forward-circle-outline\" (click)=\"onReportClick()\"></ion-icon>\r\n  </div>\r\n  <div class=\"reportDiv\">\r\n    <ion-button (click)=\"onPDFClick()\" shape=\"round\" class=\"pdfBtn\" disabled=true>\r\n      PDF\r\n    </ion-button>\r\n\r\n    <ion-list>\r\n      <ion-radio-group name=\"auto\" value=\"mail\" mode=\"md\">\r\n        <ion-list-header>\r\n          <ion-label class=\"list_header\">Email Report</ion-label>\r\n        </ion-list-header>\r\n        <ion-item lines=\"none\">\r\n          <ion-radio value=\"mail\"></ion-radio>\r\n          <ion-label>{{currentUser.username}}</ion-label>\r\n        </ion-item>\r\n      </ion-radio-group>\r\n    </ion-list>\r\n\r\n    <ion-button (click)=\"onSendClick()\" shape=\"round\" class=\"sendBtn\" disabled=true>\r\n      Send\r\n    </ion-button>\r\n  </div>\r\n\r\n  <div class=\"footor_icon_div\">\r\n    <img src=\"../../assets/images/Portfolio_Icon_Mobile.svg\">\r\n    <img src=\"../../assets/images/Compare_Icon_Mobile.svg\">\r\n    <img [src]=\"AvoidLosersec? '../../assets/images/Avoid Loser_Blue_Icon_Mobile.svg' : '../../assets/images/Avoid Loser_Icon_Mobile.svg'\" (click)=\"onAvoidLoserClick()\">\r\n    <img [src]=\"AlertSec? '../../assets/images/Notification_Blue_Icon_Mobile.svg' : '../../assets/images/Notification_Icon_Mobile.svg'\" (click)=\"onAlertClick()\">\r\n    <img [src]=\"ReportSec? '../../assets/images/Report_Download_Blue_Icon_Mobile.svg' : '../../assets/images/Report_Download_Icon_Mobile.svg'\" (click)=\"onReportClick()\">\r\n  </div>\r\n</ion-content>\r\n\r\n<div *ngIf=\"data.length == 0\" style=\"    position: absolute;\r\nz-index: 99;\r\nleft: 0;\r\nright: 0;\r\ntop: 0;\r\nbottom: 0;\r\ndisplay: flex;\r\njustify-content: center;\r\nalign-items: center;\">\r\n  <img src=\"../../assets/images/NAA.gif\" alt=\"Loading...\" style=\"height: 35px;\r\n  width: 35px;\">\r\n</div>\r\n\r\n<div *ngIf=\"showLoader\" style=\"    position: absolute;\r\nz-index: 99;\r\nleft: 0;\r\nright: 0;\r\ntop: 0;\r\nbottom: 0;\r\ndisplay: flex;\r\njustify-content: center;\r\nalign-items: center;\r\n/* background: rgb(0, 0, 0, 0.5); */\r\n\">\r\n  <img src=\"../../assets/images/NAA.gif\" alt=\"Loading...\" style=\"height: 35px;\r\n  width: 35px;\">\r\n</div>"
+module.exports = "<!-- navBar start -->\r\n<ion-header class=\"ion-text-center ion-no-border\" *ngIf=\"mobile\">\r\n  <ion-toolbar class=\"toolbar\">\r\n    <div class=\"header-Logo\" [ngClass]=\"{'ipad_Logo': !mobile}\">\r\n      <img src=\"../../assets/images/NAA_Logo_Mobile.svg\" alt=\"NewAgeAlpha\" width=\"auto\">\r\n      \r\n        <div (click)=\"openMenu()\">\r\n          <ion-avatar>\r\n            <img src=\"../../assets/images/Profile_NAA5.svg\" />\r\n          </ion-avatar>\r\n            <p>{{currentUser.firstName}}&nbsp;{{currentUser.lastName}}</p>\r\n        </div>\r\n    </div>\r\n    \r\n  </ion-toolbar>\r\n  <ion-toolbar> \r\n    <!-- SearchBar start -->\r\n      <div class=\"searchDiv\">\r\n        <ion-item class=\"searchItem\" lines=\"none\" (click)=\"openSearch()\">\r\n          <ion-label>\r\n            <ion-icon name=\"search\" ></ion-icon>\r\n            <p>Ticker or company name</p>\r\n            <!-- <p *ngIf=\"this.SelTab == 'ETF' || this.SelTab == 'ETFChild'\">ETF ticker or name</p> -->\r\n            </ion-label>\r\n        </ion-item>\r\n      </div>\r\n       <!-- SearchBar End-->\r\n  </ion-toolbar>\r\n  <hr>\r\n</ion-header>\r\n\r\n<ion-content forceOverscroll=\"false\" *ngIf=\"!selComp && !AvoidLosersec && !AlertSec && !ReportSec\">\r\n  <div>\r\n    <ion-text>\r\n      <p>To begin, use the Search Bar</p>\r\n      <p>to select a stock.</p>\r\n    </ion-text>\r\n  </div>\r\n  <div class=\"footor_icon_div\">\r\n    <img src=\"../../assets/images/Portfolio_Icon_Mobile.svg\">\r\n    <img src=\"../../assets/images/Compare_Icon_Mobile.svg\">\r\n    <img src='../../assets/images/Avoid Loser_Icon_Mobile.svg' style=\"opacity:0.5 ;\">\r\n    <img src='../../assets/images/Notification_Icon_Mobile.svg' style=\"opacity:0.5 ;\">\r\n    <img src='../../assets/images/Report_Download_Icon_Mobile.svg' style=\"opacity:0.5 ;\">\r\n  </div>\r\n</ion-content>\r\n\r\n<ion-content forceOverscroll=\"false\" *ngIf=\"selComp && !AvoidLosersec && !AlertSec && !ReportSec\" class=\"MainContent\">\r\n    <ion-item *ngIf=\"selSec\" lines=\"none\" (click)=\"openSecPopOver($event)\" class=\"secDropDown\">\r\n      <div>\r\n        <span class=\"sec_Detail\">\r\n          <span class=\"medItemSpan\"><p [style.color]=\"getColor(selSec.secMed)\">{{selSec.secMed}}</p></span>\r\n          <span class=\"Sec_Details_Sub\">\r\n            <p>{{selSec.secTitle}}&nbsp;(<span>{{selComp.indexName}}</span>)</p>\r\n            <p>{{selSec.secName}}</p>\r\n          </span>\r\n      </span>\r\n      <ion-icon name=\"chevron-down-circle-outline\"></ion-icon>\r\n      </div>\r\n    </ion-item>\r\n    <div class=\"arrow_div\">\r\n      <ion-icon *ngIf=\"CurrSlide == 1\" name='chevron-back-circle-outline' (click)=\"onArrowClick(0);\" style=\"color: #fff;\"></ion-icon>\r\n      <img *ngIf=\"CurrSlide == 0\" src=\"../../assets/images/Left Arrow Active.svg\" alt=\"LA\" style=\"height: 35px;\">\r\n      <ion-icon *ngIf=\"CurrSlide == 0\" name='chevron-forward-circle-outline' (click)=\"onArrowClick(1);\" style=\"color: #fff;\"></ion-icon>\r\n      <img *ngIf=\"CurrSlide == 1\" src=\"../../assets/images/Right Arrow Active.svg\" alt=\"RA\" style=\"height: 35px;\">\r\n    </div>\r\n    <ion-slides id='MainSlider' [ngClass]=\"{'mdSlides': plt=='android', 'iosSlides': plt =='ios'}\" mode=\"ios\" [options]='slideOpts' (ionSlideDidChange)=\"onSlideChange($event)\">\r\n      <ion-slide class=\"CompSlide\">\r\n        <ion-list id=\"CompList\">\r\n          <ion-item *ngFor=\"let item of selIndexData\" lines=\"none\" class=\"compItem\" [class.active]=\"selComp === item\" (click)=\"onCompanyClick(item)\">\r\n              <span [style.color]=\"getColor(roundMed(item.scores *100))\">{{roundMed(item.scores *100)}}</span>\r\n              <div><p [style.color]=\"selComp === item? getColor(roundMed(item.scores *100)) : '#fff'\">{{item.companyName}}</p>\r\n              <p [style.color]=\"selComp === item? getColor(roundMed(item.scores *100)) : '#fff'\">{{item.ticker}}</p></div>\r\n          </ion-item>\r\n        </ion-list>\r\n      </ion-slide>\r\n      <ion-slide class=\"circleSlide\">\r\n        <svg preserveAspectRatio=\"xMidYMid meet\" id=\"svgHContainer1\" viewBox=\"0 0 700 550\" width=\"100%\" height=\"100%\" xmlns=\"http://www.w3.org/2000/svg\" version=\"1.1\">\r\n          <g id=\"gchart\" transform=\"translate(345 ,260)\"></g>\r\n        </svg>\r\n        <div id=\"Circleloader\" style=\"height: 100%;\r\n        width: 100%;\r\n        display: none;\r\n        justify-content: center;\r\n        align-items: center;\r\n        position: absolute;\" >\r\n          <img src=\"../../assets/images/NAA.gif\" alt=\"Loading...\" style=\"    height: 35px;\r\n          width: 35px;\">\r\n        </div>\r\n      </ion-slide>  \r\n    </ion-slides>\r\n  <div class=\"footor_icon_div\">\r\n    <img src=\"../../assets/images/Portfolio_Icon_Mobile.svg\">\r\n    <img src=\"../../assets/images/Compare_Icon_Mobile.svg\">\r\n    <img [src]=\"AvoidLosersec? '../../assets/images/Avoid Loser_Blue_Icon_Mobile.svg' : '../../assets/images/Avoid Loser_Icon_Mobile.svg'\" (click)=\"onAvoidLoserClick()\">\r\n    <img [src]=\"AlertSec? '../../assets/images/Notification_Blue_Icon_Mobile.svg' : '../../assets/images/Notification_Icon_Mobile.svg'\" (click)=\"onAlertClick()\">\r\n    <img [src]=\"ReportSec? '../../assets/images/Report_Download_Blue_Icon_Mobile.svg' : '../../assets/images/Report_Download_Icon_Mobile.svg'\" (click)=\"onReportClick()\">\r\n  </div>\r\n</ion-content>\r\n\r\n<ion-content *ngIf=\"selComp && AvoidLosersec\" class=\"avoid_looser_content\">\r\n  <ion-item *ngIf=\"selSec\" lines=\"none\" (click)=\"openSecPopOver($event)\" class=\"secDropDown\">\r\n    <div>\r\n      <span class=\"sec_Detail\">\r\n        <span class=\"medItemSpan\"><p [style.color]=\"getColor(selSec.secMed)\">{{selSec.secMed}}</p></span>\r\n        <span class=\"Sec_Details_Sub\">\r\n          <p>{{selSec.secTitle}}&nbsp;(<span>{{selComp.indexName}}</span>)</p>\r\n          <p>{{selSec.secName}}</p>\r\n        </span>\r\n    </span>\r\n    <ion-icon name=\"chevron-down-circle-outline\"></ion-icon>\r\n    </div>\r\n  </ion-item>\r\n  <div style=\"width: 100%;\r\n  height: calc(100vh - 285px);\" *ngIf=\"!avoidSlides\" class=\"R_slider\">\r\n  <svg preserveAspectRatio=\"xMidYMid meet\" id=\"svgHContainer1\" viewBox=\"0 0 450 550\" width=\"100%\" height=\"100%\" xmlns=\"http://www.w3.org/2000/svg\" version=\"1.1\">\r\n    <g id=\"gchart\" transform=\"translate(225 ,260)\"></g>\r\n  </svg>\r\n</div>\r\n<div class=\"arrow_div\" *ngIf=\"avoidSlides\">\r\n  <ion-icon *ngIf=\"AL_CurrSlide != 0\" name='chevron-back-circle-outline' (click)=\"onALArrowClick('prev');\" style=\"color: #fff;\"></ion-icon>\r\n  <img *ngIf=\"AL_CurrSlide == 0\" src=\"../../assets/images/Left Arrow Active.svg\" alt=\"LA\" style=\"height: 35px;\">\r\n  <ion-icon *ngIf=\"AL_CurrSlide != 2\" name='chevron-forward-circle-outline' (click)=\"onALArrowClick('frwd');\" style=\"color: #fff;\"></ion-icon>\r\n  <img *ngIf=\"AL_CurrSlide == 2\" src=\"../../assets/images/Right Arrow Active.svg\" alt=\"RA\" style=\"height: 35px;\">\r\n</div>\r\n<ion-slides mode=\"ios\" *ngIf=\"avoidSlides\" [ngClass]=\"{'mdSlides': plt=='android' , 'iosSlides': plt =='ios'}\" [options]='slideOpts' (ionSlideDidChange)=\"onALSlideChange($event)\" id=\"AL_Slider\">\r\n  <ion-slide class=\"CompSlide\">\r\n    <ion-list id=\"CompList\" *ngIf=\"AL_FilteredList.length != 0\">\r\n      <ion-item *ngFor=\"let item of AL_FilteredList\" lines=\"none\" class=\"compItem\" [class.active]=\"selComp === item\">\r\n          <span [style.color]=\"getColor(roundMed(item.scores *100))\">{{roundMed(item.scores *100)}}</span>\r\n          <div><p [style.color]=\"selComp === item? getColor(roundMed(item.scores *100)) : '#fff'\">{{item.companyName}}</p>\r\n          <p [style.color]=\"selComp === item? getColor(roundMed(item.scores *100)) : '#fff'\">{{item.ticker}}</p></div>\r\n      </ion-item>\r\n    </ion-list>\r\n    <div *ngIf=\"AL_FilteredList.length == 0\">\r\n      <p style=\"    font-family: 'Open Sans SemiBold';\r\n      color: #fff;\r\n      font-size: 16px;\">No company to show</p>\r\n    </div>\r\n  </ion-slide>\r\n  <ion-slide class=\"CircleSlider\">\r\n    <svg *ngIf=\"AL_mainCircle\" preserveAspectRatio=\"xMidYMid meet\" id=\"svgHContainer1\" viewBox=\"0 0 700 550\" width=\"100%\" height=\"100%\" xmlns=\"http://www.w3.org/2000/svg\" version=\"1.1\">\r\n      <g id=\"gchart\" transform=\"translate(345 ,260)\"></g>\r\n      <!-- <g id=\"AL_CircleContent\" transform=\"translate(345 ,260)\">\r\n        <foreignobject height=\"200\" width=\"200\" style=\"  background: #fff; transform: translate(-151px, -31px); border-radius: 50%;\">\r\n          <xhtml:div class=\"AL_outerDiv\">\r\n            <xhtml:div style=\"height: 50px;width: 50px;\">\r\n\r\n          </xhtml:div>\r\n          </xhtml:div>\r\n        </foreignobject>\r\n      </g> -->\r\n    </svg>\r\n  </ion-slide>\r\n  <ion-slide class=\"rangeSlide R_slider\">\r\n    <svg *ngIf=\"AL_rangeCircle\" preserveAspectRatio=\"xMidYMid meet\" id=\"svgHContainer1\" viewBox=\"0 0 450 550\" width=\"100%\" height=\"100%\" xmlns=\"http://www.w3.org/2000/svg\" version=\"1.1\">\r\n      <g id=\"gchart\" transform=\"translate(225 ,260)\"></g>\r\n    </svg>\r\n  </ion-slide>\r\n</ion-slides>\r\n  <div class=\"footor_icon_div\">\r\n    <img src=\"../../assets/images/Portfolio_Icon_Mobile.svg\">\r\n    <img src=\"../../assets/images/Compare_Icon_Mobile.svg\">\r\n    <img [src]=\"AvoidLosersec? '../../assets/images/Avoid Loser_Blue_Icon_Mobile.svg' : '../../assets/images/Avoid Loser_Icon_Mobile.svg'\" (click)=\"onAvoidLoserClick()\">\r\n    <img [src]=\"AlertSec? '../../assets/images/Notification_Blue_Icon_Mobile.svg' : '../../assets/images/Notification_Icon_Mobile.svg'\" (click)=\"onAlertClick()\">\r\n    <img [src]=\"ReportSec? '../../assets/images/Report_Download_Blue_Icon_Mobile.svg' : '../../assets/images/Report_Download_Icon_Mobile.svg'\" (click)=\"onReportClick()\">\r\n  </div>\r\n</ion-content>\r\n\r\n<ion-content *ngIf=\"selComp && AlertSec\" class=\"AlertContent\">\r\n  <div class=\"arrow_div\">\r\n    <ion-icon name=\"chevron-back-circle-outline\" (click)=\"onAlertClick()\"></ion-icon>\r\n    <h1 class=\"Sub_title\">Alert Settings</h1>\r\n    <ion-icon name=\"chevron-forward-circle-outline\" (click)=\"onAlertClick()\"></ion-icon>\r\n  </div>\r\n  <div class=\"alertDiv\">\r\n    <ion-text>\r\n      <h2>Set Alert For:&nbsp;{{selComp.companyName}}&nbsp;({{selComp.ticker}})</h2>\r\n    </ion-text>\r\n    <div class=\"radioBtnDiv\">\r\n      <ion-list>\r\n        <ion-radio-group name=\"auto\" [value]=\"selctedradioopts\" mode=\"md\" (ionChange)=\"onradioChange($event)\">\r\n          <ion-item lines=\"none\">\r\n            <ion-radio value=\"daily\"></ion-radio>\r\n            <ion-label>Daily</ion-label>\r\n          </ion-item>\r\n          <ion-item lines=\"none\">\r\n            <ion-radio value=\"weekly\"></ion-radio>\r\n            <ion-label>Weekly</ion-label>\r\n          </ion-item>\r\n          <div class=\"weekly_Div\" *ngIf=\"weeklyDiv\">\r\n            <span [ngClass]=\"{'active': selWeeklyday == 'Sunday'}\" (click)=\"onWeeklyClick('Sunday')\">S</span>\r\n            <span [ngClass]=\"{'active': selWeeklyday == 'Monday'}\" (click)=\"onWeeklyClick('Monday')\">M</span>\r\n            <span [ngClass]=\"{'active': selWeeklyday == 'Tuesday'}\" (click)=\"onWeeklyClick('Tuesday')\">T</span>\r\n            <span [ngClass]=\"{'active': selWeeklyday == 'Wednesday'}\" (click)=\"onWeeklyClick('Wednesday')\">W</span>\r\n            <span [ngClass]=\"{'active': selWeeklyday == 'Thursday'}\" (click)=\"onWeeklyClick('Thursday')\">T</span>\r\n            <span [ngClass]=\"{'active': selWeeklyday == 'Friday'}\" (click)=\"onWeeklyClick('Friday')\">F</span>\r\n            <span [ngClass]=\"{'active': selWeeklyday == 'Saturday'}\" (click)=\"onWeeklyClick('Saturday')\">S</span>\r\n          </div>\r\n          <ion-item lines=\"none\">\r\n            <ion-radio value=\"monthly\"></ion-radio>\r\n            <ion-label>Monthly</ion-label>\r\n          </ion-item>\r\n          <ion-item (click)=\"showMonthlyPicker($event)\" lines=\"none\" *ngIf=\"monthlyBtn\" style=\"    display: flex;\r\n            align-items: center; --min-height: 30px;\">\r\n              <ion-label slot=\"start\">Date</ion-label>\r\n              <ion-label slot=\"end\">{{monthlyDate}}</ion-label>\r\n            </ion-item>\r\n        </ion-radio-group>\r\n      </ion-list>\r\n      <ion-list>\r\n        <ion-radio-group name=\"auto\" mode=\"md\" [value]=\"perRadioGrp\" allowEmptySelection=true (ionChange)=\"onperRadioChange($event)\">\r\n          <ion-item lines=\"none\">\r\n            <ion-radio value=\"percentage\"></ion-radio>\r\n            <ion-label>If score percentage changes by (+/-)</ion-label>\r\n          </ion-item>\r\n        </ion-radio-group>\r\n        <ion-item *ngIf=\"percentageRage\" lines=\"none\" style=\"    --padding-start: 0;\">\r\n          <ion-range class=\"per_range\" min=\"1\" max=\"100\" mode=\"ios\" pin=true [value]='rangePer' *ngIf=\"percentageRage\" (ionChange)=\"setRangePer($event)\">\r\n            <ion-label slot=\"start\">1%</ion-label>\r\n            <ion-label slot=\"end\">100%</ion-label>\r\n          </ion-range>\r\n        </ion-item>\r\n      </ion-list>\r\n    </div>\r\n    <div style=\"width: 80%;\r\n    display: flex;\r\n    justify-content: space-evenly;\r\n    align-items: center;\">\r\n      <ion-button *ngIf=\"alertSubmitBtn\" (click)=\"onAlertSubmit($event)\"  shape=\"round\">\r\n        Submit\r\n      </ion-button>\r\n      <ion-button *ngIf=\"alertUpdateBtn\" (click)=\"onAlertSubmit($event)\" shape=\"round\">\r\n        Update\r\n      </ion-button>\r\n      <ion-button *ngIf=\"!alertSubmitBtn\" (click)=\"onRemoveAlert($event)\" shape=\"round\">\r\n        Remove\r\n      </ion-button>\r\n      \r\n    </div>\r\n  </div>\r\n  <div class=\"footor_icon_div\">\r\n    <img src=\"../../assets/images/Portfolio_Icon_Mobile.svg\">\r\n    <img src=\"../../assets/images/Compare_Icon_Mobile.svg\">\r\n    <img [src]=\"AvoidLosersec? '../../assets/images/Avoid Loser_Blue_Icon_Mobile.svg' : '../../assets/images/Avoid Loser_Icon_Mobile.svg'\" (click)=\"onAvoidLoserClick()\">\r\n    <img [src]=\"AlertSec? '../../assets/images/Notification_Blue_Icon_Mobile.svg' : '../../assets/images/Notification_Icon_Mobile.svg'\" (click)=\"onAlertClick()\">\r\n    <img [src]=\"ReportSec? '../../assets/images/Report_Download_Blue_Icon_Mobile.svg' : '../../assets/images/Report_Download_Icon_Mobile.svg'\" (click)=\"onReportClick()\">\r\n  </div>\r\n</ion-content>\r\n\r\n<ion-content *ngIf=\"selComp && ReportSec\" class=\"ReportContent\">\r\n  <div class=\"arrow_div\">\r\n    <ion-icon name=\"chevron-back-circle-outline\" (click)=\"onReportClick()\"></ion-icon>\r\n    <h1 class=\"Sub_title\">Download Report</h1>\r\n    <ion-icon name=\"chevron-forward-circle-outline\" (click)=\"onReportClick()\"></ion-icon>\r\n  </div>\r\n  <div class=\"reportDiv\">\r\n    <ion-button (click)=\"onPDFClick()\" shape=\"round\" class=\"pdfBtn\" disabled=true>\r\n      PDF\r\n    </ion-button>\r\n\r\n    <ion-list>\r\n      <ion-radio-group name=\"auto\" value=\"mail\" mode=\"md\">\r\n        <ion-list-header>\r\n          <ion-label class=\"list_header\">Email Report</ion-label>\r\n        </ion-list-header>\r\n        <ion-item lines=\"none\">\r\n          <ion-radio value=\"mail\"></ion-radio>\r\n          <ion-label>{{currentUser.username}}</ion-label>\r\n        </ion-item>\r\n      </ion-radio-group>\r\n    </ion-list>\r\n\r\n    <ion-button (click)=\"onSendClick()\" shape=\"round\" class=\"sendBtn\" disabled=true>\r\n      Send\r\n    </ion-button>\r\n  </div>\r\n\r\n  <div class=\"footor_icon_div\">\r\n    <img src=\"../../assets/images/Portfolio_Icon_Mobile.svg\">\r\n    <img src=\"../../assets/images/Compare_Icon_Mobile.svg\">\r\n    <img [src]=\"AvoidLosersec? '../../assets/images/Avoid Loser_Blue_Icon_Mobile.svg' : '../../assets/images/Avoid Loser_Icon_Mobile.svg'\" (click)=\"onAvoidLoserClick()\">\r\n    <img [src]=\"AlertSec? '../../assets/images/Notification_Blue_Icon_Mobile.svg' : '../../assets/images/Notification_Icon_Mobile.svg'\" (click)=\"onAlertClick()\">\r\n    <img [src]=\"ReportSec? '../../assets/images/Report_Download_Blue_Icon_Mobile.svg' : '../../assets/images/Report_Download_Icon_Mobile.svg'\" (click)=\"onReportClick()\">\r\n  </div>\r\n</ion-content>\r\n\r\n<div *ngIf=\"data.length == 0\" style=\"    position: absolute;\r\nz-index: 99;\r\nleft: 0;\r\nright: 0;\r\ntop: 0;\r\nbottom: 0;\r\ndisplay: flex;\r\njustify-content: center;\r\nalign-items: center;\">\r\n  <img src=\"../../assets/images/NAA.gif\" alt=\"Loading...\" style=\"height: 35px;\r\n  width: 35px;\">\r\n</div>\r\n\r\n<div *ngIf=\"showLoader\" style=\"    position: absolute;\r\nz-index: 99;\r\nleft: 0;\r\nright: 0;\r\ntop: 0;\r\nbottom: 0;\r\ndisplay: flex;\r\njustify-content: center;\r\nalign-items: center;\r\n/* background: rgb(0, 0, 0, 0.5); */\r\n\">\r\n  <img src=\"../../assets/images/NAA.gif\" alt=\"Loading...\" style=\"height: 35px;\r\n  width: 35px;\">\r\n</div>"
 
 /***/ }),
 
@@ -65,7 +65,7 @@ HomePageModule = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = ".header-Logo {\n  display: -webkit-box;\n  display: flex;\n  padding-left: 10px;\n  -webkit-box-align: center;\n          align-items: center;\n  -webkit-box-pack: justify;\n          justify-content: space-between;\n  padding-right: 5px; }\n  .header-Logo img {\n    height: 30px; }\n  .header-Logo div {\n    width: 50%;\n    background: white;\n    border-radius: 25px;\n    display: -webkit-box;\n    display: flex;\n    -webkit-box-orient: horizontal;\n    -webkit-box-direction: normal;\n            flex-direction: row;\n    -webkit-box-align: center;\n            align-items: center; }\n  .header-Logo div ion-avatar {\n      background: #00b9ff;\n      --padding-bottom: 0;\n      --padding-start: 0;\n      --padding-end: 0;\n      --padding-top: 0;\n      height: 35px;\n      width: 35px;\n      padding: 5px;\n      margin-right: 10px;\n      margin-left: -1px; }\n  .header-Logo div p {\n      margin: 0;\n      font-size: 14px;\n      font-family: Open Sans SemiBold;\n      color: #00b9ff;\n      width: 70%;\n      text-align: left;\n      text-overflow: ellipsis;\n      overflow: hidden;\n      white-space: nowrap; }\n  ion-header ion-toolbar {\n  --background: #274b9e; }\n  ion-header ion-toolbar:nth-child(1) {\n  padding-top: 5px; }\n  ion-header ion-toolbar:nth-child(2) {\n  padding: 0 25px; }\n  ion-header hr {\n  margin: 0;\n  height: 0;\n  border: 2px solid #1a356a; }\n  .searchBtn {\n  --border-radius:15px;\n  width: 75px;\n  font-size: 11px;\n  height: 24px;\n  --padding-top: 0px;\n  --padding-bottom: 0px;\n  margin-top: 4px;\n  margin-bottom: 4px;\n  --background: #00aeef;\n  --box-shadow: none; }\n  .searchInput {\n  font-size: 16px;\n  --padding-top: 0px;\n  --padding-bottom: 0px;\n  --color:#666;\n  text-align: center; }\n  .searchItem {\n  --border-width:2px;\n  --border-color: #00b9ff;\n  --inner-padding-end: 5px;\n  --background: transparent;\n  --border-radius: 25px;\n  --min-height: 28px; }\n  .searchItem ion-label {\n    margin: 2px 0px;\n    font-size: 14px;\n    -webkit-box-align: center;\n            align-items: center;\n    padding: 0 10px;\n    display: -webkit-box;\n    display: flex;\n    color: #888; }\n  .searchItem ion-label ion-icon {\n      color: #00b9ff;\n      -webkit-transform: scaleX(-1);\n      transform: scaleX(-1);\n      font-size: 18px;\n      margin-right: 10px; }\n  .searchItem ion-label p {\n      font-size: 16px;\n      color: #fff;\n      font-family: Open Sans Regular; }\n  .searchDiv {\n  padding: 5px 0px;\n  padding-top: 2%; }\n  ion-content {\n  --background: #274b9e;\n  --overflow: hidden; }\n  ion-content div ion-text {\n    color: #fff;\n    font-size: 14px;\n    text-align: center;\n    font-family: Open Sans Regular; }\n  ion-content .footor_icon_div {\n    display: -webkit-box;\n    display: flex;\n    -webkit-box-orient: horizontal;\n    -webkit-box-direction: normal;\n            flex-direction: row;\n    -webkit-box-pack: space-evenly;\n            justify-content: space-evenly;\n    position: absolute;\n    height: 15%;\n    bottom: 0;\n    left: 0;\n    right: 0;\n    -webkit-box-align: center;\n            align-items: center; }\n  ion-content .footor_icon_div img {\n      height: 40px; }\n  ion-content .footor_icon_div img:first-child, ion-content .footor_icon_div img:last-child {\n      margin-bottom: 75px; }\n  ion-content .footor_icon_div img:nth-child(2), ion-content .footor_icon_div img:nth-child(4) {\n      margin-bottom: 25px; }\n  ion-content .footor_icon_div img:first-child, ion-content .footor_icon_div img:nth-child(2) {\n      opacity: 0.5; }\n  .MainContent .secDropDown {\n  --background: #00b9ff;\n  border-radius: 25px;\n  --padding-start: 0;\n  --padding-end: 5px;\n  --padding-top: 0;\n  --padding-bottom: 0;\n  margin: 10px 15px; }\n  .MainContent .secDropDown div {\n    width: 100%;\n    display: -webkit-box;\n    display: flex;\n    -webkit-box-orient: horizontal;\n    -webkit-box-direction: normal;\n            flex-direction: row;\n    -webkit-box-align: center;\n            align-items: center; }\n  .MainContent .secDropDown div .sec_Detail {\n      display: -webkit-box;\n      display: flex;\n      -webkit-box-orient: horizontal;\n      -webkit-box-direction: normal;\n              flex-direction: row;\n      -webkit-box-align: center;\n              align-items: center;\n      width: 90%; }\n  .MainContent .secDropDown div .sec_Detail .medItemSpan {\n        height: 50px;\n        width: 50px;\n        background: #fff;\n        display: -webkit-box;\n        display: flex;\n        -webkit-box-pack: center;\n                justify-content: center;\n        -webkit-box-align: center;\n                align-items: center;\n        border-radius: 50%;\n        margin-right: 5px; }\n  .MainContent .secDropDown div .sec_Detail .medItemSpan p {\n          font-family: Open Sans SemiBold;\n          margin: 0;\n          font-size: 14px;\n          color: #fff; }\n  .MainContent .secDropDown div .sec_Detail .Sec_Details_Sub {\n        width: 75%; }\n  .MainContent .secDropDown div .sec_Detail .Sec_Details_Sub p {\n          margin: 0;\n          font-size: 14px;\n          color: #fff; }\n  .MainContent .secDropDown div .sec_Detail .Sec_Details_Sub p:first-child {\n          font-family: Open Sans Regular;\n          white-space: nowrap;\n          overflow: hidden;\n          text-overflow: ellipsis; }\n  .MainContent .secDropDown div .sec_Detail .Sec_Details_Sub p:last-child {\n          font-family: Open Sans SemiBold;\n          white-space: nowrap;\n          overflow: hidden;\n          text-overflow: ellipsis; }\n  .MainContent .secDropDown div ion-icon {\n      height: 40px;\n      width: 40px;\n      color: #fff; }\n  .MainContent .arrow_div {\n  display: -webkit-box;\n  display: flex;\n  -webkit-box-orient: horizontal;\n  -webkit-box-direction: normal;\n          flex-direction: row;\n  -webkit-box-pack: justify;\n          justify-content: space-between;\n  -webkit-box-align: center;\n          align-items: center;\n  padding: 5px 15px;\n  font-size: 40px;\n  color: #fff; }\n  .MainContent ion-slides ion-slide {\n  height: calc(100vh - 345px); }\n  .MainContent ion-slides .CompSlide ion-list::-webkit-scrollbar {\n  display: none; }\n  .MainContent ion-slides .CompSlide ion-list {\n  height: 100%;\n  overflow: scroll;\n  background: transparent;\n  width: 75%; }\n  .MainContent ion-slides .CompSlide ion-list .compItem {\n    --background: #00b9ff;\n    display: -webkit-box;\n    display: flex;\n    -webkit-box-orient: horizontal;\n    -webkit-box-direction: normal;\n            flex-direction: row;\n    font-size: 12px;\n    font-family: Open Sans SemiBold;\n    border-radius: 25px;\n    --padding-start: 0;\n    --padding-top: 0;\n    --padding-end: 0;\n    --padding-bottom: 0;\n    --inner-padding-start: 0;\n    --inner-padding-end: 0;\n    margin-bottom: 10px; }\n  .MainContent ion-slides .CompSlide ion-list .compItem p {\n      margin: 0;\n      color: #fff; }\n  .MainContent ion-slides .CompSlide ion-list .compItem span {\n      height: 45px;\n      width: 45px;\n      display: -webkit-box;\n      display: flex;\n      -webkit-box-pack: center;\n              justify-content: center;\n      -webkit-box-align: center;\n              align-items: center;\n      border-radius: 50%;\n      background: #fff;\n      margin-right: 10px;\n      border: 2px solid #274b9e;\n      margin-left: -2px; }\n  .MainContent ion-slides .CompSlide ion-list .compItem div {\n      display: -webkit-box;\n      display: flex;\n      -webkit-box-orient: vertical;\n      -webkit-box-direction: normal;\n              flex-direction: column;\n      -webkit-box-align: unset;\n              align-items: unset; }\n  .MainContent ion-slides .CompSlide ion-list .compItem div p:last-child {\n        font-family: Open Sans SemiBold; }\n  .MainContent ion-slides .circleSlide .start-ring {\n  stroke-width: 10px;\n  stroke: #0e82e5;\n  fill: #fff; }\n  .active {\n  --background: #fff !important; }\n  .ReportContent .arrow_div {\n  display: -webkit-box;\n  display: flex;\n  -webkit-box-orient: horizontal;\n  -webkit-box-direction: normal;\n          flex-direction: row;\n  -webkit-box-pack: justify;\n          justify-content: space-between;\n  -webkit-box-align: center;\n          align-items: center;\n  padding: 5px 15px;\n  font-size: 40px;\n  color: #fff;\n  margin-top: 5px; }\n  .ReportContent .arrow_div .Sub_title {\n    color: #fff;\n    font-family: Open Sans Bold;\n    margin: 0;\n    font-size: 25px; }\n  .ReportContent .reportDiv {\n  height: calc(100vh - 275px);\n  width: 100%;\n  display: -webkit-box;\n  display: flex;\n  -webkit-box-orient: vertical;\n  -webkit-box-direction: normal;\n          flex-direction: column;\n  -webkit-box-pack: center;\n          justify-content: center;\n  -webkit-box-align: center;\n          align-items: center; }\n  .ReportContent .reportDiv ion-button {\n    height: 35px;\n    width: 30%;\n    --background: #00b9ff;\n    --background-activated: #00b9ff;\n    --color: #fff; }\n  .ReportContent .reportDiv ion-list {\n    background: #274b9e; }\n  .ReportContent .reportDiv ion-list ion-list-header {\n      -webkit-padding-start: 0;\n              padding-inline-start: 0;\n      margin-bottom: 5%; }\n  .ReportContent .reportDiv ion-list ion-list-header .list_header {\n        color: #fff;\n        font-size: 20px;\n        font-family: 'Open Sans SemiBold';\n        text-align: center; }\n  .ReportContent .reportDiv ion-list ion-item {\n      --background: transparent;\n      --ripple-color: transparent; }\n  .ReportContent .reportDiv ion-list ion-item ion-radio {\n        --color-checked: #00b9ff;\n        --color: #fff;\n        margin-right: 10px; }\n  .ReportContent .reportDiv ion-list ion-item ion-radio::part(container) {\n        border-color: #fff !important; }\n  .ReportContent .reportDiv ion-list ion-item ion-label {\n        --color: #fff;\n        font-size: 16px;\n        font-family: 'Open Sans'; }\n  .ReportContent .reportDiv .pdfBtn {\n    margin-bottom: 20%; }\n  .ReportContent .reportDiv .sendBtn {\n    margin-top: 12%; }\n  .AlertContent .arrow_div {\n  display: -webkit-box;\n  display: flex;\n  -webkit-box-orient: horizontal;\n  -webkit-box-direction: normal;\n          flex-direction: row;\n  -webkit-box-pack: justify;\n          justify-content: space-between;\n  -webkit-box-align: center;\n          align-items: center;\n  padding: 5px 15px;\n  font-size: 40px;\n  color: #fff;\n  margin-top: 5px; }\n  .AlertContent .arrow_div .Sub_title {\n    color: #fff;\n    font-family: Open Sans Bold;\n    margin: 0;\n    font-size: 25px; }\n  .AlertContent .alertDiv {\n  height: calc(100vh - 275px);\n  width: 100%;\n  display: -webkit-box;\n  display: flex;\n  -webkit-box-orient: vertical;\n  -webkit-box-direction: normal;\n          flex-direction: column;\n  -webkit-box-pack: center;\n          justify-content: center;\n  -webkit-box-align: center;\n          align-items: center; }\n  .AlertContent .alertDiv ion-text h2 {\n    font-size: 16px;\n    font-family: Open Sans SemiBold; }\n  .AlertContent .alertDiv .radioBtnDiv {\n    width: 85%;\n    margin-top: 5%; }\n  .AlertContent .alertDiv .radioBtnDiv ion-list {\n      background: transparent; }\n  .AlertContent .alertDiv .radioBtnDiv ion-list ion-item {\n        --background: transparent;\n        --ripple-color: transparent;\n        --min-height: 30px; }\n  .AlertContent .alertDiv .radioBtnDiv ion-list ion-item ion-label {\n          color: #fff;\n          font-size: 14px;\n          font-family: Open Sans Regular; }\n  .AlertContent .alertDiv .radioBtnDiv ion-list ion-item ion-radio {\n          --color-checked: #00b9ff;\n          --color: #fff;\n          margin-right: 10px; }\n  .AlertContent .alertDiv .radioBtnDiv ion-list ion-item ion-radio::part(container) {\n          border-color: #fff !important; }\n  .AlertContent .alertDiv .radioBtnDiv ion-list .weekly_Div {\n        display: -webkit-box;\n        display: flex;\n        -webkit-box-pack: space-evenly;\n                justify-content: space-evenly;\n        -webkit-box-align: center;\n                align-items: center; }\n  .AlertContent .alertDiv .radioBtnDiv ion-list .weekly_Div span {\n          height: 30px;\n          width: 30px;\n          border-radius: 50%;\n          color: #fff;\n          display: -webkit-box;\n          display: flex;\n          -webkit-box-pack: center;\n                  justify-content: center;\n          -webkit-box-align: center;\n                  align-items: center;\n          background: transparent;\n          -webkit-transition: .3s;\n          transition: .3s; }\n  .AlertContent .alertDiv .radioBtnDiv ion-list .weekly_Div .active {\n          background: #00b9ff; }\n  .AlertContent .alertDiv .radioBtnDiv ion-list .monthly_Div {\n        display: -webkit-box;\n        display: flex;\n        -webkit-box-orient: horizontal;\n        -webkit-box-direction: normal;\n                flex-direction: row;\n        -webkit-box-pack: justify;\n                justify-content: space-between;\n        -webkit-box-align: center;\n                align-items: center;\n        overflow: scroll; }\n  .AlertContent .alertDiv .radioBtnDiv ion-list .monthly_Div p {\n          margin: 0;\n          font-size: 16px;\n          font-family: Open Sans SemiBold; }\n  .AlertContent .alertDiv .radioBtnDiv ion-list:nth-child(2) {\n      margin-top: 20px; }\n  .AlertContent .alertDiv .radioBtnDiv .per_range {\n      padding-left: 0;\n      padding-right: 0;\n      --knob-background: #00b9ff;\n      --knob-border-radius: 25px;\n      --knob-size: 15px;\n      --bar-background: #fff;\n      --bar-background-active: #00b9ff; }\n  .AlertContent .alertDiv .radioBtnDiv .per_range::part(pin) {\n      -webkit-transform: translate3d(0px, 0px, 0px) scale(1);\n              transform: translate3d(0px, 0px, 0px) scale(1);\n      color: #fff;\n      font-size: 12px;\n      font-family: 'Open Sans Regular'; }\n  .AlertContent .alertDiv ion-button {\n    margin-top: 5%;\n    --background: #00b9ff;\n    height: 30px;\n    width: 30%;\n    min-width: 100px;\n    --background-activated: none; }\n  .avoid_looser_content .arrow_div {\n  display: -webkit-box;\n  display: flex;\n  -webkit-box-orient: horizontal;\n  -webkit-box-direction: normal;\n          flex-direction: row;\n  -webkit-box-pack: justify;\n          justify-content: space-between;\n  -webkit-box-align: center;\n          align-items: center;\n  padding: 5px 15px;\n  font-size: 40px;\n  color: #fff; }\n  .avoid_looser_content .secDropDown {\n  --background: #00b9ff;\n  border-radius: 25px;\n  --padding-start: 0;\n  --padding-end: 5px;\n  --padding-top: 0;\n  --padding-bottom: 0;\n  margin: 10px 15px; }\n  .avoid_looser_content .secDropDown div {\n    width: 100%;\n    display: -webkit-box;\n    display: flex;\n    -webkit-box-orient: horizontal;\n    -webkit-box-direction: normal;\n            flex-direction: row;\n    -webkit-box-align: center;\n            align-items: center; }\n  .avoid_looser_content .secDropDown div .sec_Detail {\n      display: -webkit-box;\n      display: flex;\n      -webkit-box-orient: horizontal;\n      -webkit-box-direction: normal;\n              flex-direction: row;\n      -webkit-box-align: center;\n              align-items: center;\n      width: 90%; }\n  .avoid_looser_content .secDropDown div .sec_Detail .medItemSpan {\n        height: 50px;\n        width: 50px;\n        background: #fff;\n        display: -webkit-box;\n        display: flex;\n        -webkit-box-pack: center;\n                justify-content: center;\n        -webkit-box-align: center;\n                align-items: center;\n        border-radius: 50%;\n        margin-right: 5px; }\n  .avoid_looser_content .secDropDown div .sec_Detail .medItemSpan p {\n          font-family: Open Sans SemiBold;\n          margin: 0;\n          font-size: 14px;\n          color: #fff; }\n  .avoid_looser_content .secDropDown div .sec_Detail .Sec_Details_Sub {\n        width: 75%; }\n  .avoid_looser_content .secDropDown div .sec_Detail .Sec_Details_Sub p {\n          margin: 0;\n          font-size: 14px;\n          color: #fff; }\n  .avoid_looser_content .secDropDown div .sec_Detail .Sec_Details_Sub p:first-child {\n          font-family: Open Sans Regular;\n          white-space: nowrap;\n          overflow: hidden;\n          text-overflow: ellipsis; }\n  .avoid_looser_content .secDropDown div .sec_Detail .Sec_Details_Sub p:last-child {\n          font-family: Open Sans SemiBold;\n          white-space: nowrap;\n          overflow: hidden;\n          text-overflow: ellipsis; }\n  .avoid_looser_content .secDropDown div ion-icon {\n      height: 40px;\n      width: 40px;\n      color: #fff; }\n  .avoid_looser_content ion-slides ion-slide {\n  height: calc(100vh - 345px); }\n  .avoid_looser_content ion-slides .CompSlide ion-list::-webkit-scrollbar {\n  display: none; }\n  .avoid_looser_content ion-slides .CompSlide ion-list {\n  height: 100%;\n  overflow: scroll;\n  background: transparent;\n  width: 75%; }\n  .avoid_looser_content ion-slides .CompSlide ion-list .compItem {\n    --background: #00b9ff;\n    display: -webkit-box;\n    display: flex;\n    -webkit-box-orient: horizontal;\n    -webkit-box-direction: normal;\n            flex-direction: row;\n    font-size: 12px;\n    font-family: Open Sans SemiBold;\n    border-radius: 25px;\n    --padding-start: 0;\n    --padding-top: 0;\n    --padding-end: 0;\n    --padding-bottom: 0;\n    --inner-padding-start: 0;\n    --inner-padding-end: 0;\n    margin-bottom: 10px; }\n  .avoid_looser_content ion-slides .CompSlide ion-list .compItem p {\n      margin: 0;\n      color: #fff; }\n  .avoid_looser_content ion-slides .CompSlide ion-list .compItem span {\n      height: 45px;\n      width: 45px;\n      display: -webkit-box;\n      display: flex;\n      -webkit-box-pack: center;\n              justify-content: center;\n      -webkit-box-align: center;\n              align-items: center;\n      border-radius: 50%;\n      background: #fff;\n      margin-right: 10px;\n      border: 2px solid #274b9e;\n      margin-left: -2px; }\n  .avoid_looser_content ion-slides .CompSlide ion-list .compItem div {\n      display: -webkit-box;\n      display: flex;\n      -webkit-box-orient: vertical;\n      -webkit-box-direction: normal;\n              flex-direction: column;\n      -webkit-box-align: unset;\n              align-items: unset; }\n  .avoid_looser_content ion-slides .CompSlide ion-list .compItem div p:last-child {\n        font-family: Open Sans SemiBold; }\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvaG9tZS9DOlxcUHJvamVjdHNcXE5BQWxwaGFNb2JpbGUvc3JjXFxhcHBcXGhvbWVcXGhvbWUucGFnZS5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0ksb0JBQWE7RUFBYixhQUFhO0VBQ2Isa0JBQWtCO0VBQ2xCLHlCQUFtQjtVQUFuQixtQkFBbUI7RUFDbkIseUJBQThCO1VBQTlCLDhCQUE4QjtFQUM5QixrQkFBa0IsRUFBQTtFQUx0QjtJQU9RLFlBQVksRUFBQTtFQVBwQjtJQVVRLFVBQVU7SUFDVixpQkFBaUI7SUFDakIsbUJBQW1CO0lBQ25CLG9CQUFhO0lBQWIsYUFBYTtJQUNiLDhCQUFtQjtJQUFuQiw2QkFBbUI7WUFBbkIsbUJBQW1CO0lBQ25CLHlCQUFtQjtZQUFuQixtQkFBbUIsRUFBQTtFQWYzQjtNQWlCWSxtQkFBbUI7TUFDbkIsbUJBQWlCO01BQ2pCLGtCQUFnQjtNQUNoQixnQkFBYztNQUNkLGdCQUFjO01BQ2QsWUFBWTtNQUNaLFdBQVc7TUFDWCxZQUFZO01BQ1osa0JBQWtCO01BQ2xCLGlCQUFpQixFQUFBO0VBMUI3QjtNQTZCWSxTQUFTO01BQ1QsZUFBZTtNQUNmLCtCQUErQjtNQUMvQixjQUFjO01BQ2QsVUFBVTtNQUNWLGdCQUFnQjtNQUV4Qix1QkFBdUI7TUFDdkIsZ0JBQWdCO01BQ2hCLG1CQUFtQixFQUFBO0VBS3ZCO0VBRUkscUJBQWEsRUFBQTtFQUZqQjtFQUtRLGdCQUFnQixFQUFBO0VBTHhCO0VBUVEsZUFBZSxFQUFBO0VBUnZCO0VBV1EsU0FBUztFQUNULFNBQVM7RUFDVCx5QkFBeUIsRUFBQTtFQUlqQztFQUNJLG9CQUFnQjtFQUNoQixXQUFXO0VBQ1gsZUFBZTtFQUNmLFlBQVk7RUFDWixrQkFBYztFQUNkLHFCQUFpQjtFQUNqQixlQUFlO0VBQ2Ysa0JBQWtCO0VBQ2xCLHFCQUFhO0VBQ2Isa0JBQWEsRUFBQTtFQUdqQjtFQUNJLGVBQWU7RUFDZixrQkFBYztFQUNkLHFCQUFpQjtF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QVcsRUFBQTtFQXJFM0I7RUE4RVksMkJBQTJCLEVBQUE7RUE5RXZDO0VBbUZnQixhQUFhLEVBQUE7RUFuRjdCO0VBc0ZnQixZQUFZO0VBQ1osZ0JBQWdCO0VBQ2hCLHVCQUF1QjtFQUN2QixVQUFVLEVBQUE7RUF6RjFCO0lBOEZvQixxQkFBYTtJQUNiLG9CQUFhO0lBQWIsYUFBYTtJQUNiLDhCQUFtQjtJQUFuQiw2QkFBbUI7WUFBbkIsbUJBQW1CO0lBQ25CLGVBQWU7SUFDZiwrQkFBK0I7SUFDL0IsbUJBQW1CO0lBQ25CLGtCQUFnQjtJQUNoQixnQkFBYztJQUNkLGdCQUFjO0lBQ2QsbUJBQWlCO0lBQ2pCLHdCQUFzQjtJQUN0QixzQkFBb0I7SUFDcEIsbUJBQW1CLEVBQUE7RUExR3ZDO01BNEd3QixTQUFTO01BQ1QsV0FBVyxFQUFBO0VBN0duQztNQWlId0IsWUFBWTtNQUNaLFdBQVc7TUFDWCxvQkFBYTtNQUFiLGFBQWE7TUFDYix3QkFBdUI7Y0FBdkIsdUJBQXVCO01BQ3ZCLHlCQUFtQjtjQUFuQixtQkFBbUI7TUFDbkIsa0JBQWtCO01BQ2xCLGdCQUFnQjtNQUNoQixrQkFBa0I7TUFDbEIseUJBQXlCO01BQ3pCLGlCQUFpQixFQUFBO0VBMUh6QztNQThId0Isb0JBQWE7TUFBYixhQUFhO01BQ2IsNEJBQXNCO01BQXRCLDZCQUFzQjtjQUF0QixzQkFBc0I7TUFDdEIsd0JBQWtCO2NBQWxCLGtCQUFrQixFQUFBO0VBaEkxQztRQW1JNEIsK0JBQStCLEVBQUEiLCJmaWxlIjoic3JjL2FwcC9ob21lL2hvbWUucGFnZS5zY3NzIiwic291cmNlc0NvbnRlbnQiOlsiLmhlYWRlci1Mb2dve1xyXG4gICAgZGlzcGxheTogZmxleDtcclxuICAgIHBhZGRpbmctbGVmdDogMTBweDtcclxuICAgIGFsaWduLWl0ZW1zOiBjZW50ZXI7XHJcbiAgICBqdXN0aWZ5LWNvbnRlbnQ6IHNwYWNlLWJldHdlZW47XHJcbiAgICBwYWRkaW5nLXJpZ2h0OiA1cHg7XHJcbiAgICBpbWd7XHJcbiAgICAgICAgaGVpZ2h0OiAzMHB4O1xyXG4gICAgfVxyXG4gICAgZGl2e1xyXG4gICAgICAgIHdpZHRoOiA1MCU7XHJcbiAgICAgICAgYmFja2dyb3VuZDogd2hpdGU7XHJcbiAgICAgICAgYm9yZGVyLXJhZGl1czogMjVweDtcclxuICAgICAgICBkaXNwbGF5OiBmbGV4O1xyXG4gICAgICAgIGZsZXgtZGlyZWN0aW9uOiByb3c7XHJcbiAgICAgICAgYWxpZ24taXRlbXM6IGNlbnRlcjtcclxuICAgICAgICBpb24tYXZhdGFye1xyXG4gICAgICAgICAgICBiYWNrZ3JvdW5kOiAjMDBiOWZmO1xyXG4gICAgICAgICAgICAtLXBhZGRpbmctYm90dG9tOiAwO1xyXG4gICAgICAgICAgICAtLXBhZGRpbmctc3RhcnQ6IDA7XHJcbiAgICAgICAgICAgIC0tcGFkZGluZy1lbmQ6IDA7XHJcbiAgICAgICAgICAgIC0tcGFkZGluZy10b3A6IDA7XHJcbiAgICAgICAgICAgIGhlaWdodDogMzVweDtcclxuICAgICAgICAgICAgd2lkdGg6IDM1cHg7XHJcbiAgICAgICAgICAgIHBhZGRpbmc6IDVweDtcclxuICAgICAgICAgICAgbWFyZ2luLXJpZ2h0OiAxMHB4O1xyXG4gICAgICAgICAgICBtYXJnaW4tbGVmdDogLTFweDtcclxuICAgICAgICB9XHJcbiAgICAgICAgcHtcclxuICAgICAgICAgICAgbWFyZ2luOiAwO1xyXG4gICAgICAgICAgICBmb250LXNpemU6IDE0cHg7XHJcbiAgICAgICAgICAgIGZvbnQtZmFtaWx5OiBPcGVuIFNhbnMgU2VtaUJvbGQ7XHJcbiAgICAgICAgICAgIGNvbG9yOiAjMDBiOWZmO1xyXG4gICAgICAgICAgICB3aWR0aDogNzAlO1xyXG4gICAgICAgICAgICB0ZXh0LWFsaWduOiBsZWZ0O1xyXG4gICAgICAgICAgICBcclxuICAgIHRleHQtb3ZlcmZsb3c6IGVsbGlwc2lzO1xyXG4gICAgb3ZlcmZsb3c6IGhpZGRlbjtcclxuICAgIHdoaXRlLXNwYWNlOiBub3dyYXA7XHJcbiAgICAgICAgfVxyXG4gICAgfVxyXG59XHJcblxyXG5pb24taGVhZGVye1xyXG4gICAgaW9uLXRvb2xiYXJ7XHJcbiAgICAtLWJhY2tncm91bmQ6ICMyNzRiOWU7XHJcbiAgICB9XHJcbiAgICBpb24tdG9vbGJhcjpudGgtY2hpbGQoMSl7XHJcbiAgICAgICAgcGFkZGluZy10b3A6IDVweDtcclxuICAgIH1cclxuICAgIGlvbi10b29sYmFyOm50aC1jaGlsZCgyKXtcclxuICAgICAgICBwYWRkaW5nOiAwIDI1cHg7XHJcbiAgICB9XHJcbiAgICBocntcclxuICAgICAgICBtYXJnaW46IDA7XHJcbiAgICAgICAgaGVpZ2h0OiAwO1xyXG4gICAgICAgIGJvcmRlcjogMnB4IHNvbGlkICMxYTM1NmE7XHJcbiAgICB9XHJcbn1cclxuXHJcbi5zZWFyY2hCdG57XHJcbiAgICAtLWJvcmRlci1yYWRpdXM6MTVweDtcclxuICAgIHdpZHRoOiA3NXB4O1xyXG4gICAgZm9udC1zaXplOiAxMXB4O1xyXG4gICAgaGVpZ2h0OiAyNHB4O1xyXG4gICAgLS1wYWRkaW5nLXRvcDogMHB4O1xyXG4gICAgLS1wYWRkaW5nLWJvdHRvbTogMHB4OyBcclxuICAgIG1hcmdpbi10b3A6IDRweDtcclxuICAgIG1hcmdpbi1ib3R0b206IDRweDsgIFxyXG4gICAgLS1iYWNrZ3JvdW5kOiAjMDBhZWVmO1xyXG4gICAgLS1ib3gtc2hhZG93OiBub25lO1xyXG59XHJcblxyXG4uc2VhcmNoSW5wdXR7XHJcbiAgICBmb250LXNpemU6IDE2cHg7XHJcbiAgICAtLXBhZGRpbmctdG9wOiAwcHg7XHJcbiAgICAtLXBhZGRpbmctYm90dG9tOiAwcHg7XHJcbiAgICAtLWNvbG9yOiM2NjY7XHJcbiAgICB0ZXh0LWFsaWduOiBjZW50ZXI7XHJcbn1cclxuXHJcbi5zZWFyY2hJdGVte1xyXG4gICAgLS1ib3JkZXItd2lkdGg6MnB4O1xyXG4gICAgLS1ib3JkZXItY29sb3I6ICMwMGI5ZmY7IFxyXG4gICAgLS1pbm5lci1wYWRkaW5nLWVuZDogNXB4O1xyXG4gICAgLS1iYWNrZ3JvdW5kOiB0cmFuc3BhcmVudDsgXHJcbiAgICAtLWJvcmRlci1yYWRpdXM6IDI1cHg7XHJcbiAgICAtLW1pbi1oZWlnaHQ6IDI4cHg7XHJcbiAgICBpb24tbGFiZWx7XHJcbiAgICAgICAgbWFyZ2luOiAycHggMHB4O1xyXG4gICAgICAgIGZvbnQtc2l6ZTogMTRweDtcclxuICAgICAgICBhbGlnbi1pdGVtczogY2VudGVyO1xyXG4gICAgICAgIHBhZGRpbmc6IDAgMTBweDtcclxuICAgICAgICBkaXNwbGF5OiBmbGV4O1xyXG4gICAgICAgIGNvbG9yOiAjODg4O1xyXG4gICAgICAgIGlvbi1pY29ue1xyXG4gICAgICAgICAgICBjb2xvcjogIzAwYjlmZjtcclxuICAgICAgICAgICAgLXdlYmtpdC10cmFuc2Zvcm06IHNjYWxlWCgtMSk7XHJcbiAgICAgICAgICAgIHRyYW5zZm9ybTogc2NhbGVYKC0xKTtcclxuICAgICAgICAgICAgZm9udC1zaXplOiAxOHB4O1xyXG4gICAgICAgICAgICBtYXJnaW4tcmlnaHQ6IDEwcHg7XHJcbiAgICAgICAgfVxyXG4gICAgICAgIHB7XHJcbiAgICAgICAgICAgIGZvbnQtc2l6ZTogMTZweDtcclxuICAgICAgICAgICAgY29sb3I6ICNmZmY7XHJcbiAgICAgICAgICAgIGZvbnQtZmFtaWx5OiBPcGVuIFNhbnMgUmVndWxhcjtcclxuICAgICAgICB9XHJcbiAgICB9XHJcbn1cclxuXHJcbi5zZWFyY2hEaXZ7XHJcbiAgICBwYWRkaW5nOiA1cHggMHB4O1xyXG4gICAgcGFkZGluZy10b3A6IDIlO1xyXG59XHJcblxyXG5pb24tY29udGVudHtcclxuICAgIC0tYmFja2dyb3VuZDogIzI3NGI5ZTtcclxuICAgIC0tb3ZlcmZsb3c6IGhpZGRlbjtcclxuXHJcbiAgICBkaXZ7XHJcbiAgICAgICAgaW9uLXRleHR7XHJcbiAgICAgICAgICAgIGNvbG9yOiAjZmZmO1xyXG4gICAgICAgICAgICBmb250LXNpemU6IDE0cHg7XHJcbiAgICAgICAgICAgIHRleHQtYWxpZ246IGNlbnRlcjtcclxuICAgICAgICAgICAgZm9udC1mYW1pbHk6IE9wZW4gU2FucyBSZWd1bGFyOyAgICAgICAgXHJcbiAgICAgICAgfVxyXG4gICAgfVxyXG5cclxuICAgIC5mb290b3JfaWNvbl9kaXZ7XHJcbiAgICAgICAgZGlzcGxheTogZmxleDtcclxuICAgICAgICBmbGV4LWRpcmVjdGlvbjogcm93O1xyXG4gICAgICAgIGp1c3RpZnktY29udGVudDogc3BhY2UtZXZlbmx5O1xyXG4gICAgICAgIHBvc2l0aW9uOiBhYnNvbHV0ZTtcclxuICAgICAgICBoZWlnaHQ6IDE1JTtcclxuICAgICAgICBib3R0b206IDA7XHJcbiAgICAgICAgbGVmdDogMDtcclxuICAgICAgICByaWdodDogMDtcclxuICAgICAgICBhbGlnbi1pdGVtczogY2VudGVyO1xyXG5cclxuICAgICAgICBpbWd7XHJcbiAgICAgICAgICAgIGhlaWdodDogNDBweDtcclxuICAgICAgICB9XHJcbiAgICAgICAgaW1nOmZpcnN0LWNoaWxkLCBpbWc6bGFzdC1jaGlsZHtcclxuICAgICAgICAgICAgbWFyZ2luLWJvdHRvbTogNzVweDsgXHJcbiAgICAgICAgfVxyXG5cclxuICAgICAgICBpbWc6bnRoLWNoaWxkKDIpLCBpbWc6bnRoLWNoaWxkKDQpe1xyXG4gICAgICAgICAgICBtYXJnaW4tYm90dG9tOiAyNXB4O1xyXG4gICAgICAgIH1cclxuXHJcbiAgICAgICAgaW1nOmZpcnN0LWNoaWxkLCBpbWc6bnRoLWNoaWxkKDIpe1xyXG4gICAgICAgICAgICBvcGFjaXR5OiAwLjU7XHJcbiAgICAgICAgfVxyXG4gICAgfVxyXG59XHJcblxyXG4uTWFpbkNvbnRlbnR7XHJcbiAgICAuc2VjRHJvcERvd257XHJcbiAgICAgICAgLS1iYWNrZ3JvdW5kOiAjMDBiOWZmO1xyXG4gICAgYm9yZGVyLXJhZGl1czogMjVweDtcclxuICAgIC0tcGFkZGluZy1zdGFydDogMDtcclxuICAgIC0tcGFkZGluZy1lbmQ6IDVweDtcclxuICAgIC0tcGFkZGluZy10b3A6IDA7XHJcbiAgICAtLXBhZGRpbmctYm90dG9tOiAwO1xyXG4gICAgbWFyZ2luOiAxMHB4IDE1cHg7XHJcbiAgICAgICAgZGl2e1xyXG4gICAgICAgICAgICB3aWR0aDogMTAwJTtcclxuICAgICAgICAgICAgZGlzcGxheTogZmxleDtcclxuICAgICAgICAgICAgZmxleC1kaXJlY3Rpb246IHJvdztcclxuICAgICAgICAgICAgYWxpZ24taXRlbXM6IGNlbnRlcjtcclxuICAgICAgICAgICAgLnNlY19EZXRhaWx7XHJcbiAgICAgICAgICAgICAgICBkaXNwbGF5OiBmbGV4O1xyXG4gICAgICAgICAgICAgICAgZmxleC1kaXJlY3Rpb246IHJvdztcclxuICAgICAgICAgICAgICAgIGFsaWduLWl0ZW1zOiBjZW50ZXI7XHJcbiAgICAgICAgICAgICAgICB3aWR0aDogOTAlO1xyXG4gICAgICAgICAgICAgICAgLm1lZEl0ZW1TcGFue1xyXG4gICAgICAgICAgICAgICAgICAgIGhlaWdodDogNTBweDtcclxuICAgICAgICAgICAgICAgICAgICB3aWR0aDogNTBweDtcclxuICAgICAgICAgICAgICAgICAgICBiYWNrZ3JvdW5kOiAjZmZmO1xyXG4gICAgICAgICAgICAgICAgICAgIGRpc3BsYXk6IGZsZXg7XHJcbiAgICAgICAgICAgICAgICAgICAganVzdGlmeS1jb250ZW50OiBjZW50ZXI7XHJcbiAgICAgICAgICAgICAgICAgICAgYWxpZ24taXRlbXM6IGNlbnRlcjtcclxuICAgICAgICAgICAgICAgICAgICBib3JkZXItcmFkaXVzOiA1MCU7XHJcbiAgICAgICAgICAgICAgICAgICAgbWFyZ2luLXJpZ2h0OiA1cHg7XHJcbiAgICAgICAgICAgICAgICAgICAgcHtcclxuICAgICAgICAgICAgICAgICAgICAgICAgZm9udC1mYW1pbHk6IE9wZW4gU2FucyBTZW1pQm9sZDtcclxuICAgICAgICAgICAgICAgICAgICAgICAgbWFyZ2luOiAwO1xyXG4gICAgICAgICAgICAgICAgICAgICAgICBmb250LXNpemU6IDE0cHg7XHJcbiAgICAgICAgICAgICAgICAgICAgICAgIGNvbG9yOiAjZmZmO1xyXG4gICAgICAgICAgICAgICAgICAgIH1cclxuICAgICAgICAgICAgICAgIH1cclxuICAgICAgICAgICAgICAgIC5TZWNfRGV0YWlsc19TdWJ7XHJcbiAgICAgICAgICAgICAgICAgICAgd2lkdGg6IDc1JTtcclxuICAgICAgICAgICAgICAgICAgICBwe1xyXG4gICAgICAgICAgICAgICAgICAgICAgICBtYXJnaW46IDA7XHJcbiAgICAgICAgICAgICAgICAgICAgICAgIGZvbnQtc2l6ZTogMTRweDtcclxuICAgICAgICAgICAgICAgICAgICAgICAgY29sb3I6ICNmZmY7XHJcbiAgICAgICAgICAgICAgICAgICAgfVxyXG4gICAgICAgICAgICAgICAgICAgIHA6Zmlyc3QtY2hpbGR7XHJcbiAgICAgICAgICAgICAgICAgICAgICAgIGZvbnQtZmFtaWx5OiBPcGVuIFNhbnMgUmVndWxhcjtcclxuICAgICAgICAgICAgICAgICAgICAgICAgd2hpdGUtc3BhY2U6IG5vd3JhcDtcclxuICAgICAgICAgICAgICAgICAgICAgICAgb3ZlcmZsb3c6IGhpZGRlbjtcclxuICAgICAgICAgICAgICAgICAgICAgICAgdGV4dC1vdmVyZmxvdzogZWxsaXBzaXM7XHJcbiAgICAgICAgICAgICAgICAgICAgfVxyXG4gICAgICAgICAgICAgICAgICAgIHA6bGFzdC1jaGlsZHtcclxuICAgICAgICAgICAgICAgICAgICAgICAgZm9udC1mYW1pbHk6IE9wZW4gU2FucyBTZW1pQm9sZDtcclxuICAgICAgICAgICAgICAgICAgICAgICAgd2hpdGUtc3BhY2U6IG5vd3JhcDtcclxuICAgICAgICAgICAgICAgICAgICAgICAgb3ZlcmZsb3c6IGhpZGRlbjtcclxuICAgICAgICAgICAgICAgICAgICAgICAgdGV4dC1vdmVyZmxvdzogZWxsaXBzaXM7XHJcbiAgICAgICAgICAgICAgICAgICAgfVxyXG4gICAgICAgICAgICAgICAgfVxyXG4gICAgICAgICAgICB9XHJcblxyXG4gICAgICAgICAgICBpb24taWNvbntcclxuICAgICAgICAgICAgICAgIGhlaWdodDogNDBweDtcclxuICAgICAgICAgICAgICAgIHdpZHRoOiA0MHB4O1xyXG4gICAgICAgICAgICAgICAgY29sb3I6ICNmZmY7XHJcbiAgICAgICAgICAgIH1cclxuICAgICAgICB9XHJcblxyXG4gICAgICAgIFxyXG4gICAgfVxyXG5cclxuICAgIC5hcnJvd19kaXZ7XHJcbiAgICAgICAgZGlzcGxheTogZmxleDtcclxuICAgICAgICBmbGV4LWRpcmVjdGlvbjogcm93O1xyXG4gICAgICAgIGp1c3RpZnktY29udGVudDogc3BhY2UtYmV0d2VlbjtcclxuICAgICAgICBhbGlnbi1pdGVtczogY2VudGVyO1xyXG4gICAgICAgIHBhZGRpbmc6IDVweCAxNXB4O1xyXG4gICAgICAgIGZvbnQtc2l6ZTogNDBweDtcclxuICAgICAgICBjb2xvcjogI2ZmZjtcclxuICAgIH1cclxuXHJcbiAgICBpb24tc2xpZGVze1xyXG4gICAgICAgIGlvbi1zbGlkZXtcclxuICAgICAgICAgICAgaGVpZ2h0OiBjYWxjKDEwMHZoIC0gMzQ1cHgpO1xyXG4gICAgICAgIH1cclxuXHJcbiAgICAgICAgLkNvbXBTbGlkZXtcclxuICAgICAgICAgICAgaW9uLWxpc3Q6Oi13ZWJraXQtc2Nyb2xsYmFyIHtcclxuICAgICAgICAgICAgICAgIGRpc3BsYXk6IG5vbmU7XHJcbiAgICAgICAgICAgICAgfVxyXG4gICAgICAgICAgICBpb24tbGlzdHtcclxuICAgICAgICAgICAgICAgIGhlaWdodDogMTAwJTtcclxuICAgICAgICAgICAgICAgIG92ZXJmbG93OiBzY3JvbGw7XHJcbiAgICAgICAgICAgICAgICBiYWNrZ3JvdW5kOiB0cmFuc3BhcmVudDtcclxuICAgICAgICAgICAgICAgIHdpZHRoOiA3NSU7XHJcblxyXG4gICAgICAgICAgICAgICAgXHJcblxyXG4gICAgICAgICAgICAgICAgLmNvbXBJdGVte1xyXG4gICAgICAgICAgICAgICAgICAgIC0tYmFja2dyb3VuZDogIzAwYjlmZjtcclxuICAgICAgICAgICAgICAgICAgICBkaXNwbGF5OiBmbGV4O1xyXG4gICAgICAgICAgICAgICAgICAgIGZsZXgtZGlyZWN0aW9uOiByb3c7XHJcbiAgICAgICAgICAgICAgICAgICAgZm9udC1zaXplOiAxMnB4O1xyXG4gICAgICAgICAgICAgICAgICAgIGZvbnQtZmFtaWx5OiBPcGVuIFNhbnMgU2VtaUJvbGQ7XHJcbiAgICAgICAgICAgICAgICAgICAgYm9yZGVyLXJhZGl1czogMjVweDtcclxuICAgICAgICAgICAgICAgICAgICAtLXBhZGRpbmctc3RhcnQ6IDA7XHJcbiAgICAgICAgICAgICAgICAgICAgLS1wYWRkaW5nLXRvcDogMDtcclxuICAgICAgICAgICAgICAgICAgICAtLXBhZGRpbmctZW5kOiAwO1xyXG4gICAgICAgICAgICAgICAgICAgIC0tcGFkZGluZy1ib3R0b206IDA7XHJcbiAgICAgICAgICAgICAgICAgICAgLS1pbm5lci1wYWRkaW5nLXN0YXJ0OiAwO1xyXG4gICAgICAgICAgICAgICAgICAgIC0taW5uZXItcGFkZGluZy1lbmQ6IDA7XHJcbiAgICAgICAgICAgICAgICAgICAgbWFyZ2luLWJvdHRvbTogMTBweDtcclxuICAgICAgICAgICAgICAgICAgICBwe1xyXG4gICAgICAgICAgICAgICAgICAgICAgICBtYXJnaW46IDA7XHJcbiAgICAgICAgICAgICAgICAgICAgICAgIGNvbG9yOiAjZmZmO1xyXG4gICAgICAgICAgICAgICAgICAgIH1cclxuXHJcbiAgICAgICAgICAgICAgICAgICAgc3BhbntcclxuICAgICAgICAgICAgICAgICAgICAgICAgaGVpZ2h0OiA0NXB4O1xyXG4gICAgICAgICAgICAgICAgICAgICAgICB3aWR0aDogNDVweDtcclxuICAgICAgICAgICAgICAgICAgICAgICAgZGlzcGxheTogZmxleDtcclxuICAgICAgICAgICAgICAgICAgICAgICAganVzdGlmeS1jb250ZW50OiBjZW50ZXI7XHJcbiAgICAgICAgICAgICAgICAgICAgICAgIGFsaWduLWl0ZW1zOiBjZW50ZXI7XHJcbiAgICAgICAgICAgICAgICAgICAgICAgIGJvcmRlci1yYWRpdXM6IDUwJTtcclxuICAgICAgICAgICAgICAgICAgICAgICAgYmFja2dyb3VuZDogI2ZmZjtcclxuICAgICAgICAgICAgICAgICAgICAgICAgbWFyZ2luLXJpZ2h0OiAxMHB4O1xyXG4gICAgICAgICAgICAgICAgICAgICAgICBib3JkZXI6IDJweCBzb2xpZCAjMjc0YjllO1xyXG4gICAgICAgICAgICAgICAgICAgICAgICBtYXJnaW4tbGVmdDogLTJweDtcclxuICAgICAgICAgICAgICAgICAgICB9XHJcblxyXG4gICAgICAgICAgICAgICAgICAgIGRpdntcclxuICAgICAgICAgICAgICAgICAgICAgICAgZGlzcGxheTogZmxleDtcclxuICAgICAgICAgICAgICAgICAgICAgICAgZmxleC1kaXJlY3Rpb246IGNvbHVtbjtcclxuICAgICAgICAgICAgICAgICAgICAgICAgYWxpZ24taXRlbXM6IHVuc2V0O1xyXG4gICAgICAgICAgICAgICAgICAgICAgICBcclxuICAgICAgICAgICAgICAgICAgICAgICAgcDpsYXN0LWNoaWxke1xyXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgZm9udC1mYW1pbHk6IE9wZW4gU2FucyBTZW1pQm9sZDtcclxuICAgICAgICAgICAgICAgICAgICAgICAgfVxyXG4gICAgICAgICAgICAgICAgICAgIH1cclxuICAgICAgICAgICAgICAgIH1cclxuICAgICAgICAgICAgfVxyXG4gICAgICAgIH1cclxuXHJcbiAgICAgICAgLmNpcmNsZVNsaWRle1xyXG4gICAgICAgICAgICAuc3RhcnQtcmluZyB7XHJcbiAgICAgICAgICAgICAgICBzdHJva2Utd2lkdGg6IDEwcHg7XHJcbiAgICAgICAgICAgICAgICBzdHJva2U6ICMwZTgyZTU7XHJcbiAgICAgICAgICAgICAgICBmaWxsOiAjZmZmO1xyXG4gICAgICAgICAgICAgIH1cclxuICAgICAgICB9XHJcbiAgICB9XHJcbn1cclxuXHJcbi5hY3RpdmV7XHJcbiAgICAtLWJhY2tncm91bmQ6ICNmZmYgIWltcG9ydGFudDtcclxufVxyXG5cclxuLlJlcG9ydENvbnRlbnR7XHJcbiAgICAuYXJyb3dfZGl2e1xyXG4gICAgICAgIGRpc3BsYXk6IGZsZXg7XHJcbiAgICAgICAgZmxleC1kaXJlY3Rpb246IHJvdztcclxuICAgICAgICBqdXN0aWZ5LWNvbnRlbnQ6IHNwYWNlLWJldHdlZW47XHJcbiAgICAgICAgYWxpZ24taXRlbXM6IGNlbnRlcjtcclxuICAgICAgICBwYWRkaW5nOiA1cHggMTVweDtcclxuICAgICAgICBmb250LXNpemU6IDQwcHg7XHJcbiAgICAgICAgY29sb3I6ICNmZmY7XHJcbiAgICAgICAgbWFyZ2luLXRvcCA6IDVweDtcclxuXHJcbiAgICAgICAgLlN1Yl90aXRsZXtcclxuICAgICAgICAgICAgY29sb3I6ICNmZmY7XHJcbiAgICAgICAgICAgIGZvbnQtZmFtaWx5OiBPcGVuIFNhbnMgQm9sZDtcclxuICAgICAgICAgICAgbWFyZ2luOiAwO1xyXG4gICAgICAgICAgICBmb250LXNpemU6IDI1cHg7XHJcbiAgICAgICAgfVxyXG4gICAgfVxyXG5cclxuICAgIC5yZXBvcnREaXZ7XHJcbiAgICAgICAgaGVpZ2h0OiBjYWxjKDEwMHZoIC0gMjc1cHgpO1xyXG4gICAgICAgIHdpZHRoOiAxMDAlO1xyXG4gICAgICAgIGRpc3BsYXk6IGZsZXg7XHJcbiAgICAgICAgZmxleC1kaXJlY3Rpb246IGNvbHVtbjtcclxuICAgICAgICBqdXN0aWZ5LWNvbnRlbnQ6IGNlbnRlcjtcclxuICAgICAgICBhbGlnbi1pdGVtczogY2VudGVyO1xyXG5cclxuICAgICAgICBpb24tYnV0dG9ue1xyXG4gICAgICAgICAgICBoZWlnaHQ6IDM1cHg7XHJcbiAgICAgICAgICAgIHdpZHRoOiAzMCU7XHJcbiAgICAgICAgICAgIC0tYmFja2dyb3VuZDogIzAwYjlmZjtcclxuICAgICAgICAgICAgLS1iYWNrZ3JvdW5kLWFjdGl2YXRlZDogIzAwYjlmZjtcclxuICAgICAgICAgICAgLS1jb2xvcjogI2ZmZjtcclxuICAgICAgICB9XHJcblxyXG4gICAgICAgIGlvbi1saXN0e1xyXG4gICAgICAgICAgICBiYWNrZ3JvdW5kOiAjMjc0YjllO1xyXG5cclxuICAgICAgICAgICAgaW9uLWxpc3QtaGVhZGVye1xyXG4gICAgICAgICAgICAgICAgcGFkZGluZy1pbmxpbmUtc3RhcnQ6IDA7XHJcbiAgICAgICAgICAgICAgICBtYXJnaW4tYm90dG9tOiA1JTtcclxuXHJcbiAgICAgICAgICAgICAgICAubGlzdF9oZWFkZXJ7XHJcbiAgICAgICAgICAgICAgICAgICAgY29sb3I6ICNmZmY7XHJcbiAgICAgICAgICAgICAgICAgICAgZm9udC1zaXplOiAyMHB4O1xyXG4gICAgICAgICAgICAgICAgICAgIGZvbnQtZmFtaWx5OiAnT3BlbiBTYW5zIFNlbWlCb2xkJztcclxuICAgICAgICAgICAgICAgICAgICB0ZXh0LWFsaWduOiBjZW50ZXI7XHJcbiAgICAgICAgICAgICAgICB9XHJcbiAgICAgICAgICAgIH1cclxuICAgICAgICAgICAgXHJcblxyXG4gICAgICAgICAgICBpb24taXRlbXtcclxuICAgICAgICAgICAgICAgIC0tYmFja2dyb3VuZDogdHJhbnNwYXJlbnQ7XHJcbiAgICAgICAgICAgICAgICAtLXJpcHBsZS1jb2xvcjogdHJhbnNwYXJlbnQ7XHJcblxyXG4gICAgICAgICAgICAgICAgaW9uLXJhZGlve1xyXG4gICAgICAgICAgICAgICAgICAgIC0tY29sb3ItY2hlY2tlZDogIzAwYjlmZjtcclxuICAgICAgICAgICAgICAgICAgICAtLWNvbG9yOiAjZmZmO1xyXG4gICAgICAgICAgICAgICAgICAgIG1hcmdpbi1yaWdodDogMTBweDtcclxuICAgICAgICAgICAgICAgIH1cclxuXHJcbiAgICAgICAgICAgICAgICBpb24tcmFkaW86OnBhcnQoY29udGFpbmVyKXtcclxuICAgICAgICAgICAgICAgICAgICBib3JkZXItY29sb3I6ICNmZmYgIWltcG9ydGFudDtcclxuICAgICAgICAgICAgICAgIH1cclxuXHJcbiAgICAgICAgICAgICAgICBpb24tbGFiZWx7XHJcbiAgICAgICAgICAgICAgICAgICAgLS1jb2xvcjogI2ZmZjtcclxuICAgICAgICAgICAgICAgICAgICBmb250LXNpemU6IDE2cHg7XHJcbiAgICAgICAgICAgICAgICAgICAgZm9udC1mYW1pbHk6ICdPcGVuIFNhbnMnO1xyXG4gICAgICAgICAgICAgICAgfVxyXG4gICAgICAgICAgICB9XHJcbiAgICAgICAgfVxyXG5cclxuICAgICAgICAucGRmQnRue1xyXG4gICAgICAgICAgICAgICAgbWFyZ2luLWJvdHRvbTogMjAlO1xyXG4gICAgICAgIH1cclxuXHJcbiAgICAgICAgLnNlbmRCdG57XHJcbiAgICAgICAgICAgIG1hcmdpbi10b3A6IDEyJTtcclxuICAgICAgICB9XHJcbiAgICB9XHJcbn1cclxuXHJcbi5BbGVydENvbnRlbnR7XHJcbiAgICAuYXJyb3dfZGl2e1xyXG4gICAgICAgIGRpc3BsYXk6IGZsZXg7XHJcbiAgICAgICAgZmxleC1kaXJlY3Rpb246IHJvdztcclxuICAgICAgICBqdXN0aWZ5LWNvbnRlbnQ6IHNwYWNlLWJldHdlZW47XHJcbiAgICAgICAgYWxpZ24taXRlbXM6IGNlbnRlcjtcclxuICAgICAgICBwYWRkaW5nOiA1cHggMTVweDtcclxuICAgICAgICBmb250LXNpemU6IDQwcHg7XHJcbiAgICAgICAgY29sb3I6ICNmZmY7XHJcbiAgICAgICAgbWFyZ2luLXRvcCA6IDVweDtcclxuXHJcbiAgICAgICAgLlN1Yl90aXRsZXtcclxuICAgICAgICAgICAgY29sb3I6ICNmZmY7XHJcbiAgICAgICAgICAgIGZvbnQtZmFtaWx5OiBPcGVuIFNhbnMgQm9sZDtcclxuICAgICAgICAgICAgbWFyZ2luOiAwO1xyXG4gICAgICAgICAgICBmb250LXNpemU6IDI1cHg7XHJcbiAgICAgICAgfVxyXG4gICAgfVxyXG5cclxuICAgIC5hbGVydERpdntcclxuICAgICAgICBoZWlnaHQ6IGNhbGMoMTAwdmggLSAyNzVweCk7XHJcbiAgICAgICAgd2lkdGg6IDEwMCU7XHJcbiAgICAgICAgZGlzcGxheTogZmxleDtcclxuICAgIGZsZXgtZGlyZWN0aW9uOiBjb2x1bW47XHJcbiAgICBqdXN0aWZ5LWNvbnRlbnQ6IGNlbnRlcjtcclxuICAgIGFsaWduLWl0ZW1zOiBjZW50ZXI7XHJcblxyXG4gICAgICAgIGlvbi10ZXh0e1xyXG4gICAgICAgICAgICBoMntcclxuICAgICAgICAgICAgICAgIGZvbnQtc2l6ZTogMTZweDtcclxuICAgICAgICAgICAgICAgIGZvbnQtZmFtaWx5OiBPcGVuIFNhbnMgU2VtaUJvbGQ7XHJcbiAgICAgICAgICAgIH1cclxuICAgICAgICB9XHJcblxyXG4gICAgICAgIC5yYWRpb0J0bkRpdntcclxuICAgICAgICAgICAgd2lkdGg6IDg1JTtcclxuICAgICAgICAgICAgbWFyZ2luLXRvcDogNSU7XHJcblxyXG4gICAgICAgICAgICBpb24tbGlzdHtcclxuICAgICAgICAgICAgICAgIGJhY2tncm91bmQ6IHRyYW5zcGFyZW50O1xyXG4gICAgICAgICAgICAgICAgXHJcbiAgICAgICAgICAgICAgICBpb24taXRlbXtcclxuICAgICAgICAgICAgICAgICAgICAtLWJhY2tncm91bmQ6IHRyYW5zcGFyZW50O1xyXG4gICAgICAgICAgICAgICAgICAgIC0tcmlwcGxlLWNvbG9yOiB0cmFuc3BhcmVudDtcclxuICAgICAgICAgICAgICAgICAgICAtLW1pbi1oZWlnaHQ6IDMwcHg7XHJcbiAgICBcclxuICAgICAgICAgICAgICAgICAgICBpb24tbGFiZWx7XHJcbiAgICAgICAgICAgICAgICAgICAgICAgIGNvbG9yOiAjZmZmO1xyXG4gICAgICAgICAgICAgICAgICAgICAgICBmb250LXNpemU6IDE0cHg7XHJcbiAgICAgICAgICAgICAgICAgICAgICAgIGZvbnQtZmFtaWx5OiBPcGVuIFNhbnMgUmVndWxhcjtcclxuICAgICAgICAgICAgICAgICAgICB9XHJcbiAgICBcclxuICAgICAgICAgICAgICAgICAgICBpb24tcmFkaW97XHJcbiAgICAgICAgICAgICAgICAgICAgICAgIC0tY29sb3ItY2hlY2tlZDogIzAwYjlmZjtcclxuICAgICAgICAgICAgICAgICAgICAgICAgLS1jb2xvcjogI2ZmZjtcclxuICAgICAgICAgICAgICAgICAgICAgICAgbWFyZ2luLXJpZ2h0OiAxMHB4O1xyXG4gICAgICAgICAgICAgICAgICAgIH1cclxuICAgIFxyXG4gICAgICAgICAgICAgICAgICAgIGlvbi1yYWRpbzo6cGFydChjb250YWluZXIpe1xyXG4gICAgICAgICAgICAgICAgICAgICAgICBib3JkZXItY29sb3I6ICNmZmYgIWltcG9ydGFudDtcclxuICAgICAgICAgICAgICAgICAgICB9XHJcbiAgICAgICAgICAgICAgICB9XHJcblxyXG4gICAgICAgICAgICAgICAgLndlZWtseV9EaXZ7XHJcbiAgICAgICAgICAgICAgICAgICAgZGlzcGxheTogZmxleDtcclxuICAgICAgICAgICAgICAgICAgICBqdXN0aWZ5LWNvbnRlbnQ6IHNwYWNlLWV2ZW5seTtcclxuICAgICAgICAgICAgICAgICAgICBhbGlnbi1pdGVtczogY2VudGVyO1xyXG4gICAgICAgICAgICAgICAgICAgIHNwYW57XHJcbiAgICAgICAgICAgICAgICAgICAgICAgIGhlaWdodDogMzBweDtcclxuICAgICAgICAgICAgICAgICAgICAgICAgd2lkdGg6IDMwcHg7XHJcbiAgICAgICAgICAgICAgICAgICAgICAgIGJvcmRlci1yYWRpdXM6IDUwJTtcclxuICAgICAgICAgICAgICAgICAgICAgICAgY29sb3I6ICNmZmY7XHJcbiAgICAgICAgICAgICAgICAgICAgICAgIGRpc3BsYXk6IGZsZXg7XHJcbiAgICAgICAgICAgICAgICAgICAgICAgIGp1c3RpZnktY29udGVudDogY2VudGVyO1xyXG4gICAgICAgICAgICAgICAgICAgICAgICBhbGlnbi1pdGVtczogY2VudGVyO1xyXG4gICAgICAgICAgICAgICAgICAgICAgICBiYWNrZ3JvdW5kOiB0cmFuc3BhcmVudDtcclxuICAgICAgICAgICAgICAgICAgICAgICAgdHJhbnNpdGlvbjogLjNzO1xyXG4gICAgICAgICAgICAgICAgICAgIH1cclxuICAgICAgICAgICAgICAgICAgICAuYWN0aXZle1xyXG4gICAgICAgICAgICAgICAgICAgICAgICBiYWNrZ3JvdW5kOiAjMDBiOWZmO1xyXG4gICAgICAgICAgICAgICAgICAgIH1cclxuICAgICAgICAgICAgICAgIH1cclxuXHJcbiAgICAgICAgICAgICAgICAubW9udGhseV9EaXZ7XHJcbiAgICAgICAgICAgICAgICAgICAgZGlzcGxheTogZmxleDtcclxuICAgICAgICAgICAgICAgICAgICBmbGV4LWRpcmVjdGlvbjogcm93O1xyXG4gICAgICAgICAgICAgICAgICAgIGp1c3RpZnktY29udGVudDogc3BhY2UtYmV0d2VlbjtcclxuICAgICAgICAgICAgICAgICAgICBhbGlnbi1pdGVtczogY2VudGVyO1xyXG4gICAgICAgICAgICAgICAgICAgIG92ZXJmbG93OiBzY3JvbGw7XHJcbiAgICAgICAgICAgICAgICAgICAgcHtcclxuICAgICAgICAgICAgICAgICAgICAgICAgbWFyZ2luOiAwO1xyXG4gICAgICAgICAgICAgICAgICAgICAgICBmb250LXNpemU6IDE2cHg7XHJcbiAgICAgICAgICAgICAgICAgICAgICAgIGZvbnQtZmFtaWx5OiBPcGVuIFNhbnMgU2VtaUJvbGQ7XHJcbiAgICAgICAgICAgICAgICAgICAgfVxyXG4gICAgICAgICAgICAgICAgfVxyXG4gICAgICAgICAgICB9XHJcblxyXG4gICAgICAgICAgICBpb24tbGlzdDpudGgtY2hpbGQoMil7XHJcbiAgICAgICAgICAgICAgICBtYXJnaW4tdG9wOiAyMHB4O1xyXG4gICAgICAgICAgICB9XHJcblxyXG4gICAgICAgICAgICAucGVyX3Jhbmdle1xyXG4gICAgICAgICAgICAgICAgcGFkZGluZy1sZWZ0OiAwO1xyXG4gICAgICAgICAgICAgICAgcGFkZGluZy1yaWdodDogMDtcclxuICAgICAgICAgICAgICAgIC0ta25vYi1iYWNrZ3JvdW5kOiAjMDBiOWZmO1xyXG4gICAgICAgICAgICAgICAgLS1rbm9iLWJvcmRlci1yYWRpdXM6IDI1cHg7XHJcbiAgICAgICAgICAgICAgICAtLWtub2Itc2l6ZTogMTVweDtcclxuICAgICAgICAgICAgICAgIC0tYmFyLWJhY2tncm91bmQ6ICNmZmY7XHJcbiAgICAgICAgICAgICAgICAtLWJhci1iYWNrZ3JvdW5kLWFjdGl2ZTogIzAwYjlmZjtcclxuICAgICAgICAgICAgfVxyXG5cclxuICAgICAgICAgICAgLnBlcl9yYW5nZTo6cGFydChwaW4pe1xyXG4gICAgICAgICAgICAgICAgdHJhbnNmb3JtOiB0cmFuc2xhdGUzZCgwcHgsIDBweCwgMHB4KSBzY2FsZSgxKTtcclxuICAgICAgICAgICAgICAgIGNvbG9yOiAjZmZmO1xyXG4gICAgICAgICAgICAgICAgZm9udC1zaXplOiAxMnB4O1xyXG4gICAgICAgICAgICAgICAgZm9udC1mYW1pbHk6ICdPcGVuIFNhbnMgUmVndWxhcic7XHJcbiAgICAgICAgICAgIH1cclxuICAgICAgICB9XHJcblxyXG4gICAgICAgIGlvbi1idXR0b257XHJcbiAgICAgICAgICAgIG1hcmdpbi10b3A6IDUlO1xyXG4gICAgICAgICAgICAtLWJhY2tncm91bmQ6ICMwMGI5ZmY7XHJcbiAgICAgICAgICAgIGhlaWdodDogMzBweDtcclxuICAgICAgICAgICAgd2lkdGg6IDMwJTtcclxuICAgICAgICAgICAgbWluLXdpZHRoOiAxMDBweDtcclxuICAgICAgICAgICAgLS1iYWNrZ3JvdW5kLWFjdGl2YXRlZDogbm9uZTtcclxuXHJcbiAgICAgICAgfVxyXG5cclxuICAgICAgICBcclxuICAgIH1cclxuXHJcbn1cclxuXHJcbi5hdm9pZF9sb29zZXJfY29udGVudHtcclxuICAgIC5hcnJvd19kaXZ7XHJcbiAgICAgICAgZGlzcGxheTogZmxleDtcclxuICAgICAgICBmbGV4LWRpcmVjdGlvbjogcm93O1xyXG4gICAgICAgIGp1c3RpZnktY29udGVudDogc3BhY2UtYmV0d2VlbjtcclxuICAgICAgICBhbGlnbi1pdGVtczogY2VudGVyO1xyXG4gICAgICAgIHBhZGRpbmc6IDVweCAxNXB4O1xyXG4gICAgICAgIGZvbnQtc2l6ZTogNDBweDtcclxuICAgICAgICBjb2xvcjogI2ZmZjtcclxuICAgIH1cclxuICAgIC5zZWNEcm9wRG93bntcclxuICAgICAgICAtLWJhY2tncm91bmQ6ICMwMGI5ZmY7XHJcbiAgICBib3JkZXItcmFkaXVzOiAyNXB4O1xyXG4gICAgLS1wYWRkaW5nLXN0YXJ0OiAwO1xyXG4gICAgLS1wYWRkaW5nLWVuZDogNXB4O1xyXG4gICAgLS1wYWRkaW5nLXRvcDogMDtcclxuICAgIC0tcGFkZGluZy1ib3R0b206IDA7XHJcbiAgICBtYXJnaW46IDEwcHggMTVweDtcclxuICAgICAgICBkaXZ7XHJcbiAgICAgICAgICAgIHdpZHRoOiAxMDAlO1xyXG4gICAgICAgICAgICBkaXNwbGF5OiBmbGV4O1xyXG4gICAgICAgICAgICBmbGV4LWRpcmVjdGlvbjogcm93O1xyXG4gICAgICAgICAgICBhbGlnbi1pdGVtczogY2VudGVyO1xyXG4gICAgICAgICAgICAuc2VjX0RldGFpbHtcclxuICAgICAgICAgICAgICAgIGRpc3BsYXk6IGZsZXg7XHJcbiAgICAgICAgICAgICAgICBmbGV4LWRpcmVjdGlvbjogcm93O1xyXG4gICAgICAgICAgICAgICAgYWxpZ24taXRlbXM6IGNlbnRlcjtcclxuICAgICAgICAgICAgICAgIHdpZHRoOiA5MCU7XHJcbiAgICAgICAgICAgICAgICAubWVkSXRlbVNwYW57XHJcbiAgICAgICAgICAgICAgICAgICAgaGVpZ2h0OiA1MHB4O1xyXG4gICAgICAgICAgICAgICAgICAgIHdpZHRoOiA1MHB4O1xyXG4gICAgICAgICAgICAgICAgICAgIGJhY2tncm91bmQ6ICNmZmY7XHJcbiAgICAgICAgICAgICAgICAgICAgZGlzcGxheTogZmxleDtcclxuICAgICAgICAgICAgICAgICAgICBqdXN0aWZ5LWNvbnRlbnQ6IGNlbnRlcjtcclxuICAgICAgICAgICAgICAgICAgICBhbGlnbi1pdGVtczogY2VudGVyO1xyXG4gICAgICAgICAgICAgICAgICAgIGJvcmRlci1yYWRpdXM6IDUwJTtcclxuICAgICAgICAgICAgICAgICAgICBtYXJnaW4tcmlnaHQ6IDVweDtcclxuICAgICAgICAgICAgICAgICAgICBwe1xyXG4gICAgICAgICAgICAgICAgICAgICAgICBmb250LWZhbWlseTogT3BlbiBTYW5zIFNlbWlCb2xkO1xyXG4gICAgICAgICAgICAgICAgICAgICAgICBtYXJnaW46IDA7XHJcbiAgICAgICAgICAgICAgICAgICAgICAgIGZvbnQtc2l6ZTogMTRweDtcclxuICAgICAgICAgICAgICAgICAgICAgICAgY29sb3I6ICNmZmY7XHJcbiAgICAgICAgICAgICAgICAgICAgfVxyXG4gICAgICAgICAgICAgICAgfVxyXG4gICAgICAgICAgICAgICAgLlNlY19EZXRhaWxzX1N1YntcclxuICAgICAgICAgICAgICAgICAgICB3aWR0aDogNzUlO1xyXG4gICAgICAgICAgICAgICAgICAgIHB7XHJcbiAgICAgICAgICAgICAgICAgICAgICAgIG1hcmdpbjogMDtcclxuICAgICAgICAgICAgICAgICAgICAgICAgZm9udC1zaXplOiAxNHB4O1xyXG4gICAgICAgICAgICAgICAgICAgICAgICBjb2xvcjogI2ZmZjtcclxuICAgICAgICAgICAgICAgICAgICB9XHJcbiAgICAgICAgICAgICAgICAgICAgcDpmaXJzdC1jaGlsZHtcclxuICAgICAgICAgICAgICAgICAgICAgICAgZm9udC1mYW1pbHk6IE9wZW4gU2FucyBSZWd1bGFyO1xyXG4gICAgICAgICAgICAgICAgICAgICAgICB3aGl0ZS1zcGFjZTogbm93cmFwO1xyXG4gICAgICAgICAgICAgICAgICAgICAgICBvdmVyZmxvdzogaGlkZGVuO1xyXG4gICAgICAgICAgICAgICAgICAgICAgICB0ZXh0LW92ZXJmbG93OiBlbGxpcHNpcztcclxuICAgICAgICAgICAgICAgICAgICB9XHJcbiAgICAgICAgICAgICAgICAgICAgcDpsYXN0LWNoaWxke1xyXG4gICAgICAgICAgICAgICAgICAgICAgICBmb250LWZhbWlseTogT3BlbiBTYW5zIFNlbWlCb2xkO1xyXG4gICAgICAgICAgICAgICAgICAgICAgICB3aGl0ZS1zcGFjZTogbm93cmFwO1xyXG4gICAgICAgICAgICAgICAgICAgICAgICBvdmVyZmxvdzogaGlkZGVuO1xyXG4gICAgICAgICAgICAgICAgICAgICAgICB0ZXh0LW92ZXJmbG93OiBlbGxpcHNpcztcclxuICAgICAgICAgICAgICAgICAgICB9XHJcbiAgICAgICAgICAgICAgICB9XHJcbiAgICAgICAgICAgIH1cclxuXHJcbiAgICAgICAgICAgIGlvbi1pY29ue1xyXG4gICAgICAgICAgICAgICAgaGVpZ2h0OiA0MHB4O1xyXG4gICAgICAgICAgICAgICAgd2lkdGg6IDQwcHg7XHJcbiAgICAgICAgICAgICAgICBjb2xvcjogI2ZmZjtcclxuICAgICAgICAgICAgfVxyXG4gICAgICAgIH1cclxuXHJcbiAgICAgICAgXHJcbiAgICB9XHJcblxyXG4gICAgaW9uLXNsaWRlc3tcclxuICAgICAgICBpb24tc2xpZGV7XHJcbiAgICAgICAgICAgIGhlaWdodDogY2FsYygxMDB2aCAtIDM0NXB4KTtcclxuICAgICAgICB9XHJcblxyXG4gICAgICAgIC5Db21wU2xpZGV7XHJcbiAgICAgICAgICAgIGlvbi1saXN0Ojotd2Via2l0LXNjcm9sbGJhciB7XHJcbiAgICAgICAgICAgICAgICBkaXNwbGF5OiBub25lO1xyXG4gICAgICAgICAgICAgIH1cclxuICAgICAgICAgICAgaW9uLWxpc3R7XHJcbiAgICAgICAgICAgICAgICBoZWlnaHQ6IDEwMCU7XHJcbiAgICAgICAgICAgICAgICBvdmVyZmxvdzogc2Nyb2xsO1xyXG4gICAgICAgICAgICAgICAgYmFja2dyb3VuZDogdHJhbnNwYXJlbnQ7XHJcbiAgICAgICAgICAgICAgICB3aWR0aDogNzUlO1xyXG5cclxuICAgICAgICAgICAgICAgIFxyXG5cclxuICAgICAgICAgICAgICAgIC5jb21wSXRlbXtcclxuICAgICAgICAgICAgICAgICAgICAtLWJhY2tncm91bmQ6ICMwMGI5ZmY7XHJcbiAgICAgICAgICAgICAgICAgICAgZGlzcGxheTogZmxleDtcclxuICAgICAgICAgICAgICAgICAgICBmbGV4LWRpcmVjdGlvbjogcm93O1xyXG4gICAgICAgICAgICAgICAgICAgIGZvbnQtc2l6ZTogMTJweDtcclxuICAgICAgICAgICAgICAgICAgICBmb250LWZhbWlseTogT3BlbiBTYW5zIFNlbWlCb2xkO1xyXG4gICAgICAgICAgICAgICAgICAgIGJvcmRlci1yYWRpdXM6IDI1cHg7XHJcbiAgICAgICAgICAgICAgICAgICAgLS1wYWRkaW5nLXN0YXJ0OiAwO1xyXG4gICAgICAgICAgICAgICAgICAgIC0tcGFkZGluZy10b3A6IDA7XHJcbiAgICAgICAgICAgICAgICAgICAgLS1wYWRkaW5nLWVuZDogMDtcclxuICAgICAgICAgICAgICAgICAgICAtLXBhZGRpbmctYm90dG9tOiAwO1xyXG4gICAgICAgICAgICAgICAgICAgIC0taW5uZXItcGFkZGluZy1zdGFydDogMDtcclxuICAgICAgICAgICAgICAgICAgICAtLWlubmVyLXBhZGRpbmctZW5kOiAwO1xyXG4gICAgICAgICAgICAgICAgICAgIG1hcmdpbi1ib3R0b206IDEwcHg7XHJcbiAgICAgICAgICAgICAgICAgICAgcHtcclxuICAgICAgICAgICAgICAgICAgICAgICAgbWFyZ2luOiAwO1xyXG4gICAgICAgICAgICAgICAgICAgICAgICBjb2xvcjogI2ZmZjtcclxuICAgICAgICAgICAgICAgICAgICB9XHJcblxyXG4gICAgICAgICAgICAgICAgICAgIHNwYW57XHJcbiAgICAgICAgICAgICAgICAgICAgICAgIGhlaWdodDogNDVweDtcclxuICAgICAgICAgICAgICAgICAgICAgICAgd2lkdGg6IDQ1cHg7XHJcbiAgICAgICAgICAgICAgICAgICAgICAgIGRpc3BsYXk6IGZsZXg7XHJcbiAgICAgICAgICAgICAgICAgICAgICAgIGp1c3RpZnktY29udGVudDogY2VudGVyO1xyXG4gICAgICAgICAgICAgICAgICAgICAgICBhbGlnbi1pdGVtczogY2VudGVyO1xyXG4gICAgICAgICAgICAgICAgICAgICAgICBib3JkZXItcmFkaXVzOiA1MCU7XHJcbiAgICAgICAgICAgICAgICAgICAgICAgIGJhY2tncm91bmQ6ICNmZmY7XHJcbiAgICAgICAgICAgICAgICAgICAgICAgIG1hcmdpbi1yaWdodDogMTBweDtcclxuICAgICAgICAgICAgICAgICAgICAgICAgYm9yZGVyOiAycHggc29saWQgIzI3NGI5ZTtcclxuICAgICAgICAgICAgICAgICAgICAgICAgbWFyZ2luLWxlZnQ6IC0ycHg7XHJcbiAgICAgICAgICAgICAgICAgICAgfVxyXG5cclxuICAgICAgICAgICAgICAgICAgICBkaXZ7XHJcbiAgICAgICAgICAgICAgICAgICAgICAgIGRpc3BsYXk6IGZsZXg7XHJcbiAgICAgICAgICAgICAgICAgICAgICAgIGZsZXgtZGlyZWN0aW9uOiBjb2x1bW47XHJcbiAgICAgICAgICAgICAgICAgICAgICAgIGFsaWduLWl0ZW1zOiB1bnNldDtcclxuICAgICAgICAgICAgICAgICAgICAgICAgXHJcbiAgICAgICAgICAgICAgICAgICAgICAgIHA6bGFzdC1jaGlsZHtcclxuICAgICAgICAgICAgICAgICAgICAgICAgICAgIGZvbnQtZmFtaWx5OiBPcGVuIFNhbnMgU2VtaUJvbGQ7XHJcbiAgICAgICAgICAgICAgICAgICAgICAgIH1cclxuICAgICAgICAgICAgICAgICAgICB9XHJcbiAgICAgICAgICAgICAgICB9XHJcbiAgICAgICAgICAgIH1cclxuICAgICAgICB9XHJcbiAgICB9XHJcbn0iXX0= */"
+module.exports = ".header-Logo {\n  display: -webkit-box;\n  display: flex;\n  padding-left: 10px;\n  -webkit-box-align: center;\n          align-items: center;\n  -webkit-box-pack: justify;\n          justify-content: space-between;\n  padding-right: 5px; }\n  .header-Logo img {\n    height: 30px; }\n  .header-Logo div {\n    width: 50%;\n    background: white;\n    border-radius: 25px;\n    display: -webkit-box;\n    display: flex;\n    -webkit-box-orient: horizontal;\n    -webkit-box-direction: normal;\n            flex-direction: row;\n    -webkit-box-align: center;\n            align-items: center; }\n  .header-Logo div ion-avatar {\n      background: #00b9ff;\n      --padding-bottom: 0;\n      --padding-start: 0;\n      --padding-end: 0;\n      --padding-top: 0;\n      height: 35px;\n      width: 35px;\n      padding: 5px;\n      margin-right: 10px;\n      margin-left: -1px; }\n  .header-Logo div p {\n      margin: 0;\n      font-size: 14px;\n      font-family: Open Sans SemiBold;\n      color: #00b9ff;\n      width: 70%;\n      text-align: left;\n      text-overflow: ellipsis;\n      overflow: hidden;\n      white-space: nowrap; }\n  ion-header ion-toolbar {\n  --background: #274b9e; }\n  ion-header ion-toolbar:nth-child(1) {\n  padding-top: 5px; }\n  ion-header ion-toolbar:nth-child(2) {\n  padding: 0 25px; }\n  ion-header hr {\n  margin: 0;\n  height: 2px;\n  background-color: #1a356a; }\n  .searchBtn {\n  --border-radius:15px;\n  width: 75px;\n  font-size: 11px;\n  height: 24px;\n  --padding-top: 0px;\n  --padding-bottom: 0px;\n  margin-top: 4px;\n  margin-bottom: 4px;\n  --background: #00aeef;\n  --box-shadow: none; }\n  .searchInput {\n  font-size: 16px;\n  --padding-top: 0px;\n  --padding-bottom: 0px;\n  --color:#666;\n  text-align: center; }\n  .searchItem {\n  --border-width:2px;\n  --border-color: #00b9ff;\n  --inner-padding-end: 5px;\n  --background: transparent;\n  --border-radius: 25px;\n  --min-height: 28px; }\n  .searchItem ion-label {\n    margin: 2px 0px;\n    font-size: 14px;\n    -webkit-box-align: center;\n            align-items: center;\n    padding: 0 10px;\n    display: -webkit-box;\n    display: flex;\n    color: #888; }\n  .searchItem ion-label ion-icon {\n      color: #00b9ff;\n      -webkit-transform: scaleX(-1);\n      transform: scaleX(-1);\n      font-size: 18px;\n      margin-right: 10px; }\n  .searchItem ion-label p {\n      font-size: 16px;\n      color: #fff;\n      font-family: Open Sans Regular; }\n  .searchDiv {\n  padding: 5px 0px;\n  padding-top: 2%; }\n  ion-content {\n  --background: #274b9e;\n  --overflow: hidden; }\n  ion-content div ion-text {\n    color: #fff;\n    font-size: 14px;\n    text-align: center;\n    font-family: Open Sans Regular; }\n  ion-content .footor_icon_div {\n    display: -webkit-box;\n    display: flex;\n    -webkit-box-orient: horizontal;\n    -webkit-box-direction: normal;\n            flex-direction: row;\n    -webkit-box-pack: space-evenly;\n            justify-content: space-evenly;\n    position: absolute;\n    height: 15%;\n    bottom: 0;\n    left: 0;\n    right: 0;\n    -webkit-box-align: center;\n            align-items: center; }\n  ion-content .footor_icon_div img {\n      height: 40px; }\n  ion-content .footor_icon_div img:first-child, ion-content .footor_icon_div img:last-child {\n      margin-bottom: 75px; }\n  ion-content .footor_icon_div img:nth-child(2), ion-content .footor_icon_div img:nth-child(4) {\n      margin-bottom: 25px; }\n  ion-content .footor_icon_div img:first-child, ion-content .footor_icon_div img:nth-child(2) {\n      opacity: 0.5; }\n  .MainContent .secDropDown {\n  --background: #00b9ff;\n  border-radius: 25px;\n  --padding-start: 0;\n  --padding-end: 5px;\n  --padding-top: 0;\n  --padding-bottom: 0;\n  margin: 10px 15px; }\n  .MainContent .secDropDown div {\n    width: 100%;\n    display: -webkit-box;\n    display: flex;\n    -webkit-box-orient: horizontal;\n    -webkit-box-direction: normal;\n            flex-direction: row;\n    -webkit-box-align: center;\n            align-items: center; }\n  .MainContent .secDropDown div .sec_Detail {\n      display: -webkit-box;\n      display: flex;\n      -webkit-box-orient: horizontal;\n      -webkit-box-direction: normal;\n              flex-direction: row;\n      -webkit-box-align: center;\n              align-items: center;\n      width: 90%; }\n  .MainContent .secDropDown div .sec_Detail .medItemSpan {\n        height: 50px;\n        width: 50px;\n        background: #fff;\n        display: -webkit-box;\n        display: flex;\n        -webkit-box-pack: center;\n                justify-content: center;\n        -webkit-box-align: center;\n                align-items: center;\n        border-radius: 50%;\n        margin-right: 5px; }\n  .MainContent .secDropDown div .sec_Detail .medItemSpan p {\n          font-family: Open Sans SemiBold;\n          margin: 0;\n          font-size: 14px;\n          color: #fff; }\n  .MainContent .secDropDown div .sec_Detail .Sec_Details_Sub {\n        width: 75%; }\n  .MainContent .secDropDown div .sec_Detail .Sec_Details_Sub p {\n          margin: 0;\n          font-size: 14px;\n          color: #fff; }\n  .MainContent .secDropDown div .sec_Detail .Sec_Details_Sub p:first-child {\n          font-family: Open Sans Regular;\n          white-space: nowrap;\n          overflow: hidden;\n          text-overflow: ellipsis; }\n  .MainContent .secDropDown div .sec_Detail .Sec_Details_Sub p:last-child {\n          font-family: Open Sans SemiBold;\n          white-space: nowrap;\n          overflow: hidden;\n          text-overflow: ellipsis; }\n  .MainContent .secDropDown div ion-icon {\n      height: 40px;\n      width: 40px;\n      color: #fff; }\n  .MainContent .arrow_div {\n  display: -webkit-box;\n  display: flex;\n  -webkit-box-orient: horizontal;\n  -webkit-box-direction: normal;\n          flex-direction: row;\n  -webkit-box-pack: justify;\n          justify-content: space-between;\n  -webkit-box-align: center;\n          align-items: center;\n  padding: 5px 15px;\n  font-size: 40px;\n  color: #fff; }\n  .MainContent .mdSlides ion-slide {\n  height: calc(100vh - 360px); }\n  .MainContent .iosSlides ion-slide {\n  height: calc(100vh - 345px); }\n  .MainContent ion-slides .CompSlide ion-list::-webkit-scrollbar {\n  display: none; }\n  .MainContent ion-slides .CompSlide ion-list {\n  height: 100%;\n  overflow: scroll;\n  background: transparent;\n  width: 75%; }\n  .MainContent ion-slides .CompSlide ion-list .compItem {\n    --background: #00b9ff;\n    display: -webkit-box;\n    display: flex;\n    -webkit-box-orient: horizontal;\n    -webkit-box-direction: normal;\n            flex-direction: row;\n    font-size: 12px;\n    font-family: Open Sans SemiBold;\n    border-radius: 25px;\n    --padding-start: 0;\n    --padding-top: 0;\n    --padding-end: 0;\n    --padding-bottom: 0;\n    --inner-padding-start: 0;\n    --inner-padding-end: 0;\n    margin-bottom: 10px; }\n  .MainContent ion-slides .CompSlide ion-list .compItem p {\n      margin: 0;\n      color: #fff; }\n  .MainContent ion-slides .CompSlide ion-list .compItem span {\n      height: 45px;\n      width: 45px;\n      display: -webkit-box;\n      display: flex;\n      -webkit-box-pack: center;\n              justify-content: center;\n      -webkit-box-align: center;\n              align-items: center;\n      border-radius: 50%;\n      background: #fff;\n      margin-right: 10px;\n      border: 2px solid #274b9e;\n      margin-left: -2px; }\n  .MainContent ion-slides .CompSlide ion-list .compItem div {\n      display: -webkit-box;\n      display: flex;\n      -webkit-box-orient: vertical;\n      -webkit-box-direction: normal;\n              flex-direction: column;\n      -webkit-box-align: unset;\n              align-items: unset; }\n  .MainContent ion-slides .CompSlide ion-list .compItem div p:last-child {\n        font-family: Open Sans SemiBold; }\n  .MainContent ion-slides .circleSlide .start-ring {\n  stroke-width: 10px;\n  stroke: #0e82e5;\n  fill: #fff; }\n  .active {\n  --background: #fff !important; }\n  .ReportContent .arrow_div {\n  display: -webkit-box;\n  display: flex;\n  -webkit-box-orient: horizontal;\n  -webkit-box-direction: normal;\n          flex-direction: row;\n  -webkit-box-pack: justify;\n          justify-content: space-between;\n  -webkit-box-align: center;\n          align-items: center;\n  padding: 5px 15px;\n  font-size: 40px;\n  color: #fff;\n  margin-top: 5px; }\n  .ReportContent .arrow_div .Sub_title {\n    color: #fff;\n    font-family: Open Sans Bold;\n    margin: 0;\n    font-size: 25px; }\n  .ReportContent .reportDiv {\n  height: calc(100vh - 275px);\n  width: 100%;\n  display: -webkit-box;\n  display: flex;\n  -webkit-box-orient: vertical;\n  -webkit-box-direction: normal;\n          flex-direction: column;\n  -webkit-box-pack: center;\n          justify-content: center;\n  -webkit-box-align: center;\n          align-items: center; }\n  .ReportContent .reportDiv ion-button {\n    height: 35px;\n    width: 30%;\n    --background: #00b9ff;\n    --background-activated: #00b9ff;\n    --color: #fff; }\n  .ReportContent .reportDiv ion-list {\n    background: #274b9e; }\n  .ReportContent .reportDiv ion-list ion-list-header {\n      -webkit-padding-start: 0;\n              padding-inline-start: 0;\n      margin-bottom: 5%; }\n  .ReportContent .reportDiv ion-list ion-list-header .list_header {\n        color: #fff;\n        font-size: 20px;\n        font-family: 'Open Sans SemiBold';\n        text-align: center; }\n  .ReportContent .reportDiv ion-list ion-item {\n      --background: transparent;\n      --ripple-color: transparent; }\n  .ReportContent .reportDiv ion-list ion-item ion-radio {\n        --color-checked: #00b9ff;\n        --color: #fff;\n        margin-right: 10px; }\n  .ReportContent .reportDiv ion-list ion-item ion-radio::part(container) {\n        border-color: #fff !important; }\n  .ReportContent .reportDiv ion-list ion-item ion-label {\n        --color: #fff;\n        font-size: 16px;\n        font-family: 'Open Sans'; }\n  .ReportContent .reportDiv .pdfBtn {\n    margin-bottom: 20%; }\n  .ReportContent .reportDiv .sendBtn {\n    margin-top: 12%; }\n  .AlertContent .arrow_div {\n  display: -webkit-box;\n  display: flex;\n  -webkit-box-orient: horizontal;\n  -webkit-box-direction: normal;\n          flex-direction: row;\n  -webkit-box-pack: justify;\n          justify-content: space-between;\n  -webkit-box-align: center;\n          align-items: center;\n  padding: 5px 15px;\n  font-size: 40px;\n  color: #fff;\n  margin-top: 5px; }\n  .AlertContent .arrow_div .Sub_title {\n    color: #fff;\n    font-family: Open Sans Bold;\n    margin: 0;\n    font-size: 25px; }\n  .AlertContent .alertDiv {\n  height: calc(100vh - 275px);\n  width: 100%;\n  display: -webkit-box;\n  display: flex;\n  -webkit-box-orient: vertical;\n  -webkit-box-direction: normal;\n          flex-direction: column;\n  -webkit-box-pack: center;\n          justify-content: center;\n  -webkit-box-align: center;\n          align-items: center; }\n  .AlertContent .alertDiv ion-text h2 {\n    font-size: 16px;\n    font-family: Open Sans SemiBold; }\n  .AlertContent .alertDiv .radioBtnDiv {\n    width: 85%;\n    margin-top: 5%; }\n  .AlertContent .alertDiv .radioBtnDiv ion-list {\n      background: transparent; }\n  .AlertContent .alertDiv .radioBtnDiv ion-list ion-item {\n        --background: transparent;\n        --ripple-color: transparent;\n        --min-height: 30px; }\n  .AlertContent .alertDiv .radioBtnDiv ion-list ion-item ion-label {\n          color: #fff;\n          font-size: 14px;\n          font-family: Open Sans Regular; }\n  .AlertContent .alertDiv .radioBtnDiv ion-list ion-item ion-radio {\n          --color-checked: #00b9ff;\n          --color: #fff;\n          margin-right: 10px; }\n  .AlertContent .alertDiv .radioBtnDiv ion-list ion-item ion-radio::part(container) {\n          border-color: #fff !important; }\n  .AlertContent .alertDiv .radioBtnDiv ion-list .weekly_Div {\n        display: -webkit-box;\n        display: flex;\n        -webkit-box-pack: space-evenly;\n                justify-content: space-evenly;\n        -webkit-box-align: center;\n                align-items: center; }\n  .AlertContent .alertDiv .radioBtnDiv ion-list .weekly_Div span {\n          height: 30px;\n          width: 30px;\n          border-radius: 50%;\n          color: #fff;\n          display: -webkit-box;\n          display: flex;\n          -webkit-box-pack: center;\n                  justify-content: center;\n          -webkit-box-align: center;\n                  align-items: center;\n          background: transparent;\n          -webkit-transition: .3s;\n          transition: .3s; }\n  .AlertContent .alertDiv .radioBtnDiv ion-list .weekly_Div .active {\n          background: #00b9ff; }\n  .AlertContent .alertDiv .radioBtnDiv ion-list .monthly_Div {\n        display: -webkit-box;\n        display: flex;\n        -webkit-box-orient: horizontal;\n        -webkit-box-direction: normal;\n                flex-direction: row;\n        -webkit-box-pack: justify;\n                justify-content: space-between;\n        -webkit-box-align: center;\n                align-items: center;\n        overflow: scroll; }\n  .AlertContent .alertDiv .radioBtnDiv ion-list .monthly_Div p {\n          margin: 0;\n          font-size: 16px;\n          font-family: Open Sans SemiBold; }\n  .AlertContent .alertDiv .radioBtnDiv ion-list:nth-child(2) {\n      margin-top: 20px; }\n  .AlertContent .alertDiv .radioBtnDiv .per_range {\n      padding-left: 0;\n      padding-right: 0;\n      --knob-background: #00b9ff;\n      --knob-border-radius: 25px;\n      --knob-size: 15px;\n      --bar-background: #fff;\n      --bar-background-active: #00b9ff; }\n  .AlertContent .alertDiv .radioBtnDiv .per_range::part(pin) {\n      -webkit-transform: translate3d(0px, 0px, 0px) scale(1);\n              transform: translate3d(0px, 0px, 0px) scale(1);\n      color: #fff;\n      font-size: 12px;\n      font-family: 'Open Sans Regular'; }\n  .AlertContent .alertDiv ion-button {\n    margin-top: 5%;\n    --background: #00b9ff;\n    height: 30px;\n    width: 30%;\n    min-width: 100px;\n    --background-activated: none; }\n  .avoid_looser_content .arrow_div {\n  display: -webkit-box;\n  display: flex;\n  -webkit-box-orient: horizontal;\n  -webkit-box-direction: normal;\n          flex-direction: row;\n  -webkit-box-pack: justify;\n          justify-content: space-between;\n  -webkit-box-align: center;\n          align-items: center;\n  padding: 5px 15px;\n  font-size: 40px;\n  color: #fff; }\n  .avoid_looser_content .secDropDown {\n  --background: #00b9ff;\n  border-radius: 25px;\n  --padding-start: 0;\n  --padding-end: 5px;\n  --padding-top: 0;\n  --padding-bottom: 0;\n  margin: 10px 15px; }\n  .avoid_looser_content .secDropDown div {\n    width: 100%;\n    display: -webkit-box;\n    display: flex;\n    -webkit-box-orient: horizontal;\n    -webkit-box-direction: normal;\n            flex-direction: row;\n    -webkit-box-align: center;\n            align-items: center; }\n  .avoid_looser_content .secDropDown div .sec_Detail {\n      display: -webkit-box;\n      display: flex;\n      -webkit-box-orient: horizontal;\n      -webkit-box-direction: normal;\n              flex-direction: row;\n      -webkit-box-align: center;\n              align-items: center;\n      width: 90%; }\n  .avoid_looser_content .secDropDown div .sec_Detail .medItemSpan {\n        height: 50px;\n        width: 50px;\n        background: #fff;\n        display: -webkit-box;\n        display: flex;\n        -webkit-box-pack: center;\n                justify-content: center;\n        -webkit-box-align: center;\n                align-items: center;\n        border-radius: 50%;\n        margin-right: 5px; }\n  .avoid_looser_content .secDropDown div .sec_Detail .medItemSpan p {\n          font-family: Open Sans SemiBold;\n          margin: 0;\n          font-size: 14px;\n          color: #fff; }\n  .avoid_looser_content .secDropDown div .sec_Detail .Sec_Details_Sub {\n        width: 75%; }\n  .avoid_looser_content .secDropDown div .sec_Detail .Sec_Details_Sub p {\n          margin: 0;\n          font-size: 14px;\n          color: #fff; }\n  .avoid_looser_content .secDropDown div .sec_Detail .Sec_Details_Sub p:first-child {\n          font-family: Open Sans Regular;\n          white-space: nowrap;\n          overflow: hidden;\n          text-overflow: ellipsis; }\n  .avoid_looser_content .secDropDown div .sec_Detail .Sec_Details_Sub p:last-child {\n          font-family: Open Sans SemiBold;\n          white-space: nowrap;\n          overflow: hidden;\n          text-overflow: ellipsis; }\n  .avoid_looser_content .secDropDown div ion-icon {\n      height: 40px;\n      width: 40px;\n      color: #fff; }\n  .avoid_looser_content .mdSlides ion-slide {\n  height: calc(100vh - 360px); }\n  .avoid_looser_content .iosSlides ion-slide {\n  height: calc(100vh - 345px); }\n  .avoid_looser_content ion-slides .CompSlide ion-list::-webkit-scrollbar {\n  display: none; }\n  .avoid_looser_content ion-slides .CompSlide ion-list {\n  height: 100%;\n  overflow: scroll;\n  background: transparent;\n  width: 75%; }\n  .avoid_looser_content ion-slides .CompSlide ion-list .compItem {\n    --background: #00b9ff;\n    display: -webkit-box;\n    display: flex;\n    -webkit-box-orient: horizontal;\n    -webkit-box-direction: normal;\n            flex-direction: row;\n    font-size: 12px;\n    font-family: Open Sans SemiBold;\n    border-radius: 25px;\n    --padding-start: 0;\n    --padding-top: 0;\n    --padding-end: 0;\n    --padding-bottom: 0;\n    --inner-padding-start: 0;\n    --inner-padding-end: 0;\n    margin-bottom: 10px; }\n  .avoid_looser_content ion-slides .CompSlide ion-list .compItem p {\n      margin: 0;\n      color: #fff; }\n  .avoid_looser_content ion-slides .CompSlide ion-list .compItem span {\n      height: 45px;\n      width: 45px;\n      display: -webkit-box;\n      display: flex;\n      -webkit-box-pack: center;\n              justify-content: center;\n      -webkit-box-align: center;\n              align-items: center;\n      border-radius: 50%;\n      background: #fff;\n      margin-right: 10px;\n      border: 2px solid #274b9e;\n      margin-left: -2px; }\n  .avoid_looser_content ion-slides .CompSlide ion-list .compItem div {\n      display: -webkit-box;\n      display: flex;\n      -webkit-box-orient: vertical;\n      -webkit-box-direction: normal;\n              flex-direction: column;\n      -webkit-box-align: unset;\n              align-items: unset; }\n  .avoid_looser_content ion-slides .CompSlide ion-list .compItem div p:last-child {\n        font-family: Open Sans SemiBold; }\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvaG9tZS9DOlxcUHJvamVjdHNcXE5BQWxwaGFNb2JpbGUvc3JjXFxhcHBcXGhvbWVcXGhvbWUucGFnZS5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0ksb0JBQWE7RUFBYixhQUFhO0VBQ2Isa0JBQWtCO0VBQ2xCLHlCQUFtQjtVQUFuQixtQkFBbUI7RUFDbkIseUJBQThCO1VBQTlCLDhCQUE4QjtFQUM5QixrQkFBa0IsRUFBQTtFQUx0QjtJQU9RLFlBQVksRUFBQTtFQVBwQjtJQVVRLFVBQVU7SUFDVixpQkFBaUI7SUFDakIsbUJBQW1CO0lBQ25CLG9CQUFhO0lBQWIsYUFBYTtJQUNiLDhCQUFtQjtJQUFuQiw2QkFBbUI7WUFBbkIsbUJBQW1CO0lBQ25CLHlCQUFtQjtZQUFuQixtQkFBbUIsRUFBQTtFQWYzQjtNQWlCWSxtQkFBbUI7TUFDbkIsbUJBQWlCO01BQ2pCLGtCQUFnQjtNQUNoQixnQkFBYztNQUNkLGdCQUFjO01BQ2QsWUFBWTtNQUNaLFdBQVc7TUFDWCxZQUFZO01BQ1osa0JBQWtCO01BQ2xCLGlCQUFpQixFQUFBO0VBMUI3QjtNQTZCWSxTQUFTO01BQ1QsZUFBZTtNQUNmLCtCQUErQjtNQUMvQixjQUFjO01BQ2QsVUFBVTtNQUNWLGdCQUFnQjtNQUV4Qix1QkFBdUI7TUFDdkIsZ0JBQWdCO01BQ2hCLG1CQUFtQixFQUFBO0VBS3ZCO0VBRUkscUJBQWEsRUFBQTtFQUZqQjtFQUtRLGdCQUFnQixFQUFBO0VBTHhCO0VBUVEsZUFBZSxFQUFBO0VBUnZCO0VBV1EsU0FBUztFQUNULFdBQVc7RUFDWCx5QkFBeUIsRUFBQTtFQUlqQztFQUNJLG9CQUFnQjtFQUNoQixXQUFXO0VBQ1gsZUFBZTtFQUNmLFlBQVk7RUFDWixrQkFBYztFQUNkLHFCQUFpQjtFQUNqQixlQUFlO0VBQ2Ysa0JBQWtCO0VBQ2xCLHFCQUFhO0VBQ2Isa0JBQWEsRUFBQTtFQUdqQjtFQUNJLGVBQWU7RUFDZixrQkFBYztFQUNkLHFCQUFpQjtF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Z0IsWUFBWTtNQUNaLFdBQVc7TUFDWCxXQUFXLEVBQUE7RUFyRTNCO0VBOEVZLDJCQUEyQixFQUFBO0VBOUV2QztFQW9GWSwyQkFBMkIsRUFBQTtFQXBGdkM7RUF3R2dCLGFBQWEsRUFBQTtFQXhHN0I7RUEyR2dCLFlBQVk7RUFDWixnQkFBZ0I7RUFDaEIsdUJBQXVCO0VBQ3ZCLFVBQVUsRUFBQTtFQTlHMUI7SUFtSG9CLHFCQUFhO0lBQ2Isb0JBQWE7SUFBYixhQUFhO0lBQ2IsOEJBQW1CO0lBQW5CLDZCQUFtQjtZQUFuQixtQkFBbUI7SUFDbkIsZUFBZTtJQUNmLCtCQUErQjtJQUMvQixtQkFBbUI7SUFDbkIsa0JBQWdCO0lBQ2hCLGdCQUFjO0lBQ2QsZ0JBQWM7SUFDZCxtQkFBaUI7SUFDakIsd0JBQXNCO0lBQ3RCLHNCQUFvQjtJQUNwQixtQkFBbUIsRUFBQTtFQS9IdkM7TUFpSXdCLFNBQVM7TUFDVCxXQUFXLEVBQUE7RUFsSW5DO01Bc0l3QixZQUFZO01BQ1osV0FBVztNQUNYLG9CQUFhO01BQWIsYUFBYTtNQUNiLHdCQUF1QjtjQUF2Qix1QkFBdUI7TUFDdkIseUJBQW1CO2NBQW5CLG1CQUFtQjtNQUNuQixrQkFBa0I7TUFDbEIsZ0JBQWdCO01BQ2hCLGtCQUFrQjtNQUNsQix5QkFBeUI7TUFDekIsaUJBQWlCLEVBQUE7RUEvSXpDO01BbUp3QixvQkFBYTtNQUFiLGFBQWE7TUFDYiw0QkFBc0I7TUFBdEIsNkJBQXNCO2NBQXRCLHNCQUFzQjtNQUN0Qix3QkFBa0I7Y0FBbEIsa0JBQWtCLEVBQUE7RUFySjFDO1FBd0o0QiwrQkFBK0IsRUFBQSIsImZpbGUiOiJzcmMvYXBwL2hvbWUvaG9tZS5wYWdlLnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyIuaGVhZGVyLUxvZ297XHJcbiAgICBkaXNwbGF5OiBmbGV4O1xyXG4gICAgcGFkZGluZy1sZWZ0OiAxMHB4O1xyXG4gICAgYWxpZ24taXRlbXM6IGNlbnRlcjtcclxuICAgIGp1c3RpZnktY29udGVudDogc3BhY2UtYmV0d2VlbjtcclxuICAgIHBhZGRpbmctcmlnaHQ6IDVweDtcclxuICAgIGltZ3tcclxuICAgICAgICBoZWlnaHQ6IDMwcHg7XHJcbiAgICB9XHJcbiAgICBkaXZ7XHJcbiAgICAgICAgd2lkdGg6IDUwJTtcclxuICAgICAgICBiYWNrZ3JvdW5kOiB3aGl0ZTtcclxuICAgICAgICBib3JkZXItcmFkaXVzOiAyNXB4O1xyXG4gICAgICAgIGRpc3BsYXk6IGZsZXg7XHJcbiAgICAgICAgZmxleC1kaXJlY3Rpb246IHJvdztcclxuICAgICAgICBhbGlnbi1pdGVtczogY2VudGVyO1xyXG4gICAgICAgIGlvbi1hdmF0YXJ7XHJcbiAgICAgICAgICAgIGJhY2tncm91bmQ6ICMwMGI5ZmY7XHJcbiAgICAgICAgICAgIC0tcGFkZGluZy1ib3R0b206IDA7XHJcbiAgICAgICAgICAgIC0tcGFkZGluZy1zdGFydDogMDtcclxuICAgICAgICAgICAgLS1wYWRkaW5nLWVuZDogMDtcclxuICAgICAgICAgICAgLS1wYWRkaW5nLXRvcDogMDtcclxuICAgICAgICAgICAgaGVpZ2h0OiAzNXB4O1xyXG4gICAgICAgICAgICB3aWR0aDogMzVweDtcclxuICAgICAgICAgICAgcGFkZGluZzogNXB4O1xyXG4gICAgICAgICAgICBtYXJnaW4tcmlnaHQ6IDEwcHg7XHJcbiAgICAgICAgICAgIG1hcmdpbi1sZWZ0OiAtMXB4O1xyXG4gICAgICAgIH1cclxuICAgICAgICBwe1xyXG4gICAgICAgICAgICBtYXJnaW46IDA7XHJcbiAgICAgICAgICAgIGZvbnQtc2l6ZTogMTRweDtcclxuICAgICAgICAgICAgZm9udC1mYW1pbHk6IE9wZW4gU2FucyBTZW1pQm9sZDtcclxuICAgICAgICAgICAgY29sb3I6ICMwMGI5ZmY7XHJcbiAgICAgICAgICAgIHdpZHRoOiA3MCU7XHJcbiAgICAgICAgICAgIHRleHQtYWxpZ246IGxlZnQ7XHJcbiAgICAgICAgICAgIFxyXG4gICAgdGV4dC1vdmVyZmxvdzogZWxsaXBzaXM7XHJcbiAgICBvdmVyZmxvdzogaGlkZGVuO1xyXG4gICAgd2hpdGUtc3BhY2U6IG5vd3JhcDtcclxuICAgICAgICB9XHJcbiAgICB9XHJcbn1cclxuXHJcbmlvbi1oZWFkZXJ7XHJcbiAgICBpb24tdG9vbGJhcntcclxuICAgIC0tYmFja2dyb3VuZDogIzI3NGI5ZTtcclxuICAgIH1cclxuICAgIGlvbi10b29sYmFyOm50aC1jaGlsZCgxKXtcclxuICAgICAgICBwYWRkaW5nLXRvcDogNXB4O1xyXG4gICAgfVxyXG4gICAgaW9uLXRvb2xiYXI6bnRoLWNoaWxkKDIpe1xyXG4gICAgICAgIHBhZGRpbmc6IDAgMjVweDtcclxuICAgIH1cclxuICAgIGhye1xyXG4gICAgICAgIG1hcmdpbjogMDtcclxuICAgICAgICBoZWlnaHQ6IDJweDtcclxuICAgICAgICBiYWNrZ3JvdW5kLWNvbG9yOiAjMWEzNTZhO1xyXG4gICAgfVxyXG59XHJcblxyXG4uc2VhcmNoQnRue1xyXG4gICAgLS1ib3JkZXItcmFkaXVzOjE1cHg7XHJcbiAgICB3aWR0aDogNzVweDtcclxuICAgIGZvbnQtc2l6ZTogMTFweDtcclxuICAgIGhlaWdodDogMjRweDtcclxuICAgIC0tcGFkZGluZy10b3A6IDBweDtcclxuICAgIC0tcGFkZGluZy1ib3R0b206IDBweDsgXHJcbiAgICBtYXJnaW4tdG9wOiA0cHg7XHJcbiAgICBtYXJnaW4tYm90dG9tOiA0cHg7ICBcclxuICAgIC0tYmFja2dyb3VuZDogIzAwYWVlZjtcclxuICAgIC0tYm94LXNoYWRvdzogbm9uZTtcclxufVxyXG5cclxuLnNlYXJjaElucHV0e1xyXG4gICAgZm9udC1zaXplOiAxNnB4O1xyXG4gICAgLS1wYWRkaW5nLXRvcDogMHB4O1xyXG4gICAgLS1wYWRkaW5nLWJvdHRvbTogMHB4O1xyXG4gICAgLS1jb2xvcjojNjY2O1xyXG4gICAgdGV4dC1hbGlnbjogY2VudGVyO1xyXG59XHJcblxyXG4uc2VhcmNoSXRlbXtcclxuICAgIC0tYm9yZGVyLXdpZHRoOjJweDtcclxuICAgIC0tYm9yZGVyLWNvbG9yOiAjMDBiOWZmOyBcclxuICAgIC0taW5uZXItcGFkZGluZy1lbmQ6IDVweDtcclxuICAgIC0tYmFja2dyb3VuZDogdHJhbnNwYXJlbnQ7IFxyXG4gICAgLS1ib3JkZXItcmFkaXVzOiAyNXB4O1xyXG4gICAgLS1taW4taGVpZ2h0OiAyOHB4O1xyXG4gICAgaW9uLWxhYmVse1xyXG4gICAgICAgIG1hcmdpbjogMnB4IDBweDtcclxuICAgICAgICBmb250LXNpemU6IDE0cHg7XHJcbiAgICAgICAgYWxpZ24taXRlbXM6IGNlbnRlcjtcclxuICAgICAgICBwYWRkaW5nOiAwIDEwcHg7XHJcbiAgICAgICAgZGlzcGxheTogZmxleDtcclxuICAgICAgICBjb2xvcjogIzg4ODtcclxuICAgICAgICBpb24taWNvbntcclxuICAgICAgICAgICAgY29sb3I6ICMwMGI5ZmY7XHJcbiAgICAgICAgICAgIC13ZWJraXQtdHJhbnNmb3JtOiBzY2FsZVgoLTEpO1xyXG4gICAgICAgICAgICB0cmFuc2Zvcm06IHNjYWxlWCgtMSk7XHJcbiAgICAgICAgICAgIGZvbnQtc2l6ZTogMThweDtcclxuICAgICAgICAgICAgbWFyZ2luLXJpZ2h0OiAxMHB4O1xyXG4gICAgICAgIH1cclxuICAgICAgICBwe1xyXG4gICAgICAgICAgICBmb250LXNpemU6IDE2cHg7XHJcbiAgICAgICAgICAgIGNvbG9yOiAjZmZmO1xyXG4gICAgICAgICAgICBmb250LWZhbWlseTogT3BlbiBTYW5zIFJlZ3VsYXI7XHJcbiAgICAgICAgfVxyXG4gICAgfVxyXG59XHJcblxyXG4uc2VhcmNoRGl2e1xyXG4gICAgcGFkZGluZzogNXB4IDBweDtcclxuICAgIHBhZGRpbmctdG9wOiAyJTtcclxufVxyXG5cclxuaW9uLWNvbnRlbnR7XHJcbiAgICAtLWJhY2tncm91bmQ6ICMyNzRiOWU7XHJcbiAgICAtLW92ZXJmbG93OiBoaWRkZW47XHJcblxyXG4gICAgZGl2e1xyXG4gICAgICAgIGlvbi10ZXh0e1xyXG4gICAgICAgICAgICBjb2xvcjogI2ZmZjtcclxuICAgICAgICAgICAgZm9udC1zaXplOiAxNHB4O1xyXG4gICAgICAgICAgICB0ZXh0LWFsaWduOiBjZW50ZXI7XHJcbiAgICAgICAgICAgIGZvbnQtZmFtaWx5OiBPcGVuIFNhbnMgUmVndWxhcjsgICAgICAgIFxyXG4gICAgICAgIH1cclxuICAgIH1cclxuXHJcbiAgICAuZm9vdG9yX2ljb25fZGl2e1xyXG4gICAgICAgIGRpc3BsYXk6IGZsZXg7XHJcbiAgICAgICAgZmxleC1kaXJlY3Rpb246IHJvdztcclxuICAgICAgICBqdXN0aWZ5LWNvbnRlbnQ6IHNwYWNlLWV2ZW5seTtcclxuICAgICAgICBwb3NpdGlvbjogYWJzb2x1dGU7XHJcbiAgICAgICAgaGVpZ2h0OiAxNSU7XHJcbiAgICAgICAgYm90dG9tOiAwO1xyXG4gICAgICAgIGxlZnQ6IDA7XHJcbiAgICAgICAgcmlnaHQ6IDA7XHJcbiAgICAgICAgYWxpZ24taXRlbXM6IGNlbnRlcjtcclxuXHJcbiAgICAgICAgaW1ne1xyXG4gICAgICAgICAgICBoZWlnaHQ6IDQwcHg7XHJcbiAgICAgICAgfVxyXG4gICAgICAgIGltZzpmaXJzdC1jaGlsZCwgaW1nOmxhc3QtY2hpbGR7XHJcbiAgICAgICAgICAgIG1hcmdpbi1ib3R0b206IDc1cHg7IFxyXG4gICAgICAgIH1cclxuXHJcbiAgICAgICAgaW1nOm50aC1jaGlsZCgyKSwgaW1nOm50aC1jaGlsZCg0KXtcclxuICAgICAgICAgICAgbWFyZ2luLWJvdHRvbTogMjVweDtcclxuICAgICAgICB9XHJcblxyXG4gICAgICAgIGltZzpmaXJzdC1jaGlsZCwgaW1nOm50aC1jaGlsZCgyKXtcclxuICAgICAgICAgICAgb3BhY2l0eTogMC41O1xyXG4gICAgICAgIH1cclxuICAgIH1cclxufVxyXG5cclxuLk1haW5Db250ZW50e1xyXG4gICAgLnNlY0Ryb3BEb3due1xyXG4gICAgICAgIC0tYmFja2dyb3VuZDogIzAwYjlmZjtcclxuICAgIGJvcmRlci1yYWRpdXM6IDI1cHg7XHJcbiAgICAtLXBhZGRpbmctc3RhcnQ6IDA7XHJcbiAgICAtLXBhZGRpbmctZW5kOiA1cHg7XHJcbiAgICAtLXBhZGRpbmctdG9wOiAwO1xyXG4gICAgLS1wYWRkaW5nLWJvdHRvbTogMDtcclxuICAgIG1hcmdpbjogMTBweCAxNXB4O1xyXG4gICAgICAgIGRpdntcclxuICAgICAgICAgICAgd2lkdGg6IDEwMCU7XHJcbiAgICAgICAgICAgIGRpc3BsYXk6IGZsZXg7XHJcbiAgICAgICAgICAgIGZsZXgtZGlyZWN0aW9uOiByb3c7XHJcbiAgICAgICAgICAgIGFsaWduLWl0ZW1zOiBjZW50ZXI7XHJcbiAgICAgICAgICAgIC5zZWNfRGV0YWlse1xyXG4gICAgICAgICAgICAgICAgZGlzcGxheTogZmxleDtcclxuICAgICAgICAgICAgICAgIGZsZXgtZGlyZWN0aW9uOiByb3c7XHJcbiAgICAgICAgICAgICAgICBhbGlnbi1pdGVtczogY2VudGVyO1xyXG4gICAgICAgICAgICAgICAgd2lkdGg6IDkwJTtcclxuICAgICAgICAgICAgICAgIC5tZWRJdGVtU3BhbntcclxuICAgICAgICAgICAgICAgICAgICBoZWlnaHQ6IDUwcHg7XHJcbiAgICAgICAgICAgICAgICAgICAgd2lkdGg6IDUwcHg7XHJcbiAgICAgICAgICAgICAgICAgICAgYmFja2dyb3VuZDogI2ZmZjtcclxuICAgICAgICAgICAgICAgICAgICBkaXNwbGF5OiBmbGV4O1xyXG4gICAgICAgICAgICAgICAgICAgIGp1c3RpZnktY29udGVudDogY2VudGVyO1xyXG4gICAgICAgICAgICAgICAgICAgIGFsaWduLWl0ZW1zOiBjZW50ZXI7XHJcbiAgICAgICAgICAgICAgICAgICAgYm9yZGVyLXJhZGl1czogNTAlO1xyXG4gICAgICAgICAgICAgICAgICAgIG1hcmdpbi1yaWdodDogNXB4O1xyXG4gICAgICAgICAgICAgICAgICAgIHB7XHJcbiAgICAgICAgICAgICAgICAgICAgICAgIGZvbnQtZmFtaWx5OiBPcGVuIFNhbnMgU2VtaUJvbGQ7XHJcbiAgICAgICAgICAgICAgICAgICAgICAgIG1hcmdpbjogMDtcclxuICAgICAgICAgICAgICAgICAgICAgICAgZm9udC1zaXplOiAxNHB4O1xyXG4gICAgICAgICAgICAgICAgICAgICAgICBjb2xvcjogI2ZmZjtcclxuICAgICAgICAgICAgICAgICAgICB9XHJcbiAgICAgICAgICAgICAgICB9XHJcbiAgICAgICAgICAgICAgICAuU2VjX0RldGFpbHNfU3Vie1xyXG4gICAgICAgICAgICAgICAgICAgIHdpZHRoOiA3NSU7XHJcbiAgICAgICAgICAgICAgICAgICAgcHtcclxuICAgICAgICAgICAgICAgICAgICAgICAgbWFyZ2luOiAwO1xyXG4gICAgICAgICAgICAgICAgICAgICAgICBmb250LXNpemU6IDE0cHg7XHJcbiAgICAgICAgICAgICAgICAgICAgICAgIGNvbG9yOiAjZmZmO1xyXG4gICAgICAgICAgICAgICAgICAgIH1cclxuICAgICAgICAgICAgICAgICAgICBwOmZpcnN0LWNoaWxke1xyXG4gICAgICAgICAgICAgICAgICAgICAgICBmb250LWZhbWlseTogT3BlbiBTYW5zIFJlZ3VsYXI7XHJcbiAgICAgICAgICAgICAgICAgICAgICAgIHdoaXRlLXNwYWNlOiBub3dyYXA7XHJcbiAgICAgICAgICAgICAgICAgICAgICAgIG92ZXJmbG93OiBoaWRkZW47XHJcbiAgICAgICAgICAgICAgICAgICAgICAgIHRleHQtb3ZlcmZsb3c6IGVsbGlwc2lzO1xyXG4gICAgICAgICAgICAgICAgICAgIH1cclxuICAgICAgICAgICAgICAgICAgICBwOmxhc3QtY2hpbGR7XHJcbiAgICAgICAgICAgICAgICAgICAgICAgIGZvbnQtZmFtaWx5OiBPcGVuIFNhbnMgU2VtaUJvbGQ7XHJcbiAgICAgICAgICAgICAgICAgICAgICAgIHdoaXRlLXNwYWNlOiBub3dyYXA7XHJcbiAgICAgICAgICAgICAgICAgICAgICAgIG92ZXJmbG93OiBoaWRkZW47XHJcbiAgICAgICAgICAgICAgICAgICAgICAgIHRleHQtb3ZlcmZsb3c6IGVsbGlwc2lzO1xyXG4gICAgICAgICAgICAgICAgICAgIH1cclxuICAgICAgICAgICAgICAgIH1cclxuICAgICAgICAgICAgfVxyXG5cclxuICAgICAgICAgICAgaW9uLWljb257XHJcbiAgICAgICAgICAgICAgICBoZWlnaHQ6IDQwcHg7XHJcbiAgICAgICAgICAgICAgICB3aWR0aDogNDBweDtcclxuICAgICAgICAgICAgICAgIGNvbG9yOiAjZmZmO1xyXG4gICAgICAgICAgICB9XHJcbiAgICAgICAgfVxyXG5cclxuICAgICAgICBcclxuICAgIH1cclxuXHJcbiAgICAuYXJyb3dfZGl2e1xyXG4gICAgICAgIGRpc3BsYXk6IGZsZXg7XHJcbiAgICAgICAgZmxleC1kaXJlY3Rpb246IHJvdztcclxuICAgICAgICBqdXN0aWZ5LWNvbnRlbnQ6IHNwYWNlLWJldHdlZW47XHJcbiAgICAgICAgYWxpZ24taXRlbXM6IGNlbnRlcjtcclxuICAgICAgICBwYWRkaW5nOiA1cHggMTVweDtcclxuICAgICAgICBmb250LXNpemU6IDQwcHg7XHJcbiAgICAgICAgY29sb3I6ICNmZmY7XHJcbiAgICB9XHJcblxyXG4gICAgLm1kU2xpZGVze1xyXG4gICAgICAgIGlvbi1zbGlkZXtcclxuICAgICAgICAgICAgaGVpZ2h0OiBjYWxjKDEwMHZoIC0gMzYwcHgpO1xyXG4gICAgICAgIH1cclxuICAgIH1cclxuXHJcbiAgICAuaW9zU2xpZGVze1xyXG4gICAgICAgIGlvbi1zbGlkZXtcclxuICAgICAgICAgICAgaGVpZ2h0OiBjYWxjKDEwMHZoIC0gMzQ1cHgpO1xyXG4gICAgICAgIH1cclxuICAgIH1cclxuXHJcbiAgICBpb24tc2xpZGVze1xyXG4gICAgICAgIC8vIGlvbi1zbGlkZXtcclxuICAgICAgICAvLyAgICAgaGVpZ2h0OiBjYWxjKDEwMHZoIC0gMzQ1cHgpO1xyXG4gICAgICAgIC8vIH1cclxuXHJcbiAgICAgICAgLkNvbXBTbGlkZXtcclxuICAgICAgICAgICAgaW9uLWxpc3Q6Oi13ZWJraXQtc2Nyb2xsYmFyIHtcclxuICAgICAgICAgICAgICAgIGRpc3BsYXk6IG5vbmU7XHJcbiAgICAgICAgICAgICAgfVxyXG4gICAgICAgICAgICBpb24tbGlzdHtcclxuICAgICAgICAgICAgICAgIGhlaWdodDogMTAwJTtcclxuICAgICAgICAgICAgICAgIG92ZXJmbG93OiBzY3JvbGw7XHJcbiAgICAgICAgICAgICAgICBiYWNrZ3JvdW5kOiB0cmFuc3BhcmVudDtcclxuICAgICAgICAgICAgICAgIHdpZHRoOiA3NSU7XHJcblxyXG4gICAgICAgICAgICAgICAgXHJcblxyXG4gICAgICAgICAgICAgICAgLmNvbXBJdGVte1xyXG4gICAgICAgICAgICAgICAgICAgIC0tYmFja2dyb3VuZDogIzAwYjlmZjtcclxuICAgICAgICAgICAgICAgICAgICBkaXNwbGF5OiBmbGV4O1xyXG4gICAgICAgICAgICAgICAgICAgIGZsZXgtZGlyZWN0aW9uOiByb3c7XHJcbiAgICAgICAgICAgICAgICAgICAgZm9udC1zaXplOiAxMnB4O1xyXG4gICAgICAgICAgICAgICAgICAgIGZvbnQtZmFtaWx5OiBPcGVuIFNhbnMgU2VtaUJvbGQ7XHJcbiAgICAgICAgICAgICAgICAgICAgYm9yZGVyLXJhZGl1czogMjVweDtcclxuICAgICAgICAgICAgICAgICAgICAtLXBhZGRpbmctc3RhcnQ6IDA7XHJcbiAgICAgICAgICAgICAgICAgICAgLS1wYWRkaW5nLXRvcDogMDtcclxuICAgICAgICAgICAgICAgICAgICAtLXBhZGRpbmctZW5kOiAwO1xyXG4gICAgICAgICAgICAgICAgICAgIC0tcGFkZGluZy1ib3R0b206IDA7XHJcbiAgICAgICAgICAgICAgICAgICAgLS1pbm5lci1wYWRkaW5nLXN0YXJ0OiAwO1xyXG4gICAgICAgICAgICAgICAgICAgIC0taW5uZXItcGFkZGluZy1lbmQ6IDA7XHJcbiAgICAgICAgICAgICAgICAgICAgbWFyZ2luLWJvdHRvbTogMTBweDtcclxuICAgICAgICAgICAgICAgICAgICBwe1xyXG4gICAgICAgICAgICAgICAgICAgICAgICBtYXJnaW46IDA7XHJcbiAgICAgICAgICAgICAgICAgICAgICAgIGNvbG9yOiAjZmZmO1xyXG4gICAgICAgICAgICAgICAgICAgIH1cclxuXHJcbiAgICAgICAgICAgICAgICAgICAgc3BhbntcclxuICAgICAgICAgICAgICAgICAgICAgICAgaGVpZ2h0OiA0NXB4O1xyXG4gICAgICAgICAgICAgICAgICAgICAgICB3aWR0aDogNDVweDtcclxuICAgICAgICAgICAgICAgICAgICAgICAgZGlzcGxheTogZmxleDtcclxuICAgICAgICAgICAgICAgICAgICAgICAganVzdGlmeS1jb250ZW50OiBjZW50ZXI7XHJcbiAgICAgICAgICAgICAgICAgICAgICAgIGFsaWduLWl0ZW1zOiBjZW50ZXI7XHJcbiAgICAgICAgICAgICAgICAgICAgICAgIGJvcmRlci1yYWRpdXM6IDUwJTtcclxuICAgICAgICAgICAgICAgICAgICAgICAgYmFja2dyb3VuZDogI2ZmZjtcclxuICAgICAgICAgICAgICAgICAgICAgICAgbWFyZ2luLXJpZ2h0OiAxMHB4O1xyXG4gICAgICAgICAgICAgICAgICAgICAgICBib3JkZXI6IDJweCBzb2xpZCAjMjc0YjllO1xyXG4gICAgICAgICAgICAgICAgICAgICAgICBtYXJnaW4tbGVmdDogLTJweDtcclxuICAgICAgICAgICAgICAgICAgICB9XHJcblxyXG4gICAgICAgICAgICAgICAgICAgIGRpdntcclxuICAgICAgICAgICAgICAgICAgICAgICAgZGlzcGxheTogZmxleDtcclxuICAgICAgICAgICAgICAgICAgICAgICAgZmxleC1kaXJlY3Rpb246IGNvbHVtbjtcclxuICAgICAgICAgICAgICAgICAgICAgICAgYWxpZ24taXRlbXM6IHVuc2V0O1xyXG4gICAgICAgICAgICAgICAgICAgICAgICBcclxuICAgICAgICAgICAgICAgICAgICAgICAgcDpsYXN0LWNoaWxke1xyXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgZm9udC1mYW1pbHk6IE9wZW4gU2FucyBTZW1pQm9sZDtcclxuICAgICAgICAgICAgICAgICAgICAgICAgfVxyXG4gICAgICAgICAgICAgICAgICAgIH1cclxuICAgICAgICAgICAgICAgIH1cclxuICAgICAgICAgICAgfVxyXG4gICAgICAgIH1cclxuXHJcbiAgICAgICAgLmNpcmNsZVNsaWRle1xyXG4gICAgICAgICAgICAuc3RhcnQtcmluZyB7XHJcbiAgICAgICAgICAgICAgICBzdHJva2Utd2lkdGg6IDEwcHg7XHJcbiAgICAgICAgICAgICAgICBzdHJva2U6ICMwZTgyZTU7XHJcbiAgICAgICAgICAgICAgICBmaWxsOiAjZmZmO1xyXG4gICAgICAgICAgICAgIH1cclxuICAgICAgICB9XHJcbiAgICB9XHJcbn1cclxuXHJcbi5hY3RpdmV7XHJcbiAgICAtLWJhY2tncm91bmQ6ICNmZmYgIWltcG9ydGFudDtcclxufVxyXG5cclxuLlJlcG9ydENvbnRlbnR7XHJcbiAgICAuYXJyb3dfZGl2e1xyXG4gICAgICAgIGRpc3BsYXk6IGZsZXg7XHJcbiAgICAgICAgZmxleC1kaXJlY3Rpb246IHJvdztcclxuICAgICAgICBqdXN0aWZ5LWNvbnRlbnQ6IHNwYWNlLWJldHdlZW47XHJcbiAgICAgICAgYWxpZ24taXRlbXM6IGNlbnRlcjtcclxuICAgICAgICBwYWRkaW5nOiA1cHggMTVweDtcclxuICAgICAgICBmb250LXNpemU6IDQwcHg7XHJcbiAgICAgICAgY29sb3I6ICNmZmY7XHJcbiAgICAgICAgbWFyZ2luLXRvcCA6IDVweDtcclxuXHJcbiAgICAgICAgLlN1Yl90aXRsZXtcclxuICAgICAgICAgICAgY29sb3I6ICNmZmY7XHJcbiAgICAgICAgICAgIGZvbnQtZmFtaWx5OiBPcGVuIFNhbnMgQm9sZDtcclxuICAgICAgICAgICAgbWFyZ2luOiAwO1xyXG4gICAgICAgICAgICBmb250LXNpemU6IDI1cHg7XHJcbiAgICAgICAgfVxyXG4gICAgfVxyXG5cclxuICAgIC5yZXBvcnREaXZ7XHJcbiAgICAgICAgaGVpZ2h0OiBjYWxjKDEwMHZoIC0gMjc1cHgpO1xyXG4gICAgICAgIHdpZHRoOiAxMDAlO1xyXG4gICAgICAgIGRpc3BsYXk6IGZsZXg7XHJcbiAgICAgICAgZmxleC1kaXJlY3Rpb246IGNvbHVtbjtcclxuICAgICAgICBqdXN0aWZ5LWNvbnRlbnQ6IGNlbnRlcjtcclxuICAgICAgICBhbGlnbi1pdGVtczogY2VudGVyO1xyXG5cclxuICAgICAgICBpb24tYnV0dG9ue1xyXG4gICAgICAgICAgICBoZWlnaHQ6IDM1cHg7XHJcbiAgICAgICAgICAgIHdpZHRoOiAzMCU7XHJcbiAgICAgICAgICAgIC0tYmFja2dyb3VuZDogIzAwYjlmZjtcclxuICAgICAgICAgICAgLS1iYWNrZ3JvdW5kLWFjdGl2YXRlZDogIzAwYjlmZjtcclxuICAgICAgICAgICAgLS1jb2xvcjogI2ZmZjtcclxuICAgICAgICB9XHJcblxyXG4gICAgICAgIGlvbi1saXN0e1xyXG4gICAgICAgICAgICBiYWNrZ3JvdW5kOiAjMjc0YjllO1xyXG5cclxuICAgICAgICAgICAgaW9uLWxpc3QtaGVhZGVye1xyXG4gICAgICAgICAgICAgICAgcGFkZGluZy1pbmxpbmUtc3RhcnQ6IDA7XHJcbiAgICAgICAgICAgICAgICBtYXJnaW4tYm90dG9tOiA1JTtcclxuXHJcbiAgICAgICAgICAgICAgICAubGlzdF9oZWFkZXJ7XHJcbiAgICAgICAgICAgICAgICAgICAgY29sb3I6ICNmZmY7XHJcbiAgICAgICAgICAgICAgICAgICAgZm9udC1zaXplOiAyMHB4O1xyXG4gICAgICAgICAgICAgICAgICAgIGZvbnQtZmFtaWx5OiAnT3BlbiBTYW5zIFNlbWlCb2xkJztcclxuICAgICAgICAgICAgICAgICAgICB0ZXh0LWFsaWduOiBjZW50ZXI7XHJcbiAgICAgICAgICAgICAgICB9XHJcbiAgICAgICAgICAgIH1cclxuICAgICAgICAgICAgXHJcblxyXG4gICAgICAgICAgICBpb24taXRlbXtcclxuICAgICAgICAgICAgICAgIC0tYmFja2dyb3VuZDogdHJhbnNwYXJlbnQ7XHJcbiAgICAgICAgICAgICAgICAtLXJpcHBsZS1jb2xvcjogdHJhbnNwYXJlbnQ7XHJcblxyXG4gICAgICAgICAgICAgICAgaW9uLXJhZGlve1xyXG4gICAgICAgICAgICAgICAgICAgIC0tY29sb3ItY2hlY2tlZDogIzAwYjlmZjtcclxuICAgICAgICAgICAgICAgICAgICAtLWNvbG9yOiAjZmZmO1xyXG4gICAgICAgICAgICAgICAgICAgIG1hcmdpbi1yaWdodDogMTBweDtcclxuICAgICAgICAgICAgICAgIH1cclxuXHJcbiAgICAgICAgICAgICAgICBpb24tcmFkaW86OnBhcnQoY29udGFpbmVyKXtcclxuICAgICAgICAgICAgICAgICAgICBib3JkZXItY29sb3I6ICNmZmYgIWltcG9ydGFudDtcclxuICAgICAgICAgICAgICAgIH1cclxuXHJcbiAgICAgICAgICAgICAgICBpb24tbGFiZWx7XHJcbiAgICAgICAgICAgICAgICAgICAgLS1jb2xvcjogI2ZmZjtcclxuICAgICAgICAgICAgICAgICAgICBmb250LXNpemU6IDE2cHg7XHJcbiAgICAgICAgICAgICAgICAgICAgZm9udC1mYW1pbHk6ICdPcGVuIFNhbnMnO1xyXG4gICAgICAgICAgICAgICAgfVxyXG4gICAgICAgICAgICB9XHJcbiAgICAgICAgfVxyXG5cclxuICAgICAgICAucGRmQnRue1xyXG4gICAgICAgICAgICAgICAgbWFyZ2luLWJvdHRvbTogMjAlO1xyXG4gICAgICAgIH1cclxuXHJcbiAgICAgICAgLnNlbmRCdG57XHJcbiAgICAgICAgICAgIG1hcmdpbi10b3A6IDEyJTtcclxuICAgICAgICB9XHJcbiAgICB9XHJcbn1cclxuXHJcbi5BbGVydENvbnRlbnR7XHJcbiAgICAuYXJyb3dfZGl2e1xyXG4gICAgICAgIGRpc3BsYXk6IGZsZXg7XHJcbiAgICAgICAgZmxleC1kaXJlY3Rpb246IHJvdztcclxuICAgICAgICBqdXN0aWZ5LWNvbnRlbnQ6IHNwYWNlLWJldHdlZW47XHJcbiAgICAgICAgYWxpZ24taXRlbXM6IGNlbnRlcjtcclxuICAgICAgICBwYWRkaW5nOiA1cHggMTVweDtcclxuICAgICAgICBmb250LXNpemU6IDQwcHg7XHJcbiAgICAgICAgY29sb3I6ICNmZmY7XHJcbiAgICAgICAgbWFyZ2luLXRvcCA6IDVweDtcclxuXHJcbiAgICAgICAgLlN1Yl90aXRsZXtcclxuICAgICAgICAgICAgY29sb3I6ICNmZmY7XHJcbiAgICAgICAgICAgIGZvbnQtZmFtaWx5OiBPcGVuIFNhbnMgQm9sZDtcclxuICAgICAgICAgICAgbWFyZ2luOiAwO1xyXG4gICAgICAgICAgICBmb250LXNpemU6IDI1cHg7XHJcbiAgICAgICAgfVxyXG4gICAgfVxyXG5cclxuICAgIC5hbGVydERpdntcclxuICAgICAgICBoZWlnaHQ6IGNhbGMoMTAwdmggLSAyNzVweCk7XHJcbiAgICAgICAgd2lkdGg6IDEwMCU7XHJcbiAgICAgICAgZGlzcGxheTogZmxleDtcclxuICAgIGZsZXgtZGlyZWN0aW9uOiBjb2x1bW47XHJcbiAgICBqdXN0aWZ5LWNvbnRlbnQ6IGNlbnRlcjtcclxuICAgIGFsaWduLWl0ZW1zOiBjZW50ZXI7XHJcblxyXG4gICAgICAgIGlvbi10ZXh0e1xyXG4gICAgICAgICAgICBoMntcclxuICAgICAgICAgICAgICAgIGZvbnQtc2l6ZTogMTZweDtcclxuICAgICAgICAgICAgICAgIGZvbnQtZmFtaWx5OiBPcGVuIFNhbnMgU2VtaUJvbGQ7XHJcbiAgICAgICAgICAgIH1cclxuICAgICAgICB9XHJcblxyXG4gICAgICAgIC5yYWRpb0J0bkRpdntcclxuICAgICAgICAgICAgd2lkdGg6IDg1JTtcclxuICAgICAgICAgICAgbWFyZ2luLXRvcDogNSU7XHJcblxyXG4gICAgICAgICAgICBpb24tbGlzdHtcclxuICAgICAgICAgICAgICAgIGJhY2tncm91bmQ6IHRyYW5zcGFyZW50O1xyXG4gICAgICAgICAgICAgICAgXHJcbiAgICAgICAgICAgICAgICBpb24taXRlbXtcclxuICAgICAgICAgICAgICAgICAgICAtLWJhY2tncm91bmQ6IHRyYW5zcGFyZW50O1xyXG4gICAgICAgICAgICAgICAgICAgIC0tcmlwcGxlLWNvbG9yOiB0cmFuc3BhcmVudDtcclxuICAgICAgICAgICAgICAgICAgICAtLW1pbi1oZWlnaHQ6IDMwcHg7XHJcbiAgICBcclxuICAgICAgICAgICAgICAgICAgICBpb24tbGFiZWx7XHJcbiAgICAgICAgICAgICAgICAgICAgICAgIGNvbG9yOiAjZmZmO1xyXG4gICAgICAgICAgICAgICAgICAgICAgICBmb250LXNpemU6IDE0cHg7XHJcbiAgICAgICAgICAgICAgICAgICAgICAgIGZvbnQtZmFtaWx5OiBPcGVuIFNhbnMgUmVndWxhcjtcclxuICAgICAgICAgICAgICAgICAgICB9XHJcbiAgICBcclxuICAgICAgICAgICAgICAgICAgICBpb24tcmFkaW97XHJcbiAgICAgICAgICAgICAgICAgICAgICAgIC0tY29sb3ItY2hlY2tlZDogIzAwYjlmZjtcclxuICAgICAgICAgICAgICAgICAgICAgICAgLS1jb2xvcjogI2ZmZjtcclxuICAgICAgICAgICAgICAgICAgICAgICAgbWFyZ2luLXJpZ2h0OiAxMHB4O1xyXG4gICAgICAgICAgICAgICAgICAgIH1cclxuICAgIFxyXG4gICAgICAgICAgICAgICAgICAgIGlvbi1yYWRpbzo6cGFydChjb250YWluZXIpe1xyXG4gICAgICAgICAgICAgICAgICAgICAgICBib3JkZXItY29sb3I6ICNmZmYgIWltcG9ydGFudDtcclxuICAgICAgICAgICAgICAgICAgICB9XHJcbiAgICAgICAgICAgICAgICB9XHJcblxyXG4gICAgICAgICAgICAgICAgLndlZWtseV9EaXZ7XHJcbiAgICAgICAgICAgICAgICAgICAgZGlzcGxheTogZmxleDtcclxuICAgICAgICAgICAgICAgICAgICBqdXN0aWZ5LWNvbnRlbnQ6IHNwYWNlLWV2ZW5seTtcclxuICAgICAgICAgICAgICAgICAgICBhbGlnbi1pdGVtczogY2VudGVyO1xyXG4gICAgICAgICAgICAgICAgICAgIHNwYW57XHJcbiAgICAgICAgICAgICAgICAgICAgICAgIGhlaWdodDogMzBweDtcclxuICAgICAgICAgICAgICAgICAgICAgICAgd2lkdGg6IDMwcHg7XHJcbiAgICAgICAgICAgICAgICAgICAgICAgIGJvcmRlci1yYWRpdXM6IDUwJTtcclxuICAgICAgICAgICAgICAgICAgICAgICAgY29sb3I6ICNmZmY7XHJcbiAgICAgICAgICAgICAgICAgICAgICAgIGRpc3BsYXk6IGZsZXg7XHJcbiAgICAgICAgICAgICAgICAgICAgICAgIGp1c3RpZnktY29udGVudDogY2VudGVyO1xyXG4gICAgICAgICAgICAgICAgICAgICAgICBhbGlnbi1pdGVtczogY2VudGVyO1xyXG4gICAgICAgICAgICAgICAgICAgICAgICBiYWNrZ3JvdW5kOiB0cmFuc3BhcmVudDtcclxuICAgICAgICAgICAgICAgICAgICAgICAgdHJhbnNpdGlvbjogLjNzO1xyXG4gICAgICAgICAgICAgICAgICAgIH1cclxuICAgICAgICAgICAgICAgICAgICAuYWN0aXZle1xyXG4gICAgICAgICAgICAgICAgICAgICAgICBiYWNrZ3JvdW5kOiAjMDBiOWZmO1xyXG4gICAgICAgICAgICAgICAgICAgIH1cclxuICAgICAgICAgICAgICAgIH1cclxuXHJcbiAgICAgICAgICAgICAgICAubW9udGhseV9EaXZ7XHJcbiAgICAgICAgICAgICAgICAgICAgZGlzcGxheTogZmxleDtcclxuICAgICAgICAgICAgICAgICAgICBmbGV4LWRpcmVjdGlvbjogcm93O1xyXG4gICAgICAgICAgICAgICAgICAgIGp1c3RpZnktY29udGVudDogc3BhY2UtYmV0d2VlbjtcclxuICAgICAgICAgICAgICAgICAgICBhbGlnbi1pdGVtczogY2VudGVyO1xyXG4gICAgICAgICAgICAgICAgICAgIG92ZXJmbG93OiBzY3JvbGw7XHJcbiAgICAgICAgICAgICAgICAgICAgcHtcclxuICAgICAgICAgICAgICAgICAgICAgICAgbWFyZ2luOiAwO1xyXG4gICAgICAgICAgICAgICAgICAgICAgICBmb250LXNpemU6IDE2cHg7XHJcbiAgICAgICAgICAgICAgICAgICAgICAgIGZvbnQtZmFtaWx5OiBPcGVuIFNhbnMgU2VtaUJvbGQ7XHJcbiAgICAgICAgICAgICAgICAgICAgfVxyXG4gICAgICAgICAgICAgICAgfVxyXG4gICAgICAgICAgICB9XHJcblxyXG4gICAgICAgICAgICBpb24tbGlzdDpudGgtY2hpbGQoMil7XHJcbiAgICAgICAgICAgICAgICBtYXJnaW4tdG9wOiAyMHB4O1xyXG4gICAgICAgICAgICB9XHJcblxyXG4gICAgICAgICAgICAucGVyX3Jhbmdle1xyXG4gICAgICAgICAgICAgICAgcGFkZGluZy1sZWZ0OiAwO1xyXG4gICAgICAgICAgICAgICAgcGFkZGluZy1yaWdodDogMDtcclxuICAgICAgICAgICAgICAgIC0ta25vYi1iYWNrZ3JvdW5kOiAjMDBiOWZmO1xyXG4gICAgICAgICAgICAgICAgLS1rbm9iLWJvcmRlci1yYWRpdXM6IDI1cHg7XHJcbiAgICAgICAgICAgICAgICAtLWtub2Itc2l6ZTogMTVweDtcclxuICAgICAgICAgICAgICAgIC0tYmFyLWJhY2tncm91bmQ6ICNmZmY7XHJcbiAgICAgICAgICAgICAgICAtLWJhci1iYWNrZ3JvdW5kLWFjdGl2ZTogIzAwYjlmZjtcclxuICAgICAgICAgICAgfVxyXG5cclxuICAgICAgICAgICAgLnBlcl9yYW5nZTo6cGFydChwaW4pe1xyXG4gICAgICAgICAgICAgICAgdHJhbnNmb3JtOiB0cmFuc2xhdGUzZCgwcHgsIDBweCwgMHB4KSBzY2FsZSgxKTtcclxuICAgICAgICAgICAgICAgIGNvbG9yOiAjZmZmO1xyXG4gICAgICAgICAgICAgICAgZm9udC1zaXplOiAxMnB4O1xyXG4gICAgICAgICAgICAgICAgZm9udC1mYW1pbHk6ICdPcGVuIFNhbnMgUmVndWxhcic7XHJcbiAgICAgICAgICAgIH1cclxuICAgICAgICB9XHJcblxyXG4gICAgICAgIGlvbi1idXR0b257XHJcbiAgICAgICAgICAgIG1hcmdpbi10b3A6IDUlO1xyXG4gICAgICAgICAgICAtLWJhY2tncm91bmQ6ICMwMGI5ZmY7XHJcbiAgICAgICAgICAgIGhlaWdodDogMzBweDtcclxuICAgICAgICAgICAgd2lkdGg6IDMwJTtcclxuICAgICAgICAgICAgbWluLXdpZHRoOiAxMDBweDtcclxuICAgICAgICAgICAgLS1iYWNrZ3JvdW5kLWFjdGl2YXRlZDogbm9uZTtcclxuXHJcbiAgICAgICAgfVxyXG5cclxuICAgICAgICBcclxuICAgIH1cclxuXHJcbn1cclxuXHJcbi5hdm9pZF9sb29zZXJfY29udGVudHtcclxuICAgIC5hcnJvd19kaXZ7XHJcbiAgICAgICAgZGlzcGxheTogZmxleDtcclxuICAgICAgICBmbGV4LWRpcmVjdGlvbjogcm93O1xyXG4gICAgICAgIGp1c3RpZnktY29udGVudDogc3BhY2UtYmV0d2VlbjtcclxuICAgICAgICBhbGlnbi1pdGVtczogY2VudGVyO1xyXG4gICAgICAgIHBhZGRpbmc6IDVweCAxNXB4O1xyXG4gICAgICAgIGZvbnQtc2l6ZTogNDBweDtcclxuICAgICAgICBjb2xvcjogI2ZmZjtcclxuICAgIH1cclxuICAgIC5zZWNEcm9wRG93bntcclxuICAgICAgICAtLWJhY2tncm91bmQ6ICMwMGI5ZmY7XHJcbiAgICBib3JkZXItcmFkaXVzOiAyNXB4O1xyXG4gICAgLS1wYWRkaW5nLXN0YXJ0OiAwO1xyXG4gICAgLS1wYWRkaW5nLWVuZDogNXB4O1xyXG4gICAgLS1wYWRkaW5nLXRvcDogMDtcclxuICAgIC0tcGFkZGluZy1ib3R0b206IDA7XHJcbiAgICBtYXJnaW46IDEwcHggMTVweDtcclxuICAgICAgICBkaXZ7XHJcbiAgICAgICAgICAgIHdpZHRoOiAxMDAlO1xyXG4gICAgICAgICAgICBkaXNwbGF5OiBmbGV4O1xyXG4gICAgICAgICAgICBmbGV4LWRpcmVjdGlvbjogcm93O1xyXG4gICAgICAgICAgICBhbGlnbi1pdGVtczogY2VudGVyO1xyXG4gICAgICAgICAgICAuc2VjX0RldGFpbHtcclxuICAgICAgICAgICAgICAgIGRpc3BsYXk6IGZsZXg7XHJcbiAgICAgICAgICAgICAgICBmbGV4LWRpcmVjdGlvbjogcm93O1xyXG4gICAgICAgICAgICAgICAgYWxpZ24taXRlbXM6IGNlbnRlcjtcclxuICAgICAgICAgICAgICAgIHdpZHRoOiA5MCU7XHJcbiAgICAgICAgICAgICAgICAubWVkSXRlbVNwYW57XHJcbiAgICAgICAgICAgICAgICAgICAgaGVpZ2h0OiA1MHB4O1xyXG4gICAgICAgICAgICAgICAgICAgIHdpZHRoOiA1MHB4O1xyXG4gICAgICAgICAgICAgICAgICAgIGJhY2tncm91bmQ6ICNmZmY7XHJcbiAgICAgICAgICAgICAgICAgICAgZGlzcGxheTogZmxleDtcclxuICAgICAgICAgICAgICAgICAgICBqdXN0aWZ5LWNvbnRlbnQ6IGNlbnRlcjtcclxuICAgICAgICAgICAgICAgICAgICBhbGlnbi1pdGVtczogY2VudGVyO1xyXG4gICAgICAgICAgICAgICAgICAgIGJvcmRlci1yYWRpdXM6IDUwJTtcclxuICAgICAgICAgICAgICAgICAgICBtYXJnaW4tcmlnaHQ6IDVweDtcclxuICAgICAgICAgICAgICAgICAgICBwe1xyXG4gICAgICAgICAgICAgICAgICAgICAgICBmb250LWZhbWlseTogT3BlbiBTYW5zIFNlbWlCb2xkO1xyXG4gICAgICAgICAgICAgICAgICAgICAgICBtYXJnaW46IDA7XHJcbiAgICAgICAgICAgICAgICAgICAgICAgIGZvbnQtc2l6ZTogMTRweDtcclxuICAgICAgICAgICAgICAgICAgICAgICAgY29sb3I6ICNmZmY7XHJcbiAgICAgICAgICAgICAgICAgICAgfVxyXG4gICAgICAgICAgICAgICAgfVxyXG4gICAgICAgICAgICAgICAgLlNlY19EZXRhaWxzX1N1YntcclxuICAgICAgICAgICAgICAgICAgICB3aWR0aDogNzUlO1xyXG4gICAgICAgICAgICAgICAgICAgIHB7XHJcbiAgICAgICAgICAgICAgICAgICAgICAgIG1hcmdpbjogMDtcclxuICAgICAgICAgICAgICAgICAgICAgICAgZm9udC1zaXplOiAxNHB4O1xyXG4gICAgICAgICAgICAgICAgICAgICAgICBjb2xvcjogI2ZmZjtcclxuICAgICAgICAgICAgICAgICAgICB9XHJcbiAgICAgICAgICAgICAgICAgICAgcDpmaXJzdC1jaGlsZHtcclxuICAgICAgICAgICAgICAgICAgICAgICAgZm9udC1mYW1pbHk6IE9wZW4gU2FucyBSZWd1bGFyO1xyXG4gICAgICAgICAgICAgICAgICAgICAgICB3aGl0ZS1zcGFjZTogbm93cmFwO1xyXG4gICAgICAgICAgICAgICAgICAgICAgICBvdmVyZmxvdzogaGlkZGVuO1xyXG4gICAgICAgICAgICAgICAgICAgICAgICB0ZXh0LW92ZXJmbG93OiBlbGxpcHNpcztcclxuICAgICAgICAgICAgICAgICAgICB9XHJcbiAgICAgICAgICAgICAgICAgICAgcDpsYXN0LWNoaWxke1xyXG4gICAgICAgICAgICAgICAgICAgICAgICBmb250LWZhbWlseTogT3BlbiBTYW5zIFNlbWlCb2xkO1xyXG4gICAgICAgICAgICAgICAgICAgICAgICB3aGl0ZS1zcGFjZTogbm93cmFwO1xyXG4gICAgICAgICAgICAgICAgICAgICAgICBvdmVyZmxvdzogaGlkZGVuO1xyXG4gICAgICAgICAgICAgICAgICAgICAgICB0ZXh0LW92ZXJmbG93OiBlbGxpcHNpcztcclxuICAgICAgICAgICAgICAgICAgICB9XHJcbiAgICAgICAgICAgICAgICB9XHJcbiAgICAgICAgICAgIH1cclxuXHJcbiAgICAgICAgICAgIGlvbi1pY29ue1xyXG4gICAgICAgICAgICAgICAgaGVpZ2h0OiA0MHB4O1xyXG4gICAgICAgICAgICAgICAgd2lkdGg6IDQwcHg7XHJcbiAgICAgICAgICAgICAgICBjb2xvcjogI2ZmZjtcclxuICAgICAgICAgICAgfVxyXG4gICAgICAgIH1cclxuXHJcbiAgICAgICAgXHJcbiAgICB9XHJcblxyXG4gICAgLm1kU2xpZGVze1xyXG4gICAgICAgIGlvbi1zbGlkZXtcclxuICAgICAgICAgICAgaGVpZ2h0OiBjYWxjKDEwMHZoIC0gMzYwcHgpO1xyXG4gICAgICAgIH1cclxuICAgIH1cclxuXHJcbiAgICAuaW9zU2xpZGVze1xyXG4gICAgICAgIGlvbi1zbGlkZXtcclxuICAgICAgICAgICAgaGVpZ2h0OiBjYWxjKDEwMHZoIC0gMzQ1cHgpO1xyXG4gICAgICAgIH1cclxuICAgIH1cclxuXHJcblxyXG5cclxuICAgIGlvbi1zbGlkZXN7XHJcbiAgICAgICAgLy8gaW9uLXNsaWRle1xyXG4gICAgICAgIC8vICAgICAubWR7XHJcbiAgICAgICAgLy8gICAgICAgICBoZWlnaHQ6IGNhbGMoMTAwdmggLSAzNjBweCk7XHJcbiAgICAgICAgLy8gICAgIH1cclxuXHJcbiAgICAgICAgLy8gICAgIC5pb3N7XHJcbiAgICAgICAgLy8gICAgICAgICBoZWlnaHQ6IGNhbGMoMTAwdmggLSAzNDVweCk7XHJcbiAgICAgICAgLy8gICAgIH1cclxuICAgICAgICAgICAgXHJcbiAgICAgICAgLy8gfVxyXG5cclxuICAgICAgICAuQ29tcFNsaWRle1xyXG4gICAgICAgICAgICBpb24tbGlzdDo6LXdlYmtpdC1zY3JvbGxiYXIge1xyXG4gICAgICAgICAgICAgICAgZGlzcGxheTogbm9uZTtcclxuICAgICAgICAgICAgICB9XHJcbiAgICAgICAgICAgIGlvbi1saXN0e1xyXG4gICAgICAgICAgICAgICAgaGVpZ2h0OiAxMDAlO1xyXG4gICAgICAgICAgICAgICAgb3ZlcmZsb3c6IHNjcm9sbDtcclxuICAgICAgICAgICAgICAgIGJhY2tncm91bmQ6IHRyYW5zcGFyZW50O1xyXG4gICAgICAgICAgICAgICAgd2lkdGg6IDc1JTtcclxuXHJcbiAgICAgICAgICAgICAgICBcclxuXHJcbiAgICAgICAgICAgICAgICAuY29tcEl0ZW17XHJcbiAgICAgICAgICAgICAgICAgICAgLS1iYWNrZ3JvdW5kOiAjMDBiOWZmO1xyXG4gICAgICAgICAgICAgICAgICAgIGRpc3BsYXk6IGZsZXg7XHJcbiAgICAgICAgICAgICAgICAgICAgZmxleC1kaXJlY3Rpb246IHJvdztcclxuICAgICAgICAgICAgICAgICAgICBmb250LXNpemU6IDEycHg7XHJcbiAgICAgICAgICAgICAgICAgICAgZm9udC1mYW1pbHk6IE9wZW4gU2FucyBTZW1pQm9sZDtcclxuICAgICAgICAgICAgICAgICAgICBib3JkZXItcmFkaXVzOiAyNXB4O1xyXG4gICAgICAgICAgICAgICAgICAgIC0tcGFkZGluZy1zdGFydDogMDtcclxuICAgICAgICAgICAgICAgICAgICAtLXBhZGRpbmctdG9wOiAwO1xyXG4gICAgICAgICAgICAgICAgICAgIC0tcGFkZGluZy1lbmQ6IDA7XHJcbiAgICAgICAgICAgICAgICAgICAgLS1wYWRkaW5nLWJvdHRvbTogMDtcclxuICAgICAgICAgICAgICAgICAgICAtLWlubmVyLXBhZGRpbmctc3RhcnQ6IDA7XHJcbiAgICAgICAgICAgICAgICAgICAgLS1pbm5lci1wYWRkaW5nLWVuZDogMDtcclxuICAgICAgICAgICAgICAgICAgICBtYXJnaW4tYm90dG9tOiAxMHB4O1xyXG4gICAgICAgICAgICAgICAgICAgIHB7XHJcbiAgICAgICAgICAgICAgICAgICAgICAgIG1hcmdpbjogMDtcclxuICAgICAgICAgICAgICAgICAgICAgICAgY29sb3I6ICNmZmY7XHJcbiAgICAgICAgICAgICAgICAgICAgfVxyXG5cclxuICAgICAgICAgICAgICAgICAgICBzcGFue1xyXG4gICAgICAgICAgICAgICAgICAgICAgICBoZWlnaHQ6IDQ1cHg7XHJcbiAgICAgICAgICAgICAgICAgICAgICAgIHdpZHRoOiA0NXB4O1xyXG4gICAgICAgICAgICAgICAgICAgICAgICBkaXNwbGF5OiBmbGV4O1xyXG4gICAgICAgICAgICAgICAgICAgICAgICBqdXN0aWZ5LWNvbnRlbnQ6IGNlbnRlcjtcclxuICAgICAgICAgICAgICAgICAgICAgICAgYWxpZ24taXRlbXM6IGNlbnRlcjtcclxuICAgICAgICAgICAgICAgICAgICAgICAgYm9yZGVyLXJhZGl1czogNTAlO1xyXG4gICAgICAgICAgICAgICAgICAgICAgICBiYWNrZ3JvdW5kOiAjZmZmO1xyXG4gICAgICAgICAgICAgICAgICAgICAgICBtYXJnaW4tcmlnaHQ6IDEwcHg7XHJcbiAgICAgICAgICAgICAgICAgICAgICAgIGJvcmRlcjogMnB4IHNvbGlkICMyNzRiOWU7XHJcbiAgICAgICAgICAgICAgICAgICAgICAgIG1hcmdpbi1sZWZ0OiAtMnB4O1xyXG4gICAgICAgICAgICAgICAgICAgIH1cclxuXHJcbiAgICAgICAgICAgICAgICAgICAgZGl2e1xyXG4gICAgICAgICAgICAgICAgICAgICAgICBkaXNwbGF5OiBmbGV4O1xyXG4gICAgICAgICAgICAgICAgICAgICAgICBmbGV4LWRpcmVjdGlvbjogY29sdW1uO1xyXG4gICAgICAgICAgICAgICAgICAgICAgICBhbGlnbi1pdGVtczogdW5zZXQ7XHJcbiAgICAgICAgICAgICAgICAgICAgICAgIFxyXG4gICAgICAgICAgICAgICAgICAgICAgICBwOmxhc3QtY2hpbGR7XHJcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICBmb250LWZhbWlseTogT3BlbiBTYW5zIFNlbWlCb2xkO1xyXG4gICAgICAgICAgICAgICAgICAgICAgICB9XHJcbiAgICAgICAgICAgICAgICAgICAgfVxyXG4gICAgICAgICAgICAgICAgfVxyXG4gICAgICAgICAgICB9XHJcbiAgICAgICAgfVxyXG4gICAgfVxyXG59Il19 */"
 
 /***/ }),
 
@@ -147,8 +147,8 @@ let HomePage = class HomePage {
         this.AL_List = [];
         this.AL_FilteredList = [];
         this.IndexId = 0;
-        this.cumReturn = "0.0%";
-        this.annReturn = "0.0%";
+        this.cumReturn = "0.00%";
+        this.annReturn = "0.00%";
         this.CurrSliderData = { 'a': 0,
             'aAngle': 0,
             'e': 100,
@@ -168,6 +168,15 @@ let HomePage = class HomePage {
     }
     ngOnInit() {
         this.screenOrientation.lock(this.screenOrientation.ORIENTATIONS.PORTRAIT);
+        if (this.platform.is('android')) {
+            this.plt = 'android';
+        }
+        else if (this.platform.is('ios')) {
+            this.plt = 'ios';
+        }
+        else {
+            this.plt = 'android';
+        }
         if (this.platform.is('ipad') || this.platform.is('tablet')) {
             this.mobile = false;
         }
@@ -181,18 +190,25 @@ let HomePage = class HomePage {
                 this.data = d;
                 // console.log(d);
             }
+            else {
+                this.dataService.getDbGICSData();
+                this.dataService.getGlobalData();
+            }
         });
         this._selCompsub = this.dataService.mobSelComp.subscribe(d => {
             if (d) {
                 if (this.selComp == undefined) {
                     this.selComp = d;
-                    // console.log(this.selComp);
-                    this.indexClassifier();
-                    this.sectorClassifier();
-                    this.createIndexData();
-                    setTimeout(() => {
-                        this.loadData();
-                    }, 100);
+                    this.indexClassifier().then(res => {
+                        this.sectorClassifier().then(res => {
+                            this.createIndexData().then(res => {
+                                setTimeout(() => {
+                                    this.loadData();
+                                }, 500);
+                                // this.loadData();
+                            });
+                        });
+                    });
                 }
                 else {
                     this.selComp = d;
@@ -200,6 +216,8 @@ let HomePage = class HomePage {
                     this.AL_rangeCircle = false;
                     this.AvoidLosersec = false;
                     this.avoidSlides = false;
+                    this.firstLoad = true;
+                    this.alertUpdateBtn = false;
                     if (this.AlertSec) {
                         this.AlertSec = false;
                     }
@@ -216,7 +234,7 @@ let HomePage = class HomePage {
                     setTimeout(() => {
                         // this.CreateComps();
                         // this.createCompetitive(this.chartMain);
-                        // this.fillCompetives();
+                        // this.fillCompetives(); 
                         // this.CreateCompCircle();
                         // setTimeout(() => {
                         //   this.creatClockSlider();
@@ -230,12 +248,33 @@ let HomePage = class HomePage {
         this._dbGICSSub = this.dataService.dbGICS.subscribe(d => {
             if (d.length != 0) {
                 this.dbGICS = d;
-                // console.log(this.dbGICS);
+            }
+        });
+        this._authstateSub = this.authService.authenticationState.subscribe(res => {
+            if (res == false) {
+                this.AL_mainCircle = false;
+                this.AL_rangeCircle = false;
+                this.AvoidLosersec = false;
+                this.avoidSlides = false;
+                this.firstLoad = true;
+                this.alertUpdateBtn = false;
+                this.AlertSec = false;
+                this.ReportSec = false;
+                this.selComp = null;
+                this.dataService.mobSelComp.next(null);
+                this.dataService.dbScore.next('');
+                this.dataService.dbGICS.next('');
+                this.dataService._dbGICS = '';
+                this.dataService.dbScoretemp = '';
             }
         });
     }
     ngOnDestroy() {
         this.screenOrientation.unlock();
+        this._selCompsub.unsubscribe();
+        this._dataSub.unsubscribe();
+        this._dbGICSSub.unsubscribe();
+        this._authstateSub.unsubscribe();
     }
     openMenu() {
         this.menuCtrl.open();
@@ -250,25 +289,32 @@ let HomePage = class HomePage {
         });
     }
     sectorClassifier() {
-        this.sectorList = [];
-        var selCompInd = this.selComp.industry;
-        // console.log(selCompInd);
-        this.sectorOrder.forEach(i => {
-            var temp = {
-                secTitle: i.name,
-                secName: this.getSectorname(i.order, selCompInd),
-                secCount: this.getSecCount(i.order, selCompInd),
-                secMed: this.getSecMed(i.order, selCompInd)
-            };
-            this.sectorList.push(temp);
+        return new Promise((resolve, reject) => {
+            this.sectorList = [];
+            var selCompInd = this.selComp.industry;
+            // console.log(selCompInd);
+            this.sectorOrder.forEach((i, ind) => {
+                var temp = {
+                    secTitle: i.name,
+                    secName: this.getSectorname(i.order, selCompInd),
+                    secCount: this.getSecCount(i.order, selCompInd),
+                    secMed: this.getSecMed(i.order, selCompInd)
+                };
+                this.sectorList.push(temp);
+                if (ind == this.sectorOrder.length - 1) {
+                    resolve();
+                }
+            });
+            // console.log(this.sectorList);
+            this.selSec = this.sectorList[1];
+            // console.log(this.selSec);
         });
-        // console.log(this.sectorList);
-        this.selSec = this.sectorList[1];
-        // console.log(this.selSec);
     }
     indexClassifier() {
-        this.indexData = this.data.filter(i => i.indexName == this.selComp.indexName);
-        // console.log(this.indexData);
+        return new Promise((resolve, reject) => {
+            this.indexData = this.data.filter(i => i.indexName == this.selComp.indexName);
+            resolve();
+        });
     }
     getSectorname(lev, ind) {
         if (lev == 1) {
@@ -370,6 +416,9 @@ let HomePage = class HomePage {
             this.AvoidLosersec = true;
             this.ReportSec = false;
             this.AlertSec = false;
+            this.weeklyDiv = false;
+            this.monthlyBtn = false;
+            this.percentageRage = false;
             setTimeout(() => {
                 this.loadData();
             }, 50);
@@ -378,6 +427,9 @@ let HomePage = class HomePage {
     onAlertClick() {
         if (this.AlertSec) {
             this.AlertSec = false;
+            this.weeklyDiv = false;
+            this.monthlyBtn = false;
+            this.percentageRage = false;
             if (!this.AvoidLosersec && !this.ReportSec) {
                 setTimeout(() => {
                     this.loadData();
@@ -385,6 +437,7 @@ let HomePage = class HomePage {
             }
         }
         else {
+            document.getElementById('Circleloader').style.display = 'none';
             this.showLoader = true;
             this.firstLoad = true;
             this.AvoidLosersec = false;
@@ -519,6 +572,9 @@ let HomePage = class HomePage {
             this.AvoidLosersec = false;
             this.AlertSec = false;
             this.firstLoad = true;
+            this.weeklyDiv = false;
+            this.monthlyBtn = false;
+            this.percentageRage = false;
         }
     }
     getColor(med) {
@@ -565,6 +621,8 @@ let HomePage = class HomePage {
                             'e': 100,
                             'eAngle': 360 };
                         setTimeout(() => {
+                            this.AL_List = this.selIndexData;
+                            this.OnAL_listChange(this.CurrSliderData);
                             this.loadData();
                         }, 100);
                     }
@@ -575,9 +633,9 @@ let HomePage = class HomePage {
                             'e': 100,
                             'eAngle': 360 };
                         setTimeout(() => {
-                            this.loadData();
                             this.AL_List = this.selIndexData;
                             this.OnAL_listChange(this.CurrSliderData);
+                            this.loadData();
                         }, 100);
                     }
                 }
@@ -586,26 +644,29 @@ let HomePage = class HomePage {
         });
     }
     createIndexData() {
-        if (this.selSec.length != 0) {
-            var selSecLvl = this.sectorOrder.filter(i => i.name == this.selSec.secTitle)[0].order;
-            // console.log(selSecLvl);
-            if (selSecLvl == 1) {
-                this.selIndexData = this.indexData;
+        return new Promise((resolve, reject) => {
+            if (this.selSec.length != 0) {
+                var selSecLvl = this.sectorOrder.filter(i => i.name == this.selSec.secTitle)[0].order;
+                // console.log(selSecLvl);
+                if (selSecLvl == 1) {
+                    this.selIndexData = this.indexData;
+                }
+                else if (selSecLvl == 2) {
+                    this.selIndexData = this.indexData.filter(i => i.industry.slice(0, 2) == this.selComp.industry.slice(0, 2));
+                }
+                else if (selSecLvl == 3) {
+                    this.selIndexData = this.indexData.filter(i => i.industry.slice(0, 4) == this.selComp.industry.slice(0, 4));
+                }
+                else if (selSecLvl == 4) {
+                    this.selIndexData = this.indexData.filter(i => i.industry.slice(0, 6) == this.selComp.industry.slice(0, 6));
+                }
+                else if (selSecLvl == 5) {
+                    this.selIndexData = this.indexData.filter(i => i.industry == this.selComp.industry);
+                }
+                // console.log(this.selIndexData);
             }
-            else if (selSecLvl == 2) {
-                this.selIndexData = this.indexData.filter(i => i.industry.slice(0, 2) == this.selComp.industry.slice(0, 2));
-            }
-            else if (selSecLvl == 3) {
-                this.selIndexData = this.indexData.filter(i => i.industry.slice(0, 4) == this.selComp.industry.slice(0, 4));
-            }
-            else if (selSecLvl == 4) {
-                this.selIndexData = this.indexData.filter(i => i.industry.slice(0, 6) == this.selComp.industry.slice(0, 6));
-            }
-            else if (selSecLvl == 5) {
-                this.selIndexData = this.indexData.filter(i => i.industry == this.selComp.industry);
-            }
-            // console.log(this.selIndexData);
-        }
+            resolve();
+        });
     }
     onArrowClick(d) {
         if (d == 0 && this.CurrSlide != 0) {
@@ -638,7 +699,7 @@ let HomePage = class HomePage {
         });
     }
     onALSlideChange(evt) {
-        console.log(evt);
+        // console.log(evt);
         this.AL_CurrSlide = evt.target.swiper.activeIndex;
         let prev_ind = evt.target.swiper.previousIndex;
         if (this.AL_CurrSlide == 1) {
@@ -986,370 +1047,358 @@ let HomePage = class HomePage {
         else {
             if ((this.AvoidLosersec && !this.AL_rangeCircle && !this.AL_mainCircle) || !this.AvoidLosersec)
                 document.getElementById('Circleloader').style.display = "none";
-            that.CreateComps();
-            that.createCompetitive(this.chartMain);
-            that.fillCompetives();
-            if (!this.AvoidLosersec) {
-                that.CreateCompCircle();
-            }
-            else if (that.AvoidLosersec && that.AL_mainCircle) {
-                that.createALinnerCircle();
-            }
+            that.CreateComps().then(res => {
+                that.createCompetitive(this.chartMain).then(res => {
+                    that.fillCompetives().then(res => {
+                        if (!this.AvoidLosersec) {
+                            that.CreateCompCircle().then(res => {
+                                that.creatClockSlider().then(res => {
+                                    that.setClock(this.selComp.isin, (this.selIndexData.indexOf(this.selComp) * 360 / this.selIndexData.length) - 90, this.selComp.ticker);
+                                });
+                            });
+                        }
+                        else if (that.AvoidLosersec && that.AL_mainCircle) {
+                            that.createALinnerCircle().then(res => {
+                                if (that.AL_FilteredList.filter(data => data.isin === this.selComp.isin).length != 0) {
+                                    that.creatClockSlider().then(res => {
+                                        that.setClock(this.selComp.isin, (this.AL_List.indexOf(this.selComp) * 360 / this.AL_List.length) - 90, this.selComp.ticker);
+                                    });
+                                }
+                            });
+                        }
+                    });
+                });
+            });
             setTimeout(() => {
-                if (!this.AvoidLosersec) {
-                    that.creatClockSlider();
-                    that.setClock(this.selComp.isin, (this.selIndexData.indexOf(this.selComp) * 360 / this.selIndexData.length) - 90, this.selComp.ticker);
-                }
-                else if (this.AvoidLosersec && this.AL_mainCircle && this.AL_FilteredList.filter(data => data.isin === this.selComp.isin).length != 0) {
-                    // if(){
-                    that.creatClockSlider();
-                    that.setClock(this.selComp.isin, (this.AL_List.indexOf(this.selComp) * 360 / this.AL_List.length) - 90, this.selComp.ticker);
-                    // }
-                }
             }, 300);
-            // if(!this.AvoidLosersec){
-            // }else{
-            //   if(this.AL_rangeCircle){
-            //     console.log('Range Circle');
-            //     that.circleRange({ "start": sMin, "end": sMax });
-            //   }else if(this.AL_mainCircle){
-            //     console.log('Main Circle');
-            //     document.getElementById('Circleloader').style.display = "none"; 
-            //     that.CreateComps();
-            //     that.createCompetitive(this.chartMain);
-            //     that.fillCompetives();
-            //     that.CreateCompCircle();
-            //     setTimeout(() => {
-            //       that.creatClockSlider();
-            //     that.setClock(this.selComp.isin, this.selComp.deg *360/100, this.selComp.ticker);
-            //     }, 300);
-            //   }
-            //   else if(){
-            //   }
         }
     }
     CreateComps() {
-        let that = this;
-        var oSvg = this.chartMain;
-        var compLst;
-        // console.log(this.selIndexData);
-        var dta = this.selIndexData;
-        var lvl = this.sectorOrder.filter(i => i.name == this.selSec.secTitle)[0].order;
-        oSvg.select('.compList').remove();
-        compLst = oSvg.append("g").attr('class', 'compList compLst' + lvl).style("display", "block");
-        0;
-        var compC = compLst.append("g").attr("class", 'compLstC' + lvl);
-        var compg = compC.selectAll("g")
-            .data(dta)
-            .enter().append("g")
-            .attr("class", "comp")
-            .attr("transform", function (d, i) {
-            return "rotate(" + ((i * 360 / dta.length) - 90) + ")";
-        })
-            .attr("name", function (d) { return d.isin + "_" + d.indexName.replace(/ /g, '_'); })
-            .style('opacity', function (d) {
-            if (that.AvoidLosersec) {
-                if (that.AL_FilteredList.filter(data => data.isin === d.isin).length != 0) {
+        return new Promise((resolve, reject) => {
+            let that = this;
+            var oSvg = this.chartMain;
+            var compLst;
+            // console.log(this.selIndexData);
+            var dta = this.selIndexData;
+            var lvl = this.sectorOrder.filter(i => i.name == this.selSec.secTitle)[0].order;
+            oSvg.select('.compList').remove();
+            compLst = oSvg.append("g").attr('class', 'compList compLst' + lvl).style("display", "block");
+            0;
+            var compC = compLst.append("g").attr("class", 'compLstC' + lvl);
+            var compg = compC.selectAll("g")
+                .data(dta)
+                .enter().append("g")
+                .attr("class", "comp")
+                .attr("transform", function (d, i) {
+                return "rotate(" + ((i * 360 / dta.length) - 90) + ")";
+            })
+                .attr("name", function (d) { return d.isin + "_" + d.indexName.replace(/ /g, '_'); })
+                .style('opacity', function (d) {
+                if (that.AvoidLosersec) {
+                    if (that.AL_FilteredList.filter(data => data.isin === d.isin).length != 0) {
+                        return '1';
+                    }
+                    else {
+                        return '0';
+                    }
+                }
+                else {
                     return '1';
                 }
-                else {
-                    return '0';
-                }
-            }
-            else {
-                return '1';
-            }
-        });
-        let SelRes = this.indexData;
-        var dmin = d3__WEBPACK_IMPORTED_MODULE_5__["min"](SelRes.map(x => x.marketCap));
-        var dmax = d3__WEBPACK_IMPORTED_MODULE_5__["max"](SelRes.map(x => x.marketCap));
-        var dmean = d3__WEBPACK_IMPORTED_MODULE_5__["mean"](SelRes.map(x => x.marketCap));
-        var dsum = d3__WEBPACK_IMPORTED_MODULE_5__["sum"](SelRes.map(x => x.marketCap));
-        let ResMarketCap = SelRes.map(x => x.marketCap);
-        let LimitedCap = ResMarketCap.filter(x => x < dmean && x != null);
-        let dlimitedSum = d3__WEBPACK_IMPORTED_MODULE_5__["sum"](LimitedCap);
-        var rmax = (dmax - dmin) > 100 ? 100 : (dmax - dmin);
-        rmax = rmax < 50 ? 50 : rmax;
-        var h = d3__WEBPACK_IMPORTED_MODULE_5__["scaleLinear"]()
-            .domain([dmin, dmax])
-            .range([0, 50]);
-        let LimitedMarketCap = compg.append("rect")
-            .attr("height", "1px")
-            .attr("class", "crect")
-            //.attr("fill", "rgba(100,100,100,.5)") 
-            .attr("x", that.radius + 3)
-            .attr("width", 0)
-            .transition()
-            .duration(10)
-            .attr("width", function (d) {
-            if (d.indexName.indexOf("New Age Alpha") > -1 && that.selComp.indexName.indexOf("New Age Alpha") == -1) {
-                return "0px";
-            }
-            else {
-                let wtdwidth = 0;
-                var wt = ((d.marketCap / dlimitedSum) * 10000);
-                if (d.marketCap < dmean) {
-                    wtdwidth = wt;
+            });
+            let SelRes = this.indexData;
+            var dmin = d3__WEBPACK_IMPORTED_MODULE_5__["min"](SelRes.map(x => x.marketCap));
+            var dmax = d3__WEBPACK_IMPORTED_MODULE_5__["max"](SelRes.map(x => x.marketCap));
+            var dmean = d3__WEBPACK_IMPORTED_MODULE_5__["mean"](SelRes.map(x => x.marketCap));
+            var dsum = d3__WEBPACK_IMPORTED_MODULE_5__["sum"](SelRes.map(x => x.marketCap));
+            let ResMarketCap = SelRes.map(x => x.marketCap);
+            let LimitedCap = ResMarketCap.filter(x => x < dmean && x != null);
+            let dlimitedSum = d3__WEBPACK_IMPORTED_MODULE_5__["sum"](LimitedCap);
+            var rmax = (dmax - dmin) > 100 ? 100 : (dmax - dmin);
+            rmax = rmax < 50 ? 50 : rmax;
+            var h = d3__WEBPACK_IMPORTED_MODULE_5__["scaleLinear"]()
+                .domain([dmin, dmax])
+                .range([0, 50]);
+            let LimitedMarketCap = compg.append("rect")
+                .attr("height", "1px")
+                .attr("class", "crect")
+                //.attr("fill", "rgba(100,100,100,.5)") 
+                .attr("x", that.radius + 3)
+                .attr("width", 0)
+                .transition()
+                .duration(10)
+                .attr("width", function (d) {
+                if (d.indexName.indexOf("New Age Alpha") > -1 && that.selComp.indexName.indexOf("New Age Alpha") == -1) {
+                    return "0px";
                 }
                 else {
-                    wt = ((d.marketCap / dsum) * 10000);
-                    if (wt > 18) {
-                        wt = 18 + wt / 10;
+                    let wtdwidth = 0;
+                    var wt = ((d.marketCap / dlimitedSum) * 10000);
+                    if (d.marketCap < dmean) {
+                        wtdwidth = wt;
                     }
-                    wtdwidth = wt;
+                    else {
+                        wt = ((d.marketCap / dsum) * 10000);
+                        if (wt > 18) {
+                            wt = 18 + wt / 10;
+                        }
+                        wtdwidth = wt;
+                    }
+                    if (wtdwidth > 25) {
+                        wtdwidth = 25 + wtdwidth / 10;
+                    }
+                    if (wtdwidth > 40) {
+                        wtdwidth = 40;
+                    }
+                    return wtdwidth + 2;
                 }
-                if (wtdwidth > 25) {
-                    wtdwidth = 25 + wtdwidth / 10;
-                }
-                if (wtdwidth > 40) {
-                    wtdwidth = 40;
-                }
-                return wtdwidth + 2;
-            }
+            });
+            resolve();
         });
     }
     createCompetitive(grp1) {
-        grp1.append("g").attr("id", "gCompetitive");
+        return new Promise((resolve, reject) => {
+            grp1.append("g").attr("id", "gCompetitive");
+            resolve();
+        });
     }
     creatClockSlider() {
-        let that = this;
-        var r = d3__WEBPACK_IMPORTED_MODULE_5__["select"]("#maincircle").attr("r");
-        that.createXrad = parseInt(r);
-        d3__WEBPACK_IMPORTED_MODULE_5__["select"]("#cSlider").remove();
-        var g = d3__WEBPACK_IMPORTED_MODULE_5__["select"]("#crlChart").append("g")
-            .attr("id", "cSlider")
-            .attr('transform', 'rotate(' + (-90) + ')');
-        var rect1 = g.append("rect")
-            .attr("class", "sRect1")
-            .attr("x", r)
-            .attr("y", -.5)
-            .attr("height", 3)
-            .attr("width", 50)
-            .attr("fill", "#00b9ff");
-        var rect = g.append("rect")
-            .attr("class", "sRect")
-            .attr("rx", 20)
-            .attr("ry", 20)
-            .attr("x", +r + (25))
-            //.attr("y", -20)
-            .attr("height", "40px")
-            .attr("width", "170px")
-            .style("display", "none");
-        var text = g.append("text")
-            .attr("class", "sText")
-            .attr("x", +r + (40))
-            .attr("dy", 0)
-            .style("alignment-baseline", "middle")
-            .style("font-size", "18px")
-            .style("font-family", "Open Sans Bold")
-            .style("display", "none")
-            .text("0.00");
+        return new Promise((resolve, reject) => {
+            let that = this;
+            var r = that.radius + 4;
+            that.createXrad = r;
+            d3__WEBPACK_IMPORTED_MODULE_5__["select"]("#cSlider").remove();
+            var g = d3__WEBPACK_IMPORTED_MODULE_5__["select"]("#crlChart").append("g")
+                .attr("id", "cSlider")
+                .attr('transform', 'rotate(' + (-90) + ')');
+            var rect1 = g.append("rect")
+                .attr("class", "sRect1")
+                .attr("x", r)
+                .attr("y", -.5)
+                .attr("height", 3)
+                .attr("width", 50)
+                .attr("fill", "#00b9ff");
+            var rect = g.append("rect")
+                .attr("class", "sRect")
+                .attr("rx", 20)
+                .attr("ry", 20)
+                .attr("x", +r + (25))
+                //.attr("y", -20)
+                .attr("height", "40px")
+                .attr("width", "170px")
+                .style("display", "none");
+            var text = g.append("text")
+                .attr("class", "sText")
+                .attr("x", +r + (40))
+                .attr("dy", 0)
+                .style("alignment-baseline", "middle")
+                .style("font-size", "18px")
+                .style("font-family", "Open Sans Bold")
+                .style("display", "none")
+                .text("0.00");
+            resolve();
+        });
     }
     fillCompetives() {
-        let that = this;
-        var dta = this.selIndexData;
-        // console.log(this.selIndexData);
-        var lvl = 1;
-        // console.log(lvl);
-        var gs = d3__WEBPACK_IMPORTED_MODULE_5__["select"]("#gCompetitive");
-        gs.selectAll("g").remove();
-        dta = dta.filter(t => t.isin != "");
-        dta = dta.sort(function (x, y) {
-            return d3__WEBPACK_IMPORTED_MODULE_5__["ascending"](parseFloat(x.score), parseFloat(y.score));
-        });
-        var ggs = gs.selectAll("g")
-            .data(dta)
-            .enter().append("g")
-            .attr("name", function (d) { return d.isin; })
-            .attr("class", function (d) {
-            return "Compet" + d.isin;
-            //} 
-        })
-            .attr("transform", function (d, i) {
-            // return "rotate(" + ((i * 360 / dta.length) - 90) + ")";
-            var cx = ((i * 360 / dta.length) - 90);
-            console.log(d, cx, i);
-            if (cx <= 90) {
-                return "rotate(" + (cx + 1.0) + ")";
-            }
-            else {
-                return "rotate(" + (cx - 1.0) + ")";
-            }
-        })
-            .style("opacity", function (d) {
-            let sMin = 0; //that.sliderRange.value()[0].toFixed(0);
-            let sMax = 100; // that.sliderRange.value()[1].toFixed(0);
-            let opa = 1;
-            if (that.AvoidLosersec) {
-                // console.log(that.AL_FilteredList);
-                // console.log(that.AL_FilteredList.filter(data => data.isin === d.isin).length);
-                if (that.AL_FilteredList.filter(data => data.isin === d.isin).length != 0) {
-                    // console.log('AL if part');
-                    if (that.selComp.isin == d.isin) {
-                        return '0';
-                    }
-                    else {
-                        if (that.AL_List.length > 150) {
-                            return '0.07';
-                        }
-                        else {
-                            return '1';
-                        }
-                    }
+        return new Promise((resolve, reject) => {
+            let that = this;
+            var dta = this.selIndexData;
+            // console.log(this.selIndexData);
+            var lvl = 1;
+            // console.log(lvl);
+            var gs = d3__WEBPACK_IMPORTED_MODULE_5__["select"]("#gCompetitive");
+            gs.selectAll("g").remove();
+            dta = dta.filter(t => t.isin != "");
+            dta = dta.sort(function (x, y) {
+                return d3__WEBPACK_IMPORTED_MODULE_5__["ascending"](parseFloat(x.score), parseFloat(y.score));
+            });
+            var ggs = gs.selectAll("g")
+                .data(dta)
+                .enter().append("g")
+                .attr("name", function (d) { return d.isin; })
+                .attr("class", function (d) {
+                return "Compet" + d.isin;
+                //} 
+            })
+                .attr("transform", function (d, i) {
+                // return "rotate(" + ((i * 360 / dta.length) - 90) + ")";
+                var cx = ((i * 360 / dta.length) - 90);
+                // console.log(d,cx,i);
+                if (cx <= 90) {
+                    return "rotate(" + (cx + 1.0) + ")";
                 }
                 else {
-                    // console.log('AL else part');
-                    return '1';
+                    return "rotate(" + (cx - 1.0) + ")";
                 }
-            }
-            else if (that.selComp.isin != d.isin) {
-                if (dta.length > 150) {
-                    opa = 1 - (((sMax - sMin) / 100) - (.1));
+            })
+                .style("opacity", function (d) {
+                let sMin = 0; //that.sliderRange.value()[0].toFixed(0);
+                let sMax = 100; // that.sliderRange.value()[1].toFixed(0);
+                let opa = 1;
+                if (that.AvoidLosersec) {
+                    // console.log(that.AL_FilteredList);
+                    // console.log(that.AL_FilteredList.filter(data => data.isin === d.isin).length);
+                    if (that.AL_FilteredList.filter(data => data.isin === d.isin).length != 0) {
+                        // console.log('AL if part');
+                        if (that.selComp.isin == d.isin) {
+                            return '0';
+                        }
+                        else {
+                            if (that.AL_List.length > 150) {
+                                return '0.07';
+                            }
+                            else {
+                                return '1';
+                            }
+                        }
+                    }
+                    else {
+                        // console.log('AL else part');
+                        return '1';
+                    }
                 }
-                if (lvl == 4) {
+                else if (that.selComp.isin != d.isin) {
+                    if (dta.length > 150) {
+                        opa = 1 - (((sMax - sMin) / 100) - (.1));
+                    }
+                    if (lvl == 4) {
+                        return opa;
+                    }
+                    else {
+                        // return (distinctISIN.includes(d.isin) ? "1" : opa);
+                    }
                     return opa;
                 }
                 else {
-                    // return (distinctISIN.includes(d.isin) ? "1" : opa);
+                    return 0;
                 }
-                return opa;
-            }
-            else {
-                return 0;
-            }
-        });
-        ggs.append("text")
-            .attr("x", function (d, i) {
-            var cx = ((i * 360 / dta.length) - 90);
-            return cx > 90 ? "-215" : "215";
-        })
-            .attr("transform", function (d, i) {
-            //return (d.deg * 3.6) > 180 ? "rotate(180)" : null;
-            return ((i * 360 / dta.length) - 90) > 90 ? "rotate(180)" : null;
-        })
-            .style("text-anchor", function (d, i) {
-            //  return (d.deg * 3.6) > 180 ? "end" : null;
-            var cx = ((i * 360 / dta.length) - 90);
-            return cx > 90 ? "end" : null;
-        })
-            .attr("class", function (d) {
-            return "";
-        })
-            .style('fill', function (d) {
-            if (that.AvoidLosersec) {
-                if (that.AL_FilteredList.filter(data => data.isin === d.isin).length != 0) {
-                    return '#fff';
+            });
+            ggs.append("text")
+                .attr("x", function (d, i) {
+                var cx = ((i * 360 / dta.length) - 90);
+                return cx > 90 ? "-215" : "215";
+            })
+                .attr("transform", function (d, i) {
+                //return (d.deg * 3.6) > 180 ? "rotate(180)" : null;
+                return ((i * 360 / dta.length) - 90) > 90 ? "rotate(180)" : null;
+            })
+                .style("text-anchor", function (d, i) {
+                //  return (d.deg * 3.6) > 180 ? "end" : null;
+                var cx = ((i * 360 / dta.length) - 90);
+                return cx > 90 ? "end" : null;
+            })
+                .attr("class", function (d) {
+                return "";
+            })
+                .style('fill', function (d) {
+                if (that.AvoidLosersec) {
+                    if (that.AL_FilteredList.filter(data => data.isin === d.isin).length != 0) {
+                        return '#fff';
+                    }
+                    else {
+                        return 'rgb(29 57 123)';
+                    }
+                }
+            })
+                //.text(function (d) { return d.company + " (" + d.ticker + ")"; }).call(that.wrap, 100);
+                .text(function (d, i) {
+                var cx = ((i * 360 / dta.length) - 90);
+                if (cx > 90) {
+                    let txt = " (" + d.ticker + ") " + d.company.trim() + "...";
+                    let resvtxt = " (" + d.ticker + ") ...";
+                    var cnt = txt.length;
+                    var rsvcnt = resvtxt.length;
+                    return " (" + d.ticker + ") " + d.company.slice(0, (17 - rsvcnt)).trim() + "...";
                 }
                 else {
-                    return 'rgb(29 57 123)';
+                    let txt = d.company.trim() + "... (" + d.ticker + ")";
+                    let resvtxt1 = "... (" + d.ticker + ")";
+                    var cnt = txt.length;
+                    var rsvcnt1 = resvtxt1.length;
+                    return d.company.slice(0, (17 - rsvcnt1)).trim() + "... (" + d.ticker + ")";
                 }
-            }
-        })
-            //.text(function (d) { return d.company + " (" + d.ticker + ")"; }).call(that.wrap, 100);
-            .text(function (d, i) {
-            var cx = ((i * 360 / dta.length) - 90);
-            if (cx > 90) {
-                let txt = " (" + d.ticker + ") " + d.company.trim() + "...";
-                let resvtxt = " (" + d.ticker + ") ...";
-                var cnt = txt.length;
-                var rsvcnt = resvtxt.length;
-                return " (" + d.ticker + ") " + d.company.slice(0, (17 - rsvcnt)).trim() + "...";
-            }
-            else {
-                let txt = d.company.trim() + "... (" + d.ticker + ")";
-                let resvtxt1 = "... (" + d.ticker + ")";
-                var cnt = txt.length;
-                var rsvcnt1 = resvtxt1.length;
-                return d.company.slice(0, (17 - rsvcnt1)).trim() + "... (" + d.ticker + ")";
-            }
+            });
+            resolve();
         });
     }
     createALinnerCircle() {
-        let that = this;
-        var cradius = 150;
-        var oSvg = that.chartMain;
-        d3__WEBPACK_IMPORTED_MODULE_5__["select"]('#innerCircleGrp').remove();
-        var innerCirclegrp = oSvg.append("g").attr('id', "innerCirclegrp");
-        var TI_Grp = innerCirclegrp.append("g").attr('id', 'TIGrp')
-            .attr('transform', 'translate(-40,-110)');
-        // var innerCircle = TI_Grp.append("circle")
-        // .attr("id", "inmaincircle")
-        // .attr("fill", "#fff")
-        // .attr("r", cradius);
-        // var Comp_Top = innerCirclegrp.append('g')
-        // .attr('id','Comp_Top');
-        TI_Grp.append('circle')
-            .attr('id', 'CT_mCircle')
-            .attr('r', '25')
-            .style('stroke', '#e5e5e5')
-            .style('fill', 'none');
-        TI_Grp.append('text')
-            .style('fill', function () {
-            return that.getColor(that.roundMed(that.selComp.scores * 100));
-        })
-            .style('font-size', '16')
-            .style('font-family', 'Open Sans ExtraBold')
-            .attr('dx', '-18')
-            .attr('dy', '5')
-            .text(function () {
-            return that.roundMed(that.selComp.scores * 100);
-        });
-        TI_Grp.append('text')
-            .style('font-size', '18')
-            .style('font-family', 'Open Sans ExtraBold')
-            .style('fill', '#224b9e')
-            .attr('dx', '40')
-            .attr('dy', '5')
-            .text(function () {
-            return "(" + that.selComp.ticker + ")";
-        });
-        var Sec_Top = innerCirclegrp.append('g')
-            .attr('id', 'Sec_Top')
-            .attr('transform', 'translate(-90,-50)');
-        Sec_Top.append('circle')
-            .attr('id', 'ST_mCircle')
-            .attr('r', '35')
-            .style('stroke', '#e5e5e5')
-            .style('fill', 'none');
-        Sec_Top.append('text')
-            .style('fill', function () {
-            return that.getColor(that.selSec.secMed);
-        })
-            .style('font-size', '16')
-            .style('font-family', 'Open Sans ExtraBold')
-            .attr('dx', '-18')
-            .attr('dy', '5')
-            .text(function () {
-            return that.selSec.secMed;
-        });
-        Sec_Top.append('text')
-            .style('font-size', '16')
-            .style('font-family', 'Open Sans SemiBold')
-            .style('fill', '#224b9e')
-            .attr('dx', '40')
-            .attr('dy', '-12')
-            .text(function () {
-            return that.selSec.secTitle;
-        });
-        var FO_Sec_Top = Sec_Top.append('foreignObject')
-            .attr('x', '40')
-            .attr('y', '-8')
-            .attr('width', '200')
-            .attr('height', '40');
-        FO_Sec_Top.append('xhtml:p')
-            .attr('xmlns', 'http://www.w3.org/1999/xhtml')
-            .style('margin', '0')
-            .style('text-align', 'start')
-            .style('font-size', '16px')
-            .style('font-family', 'Open Sans Bold')
-            .style('color', '#224b9e')
-            .style('line-height', '1.4')
-            .style('-webkit-line-clamp', '1')
-            .style('-webkit-box-orient', 'vertical')
-            .style('display', '-webkit-box')
-            .style('overflow', 'hidden')
-            .text(that.selSec.secName);
-        if (that.AL_List.length - that.AL_FilteredList.length > 0) {
+        return new Promise((resolve, reject) => {
+            let that = this;
+            var cradius = 150;
+            var oSvg = that.chartMain;
+            d3__WEBPACK_IMPORTED_MODULE_5__["select"]('#innerCircleGrp').remove();
+            var innerCirclegrp = oSvg.append("g").attr('id', "innerCirclegrp");
+            var TI_Grp = innerCirclegrp.append("g").attr('id', 'TIGrp')
+                .attr('transform', 'translate(-50,-110)');
+            // var innerCircle = TI_Grp.append("circle")
+            // .attr("id", "inmaincircle")
+            // .attr("fill", "#fff")
+            // .attr("r", cradius);
+            // var Comp_Top = innerCirclegrp.append('g')
+            // .attr('id','Comp_Top');
+            TI_Grp.append('circle')
+                .attr('id', 'CT_mCircle')
+                .attr('r', '25')
+                .style('stroke', '#e5e5e5')
+                .style('fill', 'none');
+            TI_Grp.append('text')
+                .style('fill', function () {
+                return that.getColor(that.roundMed(that.selComp.scores * 100));
+            })
+                .style('font-size', '16')
+                .style('font-family', 'Open Sans ExtraBold')
+                .attr('dx', function () {
+                if (Number(that.roundMed(that.selComp.scores * 100)) < 10)
+                    return '-12';
+                else
+                    return '-18';
+            })
+                .attr('dy', '5')
+                .text(function () {
+                return that.roundMed(that.selComp.scores * 100);
+            });
+            TI_Grp.append('text')
+                .style('font-size', '18')
+                .style('font-family', 'Open Sans ExtraBold')
+                .style('fill', '#224b9e')
+                .attr('dx', '35')
+                .attr('dy', '5')
+                .text(function () {
+                return "(" + that.selComp.ticker + ")";
+            });
+            var Sec_Top = innerCirclegrp.append('g')
+                .attr('id', 'Sec_Top')
+                .attr('transform', 'translate(-100,-55)');
+            Sec_Top.append('circle')
+                .attr('id', 'ST_mCircle')
+                .attr('r', '32')
+                .style('stroke', '#e5e5e5')
+                .style('fill', 'none');
+            Sec_Top.append('text')
+                .style('fill', function () {
+                return that.getColor(that.selSec.secMed);
+            })
+                .style('font-size', '16')
+                .style('font-family', 'Open Sans ExtraBold')
+                .attr('dx', '-18')
+                .attr('dy', '5')
+                .text(function () {
+                return that.selSec.secMed;
+            });
+            Sec_Top.append('text')
+                .style('font-size', '16')
+                .style('font-family', 'Open Sans SemiBold')
+                .style('fill', '#224b9e')
+                .attr('dx', '40')
+                .attr('dy', '-12')
+                .text(function () {
+                return that.selSec.secTitle;
+            });
+            var FO_Sec_Top = Sec_Top.append('foreignObject')
+                .attr('x', '40')
+                .attr('y', '-8')
+                .attr('width', '200')
+                .attr('height', '40');
             FO_Sec_Top.append('xhtml:p')
                 .attr('xmlns', 'http://www.w3.org/1999/xhtml')
                 .style('margin', '0')
@@ -1358,337 +1407,364 @@ let HomePage = class HomePage {
                 .style('font-family', 'Open Sans Bold')
                 .style('color', '#224b9e')
                 .style('line-height', '1.4')
-                .text(function () {
-                return that.AL_List.length - that.AL_FilteredList.length + ' Losers';
-            });
-        }
-        var ChartGrp = innerCirclegrp.append('g')
-            .attr('id', 'ChartGrp')
-            .attr('transform', 'translate(-190,35)');
-        var FO_Chart = ChartGrp.append('foreignObject')
-            .attr('x', '40')
-            .attr('y', '-48')
-            .attr('id', 'FO_Chart')
-            .attr('width', '300')
-            .attr('height', '150');
-        FO_Chart.append('xhtml:p')
-            .attr('xmlns', 'http://www.w3.org/1999/xhtml')
-            .attr('id', 'ALC_text')
-            .style('margin', '0')
-            .style('color', '#224b9e')
-            .style('font-size', '14px')
-            .style('font-family', 'Open Sans Regular')
-            .style('line-height', '1.2')
-            .text(function () {
-            return 'Click to expand Performance';
-        });
-        var chartDiv = FO_Chart.append('xhtml:div')
-            .attr('xmlns', 'http://www.w3.org/1999/xhtml')
-            .attr('id', 'ALC_container')
-            .style('width', '100%')
-            .style('display', 'flex')
-            .style('justify-content', 'center');
-        var innerchartDiv = chartDiv.append('xhtml:div')
-            .attr('xmlns', 'http://www.w3.org/1999/xhtml')
-            .style('width', '70%')
-            .style('border', '1px solid #ddd')
-            .style('border-radius', '5px')
-            .style('padding', '4px');
-        var chart = innerchartDiv.append('xhtml:span')
-            .attr('xmlns', 'http://www.w3.org/1999/xhtml')
-            .attr('id', 'lineChart')
-            .style('height', '65px')
-            .style('width', '100%')
-            .style('display', 'block')
-            .style('overflow', 'hidden')
-            .on('click', function () {
-            that.onChartClick();
-        });
-        that.highChartLine(chart);
-        setTimeout(() => {
-            if (this.chartData) {
-                var addInfoDiv = FO_Chart.append('xhtml:p')
+                .style('-webkit-line-clamp', '1')
+                .style('-webkit-box-orient', 'vertical')
+                .style('display', '-webkit-box')
+                .style('overflow', 'hidden')
+                .text(that.selSec.secName);
+            if (that.AL_List.length - that.AL_FilteredList.length > 0) {
+                FO_Sec_Top.append('xhtml:p')
                     .attr('xmlns', 'http://www.w3.org/1999/xhtml')
-                    .text('Additional Return')
-                    .style('font-size', '14px')
-                    .style('font-family', 'Open Sans Regular')
-                    .style('color', '#224b9e')
-                    .style('line-height', '1.4')
-                    .style('margin', '0');
-                var infodiv = FO_Chart.append('xhtml:div')
-                    .attr('xmlns', 'http://www.w3.org/1999/xhtml')
-                    // .attr('id','AL_AI_Span')
-                    .style('width', '100%')
-                    .style('display', 'flex')
-                    .style('justify-content', 'center');
-                var infoSpan = infodiv.append('xhtml:span')
-                    .attr('xmlns', 'http://www.w3.org/1999/xhtml')
-                    .attr('id', 'AL_AI_Span')
-                    .style('width', '65%')
-                    .style('display', 'flex')
-                    .style('flex-direction', 'row')
-                    .style('padding', '0px 5px')
-                    .style('justify-content', 'space-between');
-                infoSpan.append('xhtml:p')
-                    .attr('xmlns', 'http://www.w3.org/1999/xhtml')
-                    .text(function () {
-                    return '(C) ' + that.cumReturn;
-                })
-                    .style('font-size', '14px')
+                    .style('margin', '0')
+                    .style('text-align', 'start')
+                    .style('font-size', '16px')
                     .style('font-family', 'Open Sans Bold')
                     .style('color', '#224b9e')
                     .style('line-height', '1.4')
-                    .style('margin', '0');
-                infoSpan.append('xhtml:p')
-                    .attr('xmlns', 'http://www.w3.org/1999/xhtml')
                     .text(function () {
-                    return '(A) ' + that.annReturn;
-                })
-                    .style('font-size', '14px')
-                    .style('font-family', 'Open Sans Bold')
-                    .style('color', '#224b9e')
-                    .style('line-height', '1.4')
-                    .style('margin', '0');
+                    return that.AL_List.length - that.AL_FilteredList.length + ' Losers';
+                });
             }
-        }, 1500);
+            var ChartGrp = innerCirclegrp.append('g')
+                .attr('id', 'ChartGrp')
+                .attr('transform', 'translate(-190,35)');
+            var FO_Chart = ChartGrp.append('foreignObject')
+                .attr('x', '40')
+                .attr('y', '-48')
+                .attr('id', 'FO_Chart')
+                .attr('width', '300')
+                .attr('height', '150');
+            FO_Chart.append('xhtml:p')
+                .attr('xmlns', 'http://www.w3.org/1999/xhtml')
+                .attr('id', 'ALC_text')
+                .style('margin', '0')
+                .style('color', '#224b9e')
+                .style('font-size', '14px')
+                .style('font-family', 'Open Sans Regular')
+                .style('line-height', '1.2')
+                .text(function () {
+                return 'Click to expand Performance';
+            });
+            var chartDiv = FO_Chart.append('xhtml:div')
+                .attr('xmlns', 'http://www.w3.org/1999/xhtml')
+                .attr('id', 'ALC_container')
+                .style('width', '100%')
+                .style('display', 'flex')
+                .style('justify-content', 'center');
+            var innerchartDiv = chartDiv.append('xhtml:div')
+                .attr('xmlns', 'http://www.w3.org/1999/xhtml')
+                .style('width', '70%')
+                .style('border', '1px solid #ddd')
+                .style('border-radius', '5px')
+                .style('padding', '4px');
+            var chart = innerchartDiv.append('xhtml:span')
+                .attr('xmlns', 'http://www.w3.org/1999/xhtml')
+                .attr('id', 'lineChart')
+                .style('height', '65px')
+                .style('width', '100%')
+                .style('display', 'block')
+                .style('overflow', 'hidden')
+                .on('click', function () {
+                that.onChartClick();
+            });
+            that.highChartLine(chart).then(res => {
+                // if(this.chartData){
+                setTimeout(() => {
+                    var addInfoDiv = FO_Chart.append('xhtml:p')
+                        .attr('xmlns', 'http://www.w3.org/1999/xhtml')
+                        .text('Additional Return')
+                        .style('font-size', '14px')
+                        .style('font-family', 'Open Sans Regular')
+                        .style('color', '#224b9e')
+                        .style('line-height', '1.4')
+                        .style('margin', '0');
+                    var infodiv = FO_Chart.append('xhtml:div')
+                        .attr('xmlns', 'http://www.w3.org/1999/xhtml')
+                        // .attr('id','AL_AI_Span')
+                        .style('width', '100%')
+                        .style('display', 'flex')
+                        .style('justify-content', 'center');
+                    var infoSpan = infodiv.append('xhtml:span')
+                        .attr('xmlns', 'http://www.w3.org/1999/xhtml')
+                        .attr('id', 'AL_AI_Span')
+                        .style('width', '65%')
+                        .style('display', 'flex')
+                        .style('flex-direction', 'row')
+                        .style('padding', '0px 5px')
+                        .style('justify-content', 'space-between');
+                    infoSpan.append('xhtml:p')
+                        .attr('xmlns', 'http://www.w3.org/1999/xhtml')
+                        .text(function () {
+                        return '(C) ' + that.cumReturn;
+                    })
+                        .style('font-size', '14px')
+                        .style('font-family', 'Open Sans Bold')
+                        .style('color', '#224b9e')
+                        .style('line-height', '1.4')
+                        .style('margin', '0');
+                    infoSpan.append('xhtml:p')
+                        .attr('xmlns', 'http://www.w3.org/1999/xhtml')
+                        .text(function () {
+                        return '(A) ' + that.annReturn;
+                    })
+                        .style('font-size', '14px')
+                        .style('font-family', 'Open Sans Bold')
+                        .style('color', '#224b9e')
+                        .style('line-height', '1.4')
+                        .style('margin', '0');
+                    // }
+                }, 500);
+            });
+            resolve();
+        });
     }
     highChartLine(chart) {
-        var that = this;
-        if (this.selComp != "") {
-            let indexValue = [];
-            let date = [];
-            var Ctype = 'MC';
-            var GICSId = 0;
-            var range = '';
-            var selSecLvl = this.sectorOrder.filter(i => i.name == this.selSec.secTitle)[0].order;
-            if (selSecLvl == 1) {
-                GICSId = 0;
-            }
-            else {
-                GICSId = that.selComp.industry.slice(0, 2 * (selSecLvl - 1));
-            }
-            range = 'top' + this.CurrSliderData.e;
-            // console.log(this.IndexId,GICSId,Ctype,range);
-            this.dataHandler.getIndexPreRuns(this.IndexId, GICSId, Ctype, range).subscribe((res) => {
-                console.log(res);
-                if (res.length != 0) {
-                    that.chartData = true;
-                    if (that.smChart != null) {
-                        that.smChart.destroy();
-                        that.smChart = null;
+        return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function* () {
+            return new Promise((resolve, reject) => {
+                var that = this;
+                if (this.selComp != "") {
+                    let indexValue = [];
+                    let date = [];
+                    var Ctype = 'MC';
+                    var GICSId = 0;
+                    var range = '';
+                    var selSecLvl = this.sectorOrder.filter(i => i.name == this.selSec.secTitle)[0].order;
+                    if (selSecLvl == 1) {
+                        GICSId = 0;
                     }
-                    let ReturnVal = [];
-                    let ReturnVal1 = [];
-                    let indexValue1 = [];
-                    for (let i = 0; i <= (res.length - 1); ++i) {
-                        indexValue1.push(res[i]['top100']);
-                        date.push(res[i]['date']);
+                    else {
+                        GICSId = that.selComp.industry.slice(0, 2 * (selSecLvl - 1));
                     }
-                    var d = new Date(date[date.length - 1]);
-                    var formatdate = that.formatedates(d.getMonth() + 1) + '/' + that.formatedates(d.getDate()) + '/' + d.getFullYear();
-                    var since = new Date(date[0]);
-                    var sinceIncep = that.formatedates(since.getMonth() + 1) + '/' + that.formatedates(since.getDate()) + '/' + since.getFullYear();
-                    var series = [];
-                    series.push({
-                        name: "All  (" + formatdate + ' : ' + indexValue1[indexValue1.length - 1].toFixed(2) + ")",
-                        marker: {
-                            symbol: ''
-                        },
-                        dataLabels: {
-                            style: {
-                                fontSize: 8 + 'px',
+                    range = 'top' + Math.round(this.CurrSliderData.e);
+                    // console.log(this.IndexId,GICSId,Ctype,range);
+                    this.dataHandler.getIndexPreRuns(this.IndexId, GICSId, Ctype, range).subscribe((res) => {
+                        // console.log(res);
+                        if (res.length != 0) {
+                            that.chartData = true;
+                            if (that.smChart != null) {
+                                that.smChart.destroy();
+                                that.smChart = null;
                             }
-                        },
-                        color: '#9b9b9b',
-                        data: indexValue1,
-                        lineWidth: 0.9
-                    });
-                    ReturnVal = that.calcCumAndAnnReturns(indexValue1, date);
-                    if (0 < that.CurrSliderData.e && 100 > that.CurrSliderData.e) {
-                        for (let i = 0; i <= (res.length - 1); ++i) {
-                            //indexValue.push(res[i][that.clkdRgeText + that.SRValue]);
-                            indexValue.push(res[i]["range"]);
-                            date.push(res[i]['date']);
-                        }
-                        var d = new Date(date[date.length - 1]);
-                        var formatdate1 = that.formatedates(d.getMonth() + 1) + '/' + that.formatedates(d.getDate()) + '/' + d.getFullYear();
-                        series.push({
-                            name: "Top " + that.CurrSliderData.e + "% (" + formatdate1 + ' : ' + indexValue[indexValue.length - 1].toFixed(2) + ")",
-                            marker: {
-                                symbol: ''
-                            },
-                            dataLabels: {
-                                style: {
-                                    fontSize: 8 + 'px',
-                                }
-                            },
-                            data: indexValue,
-                            color: '#00b9ff',
-                            lineWidth: 0.9
-                        });
-                        ReturnVal1 = that.calcCumAndAnnReturns(indexValue, date);
-                        console.log('ReturnVal1', ReturnVal1);
-                        if ((ReturnVal1[0] - ReturnVal[0]) > 0) {
-                            that.cumReturn = '+' + (ReturnVal1[0] - ReturnVal[0]).toFixed(2) + '%';
-                        }
-                        else {
-                            that.cumReturn = (ReturnVal1[0] - ReturnVal[0]).toFixed(2) + '%';
-                        }
-                        if ((ReturnVal1[1] - ReturnVal[1]) > 0) {
-                            that.annReturn = '+' + (ReturnVal1[1] - ReturnVal[1]).toFixed(2) + '%';
-                        }
-                        else {
-                            that.annReturn = (ReturnVal1[1] - ReturnVal[1]).toFixed(2) + '%';
-                        }
-                        console.log('cumReturn', that.cumReturn);
-                        console.log('annReturn', that.annReturn);
-                    }
-                    that.smChart = highcharts__WEBPACK_IMPORTED_MODULE_10__["chart"]({
-                        chart: {
-                            renderTo: 'lineChart',
-                            type: 'spline',
-                            style: {
-                                fontFamily: 'Open Sans SemiBold'
-                            },
-                            margin: 0,
-                        },
-                        exporting: {
-                            url: 'https://export.highcharts.com/',
-                            enabled: true,
-                            buttons: {
-                                contextButton: {
-                                    menuItems: ['downloadPNG', 'downloadJPEG', 'downloadPDF', 'downloadSVG'],
-                                },
-                            },
-                        },
-                        credits: {
-                            enabled: false
-                        },
-                        legend: {
-                            enabled: false,
-                            itemStyle: {
-                                fontSize: '9px'
-                            },
-                            layout: 'vertical',
-                            backgroundColor: '#FFFFFF',
-                            align: 'left',
-                            verticalAlign: 'top',
-                            floating: true,
-                            x: 20,
-                            y: -15
-                        },
-                        title: {
-                            text: ''
-                        },
-                        subtitle: {
-                            text: ''
-                        },
-                        xAxis: {
-                            tickLength: 0,
-                            lineColor: 'transparent',
-                            // minRange: 10,
-                            type: 'datetime',
-                            categories: date,
-                            tickColor: '#f1f1f1',
-                            // useHTML: true,
-                            tickWidth: 1,
-                            labels: {
-                                enabled: false,
-                                rotation: 310,
-                                formatter: function () {
-                                    let d = new Date(this.value);
-                                    var currentMonth = (d.getMonth() + 1);
-                                    if (currentMonth < 10) {
-                                        currentMonth = '0' + currentMonth;
-                                    }
-                                    return (d.getFullYear().toString());
-                                },
-                                style: {
-                                    color: '#333',
-                                    fontSize: '9px',
-                                }
+                            let ReturnVal = [];
+                            let ReturnVal1 = [];
+                            let indexValue1 = [];
+                            for (let i = 0; i <= (res.length - 1); ++i) {
+                                indexValue1.push(res[i]['top100']);
+                                date.push(res[i]['date']);
                             }
-                        },
-                        yAxis: {
-                            maxPadding: 0.2,
-                            gridLineColor: 'transparent',
-                            title: {
-                                text: ''
-                            },
-                            labels: {
-                                enabled: false,
-                                style: {
-                                    color: '#333',
-                                    fontSize: '9px'
-                                }
-                            }
-                        },
-                        tooltip: {
-                            enabled: false,
-                            xDateFormat: '%Y-%m-%d',
-                            valueDecimals: 2,
-                            //crosshairs: true,
-                            shared: true,
-                            dateTimeLabelFormats: {
-                                millisecond: "%A, %b %e"
-                            },
-                            formatter: function () {
-                                var d = new Date(this.x);
-                                function formater(value) { if (value < 10) {
-                                    return '0' + value;
-                                }
-                                else {
-                                    return value;
-                                } }
-                                var formatdate = formater(d.getMonth() + 1) + '/' + formater(d.getDate()) + '/' + d.getFullYear();
-                                if (this.points.length > 1) {
-                                    return "<div style='font-size:7pt'>" + formatdate + "<br><b>All : </b> <span  style='font-size: 8pt'>" + this.points[0].y.toFixed(2) + "</span><br><b>" + that.CurrSliderData.e + " : </b><span style='font-size: 8pt'>" + this.points[1].y.toFixed(2) + ' </span></div>';
-                                }
-                                else if (this.points[0].color == "#00b9ff") {
-                                    return "<div style='font-size:7pt'>" + formatdate + "<br><b>" + that.CurrSliderData.e + " : </b><span  style='font-size: 8pt'>" + this.points[0].y.toFixed(2) + '</span></div>';
-                                }
-                                else {
-                                    return "<div style='font-size:7pt'>" + formatdate + "<br><b>All : </b><span  style='font-size: 8pt'>" + this.points[0].y.toFixed(2) + '</span></div>';
-                                }
-                            }
-                        },
-                        plotOptions: {
-                            spline: {
+                            var d = new Date(date[date.length - 1]);
+                            var formatdate = that.formatedates(d.getMonth() + 1) + '/' + that.formatedates(d.getDate()) + '/' + d.getFullYear();
+                            var since = new Date(date[0]);
+                            var sinceIncep = that.formatedates(since.getMonth() + 1) + '/' + that.formatedates(since.getDate()) + '/' + since.getFullYear();
+                            var series = [];
+                            series.push({
+                                name: "All  (" + formatdate + ' : ' + indexValue1[indexValue1.length - 1].toFixed(2) + ")",
                                 marker: {
-                                    radius: 0.1,
-                                    lineColor: '#666666',
-                                    lineWidth: 0.1
+                                    symbol: ''
+                                },
+                                dataLabels: {
+                                    style: {
+                                        fontSize: 8 + 'px',
+                                    }
+                                },
+                                color: '#9b9b9b',
+                                data: indexValue1,
+                                lineWidth: 0.9
+                            });
+                            ReturnVal = that.calcCumAndAnnReturns(indexValue1, date);
+                            if (0 < that.CurrSliderData.e && 100 > that.CurrSliderData.e) {
+                                for (let i = 0; i <= (res.length - 1); ++i) {
+                                    //indexValue.push(res[i][that.clkdRgeText + that.SRValue]);
+                                    indexValue.push(res[i]["range"]);
+                                    date.push(res[i]['date']);
                                 }
+                                var d = new Date(date[date.length - 1]);
+                                var formatdate1 = that.formatedates(d.getMonth() + 1) + '/' + that.formatedates(d.getDate()) + '/' + d.getFullYear();
+                                series.push({
+                                    name: "Top " + that.CurrSliderData.e + "% (" + formatdate1 + ' : ' + indexValue[indexValue.length - 1].toFixed(2) + ")",
+                                    marker: {
+                                        symbol: ''
+                                    },
+                                    dataLabels: {
+                                        style: {
+                                            fontSize: 8 + 'px',
+                                        }
+                                    },
+                                    data: indexValue,
+                                    color: '#00b9ff',
+                                    lineWidth: 0.9
+                                });
+                                ReturnVal1 = that.calcCumAndAnnReturns(indexValue, date);
+                                // console.log('ReturnVal1',ReturnVal1);
+                                if ((ReturnVal1[0] - ReturnVal[0]) > 0) {
+                                    that.cumReturn = '+' + (ReturnVal1[0] - ReturnVal[0]).toFixed(2) + '%';
+                                }
+                                else {
+                                    that.cumReturn = (ReturnVal1[0] - ReturnVal[0]).toFixed(2) + '%';
+                                }
+                                if ((ReturnVal1[1] - ReturnVal[1]) > 0) {
+                                    that.annReturn = '+' + (ReturnVal1[1] - ReturnVal[1]).toFixed(2) + '%';
+                                }
+                                else {
+                                    that.annReturn = (ReturnVal1[1] - ReturnVal[1]).toFixed(2) + '%';
+                                }
+                                // console.log('cumReturn',that.cumReturn);
+                                // console.log('annReturn',that.annReturn);
                             }
-                        },
-                        series: series,
-                        lang: {
-                            noData: "No Data",
-                        },
-                        noData: {
-                            style: {
-                                fontWeight: 'bold',
-                                fontSize: '7px',
-                                color: '#303030'
+                            else {
+                                that.cumReturn = '0.00%';
+                                this.annReturn = '0.00%';
                             }
+                            that.smChart = highcharts__WEBPACK_IMPORTED_MODULE_10__["chart"]({
+                                chart: {
+                                    renderTo: 'lineChart',
+                                    type: 'spline',
+                                    style: {
+                                        fontFamily: 'Open Sans SemiBold'
+                                    },
+                                    margin: 0,
+                                },
+                                exporting: {
+                                    url: 'https://export.highcharts.com/',
+                                    enabled: true,
+                                    buttons: {
+                                        contextButton: {
+                                            menuItems: ['downloadPNG', 'downloadJPEG', 'downloadPDF', 'downloadSVG'],
+                                        },
+                                    },
+                                },
+                                credits: {
+                                    enabled: false
+                                },
+                                legend: {
+                                    enabled: false,
+                                    itemStyle: {
+                                        fontSize: '9px'
+                                    },
+                                    layout: 'vertical',
+                                    backgroundColor: '#FFFFFF',
+                                    align: 'left',
+                                    verticalAlign: 'top',
+                                    floating: true,
+                                    x: 20,
+                                    y: -15
+                                },
+                                title: {
+                                    text: ''
+                                },
+                                subtitle: {
+                                    text: ''
+                                },
+                                xAxis: {
+                                    tickLength: 0,
+                                    lineColor: 'transparent',
+                                    // minRange: 10,
+                                    type: 'datetime',
+                                    categories: date,
+                                    tickColor: '#f1f1f1',
+                                    // useHTML: true,
+                                    tickWidth: 1,
+                                    labels: {
+                                        enabled: false,
+                                        rotation: 310,
+                                        formatter: function () {
+                                            let d = new Date(this.value);
+                                            var currentMonth = (d.getMonth() + 1);
+                                            if (currentMonth < 10) {
+                                                currentMonth = '0' + currentMonth;
+                                            }
+                                            return (d.getFullYear().toString());
+                                        },
+                                        style: {
+                                            color: '#333',
+                                            fontSize: '9px',
+                                        }
+                                    }
+                                },
+                                yAxis: {
+                                    maxPadding: 0.2,
+                                    gridLineColor: 'transparent',
+                                    title: {
+                                        text: ''
+                                    },
+                                    labels: {
+                                        enabled: false,
+                                        style: {
+                                            color: '#333',
+                                            fontSize: '9px'
+                                        }
+                                    }
+                                },
+                                tooltip: {
+                                    enabled: false,
+                                    xDateFormat: '%Y-%m-%d',
+                                    valueDecimals: 2,
+                                    //crosshairs: true,
+                                    shared: true,
+                                    dateTimeLabelFormats: {
+                                        millisecond: "%A, %b %e"
+                                    },
+                                    formatter: function () {
+                                        var d = new Date(this.x);
+                                        function formater(value) { if (value < 10) {
+                                            return '0' + value;
+                                        }
+                                        else {
+                                            return value;
+                                        } }
+                                        var formatdate = formater(d.getMonth() + 1) + '/' + formater(d.getDate()) + '/' + d.getFullYear();
+                                        if (this.points.length > 1) {
+                                            return "<div style='font-size:7pt'>" + formatdate + "<br><b>All : </b> <span  style='font-size: 8pt'>" + this.points[0].y.toFixed(2) + "</span><br><b>" + that.CurrSliderData.e + " : </b><span style='font-size: 8pt'>" + this.points[1].y.toFixed(2) + ' </span></div>';
+                                        }
+                                        else if (this.points[0].color == "#00b9ff") {
+                                            return "<div style='font-size:7pt'>" + formatdate + "<br><b>" + that.CurrSliderData.e + " : </b><span  style='font-size: 8pt'>" + this.points[0].y.toFixed(2) + '</span></div>';
+                                        }
+                                        else {
+                                            return "<div style='font-size:7pt'>" + formatdate + "<br><b>All : </b><span  style='font-size: 8pt'>" + this.points[0].y.toFixed(2) + '</span></div>';
+                                        }
+                                    }
+                                },
+                                plotOptions: {
+                                    spline: {
+                                        marker: {
+                                            radius: 0.1,
+                                            lineColor: '#666666',
+                                            lineWidth: 0.1
+                                        }
+                                    }
+                                },
+                                series: series,
+                                lang: {
+                                    noData: "No Data",
+                                },
+                                noData: {
+                                    style: {
+                                        fontWeight: 'bold',
+                                        fontSize: '7px',
+                                        color: '#303030'
+                                    }
+                                }
+                            });
                         }
+                        else {
+                            that.chartData = false;
+                            d3__WEBPACK_IMPORTED_MODULE_5__["select"]('#ALC_container').style('margin-top', '20px');
+                            d3__WEBPACK_IMPORTED_MODULE_5__["select"]('#ALC_text').style('display', 'none');
+                            chart.on('click', null);
+                            chart.style('display', 'flex')
+                                .style('justify-content', 'center')
+                                .style('align-items', 'center')
+                                .style('font-size', '18px')
+                                .style('font-family', 'Open Sans SemiBold')
+                                .style('color', '#999')
+                                .text('No Data');
+                        }
+                        resolve();
                     });
                 }
-                else {
-                    that.chartData = false;
-                    d3__WEBPACK_IMPORTED_MODULE_5__["select"]('#ALC_container').style('margin-top', '20px');
-                    d3__WEBPACK_IMPORTED_MODULE_5__["select"]('#ALC_text').style('display', 'none');
-                    chart.on('click', null);
-                    chart.style('display', 'flex')
-                        .style('justify-content', 'center')
-                        .style('align-items', 'center')
-                        .style('font-size', '18px')
-                        .style('font-family', 'Open Sans SemiBold')
-                        .style('color', '#999')
-                        .text('No Data');
-                }
+                // resolve();
             });
-        }
+        });
     }
     onChartClick() {
         return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function* () {
@@ -1738,41 +1814,48 @@ let HomePage = class HomePage {
         }
     }
     CreateCompCircle() {
-        let that = this;
-        var cradius = 150;
-        var oSvg = that.chartMain;
-        d3__WEBPACK_IMPORTED_MODULE_5__["select"]("#innerCircleGrp").remove();
-        var innerCirclegrp = oSvg.append("g").attr("id", "innerCircleGrp");
-        var innerCircle = innerCirclegrp.append("circle")
-            .attr("id", "inmaincircle")
-            .attr("fill", "#fff")
-            .attr("r", cradius);
-        var Ctext = innerCirclegrp.append("g").attr('id', "CompText");
-        var txt = that.selComp.companyName + " (" + that.selComp.ticker + ")";
-        var comptext = Ctext.append("text")
-            .attr("x", function (d) { return '0'; })
-            .attr("y", function (d) { return '-5%'; })
-            .attr("dy", function (d) { return '-1em'; })
-            .attr("dominant-baseline", "middle")
-            .attr("text-anchor", "middle")
-            .attr('class', 'innerComp')
-            .text(txt).call(that.compwrap, 250);
-        var med = that.roundMed(that.selComp.scores * 100);
-        // console.log(med);
-        Ctext.append("text")
-            .attr("x", function (d) { return '0'; })
-            .attr("y", function (d) { return ((txt.length / 20) + 2) + '%'; })
-            .attr("dy", function (d) {
-            if (txt.length < 40)
-                return ((txt.length / 20) - 2) + "rem";
-            else
-                return ((txt.length / 20) - 1) + "rem";
-        })
-            .attr("dominant-baseline", "middle")
-            .attr("text-anchor", "middle")
-            .attr('class', 'innerCompMed')
-            .style('fill', that.getColor(med))
-            .text(med);
+        return new Promise((resolve, reject) => {
+            let that = this;
+            var cradius = 150;
+            var oSvg = that.chartMain;
+            d3__WEBPACK_IMPORTED_MODULE_5__["select"]("#innerCircleGrp").remove();
+            var innerCirclegrp = oSvg.append("g").attr("id", "innerCircleGrp");
+            var innerCircle = innerCirclegrp.append("circle")
+                .attr("id", "inmaincircle")
+                .attr("fill", "#fff")
+                .attr("r", cradius);
+            var Ctext = innerCirclegrp.append("g").attr('id', "CompText");
+            var txt = that.selComp.companyName + " (" + that.selComp.ticker + ")";
+            var comptext = Ctext.append("text")
+                .attr("x", function (d) { return '0'; })
+                .attr("y", function (d) { return '-5%'; })
+                .attr("dy", function (d) { return '-1em'; })
+                .attr("dominant-baseline", "middle")
+                .attr("text-anchor", "middle")
+                .attr('class', 'innerComp')
+                .text(txt).call(that.compwrap, 250);
+            var med = that.roundMed(that.selComp.scores * 100);
+            // console.log(med);
+            Ctext.append("text")
+                .attr("x", function (d) { return '0'; })
+                .attr("y", function (d) { return ((txt.length / 20) + 2) + '%'; })
+                .attr("dy", function (d) {
+                // if(txt.length < 25){
+                //   return ((txt.length / 20)-1.5)+"rem";
+                // }
+                // else 
+                if (txt.length < 35)
+                    return ((txt.length / 20) - 2) + "rem";
+                else
+                    return ((txt.length / 20) - 0.8) + "rem";
+            })
+                .attr("dominant-baseline", "middle")
+                .attr("text-anchor", "middle")
+                .attr('class', 'innerCompMed')
+                .style('fill', that.getColor(med))
+                .text(med);
+            resolve();
+        });
         // comptext.append("tspan")
         // .attr('class','innerCompMed')
         // // .attr('x',function(d){return "0"})
@@ -1857,123 +1940,126 @@ let HomePage = class HomePage {
     }
     setClock(isin, val, txt) {
         // console.log(isin,val,txt);
-        let that = this;
-        if (txt != null) {
-            d3__WEBPACK_IMPORTED_MODULE_5__["select"]("#cSlider").style("display", "none");
-            var r = d3__WEBPACK_IMPORTED_MODULE_5__["select"]("#maincircle").attr("r");
-            let gC360 = d3__WEBPACK_IMPORTED_MODULE_5__["scaleLinear"]()
-                .domain([0, 90, 180, 270, 360])
-                .range(["#40b55c", "#75c254", "#f5ea23", "#f37130", "#ef462f"]);
-            var comp = d3__WEBPACK_IMPORTED_MODULE_5__["select"]('.Compet' + isin).style('display', "none");
-            // console.log(comp);
-            d3__WEBPACK_IMPORTED_MODULE_5__["select"]("#cSlider")
-                .attr('transform', function (d) {
-                var i = that.selIndexData.indexOf(that.selComp);
-                var len = that.selIndexData.length;
-                return "rotate(" + ((i * 360 / len) - 90) + ")";
-            })
-                .attr('name', isin);
-            d3__WEBPACK_IMPORTED_MODULE_5__["select"]("#cSlider").select(".sText")
-                .attr("x", function () {
-                return val >= 90 ? "-218" : "210";
-            })
-                .attr("transform", function () {
-                //  return val > 180 ? "rotate(180 " + (+r + 140) + ", 0)" : null;
-                //cx <= 90
-                console.log(val);
-                return val >= 90 ? "rotate(180)" : null;
-            })
-                .style("text-anchor", function () {
-                return val >= 90 ? "end" : null;
-            })
-                .style("display", function () { return txt == null ? "none" : "block"; })
-                .attr("fill", function () {
-                return gC360(val);
-                //if (score >= 40 && score < 55) {
-                //  return "#FF9503";
-                //}
-                //else {
-                //  return "#fff";
-                //}
-            })
-                .text(txt).call(that.wrap, 100);
+        return new Promise((resolve, reject) => {
+            let that = this;
+            if (txt != null) {
+                d3__WEBPACK_IMPORTED_MODULE_5__["select"]("#cSlider").style("display", "none");
+                var r = d3__WEBPACK_IMPORTED_MODULE_5__["select"]("#maincircle").attr("r");
+                let gC360 = d3__WEBPACK_IMPORTED_MODULE_5__["scaleLinear"]()
+                    .domain([0, 90, 180, 270, 360])
+                    .range(["#40b55c", "#75c254", "#f5ea23", "#f37130", "#ef462f"]);
+                var comp = d3__WEBPACK_IMPORTED_MODULE_5__["select"]('.Compet' + isin).style('display', "none");
+                // console.log(comp);
+                d3__WEBPACK_IMPORTED_MODULE_5__["select"]("#cSlider")
+                    .attr('transform', function (d) {
+                    var i = that.selIndexData.indexOf(that.selComp);
+                    var len = that.selIndexData.length;
+                    return "rotate(" + ((i * 360 / len) - 90) + ")";
+                })
+                    .attr('name', isin);
+                d3__WEBPACK_IMPORTED_MODULE_5__["select"]("#cSlider").select(".sText")
+                    .attr("x", function () {
+                    return val >= 90 ? "-218" : "210";
+                })
+                    .attr("transform", function () {
+                    //  return val > 180 ? "rotate(180 " + (+r + 140) + ", 0)" : null;
+                    //cx <= 90
+                    // console.log(val);
+                    return val >= 90 ? "rotate(180)" : null;
+                })
+                    .style("text-anchor", function () {
+                    return val >= 90 ? "end" : null;
+                })
+                    .style("display", function () { return txt == null ? "none" : "block"; })
+                    .attr("fill", function () {
+                    return gC360(val);
+                    //if (score >= 40 && score < 55) {
+                    //  return "#FF9503";
+                    //}
+                    //else {
+                    //  return "#fff";
+                    //}
+                })
+                    .text(txt).call(that.wrap, 100);
+                d3__WEBPACK_IMPORTED_MODULE_5__["select"]("#cSlider").style("display", "block");
+                var bbox = d3__WEBPACK_IMPORTED_MODULE_5__["select"]("#cSlider").select(".sText").node().getBBox();
+                var bboxH = +bbox.height + 20;
+                bboxH = bboxH > 40 ? bboxH : 40;
+                d3__WEBPACK_IMPORTED_MODULE_5__["select"]("#cSlider").select(".sRect")
+                    //.attr("fill", function () { return gC360(score * 360 / 100); })
+                    .attr("fill", "#fff")
+                    .attr("stroke", "#00b5fa")
+                    .attr("stroke-width", "3px")
+                    .style("display", function () { return txt == null ? "none" : "block"; })
+                    .attr("height", bboxH)
+                    .attr("width", bbox.width + 50)
+                    .attr("y", -(bboxH / 2));
+                var calW = parseInt(that.createXrad + bbox.width);
+                d3__WEBPACK_IMPORTED_MODULE_5__["select"]("#cSlider").select(".sTextReverse")
+                    .attr("fill", "#fff")
+                    .style("display", function () { return txt == null ? "none" : "block"; })
+                    .attr("x", function () {
+                    if (bboxH == 40) {
+                        return -(bboxH + 0);
+                    }
+                    else if (bboxH < 50) {
+                        return -(bboxH - 3);
+                    }
+                    else if (bboxH > 50) {
+                        return -(bboxH - 15);
+                    }
+                })
+                    .attr("y", -(calW + 17));
+                d3__WEBPACK_IMPORTED_MODULE_5__["select"](".comp[name='" + isin + "_" + that.selComp.indexName.replace(/ /g, '_') + "']").raise();
+                d3__WEBPACK_IMPORTED_MODULE_5__["select"](".comp[name='" + isin + "_" + that.selComp.indexName.replace(/ /g, '_') + "']").select("rect").classed("recton", true);
+                this.fillCompetives();
+            }
+            d3__WEBPACK_IMPORTED_MODULE_5__["select"]("#chartGroup").selectAll("rect").classed("highlt", "false");
+            d3__WEBPACK_IMPORTED_MODULE_5__["select"]("#cSlider").raise();
             d3__WEBPACK_IMPORTED_MODULE_5__["select"]("#cSlider").style("display", "block");
-            var bbox = d3__WEBPACK_IMPORTED_MODULE_5__["select"]("#cSlider").select(".sText").node().getBBox();
-            var bboxH = +bbox.height + 20;
-            bboxH = bboxH > 40 ? bboxH : 40;
-            d3__WEBPACK_IMPORTED_MODULE_5__["select"]("#cSlider").select(".sRect")
-                //.attr("fill", function () { return gC360(score * 360 / 100); })
-                .attr("fill", "#fff")
-                .attr("stroke", "#00b5fa")
-                .attr("stroke-width", "3px")
-                .style("display", function () { return txt == null ? "none" : "block"; })
-                .attr("height", bboxH)
-                .attr("width", bbox.width + 50)
-                .attr("y", -(bboxH / 2));
-            var calW = parseInt(that.createXrad + bbox.width);
-            d3__WEBPACK_IMPORTED_MODULE_5__["select"]("#cSlider").select(".sTextReverse")
-                .attr("fill", "#fff")
-                .style("display", function () { return txt == null ? "none" : "block"; })
-                .attr("x", function () {
-                if (bboxH == 40) {
-                    return -(bboxH + 0);
-                }
-                else if (bboxH < 50) {
-                    return -(bboxH - 3);
-                }
-                else if (bboxH > 50) {
-                    return -(bboxH - 15);
-                }
-            })
-                .attr("y", -(calW + 17));
-            d3__WEBPACK_IMPORTED_MODULE_5__["select"](".comp[name='" + isin + "_" + that.selComp.indexName.replace(/ /g, '_') + "']").raise();
-            d3__WEBPACK_IMPORTED_MODULE_5__["select"](".comp[name='" + isin + "_" + that.selComp.indexName.replace(/ /g, '_') + "']").select("rect").classed("recton", true);
-            this.fillCompetives();
-        }
-        d3__WEBPACK_IMPORTED_MODULE_5__["select"]("#chartGroup").selectAll("rect").classed("highlt", "false");
-        d3__WEBPACK_IMPORTED_MODULE_5__["select"]("#cSlider").raise();
-        d3__WEBPACK_IMPORTED_MODULE_5__["select"]("#cSlider").style("display", "block");
-        that.IndexId = 0;
-        if (that.selComp.indexName == "S&P 500") {
-            that.IndexId = 28;
-        }
-        if (that.selComp.indexName == "S&P 600") {
-            that.IndexId = 27;
-        }
-        if (that.selComp.indexName == "S&P 400") {
-            that.IndexId = 121;
-        }
-        if (that.selComp.indexName == "S&P United Kingdom BMI Index") {
-            that.IndexId = 56;
-        }
-        if (that.selComp.indexName == "S&P Japan BMI Index") {
-            that.IndexId = 57;
-        }
-        if (that.selComp.indexName == "S&P Europe Ex-UK BMI Index") {
-            that.IndexId = 58;
-        }
-        if (that.selComp.indexName == "S&P USA Ex S&P 1500") {
-            that.IndexId = 122;
-        }
-        // if (that.assgSelDrpVal == "ETFs") {
-        //   that.IndexId = 123;
-        // }
-        if (that.selComp.indexName == "S&P Canada BMI Index") {
-            that.IndexId = 126;
-        }
-        if (that.selComp.indexName == "S&P Australia BMI Index") {
-            that.IndexId = 125;
-        }
-        if (that.selComp.indexName == "S&P South Africa BMI Index") {
-            that.IndexId = 127;
-        }
-        if (that.selComp.indexName == "S&P South Korea BMI Index") {
-            that.IndexId = 128;
-        }
-        // if (SelIndId == "nav-1") {
-        //   that.IndexId = 137;
-        // }
-        // console.log(that.IndexId);  
+            that.IndexId = 0;
+            if (that.selComp.indexName == "S&P 500") {
+                that.IndexId = 28;
+            }
+            if (that.selComp.indexName == "S&P 600") {
+                that.IndexId = 27;
+            }
+            if (that.selComp.indexName == "S&P 400") {
+                that.IndexId = 121;
+            }
+            if (that.selComp.indexName == "S&P United Kingdom BMI Index") {
+                that.IndexId = 56;
+            }
+            if (that.selComp.indexName == "S&P Japan BMI Index") {
+                that.IndexId = 57;
+            }
+            if (that.selComp.indexName == "S&P Europe Ex-UK BMI Index") {
+                that.IndexId = 58;
+            }
+            if (that.selComp.indexName == "S&P USA Ex S&P 1500") {
+                that.IndexId = 122;
+            }
+            // if (that.assgSelDrpVal == "ETFs") {
+            //   that.IndexId = 123;
+            // }
+            if (that.selComp.indexName == "S&P Canada BMI Index") {
+                that.IndexId = 126;
+            }
+            if (that.selComp.indexName == "S&P Australia BMI Index") {
+                that.IndexId = 125;
+            }
+            if (that.selComp.indexName == "S&P South Africa BMI Index") {
+                that.IndexId = 127;
+            }
+            if (that.selComp.indexName == "S&P South Korea BMI Index") {
+                that.IndexId = 128;
+            }
+            // if (SelIndId == "nav-1") {
+            //   that.IndexId = 137;
+            // }
+            // console.log(that.IndexId);  
+            resolve();
+        });
     }
     circleRange(values) {
         // console.log(values);
@@ -2098,17 +2184,14 @@ let HomePage = class HomePage {
             });
         };
         function writeTimeInfo(sliderObject) {
-            console.log('writeTimeInfo');
+            // console.log('writeTimeInfo');
             // if((that.AvoidLosersec && !that.AL_mainCircle && !that.AL_rangeCircle) || ( that.AvoidLosersec && that.AL_rangeCircle && !that.AL_mainCircle)){
             if ((that.AvoidLosersec && !that.AL_mainCircle && !that.AL_rangeCircle) || (that.AvoidLosersec && that.AL_rangeCircle)) {
                 that.CurrSliderData = sliderObject;
                 // console.log('CurrSliderData',that.CurrSliderData);
             }
             if (that.AvoidLosersec && that.AL_rangeCircle && !that.AL_mainCircle) {
-                // console.log('setInfo started');
-                setTimeout(() => {
-                    SetInfo(that.CurrSliderData);
-                }, 500);
+                SetInfo(that.CurrSliderData);
             }
             helper.calculateUpdateHandleData({ "start": sliderObject.a, "end": sliderObject.e });
         }
@@ -2164,7 +2247,7 @@ let HomePage = class HomePage {
             d3__WEBPACK_IMPORTED_MODULE_5__["select"]('#handles').select('.handle').remove();
         }
         function drawHandles() {
-            console.log('drawHandles');
+            // console.log('drawHandles');
             var handlerContainer = handles.selectAll('.handlercontainer').data(helper.getData());
             var circles = handlerContainer.enter()
                 .append('g')
@@ -2205,7 +2288,7 @@ let HomePage = class HomePage {
             //.text(function (d) { if (d.label == "a") return '\uf054'; else return '\uf053'; }); //http://fontawesome.io/3.2.1/cheatsheet/
         }
         function drawTickers() {
-            console.log('drawTickers');
+            // console.log('drawTickers');
             var checkPoi = (sliderEndValue - sliderInitValue) <= 20 ? 1 : 0;
             /////////Ticks Inside the Tool circle
             //var ticks = svg.append("g").attr('id', 'ticks').attr("class", 'sliderDisp').style("display", "none").attr('transform', 'translate(' + radius + ',' + radius + ')')
@@ -2238,7 +2321,7 @@ let HomePage = class HomePage {
             roTicker.select(".tick50").select("text").style("font-family", "Open Sans Semibold").style("fill", tickColor1);
         }
         function dragmoveHandles(d, i) {
-            console.log('dragmoveHandles');
+            // console.log('dragmoveHandles');
             //issue is here for 100
             var coordinates = d3__WEBPACK_IMPORTED_MODULE_5__["mouse"](svg.node());
             // console.log(coordinates);
@@ -2266,7 +2349,7 @@ let HomePage = class HomePage {
             }
         }
         function updateArc(value, label, angle) {
-            console.log('updateArc');
+            // console.log('updateArc');
             var handlerContainer = d3__WEBPACK_IMPORTED_MODULE_5__["selectAll"]('#handles .handlercontainer'); //select all handles
             var startValue = 0;
             var endValue = 0;
@@ -2294,7 +2377,7 @@ let HomePage = class HomePage {
             dragLiveData = currentData;
         }
         function updateHandles(dd) {
-            console.log('updateHandles');
+            // console.log('updateHandles');
             if (dd.label === 'a') {
                 d3__WEBPACK_IMPORTED_MODULE_5__["select"]('#handles').select('.a1').attr('transform', 'rotate(' + dd.angle + ') translate(0,' + (radius) * -1 + ')');
             }
@@ -2323,7 +2406,7 @@ let HomePage = class HomePage {
             updateArc(dd.value, dd.label, dd.angle);
         }
         function checkHandlesPosition(labelOfDagedHandle) {
-            console.log('checkHandlesPosition');
+            // console.log('checkHandlesPosition');
             var allHandles = handles.selectAll('.handlercontainer');
             // console.log(allHandles);
             var currentData = {
@@ -2363,7 +2446,7 @@ let HomePage = class HomePage {
             }, 1000);
         }
         function SetInfo(data) {
-            console.log('SetInfo');
+            // console.log('SetInfo');
             // console.log(data);
             d3__WEBPACK_IMPORTED_MODULE_5__["select"]('#innerText').remove();
             var oSvg = d3__WEBPACK_IMPORTED_MODULE_5__["select"]('#crlChart');
@@ -2381,7 +2464,7 @@ let HomePage = class HomePage {
                 .attr('x', 0)
                 .attr("dy", 20)
                 .text(function () {
-                return data.e + '%';
+                return Math.round(data.e) + '%';
             });
             text.transition()
                 .duration(300);

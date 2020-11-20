@@ -7,7 +7,6 @@ import { AuthenticationService } from './services/authentication.service';
 import { Router } from '@angular/router';
 import { Network } from '@ionic-native/network/ngx';
 import { ToastController } from '@ionic/angular';
-import { DataService } from './services/shareddata/data.service';
 import { ScreenOrientation } from '@ionic-native/screen-orientation/ngx';
 
 // import { NetworkService } from './services/networks/network.service';
@@ -89,12 +88,12 @@ export class AppComponent {
             // console.log("Auth State : "+state);
             if(state){
               if(this.platform.is('ipad') || this.platform.is('tablet')){
-                console.log('ipad/tablet');
+                // console.log('ipad/tablet');
                 this.navController.navigateRoot(['tabs/home']);
                 this.splashScreen.hide();
               }else{
                 this.navController.navigateRoot(['menu/menu/home']);
-                console.log('iphone/mobile');
+                // console.log('iphone/mobile');
                 // this.router.navigateByUrl('/menu/menu/home');
                 // this.router.navigate(['/menu/menu/home'],{
                 //   skipLocationChange:true

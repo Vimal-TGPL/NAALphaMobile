@@ -40,7 +40,7 @@ export class LineChartComponent implements OnInit,OnDestroy {
 
   rangeChange(evt){
     this.range = evt.detail.value;
-    this.currentData.e = evt.detail.value;
+    this.currentData.e = evt.detail.value == 0 ? 100 : evt.detail.value ;
     this.highChartLine();
   }
 
@@ -62,9 +62,9 @@ export class LineChartComponent implements OnInit,OnDestroy {
         GICSId = that.selComp.industry.slice(0,2*(this.selSecLvl-1));
       }
       range = 'top'+this.currentData.e;
-      console.log(range);
+      // console.log(range);
       this.dataHandler.getIndexPreRuns(this.indexId,GICSId,Ctype,range).subscribe((res:any[]) =>{
-        console.log(res);
+        // console.log(res);
         if(res.length > 0){
 
           if (that.lgChart != null) {
@@ -100,7 +100,7 @@ export class LineChartComponent implements OnInit,OnDestroy {
               date.push(res[i]['date']);
             }
 
-            console.log(indexValue);
+            // console.log(indexValue);
 
             var d = new Date(date[date.length - 1]);
             var formatdate1 = that.formatedates(d.getMonth() + 1) + '/' + that.formatedates(d.getDate()) + '/' + d.getFullYear();

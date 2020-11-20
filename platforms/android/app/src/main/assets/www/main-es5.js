@@ -268,7 +268,7 @@ module.exports = webpackAsyncContext;
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<ion-header mode='ios'>\n  <ion-toolbar>\n    <img slot=\"start\" src=\"../../../assets/images/NAA_Logo_Mobile.svg\" alt=\"logo\" style=\"height: 30px;\">\n    <ion-title>Avoid the Losers</ion-title>\n    <ion-button slot=\"end\" (click)=\"onCloseClick($event)\" fill=\"clear\">\n      Close\n    </ion-button>\n  </ion-toolbar>\n</ion-header>\n<ion-content>\n  <div class=\"rangeDiv\">\n    <div class=\"rangeInnerDiv\">\n      <ion-range mode='ios'\n      min=\"0\" max=\"95\"\n      dualKnobs=\"false\" pin=\"true\"\n      snaps=\"true\" step=\"5\"\n      ticks=\"true\" [(value)]=\"range\"\n      (ionChange)=\"rangeChange($event)\">\n      <ion-label slot=\"start\">All</ion-label>\n      <ion-label slot=\"end\">95</ion-label>\n      </ion-range>\n    </div>\n  </div>\n  <div class=\"LChartOuter\">\n    <div id=\"lineChartModal\" class=\"LChart\"></div>\n  </div>\n  \n</ion-content>\n<!-- <div class=\"AL_outerDiv\"> -->\n<!-- <div class=\"AL_innerDiv\"> -->\n  <!-- <div class=\"LC_TitleDiv\">\n    <p></p>\n    <ion-icon name=\"close-circle\" (click)=\"onCloseClick($event)\"></ion-icon>\n  </div> -->\n  <!-- <div class=\"AL_rangeDiv\">    \n    \n  </div>\n  \n\n  </div> -->\n<!-- </div> -->\n<!-- </div> -->"
+module.exports = "<ion-header mode='ios'>\n  <ion-toolbar>\n    <img slot=\"start\" src=\"../../../assets/images/NAA_Logo_Mobile.svg\" alt=\"logo\" style=\"height: 30px;\">\n    <ion-title>Avoid the Losers</ion-title>\n    <ion-button slot=\"end\" (click)=\"onCloseClick($event)\" fill=\"clear\">\n      Close\n    </ion-button>\n  </ion-toolbar>\n</ion-header>\n<ion-content>\n  <div class=\"rangeDiv\">\n    <div class=\"rangeInnerDiv\">\n      <ion-range mode='ios'\n      min=\"0\" max=\"95\"\n      dualKnobs=\"false\" pin=\"true\"\n      snaps=\"true\" step=\"5\"\n      debounce = 200\n      ticks=\"true\" [(value)]=\"range == 100 ? 0 : range\"\n      (ionChange)=\"rangeChange($event)\">\n      <ion-label slot=\"start\">All</ion-label>\n      <ion-label slot=\"end\">95</ion-label>\n      </ion-range>\n    </div>\n  </div>\n  <div class=\"LChartOuter\">\n    <div id=\"lineChartModal\" class=\"LChart\"></div>\n  </div>\n  \n</ion-content>\n<!-- <div class=\"AL_outerDiv\"> -->\n<!-- <div class=\"AL_innerDiv\"> -->\n  <!-- <div class=\"LC_TitleDiv\">\n    <p></p>\n    <ion-icon name=\"close-circle\" (click)=\"onCloseClick($event)\"></ion-icon>\n  </div> -->\n  <!-- <div class=\"AL_rangeDiv\">    \n    \n  </div>\n  \n\n  </div> -->\n<!-- </div> -->\n<!-- </div> -->"
 
 /***/ }),
 
@@ -370,7 +370,7 @@ var LineChartComponent = /** @class */ (function () {
     };
     LineChartComponent.prototype.rangeChange = function (evt) {
         this.range = evt.detail.value;
-        this.currentData.e = evt.detail.value;
+        this.currentData.e = evt.detail.value == 0 ? 100 : evt.detail.value;
         this.highChartLine();
     };
     LineChartComponent.prototype.formatedates = function (value) {
@@ -396,9 +396,9 @@ var LineChartComponent = /** @class */ (function () {
                 GICSId = that.selComp.industry.slice(0, 2 * (this.selSecLvl - 1));
             }
             range = 'top' + this.currentData.e;
-            console.log(range);
+            // console.log(range);
             this.dataHandler.getIndexPreRuns(this.indexId, GICSId, Ctype, range).subscribe(function (res) {
-                console.log(res);
+                // console.log(res);
                 if (res.length > 0) {
                     if (that.lgChart != null) {
                         that.lgChart.destroy();
@@ -427,7 +427,7 @@ var LineChartComponent = /** @class */ (function () {
                             indexValue_1.push(res[i]["range"]);
                             date_1.push(res[i]['date']);
                         }
-                        console.log(indexValue_1);
+                        // console.log(indexValue);
                         var d = new Date(date_1[date_1.length - 1]);
                         var formatdate1 = that.formatedates(d.getMonth() + 1) + '/' + that.formatedates(d.getDate()) + '/' + d.getFullYear();
                         series.push({
@@ -719,6 +719,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _ionic_storage__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @ionic/storage */ "./node_modules/@ionic/storage/fesm5/ionic-storage.js");
 /* harmony import */ var _services_authentication_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../services/authentication.service */ "./src/app/services/authentication.service.ts");
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+/* harmony import */ var src_app_services_shareddata_data_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! src/app/services/shareddata/data.service */ "./src/app/services/shareddata/data.service.ts");
+
 
 
 
@@ -726,7 +728,8 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var ProfiledetailsComponent = /** @class */ (function () {
-    function ProfiledetailsComponent(route, authService, popoverController, storage) {
+    function ProfiledetailsComponent(dataServeice, route, authService, popoverController, storage) {
+        this.dataServeice = dataServeice;
         this.route = route;
         this.authService = authService;
         this.popoverController = popoverController;
@@ -768,6 +771,7 @@ var ProfiledetailsComponent = /** @class */ (function () {
         this.route.navigateByUrl('/menu/menu/change-password');
     };
     ProfiledetailsComponent.ctorParameters = function () { return [
+        { type: src_app_services_shareddata_data_service__WEBPACK_IMPORTED_MODULE_6__["DataService"] },
         { type: _angular_router__WEBPACK_IMPORTED_MODULE_5__["Router"] },
         { type: _services_authentication_service__WEBPACK_IMPORTED_MODULE_4__["AuthenticationService"] },
         { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["PopoverController"] },
@@ -779,7 +783,7 @@ var ProfiledetailsComponent = /** @class */ (function () {
             template: __webpack_require__(/*! raw-loader!./profiledetails.component.html */ "./node_modules/raw-loader/index.js!./src/app/Components/profiledetails/profiledetails.component.html"),
             styles: [__webpack_require__(/*! ./profiledetails.component.scss */ "./src/app/Components/profiledetails/profiledetails.component.scss")]
         }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_router__WEBPACK_IMPORTED_MODULE_5__["Router"], _services_authentication_service__WEBPACK_IMPORTED_MODULE_4__["AuthenticationService"], _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["PopoverController"], _ionic_storage__WEBPACK_IMPORTED_MODULE_3__["Storage"]])
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [src_app_services_shareddata_data_service__WEBPACK_IMPORTED_MODULE_6__["DataService"], _angular_router__WEBPACK_IMPORTED_MODULE_5__["Router"], _services_authentication_service__WEBPACK_IMPORTED_MODULE_4__["AuthenticationService"], _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["PopoverController"], _ionic_storage__WEBPACK_IMPORTED_MODULE_3__["Storage"]])
     ], ProfiledetailsComponent);
     return ProfiledetailsComponent;
 }());
@@ -885,9 +889,9 @@ var ErrorInterceptor = /** @class */ (function () {
         var _this = this;
         var that = this;
         return next.handle(request).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["catchError"])(function (err) {
-            console.log(err);
+            // console.log(err);
             _this.currentUser = _this.authService.currentUserValue();
-            console.log(_this.currentUser);
+            // console.log(this.currentUser);
             if (err.status === 401) {
                 // auto logout if 401 response returned from api
                 if (_this.currentUser.remToken !== null) {
@@ -895,7 +899,9 @@ var ErrorInterceptor = /** @class */ (function () {
                 }
             }
             else {
-                _this.presentToast(err.error.message);
+                if (err.error.message.length != 0) {
+                    _this.presentToast(err.error.message);
+                }
             }
             var error = err.message || err.statusText;
             return Object(rxjs__WEBPACK_IMPORTED_MODULE_2__["throwError"])(error);
@@ -908,7 +914,8 @@ var ErrorInterceptor = /** @class */ (function () {
                 switch (_a.label) {
                     case 0: return [4 /*yield*/, this.toastController.create({
                             message: msg,
-                            duration: 3000
+                            duration: 3000,
+                            cssClass: 'center'
                         })];
                     case 1:
                         toast = _a.sent();
@@ -1239,13 +1246,13 @@ var AppComponent = /** @class */ (function () {
                         // console.log("Auth State : "+state);
                         if (state) {
                             if (_this.platform.is('ipad') || _this.platform.is('tablet')) {
-                                console.log('ipad/tablet');
+                                // console.log('ipad/tablet');
                                 _this.navController.navigateRoot(['tabs/home']);
                                 _this.splashScreen.hide();
                             }
                             else {
                                 _this.navController.navigateRoot(['menu/menu/home']);
-                                console.log('iphone/mobile');
+                                // console.log('iphone/mobile');
                                 // this.router.navigateByUrl('/menu/menu/home');
                                 // this.router.navigate(['/menu/menu/home'],{
                                 //   skipLocationChange:true
@@ -1486,6 +1493,8 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
+
 var AuthenticationService = /** @class */ (function () {
     function AuthenticationService(dataService, next, platform, appVersion, userAgent, device, toastController, http, storage, plt, route, authService) {
         // this.plt.ready().then(()=>{
@@ -1536,7 +1545,7 @@ var AuthenticationService = /** @class */ (function () {
             if (user && user.token) {
                 if (user.isEmailVerified != "" && user.isEmailVerified == "Y") {
                     // this.storage.clear();
-                    console.log(user.token);
+                    //console.log(user.token);
                     _this.CurrentUser = user;
                     _this.storage.set('currentUser', JSON.stringify(user));
                     _this.authenticationState.next(true);
@@ -1558,15 +1567,15 @@ var AuthenticationService = /** @class */ (function () {
         this.storage.get('currentUser').then(function (res) {
             user = JSON.parse(res);
             userId = user.userId;
-            // console.log(userId);
             remToken = user.remToken;
-            // console.log(remToken);
-            console.log(user);
-        });
-        this.storage.remove('currentUser').then(function () {
-            _this.updateUserTrackLogOut(userId, remToken);
-            _this.dataService.showsplashLoader.next(false);
-            _this.authenticationState.next(false);
+            _this.updateUserTrackLogOut(userId, remToken).subscribe(function (res) {
+                if (res.status == 'D') {
+                    _this.storage.remove('currentUser').then(function () {
+                        _this.dataService.showsplashLoader.next(false);
+                        _this.authenticationState.next(false);
+                    });
+                }
+            });
         });
     };
     AuthenticationService.prototype.isAuthenticated = function () {
@@ -1682,10 +1691,18 @@ var AuthenticationService = /** @class */ (function () {
                 'Content-Type': 'application/json'
             })
         };
-        this.http.post(this.api_url + "/users/UpdateUsertrack", obj, httpOptions)
-            .subscribe(function (data) {
-            // console.log(data);
-        });
+        return this.http.post(this.api_url + "/users/UpdateUsertrack", obj, httpOptions).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["retryWhen"])(function (err) { return err.pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["scan"])(function (count) {
+            if (count > 5)
+                throw err;
+            else {
+                count++;
+                return count;
+            }
+        }, 0), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["delayWhen"])(function () { return Object(rxjs__WEBPACK_IMPORTED_MODULE_7__["timer"])(1000); })); })).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["map"])(function (res) { return res; }));
+        // .pipe(data => {
+        //     console.log(data);
+        //     return data;
+        //   }); 
     };
     AuthenticationService.prototype.presentToast = function (val) {
         return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function () {
@@ -2076,14 +2093,18 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _dataHandler_data_handler_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../dataHandler/data-handler.service */ "./src/app/services/dataHandler/data-handler.service.ts");
 /* harmony import */ var d3___WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! d3/ */ "./node_modules/d3/index.js");
 /* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm5/index.js");
+/* harmony import */ var _ionic_storage__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @ionic/storage */ "./node_modules/@ionic/storage/fesm5/ionic-storage.js");
+
 
 
 
 
 
 var DataService = /** @class */ (function () {
-    function DataService(dataHandler) {
+    function DataService(dataHandler, storage) {
+        var _this = this;
         this.dataHandler = dataHandler;
+        this.storage = storage;
         this._dbGICS = [];
         this.dbScoretemp = [];
         this.dbHistScore = [];
@@ -2134,8 +2155,12 @@ var DataService = /** @class */ (function () {
         this.secLevel = new rxjs__WEBPACK_IMPORTED_MODULE_4__["BehaviorSubject"](this._secLevel);
         this.mobSelComp = new rxjs__WEBPACK_IMPORTED_MODULE_4__["BehaviorSubject"](this._mobSelComp);
         this.showsplashLoader = new rxjs__WEBPACK_IMPORTED_MODULE_4__["BehaviorSubject"](this._showsplashLoader);
-        this.getDbGICSData();
-        this.getGlobalData();
+        this.storage.get('currentUser').then(function (res) {
+            if (res) {
+                _this.getDbGICSData();
+                _this.getGlobalData();
+            }
+        });
     }
     DataService.prototype.getDbGICSData = function () {
         var _this = this;
@@ -2322,13 +2347,14 @@ var DataService = /** @class */ (function () {
         });
     };
     DataService.ctorParameters = function () { return [
-        { type: _dataHandler_data_handler_service__WEBPACK_IMPORTED_MODULE_2__["DataHandlerService"] }
+        { type: _dataHandler_data_handler_service__WEBPACK_IMPORTED_MODULE_2__["DataHandlerService"] },
+        { type: _ionic_storage__WEBPACK_IMPORTED_MODULE_5__["Storage"] }
     ]; };
     DataService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
             providedIn: 'root'
         }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_dataHandler_data_handler_service__WEBPACK_IMPORTED_MODULE_2__["DataHandlerService"]])
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_dataHandler_data_handler_service__WEBPACK_IMPORTED_MODULE_2__["DataHandlerService"], _ionic_storage__WEBPACK_IMPORTED_MODULE_5__["Storage"]])
     ], DataService);
     return DataService;
 }());
