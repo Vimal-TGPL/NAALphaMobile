@@ -301,7 +301,7 @@ module.exports = "<div>\n  <div>\n    <div\n      style=\"display: flex; flex-di
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<ion-list>\n  <ion-item *ngFor=\"let item of sectorList\" style=\"    --padding-start: 0;\n  --padding-bottom: 0;\n  --padding-end: 0;\n  --padding-top: 0;\n  --inner-padding-end: 0;\" (click)=\"onSecItemClick(item)\">\n    <div style=\"width: 100%;\n    display: flex;\n    flex-direction: column;\n    justify-content: center;width: 100%;\n    padding: 5px;\">\n      <p style=\"margin: 0;\n      font-size: 14px;\n      font-family: Open Sans Regular;\n      color: #00aaeb;\">{{item.secTitle}}</p>\n      <div style=\"display: flex;\"><p style=\"    margin: 0;\n        font-size: 14px;\n        font-family: Open Sans SemiBold;\n        color: #00aaeb;\n    \">{{item.secName}}</p><span>&nbsp;(</span><p style=\"    margin: 0;\n    font-size: 14px;\n    font-family: Open Sans SemiBold;\n    color: #00aaeb;\n\">{{item.secCount}}</p>)</div>\n    </div>\n  </ion-item>\n</ion-list>\n"
+module.exports = "<ion-list>\n  <ion-item *ngFor=\"let item of sectorList\" style=\"    --padding-start: 0;\n  --padding-bottom: 0;\n  --padding-end: 0;\n  --padding-top: 0;\n  --inner-padding-end: 0;\" (click)=\"onSecItemClick(item)\">\n    <div style=\"width: 100%;\n    display: flex;\n    flex-direction: column;\n    justify-content: center;width: 100%;\n    padding: 5px;\">\n      <p style=\"margin: 0;\n      font-size: 14px;\n      font-family: Open Sans Regular;\n      color: #00aaeb;\">{{item.secTitle}}</p>\n      <div style=\"display: flex;\">\n      <p style=\"    margin: 0;\n        font-size: 14px;\n        font-family: Open Sans SemiBold;\n        color: #00aaeb;\n    \">{{item.secName}}<span>&nbsp;({{item.secCount}})</span></p></div>\n    </div>\n  </ion-item>\n</ion-list>\n"
 
 /***/ }),
 
@@ -1528,6 +1528,9 @@ var AuthenticationService = /** @class */ (function () {
                 _this.dataService.showsplashLoader.next(false);
             }
         });
+        this.dataService.showsplashLoader.subscribe(function (d) {
+            _this.showSplashLoader = d;
+        });
         // });
     }
     AuthenticationService.prototype.currentUserValue = function () {
@@ -1585,6 +1588,7 @@ var AuthenticationService = /** @class */ (function () {
         var _this = this;
         this.storage.get('currentUser').then(function (res) {
             var user = JSON.parse(res);
+            // console.log(user);
             if (user && user.token && user.remToken) {
                 var httpOptions = {
                     headers: new _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpHeaders"]({
@@ -1602,6 +1606,7 @@ var AuthenticationService = /** @class */ (function () {
                     _this.ProcUserTrack(userdata);
                     return userdata;
                 }, function (error) {
+                    _this.dataService.showsplashLoader.next(false);
                     _this.presentToast(error.error.message);
                     return null;
                 });

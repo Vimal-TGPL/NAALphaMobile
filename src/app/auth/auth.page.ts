@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
 import { Validators, FormGroup, FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
@@ -17,7 +17,7 @@ import { AppVersion } from '@ionic-native/app-version/ngx';
   templateUrl: './auth.page.html',
   styleUrls: ['./auth.page.scss'],
 })
-export class AuthPage implements OnInit {
+export class AuthPage implements OnInit,AfterViewInit {
   mobile : boolean;
   showLoad:boolean = false;
   loginForm: FormGroup;
@@ -29,10 +29,14 @@ export class AuthPage implements OnInit {
   // @ViewChild('EmailInput',{static: false}) EmailInt;
 
   constructor(private appVersion:AppVersion, private userAgent: UserAgent, private device:Device, private platform:Platform, private route:Router, private iab:InAppBrowser, private http: HttpClient, private toastController:ToastController, private authenticationService: AuthenticationService, private storage:Storage) { }
+  ngAfterViewInit(){
+    document.getElementById('authLoader').style.display= 'none';
+  }
   hasError = (controlName: string, errorName: string) => {
     return this.loginForm.controls[controlName].hasError(errorName);
 }
   ngOnInit() {
+    
     if(this.platform.is('ipad') || this.platform.is('tablet')){
       this.mobile = false;
     }else{
@@ -90,7 +94,20 @@ export class AuthPage implements OnInit {
 
   onSignupClick(){
     //this.route.navigateByUrl('/signup');
-    this.iab.create(this.signupUrl,'_blank','location=no,toolbar=yes,zoom=no');
+    // this.iab.create(this.signupUrl,'_blank','location=no,toolbar=yes,zoom=no');
+
+    document.getElementById('authLoader').style.display ="flex";
+     var browser = this.iab.create(this.signupUrl,'_blank',"location=no,toolbar=yes,zoom=no,toolbarcolor=#2b468f");
+     
+      browser.hide();
+     browser.on('loadstop').subscribe(() => {
+      document.getElementById('authLoader').style.display ="none";
+       browser.show();
+      browser.insertCSS({code: "#hs_cos_wrapper_module_156318587919491_{display: none !important;"});
+   });
+      browser.on('exit').subscribe(()=>{
+        browser.close();
+      })
   }
 
   onForgotPassClick(){

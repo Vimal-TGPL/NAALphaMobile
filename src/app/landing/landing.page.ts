@@ -16,6 +16,7 @@ export class LandingPage implements OnInit {
   mobile : boolean;
   showNetError:boolean; 
   authState:boolean;
+  // loader:boolean;
   signupUrl = 'https://blog.newagealpha.com/h-factor';
   url = 'https://www.newagealpha.com/';
   showSplashLoader:boolean = true;
@@ -30,6 +31,8 @@ export class LandingPage implements OnInit {
   }
 
   ngOnInit() {
+    // this.loader = false;
+  document.getElementById('Loader').style.display= 'none';
   this.dataService.showsplashLoader.subscribe(d =>{
     this.showSplashLoader = d;
   })
@@ -64,13 +67,33 @@ export class LandingPage implements OnInit {
   }
 
   onSignupClick(){
+    // var that = this;
     //this.route.navigateByUrl('/signup');
-     var browser = this.iab.create(this.signupUrl,'_blank','location=no,toolbar=yes,zoom=no');
 
-     browser.on('loadstop').subscribe(event => {
+    document.getElementById('Loader').style.display ="flex";
+     var browser = this.iab.create(this.signupUrl,'_blank',"location=no,toolbar=yes,zoom=no,toolbarcolor=#2b468f");
+     
+      browser.hide();
+      // that.loader = true;
+     browser.on('loadstop').subscribe(() => {
+      document.getElementById('Loader').style.display ="none";
+       browser.show();
       browser.insertCSS({code: "#hs_cos_wrapper_module_156318587919491_{display: none !important;"});
    });
+
+
+
+      browser.on('exit').subscribe(()=>{
+        browser.close();
+      })
      
   }
+
+  // loaderdeactivate(){
+  //   // this.loader = false;
+  //   // console.log(this.loader);
+  // }
+
+
 
 }

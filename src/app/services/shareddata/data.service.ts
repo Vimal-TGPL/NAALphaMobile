@@ -83,10 +83,10 @@ export class DataService{
     this.mobSelComp = new BehaviorSubject<any>(this._mobSelComp);
     this.showsplashLoader = new BehaviorSubject<boolean>(this._showsplashLoader);
     this.storage.get('currentUser').then( res=>{
-      if(res){
-        this.getDbGICSData();
-        this.getGlobalData();
-      }
+        if(res){
+          this.getDbGICSData();
+          this.getGlobalData();
+        }
     });
    }
 

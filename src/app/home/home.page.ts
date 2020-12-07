@@ -14,9 +14,6 @@ declare var $:any;
 import * as HighCharts from 'highcharts';
 import { LineChartComponent } from '../Components/line-chart/line-chart.component';
 import { ScreenOrientation } from '@ionic-native/screen-orientation/ngx';
-import { BehaviorSubject } from 'rxjs';
-import { on } from 'process';
-import { resolve } from 'url';
 
 @Component({
   selector: 'app-home',
@@ -155,6 +152,7 @@ export class HomePage implements OnInit, OnDestroy {
           this.indexClassifier();
           this.sectorClassifier();
           this.createIndexData();
+          this.scrollto();
           setTimeout(() => {
             // this.CreateComps();
             // this.createCompetitive(this.chartMain);
@@ -165,6 +163,7 @@ export class HomePage implements OnInit, OnDestroy {
             //   this.setClock(this.selComp.isin, this.selComp.deg *360/100, this.selComp.ticker );
             // }, 100);
             this.loadData();
+            
           }, 500);
         }
         
@@ -363,6 +362,7 @@ export class HomePage implements OnInit, OnDestroy {
         }, 50);
       } 
     }else{
+      if(document.getElementById('Circleloader') != null )
       document.getElementById('Circleloader').style.display= 'none';
       this.showLoader = true;
       this.firstLoad = true;
@@ -549,8 +549,8 @@ export class HomePage implements OnInit, OnDestroy {
           this.showLoader = true;
           this.CurrSliderData = {'a': 0,
           'aAngle': 0,
-          'e': 100,
-          'eAngle': 360};
+          'e': 0,
+          'eAngle': 0};
           setTimeout(() => {
             this.AL_List = this.selIndexData;
             this.OnAL_listChange(this.CurrSliderData);
@@ -560,15 +560,14 @@ export class HomePage implements OnInit, OnDestroy {
           this.showLoader = true;
           this.CurrSliderData = {'a': 0,
           'aAngle': 0,
-          'e': 100,
-          'eAngle': 360};
+          'e': 0,
+          'eAngle': 0};
           setTimeout(() => {
             this.AL_List = this.selIndexData;
             this.OnAL_listChange(this.CurrSliderData);
             this.loadData();
           }, 100);
-        }
-        
+        }       
       }
     })
     return await popover.present();
@@ -674,8 +673,10 @@ export class HomePage implements OnInit, OnDestroy {
         // }, 500);
       }, 50);
     }else if(this.AL_CurrSlide == 0){
-      if(this.AL_FilteredList.length !=0)
+      if(this.AL_FilteredList.length !=0 && this.AL_FilteredList.filter(data => data.isin === this.selComp.isin).length != 0)
       this.scrollto();
+      else
+      this.scrollToListTop();
     }
   }
 
@@ -708,6 +709,12 @@ export class HomePage implements OnInit, OnDestroy {
     var index = this.selIndexData.indexOf(this.selComp);
     var list = document.getElementById('CompList');
     list.scrollTop = 55*(index-3);
+  }
+
+  scrollToListTop(){
+    // var index = this.selIndexData.indexOf(this.selComp);
+    var list = document.getElementById('CompList');
+    list.scrollTop = 0;
   }
 
   loadData(){
@@ -1492,6 +1499,7 @@ export class HomePage implements OnInit, OnDestroy {
       that.highChartLine(chart).then( res =>{
         // if(this.chartData){
           setTimeout(() => {
+            if(that.CurrSliderData.e != 0){
         var addInfoDiv = FO_Chart.append('xhtml:p')
       .attr('xmlns','http://www.w3.org/1999/xhtml')
       .text('Additional Return')
@@ -1539,6 +1547,7 @@ export class HomePage implements OnInit, OnDestroy {
       .style('line-height','1.4')
       .style('margin','0');
       // }
+    }
     }, 500);
     });
       resolve();
@@ -1637,7 +1646,8 @@ export class HomePage implements OnInit, OnDestroy {
           });
 
           ReturnVal1 = that.calcCumAndAnnReturns(indexValue, date);
-          // console.log('ReturnVal1',ReturnVal1);
+          console.log('ReturnVal1',ReturnVal1);
+          console.log('ReturnVal',ReturnVal);
           if((ReturnVal1[0] - ReturnVal[0]) > 0){
             that.cumReturn = '+'+(ReturnVal1[0] - ReturnVal[0]).toFixed(2)+'%';
           }else{
@@ -1649,8 +1659,8 @@ export class HomePage implements OnInit, OnDestroy {
             that.annReturn = (ReturnVal1[1] - ReturnVal[1]).toFixed(2)+'%';
           }
 
-          // console.log('cumReturn',that.cumReturn);
-          // console.log('annReturn',that.annReturn);
+          console.log('cumReturn',that.cumReturn);
+          console.log('annReturn',that.annReturn);
           
         }else{
           that.cumReturn = '0.00%';
@@ -1854,50 +1864,70 @@ export class HomePage implements OnInit, OnDestroy {
 
     
     let that = this;
-    var cradius = 150;
+    // var cradius = 150;
     var oSvg = that.chartMain;
-    d3.select("#innerCircleGrp").remove();
-    var innerCirclegrp = oSvg.append("g").attr("id", "innerCircleGrp");
+  //   d3.select("#innerCircleGrp").remove();
+  //   var innerCirclegrp = oSvg.append("g").attr("id", "innerCircleGrp");
     
-    var innerCircle = innerCirclegrp.append("circle")
-    .attr("id", "inmaincircle")
-    .attr("fill", "#fff")
-    .attr("r", cradius);
+  //   var innerCircle = innerCirclegrp.append("circle")
+  //   .attr("id", "inmaincircle")
+  //   .attr("fill", "#fff")
+  //   .attr("r", cradius);
 
-    var Ctext = innerCirclegrp.append("g").attr('id',"CompText");
+  //   var Ctext = innerCirclegrp.append("g").attr('id',"CompText");
 
     var txt = that.selComp.companyName + " (" + that.selComp.ticker + ")";
 
-    var comptext =  Ctext.append("text")
-    .attr("x", function(d){return '0'})
-    .attr("y", function(d){return '-5%'})
-    .attr("dy",function(d){return '-1em'})
-    .attr("dominant-baseline","middle")
-    .attr("text-anchor","middle")
-    .attr('class', 'innerComp')
-    .text(txt).call(that.compwrap,250);
+  //   var comptext =  Ctext.append("text")
+  //   .attr("x", function(d){return '0'})
+  //   .attr("y", function(d){return '-5%'})
+  //   .attr("dy",function(d){return '-1em'})
+  //   .attr("dominant-baseline","middle")
+  //   .attr("text-anchor","middle")
+  //   .attr('class', 'innerComp')
+  //   .text(txt).call(that.compwrap,250);
 
     var med = that.roundMed(that.selComp.scores * 100);
-    // console.log(med);
+  //   // console.log(med);
 
-    Ctext.append("text")
-    .attr("x", function(d){return '0'})
-    .attr("y", function(d){return ((txt.length / 20)+2)+'%'})
-    .attr("dy",function(d){
-      // if(txt.length < 25){
-      //   return ((txt.length / 20)-1.5)+"rem";
-      // }
-      // else 
-      if(txt.length < 35)
-        return ((txt.length / 20)-2)+"rem";
-      else
-      return ((txt.length / 20)-0.8)+"rem";
-    })
-    .attr("dominant-baseline","middle")
-    .attr("text-anchor","middle")
-    .attr('class', 'innerCompMed')
-    .style('fill',that.getColor(med))
-    .text(med);
+  //   Ctext.append("text")
+  //   .attr("x", function(d){return '0'})
+  //   .attr("y", function(d){return ((txt.length / 20)+2)+'%'})
+  //   .attr("dy",function(d){
+  //     // if(txt.length < 25){
+  //     //   return ((txt.length / 20)-1.5)+"rem";
+  //     // }
+  //     // else 
+  //     if(txt.length < 35)
+  //       return ((txt.length / 20)-2)+"rem";
+  //     else
+  //     return ((txt.length / 20)-0.8)+"rem";
+  //   })
+  //   .attr("dominant-baseline","middle")
+  //   .attr("text-anchor","middle")
+  //   .attr('class', 'innerCompMed')
+  //   .style('fill',that.getColor(med))
+  //   .text(med);
+
+      d3.select('#Fo_innerCircle').remove();
+      var Fo_innerCircle = oSvg.append('foreignObject')
+        .attr('x','-140')
+        .attr('y','-60')
+        .attr('id','Fo_innerCircle')
+        .attr('width','280')
+        .attr('height','150');
+
+          Fo_innerCircle.append('xhtml:p')
+          .attr('xmlns','http://www.w3.org/1999/xhtml')
+          .attr('class', 'innerComp')
+          .text(txt);
+
+          Fo_innerCircle.append('xhtml:p')
+          .attr('xmlns','http://www.w3.org/1999/xhtml')
+          .attr('class', 'innerCompMed')
+          .style('color',that.getColor(med))
+          .text(med);
+          
     resolve();
   })
 
@@ -1998,10 +2028,10 @@ export class HomePage implements OnInit, OnDestroy {
         }
       }
 
-      if (align == null) {
-        var j = i;
-        text.attr("y", -(j * 5));
-      }
+      // if (align == null) {
+      //   var j = i;
+      //   text.attr("y", 5);
+      // }
 
 
     });
@@ -2035,8 +2065,15 @@ export class HomePage implements OnInit, OnDestroy {
 
 
       d3.select("#cSlider").select(".sText")
+      .attr('text-anchor',"middle")
+      .attr('y',function(){
+        return val >= 90 ? 0 : 5;
+      })
         .attr("x", function () {
-          return val >= 90 ? "-218" : "210";
+          var rtemp = 199+70;
+          var txtmid = txt.length/2;
+          var pos = rtemp-txtmid;
+          return val >= 90 ? -(pos-15) : pos;
         })
         .attr("transform", function () {
           //  return val > 180 ? "rotate(180 " + (+r + 140) + ", 0)" : null;
@@ -2071,8 +2108,8 @@ export class HomePage implements OnInit, OnDestroy {
         .attr("stroke", "#00b5fa")
         .attr("stroke-width", "3px")
         .style("display", function () { return txt == null ? "none" : "block"; })
-        .attr("height", bboxH)
-        .attr("width", bbox.width + 50)
+        .attr("height", 50)
+        .attr("width", 140)
         .attr("y", -(bboxH / 2));
       var calW = parseInt(that.createXrad + bbox.width);
 
@@ -2153,6 +2190,7 @@ export class HomePage implements OnInit, OnDestroy {
 
   circleRange(values) {
   // console.log(values);
+  // console.log(this.CurrSliderData);
   var that = this;
   d3.select("#slider").remove();
   var slider = d3.select("#crlChart").append("g").attr("id", "slider")
@@ -2184,10 +2222,11 @@ export class HomePage implements OnInit, OnDestroy {
   var a, e, startAngle, endAngle;
   var sliderDragRange = 5;
   var Intdata = values;
-  var sliderInitValue: any = +values.start;
-  var sliderEndValue: any = 100;
+  var sliderInitValue: any = 100;
+  var sliderEndValue: any = +values.start;
   // var sliderEndValue: any = that.displayMode == "S" ?  +values.end : 100;
   var tmpVal = sliderEndValue;
+  var firstRangeLoad = true;
   var helper = {
     settings: {},
     graphdata: [],
@@ -2269,6 +2308,7 @@ export class HomePage implements OnInit, OnDestroy {
       }
     });
   }
+
   function writeTimeInfo(sliderObject) {
     
     // console.log('writeTimeInfo');
@@ -2279,9 +2319,17 @@ export class HomePage implements OnInit, OnDestroy {
     }
     if(that.AvoidLosersec && that.AL_rangeCircle && !that.AL_mainCircle)
       {
-          SetInfo(that.CurrSliderData);          
+         SetInfo(that.CurrSliderData);          
       }
     
+    if(that.avoidSlides && !firstRangeLoad){
+      setTimeout(() => {
+        that.slides = document.getElementById('AL_Slider');
+      that.slides.slideTo(1);
+      }, 1000);
+    }else{
+      firstRangeLoad = false;
+    }
     
      helper.calculateUpdateHandleData({ "start": sliderObject.a, "end": sliderObject.e });
   }
@@ -2334,6 +2382,10 @@ export class HomePage implements OnInit, OnDestroy {
   //}
   if ($('#handles .handle').length === 2) {
     d3.select('#handles').select('.handle').remove();
+  }
+
+  if (values.end != 100 && values.end != 0) {
+    d3.select('#handles').select('.a2').attr('transform', 'rotate(' + (helper.graphdata[1].angle) + ') translate(0,' + (radius) * -1 + ')');
   }
 
   function drawHandles() {
@@ -2416,7 +2468,6 @@ export class HomePage implements OnInit, OnDestroy {
   }
   function dragmoveHandles(d, i) {
     // console.log('dragmoveHandles');
-    //issue is here for 100
     var coordinates = d3.mouse(svg.node());
     // console.log(coordinates);
     var x = coordinates[0] - radius;
@@ -2426,17 +2477,15 @@ export class HomePage implements OnInit, OnDestroy {
     if (newAngle < 0) { newAngle = 360 + newAngle; }
     newAngle = newAngle - ((newAngle * sliderEndValue) % 125) / rangeTotal;
     d.value = angularScale.invert(newAngle);
-    if (d.value > 99 || d.value < 5) {
-      d.value = 100;
+    if (d.value > 96) {
+      d.value = 0;
       d.angle = angularvalue.invert(d.value);
-      // console.log('dragmoveHandles',d);
       updateHandles(d);
-    } else if (d.value < tmpVal && d.value > 5) {
+    } else {
       var dvalue = ((d.value / sliderDragRange) - ((d.value / sliderDragRange) % 1)) * sliderDragRange;
       d.value = dvalue;
       d.angle = angularvalue.invert(dvalue);
-      // console.log('dragmoveHandles',d);
-      updateHandles(d) ;
+      updateHandles(d);
     }
   }
   function updateArc(value, label, angle) {
@@ -2568,6 +2617,7 @@ export class HomePage implements OnInit, OnDestroy {
       return 'm' + startX + ',' + (height/2) + ' ' +
         'a' + r + ',' + r + ' 0 0 0 ' + (2*r) + ',0';
     }
+    d3.select('#textGrp').remove();
     var bottomtextgrp = d3.select('#crlChart').append('g').attr('id',"textGrp").attr('transform',
     function(){
       var sWidth = document.getElementsByClassName('R_slider')[0].clientWidth;
@@ -2664,7 +2714,8 @@ SliderOnChange(vals) {
 OnAL_listChange(d){
   // console.log(d);
   var total_lenght = this.AL_List.length;
-  var filteredLength = Math.floor(total_lenght * (d.e/100));
+  var filteredLength = total_lenght - Math.floor(total_lenght * (d.e/100));
+  // console.log(filteredLength);
   this.AL_FilteredList = [...this.AL_List.slice(0,filteredLength)];
   // console.log(this.AL_FilteredList);
 }

@@ -10,6 +10,8 @@
   </ion-toolbar>
 </ion-header>
 <ion-content forceOverscroll=false *ngIf="!showSplashLoader">
+  <!-- <ion-backdrop  tappable="false" visible="false" ></ion-backdrop> -->
+  
   <div class="outerdiv outerdivmobile">
     <div>
       <img src="../../assets/images/NAA_aboutUs_tools.png" alt="Tool" />
@@ -42,3 +44,6 @@
     </div>
   </div>
 </ion-content>
+<div id="Loader" style="background: rgba(0,0,0,0.5);z-index: 99999; position: absolute; height: 100%; width: 100%; display: flex; justify-content: center; align-items: center;">
+  <img src="../../assets/images/NAA.gif" alt="Loading..." style="height: 30px;width: 30px !important;">    
+</div>

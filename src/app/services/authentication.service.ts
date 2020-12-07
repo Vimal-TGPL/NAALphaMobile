@@ -21,6 +21,7 @@ export class AuthenticationService {
   private CurrentUser:UserView = null;
   private api_url = environment.api_url;
   authenticationState = new BehaviorSubject(false);
+  showSplashLoader:boolean;
 
   constructor(private dataService: DataService,private next: HttpHandler,private platform: Platform, private appVersion:AppVersion, private userAgent: UserAgent, private device:Device, private toastController: ToastController, private http:HttpClient, private storage: Storage, private plt:Platform, private route:Router, private authService:AuthenticationService) { 
     // this.plt.ready().then(()=>{
@@ -40,6 +41,9 @@ export class AuthenticationService {
           this.dataService.showsplashLoader.next(false);
         }
       });
+      this.dataService.showsplashLoader.subscribe(d =>{
+        this.showSplashLoader = d;
+      })
     // });
     
   }
@@ -100,8 +104,8 @@ export class AuthenticationService {
 
   checkToken(req){
     this.storage.get('currentUser').then(res=>{
-      
       let user:any = JSON.parse(res);
+      // console.log(user);
       if(user && user.token && user.remToken){
         const httpOptions = {
           headers: new HttpHeaders({
@@ -119,7 +123,9 @@ export class AuthenticationService {
           this.ProcUserTrack(userdata);
           return userdata;
         },error=>{
+          this.dataService.showsplashLoader.next(false);
           this.presentToast(error.error.message);
+          
           return null;
         })
       }else{
