@@ -11,11 +11,6 @@
           <h1 class="cardTitle">Login</h1>
         </ion-text>
         
-        <!-- <ion-card-header style="padding: 0px; background: none;">
-        <ion-card-title class="cardTitle">Login</ion-card-title>
-      </ion-card-header> -->
-      <!-- <ion-card-content class="overfloscroll card-Content" > -->
-        
         <div class="form">
           <div class="inputdiv">
             <ion-label class="emailLabel">Email<ion-text color="danger"> *</ion-text>
@@ -35,12 +30,6 @@
             </ion-item>
             <div style="color: #f44336; padding-top: 0.2rem; font-size: 11px; font-family: Open Sans;" *ngIf="hasError('Password', 'required') && pwd">A password is required</div>
           </div>
-          <!-- <div class="inputdiv">
-            <ion-item class="rememberItem" lines="none">
-                <ion-checkbox mode="md" [(ngModel)]="stayStignedIn" [ngModelOptions]="{standalone: true}"></ion-checkbox>
-                <ion-label class="checkboxLabel">Stay signed in</ion-label>
-            </ion-item>
-          </div> -->
           <div class="loginDiv">
             <ion-button class="loginBtn" size="medium" expand="block" [disabled] ="!loginForm.valid" (click)="onLoginClick()">
               <ion-spinner *ngIf="showLoad" name="crescent"></ion-spinner>&nbsp;{{showLoad ? 'Logging in...': 'Login'}}

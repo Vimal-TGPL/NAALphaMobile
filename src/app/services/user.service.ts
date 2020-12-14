@@ -11,9 +11,6 @@ export class UserService {
   private api_url = environment.api_url;
   private tok: string;
   private uname: string;
- 
- 
-  
 
   constructor(private http: HttpClient, private storage: Storage) { 
     this.storage.get('currentUser').then(res => {

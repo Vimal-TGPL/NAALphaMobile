@@ -2,7 +2,6 @@ import { Injectable, OnInit } from '@angular/core';
 import { DataHandlerService } from '../dataHandler/data-handler.service';
 import * as d3 from 'd3/';
 import { BehaviorSubject } from 'rxjs';
-import { AuthenticationService } from '../authentication.service';
 import { Storage } from '@ionic/storage';
 
 @Injectable({
@@ -92,9 +91,6 @@ export class DataService{
 
   getDbGICSData(){
     if(this._dbGICS.length == 0){
-      // this.dataHandler.getDbGICSData().subscribe(data => {
-      //   this.dbGICS = d3.csvParse(data);
-      // });
       this.dataHandler.getIndustryList().subscribe(data =>{
         this._dbGICS = data;
         this.dbGICS.next(this._dbGICS);
@@ -129,7 +125,6 @@ export class DataService{
           d.sortOrder = flt.length > 0 ? flt[0].order : null;
           return d
         });
-        // console.log(this.dbScoretemp);
         this.dbScore.next(this.dbScoretemp);
         this.setglobalGICS();
       })
@@ -147,7 +142,6 @@ export class DataService{
       upto100 : this.dbScoretemp.filter(i=> (i.scores*100) >= 75 && (i.scores*100) < 100).length,
     }
     this._globalGICS = temp;
-    // console.log(this._globalGICS);
     this.globalGICS.next(this._globalGICS);
   }
 
@@ -195,7 +189,6 @@ export class DataService{
           d.sortOrder = flt.length > 0 ? flt[0].order : null;
           return d
         });
-        // console.log(this.dbHistScore);
         this.dbScore.next(this.dbHistScore);
       })
   }
@@ -209,7 +202,6 @@ export class DataService{
           temp.push(element);
         }
       });
-      // console.log(temp);
     })
     datasub.unsubscribe();
     return await temp;
@@ -225,24 +217,14 @@ export class DataService{
           temp.push(element);
         }
       });
-      // console.log(temp);
     })
     datasub.unsubscribe();
     return await temp;
   }
 
-  // getTotalIndex(){
-  //   var datasub = this.dbScore.subscribe(d =>{
-  //     d.forEach(element => {
-        
-  //     });
-  //   })
-  // }
-
   getETFdata(){
     if(this._ETFIndex.length == 0){
       this.dataHandler.getETFData().subscribe((data)=>{
-        // console.log(data);
         this._ETFIndex = data;
         this.ETFIndex.next(this._ETFIndex);
       })
@@ -252,9 +234,7 @@ export class DataService{
   async getFIdataList(){
     var temp:any = [];
     var datasub = this.dbScore.subscribe(d => {
-
       temp = d.filter(i=> i.hasOwnProperty('fi') === true && i.fi !== null);
-      // console.log(temp);
     })
     datasub.unsubscribe();
     return await temp;

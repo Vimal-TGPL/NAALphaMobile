@@ -20,8 +20,6 @@
           <ion-menu-toggle autoHide="false" >
             <ion-list *ngIf="investmentsolution === false" style="margin-bottom: 0px; padding-bottom: 0px;">
               <ion-item lines="none" style="    color: white; --detail-icon-opacity: 1;" [routerLink]="['/menu/home']" routerDirection="root" [class.active-item]="selectedPath==='/menu/menu/path'">
-                <!-- //<ion-icon name="home-outline" style="color: white; margin-right: 10px;"></ion-icon> -->
-                <!-- <ion-icon name="home-outline" style="color: white; margin-right: 10px;"></ion-icon> -->
                 <img src="../../assets/images/H-Factor Icon solid.svg" alt="home" style="height: 25px; padding-right: 5px;">
                <ion-text color="light" style="font-size: 16px; font-family: Open Sans SemiBold;">
                  H-Factor System
@@ -30,18 +28,6 @@
             </ion-list>
             
         </ion-menu-toggle>
-    
-    
-            <!-- <ion-item lines="none" style="    color: white; --detail-icon-opacity: 1;"  (click)="investmentsolution === true? investmentsolution = false : investmentsolution = true" >
-              <img *ngIf="!investmentsolution" src="../../assets/images/bar graph.svg" alt="satistics" style="height: 20px; padding-right: 10px;">
-              <ion-icon [name]="investmentsolution== true? 'chevron-back-outline' : 'chevron-forward-outline'" [slot]="investmentsolution== true? 'start':'end'" style="width: 20px;
-              height: 20px;
-              transition: 0.3s;
-              margin: 0; color: white;"></ion-icon>
-              <ion-text color="light" style="font-family: Open Sans SemiBold; font-size: 16px; " [ngStyle]="{'margin-left': investmentsolution? '10px':'0px'}">
-                Investment Solution
-              </ion-text>
-            </ion-item> -->
     
             <ion-menu-toggle autoHide="false" >
               <ion-list *ngIf="investmentsolution == true" style="margin-bottom: 0px; ">
@@ -74,29 +60,12 @@
                     Low Volatility Strategies
                   </ion-text>
                 </ion-item>
-    
-                <!-- <ion-item lines="none" style="    color: white; --detail-icon-opacity: 1;" [routerLink]="['/menu/menu/performance',{'Key':'Target Volatility Controlled'}]" routerLinkActive="router-link-active">
-                  <ion-text color="light" style="font-size: 15px; font-family: Open Sans Regular;">
-                    Target Volatility Controlled Strategies
-                  </ion-text>
-                </ion-item> -->
               </ion-list>
             </ion-menu-toggle>
     
             <ion-menu-toggle autoHide="false" >
               <ion-list *ngIf="investmentsolution === false" style="padding-top: 0px;">
-                <!-- <ion-item lines="none" style="    color: white; --detail-icon-opacity: 1;" [routerLink]="['/menu/menu/performance']" routerLinkActive="router-link-active" >
-                  <img src="../../assets/images/bar graph.svg" alt="satistics" style="height: 20px; padding-right: 10px;">
-                  <ion-text color="light" style="font-size: 16px; font-family: Open Sans SemiBold;">
-                    H-Factor Indexes
-                  </ion-text>
-                </ion-item> -->
-                <!-- <ion-item lines="none" style="    color: white; --detail-icon-opacity: 1;" [routerLink]="['/menu/menu/performance',{'Key':'Market View'}]" routerLinkActive="router-link-active" >
-                  <img src="../../assets/images/Market view.svg" alt="satistics" style="height: 20px; padding-right: 10px;">
-                  <ion-text color="light" style="font-size: 16px; font-family: Open Sans SemiBold;">
-                    Market View
-                  </ion-text>
-                </ion-item> -->
+                
                 <ion-item lines="none" style="    color: white; --detail-icon-opacity: 1;" [routerLink]="['/menu/menu/change-password']" routerLinkActive="router-link-active" >
                   <img src="../../assets/images/password.svg" alt="ChangePassword" style="height: 20px; padding-right: 10px;">
                     <ion-text color="light" style="font-size: 16px; font-family: Open Sans SemiBold;">

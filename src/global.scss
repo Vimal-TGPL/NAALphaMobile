@@ -86,22 +86,6 @@
   src: url('./assets/fonts/opensans-font/opensans-extrabolditalic.ttf') format('truetype'), url('./assets/fonts/opensans-font/opensans-extrabolditalic.woff');
 }
 
-// .slides-md .swiper-pagination-bullets{
-//     bottom: -20px !important;
-//     left: 0;
-//     width: 100%;
-// }
-
-// .swiper-pagination-bullet {
-//     opacity: 1 ;
-// }
-
-// .slides-ios .swiper-pagination-bullets{
-//     bottom: -20px !important;
-//     left: 0;
-//     width: 100%;
-// }
-
 .homeSearch .ionic-selectable-inner .ionic-selectable-icon{
     display: none !important;
 }
@@ -120,23 +104,6 @@
     white-space: normal;
 }
 
-
-// .infinite-loading{
-//     display: inline-block;
-// }
-
-// ion-popover{
-//     --ion-safe-area-right: 15px;
-//     --width: 300px !important;
-
-    
-// }
-
-// .Custom_profile .popover-content{
-//     max-width: 300px !important;
-//     min-width: 300px !important;
-// }
-
 .sec-popover{
   --ion-backdrop-opacity: 0;
 
@@ -151,14 +118,6 @@
     left: calc(18px + var(--ion-safe-area-left, 0px)) !important;
   }
 }
-
-// .platform-md .sec-popover{
-//   .popover-content{
-//     --width: 90%;
-//     top: calc(160px + var(--ion-safe-area-top, 0px)) !important;
-//     left: calc(16px + var(--ion-safe-area-left, 0px)) !important;
-//   }
-// }
 
 #gCompetitive{
 
@@ -201,82 +160,6 @@
   fill: #fff;
   font-family: Open Sans Bold;
 }
-// ion-select{
-//     max-width: 60vh !important;
-//     min-width: 60vh !important;
-
-//     .select-icon{
-//         opacity: 1 !important;
-//     }
-// }
-
-
-
-// ion-select-popover, .popover-content{
-//     // max-width: 60vh !important;
-//     // min-width: 60vh !important;
-//     // max-height: 30vh !important;
-//     // --background:#12203f !important;
-//     ion-item{
-//         // --background:#12203f !important;
-//         // --color: #ffffff !important;
-//     }
-
-//     .item-radio-checked{
-//         --color: #00b9ff !important;
-//     }
-
-//     ion-list{
-//         margin-top: 1px;
-//         margin-bottom: 0px;
-//         padding: 0px;
-//     }
-// }
-
-
-
-// #indexSelect ion-select{
-//     max-width: 25vh !important;
-//     min-width: 25vh !important;
-// }
-
-// #indexSelect ion-select-popover, .popover-content{
-//     max-width: 25vh !important;
-//     min-width: 25vh !important;
-//     --background:#ffffff !important;
-
-//     ion-item{
-//         --background:#ffffff !important;
-//         --color: #000000 !important;
-//     }
-// }
-
-// ion-select-popover{
-//   ion-list{
-//     margin-bottom: 0px !important;
-//     ion-item{
-//       --background:#00b9ff;
-//       color:#ffffff;
-//       --border-width: 0;
-//       --inner-border-width: 0;
-//       --min-height: 30px;
-//       --background-activated: #2da1c9 !important;
-//       --color-activated: #ffffff !important;
-//       ion-label{
-//         font-size: 14px !important;
-//         margin: 0px;
-//       }
-//       ion-radio{
-//         margin: 0px;
-//         --color-checked: #ffffff !important;
-//       }
-//     }
-//   }
-// }
-
-// ion-popover .popover-arrow::after{
-//   background:#00b9ff !important;
-// }
 
 .mat-tab-label{
     color: #ffffff !important;
@@ -297,26 +180,8 @@
     height: 3px;
 }
 
-// @media screen and (orientation:portrait){
-//     ion-select{
-//         max-width: 40vh !important;
-//         min-width: 40vh !important;
-//     }
-
-//     ion-select-popover, .popover-content{
-//         max-width: 40vh !important;
-//         min-width: 40vh !important;
-//         max-height: 25vh !important;
-//     }
-// }
-
-
-
-
-
 #dvSearchBox .searchbar-input.sc-ion-searchbar-ios{
     font-size: 12.7px;
-    // padding-right: 10px;
 }
 
 #dvSearchBox ion-searchbar #placeholder{
@@ -328,7 +193,6 @@
     font-size: 1px;
     cursor: pointer;
     fill: #666666;
-    /*text-transform: uppercase;*/
   }
 
   .comp text {

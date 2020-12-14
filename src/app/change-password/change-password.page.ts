@@ -42,7 +42,6 @@ ionViewDidLeave(){
           Validators.required,
           Validators.minLength(8),
           Validators.maxLength(50)
-          // Validators.pattern('/^[a-zA-Z0-9!@#$%^&*]{8,50}$/')
       ]],
       confirmPassword: ['', [Validators.required, Validators.minLength(8)]]
   }, { validator: passwordMatchValidator });

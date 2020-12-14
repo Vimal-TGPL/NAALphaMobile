@@ -20,8 +20,6 @@ declare var $:any;
 export class PerformancePage implements OnInit, AfterViewInit, OnDestroy {
   ngAfterViewInit() {
     if(this.mobile){
-    // var ref = document.getElementById('IndexListCard');
-    // ref.onscroll= this.OnCardScroll;
     }
   }
 
@@ -158,12 +156,9 @@ export class PerformancePage implements OnInit, AfterViewInit, OnDestroy {
   constructor(private dataHandler: DataHandlerService, private route: ActivatedRoute, private menuController: MenuController ,private file: File,private photoViewer: PhotoViewer,private platform:Platform, private httpClient:HttpClient, private pickerCtrl:PickerController, private screenOrientation: ScreenOrientation) { 
     this.selWith= window.innerWidth;
     this.selWith = this.selWith- 30; 
-    // this.menuController.swipeEnable()
-    // this.menuController.enable(false);
   }
   ngOnDestroy(): void {
     this.screenOrientation.unlock();
-    // this.menuController.enable(true);
   }
 
   ngOnInit() {
@@ -173,7 +168,6 @@ export class PerformancePage implements OnInit, AfterViewInit, OnDestroy {
     if(this.PerformanceData.length == 0){
       
     }
-    //console.log(this.key);
     if(this.platform.is('ipad') || this.platform.is('tablet')){
       this.mobile = false;
     }else{
@@ -193,14 +187,11 @@ export class PerformancePage implements OnInit, AfterViewInit, OnDestroy {
   loadData(){
     if(this.key == 'ESG'){
       this.dataHandler.getPerfData().subscribe(res =>{
-    //    console.log(res);
         this.PerformanceData = res;
       this.dataHandler.getEsgPerfData().subscribe(res => {
-    //    console.log(res);
         var temp:any = [];
         temp = res;
         temp = temp.filter(data => data.indexId != 108 && data.indexId != 113 && data.indexId != 69);
-    //    console.log(temp);
         this.IndexData = temp;
         this.CheckCountry();
         this.OnItemClick(this.CountryClasificationList[0]);
@@ -208,14 +199,10 @@ export class PerformancePage implements OnInit, AfterViewInit, OnDestroy {
     });
     }else if(this.key == 'Fixed Income'){
       this.dataHandler.getPerfData().subscribe(res =>{
-    //    console.log(res);
         this.PerformanceData = res;
       this.dataHandler.getFIPerfData().subscribe(res => {
-    //    console.log(res);
         var temp:any = [];
         temp = res;
-        // temp = temp.filter(data => data.indexId != 130);
-      //  console.log(temp);
         this.IndexData = temp;
         this.CheckCountry();
         this.OnItemClick(this.CountryClasificationList[0]);
@@ -223,14 +210,11 @@ export class PerformancePage implements OnInit, AfterViewInit, OnDestroy {
     });
     }else if(this.key == 'Leading Equity'){
       this.dataHandler.getPerfData().subscribe(res =>{
-    //    console.log(res);
         this.PerformanceData = res;
       this.dataHandler.getEquityPerfIndData().subscribe(res=>{
-    //    console.log(res);
        var temp:any = [];
        temp = res;
        var LeadingIndex = temp.filter((rec)=> rec.indexName.indexOf('Leading') != -1);
-     //  console.log(LeadingIndex);
        this.IndexData = LeadingIndex;
        this.CheckCountry();
        this.OnItemClick(this.CountryClasificationList[0]);
@@ -238,14 +222,11 @@ export class PerformancePage implements OnInit, AfterViewInit, OnDestroy {
     });
     }else if(this.key == 'Long_Short Equity'){
       this.dataHandler.getPerfData().subscribe(res =>{
-     //   console.log(res);
         this.PerformanceData = res;
       this.dataHandler.getEquityPerfIndData().subscribe(res=>{
-    //    console.log(res);
        var temp:any = [];
        temp = res;
        var LongShortIndex = temp.filter((rec)=> (rec.indexName.indexOf('Long') != -1 || rec.indexName.indexOf('Short') != -1) && rec.indexName.indexOf('Long-Short') == -1);
-     //  console.log(LongShortIndex);
        this.IndexData = LongShortIndex;
        this.CheckCountry();
        this.OnItemClick(this.CountryClasificationList[0]);
@@ -253,21 +234,17 @@ export class PerformancePage implements OnInit, AfterViewInit, OnDestroy {
       });
     }else if(this.key == 'Low Volatility'){
       this.dataHandler.getPerfData().subscribe(res =>{
-    //    console.log(res);
         this.PerformanceData = res;
       this.dataHandler.getEquityPerfIndData().subscribe(res=>{
-    //    console.log(res);
         var temp:any = [];
        temp = res;
        var LowVolIndex = temp.filter((rec)=> rec.indexName.indexOf('Low Volatility') != -1);
-    //   console.log(LowVolIndex);
        this.IndexData = LowVolIndex;
        this.CheckCountry();
        this.OnItemClick(this.CountryClasificationList[0]);
        });
       });
     }else if(this.key == 'Market View'){
-      // console.log('Market View part');
       this.dataHandler.getEquityPerfIndData().subscribe(res =>{
         var temp:any = [];
          temp = res;
@@ -280,7 +257,6 @@ export class PerformancePage implements OnInit, AfterViewInit, OnDestroy {
             if(data.indexId ==69 || data.indexId == 108 || data.indexId == 113){
               this.IndexData.push(data);
             }});
-       //   console.log(this.IndexData);
           this.CheckCountry();
           this.onConstChipClick();
           this.OnItemClick(this.CountryClasificationList[0]);
@@ -288,39 +264,6 @@ export class PerformancePage implements OnInit, AfterViewInit, OnDestroy {
         })
       })
     }
-    // else if(this.key == 'Target Volatility Controlled'){
-    //   this.dataHandler.getEquityPerfIndData().subscribe(res=>{
-    //     console.log(res);
-    //    });
-    // }
-
-
-    // this.httpClient.get(this.performanceAPIUrl).subscribe(data=>{
-    //   // this.PerformanceData = data;
-    //   // console.log(this.PerformanceData);
-    //   this.getFIList();
-    //   // this.getESGList();
-    // this.httpClient.get(this.APIUrl).subscribe(data=>{
-    //   this.IndexData = data
-    //   // console.log(this.IndexData);
-    //   var i = 0;
-    //   this.Index[0] = undefined;
-    //   this.getEquityList();
-    //   for(i=1; i<this.CountryClasificationList.length;i++){
-    //     var temp = this.filterIndex(this.CountryClasificationList[i]);
-    //     if(this.CountryClasificationList[i] !== 'USA'){
-    //     temp= temp.sort((a, b) => {
-    //       return a.sortOrder - b.sortOrder;
-    //     });
-    //   }
-    //     this.Index.push(temp);
-    //  }
-    //  console.log(this.Index);
-      //console.log(this.selectedIndex);
-      
-      // document.getElementById('Loader').style.display='none';
-    // });
-  // });
   }
 
   CheckCountry(){
@@ -342,15 +285,12 @@ export class PerformancePage implements OnInit, AfterViewInit, OnDestroy {
         temp.push("Dev. World");
       }
       this.CountryClasificationList = temp;
-   //   console.log(temp);
     }
   }
 
   OnItemClick(item){
-  //  console.log(item);
     this.selectedCountry = item;
     this.selectedOption = null;
-  //  console.log(this.IndexData);
     if(item == 'USA'){
         this.SelCountryData = this.IndexData.filter(data => data.indexName.indexOf('U.S') != -1 || data.indexName.indexOf('USD') != -1);
     }else if(item == 'Japan'){
@@ -366,18 +306,8 @@ export class PerformancePage implements OnInit, AfterViewInit, OnDestroy {
     this.SelCountryData = this.SelCountryData.sort((a,b)=>{
       return a.sortOrder - b.sortOrder;
     });
-   // console.log(this.SelCountryData);
-    // if(item == 'USA'){
-    //   // this.segmentChanged('Equity');
-    //   this.selectedIndexName = this.Index[0][0].indexName.replace('New Age Alpha ','');
-    // }else{
-    //   this.selectedIndexName = this.Index[this.CountryClasificationList.indexOf(this.selectedCountry)][0].indexName.replace('New Age Alpha ','');
-    //   // console.log(this.selectedIndexName);
-    // }
     this.itemActive = true;
     
-    
-    // console.log(this.selectedIndexName);
     this.onOptionsSelected(this.SelCountryData[0].indexId);    
   }
 
@@ -398,49 +328,29 @@ export class PerformancePage implements OnInit, AfterViewInit, OnDestroy {
 
   onIndexChange(event){
     this.selectedIndex = this.Index[this.CountryClasificationList.indexOf(this.selectedCountry)][0];
-    // console.log(this.selectedIndex);
     this.selectedIndexName = this.Index[this.CountryClasificationList.indexOf(this.selectedCountry)][0].indexName.replace('New Age Alpha ','')
-   // this.selectedIndex = this.filterIndex(item)[0].IndexName;
-   // this.selectedIndex = this.selectedIndex.replace('New Age Alpha ','');
     var inddata = this.PerformanceData.filter(data => data.indexName == this.selectedIndex.indexName);
     this.selectedIndexData = inddata[0];
-    // console.log(this.selectedIndexData);
-    // console.log(event.target.value);
     var d =this.IndexData.filter(data=> data.indexName.indexOf(event.target.value) != -1);
     this.selectedIndex = d[0];
     var inddata = this.PerformanceData.filter(data => data.indexName == this.selectedIndex.indexName);
     this.selectedIndexData = inddata[0];
-    // console.log(this.selectedIndexData);
     this.onCancelClick();
-    
-    // setTimeout(()=>{
-    //   // this.animateSequenceStart();
-    // },300);
   }
 
   onOptionsSelected(indId){
     if(this.key != 'Market View'){
       this.selectedIndex = this.SelCountryData.filter(data => data.indexId == indId)[0];
-    //  console.log(this.selectedIndex);
       this.selectedIndexData = this.PerformanceData.filter(data => data.indexId == indId)[0];
-      // console.log(this.selectedIndexData);
       this.selectedIndexName = this.selectedIndexData.indexName;
       this.getBMData();
       this.createChart();
     }else{
       this.selectedIndex = this.SelCountryData.filter(data => data.indexId == indId)[0];
-    //  console.log(this.selectedIndex);
       this.selectedIndexData = this.SelCountryData.filter(data => data.indexId == indId)[0];
       this.selectedIndexName = this.selectedIndexData.indexName;
-      // console.log(this.selectedIndexData);
-      // this.getBMData();
-      // if(this.selectedIndexData.indexId == 54){
-        // this.GlobalChartCreate();
-      // }else{
         this.createChart();
-      // }
     }
-    
   }
 
   getBMData(){
@@ -451,8 +361,6 @@ export class PerformancePage implements OnInit, AfterViewInit, OnDestroy {
     }else{
       this.SelBMIndData = null ;
     }
-    
-    // console.log(this.SelBMIndData);
   }
 
     getEquityList(){
@@ -486,7 +394,6 @@ export class PerformancePage implements OnInit, AfterViewInit, OnDestroy {
         text:'Confirm',
         handler: (val)=>{
           this.selectedYear = val.Year.text;
-    //      console.log(this.selectedYear);
           this.getYearData();
           this.selectedDate = this.dateList[0].rebalanceDt;
           this.fetchSignal(this.selectedDate);
@@ -498,20 +405,14 @@ export class PerformancePage implements OnInit, AfterViewInit, OnDestroy {
         options: this.getYearColumnOptions()
       }]
     };
-
-  //  console.log(this.selectedYear);
     let picker = await this.pickerCtrl.create(opts);
     picker.present();
   }
 
   getselectedYear(){
-  //  console.log(''+this.selectedYear);
     if(this.selectedYear){
-      // console.log(this.yearList);
       var temp = this.yearList.filter(i=> i == this.selectedYear)[0];
-    //  console.log(temp);
       var selectedyearIndex = this.yearList.indexOf(temp);
-      // console.log(selectedyearIndex);
       return selectedyearIndex;
     }else{
       return 0;
@@ -520,25 +421,20 @@ export class PerformancePage implements OnInit, AfterViewInit, OnDestroy {
 
   getYearData(){
     var yearIndex = this.yearList.indexOf(this.selectedYear);
-  //  console.log(yearIndex);
     this.dateList = this.rebalance_dates[yearIndex].values;
-  //  console.log(this.dateList);
   }
 
   getYearColumnOptions(){
     var that = this;
     if(this.rebalance_dates.length != 0){
       var tempdates = [...this.rebalance_dates];
-      // that.yearList.length = 0;
       that.yearList = tempdates.map(i=>{return i.key});
-    //  console.log(this.yearList);
       var temp = [];
       this.yearList.filter(i=>{
         temp.push({text:i,value:i})
       })
       return temp;
     }
-    // console.log(this.yearList);
   }
 
   async openPicker(){
@@ -566,16 +462,13 @@ export class PerformancePage implements OnInit, AfterViewInit, OnDestroy {
       }],
 
     };
-    //console.log(this.selectedOption);
     let picker = await this.pickerCtrl.create(opts);
     picker.present();
     
   }
 
   getSelectedDataId(val){
-   // console.log(val);
     var temp = this.SelCountryData.filter(data => data.indexName.replace('New Age Alpha ','').replace('Total Return ','') == val)[0];
-  //  console.log(temp);
     return temp.indexId;
   }
 
@@ -592,9 +485,6 @@ export class PerformancePage implements OnInit, AfterViewInit, OnDestroy {
 
   getColumnOptions(){
     this.OptionsList.length = 0;
-
-   // console.log(this.SelCountryData);
-
     this.SelCountryData.forEach(element => {
       var temp = element.indexName.replace('New Age Alpha ','').replace('Total Return ','');
       temp = temp+" ("+element.indexCode+")";
@@ -604,8 +494,6 @@ export class PerformancePage implements OnInit, AfterViewInit, OnDestroy {
   }
 
   onCancelClick(){
-    
-     
     setTimeout(()=>{
       document.getElementById('BottomCardDiv').style.opacity="0";
       setTimeout(()=>{
@@ -614,7 +502,6 @@ export class PerformancePage implements OnInit, AfterViewInit, OnDestroy {
       setTimeout(()=>{
         document.getElementById('parentdiv').style.paddingTop="0px";
         document.getElementById('header').style.display='block';
-       
       },500);
     },100);
   }
@@ -624,7 +511,6 @@ export class PerformancePage implements OnInit, AfterViewInit, OnDestroy {
   }
 
   oncardClick(val){
-    // console.log(val);
     this.selectedCard = val;
   }
 
@@ -636,7 +522,6 @@ export class PerformancePage implements OnInit, AfterViewInit, OnDestroy {
   createChart(){
     var that = this;
     this.dataHandler.getRebalanceDates(this.selectedIndexData.indexId).then(data=>{
-    //  console.log(data);
       if(data.length>0){
         data.sort((x,y)=>{
           return d3.descending(x.rebalanceDt, y.rebalanceDt);
@@ -646,32 +531,22 @@ export class PerformancePage implements OnInit, AfterViewInit, OnDestroy {
         .key(d=>{ return d.rebalanceDt.substring(0,4);})
         .entries(data).sort((x,y)=>{ d3.descending(x.key,y.key);});
 
-     //   console.log(that.rebalance_dates);
-
         this.selectedYear = that.rebalance_dates[0].key;
-     //   console.log(this.selectedYear);
-
         this.getYearColumnOptions();
         this.getYearData();
 
         that.selectedDate = this.rebalance_dates[0].values[0].rebalanceDt;
         that.isUnscheduled = this.rebalance_dates[0].values[0].unscheduled;
-      //  console.log(this.selectedDate);
-     //   console.log(this.isUnscheduled);
         that.fetchSignal(that.selectedDate);
         this.SelRelIndexPart = this.RelIndexPart.filter(data => data.id == this.selectedIndexData.indexId)[0];
-        // console.log
-        // console.log(this.SelRelIndexPart);
         this.ShowAll = false;
       }
     })
   }
 
   fetchSignal(tradedate){
-   // console.log(tradedate);
     var that = this;
     this.dataHandler.getSignalsByDate(this.selectedIndexData.indexId,tradedate).then(signaldata =>{
-  //    console.log(signaldata);
   if(this.selectedIndexData.indexId == 54){
     if (signaldata.length > 0) {
       let USLC = signaldata.filter(x => x.indexCode == 9)[0];
@@ -766,9 +641,6 @@ export class PerformancePage implements OnInit, AfterViewInit, OnDestroy {
           that.sEUR = 4;
         }
       }
-     
-     // that.EnableGroup();
-
      this.dataHandler.GetGlobalSignalsByDate(this.selectedIndexData.indexId,tradedate).then(globalsignaldata =>{
       if (globalsignaldata.length > 0) {
         that.HFLAT = (globalsignaldata[0].hflat * 100).toFixed(2) + "%";
@@ -820,13 +692,7 @@ export class PerformancePage implements OnInit, AfterViewInit, OnDestroy {
       if(this.key == 'Market View'){
         this.EnableGroup();
       }
-      // console.log('LEI_E', that.LEI_E);
-      // console.log('trggtyp', that.trggtyp);
-      // console.log('VIX_E', that.VIX_E);
-      // console.log('SP_E', that.SP_E);
-      // console.log('Output', that.Output);
     }
-  
   }
 })
   }
@@ -844,11 +710,9 @@ export class PerformancePage implements OnInit, AfterViewInit, OnDestroy {
   }
 
   onDateClick(rebalancedt){
-   // console.log('dateclick');
     this.ShowAll = false;
     this.selectedDate = rebalancedt;
     this.isUnscheduled = this.rebalance_dates.filter(data => data.key == this.selectedYear)[0].values.filter(da => da.rebalanceDt == this.selectedDate)[0].unscheduled;
-    // console.log(this.isUnscheduled);
     this.fetchSignal(rebalancedt);
   }
 
@@ -875,7 +739,6 @@ export class PerformancePage implements OnInit, AfterViewInit, OnDestroy {
   }
 
   onSvgClick(id){
-
     this.pngLoader = true;
     let width = 0;
     let height = 0;
@@ -917,21 +780,16 @@ export class PerformancePage implements OnInit, AfterViewInit, OnDestroy {
         scale : 0.5,
         backgroundColor : '#ffffff'
       }
-      
     }
     svg.svgAsPngUri(document.getElementById(id),options, (uri)=>{
-      // console.log(uri);
       this.photoViewer.show(uri,this.selectedIndex.indexCode,{share:false});
       this.pngLoader= false;
     })
   }
 
   EnableGroup() {
-    // console.log('enable Group');
     let that = this;
-
     let decText = that.selectedIndex.decision;
-  //  console.log(decText);
     if (that.selectedIndex.indexId == 4 || that.selectedIndex.indexId == 9 || that.selectedIndex.indexId == 107 || that.selectedIndex.indexId == 104) {
       if (this.trgrtyp == "LEI") {
         decText = "Leading Economic Index (LEI) Trigger";
@@ -987,30 +845,24 @@ export class PerformancePage implements OnInit, AfterViewInit, OnDestroy {
       }
     }
 
-
     d3.selectAll(".signalgrp").style("fill-opacity", "1");
     d3.selectAll(".signalgrp").style("stroke-opacity", "1");
     d3.selectAll(".signalgrp").classed('disable', false);
 
     if (!this.ShowAll) {
       d3.selectAll(".signalgrp").style("fill-opacity", "0.6");
-      //d3.selectAll(".signalgrp").node().classList.add("disable");
       d3.selectAll(".signalgrp").classed("disable", true);
-      // d3.selectAll(".csignalgrp").select("circle").style("fill", "#EF462F");
       d3.selectAll(".csignalgrp").style("fill-opacity", "1");
       if (this.LEI == 1) {
         d3.select("#LEI").style("fill-opacity", "1");
-        // d3.select("#cLEI").select("circle").style("fill", "#45b65c");
         d3.select("#cLEI").style("fill-opacity", "0");
       }
       if (this.VIX == 1) {
         d3.select("#VIX").style("fill-opacity", "1");
-        // d3.select("#cVIX").select("circle").style("fill", "#45b65c");
         d3.select("#cVIX").style("fill-opacity", "0");
       }
       if (this.SP == 1) {
         d3.select("#SP").style("fill-opacity", "1");
-        //d3.select("#cSP").select("circle").style("fill", "#45b65c");
         d3.select("#cSP").style("fill-opacity", "0");
       }
       d3.select("#infoCash").style("display", "none");
@@ -1114,7 +966,6 @@ export class PerformancePage implements OnInit, AfterViewInit, OnDestroy {
 
       d3.selectAll(".gOut").style("fill-opacity", ".5");
       d3.selectAll(".gOut").style("stroke-opacity", ".2");
-      //d3.selectAll(".gOut").node().classList.add("disable");
       d3.selectAll(".gOut").classed("disable", true);
 
       d3.selectAll(".gOut-" + this.Output).style("fill-opacity", "1");
@@ -1123,12 +974,10 @@ export class PerformancePage implements OnInit, AfterViewInit, OnDestroy {
 
       d3.selectAll(".glines").style("fill-opacity", ".4");
       d3.selectAll(".glines").style("stroke-opacity", "0.2");
-      //d3.selectAll(".glines").node().classList.add("disable");
       d3.selectAll(".glines").classed("disable", true);
 
       d3.selectAll(".g0").style("fill-opacity", "1");
       d3.selectAll(".g0").classed('disable', false);
-      //console.log("==" + TotSignal + "==" + this.Output + "==");
       if (TotSignal >= 2 && this.Output == 1) {
         d3.selectAll(".g1").style("fill-opacity", "1");
         d3.selectAll(".g1").style("stroke-opacity", "1");
@@ -1161,14 +1010,12 @@ export class PerformancePage implements OnInit, AfterViewInit, OnDestroy {
       }
 
       d3.selectAll(".info").on("mouseover", function () {
-        //console.log(d3.select(this).attr('id'));
         d3.select("." + d3.select(this).attr('id') + "pop").style("display", "block");
       }).on("mouseout", function () {
         d3.select("." + d3.select(this).attr('id') + "pop").style("display", "none");
       });
 
       d3.selectAll(".infoCash").on("mouseover", function () {
-        //console.log(d3.select(this).attr('id'));
         d3.select("." + d3.select(this).attr('id') + "pop").style("display", "block");
       }).on("mouseout", function () {
         d3.select("." + d3.select(this).attr('id') + "pop").style("display", "none");

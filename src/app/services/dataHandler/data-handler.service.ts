@@ -152,12 +152,10 @@ export class DataHandlerService {
   getRebalanceDates(id){
     if(id != 59 && id != 60 && id != 54){
       return d3.json(this.api_url+'/Indexes/GetRebalanceDates/'+id).then(data=>{
-      //  console.log(data);
         return data;
       })
     }else{
       return d3.json(this.api_url+'/Indexes/GetGlobalRebalances/'+id).then(data=>{
-      //  console.log(data);
         return data;
       })
     }
@@ -167,18 +165,15 @@ export class DataHandlerService {
     var temp = tradedate.slice(0,4)+'-'+tradedate.slice(4,6)+'-'+tradedate.slice(6,8);
     if(id != 59 && id != 60 && id != 107 && id != 104 && id != 69 && id != 13 && id != 1 && id != 108 && id != 12 && id != 113){
       return d3.json(this.api_url+'/Indexes/GetSignalsByDate/'+temp).then(data=>{
-      //  console.log(data);
         return data;
       })
     }else if(id == 107 || id == 104 || id == 69 || id == 13 || id == 1 || id == 108 || id == 12 || id == 113){
       return d3.json(this.api_url+'/Indexes/GetSignalsByDate/'+id+'/'+temp).then(data=>{
-      //  console.log(data);
         return data;
       })
     }
     else{
       return d3.json(this.api_url+'/Indexes/GetGlobalSignalsByDate/'+id+'/'+temp).then(data=>{
-      //  console.log(data);
         return data;
       })
     }
@@ -188,7 +183,6 @@ export class DataHandlerService {
   GetGlobalSignalsByDate(id,tradedate){
     var temp = tradedate.slice(0,4)+'-'+tradedate.slice(4,6)+'-'+tradedate.slice(6,8);
       return d3.json(this.api_url+'/Indexes/GetGlobalSignalsByDate/'+id+'/'+temp).then(data=>{
-      //  console.log(data);
         return data;
       })
   }

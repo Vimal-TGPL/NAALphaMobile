@@ -48,13 +48,6 @@ export class AuthPage implements OnInit,AfterViewInit {
     });
   }
 
-  // ionViewDidEnter() {
-  //   setTimeout(()=>{
-  //     // document.getElementById('EmailInput').focus();
-  //     this.EmailInt.setFocus();
-  //   },2000);
-  // }
-
   onemialTextInput(){
     this.email = true;
   }
@@ -63,7 +56,6 @@ export class AuthPage implements OnInit,AfterViewInit {
     this.pwd = true;
   }
   onLoginClick(){
-    // console.log('Login Clicked');
     this.showLoad = true;
     const httpOptions = {
       headers: new HttpHeaders({
@@ -93,9 +85,6 @@ export class AuthPage implements OnInit,AfterViewInit {
   }
 
   onSignupClick(){
-    //this.route.navigateByUrl('/signup');
-    // this.iab.create(this.signupUrl,'_blank','location=no,toolbar=yes,zoom=no');
-
     document.getElementById('authLoader').style.display ="flex";
      var browser = this.iab.create(this.signupUrl,'_blank',"location=no,toolbar=yes,zoom=no,toolbarcolor=#2b468f");
      

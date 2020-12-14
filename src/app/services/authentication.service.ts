@@ -24,16 +24,7 @@ export class AuthenticationService {
   showSplashLoader:boolean;
 
   constructor(private dataService: DataService,private next: HttpHandler,private platform: Platform, private appVersion:AppVersion, private userAgent: UserAgent, private device:Device, private toastController: ToastController, private http:HttpClient, private storage: Storage, private plt:Platform, private route:Router, private authService:AuthenticationService) { 
-    // this.plt.ready().then(()=>{
-      
-    // setTimeout(() => {
-      
-    // }, 100);
-    // this.platform.ready().then(async () => {
-    //   this.checkToken();
-    // });
       this.storage.get('currentUser').then( res=>{
-        // this.CurrentUser = JSON.parse( res);
         if(res)
         {
           this.checkToken(null);
@@ -44,8 +35,6 @@ export class AuthenticationService {
       this.dataService.showsplashLoader.subscribe(d =>{
         this.showSplashLoader = d;
       })
-    // });
-    
   }
 
   public currentUserValue() {
@@ -63,16 +52,10 @@ export class AuthenticationService {
   .pipe(map(user=>{
     if(user && user.token){
       if(user.isEmailVerified != "" && user.isEmailVerified == "Y"){
-        // this.storage.clear();
-        //console.log(user.token);
         this.CurrentUser = user;
         this.storage.set('currentUser',JSON.stringify(user));
         this.authenticationState.next(true);
         this.ProcUserTrack(user);
-        // this.CurrentUser = userdata;
-        //   this.storage.set('currentUser',JSON.stringify(userdata));
-        //   this.authenticationState.next(true);
-        //   this.ProcUserTrack(userdata);
       }
     }
     return user;
@@ -105,17 +88,14 @@ export class AuthenticationService {
   checkToken(req){
     this.storage.get('currentUser').then(res=>{
       let user:any = JSON.parse(res);
-      // console.log(user);
       if(user && user.token && user.remToken){
         const httpOptions = {
           headers: new HttpHeaders({
             'Content-Type': 'application/json'
           })
         };
-        // console.log(user);
         var username:String = user.username;
         var remToken:String = user.remToken;
-        // console.log(username, remToken);
        return this.http.post<any>(this.api_url+'/Users/AuthRem',{username,remToken},httpOptions).subscribe(userdata=>{
           this.CurrentUser = userdata;
           this.storage.set('currentUser',JSON.stringify(userdata));
@@ -125,7 +105,6 @@ export class AuthenticationService {
         },error=>{
           this.dataService.showsplashLoader.next(false);
           this.presentToast(error.error.message);
-          
           return null;
         })
       }else{
@@ -170,17 +149,12 @@ export class AuthenticationService {
       objTrack.LogInTime = new Date();
       objTrack.LogOutTime = null;
       objTrack.Status = 'A';
-      // console.log(objTrack);
      
       this.trackUser(objTrack).pipe().subscribe(trackData=>{
         var objtrackdtls = new UserTrackDtls();
         objtrackdtls.TrackingId = trackData['trackingId'];
-        // objtrackdtls.TrackingId = null;
         objtrackdtls.Userid = objTrack.Userid;
-        // this.userAgent.get().then(res=>{
           objtrackdtls.UserAgent = null;
-        // });
-        // if()
         objtrackdtls.OS = this.device.platform;
         objtrackdtls.OSVersion = this.device.version;
         objtrackdtls.browser = this.device.manufacturer;
@@ -191,11 +165,7 @@ export class AuthenticationService {
         objtrackdtls.IsDesktopDevice = this.device.isVirtual? 1 : 0;
         objtrackdtls.ScreenPixelsHeight = this.platform.height();
         objtrackdtls.ScreenPixelsWidth = this.platform.width();
-        // objtrackdtls.UUID = this.device.uuid;
-        // objtrackdtls.appVersion = this.appVersion.getVersionNumber();
-        // console.log(objtrackdtls);
         this.trackUserDetails(objtrackdtls).pipe().subscribe(data=>{
-          // console.log(data);
         },error=>{
 
         });
@@ -234,10 +204,6 @@ export class AuthenticationService {
       },0),
       delayWhen(()=> timer(1000))
     ))).pipe(map(res => {return res}));
-    // .pipe(data => {
-    //     console.log(data);
-    //     return data;
-    //   }); 
   }
 
   async presentToast(val) {

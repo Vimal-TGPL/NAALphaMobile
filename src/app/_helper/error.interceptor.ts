@@ -17,7 +17,6 @@ export class ErrorInterceptor implements HttpInterceptor {
 
     var that = this;
     
-
     return next.handle(request).pipe(catchError(err => {
       this.currentUser = this.authService.currentUserValue();
       if (err.status === 401) {

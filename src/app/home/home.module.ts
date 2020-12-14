@@ -16,9 +16,7 @@ import { HomePage } from './home.page';
         path: '',
         component: HomePage
       }
-    ]),
-    // RouterModule.forChild(mobileroutes),
-    // IonicSelectableModule
+    ])
   ],
   declarations: [HomePage]
 })

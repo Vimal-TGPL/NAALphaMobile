@@ -11,7 +11,6 @@ ion-header ion-toolbar{
 .innercard{
     height: 90%;
     width: 90%;
-    // background: #d3d8dc;
     border-radius: 20px;
     display: flex;
     justify-content: center;
@@ -79,7 +78,6 @@ ion-header ion-toolbar{
             text-align: center;
             color: #ffffff;
             font-size: 14px;
-            // font-weight: 600;
         }
     }
     
@@ -178,22 +176,6 @@ ion-header ion-toolbar{
         }
     }
 }
-
-
-
-// @media screen and (max-height: 650px) {
-//     .card{
-//         // margin: 10px !important;
-//     }
-//     .tool-img img{
-//         width: 200px;
-//          height: 200px;
-//     }
-//     .tool-img{
-//         display: flex;
-//         justify-content: center;
-//     }
-//   }
 
   @media screen and (orientation:landscape) {
     .innercard2mobile{

@@ -9,10 +9,6 @@ import { Network } from '@ionic-native/network/ngx';
 import { ToastController } from '@ionic/angular';
 import { ScreenOrientation } from '@ionic-native/screen-orientation/ngx';
 
-// import { NetworkService } from './services/networks/network.service';
-// import { debounceTime } from 'rxjs/operators';
-// import { Storage } from '@ionic/storage';
-
 declare var navigator: any;
 declare var Connection: any;
 
@@ -93,20 +89,13 @@ export class AppComponent {
                 this.splashScreen.hide();
               }else{
                 this.navController.navigateRoot(['menu/menu/home']);
-                // console.log('iphone/mobile');
-                // this.router.navigateByUrl('/menu/menu/home');
-                // this.router.navigate(['/menu/menu/home'],{
-                //   skipLocationChange:true
-                // }); 
                 
                 this.splashScreen.hide(); 
               }
               
             }else{
               this.splashScreen.hide();
-              this.navController.navigateRoot(['landing']);
-              // this.router.navigateByUrl('/landing');
-              
+              this.navController.navigateRoot(['landing']);              
             }
           });
         }else{
