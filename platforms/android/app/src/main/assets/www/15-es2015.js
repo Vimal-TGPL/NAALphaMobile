@@ -12,7 +12,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ion_input", function() { return Input; });
 /* harmony import */ var _index_e806d1f6_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./index-e806d1f6.js */ "./node_modules/@ionic/core/dist/esm/index-e806d1f6.js");
 /* harmony import */ var _ionic_global_9d5c8ee3_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ionic-global-9d5c8ee3.js */ "./node_modules/@ionic/core/dist/esm/ionic-global-9d5c8ee3.js");
-/* harmony import */ var _helpers_002e4980_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./helpers-002e4980.js */ "./node_modules/@ionic/core/dist/esm/helpers-002e4980.js");
+/* harmony import */ var _helpers_90f46169_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./helpers-90f46169.js */ "./node_modules/@ionic/core/dist/esm/helpers-90f46169.js");
 /* harmony import */ var _theme_ff3fc52f_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./theme-ff3fc52f.js */ "./node_modules/@ionic/core/dist/esm/theme-ff3fc52f.js");
 
 
@@ -33,6 +33,7 @@ const Input = class {
     this.ionStyle = Object(_index_e806d1f6_js__WEBPACK_IMPORTED_MODULE_0__["e"])(this, "ionStyle", 7);
     this.inputId = `ion-input-${inputIds++}`;
     this.didBlurAfterEdit = false;
+    this.inheritedAttributes = {};
     /**
      * This is required for a WebKit bug which requires us to
      * blur and focus an input to properly focus the input in
@@ -154,7 +155,7 @@ const Input = class {
     };
   }
   debounceChanged() {
-    this.ionChange = Object(_helpers_002e4980_js__WEBPACK_IMPORTED_MODULE_2__["d"])(this.ionChange, this.debounce);
+    this.ionChange = Object(_helpers_90f46169_js__WEBPACK_IMPORTED_MODULE_2__["e"])(this.ionChange, this.debounce);
   }
   disabledChanged() {
     this.emitStyle();
@@ -167,14 +168,7 @@ const Input = class {
     this.ionChange.emit({ value: this.value == null ? this.value : this.value.toString() });
   }
   componentWillLoad() {
-    // If the ion-input has a tabindex attribute we get the value
-    // and pass it down to the native input, then remove it from the
-    // ion-input to avoid causing tabbing twice on the same element
-    if (this.el.hasAttribute('tabindex')) {
-      const tabindex = this.el.getAttribute('tabindex');
-      this.tabindex = tabindex !== null ? tabindex : undefined;
-      this.el.removeAttribute('tabindex');
-    }
+    this.inheritedAttributes = Object(_helpers_90f46169_js__WEBPACK_IMPORTED_MODULE_2__["i"])(this.el, ['tabindex', 'title']);
   }
   connectedCallback() {
     this.emitStyle();
@@ -250,7 +244,7 @@ const Input = class {
     const mode = Object(_ionic_global_9d5c8ee3_js__WEBPACK_IMPORTED_MODULE_1__["b"])(this);
     const value = this.getValue();
     const labelId = this.inputId + '-lbl';
-    const label = Object(_helpers_002e4980_js__WEBPACK_IMPORTED_MODULE_2__["f"])(this.el);
+    const label = Object(_helpers_90f46169_js__WEBPACK_IMPORTED_MODULE_2__["f"])(this.el);
     if (label) {
       label.id = labelId;
     }
@@ -258,7 +252,7 @@ const Input = class {
         [mode]: true,
         'has-value': this.hasValue(),
         'has-focus': this.hasFocus
-      }) }, Object(_index_e806d1f6_js__WEBPACK_IMPORTED_MODULE_0__["h"])("input", { class: "native-input", ref: input => this.nativeInput = input, "aria-labelledby": labelId, disabled: this.disabled, accept: this.accept, autoCapitalize: this.autocapitalize, autoComplete: this.autocomplete, autoCorrect: this.autocorrect, autoFocus: this.autofocus, enterKeyHint: this.enterkeyhint, inputMode: this.inputmode, min: this.min, max: this.max, minLength: this.minlength, maxLength: this.maxlength, multiple: this.multiple, name: this.name, pattern: this.pattern, placeholder: this.placeholder || '', readOnly: this.readonly, required: this.required, spellcheck: this.spellcheck, step: this.step, size: this.size, tabindex: this.tabindex, type: this.type, value: value, onInput: this.onInput, onBlur: this.onBlur, onFocus: this.onFocus, onKeyDown: this.onKeydown }), (this.clearInput && !this.readonly && !this.disabled) && Object(_index_e806d1f6_js__WEBPACK_IMPORTED_MODULE_0__["h"])("button", { "aria-label": "reset", type: "button", class: "input-clear-icon", onTouchStart: this.clearTextInput, onMouseDown: this.clearTextInput, onKeyDown: this.clearTextOnEnter })));
+      }) }, Object(_index_e806d1f6_js__WEBPACK_IMPORTED_MODULE_0__["h"])("input", Object.assign({ class: "native-input", ref: input => this.nativeInput = input, "aria-labelledby": labelId, disabled: this.disabled, accept: this.accept, autoCapitalize: this.autocapitalize, autoComplete: this.autocomplete, autoCorrect: this.autocorrect, autoFocus: this.autofocus, enterKeyHint: this.enterkeyhint, inputMode: this.inputmode, min: this.min, max: this.max, minLength: this.minlength, maxLength: this.maxlength, multiple: this.multiple, name: this.name, pattern: this.pattern, placeholder: this.placeholder || '', readOnly: this.readonly, required: this.required, spellcheck: this.spellcheck, step: this.step, size: this.size, type: this.type, value: value, onInput: this.onInput, onBlur: this.onBlur, onFocus: this.onFocus, onKeyDown: this.onKeydown }, this.inheritedAttributes)), (this.clearInput && !this.readonly && !this.disabled) && Object(_index_e806d1f6_js__WEBPACK_IMPORTED_MODULE_0__["h"])("button", { "aria-label": "reset", type: "button", class: "input-clear-icon", onTouchStart: this.clearTextInput, onMouseDown: this.clearTextInput, onKeyDown: this.clearTextOnEnter })));
   }
   get el() { return Object(_index_e806d1f6_js__WEBPACK_IMPORTED_MODULE_0__["i"])(this); }
   static get watchers() { return {

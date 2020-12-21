@@ -63,7 +63,7 @@ const Backdrop = class {
   }
   render() {
     const mode = Object(_ionic_global_9d5c8ee3_js__WEBPACK_IMPORTED_MODULE_1__["b"])(this);
-    return (Object(_index_e806d1f6_js__WEBPACK_IMPORTED_MODULE_0__["h"])(_index_e806d1f6_js__WEBPACK_IMPORTED_MODULE_0__["H"], { tabindex: "-1", class: {
+    return (Object(_index_e806d1f6_js__WEBPACK_IMPORTED_MODULE_0__["h"])(_index_e806d1f6_js__WEBPACK_IMPORTED_MODULE_0__["H"], { tabindex: "-1", "aria-hidden": "true", class: {
         [mode]: true,
         'backdrop-hide': !this.visible,
         'backdrop-no-tappable': !this.tappable,

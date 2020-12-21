@@ -12,7 +12,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ion_textarea", function() { return Textarea; });
 /* harmony import */ var _index_e806d1f6_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./index-e806d1f6.js */ "./node_modules/@ionic/core/dist/esm/index-e806d1f6.js");
 /* harmony import */ var _ionic_global_9d5c8ee3_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ionic-global-9d5c8ee3.js */ "./node_modules/@ionic/core/dist/esm/ionic-global-9d5c8ee3.js");
-/* harmony import */ var _helpers_002e4980_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./helpers-002e4980.js */ "./node_modules/@ionic/core/dist/esm/helpers-002e4980.js");
+/* harmony import */ var _helpers_90f46169_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./helpers-90f46169.js */ "./node_modules/@ionic/core/dist/esm/helpers-90f46169.js");
 /* harmony import */ var _theme_ff3fc52f_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./theme-ff3fc52f.js */ "./node_modules/@ionic/core/dist/esm/theme-ff3fc52f.js");
 
 
@@ -33,6 +33,7 @@ const Textarea = class {
     this.ionFocus = Object(_index_e806d1f6_js__WEBPACK_IMPORTED_MODULE_0__["e"])(this, "ionFocus", 7);
     this.inputId = `ion-textarea-${textareaIds++}`;
     this.didBlurAfterEdit = false;
+    this.inheritedAttributes = {};
     /**
      * This is required for a WebKit bug which requires us to
      * blur and focus an input to properly focus the input in
@@ -113,7 +114,7 @@ const Textarea = class {
     };
   }
   debounceChanged() {
-    this.ionChange = Object(_helpers_002e4980_js__WEBPACK_IMPORTED_MODULE_2__["d"])(this.ionChange, this.debounce);
+    this.ionChange = Object(_helpers_90f46169_js__WEBPACK_IMPORTED_MODULE_2__["e"])(this.ionChange, this.debounce);
   }
   disabledChanged() {
     this.emitStyle();
@@ -147,8 +148,11 @@ const Textarea = class {
       }));
     }
   }
+  componentWillLoad() {
+    this.inheritedAttributes = Object(_helpers_90f46169_js__WEBPACK_IMPORTED_MODULE_2__["i"])(this.el, ['title']);
+  }
   componentDidLoad() {
-    Object(_helpers_002e4980_js__WEBPACK_IMPORTED_MODULE_2__["r"])(() => this.runAutoGrow());
+    Object(_helpers_90f46169_js__WEBPACK_IMPORTED_MODULE_2__["r"])(() => this.runAutoGrow());
   }
   runAutoGrow() {
     const nativeInput = this.nativeInput;
@@ -230,13 +234,13 @@ const Textarea = class {
     const mode = Object(_ionic_global_9d5c8ee3_js__WEBPACK_IMPORTED_MODULE_1__["b"])(this);
     const value = this.getValue();
     const labelId = this.inputId + '-lbl';
-    const label = Object(_helpers_002e4980_js__WEBPACK_IMPORTED_MODULE_2__["f"])(this.el);
+    const label = Object(_helpers_90f46169_js__WEBPACK_IMPORTED_MODULE_2__["f"])(this.el);
     if (label) {
       label.id = labelId;
     }
     return (Object(_index_e806d1f6_js__WEBPACK_IMPORTED_MODULE_0__["h"])(_index_e806d1f6_js__WEBPACK_IMPORTED_MODULE_0__["H"], { "aria-disabled": this.disabled ? 'true' : null, class: Object(_theme_ff3fc52f_js__WEBPACK_IMPORTED_MODULE_3__["c"])(this.color, {
         [mode]: true,
-      }) }, Object(_index_e806d1f6_js__WEBPACK_IMPORTED_MODULE_0__["h"])("div", { class: "textarea-wrapper", ref: el => this.textareaWrapper = el }, Object(_index_e806d1f6_js__WEBPACK_IMPORTED_MODULE_0__["h"])("textarea", { class: "native-textarea", "aria-labelledby": labelId, ref: el => this.nativeInput = el, autoCapitalize: this.autocapitalize, autoFocus: this.autofocus, enterKeyHint: this.enterkeyhint, inputMode: this.inputmode, disabled: this.disabled, maxLength: this.maxlength, minLength: this.minlength, name: this.name, placeholder: this.placeholder || '', readOnly: this.readonly, required: this.required, spellcheck: this.spellcheck, cols: this.cols, rows: this.rows, wrap: this.wrap, onInput: this.onInput, onBlur: this.onBlur, onFocus: this.onFocus, onKeyDown: this.onKeyDown }, value))));
+      }) }, Object(_index_e806d1f6_js__WEBPACK_IMPORTED_MODULE_0__["h"])("div", { class: "textarea-wrapper", ref: el => this.textareaWrapper = el }, Object(_index_e806d1f6_js__WEBPACK_IMPORTED_MODULE_0__["h"])("textarea", Object.assign({ class: "native-textarea", "aria-labelledby": labelId, ref: el => this.nativeInput = el, autoCapitalize: this.autocapitalize, autoFocus: this.autofocus, enterKeyHint: this.enterkeyhint, inputMode: this.inputmode, disabled: this.disabled, maxLength: this.maxlength, minLength: this.minlength, name: this.name, placeholder: this.placeholder || '', readOnly: this.readonly, required: this.required, spellcheck: this.spellcheck, cols: this.cols, rows: this.rows, wrap: this.wrap, onInput: this.onInput, onBlur: this.onBlur, onFocus: this.onFocus, onKeyDown: this.onKeyDown }, this.inheritedAttributes), value))));
   }
   get el() { return Object(_index_e806d1f6_js__WEBPACK_IMPORTED_MODULE_0__["i"])(this); }
   static get watchers() { return {

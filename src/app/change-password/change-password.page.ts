@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormGroup, Validators, FormControl, FormBuilder, ValidatorFn, ValidationErrors } from '@angular/forms';
 import { UserService } from '../services/user.service';
 import { ToastController, MenuController } from '@ionic/angular';
@@ -11,7 +11,7 @@ import { Platform} from '@ionic/angular';
   templateUrl: './change-password.page.html',
   styleUrls: ['./change-password.page.scss'],
 })
-export class ChangePasswordPage implements OnInit {
+export class ChangePasswordPage implements OnInit, OnDestroy {
   showLoad:boolean = false;
   mobile : boolean;
   customErrors = {required: 'Please accept the terms'}
@@ -20,8 +20,15 @@ export class ChangePasswordPage implements OnInit {
     valueee: any;
   pwd:boolean = false;
   Cpwd:boolean = false;
-
-  constructor(private platform:Platform, private menuController:MenuController ,private formBuilder:FormBuilder,private userServices:UserService,private toastController:ToastController, private route:Router) { }
+  _backSub:any;
+  constructor(private platform:Platform, private menuController:MenuController ,private formBuilder:FormBuilder,private userServices:UserService,private toastController:ToastController, private route:Router) { 
+    this._backSub = this.platform.backButton.subscribeWithPriority(0, async()=> {
+      this.onReturnClick();
+    });
+  }
+  ngOnDestroy() {
+    this._backSub.unsubscribe();
+  }
   
   hasError = (controlName: string, errorName: string) => {
     return this.changePasswordForm.controls[controlName].hasError(errorName);

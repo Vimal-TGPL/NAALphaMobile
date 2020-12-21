@@ -17,6 +17,9 @@
     "cordova-plugin-android-permissions": {
       "PACKAGE_NAME": "com.app.newagealpha"
     },
+    "cordova-plugin-app-version": {
+      "PACKAGE_NAME": "com.app.newagealpha"
+    },
     "cordova-plugin-device": {
       "PACKAGE_NAME": "com.app.newagealpha"
     },
@@ -58,9 +61,6 @@
       "PACKAGE_NAME": "com.app.newagealpha"
     },
     "im.ltdev.cordova.UserAgent": {
-      "PACKAGE_NAME": "com.app.newagealpha"
-    },
-    "cordova-plugin-app-version": {
       "PACKAGE_NAME": "com.app.newagealpha"
     }
   },

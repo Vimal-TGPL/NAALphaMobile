@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
 import { Router } from '@angular/router';
-import { Platform} from '@ionic/angular';
+import { Platform, ToastController} from '@ionic/angular';
 import { Network } from '@ionic-native/network/ngx';
 import { AlertController } from '@ionic/angular';
 import { AuthenticationService } from '../services/authentication.service';
@@ -17,8 +17,33 @@ export class LandingPage implements OnInit {
   authState:boolean;
   signupUrl = 'https://blog.newagealpha.com/h-factor';
   url = 'https://www.newagealpha.com/';
+  _backSub:any;
   showSplashLoader:boolean = true;
-  constructor(private dataService: DataService ,private authService : AuthenticationService ,private alertCtrl : AlertController,private network: Network,private platform:Platform, private iab:InAppBrowser, private route:Router) { 
+  constructor(private toastCtrl: ToastController ,private dataService: DataService ,private authService : AuthenticationService ,private alertCtrl : AlertController,private network: Network,private platform:Platform, private iab:InAppBrowser, private route:Router) {}
+
+  ionViewDidEnter(){
+    var backpressOncetoExit:boolean = false;
+    this._backSub = this.platform.backButton.subscribeWithPriority(0, async()=>{
+      if(backpressOncetoExit){
+        navigator['app'].exitApp();
+      }else{
+        backpressOncetoExit = true;
+        setTimeout(() => {
+          backpressOncetoExit = false;
+        }, 5000);
+        var toast = await this.toastCtrl.create({
+          message:'Press back again to exit NewAgeAlpha App',
+          duration:1000,
+          cssClass:'center'
+        });
+
+        toast.present();
+      }
+    })
+  }
+
+  ionViewWillLeave() {
+    this._backSub.unsubscribe();
   }
 
   ngOnInit() {

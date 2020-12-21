@@ -1,13 +1,15 @@
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([["signup-signup-module"],{
 
-/***/ "./node_modules/raw-loader/index.js!./src/app/signup/signup.page.html":
-/*!*******************************************************************!*\
-  !*** ./node_modules/raw-loader!./src/app/signup/signup.page.html ***!
-  \*******************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
+/***/ "./node_modules/raw-loader/dist/cjs.js!./src/app/signup/signup.page.html":
+/*!*******************************************************************************!*\
+  !*** ./node_modules/raw-loader/dist/cjs.js!./src/app/signup/signup.page.html ***!
+  \*******************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-module.exports = "<ion-content forceOverscroll=false>\n    <div style=\"display: block;\">\n        <!-- <form [formGroup]=\"signupForm\"> -->\n            <ion-card class=\"card\">\n                <!-- <div class=\"scrolldiv\"> -->\n                    <ion-card-header style=\"    padding: 0px;\">\n                        <ion-card-title class=\"cardTitle\">Sign Up</ion-card-title>\n                    </ion-card-header>\n                    <ion-card-content class=\"overfloscroll\" style=\" padding: 0px;\">\n                        <div id=\"dvSignUp\">\n\n                        </div>\n                    </ion-card-content>\n                <!-- </div> -->\n            </ion-card>\n        <!-- </form> -->\n    </div>\n</ion-content>"
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ("<ion-content forceOverscroll=false>\n    <div style=\"display: block;\">\n            <ion-card class=\"card\">\n                    <ion-card-header style=\"    padding: 0px;\">\n                        <ion-card-title class=\"cardTitle\">Sign Up</ion-card-title>\n                    </ion-card-header>\n                    <ion-card-content class=\"overfloscroll\" style=\" padding: 0px;\">\n                        <div id=\"dvSignUp\">\n\n                        </div>\n                    </ion-card-content>\n            </ion-card>\n    </div>\n</ion-content>");
 
 /***/ }),
 
@@ -96,10 +98,12 @@ SignupPageModule = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
 /*!*****************************************!*\
   !*** ./src/app/signup/signup.page.scss ***!
   \*****************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-module.exports = "ion-content {\n  --ion-background-color:#d3d8dc; }\n\n.card {\n  background-color: #2e4c99;\n  border-radius: 20px;\n  display: -webkit-box;\n  display: flex;\n  -webkit-box-orient: vertical;\n  -webkit-box-direction: normal;\n          flex-direction: column;\n  -webkit-box-pack: center;\n          justify-content: center;\n  position: absolute;\n  top: 0;\n  bottom: 0;\n  right: 0;\n  left: 0; }\n\n.cardTitle {\n  text-align: center;\n  color: #00aeef;\n  font-size: 40px;\n  font-weight: bold;\n  padding-top: 15px; }\n\n.form {\n  display: -webkit-box;\n  display: flex;\n  -webkit-box-orient: vertical;\n  -webkit-box-direction: normal;\n          flex-direction: column;\n  padding: 25px;\n  -webkit-box-pack: center;\n          justify-content: center; }\n\n.flex_item {\n  margin-bottom: 15px; }\n\n.label {\n  color: white;\n  font-size: 15px;\n  padding-bottom: 1%; }\n\n.input {\n  --background: white;\n  color: black; }\n\n.scrolldiv {\n  overflow: scroll; }\n\n.scrolldiv::-webkit-scrollbar {\n  display: none; }\n\n.checkboxLabel {\n  color: white;\n  padding-left: 10px;\n  font-size: 14px; }\n\n.agreeItem {\n  --padding-start: 0%;\n  --background: #2e4c99 ;\n  --background-activated: #2e4c99; }\n\n.signupBtn {\n  --background: #00aeef;\n  height: 45px; }\n\n.loginBtn {\n  --background: white;\n  color: #2e4c99;\n  --background-activated: #dadada;\n  --color-activated: #2e4c99;\n  height: 45px; }\n\n.select-icon {\n  padding: 10px; }\n\n.hs-custom-style fieldset {\n  padding: 0 10px 0 10px; }\n\n#dvSignUp {\n  padding: 0px 5px 0 15px; }\n\n@media screen and (orientation: landscape) {\n  .overfloscroll {\n    overflow: auto; }\n  .overfloscroll::-webkit-scrollbar, *::-webkit-scrollbar {\n    display: none; } }\n\n@media screen and (orientation: portrait) {\n  .agreecheckBox {\n    margin-top: 0%;\n    width: 32px; } }\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvc2lnbnVwL0M6XFxQcm9qZWN0c1xcTkFBbHBoYU1vYmlsZS9zcmNcXGFwcFxcc2lnbnVwXFxzaWdudXAucGFnZS5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBRUksOEJBQXVCLEVBQUE7O0FBSTNCO0VBQ0kseUJBQXlCO0VBQ3pCLG1CQUFtQjtFQUNuQixvQkFBYTtFQUFiLGFBQWE7RUFDYiw0QkFBc0I7RUFBdEIsNkJBQXNCO1VBQXRCLHNCQUFzQjtFQUN0Qix3QkFBdUI7VUFBdkIsdUJBQXVCO0VBRXZCLGtCQUFrQjtFQUNsQixNQUFNO0VBQ04sU0FBUztFQUNULFFBQVE7RUFDUixPQUFPLEVBQUE7O0FBR1g7RUFFSSxrQkFBa0I7RUFDbEIsY0FBYztFQUNkLGVBQWU7RUFDZixpQkFBaUI7RUFDakIsaUJBQWlCLEVBQUE7O0FBR3JCO0VBQ0ksb0JBQWE7RUFBYixhQUFhO0VBQ2IsNEJBQXNCO0VBQXRCLDZCQUFzQjtVQUF0QixzQkFBc0I7RUFDdEIsYUFBYTtFQUNiLHdCQUF1QjtVQUF2Qix1QkFBdUIsRUFBQTs7QUFHM0I7RUFFSSxtQkFBbUIsRUFBQTs7QUFHdkI7RUFDSSxZQUFZO0VBQ1osZUFBZTtFQUNkLGtCQUFrQixFQUFBOztBQUl2QjtFQUNJLG1CQUFhO0VBQ2IsWUFBWSxFQUFBOztBQUdoQjtFQUNJLGdCQUFnQixFQUFBOztBQUdwQjtFQUNJLGFBQWEsRUFBQTs7QUFLakI7RUFDSSxZQUFZO0VBQ1osa0JBQWtCO0VBQ2xCLGVBQWUsRUFBQTs7QUFHbkI7RUFDSSxtQkFBZ0I7RUFDaEIsc0JBQWE7RUFDYiwrQkFBdUIsRUFBQTs7QUFHM0I7RUFDSSxxQkFBYztFQUNkLFlBQVksRUFBQTs7QUFHaEI7RUFDSSxtQkFBYTtFQUNiLGNBQWM7RUFDZCwrQkFBdUI7RUFDdkIsMEJBQWtCO0VBQ2xCLFlBQVksRUFBQTs7QUFHaEI7RUFDSSxhQUFhLEVBQUE7O0FBRWpCO0VBQ0ksc0JBQXVCLEVBQUE7O0FBTTNCO0VBQ0ksdUJBQXVCLEVBQUE7O0FBRTNCO0VBQ0k7SUFDSSxjQUFjLEVBQUE7RUFFbEI7SUFDSSxhQUFhLEVBQUEsRUFDaEI7O0FBR0w7RUFDSTtJQUVJLGNBQWM7SUFDZCxXQUFXLEVBQUEsRUFDZCIsImZpbGUiOiJzcmMvYXBwL3NpZ251cC9zaWdudXAucGFnZS5zY3NzIiwic291cmNlc0NvbnRlbnQiOlsiaW9uLWNvbnRlbnR7XHJcblxyXG4gICAgLS1pb24tYmFja2dyb3VuZC1jb2xvcjojZDNkOGRjO1xyXG5cclxufVxyXG5cclxuLmNhcmR7XHJcbiAgICBiYWNrZ3JvdW5kLWNvbG9yOiAjMmU0Yzk5O1xyXG4gICAgYm9yZGVyLXJhZGl1czogMjBweDtcclxuICAgIGRpc3BsYXk6IGZsZXg7XHJcbiAgICBmbGV4LWRpcmVjdGlvbjogY29sdW1uO1xyXG4gICAganVzdGlmeS1jb250ZW50OiBjZW50ZXI7XHJcbiAgICAvLyBhbGlnbi1pdGVtczogY2VudGVyO1xyXG4gICAgcG9zaXRpb246IGFic29sdXRlO1xyXG4gICAgdG9wOiAwO1xyXG4gICAgYm90dG9tOiAwO1xyXG4gICAgcmlnaHQ6IDA7XHJcbiAgICBsZWZ0OiAwOyAgICAgICAgICAgICAgICBcclxufVxyXG5cclxuLmNhcmRUaXRsZVxyXG57XHJcbiAgICB0ZXh0LWFsaWduOiBjZW50ZXI7IFxyXG4gICAgY29sb3I6ICMwMGFlZWY7IFxyXG4gICAgZm9udC1zaXplOiA0MHB4OyBcclxuICAgIGZvbnQtd2VpZ2h0OiBib2xkO1xyXG4gICAgcGFkZGluZy10b3A6IDE1cHg7XHJcbn1cclxuXHJcbi5mb3Jte1xyXG4gICAgZGlzcGxheTogZmxleDtcclxuICAgIGZsZXgtZGlyZWN0aW9uOiBjb2x1bW47XHJcbiAgICBwYWRkaW5nOiAyNXB4O1xyXG4gICAganVzdGlmeS1jb250ZW50OiBjZW50ZXI7XHJcbn1cclxuXHJcbi5mbGV4X2l0ZW17XHJcbiAgICAvLyBtYXJnaW4tdG9wOiAyJTtcclxuICAgIG1hcmdpbi1ib3R0b206IDE1cHg7XHJcbn1cclxuXHJcbi5sYWJlbHtcclxuICAgIGNvbG9yOiB3aGl0ZTtcclxuICAgIGZvbnQtc2l6ZTogMTVweDtcclxuICAgICBwYWRkaW5nLWJvdHRvbTogMSU7XHJcbiAgICAvLyBtYXJnaW4tYm90dG9tOiAyJTtcclxufVxyXG5cclxuLmlucHV0e1xyXG4gICAgLS1iYWNrZ3JvdW5kOiB3aGl0ZTtcclxuICAgIGNvbG9yOiBibGFjaztcclxufVxyXG5cclxuLnNjcm9sbGRpdnsgICAgXHJcbiAgICBvdmVyZmxvdzogc2Nyb2xsO1xyXG59XHJcblxyXG4uc2Nyb2xsZGl2Ojotd2Via2l0LXNjcm9sbGJhciB7IFxyXG4gICAgZGlzcGxheTogbm9uZTsgXHJcbn1cclxuXHJcblxyXG5cclxuLmNoZWNrYm94TGFiZWx7XHJcbiAgICBjb2xvcjogd2hpdGU7XHJcbiAgICBwYWRkaW5nLWxlZnQ6IDEwcHg7XHJcbiAgICBmb250LXNpemU6IDE0cHg7XHJcbn1cclxuXHJcbi5hZ3JlZUl0ZW17XHJcbiAgICAtLXBhZGRpbmctc3RhcnQ6IDAlO1xyXG4gICAgLS1iYWNrZ3JvdW5kOiAjMmU0Yzk5IDtcclxuICAgIC0tYmFja2dyb3VuZC1hY3RpdmF0ZWQ6ICMyZTRjOTk7XHJcbn1cclxuXHJcbi5zaWdudXBCdG57XHJcbiAgICAtLWJhY2tncm91bmQgOiAjMDBhZWVmO1xyXG4gICAgaGVpZ2h0OiA0NXB4O1xyXG59XHJcblxyXG4ubG9naW5CdG57XHJcbiAgICAtLWJhY2tncm91bmQ6IHdoaXRlO1xyXG4gICAgY29sb3I6ICMyZTRjOTk7XHJcbiAgICAtLWJhY2tncm91bmQtYWN0aXZhdGVkOiAjZGFkYWRhO1xyXG4gICAgLS1jb2xvci1hY3RpdmF0ZWQ6ICMyZTRjOTk7XHJcbiAgICBoZWlnaHQ6IDQ1cHg7XHJcbn1cclxuXHJcbi5zZWxlY3QtaWNvbntcclxuICAgIHBhZGRpbmc6IDEwcHg7XHJcbn1cclxuLmhzLWN1c3RvbS1zdHlsZSBmaWVsZHNldHtcclxuICAgIHBhZGRpbmc6IDAgMTBweCAwIDEwcHggO1xyXG59XHJcbi8vIGZvcm0uaHMtZm9ybS04YTVjM2I5OS01Y2E5LTRmMjgtOGQ5OS02MTZjODUyOGQ1M2VfOWFiZGUwNGQtZmJjMC00YTRlLWIwMmItOTRhMjJmZmYxMWJkOm5vdCguaHMtdmlkZW8tZm9ybSkgLmZvcm0tY29sdW1ucy0yIC5ocy1mb3JtLWZpZWxke1xyXG4vLyAgICAgcGFkZGluZzogMTBweCAhaW1wb3J0YW50O1xyXG4vLyB9XHJcblxyXG4jZHZTaWduVXB7XHJcbiAgICBwYWRkaW5nOiAwcHggNXB4IDAgMTVweDtcclxufVxyXG5AbWVkaWEgc2NyZWVuIGFuZCAob3JpZW50YXRpb246bGFuZHNjYXBlKSB7XHJcbiAgICAub3ZlcmZsb3Njcm9sbHtcclxuICAgICAgICBvdmVyZmxvdzogYXV0bztcclxuICAgIH1cclxuICAgIC5vdmVyZmxvc2Nyb2xsOjotd2Via2l0LXNjcm9sbGJhciwgKjo6LXdlYmtpdC1zY3JvbGxiYXIgeyBcclxuICAgICAgICBkaXNwbGF5OiBub25lOyBcclxuICAgIH1cclxufVxyXG5cclxuQG1lZGlhIHNjcmVlbiBhbmQgKG9yaWVudGF0aW9uOnBvcnRyYWl0KSB7XHJcbiAgICAuYWdyZWVjaGVja0JveHtcclxuXHJcbiAgICAgICAgbWFyZ2luLXRvcDogMCU7XHJcbiAgICAgICAgd2lkdGg6IDMycHg7XHJcbiAgICB9XHJcbn0iXX0= */"
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ("ion-content {\n  --ion-background-color:#d3d8dc; }\n\n.card {\n  background-color: #2e4c99;\n  border-radius: 20px;\n  display: flex;\n  flex-direction: column;\n  justify-content: center;\n  position: absolute;\n  top: 0;\n  bottom: 0;\n  right: 0;\n  left: 0; }\n\n.cardTitle {\n  text-align: center;\n  color: #00aeef;\n  font-size: 40px;\n  font-weight: bold;\n  padding-top: 15px; }\n\n.form {\n  display: flex;\n  flex-direction: column;\n  padding: 25px;\n  justify-content: center; }\n\n.flex_item {\n  margin-bottom: 15px; }\n\n.label {\n  color: white;\n  font-size: 15px;\n  padding-bottom: 1%; }\n\n.input {\n  --background: white;\n  color: black; }\n\n.scrolldiv {\n  overflow: scroll; }\n\n.scrolldiv::-webkit-scrollbar {\n  display: none; }\n\n.checkboxLabel {\n  color: white;\n  padding-left: 10px;\n  font-size: 14px; }\n\n.agreeItem {\n  --padding-start: 0%;\n  --background: #2e4c99 ;\n  --background-activated: #2e4c99; }\n\n.signupBtn {\n  --background: #00aeef;\n  height: 45px; }\n\n.loginBtn {\n  --background: white;\n  color: #2e4c99;\n  --background-activated: #dadada;\n  --color-activated: #2e4c99;\n  height: 45px; }\n\n.select-icon {\n  padding: 10px; }\n\n.hs-custom-style fieldset {\n  padding: 0 10px 0 10px; }\n\n#dvSignUp {\n  padding: 0px 5px 0 15px; }\n\n@media screen and (orientation: landscape) {\n  .overfloscroll {\n    overflow: auto; }\n  .overfloscroll::-webkit-scrollbar, *::-webkit-scrollbar {\n    display: none; } }\n\n@media screen and (orientation: portrait) {\n  .agreecheckBox {\n    margin-top: 0%;\n    width: 32px; } }\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvc2lnbnVwL0M6XFxQcm9qZWN0c1xcTkFBbHBoYU1vYmlsZS9zcmNcXGFwcFxcc2lnbnVwXFxzaWdudXAucGFnZS5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBRUksOEJBQXVCLEVBQUE7O0FBSTNCO0VBQ0kseUJBQXlCO0VBQ3pCLG1CQUFtQjtFQUNuQixhQUFhO0VBQ2Isc0JBQXNCO0VBQ3RCLHVCQUF1QjtFQUN2QixrQkFBa0I7RUFDbEIsTUFBTTtFQUNOLFNBQVM7RUFDVCxRQUFRO0VBQ1IsT0FBTyxFQUFBOztBQUdYO0VBRUksa0JBQWtCO0VBQ2xCLGNBQWM7RUFDZCxlQUFlO0VBQ2YsaUJBQWlCO0VBQ2pCLGlCQUFpQixFQUFBOztBQUdyQjtFQUNJLGFBQWE7RUFDYixzQkFBc0I7RUFDdEIsYUFBYTtFQUNiLHVCQUF1QixFQUFBOztBQUczQjtFQUNJLG1CQUFtQixFQUFBOztBQUd2QjtFQUNJLFlBQVk7RUFDWixlQUFlO0VBQ2Qsa0JBQWtCLEVBQUE7O0FBR3ZCO0VBQ0ksbUJBQWE7RUFDYixZQUFZLEVBQUE7O0FBR2hCO0VBQ0ksZ0JBQWdCLEVBQUE7O0FBR3BCO0VBQ0ksYUFBYSxFQUFBOztBQUtqQjtFQUNJLFlBQVk7RUFDWixrQkFBa0I7RUFDbEIsZUFBZSxFQUFBOztBQUduQjtFQUNJLG1CQUFnQjtFQUNoQixzQkFBYTtFQUNiLCtCQUF1QixFQUFBOztBQUczQjtFQUNJLHFCQUFjO0VBQ2QsWUFBWSxFQUFBOztBQUdoQjtFQUNJLG1CQUFhO0VBQ2IsY0FBYztFQUNkLCtCQUF1QjtFQUN2QiwwQkFBa0I7RUFDbEIsWUFBWSxFQUFBOztBQUdoQjtFQUNJLGFBQWEsRUFBQTs7QUFFakI7RUFDSSxzQkFBdUIsRUFBQTs7QUFHM0I7RUFDSSx1QkFBdUIsRUFBQTs7QUFFM0I7RUFDSTtJQUNJLGNBQWMsRUFBQTtFQUVsQjtJQUNJLGFBQWEsRUFBQSxFQUNoQjs7QUFHTDtFQUNJO0lBRUksY0FBYztJQUNkLFdBQVcsRUFBQSxFQUNkIiwiZmlsZSI6InNyYy9hcHAvc2lnbnVwL3NpZ251cC5wYWdlLnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyJpb24tY29udGVudHtcclxuXHJcbiAgICAtLWlvbi1iYWNrZ3JvdW5kLWNvbG9yOiNkM2Q4ZGM7XHJcblxyXG59XHJcblxyXG4uY2FyZHtcclxuICAgIGJhY2tncm91bmQtY29sb3I6ICMyZTRjOTk7XHJcbiAgICBib3JkZXItcmFkaXVzOiAyMHB4O1xyXG4gICAgZGlzcGxheTogZmxleDtcclxuICAgIGZsZXgtZGlyZWN0aW9uOiBjb2x1bW47XHJcbiAgICBqdXN0aWZ5LWNvbnRlbnQ6IGNlbnRlcjtcclxuICAgIHBvc2l0aW9uOiBhYnNvbHV0ZTtcclxuICAgIHRvcDogMDtcclxuICAgIGJvdHRvbTogMDtcclxuICAgIHJpZ2h0OiAwO1xyXG4gICAgbGVmdDogMDsgICAgICAgICAgICAgICAgXHJcbn1cclxuXHJcbi5jYXJkVGl0bGVcclxue1xyXG4gICAgdGV4dC1hbGlnbjogY2VudGVyOyBcclxuICAgIGNvbG9yOiAjMDBhZWVmOyBcclxuICAgIGZvbnQtc2l6ZTogNDBweDsgXHJcbiAgICBmb250LXdlaWdodDogYm9sZDtcclxuICAgIHBhZGRpbmctdG9wOiAxNXB4O1xyXG59XHJcblxyXG4uZm9ybXtcclxuICAgIGRpc3BsYXk6IGZsZXg7XHJcbiAgICBmbGV4LWRpcmVjdGlvbjogY29sdW1uO1xyXG4gICAgcGFkZGluZzogMjVweDtcclxuICAgIGp1c3RpZnktY29udGVudDogY2VudGVyO1xyXG59XHJcblxyXG4uZmxleF9pdGVte1xyXG4gICAgbWFyZ2luLWJvdHRvbTogMTVweDtcclxufVxyXG5cclxuLmxhYmVse1xyXG4gICAgY29sb3I6IHdoaXRlO1xyXG4gICAgZm9udC1zaXplOiAxNXB4O1xyXG4gICAgIHBhZGRpbmctYm90dG9tOiAxJTtcclxufVxyXG5cclxuLmlucHV0e1xyXG4gICAgLS1iYWNrZ3JvdW5kOiB3aGl0ZTtcclxuICAgIGNvbG9yOiBibGFjaztcclxufVxyXG5cclxuLnNjcm9sbGRpdnsgICAgXHJcbiAgICBvdmVyZmxvdzogc2Nyb2xsO1xyXG59XHJcblxyXG4uc2Nyb2xsZGl2Ojotd2Via2l0LXNjcm9sbGJhciB7IFxyXG4gICAgZGlzcGxheTogbm9uZTsgXHJcbn1cclxuXHJcblxyXG5cclxuLmNoZWNrYm94TGFiZWx7XHJcbiAgICBjb2xvcjogd2hpdGU7XHJcbiAgICBwYWRkaW5nLWxlZnQ6IDEwcHg7XHJcbiAgICBmb250LXNpemU6IDE0cHg7XHJcbn1cclxuXHJcbi5hZ3JlZUl0ZW17XHJcbiAgICAtLXBhZGRpbmctc3RhcnQ6IDAlO1xyXG4gICAgLS1iYWNrZ3JvdW5kOiAjMmU0Yzk5IDtcclxuICAgIC0tYmFja2dyb3VuZC1hY3RpdmF0ZWQ6ICMyZTRjOTk7XHJcbn1cclxuXHJcbi5zaWdudXBCdG57XHJcbiAgICAtLWJhY2tncm91bmQgOiAjMDBhZWVmO1xyXG4gICAgaGVpZ2h0OiA0NXB4O1xyXG59XHJcblxyXG4ubG9naW5CdG57XHJcbiAgICAtLWJhY2tncm91bmQ6IHdoaXRlO1xyXG4gICAgY29sb3I6ICMyZTRjOTk7XHJcbiAgICAtLWJhY2tncm91bmQtYWN0aXZhdGVkOiAjZGFkYWRhO1xyXG4gICAgLS1jb2xvci1hY3RpdmF0ZWQ6ICMyZTRjOTk7XHJcbiAgICBoZWlnaHQ6IDQ1cHg7XHJcbn1cclxuXHJcbi5zZWxlY3QtaWNvbntcclxuICAgIHBhZGRpbmc6IDEwcHg7XHJcbn1cclxuLmhzLWN1c3RvbS1zdHlsZSBmaWVsZHNldHtcclxuICAgIHBhZGRpbmc6IDAgMTBweCAwIDEwcHggO1xyXG59XHJcblxyXG4jZHZTaWduVXB7XHJcbiAgICBwYWRkaW5nOiAwcHggNXB4IDAgMTVweDtcclxufVxyXG5AbWVkaWEgc2NyZWVuIGFuZCAob3JpZW50YXRpb246bGFuZHNjYXBlKSB7XHJcbiAgICAub3ZlcmZsb3Njcm9sbHtcclxuICAgICAgICBvdmVyZmxvdzogYXV0bztcclxuICAgIH1cclxuICAgIC5vdmVyZmxvc2Nyb2xsOjotd2Via2l0LXNjcm9sbGJhciwgKjo6LXdlYmtpdC1zY3JvbGxiYXIgeyBcclxuICAgICAgICBkaXNwbGF5OiBub25lOyBcclxuICAgIH1cclxufVxyXG5cclxuQG1lZGlhIHNjcmVlbiBhbmQgKG9yaWVudGF0aW9uOnBvcnRyYWl0KSB7XHJcbiAgICAuYWdyZWVjaGVja0JveHtcclxuXHJcbiAgICAgICAgbWFyZ2luLXRvcDogMCU7XHJcbiAgICAgICAgd2lkdGg6IDMycHg7XHJcbiAgICB9XHJcbn0iXX0= */");
 
 /***/ }),
 
@@ -126,7 +130,6 @@ __webpack_require__.r(__webpack_exports__);
 
 
 let SignupPage = class SignupPage {
-    // signupForm: FormGroup;
     constructor(route, toastController, http, alertctrl, userServices) {
         this.route = route;
         this.toastController = toastController;
@@ -135,52 +138,9 @@ let SignupPage = class SignupPage {
         this.userServices = userServices;
     }
     ngAfterViewInit() {
-        // hbspt.forms.create({
-        //   portalId: "6010193",
-        //   formId: "8a5c3b99-5ca9-4f28-8d99-616c8528d53e",
-        //   target: "#dvSignUp",
-        //   onFormSubmit: function ($form) { 
-        //   }
-        // });
     }
     ngOnInit() {
-        // this.signupForm = new FormGroup({
-        //   FirstName: new FormControl('', [Validators.required, Validators.maxLength(50), Validators.minLength(2), Validators.pattern('^[a-zA-Z]+')]),
-        //   LastName: new FormControl('', [Validators.required, Validators.maxLength(50), Validators.pattern('^[a-zA-Z]+')]),
-        //   Email: new FormControl('', [Validators.required, Validators.maxLength(100), Validators.email]),
-        //   Password: new FormControl('', [Validators.required, Validators.maxLength(50), Validators.minLength(6)]),
-        //   SelectIAMA: new FormControl('', [Validators.required]),
-        //   CompanyName: new FormControl('', [Validators.required, Validators.minLength(2)]),
-        //   IAgree: new FormControl(false, [Validators.requiredTrue]),
-        // });
     }
-    // OnsignupClick() {
-    //   let data = {
-    //     FirstName: this.signupForm.controls["FirstName"].value,
-    //     LastName: this.signupForm.controls["LastName"].value,
-    //     Username: this.signupForm.controls["Email"].value,
-    //     Company: this.signupForm.controls["CompanyName"].value,
-    //     Password: this.signupForm.controls["Password"].value,
-    //     InvestorType: this.signupForm.controls["SelectIAMA"].value,
-    //     Email: this.signupForm.controls["Email"].value,
-    //     IsPolicyAccepted: this.signupForm.controls["IAgree"].value == true ? 'Y' : 'N',
-    //     Token: ""
-    //   }
-    //   const httpOptions = {
-    //     headers: new HttpHeaders({
-    //       'Content-Type': 'application/json',
-    //     })
-    //   };
-    //   this.userServices.register(data)
-    //   .subscribe(data=>{
-    //     console.log(data);
-    //     this.signupForm.reset();
-    //     this.route.navigateByUrl('/thankyou');
-    //   },err=>{
-    //     console.log(err)
-    //     this.presentToast(err.error.message);
-    //   })
-    // }
     OnLoginClick() {
         this.route.navigateByUrl('/auth');
     }
@@ -204,8 +164,8 @@ SignupPage.ctorParameters = () => [
 SignupPage = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
         selector: 'app-signup',
-        template: __webpack_require__(/*! raw-loader!./signup.page.html */ "./node_modules/raw-loader/index.js!./src/app/signup/signup.page.html"),
-        styles: [__webpack_require__(/*! ./signup.page.scss */ "./src/app/signup/signup.page.scss")]
+        template: tslib__WEBPACK_IMPORTED_MODULE_0__["__importDefault"](__webpack_require__(/*! raw-loader!./signup.page.html */ "./node_modules/raw-loader/dist/cjs.js!./src/app/signup/signup.page.html")).default,
+        styles: [tslib__WEBPACK_IMPORTED_MODULE_0__["__importDefault"](__webpack_require__(/*! ./signup.page.scss */ "./src/app/signup/signup.page.scss")).default]
     }),
     tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_router__WEBPACK_IMPORTED_MODULE_2__["Router"], _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["ToastController"], _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpClient"], _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["AlertController"], _services_user_service__WEBPACK_IMPORTED_MODULE_5__["UserService"]])
 ], SignupPage);

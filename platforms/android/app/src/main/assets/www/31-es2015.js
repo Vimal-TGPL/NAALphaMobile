@@ -13,7 +13,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ion_segment_button", function() { return SegmentButton; });
 /* harmony import */ var _index_e806d1f6_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./index-e806d1f6.js */ "./node_modules/@ionic/core/dist/esm/index-e806d1f6.js");
 /* harmony import */ var _ionic_global_9d5c8ee3_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ionic-global-9d5c8ee3.js */ "./node_modules/@ionic/core/dist/esm/ionic-global-9d5c8ee3.js");
-/* harmony import */ var _helpers_002e4980_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./helpers-002e4980.js */ "./node_modules/@ionic/core/dist/esm/helpers-002e4980.js");
+/* harmony import */ var _helpers_90f46169_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./helpers-90f46169.js */ "./node_modules/@ionic/core/dist/esm/helpers-90f46169.js");
 /* harmony import */ var _theme_ff3fc52f_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./theme-ff3fc52f.js */ "./node_modules/@ionic/core/dist/esm/theme-ff3fc52f.js");
 
 
@@ -42,11 +42,22 @@ const Segment = class {
      * in order to swipe to see hidden buttons.
      */
     this.scrollable = false;
+    /**
+     * If `true`, users will be able to swipe between segment buttons to activate them.
+     */
+    this.swipeGesture = true;
     this.onClick = (ev) => {
       const current = ev.target;
       const previous = this.checked;
+      // If the current element is a segment then that means
+      // the user tried to swipe to a segment button and
+      // click a segment button at the same time so we should
+      // not update the checked segment button
+      if (current.tagName === 'ION-SEGMENT') {
+        return;
+      }
       this.value = current.value;
-      if (this.scrollable) {
+      if (this.scrollable || !this.swipeGesture) {
         if (previous) {
           this.checkButton(previous, current);
         }
@@ -69,6 +80,9 @@ const Segment = class {
       this.emitStyle();
     }
   }
+  swipeGestureChanged() {
+    this.gestureChanged();
+  }
   valueChanged(value, oldValue) {
     this.ionSelect.emit({ value });
     if (oldValue !== '' || this.didInit) {
@@ -88,8 +102,8 @@ const Segment = class {
     }
   }
   gestureChanged() {
-    if (this.gesture && !this.scrollable) {
-      this.gesture.enable(!this.disabled);
+    if (this.gesture) {
+      this.gesture.enable(!this.scrollable && !this.disabled && this.swipeGesture);
     }
   }
   connectedCallback() {
@@ -110,7 +124,6 @@ const Segment = class {
       onMove: ev => this.onMove(ev),
       onEnd: ev => this.onEnd(ev),
     });
-    this.gesture.enable(!this.scrollable);
     this.gestureChanged();
     if (this.disabled) {
       this.disabledChanged();
@@ -156,7 +169,7 @@ const Segment = class {
     if (!ripple) {
       return;
     }
-    const { x, y } = Object(_helpers_002e4980_js__WEBPACK_IMPORTED_MODULE_2__["p"])(detail.event);
+    const { x, y } = Object(_helpers_90f46169_js__WEBPACK_IMPORTED_MODULE_2__["p"])(detail.event);
     ripple.addRipple(x, y).then(remove => remove());
   }
   /*
@@ -327,6 +340,7 @@ const Segment = class {
   get el() { return Object(_index_e806d1f6_js__WEBPACK_IMPORTED_MODULE_0__["i"])(this); }
   static get watchers() { return {
     "color": ["colorChanged"],
+    "swipeGesture": ["swipeGestureChanged"],
     "value": ["valueChanged"],
     "disabled": ["disabledChanged"]
   }; }
@@ -375,15 +389,15 @@ const SegmentButton = class {
     const segmentEl = this.segmentEl = this.el.closest('ion-segment');
     if (segmentEl) {
       this.updateState();
-      Object(_helpers_002e4980_js__WEBPACK_IMPORTED_MODULE_2__["a"])(segmentEl, 'ionSelect', this.updateState);
-      Object(_helpers_002e4980_js__WEBPACK_IMPORTED_MODULE_2__["a"])(segmentEl, 'ionStyle', this.updateStyle);
+      Object(_helpers_90f46169_js__WEBPACK_IMPORTED_MODULE_2__["a"])(segmentEl, 'ionSelect', this.updateState);
+      Object(_helpers_90f46169_js__WEBPACK_IMPORTED_MODULE_2__["a"])(segmentEl, 'ionStyle', this.updateStyle);
     }
   }
   disconnectedCallback() {
     const segmentEl = this.segmentEl;
     if (segmentEl) {
-      Object(_helpers_002e4980_js__WEBPACK_IMPORTED_MODULE_2__["b"])(segmentEl, 'ionSelect', this.updateState);
-      Object(_helpers_002e4980_js__WEBPACK_IMPORTED_MODULE_2__["b"])(segmentEl, 'ionStyle', this.updateStyle);
+      Object(_helpers_90f46169_js__WEBPACK_IMPORTED_MODULE_2__["b"])(segmentEl, 'ionSelect', this.updateState);
+      Object(_helpers_90f46169_js__WEBPACK_IMPORTED_MODULE_2__["b"])(segmentEl, 'ionStyle', this.updateStyle);
       this.segmentEl = null;
     }
   }

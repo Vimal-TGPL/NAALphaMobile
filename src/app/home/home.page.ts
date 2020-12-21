@@ -14,7 +14,7 @@ declare var $:any;
 import * as HighCharts from 'highcharts';
 import { LineChartComponent } from '../Components/line-chart/line-chart.component';
 import { ScreenOrientation } from '@ionic-native/screen-orientation/ngx';
-import { Subscription } from 'rxjs';
+import { IfStmt } from '@angular/compiler';
 
 @Component({
   selector: 'app-home',
@@ -66,6 +66,7 @@ export class HomePage implements OnInit, OnDestroy {
   IndexId:any = 0;
   smChart:any;
   _authstateSub:any;
+  _backSub:any;
   cumReturn: any = "0.00%";
   annReturn: any = "0.00%";
   CurrSliderData:any = {'a': 0,
@@ -187,6 +188,32 @@ export class HomePage implements OnInit, OnDestroy {
 
   constructor(private screenOrientation:ScreenOrientation, private toastCtrl:ToastController,private popoverCtrl: PopoverController,private modalCtrl:ModalController ,private dataService: DataService, private dataHandler: DataHandlerService, private menuCtrl: MenuController, private platform: Platform, public alertController: AlertController,private authService: AuthenticationService, public storage: Storage, public pickerCtrl: PickerController) {
     this.currentUser = this.authService.currentUserValue();
+    var backpressOncetoExit:boolean = false;
+    this._backSub = this.platform.backButton.subscribeWithPriority(0, async()=>{
+    if(this.AvoidLosersec && !this.AlertSec && !this.ReportSec){
+      this.onAvoidLoserClick();
+    }else if(!this.AvoidLosersec && this.AlertSec && !this.ReportSec){
+      this.onAlertClick();
+    }else if(!this.AvoidLosersec && !this.AlertSec && this.ReportSec){
+      this.onReportClick();
+    }else{
+      if(backpressOncetoExit){
+        navigator['app'].exitApp();
+      }else{
+        backpressOncetoExit = true;
+        setTimeout(() => {
+          backpressOncetoExit = false;
+        }, 5000);
+        var toast = await this.toastCtrl.create({
+          message:'Press back again to exit NewAgeAlpha App',
+          duration:1000,
+          cssClass:'center'
+        });
+
+        toast.present();
+      }
+    }
+  })
   }
   ngOnDestroy() {
     this.screenOrientation.unlock();
@@ -194,6 +221,7 @@ export class HomePage implements OnInit, OnDestroy {
     this._dataSub.unsubscribe();
     this._dbGICSSub.unsubscribe();
     this._authstateSub.unsubscribe();
+    this._backSub.unsubscribe();
   }
 
   openMenu(){
@@ -209,7 +237,7 @@ export class HomePage implements OnInit, OnDestroy {
   }
 
   sectorClassifier(){
-    return new Promise((resolve,reject)=>{
+    return new Promise<void>((resolve,reject)=>{
       this.sectorList = [];
       var selCompInd =  this.selComp.industry;
     this.sectorOrder.forEach((i,ind) =>{
@@ -231,7 +259,7 @@ export class HomePage implements OnInit, OnDestroy {
   }
 
   indexClassifier(){
-    return new Promise((resolve,reject)=>{
+    return new Promise<void>((resolve,reject)=>{
       this.indexData = this.data.filter(i=>i.indexName == this.selComp.indexName);
       resolve();
     });
@@ -551,7 +579,7 @@ export class HomePage implements OnInit, OnDestroy {
   }
 
   createIndexData(){
-    return new Promise((resolve,reject)=>{
+    return new Promise<void>((resolve,reject)=>{
       if(this.selSec.length != 0){
         var selSecLvl = this.sectorOrder.filter(i=> i.name == this.selSec.secTitle)[0].order;
         if(selSecLvl == 1){
@@ -978,7 +1006,7 @@ export class HomePage implements OnInit, OnDestroy {
   }
 
   CreateComps(){
-    return new Promise((resolve,reject)=>{   
+    return new Promise<void>((resolve,reject)=>{   
     let that = this;
     var oSvg = this.chartMain;
     var compLst;
@@ -1062,14 +1090,14 @@ export class HomePage implements OnInit, OnDestroy {
   }
 
   createCompetitive(grp1) {
-    return new Promise((resolve,reject)=>{
+    return new Promise<void>((resolve,reject)=>{
       grp1.append("g").attr("id", "gCompetitive");
       resolve();
     });
   }
 
   creatClockSlider(){
-    return new Promise((resolve,reject)=>{
+    return new Promise<void>((resolve,reject)=>{
     let that = this;
     var r = that.radius+4;
     that.createXrad = r;
@@ -1109,7 +1137,7 @@ export class HomePage implements OnInit, OnDestroy {
   }
 
   fillCompetives(){
-    return new Promise((resolve,reject)=>{
+    return new Promise<void>((resolve,reject)=>{
 
     let that = this;
     var dta = this.selIndexData;
@@ -1225,7 +1253,7 @@ export class HomePage implements OnInit, OnDestroy {
   }
 
   createALinnerCircle(){
-    return new Promise((resolve,reject)=>{
+    return new Promise<void>((resolve,reject)=>{
 
     let that = this;
     var cradius = 150;
@@ -1441,7 +1469,7 @@ export class HomePage implements OnInit, OnDestroy {
   
 
   async highChartLine(chart){
-    return new Promise((resolve,reject)=>{
+    return new Promise<void>((resolve,reject)=>{
 
     var that = this;
     if(this.selComp != ""){
@@ -1729,7 +1757,7 @@ export class HomePage implements OnInit, OnDestroy {
 
   CreateCompCircle(){
 
-    return new Promise((resolve,reject)=>{
+    return new Promise<void>((resolve,reject)=>{
     
     let that = this;
     var oSvg = that.chartMain;
@@ -1847,7 +1875,7 @@ export class HomePage implements OnInit, OnDestroy {
   }
 
   setClock(isin, val, txt) {
-    return new Promise((resolve,reject)=>{
+    return new Promise<void>((resolve,reject)=>{
     
     let that = this;
     if (txt != null) {
