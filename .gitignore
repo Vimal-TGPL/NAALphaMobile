@@ -27,6 +27,7 @@ npm-debug.log*
 /dist
 /node_modules
 /www
+/platforms
 package-lock.json
 .vs/slnx.sqlite
 .vs/NAAlphaMobile/v16/.suo
