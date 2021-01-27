@@ -1,777 +1,545 @@
-(window["webpackJsonp"] = window["webpackJsonp"] || []).push([[40],{
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-/***/ "./node_modules/@ionic/core/dist/esm-es5/ion-menu_4-md.entry.js":
-/*!**********************************************************************!*\
-  !*** ./node_modules/@ionic/core/dist/esm-es5/ion-menu_4-md.entry.js ***!
-  \**********************************************************************/
-/*! exports provided: ion_menu, ion_menu_button, ion_menu_controller, ion_menu_toggle */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
 
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ion_menu", function() { return Menu; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ion_menu_button", function() { return MenuButton; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ion_menu_controller", function() { return MenuController; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ion_menu_toggle", function() { return MenuToggle; });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
-/* harmony import */ var _core_ca0488fc_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./core-ca0488fc.js */ "./node_modules/@ionic/core/dist/esm-es5/core-ca0488fc.js");
-/* harmony import */ var _config_3c7f3790_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./config-3c7f3790.js */ "./node_modules/@ionic/core/dist/esm-es5/config-3c7f3790.js");
-/* harmony import */ var _helpers_46f4a262_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./helpers-46f4a262.js */ "./node_modules/@ionic/core/dist/esm-es5/helpers-46f4a262.js");
-/* harmony import */ var _animation_af478fe9_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./animation-af478fe9.js */ "./node_modules/@ionic/core/dist/esm-es5/animation-af478fe9.js");
-/* harmony import */ var _index_624eea58_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./index-624eea58.js */ "./node_modules/@ionic/core/dist/esm-es5/index-624eea58.js");
-/* harmony import */ var _index_1e5940d5_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./index-1e5940d5.js */ "./node_modules/@ionic/core/dist/esm-es5/index-1e5940d5.js");
-/* harmony import */ var _theme_18cbe2cc_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./theme-18cbe2cc.js */ "./node_modules/@ionic/core/dist/esm-es5/theme-18cbe2cc.js");
-/* harmony import */ var _cubic_bezier_2812fda3_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./cubic-bezier-2812fda3.js */ "./node_modules/@ionic/core/dist/esm-es5/cubic-bezier-2812fda3.js");
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
 
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
 
+(window["webpackJsonp"] = window["webpackJsonp"] || []).push([[40], {
+  /***/
+  "./node_modules/@ionic/core/dist/esm/ion-toast.entry.js":
+  /*!**************************************************************!*\
+    !*** ./node_modules/@ionic/core/dist/esm/ion-toast.entry.js ***!
+    \**************************************************************/
 
+  /*! exports provided: ion_toast */
+
+  /***/
+  function node_modulesIonicCoreDistEsmIonToastEntryJs(module, __webpack_exports__, __webpack_require__) {
+    "use strict";
+
+    __webpack_require__.r(__webpack_exports__);
+    /* harmony export (binding) */
 
 
+    __webpack_require__.d(__webpack_exports__, "ion_toast", function () {
+      return Toast;
+    });
+    /* harmony import */
 
 
-var Menu = /** @class */ (function () {
-    function class_1(hostRef) {
-        Object(_core_ca0488fc_js__WEBPACK_IMPORTED_MODULE_1__["r"])(this, hostRef);
-        this.lastOnEnd = 0;
-        this.blocker = _index_624eea58_js__WEBPACK_IMPORTED_MODULE_5__["GESTURE_CONTROLLER"].createBlocker({ disableScroll: true });
-        this.mode = Object(_core_ca0488fc_js__WEBPACK_IMPORTED_MODULE_1__["d"])(this);
-        this.isAnimating = false;
-        this._isOpen = false;
-        this.isPaneVisible = false;
-        this.isEndSide = false;
-        /**
-         * If `true`, the menu is disabled.
-         */
-        this.disabled = false;
-        /**
-         * Which side of the view the menu should be placed.
-         */
-        this.side = 'start';
-        /**
-         * If `true`, swiping the menu is enabled.
-         */
-        this.swipeGesture = true;
-        /**
-         * The edge threshold for dragging the menu open.
-         * If a drag/swipe happens over this value, the menu is not triggered.
-         */
-        this.maxEdgeStart = 50;
-        this.ionWillOpen = Object(_core_ca0488fc_js__WEBPACK_IMPORTED_MODULE_1__["c"])(this, "ionWillOpen", 7);
-        this.ionWillClose = Object(_core_ca0488fc_js__WEBPACK_IMPORTED_MODULE_1__["c"])(this, "ionWillClose", 7);
-        this.ionDidOpen = Object(_core_ca0488fc_js__WEBPACK_IMPORTED_MODULE_1__["c"])(this, "ionDidOpen", 7);
-        this.ionDidClose = Object(_core_ca0488fc_js__WEBPACK_IMPORTED_MODULE_1__["c"])(this, "ionDidClose", 7);
-        this.ionMenuChange = Object(_core_ca0488fc_js__WEBPACK_IMPORTED_MODULE_1__["c"])(this, "ionMenuChange", 7);
-    }
-    class_1.prototype.typeChanged = function (type, oldType) {
-        var contentEl = this.contentEl;
-        if (contentEl) {
-            if (oldType !== undefined) {
-                contentEl.classList.remove("menu-content-" + oldType);
-            }
-            contentEl.classList.add("menu-content-" + type);
-            contentEl.removeAttribute('style');
-        }
-        if (this.menuInnerEl) {
-            // Remove effects of previous animations
-            this.menuInnerEl.removeAttribute('style');
-        }
-        this.animation = undefined;
-    };
-    class_1.prototype.disabledChanged = function () {
-        this.updateState();
-        this.ionMenuChange.emit({
-            disabled: this.disabled,
-            open: this._isOpen
-        });
-    };
-    class_1.prototype.sideChanged = function () {
-        this.isEndSide = Object(_helpers_46f4a262_js__WEBPACK_IMPORTED_MODULE_3__["i"])(this.side);
-    };
-    class_1.prototype.swipeGestureChanged = function () {
-        this.updateState();
-    };
-    class_1.prototype.connectedCallback = function () {
-        return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, function () {
-            var el, parent, content, _a;
-            var _this = this;
-            return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__generator"])(this, function (_b) {
-                switch (_b.label) {
-                    case 0:
-                        if (this.type === undefined) {
-                            this.type = _config_3c7f3790_js__WEBPACK_IMPORTED_MODULE_2__["b"].get('menuType', this.mode === 'ios' ? 'reveal' : 'overlay');
-                        }
-                        el = this.el;
-                        parent = el.parentNode;
-                        if (this.contentId === undefined) {
-                            console.warn("[DEPRECATED][ion-menu] Using the [main] attribute is deprecated, please use the \"contentId\" property instead:\nBEFORE:\n  <ion-menu>...</ion-menu>\n  <div main>...</div>\n\nAFTER:\n  <ion-menu contentId=\"my-content\"></ion-menu>\n  <div id=\"my-content\">...</div>\n");
-                        }
-                        content = this.contentId !== undefined
-                            ? document.getElementById(this.contentId)
-                            : parent && parent.querySelector && parent.querySelector('[main]');
-                        if (!content || !content.tagName) {
-                            // requires content element
-                            console.error('Menu: must have a "content" element to listen for drag events on.');
-                            return [2 /*return*/];
-                        }
-                        this.contentEl = content;
-                        // add menu's content classes
-                        content.classList.add('menu-content');
-                        this.typeChanged(this.type, undefined);
-                        this.sideChanged();
-                        // register this menu with the app's menu controller
-                        _index_1e5940d5_js__WEBPACK_IMPORTED_MODULE_6__["m"]._register(this);
-                        _a = this;
-                        return [4 /*yield*/, Promise.resolve(/*! import() */).then(__webpack_require__.bind(null, /*! ./index-624eea58.js */ "./node_modules/@ionic/core/dist/esm-es5/index-624eea58.js"))];
-                    case 1:
-                        _a.gesture = (_b.sent()).createGesture({
-                            el: document,
-                            gestureName: 'menu-swipe',
-                            gesturePriority: 30,
-                            threshold: 10,
-                            canStart: function (ev) { return _this.canStart(ev); },
-                            onWillStart: function () { return _this.onWillStart(); },
-                            onStart: function () { return _this.onStart(); },
-                            onMove: function (ev) { return _this.onMove(ev); },
-                            onEnd: function (ev) { return _this.onEnd(ev); },
-                        });
-                        this.updateState();
-                        return [2 /*return*/];
-                }
-            });
-        });
-    };
-    class_1.prototype.componentDidLoad = function () {
-        return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, function () {
-            return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__generator"])(this, function (_a) {
-                this.ionMenuChange.emit({ disabled: this.disabled, open: this._isOpen });
-                this.updateState();
-                return [2 /*return*/];
-            });
-        });
-    };
-    class_1.prototype.disconnectedCallback = function () {
-        this.blocker.destroy();
-        _index_1e5940d5_js__WEBPACK_IMPORTED_MODULE_6__["m"]._unregister(this);
-        if (this.animation) {
-            this.animation.destroy();
-        }
-        if (this.gesture) {
-            this.gesture.destroy();
-            this.gesture = undefined;
-        }
-        this.animation = undefined;
-        this.contentEl = this.backdropEl = this.menuInnerEl = undefined;
-    };
-    class_1.prototype.onSplitPaneChanged = function (ev) {
-        this.isPaneVisible = ev.detail.isPane(this.el);
-        this.updateState();
-    };
-    class_1.prototype.onBackdropClick = function (ev) {
-        if (this._isOpen && this.lastOnEnd < ev.timeStamp - 100) {
-            var shouldClose = (ev.composedPath)
-                ? !ev.composedPath().includes(this.menuInnerEl)
-                : false;
-            if (shouldClose) {
-                ev.preventDefault();
-                ev.stopPropagation();
-                this.close();
-            }
-        }
+    var _index_e806d1f6_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(
+    /*! ./index-e806d1f6.js */
+    "./node_modules/@ionic/core/dist/esm/index-e806d1f6.js");
+    /* harmony import */
+
+
+    var _ionic_global_9d5c8ee3_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
+    /*! ./ionic-global-9d5c8ee3.js */
+    "./node_modules/@ionic/core/dist/esm/ionic-global-9d5c8ee3.js");
+    /* harmony import */
+
+
+    var _helpers_90f46169_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
+    /*! ./helpers-90f46169.js */
+    "./node_modules/@ionic/core/dist/esm/helpers-90f46169.js");
+    /* harmony import */
+
+
+    var _animation_54fe0237_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
+    /*! ./animation-54fe0237.js */
+    "./node_modules/@ionic/core/dist/esm/animation-54fe0237.js");
+    /* harmony import */
+
+
+    var _index_9e3fe806_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
+    /*! ./index-9e3fe806.js */
+    "./node_modules/@ionic/core/dist/esm/index-9e3fe806.js");
+    /* harmony import */
+
+
+    var _hardware_back_button_4a6b37fb_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(
+    /*! ./hardware-back-button-4a6b37fb.js */
+    "./node_modules/@ionic/core/dist/esm/hardware-back-button-4a6b37fb.js");
+    /* harmony import */
+
+
+    var _overlays_12c20431_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(
+    /*! ./overlays-12c20431.js */
+    "./node_modules/@ionic/core/dist/esm/overlays-12c20431.js");
+    /* harmony import */
+
+
+    var _theme_ff3fc52f_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(
+    /*! ./theme-ff3fc52f.js */
+    "./node_modules/@ionic/core/dist/esm/theme-ff3fc52f.js");
+    /**
+     * iOS Toast Enter Animation
+     */
+
+
+    var iosEnterAnimation = function iosEnterAnimation(baseEl, position) {
+      var baseAnimation = Object(_animation_54fe0237_js__WEBPACK_IMPORTED_MODULE_3__["c"])();
+      var wrapperAnimation = Object(_animation_54fe0237_js__WEBPACK_IMPORTED_MODULE_3__["c"])();
+      var hostEl = baseEl.host || baseEl;
+      var wrapperEl = baseEl.querySelector('.toast-wrapper');
+      var bottom = "calc(-10px - var(--ion-safe-area-bottom, 0px))";
+      var top = "calc(10px + var(--ion-safe-area-top, 0px))";
+      wrapperAnimation.addElement(wrapperEl);
+
+      switch (position) {
+        case 'top':
+          wrapperAnimation.fromTo('transform', 'translateY(-100%)', "translateY(".concat(top, ")"));
+          break;
+
+        case 'middle':
+          var topPosition = Math.floor(hostEl.clientHeight / 2 - wrapperEl.clientHeight / 2);
+          wrapperEl.style.top = "".concat(topPosition, "px");
+          wrapperAnimation.fromTo('opacity', 0.01, 1);
+          break;
+
+        default:
+          wrapperAnimation.fromTo('transform', 'translateY(100%)', "translateY(".concat(bottom, ")"));
+          break;
+      }
+
+      return baseAnimation.addElement(hostEl).easing('cubic-bezier(.155,1.105,.295,1.12)').duration(400).addAnimation(wrapperAnimation);
     };
     /**
-     * Returns `true` is the menu is open.
+     * iOS Toast Leave Animation
      */
-    class_1.prototype.isOpen = function () {
-        return Promise.resolve(this._isOpen);
+
+
+    var iosLeaveAnimation = function iosLeaveAnimation(baseEl, position) {
+      var baseAnimation = Object(_animation_54fe0237_js__WEBPACK_IMPORTED_MODULE_3__["c"])();
+      var wrapperAnimation = Object(_animation_54fe0237_js__WEBPACK_IMPORTED_MODULE_3__["c"])();
+      var hostEl = baseEl.host || baseEl;
+      var wrapperEl = baseEl.querySelector('.toast-wrapper');
+      var bottom = "calc(-10px - var(--ion-safe-area-bottom, 0px))";
+      var top = "calc(10px + var(--ion-safe-area-top, 0px))";
+      wrapperAnimation.addElement(wrapperEl);
+
+      switch (position) {
+        case 'top':
+          wrapperAnimation.fromTo('transform', "translateY(".concat(top, ")"), 'translateY(-100%)');
+          break;
+
+        case 'middle':
+          wrapperAnimation.fromTo('opacity', 0.99, 0);
+          break;
+
+        default:
+          wrapperAnimation.fromTo('transform', "translateY(".concat(bottom, ")"), 'translateY(100%)');
+          break;
+      }
+
+      return baseAnimation.addElement(hostEl).easing('cubic-bezier(.36,.66,.04,1)').duration(300).addAnimation(wrapperAnimation);
     };
     /**
-     * Returns `true` is the menu is active.
-     *
-     * A menu is active when it can be opened or closed, meaning it's enabled
-     * and it's not part of a `ion-split-pane`.
+     * MD Toast Enter Animation
      */
-    class_1.prototype.isActive = function () {
-        return Promise.resolve(this._isActive());
+
+
+    var mdEnterAnimation = function mdEnterAnimation(baseEl, position) {
+      var baseAnimation = Object(_animation_54fe0237_js__WEBPACK_IMPORTED_MODULE_3__["c"])();
+      var wrapperAnimation = Object(_animation_54fe0237_js__WEBPACK_IMPORTED_MODULE_3__["c"])();
+      var hostEl = baseEl.host || baseEl;
+      var wrapperEl = baseEl.querySelector('.toast-wrapper');
+      var bottom = "calc(8px + var(--ion-safe-area-bottom, 0px))";
+      var top = "calc(8px + var(--ion-safe-area-top, 0px))";
+      wrapperAnimation.addElement(wrapperEl);
+
+      switch (position) {
+        case 'top':
+          wrapperEl.style.top = top;
+          wrapperAnimation.fromTo('opacity', 0.01, 1);
+          break;
+
+        case 'middle':
+          var topPosition = Math.floor(hostEl.clientHeight / 2 - wrapperEl.clientHeight / 2);
+          wrapperEl.style.top = "".concat(topPosition, "px");
+          wrapperAnimation.fromTo('opacity', 0.01, 1);
+          break;
+
+        default:
+          wrapperEl.style.bottom = bottom;
+          wrapperAnimation.fromTo('opacity', 0.01, 1);
+          break;
+      }
+
+      return baseAnimation.addElement(hostEl).easing('cubic-bezier(.36,.66,.04,1)').duration(400).addAnimation(wrapperAnimation);
     };
     /**
-     * Opens the menu. If the menu is already open or it can't be opened,
-     * it returns `false`.
+     * md Toast Leave Animation
      */
-    class_1.prototype.open = function (animated) {
-        if (animated === void 0) { animated = true; }
-        return this.setOpen(true, animated);
+
+
+    var mdLeaveAnimation = function mdLeaveAnimation(baseEl) {
+      var baseAnimation = Object(_animation_54fe0237_js__WEBPACK_IMPORTED_MODULE_3__["c"])();
+      var wrapperAnimation = Object(_animation_54fe0237_js__WEBPACK_IMPORTED_MODULE_3__["c"])();
+      var hostEl = baseEl.host || baseEl;
+      var wrapperEl = baseEl.querySelector('.toast-wrapper');
+      wrapperAnimation.addElement(wrapperEl).fromTo('opacity', 0.99, 0);
+      return baseAnimation.addElement(hostEl).easing('cubic-bezier(.36,.66,.04,1)').duration(300).addAnimation(wrapperAnimation);
     };
-    /**
-     * Closes the menu. If the menu is already closed or it can't be closed,
-     * it returns `false`.
-     */
-    class_1.prototype.close = function (animated) {
-        if (animated === void 0) { animated = true; }
-        return this.setOpen(false, animated);
-    };
-    /**
-     * Toggles the menu. If the menu is already open, it will try to close, otherwise it will try to open it.
-     * If the operation can't be completed successfully, it returns `false`.
-     */
-    class_1.prototype.toggle = function (animated) {
-        if (animated === void 0) { animated = true; }
-        return this.setOpen(!this._isOpen, animated);
-    };
-    /**
-     * Opens or closes the button.
-     * If the operation can't be completed successfully, it returns `false`.
-     */
-    class_1.prototype.setOpen = function (shouldOpen, animated) {
-        if (animated === void 0) { animated = true; }
-        return _index_1e5940d5_js__WEBPACK_IMPORTED_MODULE_6__["m"]._setOpen(this, shouldOpen, animated);
-    };
-    class_1.prototype._setOpen = function (shouldOpen, animated) {
-        if (animated === void 0) { animated = true; }
-        return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, function () {
-            return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__generator"])(this, function (_a) {
-                switch (_a.label) {
-                    case 0:
-                        // If the menu is disabled or it is currently being animated, let's do nothing
-                        if (!this._isActive() || this.isAnimating || shouldOpen === this._isOpen) {
-                            return [2 /*return*/, false];
-                        }
-                        this.beforeAnimation(shouldOpen);
-                        return [4 /*yield*/, this.loadAnimation()];
-                    case 1:
-                        _a.sent();
-                        return [4 /*yield*/, this.startAnimation(shouldOpen, animated)];
-                    case 2:
-                        _a.sent();
-                        this.afterAnimation(shouldOpen);
-                        return [2 /*return*/, true];
-                }
-            });
-        });
-    };
-    class_1.prototype.loadAnimation = function () {
-        return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, function () {
-            var width, _a;
-            return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__generator"])(this, function (_b) {
-                switch (_b.label) {
-                    case 0:
-                        width = this.menuInnerEl.offsetWidth;
-                        if (width === this.width && this.animation !== undefined) {
-                            return [2 /*return*/];
-                        }
-                        this.width = width;
-                        // Destroy existing animation
-                        if (this.animation) {
-                            this.animation.destroy();
-                            this.animation = undefined;
-                        }
-                        // Create new animation
-                        _a = this;
-                        return [4 /*yield*/, _index_1e5940d5_js__WEBPACK_IMPORTED_MODULE_6__["m"]._createAnimation(this.type, this)];
-                    case 1:
-                        // Create new animation
-                        _a.animation = _b.sent();
-                        if (!_config_3c7f3790_js__WEBPACK_IMPORTED_MODULE_2__["b"].getBoolean('animated', true)) {
-                            this.animation.duration(0);
-                        }
-                        this.animation.fill('both');
-                        return [2 /*return*/];
-                }
-            });
-        });
-    };
-    class_1.prototype.startAnimation = function (shouldOpen, animated) {
-        return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, function () {
-            var isReversed, ani;
-            return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__generator"])(this, function (_a) {
-                switch (_a.label) {
-                    case 0:
-                        isReversed = !shouldOpen;
-                        ani = this.animation
-                            .direction((isReversed) ? 'reverse' : 'normal')
-                            .easing((isReversed) ? 'cubic-bezier(0.4, 0.0, 0.6, 1)' : 'cubic-bezier(0.0, 0.0, 0.2, 1)');
-                        if (!animated) return [3 /*break*/, 2];
-                        return [4 /*yield*/, ani.playAsync()];
-                    case 1:
-                        _a.sent();
-                        return [3 /*break*/, 3];
-                    case 2:
-                        ani.playSync();
-                        _a.label = 3;
-                    case 3: return [2 /*return*/];
-                }
-            });
-        });
-    };
-    class_1.prototype._isActive = function () {
-        return !this.disabled && !this.isPaneVisible;
-    };
-    class_1.prototype.canSwipe = function () {
-        return this.swipeGesture && !this.isAnimating && this._isActive();
-    };
-    class_1.prototype.canStart = function (detail) {
-        if (!this.canSwipe()) {
-            return false;
-        }
-        if (this._isOpen) {
-            return true;
-            // TODO error
-        }
-        else if (_index_1e5940d5_js__WEBPACK_IMPORTED_MODULE_6__["m"]._getOpenSync()) {
-            return false;
-        }
-        return checkEdgeSide(window, detail.currentX, this.isEndSide, this.maxEdgeStart);
-    };
-    class_1.prototype.onWillStart = function () {
-        this.beforeAnimation(!this._isOpen);
-        return this.loadAnimation();
-    };
-    class_1.prototype.onStart = function () {
-        if (!this.isAnimating || !this.animation) {
-            Object(_helpers_46f4a262_js__WEBPACK_IMPORTED_MODULE_3__["b"])(false, 'isAnimating has to be true');
-            return;
-        }
-        // the cloned animation should not use an easing curve during seek
-        this.animation
-            .direction((this._isOpen) ? 'reverse' : 'normal')
-            .progressStart(true);
-    };
-    class_1.prototype.onMove = function (detail) {
-        if (!this.isAnimating || !this.animation) {
-            Object(_helpers_46f4a262_js__WEBPACK_IMPORTED_MODULE_3__["b"])(false, 'isAnimating has to be true');
-            return;
-        }
-        var delta = computeDelta(detail.deltaX, this._isOpen, this.isEndSide);
-        var stepValue = delta / this.width;
-        this.animation.progressStep(stepValue);
-    };
-    class_1.prototype.onEnd = function (detail) {
+
+    var toastIosCss = ":host{--border-width:0;--border-style:none;--border-color:initial;--box-shadow:none;--min-width:auto;--width:auto;--min-height:auto;--height:auto;--max-height:auto;--white-space:pre-wrap;left:0;top:0;display:block;position:absolute;width:100%;height:100%;outline:none;color:var(--color);font-family:var(--ion-font-family, inherit);contain:strict;z-index:1001;pointer-events:none}:host-context([dir=rtl]){left:unset;right:unset;right:0}:host(.overlay-hidden){display:none}:host(.ion-color){--button-color:inherit;color:var(--ion-color-contrast)}:host(.ion-color) .toast-button-cancel{color:inherit}:host(.ion-color) .toast-wrapper{background:var(--ion-color-base)}.toast-wrapper{border-radius:var(--border-radius);left:var(--start);right:var(--end);width:var(--width);min-width:var(--min-width);max-width:var(--max-width);height:var(--height);min-height:var(--min-height);max-height:var(--max-height);border-width:var(--border-width);border-style:var(--border-style);border-color:var(--border-color);background:var(--background);-webkit-box-shadow:var(--box-shadow);box-shadow:var(--box-shadow)}[dir=rtl] .toast-wrapper,:host-context([dir=rtl]) .toast-wrapper{left:unset;right:unset;left:var(--end);right:var(--start)}.toast-container{display:-ms-flexbox;display:flex;-ms-flex-align:center;align-items:center;pointer-events:auto;height:inherit;min-height:inherit;max-height:inherit;contain:content}.toast-content{display:-ms-flexbox;display:flex;-ms-flex:1;flex:1;-ms-flex-direction:column;flex-direction:column;-ms-flex-pack:center;justify-content:center}.toast-message{-ms-flex:1;flex:1;white-space:var(--white-space)}.toast-button-group{display:-ms-flexbox;display:flex}.toast-button{border:0;outline:none;color:var(--button-color);z-index:0}.toast-icon{font-size:1.4em}.toast-button-inner{display:-ms-flexbox;display:flex;-ms-flex-align:center;align-items:center}@media (any-hover: hover){.toast-button:hover{cursor:pointer}}:host{--background:var(--ion-color-step-50, #f2f2f2);--border-radius:14px;--button-color:var(--ion-color-primary, #3880ff);--color:var(--ion-color-step-850, #262626);--max-width:700px;--start:10px;--end:10px;font-size:14px}.toast-wrapper{margin-left:auto;margin-right:auto;margin-top:auto;margin-bottom:auto;display:block;position:absolute;z-index:10}@supports ((-webkit-margin-start: 0) or (margin-inline-start: 0)) or (-webkit-margin-start: 0){.toast-wrapper{margin-left:unset;margin-right:unset;-webkit-margin-start:auto;margin-inline-start:auto;-webkit-margin-end:auto;margin-inline-end:auto}}@supports ((-webkit-backdrop-filter: blur(0)) or (backdrop-filter: blur(0))){:host(.toast-translucent) .toast-wrapper{background:rgba(var(--ion-background-color-rgb, 255, 255, 255), 0.8);-webkit-backdrop-filter:saturate(180%) blur(20px);backdrop-filter:saturate(180%) blur(20px)}}.toast-wrapper.toast-top{-webkit-transform:translate3d(0,  -100%,  0);transform:translate3d(0,  -100%,  0);top:0}.toast-wrapper.toast-middle{opacity:0.01}.toast-wrapper.toast-bottom{-webkit-transform:translate3d(0,  100%,  0);transform:translate3d(0,  100%,  0);bottom:0}.toast-content{padding-left:15px;padding-right:15px;padding-top:15px;padding-bottom:15px}@supports ((-webkit-margin-start: 0) or (margin-inline-start: 0)) or (-webkit-margin-start: 0){.toast-content{padding-left:unset;padding-right:unset;-webkit-padding-start:15px;padding-inline-start:15px;-webkit-padding-end:15px;padding-inline-end:15px}}.toast-header{margin-bottom:2px;font-weight:500}.toast-button{padding-left:15px;padding-right:15px;padding-top:10px;padding-bottom:10px;height:44px;-webkit-transition:background-color, opacity 100ms linear;transition:background-color, opacity 100ms linear;border:0;background-color:transparent;font-family:var(--ion-font-family);font-size:17px;font-weight:500;overflow:hidden}@supports ((-webkit-margin-start: 0) or (margin-inline-start: 0)) or (-webkit-margin-start: 0){.toast-button{padding-left:unset;padding-right:unset;-webkit-padding-start:15px;padding-inline-start:15px;-webkit-padding-end:15px;padding-inline-end:15px}}.toast-button.ion-activated{opacity:0.4}@media (any-hover: hover){.toast-button:hover{opacity:0.6}}";
+    var toastMdCss = ":host{--border-width:0;--border-style:none;--border-color:initial;--box-shadow:none;--min-width:auto;--width:auto;--min-height:auto;--height:auto;--max-height:auto;--white-space:pre-wrap;left:0;top:0;display:block;position:absolute;width:100%;height:100%;outline:none;color:var(--color);font-family:var(--ion-font-family, inherit);contain:strict;z-index:1001;pointer-events:none}:host-context([dir=rtl]){left:unset;right:unset;right:0}:host(.overlay-hidden){display:none}:host(.ion-color){--button-color:inherit;color:var(--ion-color-contrast)}:host(.ion-color) .toast-button-cancel{color:inherit}:host(.ion-color) .toast-wrapper{background:var(--ion-color-base)}.toast-wrapper{border-radius:var(--border-radius);left:var(--start);right:var(--end);width:var(--width);min-width:var(--min-width);max-width:var(--max-width);height:var(--height);min-height:var(--min-height);max-height:var(--max-height);border-width:var(--border-width);border-style:var(--border-style);border-color:var(--border-color);background:var(--background);-webkit-box-shadow:var(--box-shadow);box-shadow:var(--box-shadow)}[dir=rtl] .toast-wrapper,:host-context([dir=rtl]) .toast-wrapper{left:unset;right:unset;left:var(--end);right:var(--start)}.toast-container{display:-ms-flexbox;display:flex;-ms-flex-align:center;align-items:center;pointer-events:auto;height:inherit;min-height:inherit;max-height:inherit;contain:content}.toast-content{display:-ms-flexbox;display:flex;-ms-flex:1;flex:1;-ms-flex-direction:column;flex-direction:column;-ms-flex-pack:center;justify-content:center}.toast-message{-ms-flex:1;flex:1;white-space:var(--white-space)}.toast-button-group{display:-ms-flexbox;display:flex}.toast-button{border:0;outline:none;color:var(--button-color);z-index:0}.toast-icon{font-size:1.4em}.toast-button-inner{display:-ms-flexbox;display:flex;-ms-flex-align:center;align-items:center}@media (any-hover: hover){.toast-button:hover{cursor:pointer}}:host{--background:var(--ion-color-step-800, #333333);--border-radius:4px;--box-shadow:0 3px 5px -1px rgba(0, 0, 0, 0.2), 0 6px 10px 0 rgba(0, 0, 0, 0.14), 0 1px 18px 0 rgba(0, 0, 0, 0.12);--button-color:var(--ion-color-primary, #3880ff);--color:var(--ion-color-step-50, #f2f2f2);--max-width:700px;--start:8px;--end:8px;font-size:14px}.toast-wrapper{margin-left:auto;margin-right:auto;margin-top:auto;margin-bottom:auto;display:block;position:absolute;opacity:0.01;z-index:10}@supports ((-webkit-margin-start: 0) or (margin-inline-start: 0)) or (-webkit-margin-start: 0){.toast-wrapper{margin-left:unset;margin-right:unset;-webkit-margin-start:auto;margin-inline-start:auto;-webkit-margin-end:auto;margin-inline-end:auto}}.toast-content{padding-left:16px;padding-right:16px;padding-top:14px;padding-bottom:14px}@supports ((-webkit-margin-start: 0) or (margin-inline-start: 0)) or (-webkit-margin-start: 0){.toast-content{padding-left:unset;padding-right:unset;-webkit-padding-start:16px;padding-inline-start:16px;-webkit-padding-end:16px;padding-inline-end:16px}}.toast-header{margin-bottom:2px;font-weight:500;line-height:20px}.toast-message{line-height:20px}.toast-button-group-start{margin-left:8px}@supports ((-webkit-margin-start: 0) or (margin-inline-start: 0)) or (-webkit-margin-start: 0){.toast-button-group-start{margin-left:unset;-webkit-margin-start:8px;margin-inline-start:8px}}.toast-button-group-end{margin-right:8px}@supports ((-webkit-margin-start: 0) or (margin-inline-start: 0)) or (-webkit-margin-start: 0){.toast-button-group-end{margin-right:unset;-webkit-margin-end:8px;margin-inline-end:8px}}.toast-button{padding-left:15px;padding-right:15px;padding-top:10px;padding-bottom:10px;position:relative;background-color:transparent;font-family:var(--ion-font-family);font-size:14px;font-weight:500;letter-spacing:0.84px;text-transform:uppercase;overflow:hidden}@supports ((-webkit-margin-start: 0) or (margin-inline-start: 0)) or (-webkit-margin-start: 0){.toast-button{padding-left:unset;padding-right:unset;-webkit-padding-start:15px;padding-inline-start:15px;-webkit-padding-end:15px;padding-inline-end:15px}}.toast-button-cancel{color:var(--ion-color-step-100, #e6e6e6)}.toast-button-icon-only{border-radius:50%;padding-left:9px;padding-right:9px;padding-top:9px;padding-bottom:9px;width:36px;height:36px}@supports ((-webkit-margin-start: 0) or (margin-inline-start: 0)) or (-webkit-margin-start: 0){.toast-button-icon-only{padding-left:unset;padding-right:unset;-webkit-padding-start:9px;padding-inline-start:9px;-webkit-padding-end:9px;padding-inline-end:9px}}@media (any-hover: hover){.toast-button:hover{background-color:rgba(var(--ion-color-primary-rgb, 56, 128, 255), 0.08)}.toast-button-cancel:hover{background-color:rgba(var(--ion-background-color-rgb, 255, 255, 255), 0.08)}}";
+
+    var Toast = /*#__PURE__*/function () {
+      function Toast(hostRef) {
         var _this = this;
-        if (!this.isAnimating || !this.animation) {
-            Object(_helpers_46f4a262_js__WEBPACK_IMPORTED_MODULE_3__["b"])(false, 'isAnimating has to be true');
-            return;
-        }
-        var isOpen = this._isOpen;
-        var isEndSide = this.isEndSide;
-        var delta = computeDelta(detail.deltaX, isOpen, isEndSide);
-        var width = this.width;
-        var stepValue = delta / width;
-        var velocity = detail.velocityX;
-        var z = width / 2.0;
-        var shouldCompleteRight = velocity >= 0 && (velocity > 0.2 || detail.deltaX > z);
-        var shouldCompleteLeft = velocity <= 0 && (velocity < -0.2 || detail.deltaX < -z);
-        var shouldComplete = isOpen
-            ? isEndSide ? shouldCompleteRight : shouldCompleteLeft
-            : isEndSide ? shouldCompleteLeft : shouldCompleteRight;
-        var shouldOpen = !isOpen && shouldComplete;
-        if (isOpen && !shouldComplete) {
-            shouldOpen = true;
-        }
-        this.lastOnEnd = detail.timeStamp;
-        // Account for rounding errors in JS
-        var newStepValue = (shouldComplete) ? 0.001 : -0.001;
+
+        _classCallCheck(this, Toast);
+
+        Object(_index_e806d1f6_js__WEBPACK_IMPORTED_MODULE_0__["r"])(this, hostRef);
+        this.didPresent = Object(_index_e806d1f6_js__WEBPACK_IMPORTED_MODULE_0__["e"])(this, "ionToastDidPresent", 7);
+        this.willPresent = Object(_index_e806d1f6_js__WEBPACK_IMPORTED_MODULE_0__["e"])(this, "ionToastWillPresent", 7);
+        this.willDismiss = Object(_index_e806d1f6_js__WEBPACK_IMPORTED_MODULE_0__["e"])(this, "ionToastWillDismiss", 7);
+        this.didDismiss = Object(_index_e806d1f6_js__WEBPACK_IMPORTED_MODULE_0__["e"])(this, "ionToastDidDismiss", 7);
+        this.presented = false;
         /**
-         * TODO: stepValue can sometimes return a negative
-         * value, but you can't have a negative time value
-         * for the cubic bezier curve (at least with web animations)
-         * Not sure if the negative step value is an error or not
+         * How many milliseconds to wait before hiding the toast. By default, it will show
+         * until `dismiss()` is called.
          */
-        var adjustedStepValue = (stepValue <= 0) ? 0.01 : stepValue;
+
+        this.duration = 0;
         /**
-         * Animation will be reversed here, so need to
-         * reverse the easing curve as well
-         *
-         * Additionally, we need to account for the time relative
-         * to the new easing curve, as `stepValue` is going to be given
-         * in terms of a linear curve.
+         * If `true`, the keyboard will be automatically dismissed when the overlay is presented.
          */
-        newStepValue += Object(_cubic_bezier_2812fda3_js__WEBPACK_IMPORTED_MODULE_8__["g"])(new _cubic_bezier_2812fda3_js__WEBPACK_IMPORTED_MODULE_8__["P"](0, 0), new _cubic_bezier_2812fda3_js__WEBPACK_IMPORTED_MODULE_8__["P"](0.4, 0), new _cubic_bezier_2812fda3_js__WEBPACK_IMPORTED_MODULE_8__["P"](0.6, 1), new _cubic_bezier_2812fda3_js__WEBPACK_IMPORTED_MODULE_8__["P"](1, 1), Object(_helpers_46f4a262_js__WEBPACK_IMPORTED_MODULE_3__["c"])(0, adjustedStepValue, 1));
-        this.animation
-            .easing('cubic-bezier(0.4, 0.0, 0.6, 1)')
-            .onFinish(function () { return _this.afterAnimation(shouldOpen); }, { oneTimeCallback: true })
-            .progressEnd(shouldComplete ? 1 : 0, newStepValue, 300);
-    };
-    class_1.prototype.beforeAnimation = function (shouldOpen) {
-        Object(_helpers_46f4a262_js__WEBPACK_IMPORTED_MODULE_3__["b"])(!this.isAnimating, '_before() should not be called while animating');
-        // this places the menu into the correct location before it animates in
-        // this css class doesn't actually kick off any animations
-        this.el.classList.add(SHOW_MENU);
-        if (this.backdropEl) {
-            this.backdropEl.classList.add(SHOW_BACKDROP);
-        }
-        this.blocker.block();
-        this.isAnimating = true;
-        if (shouldOpen) {
-            this.ionWillOpen.emit();
-        }
-        else {
-            this.ionWillClose.emit();
-        }
-    };
-    class_1.prototype.afterAnimation = function (isOpen) {
-        Object(_helpers_46f4a262_js__WEBPACK_IMPORTED_MODULE_3__["b"])(this.isAnimating, '_before() should be called while animating');
-        // keep opening/closing the menu disabled for a touch more yet
-        // only add listeners/css if it's enabled and isOpen
-        // and only remove listeners/css if it's not open
-        // emit opened/closed events
-        this._isOpen = isOpen;
-        this.isAnimating = false;
-        if (!this._isOpen) {
-            this.blocker.unblock();
-        }
-        if (isOpen) {
-            // add css class
-            if (this.contentEl) {
-                this.contentEl.classList.add(MENU_CONTENT_OPEN);
-            }
-            // emit open event
-            this.ionDidOpen.emit();
-        }
-        else {
-            // remove css classes
-            this.el.classList.remove(SHOW_MENU);
-            if (this.contentEl) {
-                this.contentEl.classList.remove(MENU_CONTENT_OPEN);
-            }
-            if (this.backdropEl) {
-                this.backdropEl.classList.remove(SHOW_BACKDROP);
-            }
-            if (this.animation) {
-                this.animation.stop();
-            }
-            // emit close event
-            this.ionDidClose.emit();
-        }
-    };
-    class_1.prototype.updateState = function () {
-        var isActive = this._isActive();
-        if (this.gesture) {
-            this.gesture.setDisabled(!isActive || !this.swipeGesture);
-        }
-        // Close menu immediately
-        if (!isActive && this._isOpen) {
-            // close if this menu is open, and should not be enabled
-            this.forceClosing();
-        }
-        if (!this.disabled) {
-            _index_1e5940d5_js__WEBPACK_IMPORTED_MODULE_6__["m"]._setActiveMenu(this);
-        }
-        Object(_helpers_46f4a262_js__WEBPACK_IMPORTED_MODULE_3__["b"])(!this.isAnimating, 'can not be animating');
-    };
-    class_1.prototype.forceClosing = function () {
-        Object(_helpers_46f4a262_js__WEBPACK_IMPORTED_MODULE_3__["b"])(this._isOpen, 'menu cannot be closed');
-        this.isAnimating = true;
-        var ani = this.animation.direction('reverse');
-        ani.playSync();
-        this.afterAnimation(false);
-    };
-    class_1.prototype.render = function () {
-        var _a;
-        var _this = this;
-        var _b = this, isEndSide = _b.isEndSide, type = _b.type, disabled = _b.disabled, mode = _b.mode, isPaneVisible = _b.isPaneVisible;
-        return (Object(_core_ca0488fc_js__WEBPACK_IMPORTED_MODULE_1__["h"])(_core_ca0488fc_js__WEBPACK_IMPORTED_MODULE_1__["H"], { role: "navigation", class: (_a = {},
-                _a[mode] = true,
-                _a["menu-type-" + type] = true,
-                _a['menu-enabled'] = !disabled,
-                _a['menu-side-end'] = isEndSide,
-                _a['menu-side-start'] = !isEndSide,
-                _a['menu-pane-visible'] = isPaneVisible,
-                _a) }, Object(_core_ca0488fc_js__WEBPACK_IMPORTED_MODULE_1__["h"])("div", { class: "menu-inner", ref: function (el) { return _this.menuInnerEl = el; } }, Object(_core_ca0488fc_js__WEBPACK_IMPORTED_MODULE_1__["h"])("slot", null)), Object(_core_ca0488fc_js__WEBPACK_IMPORTED_MODULE_1__["h"])("ion-backdrop", { ref: function (el) { return _this.backdropEl = el; }, class: "menu-backdrop", tappable: false, stopPropagation: false })));
-    };
-    Object.defineProperty(class_1.prototype, "el", {
-        get: function () { return Object(_core_ca0488fc_js__WEBPACK_IMPORTED_MODULE_1__["e"])(this); },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(class_1, "watchers", {
-        get: function () {
-            return {
-                "type": ["typeChanged"],
-                "disabled": ["disabledChanged"],
-                "side": ["sideChanged"],
-                "swipeGesture": ["swipeGestureChanged"]
-            };
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(class_1, "style", {
-        get: function () { return ":host{--width:304px;--min-width:auto;--max-width:auto;--height:100%;--min-height:auto;--max-height:auto;--background:var(--ion-background-color,#fff);left:0;right:0;top:0;bottom:0;display:none;position:absolute;contain:strict}:host(.show-menu){display:block}.menu-inner{left:0;right:auto;top:0;bottom:0;-webkit-transform:translate3d(-9999px,0,0);transform:translate3d(-9999px,0,0);display:-ms-flexbox;display:flex;position:absolute;-ms-flex-direction:column;flex-direction:column;-ms-flex-pack:justify;justify-content:space-between;width:var(--width);min-width:var(--min-width);max-width:var(--max-width);height:var(--height);min-height:var(--min-height);max-height:var(--max-height);background:var(--background);contain:strict}:host-context([dir=rtl]) .menu-inner,[dir=rtl] .menu-inner{left:unset;right:unset;left:auto;right:0;-webkit-transform:translate3d(calc(-1 * -9999px),0,0);transform:translate3d(calc(-1 * -9999px),0,0)}:host(.menu-side-start) .menu-inner{--ion-safe-area-right:0px;right:auto;left:0}:host(.menu-side-end) .menu-inner{--ion-safe-area-left:0px;right:0;left:auto}ion-backdrop{display:none;opacity:.01;z-index:-1}\@media (max-width:340px){.menu-inner{--width:264px}}:host(.menu-type-reveal){z-index:0}:host(.menu-type-reveal.show-menu) .menu-inner{-webkit-transform:translateZ(0);transform:translateZ(0)}:host(.menu-type-overlay){z-index:1000}:host(.menu-type-overlay) .show-backdrop{display:block;cursor:pointer}:host(.menu-pane-visible) .menu-inner{left:0;right:0;width:auto;-webkit-transform:none!important;transform:none!important;-webkit-box-shadow:none!important;box-shadow:none!important}:host(.menu-pane-visible) ion-backdrop{display:hidden!important}:host(.menu-type-overlay) .menu-inner{-webkit-box-shadow:0 2px 22px 0 rgba(0,0,0,.09),4px 0 16px 0 rgba(0,0,0,.18);box-shadow:0 2px 22px 0 rgba(0,0,0,.09),4px 0 16px 0 rgba(0,0,0,.18)}"; },
-        enumerable: true,
-        configurable: true
-    });
-    return class_1;
-}());
-var computeDelta = function (deltaX, isOpen, isEndSide) {
-    return Math.max(0, isOpen !== isEndSide ? -deltaX : deltaX);
-};
-var checkEdgeSide = function (win, posX, isEndSide, maxEdgeStart) {
-    if (isEndSide) {
-        return posX >= win.innerWidth - maxEdgeStart;
-    }
-    else {
-        return posX <= maxEdgeStart;
-    }
-};
-var SHOW_MENU = 'show-menu';
-var SHOW_BACKDROP = 'show-backdrop';
-var MENU_CONTENT_OPEN = 'menu-content-open';
-// Given a menu, return whether or not the menu toggle should be visible
-var updateVisibility = function (menu) { return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(void 0, void 0, void 0, function () {
-    var menuEl, _a;
-    return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__generator"])(this, function (_b) {
-        switch (_b.label) {
-            case 0: return [4 /*yield*/, _index_1e5940d5_js__WEBPACK_IMPORTED_MODULE_6__["m"].get(menu)];
-            case 1:
-                menuEl = _b.sent();
-                _a = menuEl;
-                if (!_a) return [3 /*break*/, 3];
-                return [4 /*yield*/, menuEl.isActive()];
-            case 2:
-                _a = (_b.sent());
-                _b.label = 3;
-            case 3: return [2 /*return*/, !!(_a)];
-        }
-    });
-}); };
-var MenuButton = /** @class */ (function () {
-    function class_2(hostRef) {
-        var _this = this;
-        Object(_core_ca0488fc_js__WEBPACK_IMPORTED_MODULE_1__["r"])(this, hostRef);
-        this.visible = false;
+
+        this.keyboardClose = false;
         /**
-         * If `true`, the user cannot interact with the menu button.
+         * The position of the toast on the screen.
          */
-        this.disabled = false;
+
+        this.position = 'bottom';
         /**
-         * Automatically hides the menu button when the corresponding menu is not active
+         * If `true`, the toast will be translucent.
+         * Only applies when the mode is `"ios"` and the device supports
+         * [`backdrop-filter`](https://developer.mozilla.org/en-US/docs/Web/CSS/backdrop-filter#Browser_compatibility).
          */
-        this.autoHide = true;
+
+        this.translucent = false;
         /**
-         * The type of the button.
+         * If `true`, the toast will animate.
          */
-        this.type = 'button';
-        this.onClick = function () { return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(_this, void 0, void 0, function () {
-            return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__generator"])(this, function (_a) {
-                return [2 /*return*/, _index_1e5940d5_js__WEBPACK_IMPORTED_MODULE_6__["m"].toggle(this.menu)];
+
+        this.animated = true;
+
+        this.dispatchCancelHandler = function (ev) {
+          var role = ev.detail.role;
+
+          if (Object(_overlays_12c20431_js__WEBPACK_IMPORTED_MODULE_6__["i"])(role)) {
+            var cancelButton = _this.getButtons().find(function (b) {
+              return b.role === 'cancel';
             });
-        }); };
-    }
-    class_2.prototype.componentDidLoad = function () {
-        this.visibilityChanged();
-    };
-    class_2.prototype.visibilityChanged = function () {
-        return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, function () {
-            var _a;
-            return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__generator"])(this, function (_b) {
-                switch (_b.label) {
-                    case 0:
-                        _a = this;
-                        return [4 /*yield*/, updateVisibility(this.menu)];
-                    case 1:
-                        _a.visible = _b.sent();
-                        return [2 /*return*/];
-                }
-            });
-        });
-    };
-    class_2.prototype.render = function () {
-        var _a;
-        var _b = this, color = _b.color, disabled = _b.disabled;
-        var mode = Object(_core_ca0488fc_js__WEBPACK_IMPORTED_MODULE_1__["d"])(this);
-        var menuIcon = _config_3c7f3790_js__WEBPACK_IMPORTED_MODULE_2__["b"].get('menuIcon', 'menu');
-        var hidden = this.autoHide && !this.visible;
-        var attrs = {
-            type: this.type
+
+            _this.callButtonHandler(cancelButton);
+          }
         };
-        return (Object(_core_ca0488fc_js__WEBPACK_IMPORTED_MODULE_1__["h"])(_core_ca0488fc_js__WEBPACK_IMPORTED_MODULE_1__["H"], { onClick: this.onClick, "aria-disabled": disabled ? 'true' : null, "aria-hidden": hidden ? 'true' : null, class: Object.assign(Object.assign((_a = {}, _a[mode] = true, _a), Object(_theme_18cbe2cc_js__WEBPACK_IMPORTED_MODULE_7__["c"])(color)), { 'button': true, 'menu-button-hidden': hidden, 'menu-button-disabled': disabled, 'ion-activatable': true, 'ion-focusable': true }) }, Object(_core_ca0488fc_js__WEBPACK_IMPORTED_MODULE_1__["h"])("button", Object.assign({}, attrs, { disabled: disabled, class: "button-native" }), Object(_core_ca0488fc_js__WEBPACK_IMPORTED_MODULE_1__["h"])("slot", null, Object(_core_ca0488fc_js__WEBPACK_IMPORTED_MODULE_1__["h"])("ion-icon", { icon: menuIcon, mode: mode, lazy: false })), mode === 'md' && Object(_core_ca0488fc_js__WEBPACK_IMPORTED_MODULE_1__["h"])("ion-ripple-effect", { type: "unbounded" }))));
-    };
-    Object.defineProperty(class_2, "style", {
-        get: function () { return ":host{--background:transparent;--color-focused:var(--color);--border-radius:initial;--padding-top:0;--padding-bottom:0;color:var(--color);text-align:center;text-decoration:none;text-overflow:ellipsis;text-transform:none;white-space:nowrap;-webkit-font-kerning:none;font-kerning:none}.button-native{border-radius:var(--border-radius);font-family:inherit;font-size:inherit;font-style:inherit;font-weight:inherit;letter-spacing:inherit;text-decoration:inherit;text-overflow:inherit;text-transform:inherit;text-align:inherit;white-space:inherit;color:inherit;margin-left:0;margin-right:0;margin-top:0;margin-bottom:0;padding-left:var(--padding-start);padding-right:var(--padding-end);padding-top:var(--padding-top);padding-bottom:var(--padding-bottom);-moz-osx-font-smoothing:grayscale;-webkit-font-smoothing:antialiased;display:-ms-flexbox;display:flex;position:relative;-ms-flex-flow:row nowrap;flex-flow:row nowrap;-ms-flex-negative:0;flex-shrink:0;-ms-flex-align:center;align-items:center;-ms-flex-pack:center;justify-content:center;width:100%;height:100%;border:0;outline:none;background:var(--background);line-height:1;cursor:pointer;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;z-index:0;-webkit-appearance:none;-moz-appearance:none;appearance:none}\@supports ((-webkit-margin-start:0) or (margin-inline-start:0)) or (-webkit-margin-start:0){.button-native{padding-left:unset;padding-right:unset;-webkit-padding-start:var(--padding-start);padding-inline-start:var(--padding-start);-webkit-padding-end:var(--padding-end);padding-inline-end:var(--padding-end)}}ion-icon{margin-left:0;margin-right:0;margin-top:0;margin-bottom:0;padding-left:0;padding-right:0;padding-top:0;padding-bottom:0;pointer-events:none}:host(.menu-button-hidden){display:none}:host(.menu-button-disabled){cursor:default;opacity:.5;pointer-events:none}\@media (any-hover:hover){:host(:hover) .button-native{background:var(--background-hover);color:var(--color-hover)}}:host(.ion-focused) .button-native{background:var(--background-focused);color:var(--color-focused)}:host(.ion-color) .button-native{color:var(--ion-color-base)}:host-context(ion-toolbar:not(.ion-color)){color:var(--ion-toolbar-color,var(--color))}:host{--background-focused:rgba(66,66,66,0.24);--background-hover:rgba(66,66,66,0.08);--border-radius:50%;--color:initial;--padding-start:8px;--padding-end:8px;width:48px;height:48px;font-size:24px}\@media (any-hover:hover){:host(.ion-color:hover) .button-native{background:rgba(var(--ion-color-base-rgb),.08)}}:host(.ion-color.ion-focused) .button-native{background:rgba(var(--ion-color-base-rgb),.24);color:var(--ion-color-base)}"; },
-        enumerable: true,
-        configurable: true
-    });
-    return class_2;
-}());
-var MenuController = /** @class */ (function () {
-    function class_3(hostRef) {
-        Object(_core_ca0488fc_js__WEBPACK_IMPORTED_MODULE_1__["r"])(this, hostRef);
-    }
-    /**
-     * Open the menu. If a menu is not provided then it will open the first
-     * menu found. If the specified menu is `start` or `end`, then it will open
-     * the enabled menu on that side. Otherwise, it will try to find the menu
-     * using the menu's `id` property. If a menu is not found then it will
-     * return `false`.
-     *
-     * @param menu The menuId or side of the menu to open.
-     */
-    class_3.prototype.open = function (menu) {
-        return _index_1e5940d5_js__WEBPACK_IMPORTED_MODULE_6__["m"].open(menu);
-    };
-    /**
-     * Close the menu. If a menu is specified, it will close that menu.
-     * If no menu is specified, then it will close any menu that is open.
-     * If it does not find any open menus, it will return `false`.
-     *
-     * @param menu The menuId or side of the menu to close.
-     */
-    class_3.prototype.close = function (menu) {
-        return _index_1e5940d5_js__WEBPACK_IMPORTED_MODULE_6__["m"].close(menu);
-    };
-    /**
-     * Toggle the menu open or closed. If the menu is already open, it will try to
-     * close the menu, otherwise it will try to open it. Returns `false` if
-     * a menu is not found.
-     *
-     * @param menu The menuId or side of the menu to toggle.
-     */
-    class_3.prototype.toggle = function (menu) {
-        return _index_1e5940d5_js__WEBPACK_IMPORTED_MODULE_6__["m"].toggle(menu);
-    };
-    /**
-     * Enable or disable a menu. Disabling a menu will not allow gestures
-     * for that menu or any calls to open it. This is useful when there are
-     * multiple menus on the same side and only one of them should be allowed
-     * to open. Enabling a menu will automatically disable all other menus
-     * on that side.
-     *
-     * @param enable If `true`, the menu should be enabled.
-     * @param menu The menuId or side of the menu to enable or disable.
-     */
-    class_3.prototype.enable = function (enable, menu) {
-        return _index_1e5940d5_js__WEBPACK_IMPORTED_MODULE_6__["m"].enable(enable, menu);
-    };
-    /**
-     * Enable or disable the ability to swipe open the menu.
-     *
-     * @param enable If `true`, the menu swipe gesture should be enabled.
-     * @param menu The menuId or side of the menu to enable or disable the swipe gesture on.
-     */
-    class_3.prototype.swipeGesture = function (enable, menu) {
-        return _index_1e5940d5_js__WEBPACK_IMPORTED_MODULE_6__["m"].swipeGesture(enable, menu);
-    };
-    /**
-     * Get whether or not the menu is open. Returns `true` if the specified
-     * menu is open. If a menu is not specified, it will return `true` if
-     * any menu is currently open.
-     *
-     * @param menu The menuId or side of the menu that is being checked.
-     */
-    class_3.prototype.isOpen = function (menu) {
-        return _index_1e5940d5_js__WEBPACK_IMPORTED_MODULE_6__["m"].isOpen(menu);
-    };
-    /**
-     * Get whether or not the menu is enabled. Returns `true` if the
-     * specified menu is enabled. Returns `false` if a menu is disabled
-     * or not found.
-     *
-     * @param menu The menuId or side of the menu that is being checked.
-     */
-    class_3.prototype.isEnabled = function (menu) {
-        return _index_1e5940d5_js__WEBPACK_IMPORTED_MODULE_6__["m"].isEnabled(menu);
-    };
-    /**
-     * Get a menu instance. If a menu is not provided then it will return the first
-     * menu found. If the specified menu is `start` or `end`, then it will return the
-     * enabled menu on that side. Otherwise, it will try to find the menu using the menu's
-     * `id` property. If a menu is not found then it will return `null`.
-     *
-     * @param menu The menuId or side of the menu.
-     */
-    class_3.prototype.get = function (menu) {
-        return _index_1e5940d5_js__WEBPACK_IMPORTED_MODULE_6__["m"].get(menu);
-    };
-    /**
-     * Get the instance of the opened menu. Returns `null` if a menu is not found.
-     */
-    class_3.prototype.getOpen = function () {
-        return _index_1e5940d5_js__WEBPACK_IMPORTED_MODULE_6__["m"].getOpen();
-    };
-    /**
-     * Get all menu instances.
-     */
-    class_3.prototype.getMenus = function () {
-        return _index_1e5940d5_js__WEBPACK_IMPORTED_MODULE_6__["m"].getMenus();
-    };
-    /**
-     * Get whether or not a menu is animating. Returns `true` if any
-     * menu is currently animating.
-     */
-    class_3.prototype.isAnimating = function () {
-        return _index_1e5940d5_js__WEBPACK_IMPORTED_MODULE_6__["m"].isAnimating();
-    };
-    /**
-     * Registers a new animation that can be used with any `ion-menu` by
-     * passing the name of the animation in its `type` property.
-     *
-     * @param name The name of the animation to register.
-     * @param animation The animation function to register.
-     */
-    class_3.prototype.registerAnimation = function (name, animation) {
-        return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, function () {
-            return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__generator"])(this, function (_a) {
-                return [2 /*return*/, _index_1e5940d5_js__WEBPACK_IMPORTED_MODULE_6__["m"].registerAnimation(name, animation)];
-            });
-        });
-    };
-    return class_3;
-}());
-var MenuToggle = /** @class */ (function () {
-    function class_4(hostRef) {
-        var _this = this;
-        Object(_core_ca0488fc_js__WEBPACK_IMPORTED_MODULE_1__["r"])(this, hostRef);
-        this.visible = false;
+      }
+
+      _createClass(Toast, [{
+        key: "connectedCallback",
+        value: function connectedCallback() {
+          Object(_overlays_12c20431_js__WEBPACK_IMPORTED_MODULE_6__["e"])(this.el);
+        }
         /**
-         * Automatically hides the content when the corresponding menu is not active.
-         *
-         * By default, it's `true`. Change it to `false` in order to
-         * keep `ion-menu-toggle` always visible regardless the state of the menu.
+         * Present the toast overlay after it has been created.
          */
-        this.autoHide = true;
-        this.onClick = function () {
-            return _index_1e5940d5_js__WEBPACK_IMPORTED_MODULE_6__["m"].toggle(_this.menu);
-        };
-    }
-    class_4.prototype.connectedCallback = function () {
-        this.visibilityChanged();
-    };
-    class_4.prototype.visibilityChanged = function () {
-        return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"])(this, void 0, void 0, function () {
-            var _a;
-            return Object(tslib__WEBPACK_IMPORTED_MODULE_0__["__generator"])(this, function (_b) {
-                switch (_b.label) {
-                    case 0:
-                        _a = this;
-                        return [4 /*yield*/, updateVisibility(this.menu)];
-                    case 1:
-                        _a.visible = _b.sent();
-                        return [2 /*return*/];
+
+      }, {
+        key: "present",
+        value: function () {
+          var _present = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
+            var _this2 = this;
+
+            return regeneratorRuntime.wrap(function _callee$(_context) {
+              while (1) {
+                switch (_context.prev = _context.next) {
+                  case 0:
+                    _context.next = 2;
+                    return Object(_overlays_12c20431_js__WEBPACK_IMPORTED_MODULE_6__["d"])(this, 'toastEnter', iosEnterAnimation, mdEnterAnimation, this.position);
+
+                  case 2:
+                    if (this.duration > 0) {
+                      this.durationTimeout = setTimeout(function () {
+                        return _this2.dismiss(undefined, 'timeout');
+                      }, this.duration);
+                    }
+
+                  case 3:
+                  case "end":
+                    return _context.stop();
                 }
-            });
-        });
+              }
+            }, _callee, this);
+          }));
+
+          function present() {
+            return _present.apply(this, arguments);
+          }
+
+          return present;
+        }()
+        /**
+         * Dismiss the toast overlay after it has been presented.
+         *
+         * @param data Any data to emit in the dismiss events.
+         * @param role The role of the element that is dismissing the toast.
+         * This can be useful in a button handler for determining which button was
+         * clicked to dismiss the toast.
+         * Some examples include: ``"cancel"`, `"destructive"`, "selected"`, and `"backdrop"`.
+         */
+
+      }, {
+        key: "dismiss",
+        value: function dismiss(data, role) {
+          if (this.durationTimeout) {
+            clearTimeout(this.durationTimeout);
+          }
+
+          return Object(_overlays_12c20431_js__WEBPACK_IMPORTED_MODULE_6__["f"])(this, data, role, 'toastLeave', iosLeaveAnimation, mdLeaveAnimation, this.position);
+        }
+        /**
+         * Returns a promise that resolves when the toast did dismiss.
+         */
+
+      }, {
+        key: "onDidDismiss",
+        value: function onDidDismiss() {
+          return Object(_overlays_12c20431_js__WEBPACK_IMPORTED_MODULE_6__["g"])(this.el, 'ionToastDidDismiss');
+        }
+        /**
+         * Returns a promise that resolves when the toast will dismiss.
+         */
+
+      }, {
+        key: "onWillDismiss",
+        value: function onWillDismiss() {
+          return Object(_overlays_12c20431_js__WEBPACK_IMPORTED_MODULE_6__["g"])(this.el, 'ionToastWillDismiss');
+        }
+      }, {
+        key: "getButtons",
+        value: function getButtons() {
+          var buttons = this.buttons ? this.buttons.map(function (b) {
+            return typeof b === 'string' ? {
+              text: b
+            } : b;
+          }) : [];
+          return buttons;
+        }
+      }, {
+        key: "buttonClick",
+        value: function () {
+          var _buttonClick = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2(button) {
+            var role, shouldDismiss;
+            return regeneratorRuntime.wrap(function _callee2$(_context2) {
+              while (1) {
+                switch (_context2.prev = _context2.next) {
+                  case 0:
+                    role = button.role;
+
+                    if (!Object(_overlays_12c20431_js__WEBPACK_IMPORTED_MODULE_6__["i"])(role)) {
+                      _context2.next = 3;
+                      break;
+                    }
+
+                    return _context2.abrupt("return", this.dismiss(undefined, role));
+
+                  case 3:
+                    _context2.next = 5;
+                    return this.callButtonHandler(button);
+
+                  case 5:
+                    shouldDismiss = _context2.sent;
+
+                    if (!shouldDismiss) {
+                      _context2.next = 8;
+                      break;
+                    }
+
+                    return _context2.abrupt("return", this.dismiss(undefined, role));
+
+                  case 8:
+                    return _context2.abrupt("return", Promise.resolve());
+
+                  case 9:
+                  case "end":
+                    return _context2.stop();
+                }
+              }
+            }, _callee2, this);
+          }));
+
+          function buttonClick(_x) {
+            return _buttonClick.apply(this, arguments);
+          }
+
+          return buttonClick;
+        }()
+      }, {
+        key: "callButtonHandler",
+        value: function () {
+          var _callButtonHandler = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee3(button) {
+            var rtn;
+            return regeneratorRuntime.wrap(function _callee3$(_context3) {
+              while (1) {
+                switch (_context3.prev = _context3.next) {
+                  case 0:
+                    if (!(button && button.handler)) {
+                      _context3.next = 12;
+                      break;
+                    }
+
+                    _context3.prev = 1;
+                    _context3.next = 4;
+                    return Object(_overlays_12c20431_js__WEBPACK_IMPORTED_MODULE_6__["s"])(button.handler);
+
+                  case 4:
+                    rtn = _context3.sent;
+
+                    if (!(rtn === false)) {
+                      _context3.next = 7;
+                      break;
+                    }
+
+                    return _context3.abrupt("return", false);
+
+                  case 7:
+                    _context3.next = 12;
+                    break;
+
+                  case 9:
+                    _context3.prev = 9;
+                    _context3.t0 = _context3["catch"](1);
+                    console.error(_context3.t0);
+
+                  case 12:
+                    return _context3.abrupt("return", true);
+
+                  case 13:
+                  case "end":
+                    return _context3.stop();
+                }
+              }
+            }, _callee3, null, [[1, 9]]);
+          }));
+
+          function callButtonHandler(_x2) {
+            return _callButtonHandler.apply(this, arguments);
+          }
+
+          return callButtonHandler;
+        }()
+      }, {
+        key: "renderButtons",
+        value: function renderButtons(buttons, side) {
+          var _this3 = this;
+
+          if (buttons.length === 0) {
+            return;
+          }
+
+          var mode = Object(_ionic_global_9d5c8ee3_js__WEBPACK_IMPORTED_MODULE_1__["b"])(this);
+
+          var buttonGroupsClasses = _defineProperty({
+            'toast-button-group': true
+          }, "toast-button-group-".concat(side), true);
+
+          return Object(_index_e806d1f6_js__WEBPACK_IMPORTED_MODULE_0__["h"])("div", {
+            "class": buttonGroupsClasses
+          }, buttons.map(function (b) {
+            return Object(_index_e806d1f6_js__WEBPACK_IMPORTED_MODULE_0__["h"])("button", {
+              type: "button",
+              "class": buttonClass(b),
+              tabIndex: 0,
+              onClick: function onClick() {
+                return _this3.buttonClick(b);
+              },
+              part: "button"
+            }, Object(_index_e806d1f6_js__WEBPACK_IMPORTED_MODULE_0__["h"])("div", {
+              "class": "toast-button-inner"
+            }, b.icon && Object(_index_e806d1f6_js__WEBPACK_IMPORTED_MODULE_0__["h"])("ion-icon", {
+              icon: b.icon,
+              slot: b.text === undefined ? 'icon-only' : undefined,
+              "class": "toast-icon"
+            }), b.text), mode === 'md' && Object(_index_e806d1f6_js__WEBPACK_IMPORTED_MODULE_0__["h"])("ion-ripple-effect", {
+              type: b.icon !== undefined && b.text === undefined ? 'unbounded' : 'bounded'
+            }));
+          }));
+        }
+      }, {
+        key: "render",
+        value: function render() {
+          var allButtons = this.getButtons();
+          var startButtons = allButtons.filter(function (b) {
+            return b.side === 'start';
+          });
+          var endButtons = allButtons.filter(function (b) {
+            return b.side !== 'start';
+          });
+          var mode = Object(_ionic_global_9d5c8ee3_js__WEBPACK_IMPORTED_MODULE_1__["b"])(this);
+
+          var wrapperClass = _defineProperty({
+            'toast-wrapper': true
+          }, "toast-".concat(this.position), true);
+
+          return Object(_index_e806d1f6_js__WEBPACK_IMPORTED_MODULE_0__["h"])(_index_e806d1f6_js__WEBPACK_IMPORTED_MODULE_0__["H"], {
+            style: {
+              zIndex: "".concat(60000 + this.overlayIndex)
+            },
+            "class": Object(_theme_ff3fc52f_js__WEBPACK_IMPORTED_MODULE_7__["c"])(this.color, Object.assign(Object.assign(_defineProperty({}, mode, true), Object(_theme_ff3fc52f_js__WEBPACK_IMPORTED_MODULE_7__["g"])(this.cssClass)), {
+              'toast-translucent': this.translucent
+            })),
+            tabindex: "-1",
+            onIonToastWillDismiss: this.dispatchCancelHandler
+          }, Object(_index_e806d1f6_js__WEBPACK_IMPORTED_MODULE_0__["h"])("div", {
+            "class": wrapperClass
+          }, Object(_index_e806d1f6_js__WEBPACK_IMPORTED_MODULE_0__["h"])("div", {
+            "class": "toast-container",
+            part: "container"
+          }, this.renderButtons(startButtons, 'start'), Object(_index_e806d1f6_js__WEBPACK_IMPORTED_MODULE_0__["h"])("div", {
+            "class": "toast-content"
+          }, this.header !== undefined && Object(_index_e806d1f6_js__WEBPACK_IMPORTED_MODULE_0__["h"])("div", {
+            "class": "toast-header",
+            part: "header"
+          }, this.header), this.message !== undefined && Object(_index_e806d1f6_js__WEBPACK_IMPORTED_MODULE_0__["h"])("div", {
+            "class": "toast-message",
+            part: "message",
+            innerHTML: Object(_index_9e3fe806_js__WEBPACK_IMPORTED_MODULE_4__["s"])(this.message)
+          })), this.renderButtons(endButtons, 'end'))));
+        }
+      }, {
+        key: "el",
+        get: function get() {
+          return Object(_index_e806d1f6_js__WEBPACK_IMPORTED_MODULE_0__["i"])(this);
+        }
+      }]);
+
+      return Toast;
+    }();
+
+    var buttonClass = function buttonClass(button) {
+      var _Object$assign2;
+
+      return Object.assign((_Object$assign2 = {
+        'toast-button': true,
+        'toast-button-icon-only': button.icon !== undefined && button.text === undefined
+      }, _defineProperty(_Object$assign2, "toast-button-".concat(button.role), button.role !== undefined), _defineProperty(_Object$assign2, 'ion-focusable', true), _defineProperty(_Object$assign2, 'ion-activatable', true), _Object$assign2), Object(_theme_ff3fc52f_js__WEBPACK_IMPORTED_MODULE_7__["g"])(button.cssClass));
     };
-    class_4.prototype.render = function () {
-        var _a;
-        var mode = Object(_core_ca0488fc_js__WEBPACK_IMPORTED_MODULE_1__["d"])(this);
-        var hidden = this.autoHide && !this.visible;
-        return (Object(_core_ca0488fc_js__WEBPACK_IMPORTED_MODULE_1__["h"])(_core_ca0488fc_js__WEBPACK_IMPORTED_MODULE_1__["H"], { onClick: this.onClick, "aria-hidden": hidden ? 'true' : null, class: (_a = {},
-                _a[mode] = true,
-                _a['menu-toggle-hidden'] = hidden,
-                _a) }, Object(_core_ca0488fc_js__WEBPACK_IMPORTED_MODULE_1__["h"])("slot", null)));
+
+    Toast.style = {
+      ios: toastIosCss,
+      md: toastMdCss
     };
-    Object.defineProperty(class_4, "style", {
-        get: function () { return ":host(.menu-toggle-hidden){display:none}"; },
-        enumerable: true,
-        configurable: true
-    });
-    return class_4;
-}());
-
-
-
-/***/ })
-
+    /***/
+  }
 }]);
 //# sourceMappingURL=40-es5.js.map

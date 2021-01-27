@@ -267,3 +267,9 @@
 .center{
   text-align: center;
 }
+
+#lineChart{
+  .highcharts-container{
+      position: static !important;
+  }
+}

@@ -40,7 +40,8 @@ export class LineChartComponent implements OnInit,OnDestroy {
 
   rangeChange(evt){
     this.range = evt.detail.value;
-    this.currentData.e = evt.detail.value == 0 ? 100 : evt.detail.value ;
+    console.log(this.range);
+    this.currentData.e = evt.detail.value == 100 ? 0 : evt.detail.value ;
     this.highChartLine();
   }
 
@@ -61,7 +62,7 @@ export class LineChartComponent implements OnInit,OnDestroy {
       }else{
         GICSId = that.selComp.industry.slice(0,2*(this.selSecLvl-1));
       }
-      range = 'top'+this.currentData.e;
+      range = 'top'+(100 - this.currentData.e);
       // console.log(range);
       this.dataHandler.getIndexPreRuns(this.indexId,GICSId,Ctype,range).subscribe((res:any[]) =>{
         // console.log(res);
@@ -106,7 +107,7 @@ export class LineChartComponent implements OnInit,OnDestroy {
             var formatdate1 = that.formatedates(d.getMonth() + 1) + '/' + that.formatedates(d.getDate()) + '/' + d.getFullYear();
 
             series.push({
-              name: "Top " + that.range + "% (" + formatdate1 + ' : ' + indexValue[indexValue.length - 1].toFixed(2) + ")",
+              name: "Top " + (100-that.range) + "% (" + formatdate1 + ' : ' + indexValue[indexValue.length - 1].toFixed(2) + ")",
               marker: {
                 symbol: 'circle'
               },

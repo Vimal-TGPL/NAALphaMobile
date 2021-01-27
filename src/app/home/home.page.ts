@@ -70,8 +70,8 @@ export class HomePage implements OnInit, OnDestroy {
   cumReturn: any = "0.00%";
   annReturn: any = "0.00%";
   CurrSliderData:any = {'a': 0,
-    'aAngle': 0,
-    'e': 100,
+    'aAngle': 360,
+    'e': 0,
     'eAngle': 360};
   slideOpts:any = {
     initialSlide : this.CurrSlide,
@@ -146,8 +146,8 @@ export class HomePage implements OnInit, OnDestroy {
             this.ReportSec = false;
           }
           this.CurrSliderData = {'a': 0,
-          'aAngle': 0,
-          'e': 100,
+          'aAngle': 360,
+          'e': 0,
           'eAngle': 360};
           this.indexClassifier();
           this.sectorClassifier();
@@ -338,8 +338,8 @@ export class HomePage implements OnInit, OnDestroy {
       this.AL_rangeCircle = false;
       this.firstLoad = true;
       this.CurrSliderData = {'a': 0,
-      'aAngle': 0,
-      'e': 100,
+      'aAngle': 360,
+      'e': 0,
       'eAngle': 360};
       if(!this.ReportSec && !this.AlertSec){
         setTimeout(() => {
@@ -381,8 +381,8 @@ export class HomePage implements OnInit, OnDestroy {
       this.AL_rangeCircle = false;
       this.avoidSlides = false;
       this.CurrSliderData = {'a': 0,
-      'aAngle': 0,
-      'e': 100,
+      'aAngle': 360,
+      'e': 0,
       'eAngle': 360};
       var userInfo = {
         userId: this.currentUser.userId,
@@ -553,9 +553,9 @@ export class HomePage implements OnInit, OnDestroy {
         }else if(this.AvoidLosersec && !this.AL_mainCircle && this.AL_rangeCircle){
           this.showLoader = true;
           this.CurrSliderData = {'a': 0,
-          'aAngle': 0,
+          'aAngle': 360,
           'e': 0,
-          'eAngle': 0};
+          'eAngle': 360};
           setTimeout(() => {
             this.AL_List = this.selIndexData;
             this.OnAL_listChange(this.CurrSliderData);
@@ -564,9 +564,9 @@ export class HomePage implements OnInit, OnDestroy {
         }else if(this.AvoidLosersec && this.AL_mainCircle && !this.AL_rangeCircle){
           this.showLoader = true;
           this.CurrSliderData = {'a': 0,
-          'aAngle': 0,
+          'aAngle': 360,
           'e': 0,
-          'eAngle': 0};
+          'eAngle': 360};
           setTimeout(() => {
             this.AL_List = this.selIndexData;
             this.OnAL_listChange(this.CurrSliderData);
@@ -1484,7 +1484,7 @@ export class HomePage implements OnInit, OnDestroy {
       }else{
         GICSId = that.selComp.industry.slice(0,2*(selSecLvl-1));
       }
-      range = 'top'+Math.round(this.CurrSliderData.e);
+      range = 'top'+(100 - Math.round(this.CurrSliderData.e));
 
       this.dataHandler.getIndexPreRuns(this.IndexId,GICSId,Ctype,range).subscribe((res:any[]) =>{
         if(res.length != 0){
@@ -2108,6 +2108,7 @@ export class HomePage implements OnInit, OnDestroy {
     
     if((that.AvoidLosersec && !that.AL_mainCircle && !that.AL_rangeCircle) || (that.AvoidLosersec && that.AL_rangeCircle )) {
       that.CurrSliderData = sliderObject;
+      console.log(that.CurrSliderData);
     }
     if(that.AvoidLosersec && that.AL_rangeCircle && !that.AL_mainCircle)
       {
@@ -2172,7 +2173,7 @@ export class HomePage implements OnInit, OnDestroy {
   }
 
   if (values.end != 100 && values.end != 0) {
-    d3.select('#handles').select('.a2').attr('transform', 'rotate(' + (helper.graphdata[1].angle) + ') translate(0,' + (radius) * -1 + ')');
+    d3.select('#handles').select('.a2').attr('transform', 'rotate(' + (helper.graphdata[1].angle) + ') translate(0,' + (radius-3) * -1 + ')');
   }
 
   function drawHandles() {
@@ -2181,6 +2182,7 @@ export class HomePage implements OnInit, OnDestroy {
       .append('g')
       .attr('class', 'handlercontainer')
       .attr('transform', function (d) {
+        console.log(angularScale(d.value))
         return 'rotate(' + angularScale(d.value) + ') translate(0,' + (radius-3) * -1 + ')';
       })
       .call(dragBehavior);

@@ -63,7 +63,7 @@
     "cordova-plugin-screen-orientation": "^3.0.2",
     "cordova-plugin-useragent": "^1.0.6",
     "cordova-plugin-x-toast": "^2.7.2",
-    "cordova-res": "^0.8.1",
+    "cordova-res": "^0.15.2",
     "cordova-sqlite-storage": "^4.0.0",
     "core-js": "^2.6.12",
     "d3": "^5.14.2",
@@ -83,7 +83,7 @@
     "@angular-devkit/build-angular": "~0.803.20",
     "@angular-devkit/core": "~8.3.20",
     "@angular-devkit/schematics": "~8.3.20",
-    "@angular/cli": "~8.3.20",
+    "@angular/cli": "8.3.29",
     "@angular/compiler": "~8.1.2",
     "@angular/compiler-cli": "~8.1.2",
     "@angular/language-service": "~8.1.2",
@@ -140,8 +140,8 @@
     },
     "platforms": [
       "browser",
-      "ios",
-      "android"
+      "android",
+      "ios"
     ]
   }
 }
