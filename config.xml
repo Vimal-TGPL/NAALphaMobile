@@ -25,6 +25,7 @@
     <preference name="KeyboardDisplayRequiresUserAction" value="false" />
     <preference name="android-targetSdkVersion" value="29" />
     <preference name="Hostname" value="naamobileapp" />
+    <preference name="WKWebViewOnly" value="true" />
     <allow-navigation href="http://naamobileapp/*" />
     <platform name="android">
         <edit-config file="app/src/main/AndroidManifest.xml" mode="merge" target="/manifest/application" xmlns:android="http://schemas.android.com/apk/res/android">
