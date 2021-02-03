@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<plugin xmlns="http://www.phonegap.com/ns/plugins/1.0" xmlns:android="http://schemas.android.com/apk/res/android" id="cordova-plugin-advanced-http" version="2.2.0">
+<plugin xmlns="http://www.phonegap.com/ns/plugins/1.0" xmlns:android="http://schemas.android.com/apk/res/android" id="cordova-plugin-advanced-http" version="2.5.1">
   <name>Advanced HTTP plugin</name>
   <description>
         Cordova / Phonegap plugin for communicating with HTTP servers using SSL pinning
@@ -9,6 +9,7 @@
   </engines>
   <dependency id="cordova-plugin-file" version=">=2.0.0"/>
   <js-module src="www/cookie-handler.js" name="cookie-handler"/>
+  <js-module src="www/dependency-validator.js" name="dependency-validator"/>
   <js-module src="www/error-codes.js" name="error-codes"/>
   <js-module src="www/global-configs.js" name="global-configs"/>
   <js-module src="www/helpers.js" name="helpers"/>
@@ -16,6 +17,7 @@
   <js-module src="www/local-storage-store.js" name="local-storage-store"/>
   <js-module src="www/lodash.js" name="lodash"/>
   <js-module src="www/messages.js" name="messages"/>
+  <js-module src="www/ponyfills.js" name="ponyfills"/>
   <js-module src="www/public-interface.js" name="public-interface"/>
   <js-module src="www/umd-tough-cookie.js" name="tough-cookie"/>
   <js-module src="www/url-util.js" name="url-util"/>
@@ -29,6 +31,7 @@
       </feature>
     </config-file>
     <header-file src="src/ios/CordovaHttpPlugin.h"/>
+    <header-file src="src/ios/BinaryRequestSerializer.h"/>
     <header-file src="src/ios/BinaryResponseSerializer.h"/>
     <header-file src="src/ios/TextResponseSerializer.h"/>
     <header-file src="src/ios/TextRequestSerializer.h"/>
@@ -41,6 +44,7 @@
     <header-file src="src/ios/AFNetworking/AFURLSessionManager.h"/>
     <header-file src="src/ios/SDNetworkActivityIndicator/SDNetworkActivityIndicator.h"/>
     <source-file src="src/ios/CordovaHttpPlugin.m"/>
+    <source-file src="src/ios/BinaryRequestSerializer.m"/>
     <source-file src="src/ios/BinaryResponseSerializer.m"/>
     <source-file src="src/ios/TextResponseSerializer.m"/>
     <source-file src="src/ios/TextRequestSerializer.m"/>

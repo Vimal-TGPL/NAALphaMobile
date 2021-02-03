@@ -6,6 +6,8 @@ cordova.define("cordova-plugin-advanced-http.js-util", function(require, exports
         return 'Array';
       case '[object Blob]':
         return 'Blob';
+      case '[object Uint8Array]':
+        return 'Uint8Array';
       case '[object ArrayBuffer]':
         return 'ArrayBuffer';
       case '[object Boolean]':

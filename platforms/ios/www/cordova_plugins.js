@@ -187,6 +187,11 @@ cordova.define('cordova/plugin_list', function(require, exports, module) {
       "pluginId": "cordova-plugin-advanced-http"
     },
     {
+      "id": "cordova-plugin-advanced-http.dependency-validator",
+      "file": "plugins/cordova-plugin-advanced-http/www/dependency-validator.js",
+      "pluginId": "cordova-plugin-advanced-http"
+    },
+    {
       "id": "cordova-plugin-advanced-http.error-codes",
       "file": "plugins/cordova-plugin-advanced-http/www/error-codes.js",
       "pluginId": "cordova-plugin-advanced-http"
@@ -219,6 +224,11 @@ cordova.define('cordova/plugin_list', function(require, exports, module) {
     {
       "id": "cordova-plugin-advanced-http.messages",
       "file": "plugins/cordova-plugin-advanced-http/www/messages.js",
+      "pluginId": "cordova-plugin-advanced-http"
+    },
+    {
+      "id": "cordova-plugin-advanced-http.ponyfills",
+      "file": "plugins/cordova-plugin-advanced-http/www/ponyfills.js",
       "pluginId": "cordova-plugin-advanced-http"
     },
     {
@@ -297,8 +307,7 @@ cordova.define('cordova/plugin_list', function(require, exports, module) {
       "file": "plugins/cordova-plugin-inappbrowser/www/inappbrowser.js",
       "pluginId": "cordova-plugin-inappbrowser",
       "clobbers": [
-        "cordova.InAppBrowser.open",
-        "window.open"
+        "cordova.InAppBrowser.open"
       ]
     },
     {
@@ -383,12 +392,6 @@ cordova.define('cordova/plugin_list', function(require, exports, module) {
       ]
     },
     {
-      "id": "es6-promise-plugin.Promise",
-      "file": "plugins/es6-promise-plugin/www/promise.js",
-      "pluginId": "es6-promise-plugin",
-      "runs": true
-    },
-    {
       "id": "im.ltdev.cordova.UserAgent.UserAgent",
       "file": "plugins/im.ltdev.cordova.UserAgent/www/UserAgent.js",
       "pluginId": "im.ltdev.cordova.UserAgent",
@@ -400,22 +403,21 @@ cordova.define('cordova/plugin_list', function(require, exports, module) {
   module.exports.metadata = {
     "com-sarriaroman-photoviewer": "1.2.4",
     "cordova-plugin-file": "6.0.2",
-    "cordova-plugin-advanced-http": "2.2.0",
+    "cordova-plugin-advanced-http": "2.5.1",
     "cordova-plugin-android-permissions": "1.0.2",
-    "cordova-plugin-app-version": "0.1.9",
-    "cordova-plugin-device": "2.0.2",
+    "cordova-plugin-app-version": "0.1.12",
+    "cordova-plugin-device": "2.0.3",
     "cordova-plugin-device-orientation": "2.0.1",
-    "cordova-plugin-inappbrowser": "3.1.0",
+    "cordova-plugin-inappbrowser": "4.1.0",
     "cordova-plugin-ionic-keyboard": "2.2.0",
-    "cordova-plugin-ionic-webview": "4.1.3",
+    "cordova-plugin-ionic-webview": "4.2.1",
     "cordova-plugin-network-information": "2.0.2",
     "cordova-plugin-screen-orientation": "3.0.2",
-    "cordova-plugin-splashscreen": "5.0.2",
-    "cordova-plugin-statusbar": "2.4.2",
-    "cordova-plugin-whitelist": "1.3.3",
+    "cordova-plugin-splashscreen": "5.0.4",
+    "cordova-plugin-statusbar": "2.4.3",
+    "cordova-plugin-whitelist": "1.3.4",
     "cordova-plugin-x-toast": "2.7.2",
     "cordova-sqlite-storage": "4.0.0",
-    "es6-promise-plugin": "4.2.2",
     "im.ltdev.cordova.UserAgent": "1.0.1"
   };
 });

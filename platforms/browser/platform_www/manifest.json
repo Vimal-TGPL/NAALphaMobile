@@ -1,6 +1,6 @@
 {
-  "name": "MyApp",
-  "short_name": "MyApp",
+  "name": "NewAgeAlpha",
+  "short_name": "NewAgeAlpha",
   "description": "Description of your app from template",
   "start_url": "index.html",
   "scope": "index.html",

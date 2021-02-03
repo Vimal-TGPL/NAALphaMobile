@@ -10,7 +10,7 @@
   "cordova-plugin-statusbar": {
     "source": {
       "type": "registry",
-      "id": "cordova-plugin-statusbar@2.4.2"
+      "id": "cordova-plugin-statusbar@^2.4.3"
     },
     "is_top_level": true,
     "variables": {}
@@ -26,25 +26,15 @@
   "cordova-plugin-splashscreen": {
     "source": {
       "type": "registry",
-      "id": "cordova-plugin-splashscreen@5.0.2"
+      "id": "cordova-plugin-splashscreen@^5.0.4"
     },
     "is_top_level": true,
     "variables": {}
   },
-  "cordova-plugin-ionic-webview": {
-    "source": {
-      "type": "registry",
-      "id": "cordova-plugin-ionic-webview@^4.0.0"
-    },
-    "is_top_level": true,
-    "variables": {
-      "ANDROID_SUPPORT_ANNOTATIONS_VERSION": "27.+"
-    }
-  },
   "cordova-plugin-ionic-keyboard": {
     "source": {
       "type": "registry",
-      "id": "cordova-plugin-ionic-keyboard@^2.0.5"
+      "id": "cordova-plugin-ionic-keyboard@^2.2.0"
     },
     "is_top_level": true,
     "variables": {}
@@ -52,7 +42,7 @@
   "cordova-plugin-inappbrowser": {
     "source": {
       "type": "registry",
-      "id": "cordova-plugin-inappbrowser@^3.1.0"
+      "id": "cordova-plugin-inappbrowser@4.1.0"
     },
     "is_top_level": true,
     "variables": {}
@@ -60,7 +50,7 @@
   "cordova-plugin-advanced-http": {
     "source": {
       "type": "registry",
-      "id": "cordova-plugin-advanced-http"
+      "id": "cordova-plugin-advanced-http@^2.5.1"
     },
     "is_top_level": true,
     "variables": {
@@ -70,15 +60,15 @@
   "cordova-plugin-file": {
     "source": {
       "type": "registry",
-      "id": "cordova-plugin-file@^6.0.2"
+      "id": "cordova-plugin-file@>=2.0.0"
     },
-    "is_top_level": true,
+    "is_top_level": false,
     "variables": {}
   },
   "cordova-sqlite-storage": {
     "source": {
       "type": "registry",
-      "id": "cordova-sqlite-storage"
+      "id": "cordova-sqlite-storage@^4.0.0"
     },
     "is_top_level": true,
     "variables": {}
@@ -86,23 +76,15 @@
   "cordova-plugin-screen-orientation": {
     "source": {
       "type": "registry",
-      "id": "cordova-plugin-screen-orientation"
+      "id": "cordova-plugin-screen-orientation@^3.0.2"
     },
     "is_top_level": true,
-    "variables": {}
-  },
-  "es6-promise-plugin": {
-    "source": {
-      "type": "registry",
-      "id": "es6-promise-plugin@^4.1.0"
-    },
-    "is_top_level": false,
     "variables": {}
   },
   "cordova-plugin-android-permissions": {
     "source": {
       "type": "registry",
-      "id": "cordova-plugin-android-permissions"
+      "id": "cordova-plugin-android-permissions@1.0.2"
     },
     "is_top_level": true,
     "variables": {}
@@ -118,7 +100,7 @@
   "cordova-plugin-device-orientation": {
     "source": {
       "type": "registry",
-      "id": "cordova-plugin-device-orientation"
+      "id": "cordova-plugin-device-orientation@2.0.1"
     },
     "is_top_level": true,
     "variables": {}
@@ -126,7 +108,7 @@
   "cordova-plugin-x-toast": {
     "source": {
       "type": "registry",
-      "id": "cordova-plugin-x-toast"
+      "id": "cordova-plugin-x-toast@^2.7.2"
     },
     "is_top_level": true,
     "variables": {}
@@ -134,15 +116,7 @@
   "com-sarriaroman-photoviewer": {
     "source": {
       "type": "registry",
-      "id": "com-sarriaroman-photoviewer"
-    },
-    "is_top_level": true,
-    "variables": {}
-  },
-  "im.ltdev.cordova.UserAgent": {
-    "source": {
-      "type": "registry",
-      "id": "cordova-plugin-useragent"
+      "id": "com-sarriaroman-photoviewer@^1.2.5"
     },
     "is_top_level": true,
     "variables": {}
@@ -150,7 +124,23 @@
   "cordova-plugin-app-version": {
     "source": {
       "type": "registry",
-      "id": "cordova-plugin-app-version"
+      "id": "cordova-plugin-app-version@^0.1.12"
+    },
+    "is_top_level": true,
+    "variables": {}
+  },
+  "cordova-plugin-ionic-webview": {
+    "source": {
+      "type": "registry",
+      "id": "cordova-plugin-ionic-webview@^4.0.0"
+    },
+    "is_top_level": true,
+    "variables": {}
+  },
+  "im.ltdev.cordova.UserAgent": {
+    "source": {
+      "type": "registry",
+      "id": "cordova-plugin-useragent@^1.0.6"
     },
     "is_top_level": true,
     "variables": {}

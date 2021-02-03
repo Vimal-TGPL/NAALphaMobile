@@ -1,28 +1,27 @@
 {
-  "_from": "cordova-plugin-useragent",
+  "_from": "cordova-plugin-useragent@^1.0.6",
   "_id": "cordova-plugin-useragent@1.0.6",
   "_inBundle": false,
   "_integrity": "sha512-Oh5QaIonlI7UjUJ1dxXTRYRYBO1QWQNjhDXIR+J9b5BByg57nSFSjWffhY1DAHBnjewggkh2ZV88LBBp3zjPvg==",
   "_location": "/cordova-plugin-useragent",
   "_phantomChildren": {},
   "_requested": {
-    "type": "tag",
+    "type": "range",
     "registry": true,
-    "raw": "cordova-plugin-useragent",
+    "raw": "cordova-plugin-useragent@^1.0.6",
     "name": "cordova-plugin-useragent",
     "escapedName": "cordova-plugin-useragent",
-    "rawSpec": "",
+    "rawSpec": "^1.0.6",
     "saveSpec": null,
-    "fetchSpec": "latest"
+    "fetchSpec": "^1.0.6"
   },
   "_requiredBy": [
-    "#USER",
     "/"
   ],
   "_resolved": "https://registry.npmjs.org/cordova-plugin-useragent/-/cordova-plugin-useragent-1.0.6.tgz",
   "_shasum": "19cc4fa01f5c91b64f1ad4258547228603aec239",
-  "_spec": "cordova-plugin-useragent",
-  "_where": "C:\\Projects\\NAAlphaMobile",
+  "_spec": "cordova-plugin-useragent@^1.0.6",
+  "_where": "/Users/lhadmin/NAALphaMobile",
   "author": {
     "name": "Daniel Sogl"
   },

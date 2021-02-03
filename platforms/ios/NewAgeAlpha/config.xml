@@ -39,14 +39,6 @@
         <param name="ios-package" value="CDVCompass" />
     </feature>
     <feature name="InAppBrowser">
-        <param name="ios-package" value="CDVInAppBrowser" />
-        <param name="onload" value="true" />
-    </feature>
-    <feature name="UIInAppBrowser">
-        <param name="ios-package" value="CDVUIInAppBrowser" />
-        <param name="onload" value="true" />
-    </feature>
-    <feature name="WKInAppBrowser">
         <param name="ios-package" value="CDVWKInAppBrowser" />
         <param name="onload" value="true" />
     </feature>
@@ -173,4 +165,5 @@
     <preference name="ShowSplashScreen" value="true" />
     <preference name="android-targetSdkVersion" value="29" />
     <preference name="Hostname" value="naamobileapp" />
+    <preference name="WKWebViewOnly" value="true" />
 </widget>

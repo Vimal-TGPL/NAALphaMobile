@@ -1,20 +1,8 @@
-function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
-
-function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
-
-function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
-
-function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
-
-function _iterableToArrayLimit(arr, i) { if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr))) return; var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
-
-function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -24,29 +12,35 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([[33], {
   /***/
-  "./node_modules/@ionic/core/dist/esm/ion-slide_2.entry.js":
-  /*!****************************************************************!*\
-    !*** ./node_modules/@ionic/core/dist/esm/ion-slide_2.entry.js ***!
-    \****************************************************************/
+  "./node_modules/@ionic/core/dist/esm/ion-menu_3.entry.js":
+  /*!***************************************************************!*\
+    !*** ./node_modules/@ionic/core/dist/esm/ion-menu_3.entry.js ***!
+    \***************************************************************/
 
-  /*! exports provided: ion_slide, ion_slides */
+  /*! exports provided: ion_menu, ion_menu_button, ion_menu_toggle */
 
   /***/
-  function node_modulesIonicCoreDistEsmIonSlide_2EntryJs(module, __webpack_exports__, __webpack_require__) {
+  function node_modulesIonicCoreDistEsmIonMenu_3EntryJs(module, __webpack_exports__, __webpack_require__) {
     "use strict";
 
     __webpack_require__.r(__webpack_exports__);
     /* harmony export (binding) */
 
 
-    __webpack_require__.d(__webpack_exports__, "ion_slide", function () {
-      return Slide;
+    __webpack_require__.d(__webpack_exports__, "ion_menu", function () {
+      return Menu;
     });
     /* harmony export (binding) */
 
 
-    __webpack_require__.d(__webpack_exports__, "ion_slides", function () {
-      return Slides;
+    __webpack_require__.d(__webpack_exports__, "ion_menu_button", function () {
+      return MenuButton;
+    });
+    /* harmony export (binding) */
+
+
+    __webpack_require__.d(__webpack_exports__, "ion_menu_toggle", function () {
+      return MenuToggle;
     });
     /* harmony import */
 
@@ -60,106 +54,210 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
     var _ionic_global_9d5c8ee3_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
     /*! ./ionic-global-9d5c8ee3.js */
     "./node_modules/@ionic/core/dist/esm/ionic-global-9d5c8ee3.js");
+    /* harmony import */
 
-    var slideCss = "ion-slide{display:block;width:100%;height:100%}.slide-zoom{display:block;width:100%;text-align:center}.swiper-slide{display:-ms-flexbox;display:flex;position:relative;-ms-flex-negative:0;flex-shrink:0;-ms-flex-align:center;align-items:center;-ms-flex-pack:center;justify-content:center;width:100%;height:100%;font-size:18px;text-align:center;-webkit-box-sizing:border-box;box-sizing:border-box}.swiper-slide img{width:auto;max-width:100%;height:auto;max-height:100%}";
 
-    var Slide = /*#__PURE__*/function () {
-      function Slide(hostRef) {
-        _classCallCheck(this, Slide);
+    var _helpers_90f46169_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
+    /*! ./helpers-90f46169.js */
+    "./node_modules/@ionic/core/dist/esm/helpers-90f46169.js");
+    /* harmony import */
+
+
+    var _animation_54fe0237_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
+    /*! ./animation-54fe0237.js */
+    "./node_modules/@ionic/core/dist/esm/animation-54fe0237.js");
+    /* harmony import */
+
+
+    var _cubic_bezier_eea9a7a9_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
+    /*! ./cubic-bezier-eea9a7a9.js */
+    "./node_modules/@ionic/core/dist/esm/cubic-bezier-eea9a7a9.js");
+    /* harmony import */
+
+
+    var _gesture_controller_31cb6bb9_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(
+    /*! ./gesture-controller-31cb6bb9.js */
+    "./node_modules/@ionic/core/dist/esm/gesture-controller-31cb6bb9.js");
+    /* harmony import */
+
+
+    var _hardware_back_button_4a6b37fb_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(
+    /*! ./hardware-back-button-4a6b37fb.js */
+    "./node_modules/@ionic/core/dist/esm/hardware-back-button-4a6b37fb.js");
+    /* harmony import */
+
+
+    var _index_3a75d1af_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(
+    /*! ./index-3a75d1af.js */
+    "./node_modules/@ionic/core/dist/esm/index-3a75d1af.js");
+    /* harmony import */
+
+
+    var _theme_ff3fc52f_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(
+    /*! ./theme-ff3fc52f.js */
+    "./node_modules/@ionic/core/dist/esm/theme-ff3fc52f.js");
+
+    var menuIosCss = ":host{--width:304px;--min-width:auto;--max-width:auto;--height:100%;--min-height:auto;--max-height:auto;--background:var(--ion-background-color, #fff);left:0;right:0;top:0;bottom:0;display:none;position:absolute;contain:strict}:host(.show-menu){display:block}.menu-inner{left:0;right:auto;top:0;bottom:0;-webkit-transform:translate3d(-9999px,  0,  0);transform:translate3d(-9999px,  0,  0);display:-ms-flexbox;display:flex;position:absolute;-ms-flex-direction:column;flex-direction:column;-ms-flex-pack:justify;justify-content:space-between;width:var(--width);min-width:var(--min-width);max-width:var(--max-width);height:var(--height);min-height:var(--min-height);max-height:var(--max-height);background:var(--background);contain:strict}[dir=rtl] .menu-inner,:host-context([dir=rtl]) .menu-inner{left:unset;right:unset;left:auto;right:0}[dir=rtl] .menu-inner,:host-context([dir=rtl]) .menu-inner{-webkit-transform:translate3d(calc(-1 * -9999px),  0,  0);transform:translate3d(calc(-1 * -9999px),  0,  0)}:host(.menu-side-start) .menu-inner{--ion-safe-area-right:0px;right:auto;left:0}:host(.menu-side-end) .menu-inner{--ion-safe-area-left:0px;right:0;left:auto;}ion-backdrop{display:none;opacity:0.01;z-index:-1}@media (max-width: 340px){.menu-inner{--width:264px}}:host(.menu-type-reveal){z-index:0}:host(.menu-type-reveal.show-menu) .menu-inner{-webkit-transform:translate3d(0,  0,  0);transform:translate3d(0,  0,  0)}:host(.menu-type-overlay){z-index:1000}:host(.menu-type-overlay) .show-backdrop{display:block;cursor:pointer}:host(.menu-pane-visible){width:var(--width);min-width:var(--min-width);max-width:var(--max-width)}:host(.menu-pane-visible) .menu-inner{left:0;right:0;width:auto;-webkit-transform:none !important;transform:none !important;-webkit-box-shadow:none !important;box-shadow:none !important}:host(.menu-pane-visible) ion-backdrop{display:hidden !important;}:host(.menu-type-push){z-index:1000}:host(.menu-type-push) .show-backdrop{display:block}";
+    var menuMdCss = ":host{--width:304px;--min-width:auto;--max-width:auto;--height:100%;--min-height:auto;--max-height:auto;--background:var(--ion-background-color, #fff);left:0;right:0;top:0;bottom:0;display:none;position:absolute;contain:strict}:host(.show-menu){display:block}.menu-inner{left:0;right:auto;top:0;bottom:0;-webkit-transform:translate3d(-9999px,  0,  0);transform:translate3d(-9999px,  0,  0);display:-ms-flexbox;display:flex;position:absolute;-ms-flex-direction:column;flex-direction:column;-ms-flex-pack:justify;justify-content:space-between;width:var(--width);min-width:var(--min-width);max-width:var(--max-width);height:var(--height);min-height:var(--min-height);max-height:var(--max-height);background:var(--background);contain:strict}[dir=rtl] .menu-inner,:host-context([dir=rtl]) .menu-inner{left:unset;right:unset;left:auto;right:0}[dir=rtl] .menu-inner,:host-context([dir=rtl]) .menu-inner{-webkit-transform:translate3d(calc(-1 * -9999px),  0,  0);transform:translate3d(calc(-1 * -9999px),  0,  0)}:host(.menu-side-start) .menu-inner{--ion-safe-area-right:0px;right:auto;left:0}:host(.menu-side-end) .menu-inner{--ion-safe-area-left:0px;right:0;left:auto;}ion-backdrop{display:none;opacity:0.01;z-index:-1}@media (max-width: 340px){.menu-inner{--width:264px}}:host(.menu-type-reveal){z-index:0}:host(.menu-type-reveal.show-menu) .menu-inner{-webkit-transform:translate3d(0,  0,  0);transform:translate3d(0,  0,  0)}:host(.menu-type-overlay){z-index:1000}:host(.menu-type-overlay) .show-backdrop{display:block;cursor:pointer}:host(.menu-pane-visible){width:var(--width);min-width:var(--min-width);max-width:var(--max-width)}:host(.menu-pane-visible) .menu-inner{left:0;right:0;width:auto;-webkit-transform:none !important;transform:none !important;-webkit-box-shadow:none !important;box-shadow:none !important}:host(.menu-pane-visible) ion-backdrop{display:hidden !important;}:host(.menu-type-overlay) .menu-inner{-webkit-box-shadow:4px 0px 16px rgba(0, 0, 0, 0.18);box-shadow:4px 0px 16px rgba(0, 0, 0, 0.18)}";
+    var iosEasing = 'cubic-bezier(0.32,0.72,0,1)';
+    var mdEasing = 'cubic-bezier(0.0,0.0,0.2,1)';
+    var iosEasingReverse = 'cubic-bezier(1, 0, 0.68, 0.28)';
+    var mdEasingReverse = 'cubic-bezier(0.4, 0, 0.6, 1)';
+
+    var Menu = /*#__PURE__*/function () {
+      function Menu(hostRef) {
+        _classCallCheck(this, Menu);
 
         Object(_index_e806d1f6_js__WEBPACK_IMPORTED_MODULE_0__["r"])(this, hostRef);
+        this.ionWillOpen = Object(_index_e806d1f6_js__WEBPACK_IMPORTED_MODULE_0__["e"])(this, "ionWillOpen", 7);
+        this.ionWillClose = Object(_index_e806d1f6_js__WEBPACK_IMPORTED_MODULE_0__["e"])(this, "ionWillClose", 7);
+        this.ionDidOpen = Object(_index_e806d1f6_js__WEBPACK_IMPORTED_MODULE_0__["e"])(this, "ionDidOpen", 7);
+        this.ionDidClose = Object(_index_e806d1f6_js__WEBPACK_IMPORTED_MODULE_0__["e"])(this, "ionDidClose", 7);
+        this.ionMenuChange = Object(_index_e806d1f6_js__WEBPACK_IMPORTED_MODULE_0__["e"])(this, "ionMenuChange", 7);
+        this.lastOnEnd = 0;
+        this.blocker = _gesture_controller_31cb6bb9_js__WEBPACK_IMPORTED_MODULE_5__["G"].createBlocker({
+          disableScroll: true
+        });
+        this.isAnimating = false;
+        this._isOpen = false;
+        this.isPaneVisible = false;
+        this.isEndSide = false;
+        /**
+         * If `true`, the menu is disabled.
+         */
+
+        this.disabled = false;
+        /**
+         * Which side of the view the menu should be placed.
+         */
+
+        this.side = 'start';
+        /**
+         * If `true`, swiping the menu is enabled.
+         */
+
+        this.swipeGesture = true;
+        /**
+         * The edge threshold for dragging the menu open.
+         * If a drag/swipe happens over this value, the menu is not triggered.
+         */
+
+        this.maxEdgeStart = 50;
       }
 
-      _createClass(Slide, [{
-        key: "render",
-        value: function render() {
-          var _class;
+      _createClass(Menu, [{
+        key: "typeChanged",
+        value: function typeChanged(type, oldType) {
+          var contentEl = this.contentEl;
 
-          var mode = Object(_ionic_global_9d5c8ee3_js__WEBPACK_IMPORTED_MODULE_1__["b"])(this);
-          return Object(_index_e806d1f6_js__WEBPACK_IMPORTED_MODULE_0__["h"])(_index_e806d1f6_js__WEBPACK_IMPORTED_MODULE_0__["H"], {
-            "class": (_class = {}, _defineProperty(_class, mode, true), _defineProperty(_class, 'swiper-slide', true), _defineProperty(_class, 'swiper-zoom-container', true), _class)
+          if (contentEl) {
+            if (oldType !== undefined) {
+              contentEl.classList.remove("menu-content-".concat(oldType));
+            }
+
+            contentEl.classList.add("menu-content-".concat(type));
+            contentEl.removeAttribute('style');
+          }
+
+          if (this.menuInnerEl) {
+            // Remove effects of previous animations
+            this.menuInnerEl.removeAttribute('style');
+          }
+
+          this.animation = undefined;
+        }
+      }, {
+        key: "disabledChanged",
+        value: function disabledChanged() {
+          this.updateState();
+          this.ionMenuChange.emit({
+            disabled: this.disabled,
+            open: this._isOpen
           });
         }
-      }]);
-
-      return Slide;
-    }();
-
-    Slide.style = slideCss;
-    var slidesIosCss = ".swiper-container{margin:0 auto;position:relative;overflow:hidden;list-style:none;padding:0;z-index:1}.swiper-container-no-flexbox .swiper-slide{float:left}.swiper-container-vertical{height:100%}.swiper-container-vertical>.swiper-wrapper{-webkit-box-orient:vertical;-webkit-box-direction:normal;-webkit-flex-direction:column;-ms-flex-direction:column;flex-direction:column}.swiper-wrapper{position:relative;width:100%;height:100%;z-index:1;display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-transition-property:-webkit-transform;transition-property:-webkit-transform;-o-transition-property:transform;transition-property:transform;transition-property:transform, -webkit-transform;-webkit-box-sizing:content-box;box-sizing:content-box}.swiper-container-android .swiper-slide,.swiper-wrapper{-webkit-transform:translate3d(0px, 0, 0);transform:translate3d(0px, 0, 0)}.swiper-container-multirow>.swiper-wrapper{-webkit-flex-wrap:wrap;-ms-flex-wrap:wrap;flex-wrap:wrap}.swiper-container-free-mode>.swiper-wrapper{-webkit-transition-timing-function:ease-out;-o-transition-timing-function:ease-out;transition-timing-function:ease-out;margin:0 auto}.swiper-slide{-webkit-flex-shrink:0;-ms-flex-negative:0;flex-shrink:0;width:100%;height:100%;position:relative;-webkit-transition-property:-webkit-transform;transition-property:-webkit-transform;-o-transition-property:transform;transition-property:transform;transition-property:transform, -webkit-transform}.swiper-invisible-blank-slide{visibility:hidden}.swiper-container-autoheight,.swiper-container-autoheight .swiper-slide{height:auto}.swiper-container-autoheight .swiper-wrapper{-webkit-box-align:start;-webkit-align-items:flex-start;-ms-flex-align:start;align-items:flex-start;-webkit-transition-property:height, -webkit-transform;transition-property:height, -webkit-transform;-o-transition-property:transform, height;transition-property:transform, height;transition-property:transform, height, -webkit-transform}.swiper-container-3d{-webkit-perspective:1200px;perspective:1200px}.swiper-container-3d .swiper-wrapper,.swiper-container-3d .swiper-slide,.swiper-container-3d .swiper-slide-shadow-left,.swiper-container-3d .swiper-slide-shadow-right,.swiper-container-3d .swiper-slide-shadow-top,.swiper-container-3d .swiper-slide-shadow-bottom,.swiper-container-3d .swiper-cube-shadow{-webkit-transform-style:preserve-3d;transform-style:preserve-3d}.swiper-container-3d .swiper-slide-shadow-left,.swiper-container-3d .swiper-slide-shadow-right,.swiper-container-3d .swiper-slide-shadow-top,.swiper-container-3d .swiper-slide-shadow-bottom{position:absolute;left:0;top:0;width:100%;height:100%;pointer-events:none;z-index:10}.swiper-container-3d .swiper-slide-shadow-left{background-image:-webkit-gradient(linear, right top, left top, from(rgba(0, 0, 0, 0.5)), to(rgba(0, 0, 0, 0)));background-image:-webkit-linear-gradient(right, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0));background-image:-o-linear-gradient(right, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0));background-image:linear-gradient(to left, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0))}.swiper-container-3d .swiper-slide-shadow-right{background-image:-webkit-gradient(linear, left top, right top, from(rgba(0, 0, 0, 0.5)), to(rgba(0, 0, 0, 0)));background-image:-webkit-linear-gradient(left, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0));background-image:-o-linear-gradient(left, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0));background-image:linear-gradient(to right, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0))}.swiper-container-3d .swiper-slide-shadow-top{background-image:-webkit-gradient(linear, left bottom, left top, from(rgba(0, 0, 0, 0.5)), to(rgba(0, 0, 0, 0)));background-image:-webkit-linear-gradient(bottom, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0));background-image:-o-linear-gradient(bottom, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0));background-image:linear-gradient(to top, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0))}.swiper-container-3d .swiper-slide-shadow-bottom{background-image:-webkit-gradient(linear, left top, left bottom, from(rgba(0, 0, 0, 0.5)), to(rgba(0, 0, 0, 0)));background-image:-webkit-linear-gradient(top, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0));background-image:-o-linear-gradient(top, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0));background-image:linear-gradient(to bottom, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0))}.swiper-container-wp8-horizontal,.swiper-container-wp8-horizontal>.swiper-wrapper{-ms-touch-action:pan-y;touch-action:pan-y}.swiper-container-wp8-vertical,.swiper-container-wp8-vertical>.swiper-wrapper{-ms-touch-action:pan-x;touch-action:pan-x}.swiper-button-prev,.swiper-button-next{position:absolute;top:50%;width:27px;height:44px;margin-top:-22px;z-index:10;cursor:pointer;background-size:27px 44px;background-position:center;background-repeat:no-repeat}.swiper-button-prev.swiper-button-disabled,.swiper-button-next.swiper-button-disabled{opacity:0.35;cursor:auto;pointer-events:none}.swiper-button-prev,.swiper-container-rtl .swiper-button-next{background-image:url(\"data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20viewBox%3D'0%200%2027%2044'%3E%3Cpath%20d%3D'M0%2C22L22%2C0l2.1%2C2.1L4.2%2C22l19.9%2C19.9L22%2C44L0%2C22L0%2C22L0%2C22z'%20fill%3D'%23007aff'%2F%3E%3C%2Fsvg%3E\");left:10px;right:auto}.swiper-button-next,.swiper-container-rtl .swiper-button-prev{background-image:url(\"data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20viewBox%3D'0%200%2027%2044'%3E%3Cpath%20d%3D'M27%2C22L27%2C22L5%2C44l-2.1-2.1L22.8%2C22L2.9%2C2.1L5%2C0L27%2C22L27%2C22z'%20fill%3D'%23007aff'%2F%3E%3C%2Fsvg%3E\");right:10px;left:auto}.swiper-button-prev.swiper-button-white,.swiper-container-rtl .swiper-button-next.swiper-button-white{background-image:url(\"data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20viewBox%3D'0%200%2027%2044'%3E%3Cpath%20d%3D'M0%2C22L22%2C0l2.1%2C2.1L4.2%2C22l19.9%2C19.9L22%2C44L0%2C22L0%2C22L0%2C22z'%20fill%3D'%23ffffff'%2F%3E%3C%2Fsvg%3E\")}.swiper-button-next.swiper-button-white,.swiper-container-rtl .swiper-button-prev.swiper-button-white{background-image:url(\"data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20viewBox%3D'0%200%2027%2044'%3E%3Cpath%20d%3D'M27%2C22L27%2C22L5%2C44l-2.1-2.1L22.8%2C22L2.9%2C2.1L5%2C0L27%2C22L27%2C22z'%20fill%3D'%23ffffff'%2F%3E%3C%2Fsvg%3E\")}.swiper-button-prev.swiper-button-black,.swiper-container-rtl .swiper-button-next.swiper-button-black{background-image:url(\"data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20viewBox%3D'0%200%2027%2044'%3E%3Cpath%20d%3D'M0%2C22L22%2C0l2.1%2C2.1L4.2%2C22l19.9%2C19.9L22%2C44L0%2C22L0%2C22L0%2C22z'%20fill%3D'%23000000'%2F%3E%3C%2Fsvg%3E\")}.swiper-button-next.swiper-button-black,.swiper-container-rtl .swiper-button-prev.swiper-button-black{background-image:url(\"data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20viewBox%3D'0%200%2027%2044'%3E%3Cpath%20d%3D'M27%2C22L27%2C22L5%2C44l-2.1-2.1L22.8%2C22L2.9%2C2.1L5%2C0L27%2C22L27%2C22z'%20fill%3D'%23000000'%2F%3E%3C%2Fsvg%3E\")}.swiper-button-lock{display:none}.swiper-pagination{position:absolute;text-align:center;-webkit-transition:300ms opacity;-o-transition:300ms opacity;transition:300ms opacity;-webkit-transform:translate3d(0, 0, 0);transform:translate3d(0, 0, 0);z-index:10}.swiper-pagination.swiper-pagination-hidden{opacity:0}.swiper-pagination-fraction,.swiper-pagination-custom,.swiper-container-horizontal>.swiper-pagination-bullets{bottom:10px;left:0;width:100%}.swiper-pagination-bullets-dynamic{overflow:hidden;font-size:0}.swiper-pagination-bullets-dynamic .swiper-pagination-bullet{-webkit-transform:scale(0.33);-ms-transform:scale(0.33);transform:scale(0.33);position:relative}.swiper-pagination-bullets-dynamic .swiper-pagination-bullet-active{-webkit-transform:scale(1);-ms-transform:scale(1);transform:scale(1)}.swiper-pagination-bullets-dynamic .swiper-pagination-bullet-active-main{-webkit-transform:scale(1);-ms-transform:scale(1);transform:scale(1)}.swiper-pagination-bullets-dynamic .swiper-pagination-bullet-active-prev{-webkit-transform:scale(0.66);-ms-transform:scale(0.66);transform:scale(0.66)}.swiper-pagination-bullets-dynamic .swiper-pagination-bullet-active-prev-prev{-webkit-transform:scale(0.33);-ms-transform:scale(0.33);transform:scale(0.33)}.swiper-pagination-bullets-dynamic .swiper-pagination-bullet-active-next{-webkit-transform:scale(0.66);-ms-transform:scale(0.66);transform:scale(0.66)}.swiper-pagination-bullets-dynamic .swiper-pagination-bullet-active-next-next{-webkit-transform:scale(0.33);-ms-transform:scale(0.33);transform:scale(0.33)}.swiper-pagination-bullet{width:8px;height:8px;display:inline-block;border-radius:100%;background:#000;opacity:0.2}button.swiper-pagination-bullet{border:none;margin:0;padding:0;-webkit-box-shadow:none;box-shadow:none;-webkit-appearance:none;-moz-appearance:none;appearance:none}.swiper-pagination-clickable .swiper-pagination-bullet{cursor:pointer}.swiper-pagination-bullet-active{opacity:1;background:#007aff}.swiper-container-vertical>.swiper-pagination-bullets{right:10px;top:50%;-webkit-transform:translate3d(0px, -50%, 0);transform:translate3d(0px, -50%, 0)}.swiper-container-vertical>.swiper-pagination-bullets .swiper-pagination-bullet{margin:6px 0;display:block}.swiper-container-vertical>.swiper-pagination-bullets.swiper-pagination-bullets-dynamic{top:50%;-webkit-transform:translateY(-50%);-ms-transform:translateY(-50%);transform:translateY(-50%);width:8px}.swiper-container-vertical>.swiper-pagination-bullets.swiper-pagination-bullets-dynamic .swiper-pagination-bullet{display:inline-block;-webkit-transition:200ms top, 200ms -webkit-transform;transition:200ms top, 200ms -webkit-transform;-o-transition:200ms transform, 200ms top;transition:200ms transform, 200ms top;transition:200ms transform, 200ms top, 200ms -webkit-transform}.swiper-container-horizontal>.swiper-pagination-bullets .swiper-pagination-bullet{margin:0 4px}.swiper-container-horizontal>.swiper-pagination-bullets.swiper-pagination-bullets-dynamic{left:50%;-webkit-transform:translateX(-50%);-ms-transform:translateX(-50%);transform:translateX(-50%);white-space:nowrap}.swiper-container-horizontal>.swiper-pagination-bullets.swiper-pagination-bullets-dynamic .swiper-pagination-bullet{-webkit-transition:200ms left, 200ms -webkit-transform;transition:200ms left, 200ms -webkit-transform;-o-transition:200ms transform, 200ms left;transition:200ms transform, 200ms left;transition:200ms transform, 200ms left, 200ms -webkit-transform}.swiper-container-horizontal.swiper-container-rtl>.swiper-pagination-bullets-dynamic .swiper-pagination-bullet{-webkit-transition:200ms right, 200ms -webkit-transform;transition:200ms right, 200ms -webkit-transform;-o-transition:200ms transform, 200ms right;transition:200ms transform, 200ms right;transition:200ms transform, 200ms right, 200ms -webkit-transform}.swiper-pagination-progressbar{background:rgba(0, 0, 0, 0.25);position:absolute}.swiper-pagination-progressbar .swiper-pagination-progressbar-fill{background:#007aff;position:absolute;left:0;top:0;width:100%;height:100%;-webkit-transform:scale(0);-ms-transform:scale(0);transform:scale(0);-webkit-transform-origin:left top;-ms-transform-origin:left top;transform-origin:left top}.swiper-container-rtl .swiper-pagination-progressbar .swiper-pagination-progressbar-fill{-webkit-transform-origin:right top;-ms-transform-origin:right top;transform-origin:right top}.swiper-container-horizontal>.swiper-pagination-progressbar,.swiper-container-vertical>.swiper-pagination-progressbar.swiper-pagination-progressbar-opposite{width:100%;height:4px;left:0;top:0}.swiper-container-vertical>.swiper-pagination-progressbar,.swiper-container-horizontal>.swiper-pagination-progressbar.swiper-pagination-progressbar-opposite{width:4px;height:100%;left:0;top:0}.swiper-pagination-white .swiper-pagination-bullet-active{background:#ffffff}.swiper-pagination-progressbar.swiper-pagination-white{background:rgba(255, 255, 255, 0.25)}.swiper-pagination-progressbar.swiper-pagination-white .swiper-pagination-progressbar-fill{background:#ffffff}.swiper-pagination-black .swiper-pagination-bullet-active{background:#000000}.swiper-pagination-progressbar.swiper-pagination-black{background:rgba(0, 0, 0, 0.25)}.swiper-pagination-progressbar.swiper-pagination-black .swiper-pagination-progressbar-fill{background:#000000}.swiper-pagination-lock{display:none}.swiper-scrollbar{border-radius:10px;position:relative;-ms-touch-action:none;background:rgba(0, 0, 0, 0.1)}.swiper-container-horizontal>.swiper-scrollbar{position:absolute;left:1%;bottom:3px;z-index:50;height:5px;width:98%}.swiper-container-vertical>.swiper-scrollbar{position:absolute;right:3px;top:1%;z-index:50;width:5px;height:98%}.swiper-scrollbar-drag{height:100%;width:100%;position:relative;background:rgba(0, 0, 0, 0.5);border-radius:10px;left:0;top:0}.swiper-scrollbar-cursor-drag{cursor:move}.swiper-scrollbar-lock{display:none}.swiper-zoom-container{width:100%;height:100%;display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-box-pack:center;-webkit-justify-content:center;-ms-flex-pack:center;justify-content:center;-webkit-box-align:center;-webkit-align-items:center;-ms-flex-align:center;align-items:center;text-align:center}.swiper-zoom-container>img,.swiper-zoom-container>svg,.swiper-zoom-container>canvas{max-width:100%;max-height:100%;-o-object-fit:contain;object-fit:contain}.swiper-slide-zoomed{cursor:move}.swiper-lazy-preloader{width:42px;height:42px;position:absolute;left:50%;top:50%;margin-left:-21px;margin-top:-21px;z-index:10;-webkit-transform-origin:50%;-ms-transform-origin:50%;transform-origin:50%;-webkit-animation:swiper-preloader-spin 1s steps(12, end) infinite;animation:swiper-preloader-spin 1s steps(12, end) infinite}.swiper-lazy-preloader:after{display:block;content:\"\";width:100%;height:100%;background-image:url(\"data:image/svg+xml;charset=utf-8,%3Csvg%20viewBox%3D'0%200%20120%20120'%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20xmlns%3Axlink%3D'http%3A%2F%2Fwww.w3.org%2F1999%2Fxlink'%3E%3Cdefs%3E%3Cline%20id%3D'l'%20x1%3D'60'%20x2%3D'60'%20y1%3D'7'%20y2%3D'27'%20stroke%3D'%236c6c6c'%20stroke-width%3D'11'%20stroke-linecap%3D'round'%2F%3E%3C%2Fdefs%3E%3Cg%3E%3Cuse%20xlink%3Ahref%3D'%23l'%20opacity%3D'.27'%2F%3E%3Cuse%20xlink%3Ahref%3D'%23l'%20opacity%3D'.27'%20transform%3D'rotate(30%2060%2C60)'%2F%3E%3Cuse%20xlink%3Ahref%3D'%23l'%20opacity%3D'.27'%20transform%3D'rotate(60%2060%2C60)'%2F%3E%3Cuse%20xlink%3Ahref%3D'%23l'%20opacity%3D'.27'%20transform%3D'rotate(90%2060%2C60)'%2F%3E%3Cuse%20xlink%3Ahref%3D'%23l'%20opacity%3D'.27'%20transform%3D'rotate(120%2060%2C60)'%2F%3E%3Cuse%20xlink%3Ahref%3D'%23l'%20opacity%3D'.27'%20transform%3D'rotate(150%2060%2C60)'%2F%3E%3Cuse%20xlink%3Ahref%3D'%23l'%20opacity%3D'.37'%20transform%3D'rotate(180%2060%2C60)'%2F%3E%3Cuse%20xlink%3Ahref%3D'%23l'%20opacity%3D'.46'%20transform%3D'rotate(210%2060%2C60)'%2F%3E%3Cuse%20xlink%3Ahref%3D'%23l'%20opacity%3D'.56'%20transform%3D'rotate(240%2060%2C60)'%2F%3E%3Cuse%20xlink%3Ahref%3D'%23l'%20opacity%3D'.66'%20transform%3D'rotate(270%2060%2C60)'%2F%3E%3Cuse%20xlink%3Ahref%3D'%23l'%20opacity%3D'.75'%20transform%3D'rotate(300%2060%2C60)'%2F%3E%3Cuse%20xlink%3Ahref%3D'%23l'%20opacity%3D'.85'%20transform%3D'rotate(330%2060%2C60)'%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E\");background-position:50%;background-size:100%;background-repeat:no-repeat}.swiper-lazy-preloader-white:after{background-image:url(\"data:image/svg+xml;charset=utf-8,%3Csvg%20viewBox%3D'0%200%20120%20120'%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20xmlns%3Axlink%3D'http%3A%2F%2Fwww.w3.org%2F1999%2Fxlink'%3E%3Cdefs%3E%3Cline%20id%3D'l'%20x1%3D'60'%20x2%3D'60'%20y1%3D'7'%20y2%3D'27'%20stroke%3D'%23fff'%20stroke-width%3D'11'%20stroke-linecap%3D'round'%2F%3E%3C%2Fdefs%3E%3Cg%3E%3Cuse%20xlink%3Ahref%3D'%23l'%20opacity%3D'.27'%2F%3E%3Cuse%20xlink%3Ahref%3D'%23l'%20opacity%3D'.27'%20transform%3D'rotate(30%2060%2C60)'%2F%3E%3Cuse%20xlink%3Ahref%3D'%23l'%20opacity%3D'.27'%20transform%3D'rotate(60%2060%2C60)'%2F%3E%3Cuse%20xlink%3Ahref%3D'%23l'%20opacity%3D'.27'%20transform%3D'rotate(90%2060%2C60)'%2F%3E%3Cuse%20xlink%3Ahref%3D'%23l'%20opacity%3D'.27'%20transform%3D'rotate(120%2060%2C60)'%2F%3E%3Cuse%20xlink%3Ahref%3D'%23l'%20opacity%3D'.27'%20transform%3D'rotate(150%2060%2C60)'%2F%3E%3Cuse%20xlink%3Ahref%3D'%23l'%20opacity%3D'.37'%20transform%3D'rotate(180%2060%2C60)'%2F%3E%3Cuse%20xlink%3Ahref%3D'%23l'%20opacity%3D'.46'%20transform%3D'rotate(210%2060%2C60)'%2F%3E%3Cuse%20xlink%3Ahref%3D'%23l'%20opacity%3D'.56'%20transform%3D'rotate(240%2060%2C60)'%2F%3E%3Cuse%20xlink%3Ahref%3D'%23l'%20opacity%3D'.66'%20transform%3D'rotate(270%2060%2C60)'%2F%3E%3Cuse%20xlink%3Ahref%3D'%23l'%20opacity%3D'.75'%20transform%3D'rotate(300%2060%2C60)'%2F%3E%3Cuse%20xlink%3Ahref%3D'%23l'%20opacity%3D'.85'%20transform%3D'rotate(330%2060%2C60)'%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E\")}@-webkit-keyframes swiper-preloader-spin{100%{-webkit-transform:rotate(360deg);transform:rotate(360deg)}}@keyframes swiper-preloader-spin{100%{-webkit-transform:rotate(360deg);transform:rotate(360deg)}}.swiper-container .swiper-notification{position:absolute;left:0;top:0;pointer-events:none;opacity:0;z-index:-1000}.swiper-container-fade.swiper-container-free-mode .swiper-slide{-webkit-transition-timing-function:ease-out;-o-transition-timing-function:ease-out;transition-timing-function:ease-out}.swiper-container-fade .swiper-slide{pointer-events:none;-webkit-transition-property:opacity;-o-transition-property:opacity;transition-property:opacity}.swiper-container-fade .swiper-slide .swiper-slide{pointer-events:none}.swiper-container-fade .swiper-slide-active,.swiper-container-fade .swiper-slide-active .swiper-slide-active{pointer-events:auto}.swiper-container-cube{overflow:visible}.swiper-container-cube .swiper-slide{pointer-events:none;-webkit-backface-visibility:hidden;backface-visibility:hidden;z-index:1;visibility:hidden;-webkit-transform-origin:0 0;-ms-transform-origin:0 0;transform-origin:0 0;width:100%;height:100%}.swiper-container-cube .swiper-slide .swiper-slide{pointer-events:none}.swiper-container-cube.swiper-container-rtl .swiper-slide{-webkit-transform-origin:100% 0;-ms-transform-origin:100% 0;transform-origin:100% 0}.swiper-container-cube .swiper-slide-active,.swiper-container-cube .swiper-slide-active .swiper-slide-active{pointer-events:auto}.swiper-container-cube .swiper-slide-active,.swiper-container-cube .swiper-slide-next,.swiper-container-cube .swiper-slide-prev,.swiper-container-cube .swiper-slide-next+.swiper-slide{pointer-events:auto;visibility:visible}.swiper-container-cube .swiper-slide-shadow-top,.swiper-container-cube .swiper-slide-shadow-bottom,.swiper-container-cube .swiper-slide-shadow-left,.swiper-container-cube .swiper-slide-shadow-right{z-index:0;-webkit-backface-visibility:hidden;backface-visibility:hidden}.swiper-container-cube .swiper-cube-shadow{position:absolute;left:0;bottom:0px;width:100%;height:100%;background:#000;opacity:0.6;-webkit-filter:blur(50px);filter:blur(50px);z-index:0}.swiper-container-flip{overflow:visible}.swiper-container-flip .swiper-slide{pointer-events:none;-webkit-backface-visibility:hidden;backface-visibility:hidden;z-index:1}.swiper-container-flip .swiper-slide .swiper-slide{pointer-events:none}.swiper-container-flip .swiper-slide-active,.swiper-container-flip .swiper-slide-active .swiper-slide-active{pointer-events:auto}.swiper-container-flip .swiper-slide-shadow-top,.swiper-container-flip .swiper-slide-shadow-bottom,.swiper-container-flip .swiper-slide-shadow-left,.swiper-container-flip .swiper-slide-shadow-right{z-index:0;-webkit-backface-visibility:hidden;backface-visibility:hidden}.swiper-container-coverflow .swiper-wrapper{-ms-perspective:1200px}ion-slides{display:block;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}.swiper-pagination-bullet{background:var(--bullet-background)}.swiper-pagination-bullet-active{background:var(--bullet-background-active)}.swiper-pagination-progressbar{background:var(--progress-bar-background)}.swiper-pagination-progressbar .swiper-pagination-progressbar-fill{background:var(--progress-bar-background-active)}.swiper-scrollbar{background:var(--scroll-bar-background)}.swiper-scrollbar-drag{background:var(--scroll-bar-background-active)}.slides-ios{--bullet-background:var(--ion-color-step-200, #cccccc);--bullet-background-active:var(--ion-color-primary, #3880ff);--progress-bar-background:rgba(var(--ion-text-color-rgb, 0, 0, 0), 0.25);--progress-bar-background-active:var(--ion-color-primary-shade, #3171e0);--scroll-bar-background:rgba(var(--ion-text-color-rgb, 0, 0, 0), 0.1);--scroll-bar-background-active:rgba(var(--ion-text-color-rgb, 0, 0, 0), 0.5)}";
-    var slidesMdCss = ".swiper-container{margin:0 auto;position:relative;overflow:hidden;list-style:none;padding:0;z-index:1}.swiper-container-no-flexbox .swiper-slide{float:left}.swiper-container-vertical{height:100%}.swiper-container-vertical>.swiper-wrapper{-webkit-box-orient:vertical;-webkit-box-direction:normal;-webkit-flex-direction:column;-ms-flex-direction:column;flex-direction:column}.swiper-wrapper{position:relative;width:100%;height:100%;z-index:1;display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-transition-property:-webkit-transform;transition-property:-webkit-transform;-o-transition-property:transform;transition-property:transform;transition-property:transform, -webkit-transform;-webkit-box-sizing:content-box;box-sizing:content-box}.swiper-container-android .swiper-slide,.swiper-wrapper{-webkit-transform:translate3d(0px, 0, 0);transform:translate3d(0px, 0, 0)}.swiper-container-multirow>.swiper-wrapper{-webkit-flex-wrap:wrap;-ms-flex-wrap:wrap;flex-wrap:wrap}.swiper-container-free-mode>.swiper-wrapper{-webkit-transition-timing-function:ease-out;-o-transition-timing-function:ease-out;transition-timing-function:ease-out;margin:0 auto}.swiper-slide{-webkit-flex-shrink:0;-ms-flex-negative:0;flex-shrink:0;width:100%;height:100%;position:relative;-webkit-transition-property:-webkit-transform;transition-property:-webkit-transform;-o-transition-property:transform;transition-property:transform;transition-property:transform, -webkit-transform}.swiper-invisible-blank-slide{visibility:hidden}.swiper-container-autoheight,.swiper-container-autoheight .swiper-slide{height:auto}.swiper-container-autoheight .swiper-wrapper{-webkit-box-align:start;-webkit-align-items:flex-start;-ms-flex-align:start;align-items:flex-start;-webkit-transition-property:height, -webkit-transform;transition-property:height, -webkit-transform;-o-transition-property:transform, height;transition-property:transform, height;transition-property:transform, height, -webkit-transform}.swiper-container-3d{-webkit-perspective:1200px;perspective:1200px}.swiper-container-3d .swiper-wrapper,.swiper-container-3d .swiper-slide,.swiper-container-3d .swiper-slide-shadow-left,.swiper-container-3d .swiper-slide-shadow-right,.swiper-container-3d .swiper-slide-shadow-top,.swiper-container-3d .swiper-slide-shadow-bottom,.swiper-container-3d .swiper-cube-shadow{-webkit-transform-style:preserve-3d;transform-style:preserve-3d}.swiper-container-3d .swiper-slide-shadow-left,.swiper-container-3d .swiper-slide-shadow-right,.swiper-container-3d .swiper-slide-shadow-top,.swiper-container-3d .swiper-slide-shadow-bottom{position:absolute;left:0;top:0;width:100%;height:100%;pointer-events:none;z-index:10}.swiper-container-3d .swiper-slide-shadow-left{background-image:-webkit-gradient(linear, right top, left top, from(rgba(0, 0, 0, 0.5)), to(rgba(0, 0, 0, 0)));background-image:-webkit-linear-gradient(right, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0));background-image:-o-linear-gradient(right, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0));background-image:linear-gradient(to left, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0))}.swiper-container-3d .swiper-slide-shadow-right{background-image:-webkit-gradient(linear, left top, right top, from(rgba(0, 0, 0, 0.5)), to(rgba(0, 0, 0, 0)));background-image:-webkit-linear-gradient(left, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0));background-image:-o-linear-gradient(left, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0));background-image:linear-gradient(to right, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0))}.swiper-container-3d .swiper-slide-shadow-top{background-image:-webkit-gradient(linear, left bottom, left top, from(rgba(0, 0, 0, 0.5)), to(rgba(0, 0, 0, 0)));background-image:-webkit-linear-gradient(bottom, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0));background-image:-o-linear-gradient(bottom, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0));background-image:linear-gradient(to top, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0))}.swiper-container-3d .swiper-slide-shadow-bottom{background-image:-webkit-gradient(linear, left top, left bottom, from(rgba(0, 0, 0, 0.5)), to(rgba(0, 0, 0, 0)));background-image:-webkit-linear-gradient(top, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0));background-image:-o-linear-gradient(top, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0));background-image:linear-gradient(to bottom, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0))}.swiper-container-wp8-horizontal,.swiper-container-wp8-horizontal>.swiper-wrapper{-ms-touch-action:pan-y;touch-action:pan-y}.swiper-container-wp8-vertical,.swiper-container-wp8-vertical>.swiper-wrapper{-ms-touch-action:pan-x;touch-action:pan-x}.swiper-button-prev,.swiper-button-next{position:absolute;top:50%;width:27px;height:44px;margin-top:-22px;z-index:10;cursor:pointer;background-size:27px 44px;background-position:center;background-repeat:no-repeat}.swiper-button-prev.swiper-button-disabled,.swiper-button-next.swiper-button-disabled{opacity:0.35;cursor:auto;pointer-events:none}.swiper-button-prev,.swiper-container-rtl .swiper-button-next{background-image:url(\"data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20viewBox%3D'0%200%2027%2044'%3E%3Cpath%20d%3D'M0%2C22L22%2C0l2.1%2C2.1L4.2%2C22l19.9%2C19.9L22%2C44L0%2C22L0%2C22L0%2C22z'%20fill%3D'%23007aff'%2F%3E%3C%2Fsvg%3E\");left:10px;right:auto}.swiper-button-next,.swiper-container-rtl .swiper-button-prev{background-image:url(\"data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20viewBox%3D'0%200%2027%2044'%3E%3Cpath%20d%3D'M27%2C22L27%2C22L5%2C44l-2.1-2.1L22.8%2C22L2.9%2C2.1L5%2C0L27%2C22L27%2C22z'%20fill%3D'%23007aff'%2F%3E%3C%2Fsvg%3E\");right:10px;left:auto}.swiper-button-prev.swiper-button-white,.swiper-container-rtl .swiper-button-next.swiper-button-white{background-image:url(\"data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20viewBox%3D'0%200%2027%2044'%3E%3Cpath%20d%3D'M0%2C22L22%2C0l2.1%2C2.1L4.2%2C22l19.9%2C19.9L22%2C44L0%2C22L0%2C22L0%2C22z'%20fill%3D'%23ffffff'%2F%3E%3C%2Fsvg%3E\")}.swiper-button-next.swiper-button-white,.swiper-container-rtl .swiper-button-prev.swiper-button-white{background-image:url(\"data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20viewBox%3D'0%200%2027%2044'%3E%3Cpath%20d%3D'M27%2C22L27%2C22L5%2C44l-2.1-2.1L22.8%2C22L2.9%2C2.1L5%2C0L27%2C22L27%2C22z'%20fill%3D'%23ffffff'%2F%3E%3C%2Fsvg%3E\")}.swiper-button-prev.swiper-button-black,.swiper-container-rtl .swiper-button-next.swiper-button-black{background-image:url(\"data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20viewBox%3D'0%200%2027%2044'%3E%3Cpath%20d%3D'M0%2C22L22%2C0l2.1%2C2.1L4.2%2C22l19.9%2C19.9L22%2C44L0%2C22L0%2C22L0%2C22z'%20fill%3D'%23000000'%2F%3E%3C%2Fsvg%3E\")}.swiper-button-next.swiper-button-black,.swiper-container-rtl .swiper-button-prev.swiper-button-black{background-image:url(\"data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20viewBox%3D'0%200%2027%2044'%3E%3Cpath%20d%3D'M27%2C22L27%2C22L5%2C44l-2.1-2.1L22.8%2C22L2.9%2C2.1L5%2C0L27%2C22L27%2C22z'%20fill%3D'%23000000'%2F%3E%3C%2Fsvg%3E\")}.swiper-button-lock{display:none}.swiper-pagination{position:absolute;text-align:center;-webkit-transition:300ms opacity;-o-transition:300ms opacity;transition:300ms opacity;-webkit-transform:translate3d(0, 0, 0);transform:translate3d(0, 0, 0);z-index:10}.swiper-pagination.swiper-pagination-hidden{opacity:0}.swiper-pagination-fraction,.swiper-pagination-custom,.swiper-container-horizontal>.swiper-pagination-bullets{bottom:10px;left:0;width:100%}.swiper-pagination-bullets-dynamic{overflow:hidden;font-size:0}.swiper-pagination-bullets-dynamic .swiper-pagination-bullet{-webkit-transform:scale(0.33);-ms-transform:scale(0.33);transform:scale(0.33);position:relative}.swiper-pagination-bullets-dynamic .swiper-pagination-bullet-active{-webkit-transform:scale(1);-ms-transform:scale(1);transform:scale(1)}.swiper-pagination-bullets-dynamic .swiper-pagination-bullet-active-main{-webkit-transform:scale(1);-ms-transform:scale(1);transform:scale(1)}.swiper-pagination-bullets-dynamic .swiper-pagination-bullet-active-prev{-webkit-transform:scale(0.66);-ms-transform:scale(0.66);transform:scale(0.66)}.swiper-pagination-bullets-dynamic .swiper-pagination-bullet-active-prev-prev{-webkit-transform:scale(0.33);-ms-transform:scale(0.33);transform:scale(0.33)}.swiper-pagination-bullets-dynamic .swiper-pagination-bullet-active-next{-webkit-transform:scale(0.66);-ms-transform:scale(0.66);transform:scale(0.66)}.swiper-pagination-bullets-dynamic .swiper-pagination-bullet-active-next-next{-webkit-transform:scale(0.33);-ms-transform:scale(0.33);transform:scale(0.33)}.swiper-pagination-bullet{width:8px;height:8px;display:inline-block;border-radius:100%;background:#000;opacity:0.2}button.swiper-pagination-bullet{border:none;margin:0;padding:0;-webkit-box-shadow:none;box-shadow:none;-webkit-appearance:none;-moz-appearance:none;appearance:none}.swiper-pagination-clickable .swiper-pagination-bullet{cursor:pointer}.swiper-pagination-bullet-active{opacity:1;background:#007aff}.swiper-container-vertical>.swiper-pagination-bullets{right:10px;top:50%;-webkit-transform:translate3d(0px, -50%, 0);transform:translate3d(0px, -50%, 0)}.swiper-container-vertical>.swiper-pagination-bullets .swiper-pagination-bullet{margin:6px 0;display:block}.swiper-container-vertical>.swiper-pagination-bullets.swiper-pagination-bullets-dynamic{top:50%;-webkit-transform:translateY(-50%);-ms-transform:translateY(-50%);transform:translateY(-50%);width:8px}.swiper-container-vertical>.swiper-pagination-bullets.swiper-pagination-bullets-dynamic .swiper-pagination-bullet{display:inline-block;-webkit-transition:200ms top, 200ms -webkit-transform;transition:200ms top, 200ms -webkit-transform;-o-transition:200ms transform, 200ms top;transition:200ms transform, 200ms top;transition:200ms transform, 200ms top, 200ms -webkit-transform}.swiper-container-horizontal>.swiper-pagination-bullets .swiper-pagination-bullet{margin:0 4px}.swiper-container-horizontal>.swiper-pagination-bullets.swiper-pagination-bullets-dynamic{left:50%;-webkit-transform:translateX(-50%);-ms-transform:translateX(-50%);transform:translateX(-50%);white-space:nowrap}.swiper-container-horizontal>.swiper-pagination-bullets.swiper-pagination-bullets-dynamic .swiper-pagination-bullet{-webkit-transition:200ms left, 200ms -webkit-transform;transition:200ms left, 200ms -webkit-transform;-o-transition:200ms transform, 200ms left;transition:200ms transform, 200ms left;transition:200ms transform, 200ms left, 200ms -webkit-transform}.swiper-container-horizontal.swiper-container-rtl>.swiper-pagination-bullets-dynamic .swiper-pagination-bullet{-webkit-transition:200ms right, 200ms -webkit-transform;transition:200ms right, 200ms -webkit-transform;-o-transition:200ms transform, 200ms right;transition:200ms transform, 200ms right;transition:200ms transform, 200ms right, 200ms -webkit-transform}.swiper-pagination-progressbar{background:rgba(0, 0, 0, 0.25);position:absolute}.swiper-pagination-progressbar .swiper-pagination-progressbar-fill{background:#007aff;position:absolute;left:0;top:0;width:100%;height:100%;-webkit-transform:scale(0);-ms-transform:scale(0);transform:scale(0);-webkit-transform-origin:left top;-ms-transform-origin:left top;transform-origin:left top}.swiper-container-rtl .swiper-pagination-progressbar .swiper-pagination-progressbar-fill{-webkit-transform-origin:right top;-ms-transform-origin:right top;transform-origin:right top}.swiper-container-horizontal>.swiper-pagination-progressbar,.swiper-container-vertical>.swiper-pagination-progressbar.swiper-pagination-progressbar-opposite{width:100%;height:4px;left:0;top:0}.swiper-container-vertical>.swiper-pagination-progressbar,.swiper-container-horizontal>.swiper-pagination-progressbar.swiper-pagination-progressbar-opposite{width:4px;height:100%;left:0;top:0}.swiper-pagination-white .swiper-pagination-bullet-active{background:#ffffff}.swiper-pagination-progressbar.swiper-pagination-white{background:rgba(255, 255, 255, 0.25)}.swiper-pagination-progressbar.swiper-pagination-white .swiper-pagination-progressbar-fill{background:#ffffff}.swiper-pagination-black .swiper-pagination-bullet-active{background:#000000}.swiper-pagination-progressbar.swiper-pagination-black{background:rgba(0, 0, 0, 0.25)}.swiper-pagination-progressbar.swiper-pagination-black .swiper-pagination-progressbar-fill{background:#000000}.swiper-pagination-lock{display:none}.swiper-scrollbar{border-radius:10px;position:relative;-ms-touch-action:none;background:rgba(0, 0, 0, 0.1)}.swiper-container-horizontal>.swiper-scrollbar{position:absolute;left:1%;bottom:3px;z-index:50;height:5px;width:98%}.swiper-container-vertical>.swiper-scrollbar{position:absolute;right:3px;top:1%;z-index:50;width:5px;height:98%}.swiper-scrollbar-drag{height:100%;width:100%;position:relative;background:rgba(0, 0, 0, 0.5);border-radius:10px;left:0;top:0}.swiper-scrollbar-cursor-drag{cursor:move}.swiper-scrollbar-lock{display:none}.swiper-zoom-container{width:100%;height:100%;display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-box-pack:center;-webkit-justify-content:center;-ms-flex-pack:center;justify-content:center;-webkit-box-align:center;-webkit-align-items:center;-ms-flex-align:center;align-items:center;text-align:center}.swiper-zoom-container>img,.swiper-zoom-container>svg,.swiper-zoom-container>canvas{max-width:100%;max-height:100%;-o-object-fit:contain;object-fit:contain}.swiper-slide-zoomed{cursor:move}.swiper-lazy-preloader{width:42px;height:42px;position:absolute;left:50%;top:50%;margin-left:-21px;margin-top:-21px;z-index:10;-webkit-transform-origin:50%;-ms-transform-origin:50%;transform-origin:50%;-webkit-animation:swiper-preloader-spin 1s steps(12, end) infinite;animation:swiper-preloader-spin 1s steps(12, end) infinite}.swiper-lazy-preloader:after{display:block;content:\"\";width:100%;height:100%;background-image:url(\"data:image/svg+xml;charset=utf-8,%3Csvg%20viewBox%3D'0%200%20120%20120'%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20xmlns%3Axlink%3D'http%3A%2F%2Fwww.w3.org%2F1999%2Fxlink'%3E%3Cdefs%3E%3Cline%20id%3D'l'%20x1%3D'60'%20x2%3D'60'%20y1%3D'7'%20y2%3D'27'%20stroke%3D'%236c6c6c'%20stroke-width%3D'11'%20stroke-linecap%3D'round'%2F%3E%3C%2Fdefs%3E%3Cg%3E%3Cuse%20xlink%3Ahref%3D'%23l'%20opacity%3D'.27'%2F%3E%3Cuse%20xlink%3Ahref%3D'%23l'%20opacity%3D'.27'%20transform%3D'rotate(30%2060%2C60)'%2F%3E%3Cuse%20xlink%3Ahref%3D'%23l'%20opacity%3D'.27'%20transform%3D'rotate(60%2060%2C60)'%2F%3E%3Cuse%20xlink%3Ahref%3D'%23l'%20opacity%3D'.27'%20transform%3D'rotate(90%2060%2C60)'%2F%3E%3Cuse%20xlink%3Ahref%3D'%23l'%20opacity%3D'.27'%20transform%3D'rotate(120%2060%2C60)'%2F%3E%3Cuse%20xlink%3Ahref%3D'%23l'%20opacity%3D'.27'%20transform%3D'rotate(150%2060%2C60)'%2F%3E%3Cuse%20xlink%3Ahref%3D'%23l'%20opacity%3D'.37'%20transform%3D'rotate(180%2060%2C60)'%2F%3E%3Cuse%20xlink%3Ahref%3D'%23l'%20opacity%3D'.46'%20transform%3D'rotate(210%2060%2C60)'%2F%3E%3Cuse%20xlink%3Ahref%3D'%23l'%20opacity%3D'.56'%20transform%3D'rotate(240%2060%2C60)'%2F%3E%3Cuse%20xlink%3Ahref%3D'%23l'%20opacity%3D'.66'%20transform%3D'rotate(270%2060%2C60)'%2F%3E%3Cuse%20xlink%3Ahref%3D'%23l'%20opacity%3D'.75'%20transform%3D'rotate(300%2060%2C60)'%2F%3E%3Cuse%20xlink%3Ahref%3D'%23l'%20opacity%3D'.85'%20transform%3D'rotate(330%2060%2C60)'%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E\");background-position:50%;background-size:100%;background-repeat:no-repeat}.swiper-lazy-preloader-white:after{background-image:url(\"data:image/svg+xml;charset=utf-8,%3Csvg%20viewBox%3D'0%200%20120%20120'%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20xmlns%3Axlink%3D'http%3A%2F%2Fwww.w3.org%2F1999%2Fxlink'%3E%3Cdefs%3E%3Cline%20id%3D'l'%20x1%3D'60'%20x2%3D'60'%20y1%3D'7'%20y2%3D'27'%20stroke%3D'%23fff'%20stroke-width%3D'11'%20stroke-linecap%3D'round'%2F%3E%3C%2Fdefs%3E%3Cg%3E%3Cuse%20xlink%3Ahref%3D'%23l'%20opacity%3D'.27'%2F%3E%3Cuse%20xlink%3Ahref%3D'%23l'%20opacity%3D'.27'%20transform%3D'rotate(30%2060%2C60)'%2F%3E%3Cuse%20xlink%3Ahref%3D'%23l'%20opacity%3D'.27'%20transform%3D'rotate(60%2060%2C60)'%2F%3E%3Cuse%20xlink%3Ahref%3D'%23l'%20opacity%3D'.27'%20transform%3D'rotate(90%2060%2C60)'%2F%3E%3Cuse%20xlink%3Ahref%3D'%23l'%20opacity%3D'.27'%20transform%3D'rotate(120%2060%2C60)'%2F%3E%3Cuse%20xlink%3Ahref%3D'%23l'%20opacity%3D'.27'%20transform%3D'rotate(150%2060%2C60)'%2F%3E%3Cuse%20xlink%3Ahref%3D'%23l'%20opacity%3D'.37'%20transform%3D'rotate(180%2060%2C60)'%2F%3E%3Cuse%20xlink%3Ahref%3D'%23l'%20opacity%3D'.46'%20transform%3D'rotate(210%2060%2C60)'%2F%3E%3Cuse%20xlink%3Ahref%3D'%23l'%20opacity%3D'.56'%20transform%3D'rotate(240%2060%2C60)'%2F%3E%3Cuse%20xlink%3Ahref%3D'%23l'%20opacity%3D'.66'%20transform%3D'rotate(270%2060%2C60)'%2F%3E%3Cuse%20xlink%3Ahref%3D'%23l'%20opacity%3D'.75'%20transform%3D'rotate(300%2060%2C60)'%2F%3E%3Cuse%20xlink%3Ahref%3D'%23l'%20opacity%3D'.85'%20transform%3D'rotate(330%2060%2C60)'%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E\")}@-webkit-keyframes swiper-preloader-spin{100%{-webkit-transform:rotate(360deg);transform:rotate(360deg)}}@keyframes swiper-preloader-spin{100%{-webkit-transform:rotate(360deg);transform:rotate(360deg)}}.swiper-container .swiper-notification{position:absolute;left:0;top:0;pointer-events:none;opacity:0;z-index:-1000}.swiper-container-fade.swiper-container-free-mode .swiper-slide{-webkit-transition-timing-function:ease-out;-o-transition-timing-function:ease-out;transition-timing-function:ease-out}.swiper-container-fade .swiper-slide{pointer-events:none;-webkit-transition-property:opacity;-o-transition-property:opacity;transition-property:opacity}.swiper-container-fade .swiper-slide .swiper-slide{pointer-events:none}.swiper-container-fade .swiper-slide-active,.swiper-container-fade .swiper-slide-active .swiper-slide-active{pointer-events:auto}.swiper-container-cube{overflow:visible}.swiper-container-cube .swiper-slide{pointer-events:none;-webkit-backface-visibility:hidden;backface-visibility:hidden;z-index:1;visibility:hidden;-webkit-transform-origin:0 0;-ms-transform-origin:0 0;transform-origin:0 0;width:100%;height:100%}.swiper-container-cube .swiper-slide .swiper-slide{pointer-events:none}.swiper-container-cube.swiper-container-rtl .swiper-slide{-webkit-transform-origin:100% 0;-ms-transform-origin:100% 0;transform-origin:100% 0}.swiper-container-cube .swiper-slide-active,.swiper-container-cube .swiper-slide-active .swiper-slide-active{pointer-events:auto}.swiper-container-cube .swiper-slide-active,.swiper-container-cube .swiper-slide-next,.swiper-container-cube .swiper-slide-prev,.swiper-container-cube .swiper-slide-next+.swiper-slide{pointer-events:auto;visibility:visible}.swiper-container-cube .swiper-slide-shadow-top,.swiper-container-cube .swiper-slide-shadow-bottom,.swiper-container-cube .swiper-slide-shadow-left,.swiper-container-cube .swiper-slide-shadow-right{z-index:0;-webkit-backface-visibility:hidden;backface-visibility:hidden}.swiper-container-cube .swiper-cube-shadow{position:absolute;left:0;bottom:0px;width:100%;height:100%;background:#000;opacity:0.6;-webkit-filter:blur(50px);filter:blur(50px);z-index:0}.swiper-container-flip{overflow:visible}.swiper-container-flip .swiper-slide{pointer-events:none;-webkit-backface-visibility:hidden;backface-visibility:hidden;z-index:1}.swiper-container-flip .swiper-slide .swiper-slide{pointer-events:none}.swiper-container-flip .swiper-slide-active,.swiper-container-flip .swiper-slide-active .swiper-slide-active{pointer-events:auto}.swiper-container-flip .swiper-slide-shadow-top,.swiper-container-flip .swiper-slide-shadow-bottom,.swiper-container-flip .swiper-slide-shadow-left,.swiper-container-flip .swiper-slide-shadow-right{z-index:0;-webkit-backface-visibility:hidden;backface-visibility:hidden}.swiper-container-coverflow .swiper-wrapper{-ms-perspective:1200px}ion-slides{display:block;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}.swiper-pagination-bullet{background:var(--bullet-background)}.swiper-pagination-bullet-active{background:var(--bullet-background-active)}.swiper-pagination-progressbar{background:var(--progress-bar-background)}.swiper-pagination-progressbar .swiper-pagination-progressbar-fill{background:var(--progress-bar-background-active)}.swiper-scrollbar{background:var(--scroll-bar-background)}.swiper-scrollbar-drag{background:var(--scroll-bar-background-active)}.slides-md{--bullet-background:var(--ion-color-step-200, #cccccc);--bullet-background-active:var(--ion-color-primary, #3880ff);--progress-bar-background:rgba(var(--ion-text-color-rgb, 0, 0, 0), 0.25);--progress-bar-background-active:var(--ion-color-primary-shade, #3171e0);--scroll-bar-background:rgba(var(--ion-text-color-rgb, 0, 0, 0), 0.1);--scroll-bar-background-active:rgba(var(--ion-text-color-rgb, 0, 0, 0), 0.5)}";
-
-    var Slides = /*#__PURE__*/function () {
-      function Slides(hostRef) {
-        var _this = this;
-
-        _classCallCheck(this, Slides);
-
-        Object(_index_e806d1f6_js__WEBPACK_IMPORTED_MODULE_0__["r"])(this, hostRef);
-        this.ionSlidesDidLoad = Object(_index_e806d1f6_js__WEBPACK_IMPORTED_MODULE_0__["e"])(this, "ionSlidesDidLoad", 7);
-        this.ionSlideTap = Object(_index_e806d1f6_js__WEBPACK_IMPORTED_MODULE_0__["e"])(this, "ionSlideTap", 7);
-        this.ionSlideDoubleTap = Object(_index_e806d1f6_js__WEBPACK_IMPORTED_MODULE_0__["e"])(this, "ionSlideDoubleTap", 7);
-        this.ionSlideWillChange = Object(_index_e806d1f6_js__WEBPACK_IMPORTED_MODULE_0__["e"])(this, "ionSlideWillChange", 7);
-        this.ionSlideDidChange = Object(_index_e806d1f6_js__WEBPACK_IMPORTED_MODULE_0__["e"])(this, "ionSlideDidChange", 7);
-        this.ionSlideNextStart = Object(_index_e806d1f6_js__WEBPACK_IMPORTED_MODULE_0__["e"])(this, "ionSlideNextStart", 7);
-        this.ionSlidePrevStart = Object(_index_e806d1f6_js__WEBPACK_IMPORTED_MODULE_0__["e"])(this, "ionSlidePrevStart", 7);
-        this.ionSlideNextEnd = Object(_index_e806d1f6_js__WEBPACK_IMPORTED_MODULE_0__["e"])(this, "ionSlideNextEnd", 7);
-        this.ionSlidePrevEnd = Object(_index_e806d1f6_js__WEBPACK_IMPORTED_MODULE_0__["e"])(this, "ionSlidePrevEnd", 7);
-        this.ionSlideTransitionStart = Object(_index_e806d1f6_js__WEBPACK_IMPORTED_MODULE_0__["e"])(this, "ionSlideTransitionStart", 7);
-        this.ionSlideTransitionEnd = Object(_index_e806d1f6_js__WEBPACK_IMPORTED_MODULE_0__["e"])(this, "ionSlideTransitionEnd", 7);
-        this.ionSlideDrag = Object(_index_e806d1f6_js__WEBPACK_IMPORTED_MODULE_0__["e"])(this, "ionSlideDrag", 7);
-        this.ionSlideReachStart = Object(_index_e806d1f6_js__WEBPACK_IMPORTED_MODULE_0__["e"])(this, "ionSlideReachStart", 7);
-        this.ionSlideReachEnd = Object(_index_e806d1f6_js__WEBPACK_IMPORTED_MODULE_0__["e"])(this, "ionSlideReachEnd", 7);
-        this.ionSlideTouchStart = Object(_index_e806d1f6_js__WEBPACK_IMPORTED_MODULE_0__["e"])(this, "ionSlideTouchStart", 7);
-        this.ionSlideTouchEnd = Object(_index_e806d1f6_js__WEBPACK_IMPORTED_MODULE_0__["e"])(this, "ionSlideTouchEnd", 7);
-        this.swiperReady = false;
-        this.swiper = new Promise(function (resolve) {
-          _this.readySwiper = resolve;
-        });
-        this.didInit = false;
-        /**
-         * Options to pass to the swiper instance.
-         * See http://idangero.us/swiper/api/ for valid options
-         */
-
-        this.options = {}; // SwiperOptions;  // TODO
-
-        /**
-         * If `true`, show the pagination.
-         */
-
-        this.pager = false;
-        /**
-         * If `true`, show the scrollbar.
-         */
-
-        this.scrollbar = false;
-      }
-
-      _createClass(Slides, [{
-        key: "optionsChanged",
+      }, {
+        key: "sideChanged",
+        value: function sideChanged() {
+          this.isEndSide = Object(_helpers_90f46169_js__WEBPACK_IMPORTED_MODULE_2__["l"])(this.side);
+        }
+      }, {
+        key: "swipeGestureChanged",
+        value: function swipeGestureChanged() {
+          this.updateState();
+        }
+      }, {
+        key: "connectedCallback",
         value: function () {
-          var _optionsChanged = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
-            var swiper;
+          var _connectedCallback = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
+            var _this = this;
+
+            var el, parent, content;
             return regeneratorRuntime.wrap(function _callee$(_context) {
               while (1) {
                 switch (_context.prev = _context.next) {
                   case 0:
-                    if (!this.swiperReady) {
-                      _context.next = 7;
+                    if (this.type === undefined) {
+                      this.type = _ionic_global_9d5c8ee3_js__WEBPACK_IMPORTED_MODULE_1__["c"].get('menuType', 'overlay');
+                    }
+
+                    el = this.el;
+                    parent = el.parentNode;
+
+                    if (this.contentId === undefined) {
+                      console.warn("[DEPRECATED][ion-menu] Using the [main] attribute is deprecated, please use the \"contentId\" property instead:\nBEFORE:\n  <ion-menu>...</ion-menu>\n  <div main>...</div>\n\nAFTER:\n  <ion-menu contentId=\"main-content\"></ion-menu>\n  <div id=\"main-content\">...</div>\n");
+                    }
+
+                    content = this.contentId !== undefined ? document.getElementById(this.contentId) : parent && parent.querySelector && parent.querySelector('[main]');
+
+                    if (!(!content || !content.tagName)) {
+                      _context.next = 8;
                       break;
                     }
 
-                    _context.next = 3;
-                    return this.getSwiper();
+                    // requires content element
+                    console.error('Menu: must have a "content" element to listen for drag events on.');
+                    return _context.abrupt("return");
 
-                  case 3:
-                    swiper = _context.sent;
-                    Object.assign(swiper.params, this.options);
-                    _context.next = 7;
-                    return this.update();
+                  case 8:
+                    this.contentEl = content; // add menu's content classes
 
-                  case 7:
+                    content.classList.add('menu-content');
+                    this.typeChanged(this.type, undefined);
+                    this.sideChanged(); // register this menu with the app's menu controller
+
+                    _index_3a75d1af_js__WEBPACK_IMPORTED_MODULE_7__["m"]._register(this);
+
+                    _context.next = 15;
+                    return Promise.resolve().then(__webpack_require__.bind(null,
+                    /*! ./index-f49d994d.js */
+                    "./node_modules/@ionic/core/dist/esm/index-f49d994d.js"));
+
+                  case 15:
+                    this.gesture = _context.sent.createGesture({
+                      el: document,
+                      gestureName: 'menu-swipe',
+                      gesturePriority: 30,
+                      threshold: 10,
+                      blurOnStart: true,
+                      canStart: function canStart(ev) {
+                        return _this.canStart(ev);
+                      },
+                      onWillStart: function onWillStart() {
+                        return _this.onWillStart();
+                      },
+                      onStart: function onStart() {
+                        return _this.onStart();
+                      },
+                      onMove: function onMove(ev) {
+                        return _this.onMove(ev);
+                      },
+                      onEnd: function onEnd(ev) {
+                        return _this.onEnd(ev);
+                      }
+                    });
+                    this.updateState();
+
+                  case 17:
                   case "end":
                     return _context.stop();
                 }
@@ -167,93 +265,27 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
             }, _callee, this);
           }));
 
-          function optionsChanged() {
-            return _optionsChanged.apply(this, arguments);
+          function connectedCallback() {
+            return _connectedCallback.apply(this, arguments);
           }
 
-          return optionsChanged;
+          return connectedCallback;
         }()
       }, {
-        key: "connectedCallback",
-        value: function connectedCallback() {
-          var _this2 = this;
-
-          // tslint:disable-next-line: strict-type-predicates
-          if (typeof MutationObserver !== 'undefined') {
-            var mut = this.mutationO = new MutationObserver(function () {
-              if (_this2.swiperReady) {
-                _this2.update();
-              }
-            });
-            mut.observe(this.el, {
-              childList: true,
-              subtree: true
-            });
-            this.el.componentOnReady().then(function () {
-              if (!_this2.didInit) {
-                _this2.didInit = true;
-
-                _this2.initSwiper();
-              }
-            });
-          }
-        }
-      }, {
-        key: "disconnectedCallback",
-        value: function disconnectedCallback() {
-          var _this3 = this;
-
-          if (this.mutationO) {
-            this.mutationO.disconnect();
-            this.mutationO = undefined;
-          }
-          /**
-           * We need to synchronously destroy
-           * swiper otherwise it is possible
-           * that it will be left in a
-           * destroyed state if connectedCallback
-           * is called multiple times
-           */
-
-
-          var swiper = this.syncSwiper;
-
-          if (swiper !== undefined) {
-            swiper.destroy(true, true);
-            this.swiper = new Promise(function (resolve) {
-              _this3.readySwiper = resolve;
-            });
-            this.swiperReady = false;
-            this.syncSwiper = undefined;
-          }
-
-          this.didInit = false;
-        }
-        /**
-         * Update the underlying slider implementation. Call this if you've added or removed
-         * child slides.
-         */
-
-      }, {
-        key: "update",
+        key: "componentDidLoad",
         value: function () {
-          var _update = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2() {
-            var _yield$Promise$all, _yield$Promise$all2, swiper;
-
+          var _componentDidLoad = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2() {
             return regeneratorRuntime.wrap(function _callee2$(_context2) {
               while (1) {
                 switch (_context2.prev = _context2.next) {
                   case 0:
-                    _context2.next = 2;
-                    return Promise.all([this.getSwiper(), waitForSlides(this.el)]);
+                    this.ionMenuChange.emit({
+                      disabled: this.disabled,
+                      open: this._isOpen
+                    });
+                    this.updateState();
 
                   case 2:
-                    _yield$Promise$all = _context2.sent;
-                    _yield$Promise$all2 = _slicedToArray(_yield$Promise$all, 1);
-                    swiper = _yield$Promise$all2[0];
-                    swiper.update();
-
-                  case 6:
                   case "end":
                     return _context2.stop();
                 }
@@ -261,36 +293,148 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
             }, _callee2, this);
           }));
 
-          function update() {
-            return _update.apply(this, arguments);
+          function componentDidLoad() {
+            return _componentDidLoad.apply(this, arguments);
           }
 
-          return update;
+          return componentDidLoad;
         }()
+      }, {
+        key: "disconnectedCallback",
+        value: function disconnectedCallback() {
+          this.blocker.destroy();
+
+          _index_3a75d1af_js__WEBPACK_IMPORTED_MODULE_7__["m"]._unregister(this);
+
+          if (this.animation) {
+            this.animation.destroy();
+          }
+
+          if (this.gesture) {
+            this.gesture.destroy();
+            this.gesture = undefined;
+          }
+
+          this.animation = undefined;
+          this.contentEl = this.backdropEl = this.menuInnerEl = undefined;
+        }
+      }, {
+        key: "onSplitPaneChanged",
+        value: function onSplitPaneChanged(ev) {
+          this.isPaneVisible = ev.detail.isPane(this.el);
+          this.updateState();
+        }
+      }, {
+        key: "onBackdropClick",
+        value: function onBackdropClick(ev) {
+          if (this._isOpen && this.lastOnEnd < ev.timeStamp - 100) {
+            var shouldClose = ev.composedPath ? !ev.composedPath().includes(this.menuInnerEl) : false;
+
+            if (shouldClose) {
+              ev.preventDefault();
+              ev.stopPropagation();
+              this.close();
+            }
+          }
+        }
         /**
-         * Force swiper to update its height (when autoHeight is enabled) for the duration
-         * equal to 'speed' parameter.
-         *
-         * @param speed The transition duration (in ms).
+         * Returns `true` is the menu is open.
          */
 
       }, {
-        key: "updateAutoHeight",
+        key: "isOpen",
+        value: function isOpen() {
+          return Promise.resolve(this._isOpen);
+        }
+        /**
+         * Returns `true` is the menu is active.
+         *
+         * A menu is active when it can be opened or closed, meaning it's enabled
+         * and it's not part of a `ion-split-pane`.
+         */
+
+      }, {
+        key: "isActive",
+        value: function isActive() {
+          return Promise.resolve(this._isActive());
+        }
+        /**
+         * Opens the menu. If the menu is already open or it can't be opened,
+         * it returns `false`.
+         */
+
+      }, {
+        key: "open",
+        value: function open() {
+          var animated = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : true;
+          return this.setOpen(true, animated);
+        }
+        /**
+         * Closes the menu. If the menu is already closed or it can't be closed,
+         * it returns `false`.
+         */
+
+      }, {
+        key: "close",
+        value: function close() {
+          var animated = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : true;
+          return this.setOpen(false, animated);
+        }
+        /**
+         * Toggles the menu. If the menu is already open, it will try to close, otherwise it will try to open it.
+         * If the operation can't be completed successfully, it returns `false`.
+         */
+
+      }, {
+        key: "toggle",
+        value: function toggle() {
+          var animated = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : true;
+          return this.setOpen(!this._isOpen, animated);
+        }
+        /**
+         * Opens or closes the button.
+         * If the operation can't be completed successfully, it returns `false`.
+         */
+
+      }, {
+        key: "setOpen",
+        value: function setOpen(shouldOpen) {
+          var animated = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : true;
+          return _index_3a75d1af_js__WEBPACK_IMPORTED_MODULE_7__["m"]._setOpen(this, shouldOpen, animated);
+        }
+      }, {
+        key: "_setOpen",
         value: function () {
-          var _updateAutoHeight = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee3(speed) {
-            var swiper;
+          var _setOpen2 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee3(shouldOpen) {
+            var animated,
+                _args3 = arguments;
             return regeneratorRuntime.wrap(function _callee3$(_context3) {
               while (1) {
                 switch (_context3.prev = _context3.next) {
                   case 0:
-                    _context3.next = 2;
-                    return this.getSwiper();
+                    animated = _args3.length > 1 && _args3[1] !== undefined ? _args3[1] : true;
 
-                  case 2:
-                    swiper = _context3.sent;
-                    swiper.updateAutoHeight(speed);
+                    if (!(!this._isActive() || this.isAnimating || shouldOpen === this._isOpen)) {
+                      _context3.next = 3;
+                      break;
+                    }
 
-                  case 4:
+                    return _context3.abrupt("return", false);
+
+                  case 3:
+                    this.beforeAnimation(shouldOpen);
+                    _context3.next = 6;
+                    return this.loadAnimation();
+
+                  case 6:
+                    _context3.next = 8;
+                    return this.startAnimation(shouldOpen, animated);
+
+                  case 8:
+                    this.afterAnimation(shouldOpen);
+                    return _context3.abrupt("return", true);
+
+                  case 10:
                   case "end":
                     return _context3.stop();
                 }
@@ -298,37 +442,54 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
             }, _callee3, this);
           }));
 
-          function updateAutoHeight(_x) {
-            return _updateAutoHeight.apply(this, arguments);
+          function _setOpen(_x) {
+            return _setOpen2.apply(this, arguments);
           }
 
-          return updateAutoHeight;
+          return _setOpen;
         }()
-        /**
-         * Transition to the specified slide.
-         *
-         * @param index The index of the slide to transition to.
-         * @param speed The transition duration (in ms).
-         * @param runCallbacks If true, the transition will produce [Transition/SlideChange][Start/End] transition events.
-         */
-
       }, {
-        key: "slideTo",
+        key: "loadAnimation",
         value: function () {
-          var _slideTo = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee4(index, speed, runCallbacks) {
-            var swiper;
+          var _loadAnimation = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee4() {
+            var width;
             return regeneratorRuntime.wrap(function _callee4$(_context4) {
               while (1) {
                 switch (_context4.prev = _context4.next) {
                   case 0:
-                    _context4.next = 2;
-                    return this.getSwiper();
+                    // Menu swipe animation takes the menu's inner width as parameter,
+                    // If `offsetWidth` changes, we need to create a new animation.
+                    width = this.menuInnerEl.offsetWidth;
 
-                  case 2:
-                    swiper = _context4.sent;
-                    swiper.slideTo(index, speed, runCallbacks);
+                    if (!(width === this.width && this.animation !== undefined)) {
+                      _context4.next = 3;
+                      break;
+                    }
 
-                  case 4:
+                    return _context4.abrupt("return");
+
+                  case 3:
+                    this.width = width; // Destroy existing animation
+
+                    if (this.animation) {
+                      this.animation.destroy();
+                      this.animation = undefined;
+                    } // Create new animation
+
+
+                    _context4.next = 7;
+                    return _index_3a75d1af_js__WEBPACK_IMPORTED_MODULE_7__["m"]._createAnimation(this.type, this);
+
+                  case 7:
+                    this.animation = _context4.sent;
+
+                    if (!_ionic_global_9d5c8ee3_js__WEBPACK_IMPORTED_MODULE_1__["c"].getBoolean('animated', true)) {
+                      this.animation.duration(0);
+                    }
+
+                    this.animation.fill('both');
+
+                  case 10:
                   case "end":
                     return _context4.stop();
                 }
@@ -336,36 +497,49 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
             }, _callee4, this);
           }));
 
-          function slideTo(_x2, _x3, _x4) {
-            return _slideTo.apply(this, arguments);
+          function loadAnimation() {
+            return _loadAnimation.apply(this, arguments);
           }
 
-          return slideTo;
+          return loadAnimation;
         }()
-        /**
-         * Transition to the next slide.
-         *
-         * @param speed The transition duration (in ms).
-         * @param runCallbacks If true, the transition will produce [Transition/SlideChange][Start/End] transition events.
-         */
-
       }, {
-        key: "slideNext",
+        key: "startAnimation",
         value: function () {
-          var _slideNext = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee5(speed, runCallbacks) {
-            var swiper;
+          var _startAnimation = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee5(shouldOpen, animated) {
+            var isReversed, mode, easing, easingReverse, ani;
             return regeneratorRuntime.wrap(function _callee5$(_context5) {
               while (1) {
                 switch (_context5.prev = _context5.next) {
                   case 0:
-                    _context5.next = 2;
-                    return this.getSwiper();
+                    isReversed = !shouldOpen;
+                    mode = Object(_ionic_global_9d5c8ee3_js__WEBPACK_IMPORTED_MODULE_1__["b"])(this);
+                    easing = mode === 'ios' ? iosEasing : mdEasing;
+                    easingReverse = mode === 'ios' ? iosEasingReverse : mdEasingReverse;
+                    ani = this.animation.direction(isReversed ? 'reverse' : 'normal').easing(isReversed ? easingReverse : easing).onFinish(function () {
+                      if (ani.getDirection() === 'reverse') {
+                        ani.direction('normal');
+                      }
+                    });
 
-                  case 2:
-                    swiper = _context5.sent;
-                    swiper.slideNext(speed, runCallbacks);
+                    if (!animated) {
+                      _context5.next = 10;
+                      break;
+                    }
 
-                  case 4:
+                    _context5.next = 8;
+                    return ani.play();
+
+                  case 8:
+                    _context5.next = 11;
+                    break;
+
+                  case 10:
+                    ani.play({
+                      sync: true
+                    });
+
+                  case 11:
                   case "end":
                     return _context5.stop();
                 }
@@ -373,641 +547,247 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
             }, _callee5, this);
           }));
 
-          function slideNext(_x5, _x6) {
-            return _slideNext.apply(this, arguments);
+          function startAnimation(_x2, _x3) {
+            return _startAnimation.apply(this, arguments);
           }
 
-          return slideNext;
+          return startAnimation;
         }()
-        /**
-         * Transition to the previous slide.
-         *
-         * @param speed The transition duration (in ms).
-         * @param runCallbacks If true, the transition will produce the [Transition/SlideChange][Start/End] transition events.
-         */
-
       }, {
-        key: "slidePrev",
-        value: function () {
-          var _slidePrev = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee6(speed, runCallbacks) {
-            var swiper;
-            return regeneratorRuntime.wrap(function _callee6$(_context6) {
-              while (1) {
-                switch (_context6.prev = _context6.next) {
-                  case 0:
-                    _context6.next = 2;
-                    return this.getSwiper();
+        key: "_isActive",
+        value: function _isActive() {
+          return !this.disabled && !this.isPaneVisible;
+        }
+      }, {
+        key: "canSwipe",
+        value: function canSwipe() {
+          return this.swipeGesture && !this.isAnimating && this._isActive();
+        }
+      }, {
+        key: "canStart",
+        value: function canStart(detail) {
+          // Do not allow swipe gesture if a modal is open
+          var isModalPresented = !!document.querySelector('ion-modal.show-modal');
 
-                  case 2:
-                    swiper = _context6.sent;
-                    swiper.slidePrev(speed, runCallbacks);
-
-                  case 4:
-                  case "end":
-                    return _context6.stop();
-                }
-              }
-            }, _callee6, this);
-          }));
-
-          function slidePrev(_x7, _x8) {
-            return _slidePrev.apply(this, arguments);
+          if (isModalPresented || !this.canSwipe()) {
+            return false;
           }
 
-          return slidePrev;
-        }()
-        /**
-         * Get the index of the active slide.
-         */
-
-      }, {
-        key: "getActiveIndex",
-        value: function () {
-          var _getActiveIndex = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee7() {
-            var swiper;
-            return regeneratorRuntime.wrap(function _callee7$(_context7) {
-              while (1) {
-                switch (_context7.prev = _context7.next) {
-                  case 0:
-                    _context7.next = 2;
-                    return this.getSwiper();
-
-                  case 2:
-                    swiper = _context7.sent;
-                    return _context7.abrupt("return", swiper.activeIndex);
-
-                  case 4:
-                  case "end":
-                    return _context7.stop();
-                }
-              }
-            }, _callee7, this);
-          }));
-
-          function getActiveIndex() {
-            return _getActiveIndex.apply(this, arguments);
+          if (this._isOpen) {
+            return true; // TODO error
+          } else if (_index_3a75d1af_js__WEBPACK_IMPORTED_MODULE_7__["m"]._getOpenSync()) {
+            return false;
           }
 
-          return getActiveIndex;
-        }()
-        /**
-         * Get the index of the previous slide.
-         */
-
+          return checkEdgeSide(window, detail.currentX, this.isEndSide, this.maxEdgeStart);
+        }
       }, {
-        key: "getPreviousIndex",
-        value: function () {
-          var _getPreviousIndex = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee8() {
-            var swiper;
-            return regeneratorRuntime.wrap(function _callee8$(_context8) {
-              while (1) {
-                switch (_context8.prev = _context8.next) {
-                  case 0:
-                    _context8.next = 2;
-                    return this.getSwiper();
+        key: "onWillStart",
+        value: function onWillStart() {
+          this.beforeAnimation(!this._isOpen);
+          return this.loadAnimation();
+        }
+      }, {
+        key: "onStart",
+        value: function onStart() {
+          if (!this.isAnimating || !this.animation) {
+            Object(_helpers_90f46169_js__WEBPACK_IMPORTED_MODULE_2__["k"])(false, 'isAnimating has to be true');
+            return;
+          } // the cloned animation should not use an easing curve during seek
 
-                  case 2:
-                    swiper = _context8.sent;
-                    return _context8.abrupt("return", swiper.previousIndex);
 
-                  case 4:
-                  case "end":
-                    return _context8.stop();
-                }
-              }
-            }, _callee8, this);
-          }));
-
-          function getPreviousIndex() {
-            return _getPreviousIndex.apply(this, arguments);
+          this.animation.progressStart(true, this._isOpen ? 1 : 0);
+        }
+      }, {
+        key: "onMove",
+        value: function onMove(detail) {
+          if (!this.isAnimating || !this.animation) {
+            Object(_helpers_90f46169_js__WEBPACK_IMPORTED_MODULE_2__["k"])(false, 'isAnimating has to be true');
+            return;
           }
 
-          return getPreviousIndex;
-        }()
-        /**
-         * Get the total number of slides.
-         */
-
+          var delta = computeDelta(detail.deltaX, this._isOpen, this.isEndSide);
+          var stepValue = delta / this.width;
+          this.animation.progressStep(this._isOpen ? 1 - stepValue : stepValue);
+        }
       }, {
-        key: "length",
-        value: function () {
-          var _length = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee9() {
-            var swiper;
-            return regeneratorRuntime.wrap(function _callee9$(_context9) {
-              while (1) {
-                switch (_context9.prev = _context9.next) {
-                  case 0:
-                    _context9.next = 2;
-                    return this.getSwiper();
+        key: "onEnd",
+        value: function onEnd(detail) {
+          var _this2 = this;
 
-                  case 2:
-                    swiper = _context9.sent;
-                    return _context9.abrupt("return", swiper.slides.length);
-
-                  case 4:
-                  case "end":
-                    return _context9.stop();
-                }
-              }
-            }, _callee9, this);
-          }));
-
-          function length() {
-            return _length.apply(this, arguments);
+          if (!this.isAnimating || !this.animation) {
+            Object(_helpers_90f46169_js__WEBPACK_IMPORTED_MODULE_2__["k"])(false, 'isAnimating has to be true');
+            return;
           }
 
-          return length;
-        }()
-        /**
-         * Get whether or not the current slide is the last slide.
-         */
+          var isOpen = this._isOpen;
+          var isEndSide = this.isEndSide;
+          var delta = computeDelta(detail.deltaX, isOpen, isEndSide);
+          var width = this.width;
+          var stepValue = delta / width;
+          var velocity = detail.velocityX;
+          var z = width / 2.0;
+          var shouldCompleteRight = velocity >= 0 && (velocity > 0.2 || detail.deltaX > z);
+          var shouldCompleteLeft = velocity <= 0 && (velocity < -0.2 || detail.deltaX < -z);
+          var shouldComplete = isOpen ? isEndSide ? shouldCompleteRight : shouldCompleteLeft : isEndSide ? shouldCompleteLeft : shouldCompleteRight;
+          var shouldOpen = !isOpen && shouldComplete;
 
-      }, {
-        key: "isEnd",
-        value: function () {
-          var _isEnd = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee10() {
-            var swiper;
-            return regeneratorRuntime.wrap(function _callee10$(_context10) {
-              while (1) {
-                switch (_context10.prev = _context10.next) {
-                  case 0:
-                    _context10.next = 2;
-                    return this.getSwiper();
-
-                  case 2:
-                    swiper = _context10.sent;
-                    return _context10.abrupt("return", swiper.isEnd);
-
-                  case 4:
-                  case "end":
-                    return _context10.stop();
-                }
-              }
-            }, _callee10, this);
-          }));
-
-          function isEnd() {
-            return _isEnd.apply(this, arguments);
+          if (isOpen && !shouldComplete) {
+            shouldOpen = true;
           }
 
-          return isEnd;
-        }()
-        /**
-         * Get whether or not the current slide is the first slide.
-         */
+          this.lastOnEnd = detail.currentTime; // Account for rounding errors in JS
 
+          var newStepValue = shouldComplete ? 0.001 : -0.001;
+          /**
+           * TODO: stepValue can sometimes return a negative
+           * value, but you can't have a negative time value
+           * for the cubic bezier curve (at least with web animations)
+           * Not sure if the negative step value is an error or not
+           */
+
+          var adjustedStepValue = stepValue < 0 ? 0.01 : stepValue;
+          /**
+           * Animation will be reversed here, so need to
+           * reverse the easing curve as well
+           *
+           * Additionally, we need to account for the time relative
+           * to the new easing curve, as `stepValue` is going to be given
+           * in terms of a linear curve.
+           */
+
+          newStepValue += Object(_cubic_bezier_eea9a7a9_js__WEBPACK_IMPORTED_MODULE_4__["g"])([0, 0], [0.4, 0], [0.6, 1], [1, 1], Object(_helpers_90f46169_js__WEBPACK_IMPORTED_MODULE_2__["h"])(0, adjustedStepValue, 0.9999))[0] || 0;
+          var playTo = this._isOpen ? !shouldComplete : shouldComplete;
+          this.animation.easing('cubic-bezier(0.4, 0.0, 0.6, 1)').onFinish(function () {
+            return _this2.afterAnimation(shouldOpen);
+          }, {
+            oneTimeCallback: true
+          }).progressEnd(playTo ? 1 : 0, this._isOpen ? 1 - newStepValue : newStepValue, 300);
+        }
       }, {
-        key: "isBeginning",
-        value: function () {
-          var _isBeginning = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee11() {
-            var swiper;
-            return regeneratorRuntime.wrap(function _callee11$(_context11) {
-              while (1) {
-                switch (_context11.prev = _context11.next) {
-                  case 0:
-                    _context11.next = 2;
-                    return this.getSwiper();
+        key: "beforeAnimation",
+        value: function beforeAnimation(shouldOpen) {
+          Object(_helpers_90f46169_js__WEBPACK_IMPORTED_MODULE_2__["k"])(!this.isAnimating, '_before() should not be called while animating'); // this places the menu into the correct location before it animates in
+          // this css class doesn't actually kick off any animations
 
-                  case 2:
-                    swiper = _context11.sent;
-                    return _context11.abrupt("return", swiper.isBeginning);
+          this.el.classList.add(SHOW_MENU);
 
-                  case 4:
-                  case "end":
-                    return _context11.stop();
-                }
-              }
-            }, _callee11, this);
-          }));
-
-          function isBeginning() {
-            return _isBeginning.apply(this, arguments);
+          if (this.backdropEl) {
+            this.backdropEl.classList.add(SHOW_BACKDROP);
           }
 
-          return isBeginning;
-        }()
-        /**
-         * Start auto play.
-         */
+          this.blocker.block();
+          this.isAnimating = true;
 
+          if (shouldOpen) {
+            this.ionWillOpen.emit();
+          } else {
+            this.ionWillClose.emit();
+          }
+        }
       }, {
-        key: "startAutoplay",
-        value: function () {
-          var _startAutoplay = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee12() {
-            var swiper;
-            return regeneratorRuntime.wrap(function _callee12$(_context12) {
-              while (1) {
-                switch (_context12.prev = _context12.next) {
-                  case 0:
-                    _context12.next = 2;
-                    return this.getSwiper();
+        key: "afterAnimation",
+        value: function afterAnimation(isOpen) {
+          Object(_helpers_90f46169_js__WEBPACK_IMPORTED_MODULE_2__["k"])(this.isAnimating, '_before() should be called while animating'); // keep opening/closing the menu disabled for a touch more yet
+          // only add listeners/css if it's enabled and isOpen
+          // and only remove listeners/css if it's not open
+          // emit opened/closed events
 
-                  case 2:
-                    swiper = _context12.sent;
+          this._isOpen = isOpen;
+          this.isAnimating = false;
 
-                    if (swiper.autoplay) {
-                      swiper.autoplay.start();
-                    }
-
-                  case 4:
-                  case "end":
-                    return _context12.stop();
-                }
-              }
-            }, _callee12, this);
-          }));
-
-          function startAutoplay() {
-            return _startAutoplay.apply(this, arguments);
+          if (!this._isOpen) {
+            this.blocker.unblock();
           }
 
-          return startAutoplay;
-        }()
-        /**
-         * Stop auto play.
-         */
+          if (isOpen) {
+            // add css class
+            if (this.contentEl) {
+              this.contentEl.classList.add(MENU_CONTENT_OPEN);
+            } // emit open event
 
-      }, {
-        key: "stopAutoplay",
-        value: function () {
-          var _stopAutoplay = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee13() {
-            var swiper;
-            return regeneratorRuntime.wrap(function _callee13$(_context13) {
-              while (1) {
-                switch (_context13.prev = _context13.next) {
-                  case 0:
-                    _context13.next = 2;
-                    return this.getSwiper();
 
-                  case 2:
-                    swiper = _context13.sent;
+            this.ionDidOpen.emit();
+          } else {
+            // remove css classes
+            this.el.classList.remove(SHOW_MENU);
 
-                    if (swiper.autoplay) {
-                      swiper.autoplay.stop();
-                    }
-
-                  case 4:
-                  case "end":
-                    return _context13.stop();
-                }
-              }
-            }, _callee13, this);
-          }));
-
-          function stopAutoplay() {
-            return _stopAutoplay.apply(this, arguments);
-          }
-
-          return stopAutoplay;
-        }()
-        /**
-         * Lock or unlock the ability to slide to the next slide.
-         *
-         * @param lock If `true`, disable swiping to the next slide.
-         */
-
-      }, {
-        key: "lockSwipeToNext",
-        value: function () {
-          var _lockSwipeToNext = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee14(lock) {
-            var swiper;
-            return regeneratorRuntime.wrap(function _callee14$(_context14) {
-              while (1) {
-                switch (_context14.prev = _context14.next) {
-                  case 0:
-                    _context14.next = 2;
-                    return this.getSwiper();
-
-                  case 2:
-                    swiper = _context14.sent;
-                    swiper.allowSlideNext = !lock;
-
-                  case 4:
-                  case "end":
-                    return _context14.stop();
-                }
-              }
-            }, _callee14, this);
-          }));
-
-          function lockSwipeToNext(_x9) {
-            return _lockSwipeToNext.apply(this, arguments);
-          }
-
-          return lockSwipeToNext;
-        }()
-        /**
-         * Lock or unlock the ability to slide to the previous slide.
-         *
-         * @param lock If `true`, disable swiping to the previous slide.
-         */
-
-      }, {
-        key: "lockSwipeToPrev",
-        value: function () {
-          var _lockSwipeToPrev = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee15(lock) {
-            var swiper;
-            return regeneratorRuntime.wrap(function _callee15$(_context15) {
-              while (1) {
-                switch (_context15.prev = _context15.next) {
-                  case 0:
-                    _context15.next = 2;
-                    return this.getSwiper();
-
-                  case 2:
-                    swiper = _context15.sent;
-                    swiper.allowSlidePrev = !lock;
-
-                  case 4:
-                  case "end":
-                    return _context15.stop();
-                }
-              }
-            }, _callee15, this);
-          }));
-
-          function lockSwipeToPrev(_x10) {
-            return _lockSwipeToPrev.apply(this, arguments);
-          }
-
-          return lockSwipeToPrev;
-        }()
-        /**
-         * Lock or unlock the ability to slide to the next or previous slide.
-         *
-         * @param lock If `true`, disable swiping to the next and previous slide.
-         */
-
-      }, {
-        key: "lockSwipes",
-        value: function () {
-          var _lockSwipes = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee16(lock) {
-            var swiper;
-            return regeneratorRuntime.wrap(function _callee16$(_context16) {
-              while (1) {
-                switch (_context16.prev = _context16.next) {
-                  case 0:
-                    _context16.next = 2;
-                    return this.getSwiper();
-
-                  case 2:
-                    swiper = _context16.sent;
-                    swiper.allowSlideNext = !lock;
-                    swiper.allowSlidePrev = !lock;
-                    swiper.allowTouchMove = !lock;
-
-                  case 6:
-                  case "end":
-                    return _context16.stop();
-                }
-              }
-            }, _callee16, this);
-          }));
-
-          function lockSwipes(_x11) {
-            return _lockSwipes.apply(this, arguments);
-          }
-
-          return lockSwipes;
-        }()
-        /**
-         * Get the Swiper instance.
-         * Use this to access the full Swiper API.
-         * See https://idangero.us/swiper/api/ for all API options.
-         */
-
-      }, {
-        key: "getSwiper",
-        value: function () {
-          var _getSwiper = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee17() {
-            return regeneratorRuntime.wrap(function _callee17$(_context17) {
-              while (1) {
-                switch (_context17.prev = _context17.next) {
-                  case 0:
-                    return _context17.abrupt("return", this.swiper);
-
-                  case 1:
-                  case "end":
-                    return _context17.stop();
-                }
-              }
-            }, _callee17, this);
-          }));
-
-          function getSwiper() {
-            return _getSwiper.apply(this, arguments);
-          }
-
-          return getSwiper;
-        }()
-      }, {
-        key: "initSwiper",
-        value: function () {
-          var _initSwiper = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee18() {
-            var finalOptions, _yield$__webpack_requ, Swiper, swiper;
-
-            return regeneratorRuntime.wrap(function _callee18$(_context18) {
-              while (1) {
-                switch (_context18.prev = _context18.next) {
-                  case 0:
-                    finalOptions = this.normalizeOptions(); // init swiper core
-                    // @ts-ignore
-
-                    _context18.next = 3;
-                    return __webpack_require__.e(
-                    /*! import() | swiper-bundle-95afeea2-js */
-                    "swiper-bundle-95afeea2-js").then(__webpack_require__.bind(null,
-                    /*! ./swiper.bundle-95afeea2.js */
-                    "./node_modules/@ionic/core/dist/esm/swiper.bundle-95afeea2.js"));
-
-                  case 3:
-                    _yield$__webpack_requ = _context18.sent;
-                    Swiper = _yield$__webpack_requ.Swiper;
-                    _context18.next = 7;
-                    return waitForSlides(this.el);
-
-                  case 7:
-                    swiper = new Swiper(this.el, finalOptions);
-                    this.swiperReady = true;
-                    this.syncSwiper = swiper;
-                    this.readySwiper(swiper);
-
-                  case 11:
-                  case "end":
-                    return _context18.stop();
-                }
-              }
-            }, _callee18, this);
-          }));
-
-          function initSwiper() {
-            return _initSwiper.apply(this, arguments);
-          }
-
-          return initSwiper;
-        }()
-      }, {
-        key: "normalizeOptions",
-        value: function normalizeOptions() {
-          var _this4 = this;
-
-          // Base options, can be changed
-          // TODO Add interface SwiperOptions
-          var swiperOptions = {
-            effect: undefined,
-            direction: 'horizontal',
-            initialSlide: 0,
-            loop: false,
-            parallax: false,
-            slidesPerView: 1,
-            spaceBetween: 0,
-            speed: 300,
-            slidesPerColumn: 1,
-            slidesPerColumnFill: 'column',
-            slidesPerGroup: 1,
-            centeredSlides: false,
-            slidesOffsetBefore: 0,
-            slidesOffsetAfter: 0,
-            touchEventsTarget: 'container',
-            autoplay: false,
-            freeMode: false,
-            freeModeMomentum: true,
-            freeModeMomentumRatio: 1,
-            freeModeMomentumBounce: true,
-            freeModeMomentumBounceRatio: 1,
-            freeModeMomentumVelocityRatio: 1,
-            freeModeSticky: false,
-            freeModeMinimumVelocity: 0.02,
-            autoHeight: false,
-            setWrapperSize: false,
-            zoom: {
-              maxRatio: 3,
-              minRatio: 1,
-              toggle: false
-            },
-            touchRatio: 1,
-            touchAngle: 45,
-            simulateTouch: true,
-            touchStartPreventDefault: false,
-            shortSwipes: true,
-            longSwipes: true,
-            longSwipesRatio: 0.5,
-            longSwipesMs: 300,
-            followFinger: true,
-            threshold: 0,
-            touchMoveStopPropagation: true,
-            touchReleaseOnEdges: false,
-            iOSEdgeSwipeDetection: false,
-            iOSEdgeSwipeThreshold: 20,
-            resistance: true,
-            resistanceRatio: 0.85,
-            watchSlidesProgress: false,
-            watchSlidesVisibility: false,
-            preventClicks: true,
-            preventClicksPropagation: true,
-            slideToClickedSlide: false,
-            loopAdditionalSlides: 0,
-            noSwiping: true,
-            runCallbacksOnInit: true,
-            coverflowEffect: {
-              rotate: 50,
-              stretch: 0,
-              depth: 100,
-              modifier: 1,
-              slideShadows: true
-            },
-            flipEffect: {
-              slideShadows: true,
-              limitRotation: true
-            },
-            cubeEffect: {
-              slideShadows: true,
-              shadow: true,
-              shadowOffset: 20,
-              shadowScale: 0.94
-            },
-            fadeEffect: {
-              crossFade: false
-            },
-            a11y: {
-              prevSlideMessage: 'Previous slide',
-              nextSlideMessage: 'Next slide',
-              firstSlideMessage: 'This is the first slide',
-              lastSlideMessage: 'This is the last slide'
+            if (this.contentEl) {
+              this.contentEl.classList.remove(MENU_CONTENT_OPEN);
             }
-          };
 
-          if (this.pager) {
-            swiperOptions.pagination = {
-              el: this.paginationEl,
-              type: 'bullets',
-              clickable: false,
-              hideOnClick: false
-            };
+            if (this.backdropEl) {
+              this.backdropEl.classList.remove(SHOW_BACKDROP);
+            }
+
+            if (this.animation) {
+              this.animation.stop();
+            } // emit close event
+
+
+            this.ionDidClose.emit();
+          }
+        }
+      }, {
+        key: "updateState",
+        value: function updateState() {
+          var isActive = this._isActive();
+
+          if (this.gesture) {
+            this.gesture.enable(isActive && this.swipeGesture);
+          } // Close menu immediately
+
+
+          if (!isActive && this._isOpen) {
+            // close if this menu is open, and should not be enabled
+            this.forceClosing();
           }
 
-          if (this.scrollbar) {
-            swiperOptions.scrollbar = {
-              el: this.scrollbarEl,
-              hide: true
-            };
-          } // Keep the event options separate, we dont want users
-          // overwriting these
+          if (!this.disabled) {
+            _index_3a75d1af_js__WEBPACK_IMPORTED_MODULE_7__["m"]._setActiveMenu(this);
+          }
 
-
-          var eventOptions = {
-            on: {
-              init: function init() {
-                setTimeout(function () {
-                  _this4.ionSlidesDidLoad.emit();
-                }, 20);
-              },
-              slideChangeTransitionStart: this.ionSlideWillChange.emit,
-              slideChangeTransitionEnd: this.ionSlideDidChange.emit,
-              slideNextTransitionStart: this.ionSlideNextStart.emit,
-              slidePrevTransitionStart: this.ionSlidePrevStart.emit,
-              slideNextTransitionEnd: this.ionSlideNextEnd.emit,
-              slidePrevTransitionEnd: this.ionSlidePrevEnd.emit,
-              transitionStart: this.ionSlideTransitionStart.emit,
-              transitionEnd: this.ionSlideTransitionEnd.emit,
-              sliderMove: this.ionSlideDrag.emit,
-              reachBeginning: this.ionSlideReachStart.emit,
-              reachEnd: this.ionSlideReachEnd.emit,
-              touchStart: this.ionSlideTouchStart.emit,
-              touchEnd: this.ionSlideTouchEnd.emit,
-              tap: this.ionSlideTap.emit,
-              doubleTap: this.ionSlideDoubleTap.emit
-            }
-          };
-          var customEvents = !!this.options && !!this.options.on ? this.options.on : {}; // merge "on" event listeners, while giving our event listeners priority
-
-          var mergedEventOptions = {
-            on: Object.assign(Object.assign({}, customEvents), eventOptions.on)
-          }; // Merge the base, user options, and events together then pas to swiper
-
-          return Object.assign(Object.assign(Object.assign({}, swiperOptions), this.options), mergedEventOptions);
+          Object(_helpers_90f46169_js__WEBPACK_IMPORTED_MODULE_2__["k"])(!this.isAnimating, 'can not be animating');
+        }
+      }, {
+        key: "forceClosing",
+        value: function forceClosing() {
+          Object(_helpers_90f46169_js__WEBPACK_IMPORTED_MODULE_2__["k"])(this._isOpen, 'menu cannot be closed');
+          this.isAnimating = true;
+          var ani = this.animation.direction('reverse');
+          ani.play({
+            sync: true
+          });
+          this.afterAnimation(false);
         }
       }, {
         key: "render",
         value: function render() {
-          var _class2,
-              _this5 = this;
+          var _class,
+              _this3 = this;
 
+          var isEndSide = this.isEndSide,
+              type = this.type,
+              disabled = this.disabled,
+              isPaneVisible = this.isPaneVisible;
           var mode = Object(_ionic_global_9d5c8ee3_js__WEBPACK_IMPORTED_MODULE_1__["b"])(this);
           return Object(_index_e806d1f6_js__WEBPACK_IMPORTED_MODULE_0__["h"])(_index_e806d1f6_js__WEBPACK_IMPORTED_MODULE_0__["H"], {
-            "class": (_class2 = {}, _defineProperty(_class2, "".concat(mode), true), _defineProperty(_class2, "slides-".concat(mode), true), _defineProperty(_class2, 'swiper-container', true), _class2)
+            role: "navigation",
+            "class": (_class = {}, _defineProperty(_class, mode, true), _defineProperty(_class, "menu-type-".concat(type), true), _defineProperty(_class, 'menu-enabled', !disabled), _defineProperty(_class, 'menu-side-end', isEndSide), _defineProperty(_class, 'menu-side-start', !isEndSide), _defineProperty(_class, 'menu-pane-visible', isPaneVisible), _class)
           }, Object(_index_e806d1f6_js__WEBPACK_IMPORTED_MODULE_0__["h"])("div", {
-            "class": "swiper-wrapper"
-          }, Object(_index_e806d1f6_js__WEBPACK_IMPORTED_MODULE_0__["h"])("slot", null)), this.pager && Object(_index_e806d1f6_js__WEBPACK_IMPORTED_MODULE_0__["h"])("div", {
-            "class": "swiper-pagination",
+            "class": "menu-inner",
+            part: "container",
             ref: function ref(el) {
-              return _this5.paginationEl = el;
+              return _this3.menuInnerEl = el;
             }
-          }), this.scrollbar && Object(_index_e806d1f6_js__WEBPACK_IMPORTED_MODULE_0__["h"])("div", {
-            "class": "swiper-scrollbar",
+          }, Object(_index_e806d1f6_js__WEBPACK_IMPORTED_MODULE_0__["h"])("slot", null)), Object(_index_e806d1f6_js__WEBPACK_IMPORTED_MODULE_0__["h"])("ion-backdrop", {
             ref: function ref(el) {
-              return _this5.scrollbarEl = el;
-            }
+              return _this3.backdropEl = el;
+            },
+            "class": "menu-backdrop",
+            tappable: false,
+            stopPropagation: false,
+            part: "backdrop"
           }));
         }
       }, {
@@ -1016,32 +796,283 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
           return Object(_index_e806d1f6_js__WEBPACK_IMPORTED_MODULE_0__["i"])(this);
         }
       }], [{
-        key: "assetsDirs",
-        get: function get() {
-          return ["swiper"];
-        }
-      }, {
         key: "watchers",
         get: function get() {
           return {
-            "options": ["optionsChanged"]
+            "type": ["typeChanged"],
+            "disabled": ["disabledChanged"],
+            "side": ["sideChanged"],
+            "swipeGesture": ["swipeGestureChanged"]
           };
         }
       }]);
 
-      return Slides;
+      return Menu;
     }();
 
-    var waitForSlides = function waitForSlides(el) {
-      return Promise.all(Array.from(el.querySelectorAll('ion-slide')).map(function (s) {
-        return s.componentOnReady();
-      }));
+    var computeDelta = function computeDelta(deltaX, isOpen, isEndSide) {
+      return Math.max(0, isOpen !== isEndSide ? -deltaX : deltaX);
     };
 
-    Slides.style = {
-      ios: slidesIosCss,
-      md: slidesMdCss
+    var checkEdgeSide = function checkEdgeSide(win, posX, isEndSide, maxEdgeStart) {
+      if (isEndSide) {
+        return posX >= win.innerWidth - maxEdgeStart;
+      } else {
+        return posX <= maxEdgeStart;
+      }
     };
+
+    var SHOW_MENU = 'show-menu';
+    var SHOW_BACKDROP = 'show-backdrop';
+    var MENU_CONTENT_OPEN = 'menu-content-open';
+    Menu.style = {
+      ios: menuIosCss,
+      md: menuMdCss
+    }; // Given a menu, return whether or not the menu toggle should be visible
+
+    var updateVisibility = /*#__PURE__*/function () {
+      var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee6(menu) {
+        var menuEl;
+        return regeneratorRuntime.wrap(function _callee6$(_context6) {
+          while (1) {
+            switch (_context6.prev = _context6.next) {
+              case 0:
+                _context6.next = 2;
+                return _index_3a75d1af_js__WEBPACK_IMPORTED_MODULE_7__["m"].get(menu);
+
+              case 2:
+                menuEl = _context6.sent;
+                _context6.t0 = menuEl;
+
+                if (!_context6.t0) {
+                  _context6.next = 8;
+                  break;
+                }
+
+                _context6.next = 7;
+                return menuEl.isActive();
+
+              case 7:
+                _context6.t0 = _context6.sent;
+
+              case 8:
+                return _context6.abrupt("return", !!_context6.t0);
+
+              case 9:
+              case "end":
+                return _context6.stop();
+            }
+          }
+        }, _callee6);
+      }));
+
+      return function updateVisibility(_x4) {
+        return _ref.apply(this, arguments);
+      };
+    }();
+
+    var menuButtonIosCss = ":host{--background:transparent;--color-focused:currentColor;--border-radius:initial;--padding-top:0;--padding-bottom:0;color:var(--color);text-align:center;text-decoration:none;text-overflow:ellipsis;text-transform:none;white-space:nowrap;-webkit-font-kerning:none;font-kerning:none}.button-native{border-radius:var(--border-radius);font-family:inherit;font-size:inherit;font-style:inherit;font-weight:inherit;letter-spacing:inherit;text-decoration:inherit;text-indent:inherit;text-overflow:inherit;text-transform:inherit;text-align:inherit;white-space:inherit;color:inherit;margin-left:0;margin-right:0;margin-top:0;margin-bottom:0;padding-left:var(--padding-start);padding-right:var(--padding-end);padding-top:var(--padding-top);padding-bottom:var(--padding-bottom);-moz-osx-font-smoothing:grayscale;-webkit-font-smoothing:antialiased;display:-ms-flexbox;display:flex;position:relative;-ms-flex-flow:row nowrap;flex-flow:row nowrap;-ms-flex-negative:0;flex-shrink:0;-ms-flex-align:center;align-items:center;-ms-flex-pack:center;justify-content:center;width:100%;height:100%;border:0;outline:none;background:var(--background);line-height:1;cursor:pointer;overflow:hidden;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;z-index:0;-webkit-appearance:none;-moz-appearance:none;appearance:none}@supports ((-webkit-margin-start: 0) or (margin-inline-start: 0)) or (-webkit-margin-start: 0){.button-native{padding-left:unset;padding-right:unset;-webkit-padding-start:var(--padding-start);padding-inline-start:var(--padding-start);-webkit-padding-end:var(--padding-end);padding-inline-end:var(--padding-end)}}.button-inner{display:-ms-flexbox;display:flex;position:relative;-ms-flex-flow:row nowrap;flex-flow:row nowrap;-ms-flex-negative:0;flex-shrink:0;-ms-flex-align:center;align-items:center;-ms-flex-pack:center;justify-content:center;width:100%;height:100%;z-index:1}ion-icon{margin-left:0;margin-right:0;margin-top:0;margin-bottom:0;padding-left:0;padding-right:0;padding-top:0;padding-bottom:0;pointer-events:none}:host(.menu-button-hidden){display:none}:host(.menu-button-disabled){cursor:default;opacity:0.5;pointer-events:none}:host(.ion-focused) .button-native{color:var(--color-focused)}:host(.ion-focused) .button-native::after{background:var(--background-focused);opacity:var(--background-focused-opacity)}.button-native::after{left:0;right:0;top:0;bottom:0;position:absolute;content:\"\";opacity:0}@media (any-hover: hover){:host(:hover) .button-native{color:var(--color-hover)}:host(:hover) .button-native::after{background:var(--background-hover);opacity:var(--background-hover-opacity, 0)}}:host(.ion-color) .button-native{color:var(--ion-color-base)}:host(.in-toolbar:not(.in-toolbar-color)){color:var(--ion-toolbar-color, var(--color))}:host{--background-focused:currentColor;--background-focused-opacity:.1;--border-radius:4px;--color:var(--ion-color-primary, #3880ff);--padding-start:5px;--padding-end:5px;height:32px;font-size:31px}:host(.ion-activated){opacity:0.4}@media (any-hover: hover){:host(:hover){opacity:0.6}}";
+    var menuButtonMdCss = ":host{--background:transparent;--color-focused:currentColor;--border-radius:initial;--padding-top:0;--padding-bottom:0;color:var(--color);text-align:center;text-decoration:none;text-overflow:ellipsis;text-transform:none;white-space:nowrap;-webkit-font-kerning:none;font-kerning:none}.button-native{border-radius:var(--border-radius);font-family:inherit;font-size:inherit;font-style:inherit;font-weight:inherit;letter-spacing:inherit;text-decoration:inherit;text-indent:inherit;text-overflow:inherit;text-transform:inherit;text-align:inherit;white-space:inherit;color:inherit;margin-left:0;margin-right:0;margin-top:0;margin-bottom:0;padding-left:var(--padding-start);padding-right:var(--padding-end);padding-top:var(--padding-top);padding-bottom:var(--padding-bottom);-moz-osx-font-smoothing:grayscale;-webkit-font-smoothing:antialiased;display:-ms-flexbox;display:flex;position:relative;-ms-flex-flow:row nowrap;flex-flow:row nowrap;-ms-flex-negative:0;flex-shrink:0;-ms-flex-align:center;align-items:center;-ms-flex-pack:center;justify-content:center;width:100%;height:100%;border:0;outline:none;background:var(--background);line-height:1;cursor:pointer;overflow:hidden;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;z-index:0;-webkit-appearance:none;-moz-appearance:none;appearance:none}@supports ((-webkit-margin-start: 0) or (margin-inline-start: 0)) or (-webkit-margin-start: 0){.button-native{padding-left:unset;padding-right:unset;-webkit-padding-start:var(--padding-start);padding-inline-start:var(--padding-start);-webkit-padding-end:var(--padding-end);padding-inline-end:var(--padding-end)}}.button-inner{display:-ms-flexbox;display:flex;position:relative;-ms-flex-flow:row nowrap;flex-flow:row nowrap;-ms-flex-negative:0;flex-shrink:0;-ms-flex-align:center;align-items:center;-ms-flex-pack:center;justify-content:center;width:100%;height:100%;z-index:1}ion-icon{margin-left:0;margin-right:0;margin-top:0;margin-bottom:0;padding-left:0;padding-right:0;padding-top:0;padding-bottom:0;pointer-events:none}:host(.menu-button-hidden){display:none}:host(.menu-button-disabled){cursor:default;opacity:0.5;pointer-events:none}:host(.ion-focused) .button-native{color:var(--color-focused)}:host(.ion-focused) .button-native::after{background:var(--background-focused);opacity:var(--background-focused-opacity)}.button-native::after{left:0;right:0;top:0;bottom:0;position:absolute;content:\"\";opacity:0}@media (any-hover: hover){:host(:hover) .button-native{color:var(--color-hover)}:host(:hover) .button-native::after{background:var(--background-hover);opacity:var(--background-hover-opacity, 0)}}:host(.ion-color) .button-native{color:var(--ion-color-base)}:host(.in-toolbar:not(.in-toolbar-color)){color:var(--ion-toolbar-color, var(--color))}:host{--background-focused:currentColor;--background-focused-opacity:.12;--background-hover:currentColor;--background-hover-opacity:.04;--border-radius:50%;--color:initial;--padding-start:8px;--padding-end:8px;width:48px;height:48px;font-size:24px}:host(.ion-color.ion-focused)::after{background:var(--ion-color-base)}@media (any-hover: hover){:host(.ion-color:hover) .button-native::after{background:var(--ion-color-base)}}";
+
+    var MenuButton = /*#__PURE__*/function () {
+      function MenuButton(hostRef) {
+        var _this4 = this;
+
+        _classCallCheck(this, MenuButton);
+
+        Object(_index_e806d1f6_js__WEBPACK_IMPORTED_MODULE_0__["r"])(this, hostRef);
+        this.visible = false;
+        /**
+         * If `true`, the user cannot interact with the menu button.
+         */
+
+        this.disabled = false;
+        /**
+         * Automatically hides the menu button when the corresponding menu is not active
+         */
+
+        this.autoHide = true;
+        /**
+         * The type of the button.
+         */
+
+        this.type = 'button';
+        this.onClick = /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee7() {
+          return regeneratorRuntime.wrap(function _callee7$(_context7) {
+            while (1) {
+              switch (_context7.prev = _context7.next) {
+                case 0:
+                  return _context7.abrupt("return", _index_3a75d1af_js__WEBPACK_IMPORTED_MODULE_7__["m"].toggle(_this4.menu));
+
+                case 1:
+                case "end":
+                  return _context7.stop();
+              }
+            }
+          }, _callee7);
+        }));
+      }
+
+      _createClass(MenuButton, [{
+        key: "componentDidLoad",
+        value: function componentDidLoad() {
+          this.visibilityChanged();
+        }
+      }, {
+        key: "visibilityChanged",
+        value: function () {
+          var _visibilityChanged = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee8() {
+            return regeneratorRuntime.wrap(function _callee8$(_context8) {
+              while (1) {
+                switch (_context8.prev = _context8.next) {
+                  case 0:
+                    _context8.next = 2;
+                    return updateVisibility(this.menu);
+
+                  case 2:
+                    this.visible = _context8.sent;
+
+                  case 3:
+                  case "end":
+                    return _context8.stop();
+                }
+              }
+            }, _callee8, this);
+          }));
+
+          function visibilityChanged() {
+            return _visibilityChanged.apply(this, arguments);
+          }
+
+          return visibilityChanged;
+        }()
+      }, {
+        key: "render",
+        value: function render() {
+          var _Object;
+
+          var color = this.color,
+              disabled = this.disabled;
+          var mode = Object(_ionic_global_9d5c8ee3_js__WEBPACK_IMPORTED_MODULE_1__["b"])(this);
+
+          var menuIcon = _ionic_global_9d5c8ee3_js__WEBPACK_IMPORTED_MODULE_1__["c"].get('menuIcon', mode === 'ios' ? 'menu-outline' : 'menu-sharp');
+
+          var hidden = this.autoHide && !this.visible;
+          var attrs = {
+            type: this.type
+          };
+          return Object(_index_e806d1f6_js__WEBPACK_IMPORTED_MODULE_0__["h"])(_index_e806d1f6_js__WEBPACK_IMPORTED_MODULE_0__["H"], {
+            onClick: this.onClick,
+            "aria-disabled": disabled ? 'true' : null,
+            "aria-hidden": hidden ? 'true' : null,
+            "class": Object(_theme_ff3fc52f_js__WEBPACK_IMPORTED_MODULE_8__["c"])(color, (_Object = {}, _defineProperty(_Object, mode, true), _defineProperty(_Object, 'button', true), _defineProperty(_Object, 'menu-button-hidden', hidden), _defineProperty(_Object, 'menu-button-disabled', disabled), _defineProperty(_Object, 'in-toolbar', Object(_theme_ff3fc52f_js__WEBPACK_IMPORTED_MODULE_8__["h"])('ion-toolbar', this.el)), _defineProperty(_Object, 'in-toolbar-color', Object(_theme_ff3fc52f_js__WEBPACK_IMPORTED_MODULE_8__["h"])('ion-toolbar[color]', this.el)), _defineProperty(_Object, 'ion-activatable', true), _defineProperty(_Object, 'ion-focusable', true), _Object))
+          }, Object(_index_e806d1f6_js__WEBPACK_IMPORTED_MODULE_0__["h"])("button", Object.assign({}, attrs, {
+            disabled: disabled,
+            "class": "button-native",
+            part: "native",
+            "aria-label": "menu"
+          }), Object(_index_e806d1f6_js__WEBPACK_IMPORTED_MODULE_0__["h"])("span", {
+            "class": "button-inner"
+          }, Object(_index_e806d1f6_js__WEBPACK_IMPORTED_MODULE_0__["h"])("slot", null, Object(_index_e806d1f6_js__WEBPACK_IMPORTED_MODULE_0__["h"])("ion-icon", {
+            part: "icon",
+            icon: menuIcon,
+            mode: mode,
+            lazy: false,
+            "aria-hidden": "true"
+          }))), mode === 'md' && Object(_index_e806d1f6_js__WEBPACK_IMPORTED_MODULE_0__["h"])("ion-ripple-effect", {
+            type: "unbounded"
+          })));
+        }
+      }, {
+        key: "el",
+        get: function get() {
+          return Object(_index_e806d1f6_js__WEBPACK_IMPORTED_MODULE_0__["i"])(this);
+        }
+      }]);
+
+      return MenuButton;
+    }();
+
+    MenuButton.style = {
+      ios: menuButtonIosCss,
+      md: menuButtonMdCss
+    };
+    var menuToggleCss = ":host(.menu-toggle-hidden){display:none}";
+
+    var MenuToggle = /*#__PURE__*/function () {
+      function MenuToggle(hostRef) {
+        var _this5 = this;
+
+        _classCallCheck(this, MenuToggle);
+
+        Object(_index_e806d1f6_js__WEBPACK_IMPORTED_MODULE_0__["r"])(this, hostRef);
+        this.visible = false;
+        /**
+         * Automatically hides the content when the corresponding menu is not active.
+         *
+         * By default, it's `true`. Change it to `false` in order to
+         * keep `ion-menu-toggle` always visible regardless the state of the menu.
+         */
+
+        this.autoHide = true;
+
+        this.onClick = function () {
+          return _index_3a75d1af_js__WEBPACK_IMPORTED_MODULE_7__["m"].toggle(_this5.menu);
+        };
+      }
+
+      _createClass(MenuToggle, [{
+        key: "connectedCallback",
+        value: function connectedCallback() {
+          this.visibilityChanged();
+        }
+      }, {
+        key: "visibilityChanged",
+        value: function () {
+          var _visibilityChanged2 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee9() {
+            return regeneratorRuntime.wrap(function _callee9$(_context9) {
+              while (1) {
+                switch (_context9.prev = _context9.next) {
+                  case 0:
+                    _context9.next = 2;
+                    return updateVisibility(this.menu);
+
+                  case 2:
+                    this.visible = _context9.sent;
+
+                  case 3:
+                  case "end":
+                    return _context9.stop();
+                }
+              }
+            }, _callee9, this);
+          }));
+
+          function visibilityChanged() {
+            return _visibilityChanged2.apply(this, arguments);
+          }
+
+          return visibilityChanged;
+        }()
+      }, {
+        key: "render",
+        value: function render() {
+          var _class2;
+
+          var mode = Object(_ionic_global_9d5c8ee3_js__WEBPACK_IMPORTED_MODULE_1__["b"])(this);
+          var hidden = this.autoHide && !this.visible;
+          return Object(_index_e806d1f6_js__WEBPACK_IMPORTED_MODULE_0__["h"])(_index_e806d1f6_js__WEBPACK_IMPORTED_MODULE_0__["H"], {
+            onClick: this.onClick,
+            "aria-hidden": hidden ? 'true' : null,
+            "class": (_class2 = {}, _defineProperty(_class2, mode, true), _defineProperty(_class2, 'menu-toggle-hidden', hidden), _class2)
+          }, Object(_index_e806d1f6_js__WEBPACK_IMPORTED_MODULE_0__["h"])("slot", null));
+        }
+      }]);
+
+      return MenuToggle;
+    }();
+
+    MenuToggle.style = menuToggleCss;
     /***/
   }
 }]);

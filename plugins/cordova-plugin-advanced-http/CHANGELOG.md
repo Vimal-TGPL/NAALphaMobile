@@ -1,5 +1,37 @@
 # Changelog
 
+## 2.5.1
+
+- Fixed #334: empty JSON response triggers error even though request is successful (thanks antikalk)
+- Fixed #248: clearCookies() does not work on iOS
+
+## 2.5.0
+
+- Feature #56: add support for X.509 client certificate based authentication
+
+## 2.4.1
+
+- Fixed #296: multipart requests are not serialized on browser platform
+- Fixed #301: data is not decoded correctly when responseType is "json" (thanks antikalk)
+- Fixed #300: FormData object containing null or undefined value is not serialized correctly
+
+## 2.4.0
+
+- Feature #291: add support for sending 'raw' requests (thanks to jachstet-sea and chuchuva)
+- Feature #155: add OPTIONS method
+- Feature #283: improve error message on timeout on browser platform
+
+## 2.3.1
+
+- Fixed #275: getAllCookies() is broken because of a typo (thanks ath0mas)
+
+## 2.3.0
+
+- Feature #101: Support "multipart/form-data" requests (thanks SDA SE Open Industry Solutions)
+
+#### Important information
+This feature depends on several Web APIs. See https://github.com/silkimen/cordova-plugin-advanced-http/wiki/Web-APIs-required-for-Multipart-requests for more info.
+
 ## 2.2.0
 
 - Feature #239: add enumeration style object for error codes

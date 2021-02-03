@@ -1,38 +1,37 @@
 {
-  "_from": "cordova-plugin-app-version",
-  "_id": "cordova-plugin-app-version@0.1.9",
+  "_from": "cordova-plugin-app-version@^0.1.12",
+  "_id": "cordova-plugin-app-version@0.1.12",
   "_inBundle": false,
-  "_integrity": "sha1-nbBgeGMzenEEiTAuX1CpBPFEm9s=",
+  "_integrity": "sha512-P+0d9+h9HasanKuMd8tcEpuJJlsVmClie3Mbq16v3TV/VroDrgYB6Ea8Imkc/WjjMVSBCjWB+pji1LoupWlddA==",
   "_location": "/cordova-plugin-app-version",
   "_phantomChildren": {},
   "_requested": {
-    "type": "tag",
+    "type": "range",
     "registry": true,
-    "raw": "cordova-plugin-app-version",
+    "raw": "cordova-plugin-app-version@^0.1.12",
     "name": "cordova-plugin-app-version",
     "escapedName": "cordova-plugin-app-version",
-    "rawSpec": "",
+    "rawSpec": "^0.1.12",
     "saveSpec": null,
-    "fetchSpec": "latest"
+    "fetchSpec": "^0.1.12"
   },
   "_requiredBy": [
-    "#USER",
     "/"
   ],
-  "_resolved": "https://registry.npmjs.org/cordova-plugin-app-version/-/cordova-plugin-app-version-0.1.9.tgz",
-  "_shasum": "9db0607863337a710489302e5f50a904f1449bdb",
-  "_spec": "cordova-plugin-app-version",
-  "_where": "C:\\Projects\\NAAlphaMobile",
+  "_resolved": "https://registry.npmjs.org/cordova-plugin-app-version/-/cordova-plugin-app-version-0.1.12.tgz",
+  "_shasum": "08798f6edf870e42dc655a8f1028894428eb72a6",
+  "_spec": "cordova-plugin-app-version@^0.1.12",
+  "_where": "/Users/lhadmin/NAALphaMobile",
   "author": {
     "name": "whiteoctober"
   },
   "bugs": {
-    "url": "https://github.com/whiteoctober/cordova-plugin-app-version/issues"
+    "url": "https://github.com/sampart/cordova-plugin-app-version/issues"
   },
   "bundleDependencies": false,
   "deprecated": false,
   "description": "Cordova plugin to return the version number of the current app",
-  "homepage": "https://github.com/whiteoctober/cordova-plugin-app-version#readme",
+  "homepage": "https://github.com/sampart/cordova-plugin-app-version#readme",
   "keywords": [
     "cordova",
     "ecosystem:cordova",
@@ -45,10 +44,10 @@
   "name": "cordova-plugin-app-version",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/whiteoctober/cordova-plugin-app-version.git"
+    "url": "git+https://github.com/sampart/cordova-plugin-app-version.git"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "version": "0.1.9"
+  "version": "0.1.12"
 }

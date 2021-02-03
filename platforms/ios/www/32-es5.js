@@ -12,35 +12,23 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([[32], {
   /***/
-  "./node_modules/@ionic/core/dist/esm/ion-select_3.entry.js":
-  /*!*****************************************************************!*\
-    !*** ./node_modules/@ionic/core/dist/esm/ion-select_3.entry.js ***!
-    \*****************************************************************/
+  "./node_modules/@ionic/core/dist/esm/ion-loading.entry.js":
+  /*!****************************************************************!*\
+    !*** ./node_modules/@ionic/core/dist/esm/ion-loading.entry.js ***!
+    \****************************************************************/
 
-  /*! exports provided: ion_select, ion_select_option, ion_select_popover */
+  /*! exports provided: ion_loading */
 
   /***/
-  function node_modulesIonicCoreDistEsmIonSelect_3EntryJs(module, __webpack_exports__, __webpack_require__) {
+  function node_modulesIonicCoreDistEsmIonLoadingEntryJs(module, __webpack_exports__, __webpack_require__) {
     "use strict";
 
     __webpack_require__.r(__webpack_exports__);
     /* harmony export (binding) */
 
 
-    __webpack_require__.d(__webpack_exports__, "ion_select", function () {
-      return Select;
-    });
-    /* harmony export (binding) */
-
-
-    __webpack_require__.d(__webpack_exports__, "ion_select_option", function () {
-      return SelectOption;
-    });
-    /* harmony export (binding) */
-
-
-    __webpack_require__.d(__webpack_exports__, "ion_select_popover", function () {
-      return SelectPopover;
+    __webpack_require__.d(__webpack_exports__, "ion_loading", function () {
+      return Loading;
     });
     /* harmony import */
 
@@ -63,834 +51,312 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
     /* harmony import */
 
 
-    var _hardware_back_button_4a6b37fb_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
+    var _animation_54fe0237_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
+    /*! ./animation-54fe0237.js */
+    "./node_modules/@ionic/core/dist/esm/animation-54fe0237.js");
+    /* harmony import */
+
+
+    var _index_9e3fe806_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
+    /*! ./index-9e3fe806.js */
+    "./node_modules/@ionic/core/dist/esm/index-9e3fe806.js");
+    /* harmony import */
+
+
+    var _hardware_back_button_4a6b37fb_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(
     /*! ./hardware-back-button-4a6b37fb.js */
     "./node_modules/@ionic/core/dist/esm/hardware-back-button-4a6b37fb.js");
     /* harmony import */
 
 
-    var _overlays_12c20431_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
+    var _overlays_12c20431_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(
     /*! ./overlays-12c20431.js */
     "./node_modules/@ionic/core/dist/esm/overlays-12c20431.js");
     /* harmony import */
 
 
-    var _theme_ff3fc52f_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(
+    var _theme_ff3fc52f_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(
     /*! ./theme-ff3fc52f.js */
     "./node_modules/@ionic/core/dist/esm/theme-ff3fc52f.js");
+    /**
+     * iOS Loading Enter Animation
+     */
 
-    var watchForOptions = function watchForOptions(containerEl, tagName, onChange) {
-      /* tslint:disable-next-line */
-      if (typeof MutationObserver === 'undefined') {
-        return;
-      }
 
-      var mutation = new MutationObserver(function (mutationList) {
-        onChange(getSelectedOption(mutationList, tagName));
-      });
-      mutation.observe(containerEl, {
-        childList: true,
-        subtree: true
-      });
-      return mutation;
+    var iosEnterAnimation = function iosEnterAnimation(baseEl) {
+      var baseAnimation = Object(_animation_54fe0237_js__WEBPACK_IMPORTED_MODULE_3__["c"])();
+      var backdropAnimation = Object(_animation_54fe0237_js__WEBPACK_IMPORTED_MODULE_3__["c"])();
+      var wrapperAnimation = Object(_animation_54fe0237_js__WEBPACK_IMPORTED_MODULE_3__["c"])();
+      backdropAnimation.addElement(baseEl.querySelector('ion-backdrop')).fromTo('opacity', 0.01, 'var(--backdrop-opacity)').beforeStyles({
+        'pointer-events': 'none'
+      }).afterClearStyles(['pointer-events']);
+      wrapperAnimation.addElement(baseEl.querySelector('.loading-wrapper')).keyframes([{
+        offset: 0,
+        opacity: 0.01,
+        transform: 'scale(1.1)'
+      }, {
+        offset: 1,
+        opacity: 1,
+        transform: 'scale(1)'
+      }]);
+      return baseAnimation.addElement(baseEl).easing('ease-in-out').duration(200).addAnimation([backdropAnimation, wrapperAnimation]);
+    };
+    /**
+     * iOS Loading Leave Animation
+     */
+
+
+    var iosLeaveAnimation = function iosLeaveAnimation(baseEl) {
+      var baseAnimation = Object(_animation_54fe0237_js__WEBPACK_IMPORTED_MODULE_3__["c"])();
+      var backdropAnimation = Object(_animation_54fe0237_js__WEBPACK_IMPORTED_MODULE_3__["c"])();
+      var wrapperAnimation = Object(_animation_54fe0237_js__WEBPACK_IMPORTED_MODULE_3__["c"])();
+      backdropAnimation.addElement(baseEl.querySelector('ion-backdrop')).fromTo('opacity', 'var(--backdrop-opacity)', 0);
+      wrapperAnimation.addElement(baseEl.querySelector('.loading-wrapper')).keyframes([{
+        offset: 0,
+        opacity: 0.99,
+        transform: 'scale(1)'
+      }, {
+        offset: 1,
+        opacity: 0,
+        transform: 'scale(0.9)'
+      }]);
+      return baseAnimation.addElement(baseEl).easing('ease-in-out').duration(200).addAnimation([backdropAnimation, wrapperAnimation]);
+    };
+    /**
+     * Md Loading Enter Animation
+     */
+
+
+    var mdEnterAnimation = function mdEnterAnimation(baseEl) {
+      var baseAnimation = Object(_animation_54fe0237_js__WEBPACK_IMPORTED_MODULE_3__["c"])();
+      var backdropAnimation = Object(_animation_54fe0237_js__WEBPACK_IMPORTED_MODULE_3__["c"])();
+      var wrapperAnimation = Object(_animation_54fe0237_js__WEBPACK_IMPORTED_MODULE_3__["c"])();
+      backdropAnimation.addElement(baseEl.querySelector('ion-backdrop')).fromTo('opacity', 0.01, 'var(--backdrop-opacity)').beforeStyles({
+        'pointer-events': 'none'
+      }).afterClearStyles(['pointer-events']);
+      wrapperAnimation.addElement(baseEl.querySelector('.loading-wrapper')).keyframes([{
+        offset: 0,
+        opacity: 0.01,
+        transform: 'scale(1.1)'
+      }, {
+        offset: 1,
+        opacity: 1,
+        transform: 'scale(1)'
+      }]);
+      return baseAnimation.addElement(baseEl).easing('ease-in-out').duration(200).addAnimation([backdropAnimation, wrapperAnimation]);
+    };
+    /**
+     * Md Loading Leave Animation
+     */
+
+
+    var mdLeaveAnimation = function mdLeaveAnimation(baseEl) {
+      var baseAnimation = Object(_animation_54fe0237_js__WEBPACK_IMPORTED_MODULE_3__["c"])();
+      var backdropAnimation = Object(_animation_54fe0237_js__WEBPACK_IMPORTED_MODULE_3__["c"])();
+      var wrapperAnimation = Object(_animation_54fe0237_js__WEBPACK_IMPORTED_MODULE_3__["c"])();
+      backdropAnimation.addElement(baseEl.querySelector('ion-backdrop')).fromTo('opacity', 'var(--backdrop-opacity)', 0);
+      wrapperAnimation.addElement(baseEl.querySelector('.loading-wrapper')).keyframes([{
+        offset: 0,
+        opacity: 0.99,
+        transform: 'scale(1)'
+      }, {
+        offset: 1,
+        opacity: 0,
+        transform: 'scale(0.9)'
+      }]);
+      return baseAnimation.addElement(baseEl).easing('ease-in-out').duration(200).addAnimation([backdropAnimation, wrapperAnimation]);
     };
 
-    var getSelectedOption = function getSelectedOption(mutationList, tagName) {
-      var newOption;
-      mutationList.forEach(function (mut) {
-        // tslint:disable-next-line: prefer-for-of
-        for (var i = 0; i < mut.addedNodes.length; i++) {
-          newOption = findCheckedOption(mut.addedNodes[i], tagName) || newOption;
-        }
-      });
-      return newOption;
-    };
+    var loadingIosCss = ".sc-ion-loading-ios-h{--min-width:auto;--width:auto;--min-height:auto;--height:auto;-moz-osx-font-smoothing:grayscale;-webkit-font-smoothing:antialiased;left:0;right:0;top:0;bottom:0;display:-ms-flexbox;display:flex;position:fixed;-ms-flex-align:center;align-items:center;-ms-flex-pack:center;justify-content:center;outline:none;font-family:var(--ion-font-family, inherit);contain:strict;-ms-touch-action:none;touch-action:none;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;z-index:1001}.overlay-hidden.sc-ion-loading-ios-h{display:none}.loading-wrapper.sc-ion-loading-ios{display:-ms-flexbox;display:flex;-ms-flex-align:inherit;align-items:inherit;-ms-flex-pack:inherit;justify-content:inherit;width:var(--width);min-width:var(--min-width);max-width:var(--max-width);height:var(--height);min-height:var(--min-height);max-height:var(--max-height);background:var(--background);opacity:0;z-index:10}.spinner-lines.sc-ion-loading-ios,.spinner-lines-small.sc-ion-loading-ios,.spinner-bubbles.sc-ion-loading-ios,.spinner-circles.sc-ion-loading-ios,.spinner-crescent.sc-ion-loading-ios,.spinner-dots.sc-ion-loading-ios{color:var(--spinner-color)}.sc-ion-loading-ios-h{--background:var(--ion-overlay-background-color, var(--ion-color-step-100, #f9f9f9));--max-width:270px;--max-height:90%;--spinner-color:var(--ion-color-step-600, #666666);--backdrop-opacity:var(--ion-backdrop-opacity, 0.3);color:var(--ion-text-color, #000);font-size:14px}.loading-wrapper.sc-ion-loading-ios{border-radius:8px;padding-left:34px;padding-right:34px;padding-top:24px;padding-bottom:24px}@supports ((-webkit-margin-start: 0) or (margin-inline-start: 0)) or (-webkit-margin-start: 0){.loading-wrapper.sc-ion-loading-ios{padding-left:unset;padding-right:unset;-webkit-padding-start:34px;padding-inline-start:34px;-webkit-padding-end:34px;padding-inline-end:34px}}@supports ((-webkit-backdrop-filter: blur(0)) or (backdrop-filter: blur(0))){.loading-translucent.sc-ion-loading-ios-h .loading-wrapper.sc-ion-loading-ios{background-color:rgba(var(--ion-background-color-rgb, 255, 255, 255), 0.8);-webkit-backdrop-filter:saturate(180%) blur(20px);backdrop-filter:saturate(180%) blur(20px)}}.loading-content.sc-ion-loading-ios{font-weight:bold}.loading-spinner.sc-ion-loading-ios+.loading-content.sc-ion-loading-ios{margin-left:16px}@supports ((-webkit-margin-start: 0) or (margin-inline-start: 0)) or (-webkit-margin-start: 0){.loading-spinner.sc-ion-loading-ios+.loading-content.sc-ion-loading-ios{margin-left:unset;-webkit-margin-start:16px;margin-inline-start:16px}}";
+    var loadingMdCss = ".sc-ion-loading-md-h{--min-width:auto;--width:auto;--min-height:auto;--height:auto;-moz-osx-font-smoothing:grayscale;-webkit-font-smoothing:antialiased;left:0;right:0;top:0;bottom:0;display:-ms-flexbox;display:flex;position:fixed;-ms-flex-align:center;align-items:center;-ms-flex-pack:center;justify-content:center;outline:none;font-family:var(--ion-font-family, inherit);contain:strict;-ms-touch-action:none;touch-action:none;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;z-index:1001}.overlay-hidden.sc-ion-loading-md-h{display:none}.loading-wrapper.sc-ion-loading-md{display:-ms-flexbox;display:flex;-ms-flex-align:inherit;align-items:inherit;-ms-flex-pack:inherit;justify-content:inherit;width:var(--width);min-width:var(--min-width);max-width:var(--max-width);height:var(--height);min-height:var(--min-height);max-height:var(--max-height);background:var(--background);opacity:0;z-index:10}.spinner-lines.sc-ion-loading-md,.spinner-lines-small.sc-ion-loading-md,.spinner-bubbles.sc-ion-loading-md,.spinner-circles.sc-ion-loading-md,.spinner-crescent.sc-ion-loading-md,.spinner-dots.sc-ion-loading-md{color:var(--spinner-color)}.sc-ion-loading-md-h{--background:var(--ion-color-step-50, #f2f2f2);--max-width:280px;--max-height:90%;--spinner-color:var(--ion-color-primary, #3880ff);--backdrop-opacity:var(--ion-backdrop-opacity, 0.32);color:var(--ion-color-step-850, #262626);font-size:14px}.loading-wrapper.sc-ion-loading-md{border-radius:2px;padding-left:24px;padding-right:24px;padding-top:24px;padding-bottom:24px;-webkit-box-shadow:0 16px 20px rgba(0, 0, 0, 0.4);box-shadow:0 16px 20px rgba(0, 0, 0, 0.4)}@supports ((-webkit-margin-start: 0) or (margin-inline-start: 0)) or (-webkit-margin-start: 0){.loading-wrapper.sc-ion-loading-md{padding-left:unset;padding-right:unset;-webkit-padding-start:24px;padding-inline-start:24px;-webkit-padding-end:24px;padding-inline-end:24px}}.loading-spinner.sc-ion-loading-md+.loading-content.sc-ion-loading-md{margin-left:16px}@supports ((-webkit-margin-start: 0) or (margin-inline-start: 0)) or (-webkit-margin-start: 0){.loading-spinner.sc-ion-loading-md+.loading-content.sc-ion-loading-md{margin-left:unset;-webkit-margin-start:16px;margin-inline-start:16px}}";
 
-    var findCheckedOption = function findCheckedOption(el, tagName) {
-      if (el.nodeType !== 1) {
-        return undefined;
-      }
-
-      var options = el.tagName === tagName.toUpperCase() ? [el] : Array.from(el.querySelectorAll(tagName));
-      return options.find(function (o) {
-        return o.value === el.value;
-      });
-    };
-
-    var selectIosCss = ":host{--placeholder-color:currentColor;--placeholder-opacity:0.33;padding-left:var(--padding-start);padding-right:var(--padding-end);padding-top:var(--padding-top);padding-bottom:var(--padding-bottom);display:-ms-flexbox;display:flex;position:relative;-ms-flex-align:center;align-items:center;font-family:var(--ion-font-family, inherit);overflow:hidden;z-index:2}@supports ((-webkit-margin-start: 0) or (margin-inline-start: 0)) or (-webkit-margin-start: 0){:host{padding-left:unset;padding-right:unset;-webkit-padding-start:var(--padding-start);padding-inline-start:var(--padding-start);-webkit-padding-end:var(--padding-end);padding-inline-end:var(--padding-end)}}:host(.in-item){position:static;max-width:45%}:host(.select-disabled){opacity:0.4;pointer-events:none}:host(.ion-focused) button{border:2px solid #5e9ed6}.select-placeholder{color:var(--placeholder-color);opacity:var(--placeholder-opacity)}label{left:0;top:0;margin-left:0;margin-right:0;margin-top:0;margin-bottom:0;position:absolute;width:100%;height:100%;border:0;background:transparent;cursor:pointer;-webkit-appearance:none;-moz-appearance:none;appearance:none;outline:none;display:-ms-flexbox;display:flex;-ms-flex-align:center;align-items:center;opacity:0}[dir=rtl] label,:host-context([dir=rtl]) label{left:unset;right:unset;right:0}label::-moz-focus-inner{border:0}button{position:absolute;top:0;left:0;right:0;bottom:0;width:100%;height:100%;margin:0;padding:0;border:0;outline:0;clip:rect(0 0 0 0);opacity:0;overflow:hidden;-webkit-appearance:none;-moz-appearance:none}.select-icon{position:relative;opacity:0.33}.select-text{-ms-flex:1;flex:1;min-width:16px;font-size:inherit;text-overflow:ellipsis;white-space:nowrap;overflow:hidden}.select-icon-inner{left:5px;top:50%;margin-top:-2px;position:absolute;width:0;height:0;border-top:5px solid;border-right:5px solid transparent;border-left:5px solid transparent;color:currentColor;pointer-events:none}[dir=rtl] .select-icon-inner,:host-context([dir=rtl]) .select-icon-inner{left:unset;right:unset;right:5px}:host{--padding-top:10px;--padding-end:10px;--padding-bottom:10px;--padding-start:20px}.select-icon{width:12px;height:18px}";
-    var selectMdCss = ":host{--placeholder-color:currentColor;--placeholder-opacity:0.33;padding-left:var(--padding-start);padding-right:var(--padding-end);padding-top:var(--padding-top);padding-bottom:var(--padding-bottom);display:-ms-flexbox;display:flex;position:relative;-ms-flex-align:center;align-items:center;font-family:var(--ion-font-family, inherit);overflow:hidden;z-index:2}@supports ((-webkit-margin-start: 0) or (margin-inline-start: 0)) or (-webkit-margin-start: 0){:host{padding-left:unset;padding-right:unset;-webkit-padding-start:var(--padding-start);padding-inline-start:var(--padding-start);-webkit-padding-end:var(--padding-end);padding-inline-end:var(--padding-end)}}:host(.in-item){position:static;max-width:45%}:host(.select-disabled){opacity:0.4;pointer-events:none}:host(.ion-focused) button{border:2px solid #5e9ed6}.select-placeholder{color:var(--placeholder-color);opacity:var(--placeholder-opacity)}label{left:0;top:0;margin-left:0;margin-right:0;margin-top:0;margin-bottom:0;position:absolute;width:100%;height:100%;border:0;background:transparent;cursor:pointer;-webkit-appearance:none;-moz-appearance:none;appearance:none;outline:none;display:-ms-flexbox;display:flex;-ms-flex-align:center;align-items:center;opacity:0}[dir=rtl] label,:host-context([dir=rtl]) label{left:unset;right:unset;right:0}label::-moz-focus-inner{border:0}button{position:absolute;top:0;left:0;right:0;bottom:0;width:100%;height:100%;margin:0;padding:0;border:0;outline:0;clip:rect(0 0 0 0);opacity:0;overflow:hidden;-webkit-appearance:none;-moz-appearance:none}.select-icon{position:relative;opacity:0.33}.select-text{-ms-flex:1;flex:1;min-width:16px;font-size:inherit;text-overflow:ellipsis;white-space:nowrap;overflow:hidden}.select-icon-inner{left:5px;top:50%;margin-top:-2px;position:absolute;width:0;height:0;border-top:5px solid;border-right:5px solid transparent;border-left:5px solid transparent;color:currentColor;pointer-events:none}[dir=rtl] .select-icon-inner,:host-context([dir=rtl]) .select-icon-inner{left:unset;right:unset;right:5px}:host{--padding-top:10px;--padding-end:0;--padding-bottom:10px;--padding-start:16px}.select-icon{width:19px;height:19px}:host-context(.item-label-floating) .select-icon{-webkit-transform:translate3d(0,  -9px,  0);transform:translate3d(0,  -9px,  0)}";
-
-    var Select = /*#__PURE__*/function () {
-      function Select(hostRef) {
+    var Loading = /*#__PURE__*/function () {
+      function Loading(hostRef) {
         var _this = this;
 
-        _classCallCheck(this, Select);
+        _classCallCheck(this, Loading);
 
         Object(_index_e806d1f6_js__WEBPACK_IMPORTED_MODULE_0__["r"])(this, hostRef);
-        this.ionChange = Object(_index_e806d1f6_js__WEBPACK_IMPORTED_MODULE_0__["e"])(this, "ionChange", 7);
-        this.ionCancel = Object(_index_e806d1f6_js__WEBPACK_IMPORTED_MODULE_0__["e"])(this, "ionCancel", 7);
-        this.ionFocus = Object(_index_e806d1f6_js__WEBPACK_IMPORTED_MODULE_0__["e"])(this, "ionFocus", 7);
-        this.ionBlur = Object(_index_e806d1f6_js__WEBPACK_IMPORTED_MODULE_0__["e"])(this, "ionBlur", 7);
-        this.ionStyle = Object(_index_e806d1f6_js__WEBPACK_IMPORTED_MODULE_0__["e"])(this, "ionStyle", 7);
-        this.inputId = "ion-sel-".concat(selectIds++);
-        this.didInit = false;
-        this.isExpanded = false;
+        this.didPresent = Object(_index_e806d1f6_js__WEBPACK_IMPORTED_MODULE_0__["e"])(this, "ionLoadingDidPresent", 7);
+        this.willPresent = Object(_index_e806d1f6_js__WEBPACK_IMPORTED_MODULE_0__["e"])(this, "ionLoadingWillPresent", 7);
+        this.willDismiss = Object(_index_e806d1f6_js__WEBPACK_IMPORTED_MODULE_0__["e"])(this, "ionLoadingWillDismiss", 7);
+        this.didDismiss = Object(_index_e806d1f6_js__WEBPACK_IMPORTED_MODULE_0__["e"])(this, "ionLoadingDidDismiss", 7);
+        this.presented = false;
         /**
-         * If `true`, the user cannot interact with the select.
+         * If `true`, the keyboard will be automatically dismissed when the overlay is presented.
          */
 
-        this.disabled = false;
+        this.keyboardClose = true;
         /**
-         * The text to display on the cancel button.
+         * Number of milliseconds to wait before dismissing the loading indicator.
          */
 
-        this.cancelText = 'Cancel';
+        this.duration = 0;
         /**
-         * The text to display on the ok button.
+         * If `true`, the loading indicator will be dismissed when the backdrop is clicked.
          */
 
-        this.okText = 'OK';
+        this.backdropDismiss = false;
         /**
-         * The name of the control, which is submitted with the form data.
+         * If `true`, a backdrop will be displayed behind the loading indicator.
          */
 
-        this.name = this.inputId;
+        this.showBackdrop = true;
         /**
-         * If `true`, the select can accept multiple values.
+         * If `true`, the loading indicator will be translucent.
+         * Only applies when the mode is `"ios"` and the device supports
+         * [`backdrop-filter`](https://developer.mozilla.org/en-US/docs/Web/CSS/backdrop-filter#Browser_compatibility).
          */
 
-        this.multiple = false;
+        this.translucent = false;
         /**
-         * The interface the select should use: `action-sheet`, `popover` or `alert`.
+         * If `true`, the loading indicator will animate.
          */
 
-        this["interface"] = 'alert';
-        /**
-         * Any additional options that the `alert`, `action-sheet` or `popover` interface
-         * can take. See the [ion-alert docs](../alert), the
-         * [ion-action-sheet docs](../action-sheet) and the
-         * [ion-popover docs](../popover) for the
-         * create options for each interface.
-         *
-         * Note: `interfaceOptions` will not override `inputs` or `buttons` with the `alert` interface.
-         */
+        this.animated = true;
 
-        this.interfaceOptions = {};
-
-        this.onClick = function (ev) {
-          _this.setFocus();
-
-          _this.open(ev);
-        };
-
-        this.onFocus = function () {
-          _this.ionFocus.emit();
-        };
-
-        this.onBlur = function () {
-          _this.ionBlur.emit();
+        this.onBackdropTap = function () {
+          _this.dismiss(undefined, _overlays_12c20431_js__WEBPACK_IMPORTED_MODULE_6__["B"]);
         };
       }
 
-      _createClass(Select, [{
-        key: "disabledChanged",
-        value: function disabledChanged() {
-          this.emitStyle();
+      _createClass(Loading, [{
+        key: "connectedCallback",
+        value: function connectedCallback() {
+          Object(_overlays_12c20431_js__WEBPACK_IMPORTED_MODULE_6__["e"])(this.el);
         }
       }, {
-        key: "valueChanged",
-        value: function valueChanged() {
-          this.emitStyle();
-
-          if (this.didInit) {
-            this.ionChange.emit({
-              value: this.value
-            });
+        key: "componentWillLoad",
+        value: function componentWillLoad() {
+          if (this.spinner === undefined) {
+            var mode = Object(_ionic_global_9d5c8ee3_js__WEBPACK_IMPORTED_MODULE_1__["b"])(this);
+            this.spinner = _ionic_global_9d5c8ee3_js__WEBPACK_IMPORTED_MODULE_1__["c"].get('loadingSpinner', _ionic_global_9d5c8ee3_js__WEBPACK_IMPORTED_MODULE_1__["c"].get('spinner', mode === 'ios' ? 'lines' : 'crescent'));
           }
         }
+        /**
+         * Present the loading overlay after it has been created.
+         */
+
       }, {
-        key: "connectedCallback",
+        key: "present",
         value: function () {
-          var _connectedCallback = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2() {
+          var _present = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
             var _this2 = this;
 
-            return regeneratorRuntime.wrap(function _callee2$(_context2) {
+            return regeneratorRuntime.wrap(function _callee$(_context) {
               while (1) {
-                switch (_context2.prev = _context2.next) {
+                switch (_context.prev = _context.next) {
                   case 0:
-                    this.updateOverlayOptions();
-                    this.emitStyle();
-                    this.mutationO = watchForOptions(this.el, 'ion-select-option', /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
-                      return regeneratorRuntime.wrap(function _callee$(_context) {
-                        while (1) {
-                          switch (_context.prev = _context.next) {
-                            case 0:
-                              _this2.updateOverlayOptions();
+                    _context.next = 2;
+                    return Object(_overlays_12c20431_js__WEBPACK_IMPORTED_MODULE_6__["d"])(this, 'loadingEnter', iosEnterAnimation, mdEnterAnimation, undefined);
 
-                            case 1:
-                            case "end":
-                              return _context.stop();
-                          }
-                        }
-                      }, _callee);
-                    })));
+                  case 2:
+                    if (this.duration > 0) {
+                      this.durationTimeout = setTimeout(function () {
+                        return _this2.dismiss();
+                      }, this.duration + 10);
+                    }
 
                   case 3:
                   case "end":
-                    return _context2.stop();
+                    return _context.stop();
                 }
               }
-            }, _callee2, this);
+            }, _callee, this);
           }));
 
-          function connectedCallback() {
-            return _connectedCallback.apply(this, arguments);
+          function present() {
+            return _present.apply(this, arguments);
           }
 
-          return connectedCallback;
+          return present;
         }()
-      }, {
-        key: "disconnectedCallback",
-        value: function disconnectedCallback() {
-          if (this.mutationO) {
-            this.mutationO.disconnect();
-            this.mutationO = undefined;
-          }
-        }
-      }, {
-        key: "componentDidLoad",
-        value: function componentDidLoad() {
-          this.didInit = true;
-        }
         /**
-         * Open the select overlay. The overlay is either an alert, action sheet, or popover,
-         * depending on the `interface` property on the `ion-select`.
+         * Dismiss the loading overlay after it has been presented.
          *
-         * @param event The user interface event that called the open.
+         * @param data Any data to emit in the dismiss events.
+         * @param role The role of the element that is dismissing the loading.
+         * This can be useful in a button handler for determining which button was
+         * clicked to dismiss the loading.
+         * Some examples include: ``"cancel"`, `"destructive"`, "selected"`, and `"backdrop"`.
          */
 
       }, {
-        key: "open",
-        value: function () {
-          var _open = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee3(event) {
-            var _this3 = this;
-
-            var overlay;
-            return regeneratorRuntime.wrap(function _callee3$(_context3) {
-              while (1) {
-                switch (_context3.prev = _context3.next) {
-                  case 0:
-                    if (!(this.disabled || this.isExpanded)) {
-                      _context3.next = 2;
-                      break;
-                    }
-
-                    return _context3.abrupt("return", undefined);
-
-                  case 2:
-                    _context3.next = 4;
-                    return this.createOverlay(event);
-
-                  case 4:
-                    overlay = this.overlay = _context3.sent;
-                    this.isExpanded = true;
-                    overlay.onDidDismiss().then(function () {
-                      _this3.overlay = undefined;
-                      _this3.isExpanded = false;
-
-                      _this3.setFocus();
-                    });
-                    _context3.next = 9;
-                    return overlay.present();
-
-                  case 9:
-                    return _context3.abrupt("return", overlay);
-
-                  case 10:
-                  case "end":
-                    return _context3.stop();
-                }
-              }
-            }, _callee3, this);
-          }));
-
-          function open(_x) {
-            return _open.apply(this, arguments);
+        key: "dismiss",
+        value: function dismiss(data, role) {
+          if (this.durationTimeout) {
+            clearTimeout(this.durationTimeout);
           }
 
-          return open;
-        }()
-      }, {
-        key: "createOverlay",
-        value: function createOverlay(ev) {
-          var selectInterface = this["interface"];
-
-          if ((selectInterface === 'action-sheet' || selectInterface === 'popover') && this.multiple) {
-            console.warn("Select interface cannot be \"".concat(selectInterface, "\" with a multi-value select. Using the \"alert\" interface instead."));
-            selectInterface = 'alert';
-          }
-
-          if (selectInterface === 'popover' && !ev) {
-            console.warn('Select interface cannot be a "popover" without passing an event. Using the "alert" interface instead.');
-            selectInterface = 'alert';
-          }
-
-          if (selectInterface === 'popover') {
-            return this.openPopover(ev);
-          }
-
-          if (selectInterface === 'action-sheet') {
-            return this.openActionSheet();
-          }
-
-          return this.openAlert();
+          return Object(_overlays_12c20431_js__WEBPACK_IMPORTED_MODULE_6__["f"])(this, data, role, 'loadingLeave', iosLeaveAnimation, mdLeaveAnimation);
         }
-      }, {
-        key: "updateOverlayOptions",
-        value: function updateOverlayOptions() {
-          var overlay = this.overlay;
-
-          if (!overlay) {
-            return;
-          }
-
-          var childOpts = this.childOpts;
-          var value = this.value;
-
-          switch (this["interface"]) {
-            case 'action-sheet':
-              overlay.buttons = this.createActionSheetButtons(childOpts, value);
-              break;
-
-            case 'popover':
-              var popover = overlay.querySelector('ion-select-popover');
-
-              if (popover) {
-                popover.options = this.createPopoverOptions(childOpts, value);
-              }
-
-              break;
-
-            case 'alert':
-              var inputType = this.multiple ? 'checkbox' : 'radio';
-              overlay.inputs = this.createAlertInputs(childOpts, inputType, value);
-              break;
-          }
-        }
-      }, {
-        key: "createActionSheetButtons",
-        value: function createActionSheetButtons(data, selectValue) {
-          var _this4 = this;
-
-          var actionSheetButtons = data.map(function (option) {
-            var value = getOptionValue(option); // Remove hydrated before copying over classes
-
-            var copyClasses = Array.from(option.classList).filter(function (cls) {
-              return cls !== 'hydrated';
-            }).join(' ');
-            var optClass = "".concat(OPTION_CLASS, " ").concat(copyClasses);
-            return {
-              role: isOptionSelected(value, selectValue, _this4.compareWith) ? 'selected' : '',
-              text: option.textContent,
-              cssClass: optClass,
-              handler: function handler() {
-                _this4.value = value;
-              }
-            };
-          }); // Add "cancel" button
-
-          actionSheetButtons.push({
-            text: this.cancelText,
-            role: 'cancel',
-            handler: function handler() {
-              _this4.ionCancel.emit();
-            }
-          });
-          return actionSheetButtons;
-        }
-      }, {
-        key: "createAlertInputs",
-        value: function createAlertInputs(data, inputType, selectValue) {
-          var _this5 = this;
-
-          var alertInputs = data.map(function (option) {
-            var value = getOptionValue(option); // Remove hydrated before copying over classes
-
-            var copyClasses = Array.from(option.classList).filter(function (cls) {
-              return cls !== 'hydrated';
-            }).join(' ');
-            var optClass = "".concat(OPTION_CLASS, " ").concat(copyClasses);
-            return {
-              type: inputType,
-              cssClass: optClass,
-              label: option.textContent || '',
-              value: value,
-              checked: isOptionSelected(value, selectValue, _this5.compareWith),
-              disabled: option.disabled
-            };
-          });
-          return alertInputs;
-        }
-      }, {
-        key: "createPopoverOptions",
-        value: function createPopoverOptions(data, selectValue) {
-          var _this6 = this;
-
-          var popoverOptions = data.map(function (option) {
-            var value = getOptionValue(option); // Remove hydrated before copying over classes
-
-            var copyClasses = Array.from(option.classList).filter(function (cls) {
-              return cls !== 'hydrated';
-            }).join(' ');
-            var optClass = "".concat(OPTION_CLASS, " ").concat(copyClasses);
-            return {
-              text: option.textContent || '',
-              cssClass: optClass,
-              value: value,
-              checked: isOptionSelected(value, selectValue, _this6.compareWith),
-              disabled: option.disabled,
-              handler: function handler() {
-                _this6.value = value;
-
-                _this6.close();
-              }
-            };
-          });
-          return popoverOptions;
-        }
-      }, {
-        key: "openPopover",
-        value: function () {
-          var _openPopover = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee4(ev) {
-            var interfaceOptions, mode, value, popoverOpts;
-            return regeneratorRuntime.wrap(function _callee4$(_context4) {
-              while (1) {
-                switch (_context4.prev = _context4.next) {
-                  case 0:
-                    interfaceOptions = this.interfaceOptions;
-                    mode = Object(_ionic_global_9d5c8ee3_js__WEBPACK_IMPORTED_MODULE_1__["b"])(this);
-                    value = this.value;
-                    popoverOpts = Object.assign(Object.assign({
-                      mode: mode
-                    }, interfaceOptions), {
-                      component: 'ion-select-popover',
-                      cssClass: ['select-popover', interfaceOptions.cssClass],
-                      event: ev,
-                      componentProps: {
-                        header: interfaceOptions.header,
-                        subHeader: interfaceOptions.subHeader,
-                        message: interfaceOptions.message,
-                        value: value,
-                        options: this.createPopoverOptions(this.childOpts, value)
-                      }
-                    });
-                    return _context4.abrupt("return", _overlays_12c20431_js__WEBPACK_IMPORTED_MODULE_4__["c"].create(popoverOpts));
-
-                  case 5:
-                  case "end":
-                    return _context4.stop();
-                }
-              }
-            }, _callee4, this);
-          }));
-
-          function openPopover(_x2) {
-            return _openPopover.apply(this, arguments);
-          }
-
-          return openPopover;
-        }()
-      }, {
-        key: "openActionSheet",
-        value: function () {
-          var _openActionSheet = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee5() {
-            var mode, interfaceOptions, actionSheetOpts;
-            return regeneratorRuntime.wrap(function _callee5$(_context5) {
-              while (1) {
-                switch (_context5.prev = _context5.next) {
-                  case 0:
-                    mode = Object(_ionic_global_9d5c8ee3_js__WEBPACK_IMPORTED_MODULE_1__["b"])(this);
-                    interfaceOptions = this.interfaceOptions;
-                    actionSheetOpts = Object.assign(Object.assign({
-                      mode: mode
-                    }, interfaceOptions), {
-                      buttons: this.createActionSheetButtons(this.childOpts, this.value),
-                      cssClass: ['select-action-sheet', interfaceOptions.cssClass]
-                    });
-                    return _context5.abrupt("return", _overlays_12c20431_js__WEBPACK_IMPORTED_MODULE_4__["b"].create(actionSheetOpts));
-
-                  case 4:
-                  case "end":
-                    return _context5.stop();
-                }
-              }
-            }, _callee5, this);
-          }));
-
-          function openActionSheet() {
-            return _openActionSheet.apply(this, arguments);
-          }
-
-          return openActionSheet;
-        }()
-      }, {
-        key: "openAlert",
-        value: function () {
-          var _openAlert = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee6() {
-            var _this7 = this;
-
-            var label, labelText, interfaceOptions, inputType, mode, alertOpts;
-            return regeneratorRuntime.wrap(function _callee6$(_context6) {
-              while (1) {
-                switch (_context6.prev = _context6.next) {
-                  case 0:
-                    label = this.getLabel();
-                    labelText = label ? label.textContent : null;
-                    interfaceOptions = this.interfaceOptions;
-                    inputType = this.multiple ? 'checkbox' : 'radio';
-                    mode = Object(_ionic_global_9d5c8ee3_js__WEBPACK_IMPORTED_MODULE_1__["b"])(this);
-                    alertOpts = Object.assign(Object.assign({
-                      mode: mode
-                    }, interfaceOptions), {
-                      header: interfaceOptions.header ? interfaceOptions.header : labelText,
-                      inputs: this.createAlertInputs(this.childOpts, inputType, this.value),
-                      buttons: [{
-                        text: this.cancelText,
-                        role: 'cancel',
-                        handler: function handler() {
-                          _this7.ionCancel.emit();
-                        }
-                      }, {
-                        text: this.okText,
-                        handler: function handler(selectedValues) {
-                          _this7.value = selectedValues;
-                        }
-                      }],
-                      cssClass: ['select-alert', interfaceOptions.cssClass, this.multiple ? 'multiple-select-alert' : 'single-select-alert']
-                    });
-                    return _context6.abrupt("return", _overlays_12c20431_js__WEBPACK_IMPORTED_MODULE_4__["a"].create(alertOpts));
-
-                  case 7:
-                  case "end":
-                    return _context6.stop();
-                }
-              }
-            }, _callee6, this);
-          }));
-
-          function openAlert() {
-            return _openAlert.apply(this, arguments);
-          }
-
-          return openAlert;
-        }()
         /**
-         * Close the select interface.
+         * Returns a promise that resolves when the loading did dismiss.
          */
 
       }, {
-        key: "close",
-        value: function close() {
-          // TODO check !this.overlay || !this.isFocus()
-          if (!this.overlay) {
-            return Promise.resolve(false);
-          }
+        key: "onDidDismiss",
+        value: function onDidDismiss() {
+          return Object(_overlays_12c20431_js__WEBPACK_IMPORTED_MODULE_6__["g"])(this.el, 'ionLoadingDidDismiss');
+        }
+        /**
+         * Returns a promise that resolves when the loading will dismiss.
+         */
 
-          return this.overlay.dismiss();
-        }
       }, {
-        key: "getLabel",
-        value: function getLabel() {
-          return Object(_helpers_90f46169_js__WEBPACK_IMPORTED_MODULE_2__["f"])(this.el);
-        }
-      }, {
-        key: "hasValue",
-        value: function hasValue() {
-          return this.getText() !== '';
-        }
-      }, {
-        key: "getText",
-        value: function getText() {
-          var selectedText = this.selectedText;
-
-          if (selectedText != null && selectedText !== '') {
-            return selectedText;
-          }
-
-          return generateText(this.childOpts, this.value, this.compareWith);
-        }
-      }, {
-        key: "setFocus",
-        value: function setFocus() {
-          if (this.focusEl) {
-            this.focusEl.focus();
-          }
-        }
-      }, {
-        key: "emitStyle",
-        value: function emitStyle() {
-          this.ionStyle.emit({
-            'interactive': true,
-            'select': true,
-            'has-placeholder': this.placeholder != null,
-            'has-value': this.hasValue(),
-            'interactive-disabled': this.disabled,
-            'select-disabled': this.disabled
-          });
+        key: "onWillDismiss",
+        value: function onWillDismiss() {
+          return Object(_overlays_12c20431_js__WEBPACK_IMPORTED_MODULE_6__["g"])(this.el, 'ionLoadingWillDismiss');
         }
       }, {
         key: "render",
         value: function render() {
-          var _class,
-              _this8 = this;
+          var _Object$assign;
 
-          var disabled = this.disabled,
-              el = this.el,
-              inputId = this.inputId,
-              isExpanded = this.isExpanded,
-              name = this.name,
-              placeholder = this.placeholder,
-              value = this.value;
+          var message = this.message,
+              spinner = this.spinner;
           var mode = Object(_ionic_global_9d5c8ee3_js__WEBPACK_IMPORTED_MODULE_1__["b"])(this);
-
-          var _Object = Object(_helpers_90f46169_js__WEBPACK_IMPORTED_MODULE_2__["c"])(el, inputId),
-              labelText = _Object.labelText,
-              labelId = _Object.labelId;
-
-          Object(_helpers_90f46169_js__WEBPACK_IMPORTED_MODULE_2__["d"])(true, el, name, parseValue(value), disabled);
-          var displayValue = this.getText();
-          var addPlaceholderClass = false;
-          var selectText = displayValue;
-
-          if (selectText === '' && placeholder != null) {
-            selectText = placeholder;
-            addPlaceholderClass = true;
-          }
-
-          var selectTextClasses = {
-            'select-text': true,
-            'select-placeholder': addPlaceholderClass
-          };
-          var textPart = addPlaceholderClass ? 'placeholder' : 'text'; // If there is a label then we need to concatenate it with the
-          // current value (or placeholder) and a comma so it separates
-          // nicely when the screen reader announces it, otherwise just
-          // announce the value / placeholder
-
-          var displayLabel = labelText !== undefined ? selectText !== '' ? "".concat(selectText, ", ").concat(labelText) : labelText : selectText;
           return Object(_index_e806d1f6_js__WEBPACK_IMPORTED_MODULE_0__["h"])(_index_e806d1f6_js__WEBPACK_IMPORTED_MODULE_0__["H"], {
-            onClick: this.onClick,
-            role: "button",
-            "aria-haspopup": "listbox",
-            "aria-disabled": disabled ? 'true' : null,
-            "aria-label": displayLabel,
-            "class": (_class = {}, _defineProperty(_class, mode, true), _defineProperty(_class, 'in-item', Object(_theme_ff3fc52f_js__WEBPACK_IMPORTED_MODULE_5__["h"])('ion-item', el)), _defineProperty(_class, 'select-disabled', disabled), _class)
-          }, Object(_index_e806d1f6_js__WEBPACK_IMPORTED_MODULE_0__["h"])("div", {
-            "aria-hidden": "true",
-            "class": selectTextClasses,
-            part: textPart
-          }, selectText), Object(_index_e806d1f6_js__WEBPACK_IMPORTED_MODULE_0__["h"])("div", {
-            "class": "select-icon",
-            role: "presentation",
-            part: "icon"
-          }, Object(_index_e806d1f6_js__WEBPACK_IMPORTED_MODULE_0__["h"])("div", {
-            "class": "select-icon-inner"
-          })), Object(_index_e806d1f6_js__WEBPACK_IMPORTED_MODULE_0__["h"])("label", {
-            id: labelId
-          }, displayLabel), Object(_index_e806d1f6_js__WEBPACK_IMPORTED_MODULE_0__["h"])("button", {
-            type: "button",
-            disabled: disabled,
-            id: inputId,
-            "aria-labelledby": labelId,
-            "aria-haspopup": "listbox",
-            "aria-expanded": "".concat(isExpanded),
-            onFocus: this.onFocus,
-            onBlur: this.onBlur,
-            ref: function ref(focusEl) {
-              return _this8.focusEl = focusEl;
-            }
+            onIonBackdropTap: this.onBackdropTap,
+            tabindex: "-1",
+            style: {
+              zIndex: "".concat(40000 + this.overlayIndex)
+            },
+            "class": Object.assign(Object.assign({}, Object(_theme_ff3fc52f_js__WEBPACK_IMPORTED_MODULE_7__["g"])(this.cssClass)), (_Object$assign = {}, _defineProperty(_Object$assign, mode, true), _defineProperty(_Object$assign, 'loading-translucent', this.translucent), _Object$assign))
+          }, Object(_index_e806d1f6_js__WEBPACK_IMPORTED_MODULE_0__["h"])("ion-backdrop", {
+            visible: this.showBackdrop,
+            tappable: this.backdropDismiss
+          }), Object(_index_e806d1f6_js__WEBPACK_IMPORTED_MODULE_0__["h"])("div", {
+            tabindex: "0"
+          }), Object(_index_e806d1f6_js__WEBPACK_IMPORTED_MODULE_0__["h"])("div", {
+            "class": "loading-wrapper ion-overlay-wrapper",
+            role: "dialog"
+          }, spinner && Object(_index_e806d1f6_js__WEBPACK_IMPORTED_MODULE_0__["h"])("div", {
+            "class": "loading-spinner"
+          }, Object(_index_e806d1f6_js__WEBPACK_IMPORTED_MODULE_0__["h"])("ion-spinner", {
+            name: spinner,
+            "aria-hidden": "true"
+          })), message && Object(_index_e806d1f6_js__WEBPACK_IMPORTED_MODULE_0__["h"])("div", {
+            "class": "loading-content",
+            innerHTML: Object(_index_9e3fe806_js__WEBPACK_IMPORTED_MODULE_4__["s"])(message)
+          })), Object(_index_e806d1f6_js__WEBPACK_IMPORTED_MODULE_0__["h"])("div", {
+            tabindex: "0"
           }));
         }
       }, {
-        key: "childOpts",
-        get: function get() {
-          return Array.from(this.el.querySelectorAll('ion-select-option'));
-        }
-      }, {
-        key: "el",
-        get: function get() {
-          return Object(_index_e806d1f6_js__WEBPACK_IMPORTED_MODULE_0__["i"])(this);
-        }
-      }], [{
-        key: "watchers",
-        get: function get() {
-          return {
-            "disabled": ["disabledChanged"],
-            "placeholder": ["disabledChanged"],
-            "value": ["valueChanged"]
-          };
-        }
-      }]);
-
-      return Select;
-    }();
-
-    var isOptionSelected = function isOptionSelected(currentValue, compareValue, compareWith) {
-      if (currentValue === undefined) {
-        return false;
-      }
-
-      if (Array.isArray(currentValue)) {
-        return currentValue.some(function (val) {
-          return compareOptions(val, compareValue, compareWith);
-        });
-      } else {
-        return compareOptions(currentValue, compareValue, compareWith);
-      }
-    };
-
-    var getOptionValue = function getOptionValue(el) {
-      var value = el.value;
-      return value === undefined ? el.textContent || '' : value;
-    };
-
-    var parseValue = function parseValue(value) {
-      if (value == null) {
-        return undefined;
-      }
-
-      if (Array.isArray(value)) {
-        return value.join(',');
-      }
-
-      return value.toString();
-    };
-
-    var compareOptions = function compareOptions(currentValue, compareValue, compareWith) {
-      if (typeof compareWith === 'function') {
-        return compareWith(currentValue, compareValue);
-      } else if (typeof compareWith === 'string') {
-        return currentValue[compareWith] === compareValue[compareWith];
-      } else {
-        return Array.isArray(compareValue) ? compareValue.includes(currentValue) : currentValue === compareValue;
-      }
-    };
-
-    var generateText = function generateText(opts, value, compareWith) {
-      if (value === undefined) {
-        return '';
-      }
-
-      if (Array.isArray(value)) {
-        return value.map(function (v) {
-          return textForValue(opts, v, compareWith);
-        }).filter(function (opt) {
-          return opt !== null;
-        }).join(', ');
-      } else {
-        return textForValue(opts, value, compareWith) || '';
-      }
-    };
-
-    var textForValue = function textForValue(opts, value, compareWith) {
-      var selectOpt = opts.find(function (opt) {
-        return compareOptions(getOptionValue(opt), value, compareWith);
-      });
-      return selectOpt ? selectOpt.textContent : null;
-    };
-
-    var selectIds = 0;
-    var OPTION_CLASS = 'select-interface-option';
-    Select.style = {
-      ios: selectIosCss,
-      md: selectMdCss
-    };
-    var selectOptionCss = ":host{display:none}";
-
-    var SelectOption = /*#__PURE__*/function () {
-      function SelectOption(hostRef) {
-        _classCallCheck(this, SelectOption);
-
-        Object(_index_e806d1f6_js__WEBPACK_IMPORTED_MODULE_0__["r"])(this, hostRef);
-        this.inputId = "ion-selopt-".concat(selectOptionIds++);
-        /**
-         * If `true`, the user cannot interact with the select option. This property does not apply when `interface="action-sheet"` as `ion-action-sheet` does not allow for disabled buttons.
-         */
-
-        this.disabled = false;
-      }
-
-      _createClass(SelectOption, [{
-        key: "render",
-        value: function render() {
-          return Object(_index_e806d1f6_js__WEBPACK_IMPORTED_MODULE_0__["h"])(_index_e806d1f6_js__WEBPACK_IMPORTED_MODULE_0__["H"], {
-            role: "option",
-            id: this.inputId,
-            "class": Object(_ionic_global_9d5c8ee3_js__WEBPACK_IMPORTED_MODULE_1__["b"])(this)
-          });
-        }
-      }, {
         key: "el",
         get: function get() {
           return Object(_index_e806d1f6_js__WEBPACK_IMPORTED_MODULE_0__["i"])(this);
         }
       }]);
 
-      return SelectOption;
+      return Loading;
     }();
 
-    var selectOptionIds = 0;
-    SelectOption.style = selectOptionCss;
-    var selectPopoverCss = ".sc-ion-select-popover-h ion-list.sc-ion-select-popover{margin-left:0;margin-right:0;margin-top:-1px;margin-bottom:-1px}.sc-ion-select-popover-h ion-list-header.sc-ion-select-popover,.sc-ion-select-popover-h ion-label.sc-ion-select-popover{margin-left:0;margin-right:0;margin-top:0;margin-bottom:0}";
-
-    var SelectPopover = /*#__PURE__*/function () {
-      function SelectPopover(hostRef) {
-        _classCallCheck(this, SelectPopover);
-
-        Object(_index_e806d1f6_js__WEBPACK_IMPORTED_MODULE_0__["r"])(this, hostRef);
-        /** Array of options for the popover */
-
-        this.options = [];
-      }
-
-      _createClass(SelectPopover, [{
-        key: "onSelect",
-        value: function onSelect(ev) {
-          var option = this.options.find(function (o) {
-            return o.value === ev.target.value;
-          });
-
-          if (option) {
-            Object(_overlays_12c20431_js__WEBPACK_IMPORTED_MODULE_4__["s"])(option.handler);
-          }
-        }
-      }, {
-        key: "render",
-        value: function render() {
-          var checkedOption = this.options.find(function (o) {
-            return o.checked;
-          });
-          var checkedValue = checkedOption ? checkedOption.value : undefined;
-          return Object(_index_e806d1f6_js__WEBPACK_IMPORTED_MODULE_0__["h"])(_index_e806d1f6_js__WEBPACK_IMPORTED_MODULE_0__["H"], {
-            "class": Object(_ionic_global_9d5c8ee3_js__WEBPACK_IMPORTED_MODULE_1__["b"])(this)
-          }, Object(_index_e806d1f6_js__WEBPACK_IMPORTED_MODULE_0__["h"])("ion-list", null, this.header !== undefined && Object(_index_e806d1f6_js__WEBPACK_IMPORTED_MODULE_0__["h"])("ion-list-header", null, this.header), (this.subHeader !== undefined || this.message !== undefined) && Object(_index_e806d1f6_js__WEBPACK_IMPORTED_MODULE_0__["h"])("ion-item", null, Object(_index_e806d1f6_js__WEBPACK_IMPORTED_MODULE_0__["h"])("ion-label", {
-            "class": "ion-text-wrap"
-          }, this.subHeader !== undefined && Object(_index_e806d1f6_js__WEBPACK_IMPORTED_MODULE_0__["h"])("h3", null, this.subHeader), this.message !== undefined && Object(_index_e806d1f6_js__WEBPACK_IMPORTED_MODULE_0__["h"])("p", null, this.message))), Object(_index_e806d1f6_js__WEBPACK_IMPORTED_MODULE_0__["h"])("ion-radio-group", {
-            value: checkedValue
-          }, this.options.map(function (option) {
-            return Object(_index_e806d1f6_js__WEBPACK_IMPORTED_MODULE_0__["h"])("ion-item", {
-              "class": Object(_theme_ff3fc52f_js__WEBPACK_IMPORTED_MODULE_5__["g"])(option.cssClass)
-            }, Object(_index_e806d1f6_js__WEBPACK_IMPORTED_MODULE_0__["h"])("ion-label", null, option.text), Object(_index_e806d1f6_js__WEBPACK_IMPORTED_MODULE_0__["h"])("ion-radio", {
-              value: option.value,
-              disabled: option.disabled
-            }));
-          }))));
-        }
-      }]);
-
-      return SelectPopover;
-    }();
-
-    SelectPopover.style = selectPopoverCss;
+    Loading.style = {
+      ios: loadingIosCss,
+      md: loadingMdCss
+    };
     /***/
   }
 }]);

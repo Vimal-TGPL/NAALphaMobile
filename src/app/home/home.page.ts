@@ -2108,7 +2108,7 @@ export class HomePage implements OnInit, OnDestroy {
     
     if((that.AvoidLosersec && !that.AL_mainCircle && !that.AL_rangeCircle) || (that.AvoidLosersec && that.AL_rangeCircle )) {
       that.CurrSliderData = sliderObject;
-      console.log(that.CurrSliderData);
+      // console.log(that.CurrSliderData);
     }
     if(that.AvoidLosersec && that.AL_rangeCircle && !that.AL_mainCircle)
       {
@@ -2182,7 +2182,7 @@ export class HomePage implements OnInit, OnDestroy {
       .append('g')
       .attr('class', 'handlercontainer')
       .attr('transform', function (d) {
-        console.log(angularScale(d.value))
+        // console.log(angularScale(d.value))
         return 'rotate(' + angularScale(d.value) + ') translate(0,' + (radius-3) * -1 + ')';
       })
       .call(dragBehavior);

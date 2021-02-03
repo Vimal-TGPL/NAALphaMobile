@@ -16721,6 +16721,16 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
         }
 
         _createClass(Zone, [{
+          key: "parent",
+          get: function get() {
+            return this._parent;
+          }
+        }, {
+          key: "name",
+          get: function get() {
+            return this._name;
+          }
+        }, {
           key: "get",
           value: function get(key) {
             var zone = this.getZoneWith(key);
@@ -16953,35 +16963,11 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
               zoneDelegates[i]._updateTaskCount(task.type, count);
             }
           }
-        }, {
-          key: "parent",
-          get: function get() {
-            return this._parent;
-          }
-        }, {
-          key: "name",
-          get: function get() {
-            return this._name;
-          }
         }], [{
           key: "assertZonePatched",
           value: function assertZonePatched() {
             if (global['Promise'] !== patches['ZoneAwarePromise']) {
               throw new Error('Zone.js has detected that ZoneAwarePromise `(window|global).Promise` ' + 'has been overwritten.\n' + 'Most likely cause is that a Promise polyfill has been loaded ' + 'after Zone.js (Polyfilling Promise api is not necessary when zone.js is loaded. ' + 'If you must load one, do so before loading zone.js.)');
-            }
-          }
-        }, {
-          key: "__load_patch",
-          value: function __load_patch(name, fn) {
-            if (patches.hasOwnProperty(name)) {
-              if (checkDuplicate) {
-                throw Error('Already loaded patch: ' + name);
-              }
-            } else if (!global['__Zone_disable_' + name]) {
-              var perfName = 'Zone:' + name;
-              mark(perfName);
-              patches[name] = fn(global, Zone, _api);
-              performanceMeasure(perfName, perfName);
             }
           }
         }, {
@@ -17004,6 +16990,20 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
           key: "currentTask",
           get: function get() {
             return _currentTask;
+          }
+        }, {
+          key: "__load_patch",
+          value: function __load_patch(name, fn) {
+            if (patches.hasOwnProperty(name)) {
+              if (checkDuplicate) {
+                throw Error('Already loaded patch: ' + name);
+              }
+            } else if (!global['__Zone_disable_' + name]) {
+              var perfName = 'Zone:' + name;
+              mark(perfName);
+              patches[name] = fn(global, Zone, _api);
+              performanceMeasure(perfName, perfName);
+            }
           }
         }]);
 
@@ -17223,6 +17223,16 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
         }
 
         _createClass(ZoneTask, [{
+          key: "zone",
+          get: function get() {
+            return this._zone;
+          }
+        }, {
+          key: "state",
+          get: function get() {
+            return this._state;
+          }
+        }, {
           key: "cancelScheduleRequest",
           value: function cancelScheduleRequest() {
             this._transitionTo(notScheduled, scheduling);
@@ -17261,16 +17271,6 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
               zone: this.zone.name,
               runCount: this.runCount
             };
-          }
-        }, {
-          key: "zone",
-          get: function get() {
-            return this._zone;
-          }
-        }, {
-          key: "state",
-          get: function get() {
-            return this._state;
           }
         }], [{
           key: "invokeTask",
@@ -17783,6 +17783,11 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
         }
 
         _createClass(ZoneAwarePromise, [{
+          key: Symbol.toStringTag,
+          get: function get() {
+            return 'Promise';
+          }
+        }, {
           key: "then",
           value: function then(onFulfilled, onRejected) {
             var chainPromise = new this.constructor(null);
@@ -17815,11 +17820,6 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
             }
 
             return chainPromise;
-          }
-        }, {
-          key: Symbol.toStringTag,
-          get: function get() {
-            return 'Promise';
           }
         }], [{
           key: "toString",

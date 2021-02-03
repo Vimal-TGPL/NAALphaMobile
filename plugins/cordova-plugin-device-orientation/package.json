@@ -1,28 +1,27 @@
 {
-  "_from": "cordova-plugin-device-orientation",
+  "_from": "cordova-plugin-device-orientation@2.0.1",
   "_id": "cordova-plugin-device-orientation@2.0.1",
   "_inBundle": false,
   "_integrity": "sha1-FJ1RJQ3vwwnw0D0wb+KOiYgbqE0=",
   "_location": "/cordova-plugin-device-orientation",
   "_phantomChildren": {},
   "_requested": {
-    "type": "tag",
+    "type": "version",
     "registry": true,
-    "raw": "cordova-plugin-device-orientation",
+    "raw": "cordova-plugin-device-orientation@2.0.1",
     "name": "cordova-plugin-device-orientation",
     "escapedName": "cordova-plugin-device-orientation",
-    "rawSpec": "",
+    "rawSpec": "2.0.1",
     "saveSpec": null,
-    "fetchSpec": "latest"
+    "fetchSpec": "2.0.1"
   },
   "_requiredBy": [
-    "#USER",
     "/"
   ],
   "_resolved": "https://registry.npmjs.org/cordova-plugin-device-orientation/-/cordova-plugin-device-orientation-2.0.1.tgz",
   "_shasum": "149d51250defc309f0d03d306fe28e89881ba84d",
-  "_spec": "cordova-plugin-device-orientation",
-  "_where": "C:\\Projects\\NAAlphaMobile",
+  "_spec": "cordova-plugin-device-orientation@2.0.1",
+  "_where": "/Users/lhadmin/NAALphaMobile",
   "author": {
     "name": "Apache Software Foundation"
   },

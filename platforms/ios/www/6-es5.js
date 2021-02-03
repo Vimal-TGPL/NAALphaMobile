@@ -1,576 +1,448 @@
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
 
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
 
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([[6], {
   /***/
-  "./node_modules/@ionic/core/dist/esm/ion-button_2.entry.js":
-  /*!*****************************************************************!*\
-    !*** ./node_modules/@ionic/core/dist/esm/ion-button_2.entry.js ***!
-    \*****************************************************************/
+  "./node_modules/raw-loader/dist/cjs.js!./src/app/auth/auth.page.html":
+  /*!***************************************************************************!*\
+    !*** ./node_modules/raw-loader/dist/cjs.js!./src/app/auth/auth.page.html ***!
+    \***************************************************************************/
 
-  /*! exports provided: ion_button, ion_icon */
+  /*! exports provided: default */
 
   /***/
-  function node_modulesIonicCoreDistEsmIonButton_2EntryJs(module, __webpack_exports__, __webpack_require__) {
+  function node_modulesRawLoaderDistCjsJsSrcAppAuthAuthPageHtml(module, __webpack_exports__, __webpack_require__) {
+    "use strict";
+
+    __webpack_require__.r(__webpack_exports__);
+    /* harmony default export */
+
+
+    __webpack_exports__["default"] = "<ion-header class=\"login-header ion-no-border\">\n  <ion-toolbar>\n    <img src=\"../../assets/images/NAA_Logo_Mobile.svg\" height=\"35\" alt=\"Logo\">\n  </ion-toolbar>\n</ion-header>\n<ion-content forceOverscroll=false>\n    <div class=\"outerDiv\">\n      <form [formGroup]=\"loginForm\">\n        \n        <ion-text>\n          <h1 class=\"cardTitle\">Login</h1>\n        </ion-text>\n        \n        <div class=\"form\">\n          <div class=\"inputdiv\">\n            <ion-label class=\"emailLabel\">Email<ion-text color=\"danger\"> *</ion-text>\n            </ion-label>\n            <ion-item class=\"emailItem\" lines=\"none\">\n              <ion-input autofocus=\"true\" inputmode=\"email\" (ionInput)=\"onemialTextInput()\" placeholder=\"Email Address\" formControlName=\"Email\" autocomplete=\"on\"></ion-input>\n            </ion-item>\n            <div style=\"color: #f44336; padding-top: 0.2rem; font-size: 11px; font-family: Open Sans;\" *ngIf=\"hasError('Email', 'required') && email\">An email address is required</div>\n            <div style=\"color: #f44336; padding-top: 0.2rem; font-size: 11px; font-family: Open Sans;\" *ngIf=\"hasError('Email', 'email') && email\">Please enter a valid email address</div>\n          </div>\n          <div class=\"inputdiv\">\n            <ion-label class=\"emailLabel\">Password<ion-text color=\"danger\"> *</ion-text>\n            </ion-label>\n            <ion-item class=\"passwordItem\" lines=\"none\">\n              <ion-input class=\"passwordInput\" (keyup.enter)='onLoginClick()'  (ionInput)=\"onPwdTextInput()\" type=\"password\" inputmode=\"text\" enterkeyhint=\"Login\" placeholder=\"Password\" formControlName=\"Password\">\n              </ion-input>\n            </ion-item>\n            <div style=\"color: #f44336; padding-top: 0.2rem; font-size: 11px; font-family: Open Sans;\" *ngIf=\"hasError('Password', 'required') && pwd\">A password is required</div>\n          </div>\n          <div class=\"loginDiv\">\n            <ion-button class=\"loginBtn\" size=\"medium\" expand=\"block\" [disabled] =\"!loginForm.valid\" (click)=\"onLoginClick()\">\n              <ion-spinner *ngIf=\"showLoad\" name=\"crescent\"></ion-spinner>&nbsp;{{showLoad ? 'Logging in...': 'Login'}}\n            </ion-button>\n          </div>\n        </div>\n        <div class=\"forgotPassDiv\">\n          <ion-button class=\"forgotPassBtn\" fill=\"clear\" expand=\"block\" (click)=\"onForgotPassClick()\">\n            Forgot Password?\n          </ion-button>\n        </div>\n        <div class=\"forgotPassDiv\">\n          <ion-button expand=\"block\" fill=\"clear\" class=\"forgotPassBtn\" (click)=\"onSignupClick()\">\n            Sign up\n          </ion-button>\n        </div>\n  </form>\n  </div>\n</ion-content>\n<div id=\"authLoader\" style=\"background: rgba(0,0,0,0.5);z-index: 99999; position: absolute; height: 100%; width: 100%; display: flex; justify-content: center; align-items: center;\">\n  <img src=\"../../assets/images/NAA.gif\" alt=\"Loading...\" style=\"height: 30px;width: 30px !important;\">    \n</div>";
+    /***/
+  },
+
+  /***/
+  "./src/app/auth/auth-routing.module.ts":
+  /*!*********************************************!*\
+    !*** ./src/app/auth/auth-routing.module.ts ***!
+    \*********************************************/
+
+  /*! exports provided: AuthPageRoutingModule */
+
+  /***/
+  function srcAppAuthAuthRoutingModuleTs(module, __webpack_exports__, __webpack_require__) {
     "use strict";
 
     __webpack_require__.r(__webpack_exports__);
     /* harmony export (binding) */
 
 
-    __webpack_require__.d(__webpack_exports__, "ion_button", function () {
-      return Button;
+    __webpack_require__.d(__webpack_exports__, "AuthPageRoutingModule", function () {
+      return AuthPageRoutingModule;
     });
+    /* harmony import */
+
+
+    var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(
+    /*! tslib */
+    "./node_modules/tslib/tslib.es6.js");
+    /* harmony import */
+
+
+    var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
+    /*! @angular/core */
+    "./node_modules/@angular/core/fesm2015/core.js");
+    /* harmony import */
+
+
+    var _angular_router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
+    /*! @angular/router */
+    "./node_modules/@angular/router/fesm2015/router.js");
+    /* harmony import */
+
+
+    var _auth_page__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
+    /*! ./auth.page */
+    "./src/app/auth/auth.page.ts");
+
+    var routes = [{
+      path: '',
+      component: _auth_page__WEBPACK_IMPORTED_MODULE_3__["AuthPage"]
+    }];
+
+    var AuthPageRoutingModule = function AuthPageRoutingModule() {
+      _classCallCheck(this, AuthPageRoutingModule);
+    };
+
+    AuthPageRoutingModule = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["NgModule"])({
+      imports: [_angular_router__WEBPACK_IMPORTED_MODULE_2__["RouterModule"].forChild(routes)],
+      exports: [_angular_router__WEBPACK_IMPORTED_MODULE_2__["RouterModule"]]
+    })], AuthPageRoutingModule);
+    /***/
+  },
+
+  /***/
+  "./src/app/auth/auth.module.ts":
+  /*!*************************************!*\
+    !*** ./src/app/auth/auth.module.ts ***!
+    \*************************************/
+
+  /*! exports provided: AuthPageModule */
+
+  /***/
+  function srcAppAuthAuthModuleTs(module, __webpack_exports__, __webpack_require__) {
+    "use strict";
+
+    __webpack_require__.r(__webpack_exports__);
     /* harmony export (binding) */
 
 
-    __webpack_require__.d(__webpack_exports__, "ion_icon", function () {
-      return Icon;
+    __webpack_require__.d(__webpack_exports__, "AuthPageModule", function () {
+      return AuthPageModule;
     });
     /* harmony import */
 
 
-    var _index_e806d1f6_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(
-    /*! ./index-e806d1f6.js */
-    "./node_modules/@ionic/core/dist/esm/index-e806d1f6.js");
+    var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(
+    /*! tslib */
+    "./node_modules/tslib/tslib.es6.js");
     /* harmony import */
 
 
-    var _ionic_global_9d5c8ee3_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
-    /*! ./ionic-global-9d5c8ee3.js */
-    "./node_modules/@ionic/core/dist/esm/ionic-global-9d5c8ee3.js");
+    var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
+    /*! @angular/core */
+    "./node_modules/@angular/core/fesm2015/core.js");
     /* harmony import */
 
 
-    var _helpers_90f46169_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
-    /*! ./helpers-90f46169.js */
-    "./node_modules/@ionic/core/dist/esm/helpers-90f46169.js");
+    var _angular_common__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
+    /*! @angular/common */
+    "./node_modules/@angular/common/fesm2015/common.js");
     /* harmony import */
 
 
-    var _theme_ff3fc52f_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
-    /*! ./theme-ff3fc52f.js */
-    "./node_modules/@ionic/core/dist/esm/theme-ff3fc52f.js");
+    var _angular_forms__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
+    /*! @angular/forms */
+    "./node_modules/@angular/forms/fesm2015/forms.js");
+    /* harmony import */
 
-    var CACHED_MAP;
 
-    var getIconMap = function getIconMap() {
-      if (typeof window === 'undefined') {
-        return new Map();
-      } else {
-        if (!CACHED_MAP) {
-          var win = window;
-          win.Ionicons = win.Ionicons || {};
-          CACHED_MAP = win.Ionicons.map = win.Ionicons.map || new Map();
-        }
+    var _ionic_angular__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
+    /*! @ionic/angular */
+    "./node_modules/@ionic/angular/fesm2015/ionic-angular.js");
+    /* harmony import */
 
-        return CACHED_MAP;
-      }
+
+    var _auth_routing_module__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(
+    /*! ./auth-routing.module */
+    "./src/app/auth/auth-routing.module.ts");
+    /* harmony import */
+
+
+    var _auth_page__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(
+    /*! ./auth.page */
+    "./src/app/auth/auth.page.ts");
+
+    var AuthPageModule = function AuthPageModule() {
+      _classCallCheck(this, AuthPageModule);
     };
 
-    var getUrl = function getUrl(i) {
-      var url = getSrc(i.src);
+    AuthPageModule = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["NgModule"])({
+      imports: [_angular_common__WEBPACK_IMPORTED_MODULE_2__["CommonModule"], _angular_forms__WEBPACK_IMPORTED_MODULE_3__["FormsModule"], _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["IonicModule"], _auth_routing_module__WEBPACK_IMPORTED_MODULE_5__["AuthPageRoutingModule"], _angular_forms__WEBPACK_IMPORTED_MODULE_3__["ReactiveFormsModule"]],
+      declarations: [_auth_page__WEBPACK_IMPORTED_MODULE_6__["AuthPage"]]
+    })], AuthPageModule);
+    /***/
+  },
 
-      if (url) {
-        return url;
-      }
+  /***/
+  "./src/app/auth/auth.page.scss":
+  /*!*************************************!*\
+    !*** ./src/app/auth/auth.page.scss ***!
+    \*************************************/
 
-      url = getName(i.name, i.icon, i.mode, i.ios, i.md);
+  /*! exports provided: default */
 
-      if (url) {
-        return getNamedUrl(url);
-      }
+  /***/
+  function srcAppAuthAuthPageScss(module, __webpack_exports__, __webpack_require__) {
+    "use strict";
 
-      if (i.icon) {
-        url = getSrc(i.icon);
-
-        if (url) {
-          return url;
-        }
-
-        url = getSrc(i.icon[i.mode]);
-
-        if (url) {
-          return url;
-        }
-      }
-
-      return null;
-    };
-
-    var getNamedUrl = function getNamedUrl(iconName) {
-      var url = getIconMap().get(iconName);
-
-      if (url) {
-        return url;
-      }
-
-      return Object(_index_e806d1f6_js__WEBPACK_IMPORTED_MODULE_0__["k"])("svg/".concat(iconName, ".svg"));
-    };
-
-    var getName = function getName(iconName, icon, mode, ios, md) {
-      // default to "md" if somehow the mode wasn't set
-      mode = (mode && toLower(mode)) === 'ios' ? 'ios' : 'md'; // if an icon was passed in using the ios or md attributes
-      // set the iconName to whatever was passed in
-
-      if (ios && mode === 'ios') {
-        iconName = toLower(ios);
-      } else if (md && mode === 'md') {
-        iconName = toLower(md);
-      } else {
-        if (!iconName && icon && !isSrc(icon)) {
-          iconName = icon;
-        }
-
-        if (isStr(iconName)) {
-          iconName = toLower(iconName);
-        }
-      }
-
-      if (!isStr(iconName) || iconName.trim() === '') {
-        return null;
-      } // only allow alpha characters and dash
+    __webpack_require__.r(__webpack_exports__);
+    /* harmony default export */
 
 
-      var invalidChars = iconName.replace(/[a-z]|-|\d/gi, '');
+    __webpack_exports__["default"] = "ion-header ion-toolbar {\n  --background: #274b9e;\n  padding: 10px;\n  --border-width:0; }\n\nion-content {\n  --background: #274b9e; }\n\nion-content .outerDiv {\n    display: flex;\n    justify-content: center;\n    align-items: center;\n    height: 100%;\n    width: 100%; }\n\nion-content .outerDiv form {\n      width: 80%; }\n\n.signupBtnDiv {\n  padding: 5px 10px 10px 10px; }\n\n.signupBtn {\n  --color:#00aeef;\n  text-transform: inherit;\n  -webkit-margin-start: 0px;\n          margin-inline-start: 0px;\n  -webkit-margin-end: 0px;\n          margin-inline-end: 0px; }\n\n.cardTitle {\n  text-align: center;\n  color: #00aeef;\n  font-size: 32px;\n  font-weight: bold;\n  padding-top: 15px;\n  font-family: Open Sans Bold; }\n\n.emailLabel {\n  font-family: Open Sans;\n  color: white;\n  padding-left: 5px;\n  font-size: 13px; }\n\n.emailItem {\n  --min-height: 37px!important;\n  --background: white;\n  font-size: 13px;\n  --padding-start: 5px; }\n\n.emailItem ion-input {\n    --padding-top: 0;\n    --padding-bottom: 0;\n    --padding-end: 5px;\n    --padding-start: 5px; }\n\n.passwordItem {\n  --min-height: 37px!important;\n  --background: white;\n  font-size: 13px;\n  --padding-start: 5px; }\n\n.passwordItem ion-input {\n    --padding-top: 0;\n    --padding-bottom: 0;\n    --padding-end: 5px;\n    --padding-start: 5px; }\n\n.no-validation-line .item-inner {\n  box-shadow: none !important; }\n\n.form {\n  padding-top: 0px; }\n\n.inputdiv {\n  padding: 10px; }\n\n.loginBtn {\n  --border-radius: 15px;\n  font-size: 22px;\n  height: 50px;\n  --background: #00b9ff;\n  --background-activated:  #00b9ff;\n  --background-focused:  #00b9ff;\n  --background-hover: #00b9ff;\n  --color: #ffffff;\n  --ripple-color: #9a9a9a;\n  --color-activated: #ffffff;\n  -webkit-margin-start: 0px;\n          margin-inline-start: 0px;\n  -webkit-margin-end: 0px;\n          margin-inline-end: 0px;\n  --border-radius: 15px;\n  height: 37px;\n  font-family: Open Sans semiBold;\n  font-size: 17px;\n  text-transform: inherit; }\n\n.loginDiv {\n  padding: 15px 10px 15px 10px; }\n\n.forgotPassBtn {\n  color: #00aeef;\n  height: 16px;\n  font-family: Open Sans SemiBold;\n  font-size: 13px;\n  text-transform: inherit; }\n\n.forgotPassDiv {\n  padding: 0px 10px 10px 10px; }\n\n.rememberItem {\n  --padding-start: 0%;\n  --background: #2e4c99 ;\n  --background-activated: #2e4c99; }\n\n.checkboxLabel {\n  color: white;\n  padding-left: 10px;\n  font-size: 14px; }\n\n@media screen and (orientation: landscape) {\n  .overfloscroll {\n    overflow: auto; }\n  .overfloscroll::-webkit-scrollbar, *::-webkit-scrollbar {\n    display: none; }\n  .innercardmobile .card-Content {\n    width: 45% !important; } }\n\n.tab_background {\n  --background: url('Tool_BG.svg') !important; }\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9Vc2Vycy9saGFkbWluL05BQUxwaGFNb2JpbGUvc3JjL2FwcC9hdXRoL2F1dGgucGFnZS5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0kscUJBQWE7RUFDYixhQUFhO0VBQ2IsZ0JBQWUsRUFBQTs7QUFHbkI7RUFFSSxxQkFBYSxFQUFBOztBQUZqQjtJQUtRLGFBQWE7SUFDakIsdUJBQXVCO0lBQ3ZCLG1CQUFtQjtJQUNuQixZQUFZO0lBQ1osV0FBVyxFQUFBOztBQVRmO01BWVEsVUFBVSxFQUFBOztBQU1sQjtFQUNJLDJCQUEyQixFQUFBOztBQUcvQjtFQUNJLGVBQVE7RUFDUix1QkFBdUI7RUFDdkIseUJBQXdCO1VBQXhCLHdCQUF3QjtFQUN4Qix1QkFBc0I7VUFBdEIsc0JBQXNCLEVBQUE7O0FBRzFCO0VBRUksa0JBQWtCO0VBQ2xCLGNBQWM7RUFDZCxlQUFlO0VBQ2YsaUJBQWlCO0VBQ2pCLGlCQUFpQjtFQUNqQiwyQkFBMkIsRUFBQTs7QUFHL0I7RUFDSSxzQkFBc0I7RUFDdEIsWUFBWTtFQUNaLGlCQUFpQjtFQUNqQixlQUFlLEVBQUE7O0FBR25CO0VBRUksNEJBQWE7RUFDYixtQkFBYTtFQUNiLGVBQWU7RUFDZixvQkFBZ0IsRUFBQTs7QUFMcEI7SUFRSSxnQkFBYztJQUNkLG1CQUFpQjtJQUNqQixrQkFBYztJQUNkLG9CQUFnQixFQUFBOztBQUlwQjtFQUVJLDRCQUFhO0VBQ2IsbUJBQWE7RUFDYixlQUFlO0VBQ2Ysb0JBQWdCLEVBQUE7O0FBTHBCO0lBUVEsZ0JBQWM7SUFDZCxtQkFBaUI7SUFDakIsa0JBQWM7SUFDZCxvQkFBZ0IsRUFBQTs7QUFReEI7RUFDSSwyQkFBMkIsRUFBQTs7QUFHL0I7RUFDSSxnQkFBZ0IsRUFBQTs7QUFHcEI7RUFDSSxhQUFhLEVBQUE7O0FBR2pCO0VBQ0kscUJBQWdCO0VBQU8sZUFBZTtFQUFFLFlBQVk7RUFDNUMscUJBQWE7RUFDYixnQ0FBdUI7RUFDdkIsOEJBQXFCO0VBQ3JCLDJCQUFtQjtFQUMzQixnQkFBUztFQUNULHVCQUFnQjtFQUNoQiwwQkFBbUI7RUFDbkIseUJBQXdCO1VBQXhCLHdCQUF3QjtFQUN4Qix1QkFBc0I7VUFBdEIsc0JBQXNCO0VBQ3RCLHFCQUFnQjtFQUNoQixZQUFZO0VBQ1osK0JBQStCO0VBQy9CLGVBQWU7RUFDZix1QkFBdUIsRUFBQTs7QUFHM0I7RUFDSSw0QkFBNEIsRUFBQTs7QUFHaEM7RUFDSSxjQUFjO0VBQ2QsWUFBWTtFQUNaLCtCQUErQjtFQUMvQixlQUFlO0VBQ2YsdUJBQXVCLEVBQUE7O0FBRzNCO0VBQ0ksMkJBQTJCLEVBQUE7O0FBRy9CO0VBQ0ksbUJBQWdCO0VBQ2hCLHNCQUFhO0VBQ2IsK0JBQXVCLEVBQUE7O0FBRzNCO0VBQ0ksWUFBWTtFQUNaLGtCQUFrQjtFQUNsQixlQUFlLEVBQUE7O0FBSW5CO0VBQ0E7SUFDSSxjQUFjLEVBQUE7RUFFbEI7SUFDSSxhQUFhLEVBQUE7RUFHakI7SUFFUSxxQkFBcUIsRUFBQSxFQUN4Qjs7QUFJTDtFQUNJLDJDQUFhLEVBQUEiLCJmaWxlIjoic3JjL2FwcC9hdXRoL2F1dGgucGFnZS5zY3NzIiwic291cmNlc0NvbnRlbnQiOlsiaW9uLWhlYWRlciBpb24tdG9vbGJhcntcbiAgICAtLWJhY2tncm91bmQ6ICMyNzRiOWU7XG4gICAgcGFkZGluZzogMTBweDtcbiAgICAtLWJvcmRlci13aWR0aDowO1xufVxuXG5pb24tY29udGVudHtcblxuICAgIC0tYmFja2dyb3VuZDogIzI3NGI5ZTsgIFxuICAgIFxuICAgIC5vdXRlckRpdntcbiAgICAgICAgZGlzcGxheTogZmxleDtcbiAgICBqdXN0aWZ5LWNvbnRlbnQ6IGNlbnRlcjtcbiAgICBhbGlnbi1pdGVtczogY2VudGVyO1xuICAgIGhlaWdodDogMTAwJTtcbiAgICB3aWR0aDogMTAwJTtcblxuICAgIGZvcm17XG4gICAgICAgIHdpZHRoOiA4MCU7XG4gICAgfVxuICAgIH1cblxufVxuXG4uc2lnbnVwQnRuRGl2e1xuICAgIHBhZGRpbmc6IDVweCAxMHB4IDEwcHggMTBweDtcbn1cblxuLnNpZ251cEJ0bntcbiAgICAtLWNvbG9yOiMwMGFlZWY7XG4gICAgdGV4dC10cmFuc2Zvcm06IGluaGVyaXQ7XG4gICAgbWFyZ2luLWlubGluZS1zdGFydDogMHB4O1xuICAgIG1hcmdpbi1pbmxpbmUtZW5kOiAwcHg7XG59XG5cbi5jYXJkVGl0bGVcbntcbiAgICB0ZXh0LWFsaWduOiBjZW50ZXI7IFxuICAgIGNvbG9yOiAjMDBhZWVmOyBcbiAgICBmb250LXNpemU6IDMycHg7IFxuICAgIGZvbnQtd2VpZ2h0OiBib2xkO1xuICAgIHBhZGRpbmctdG9wOiAxNXB4O1xuICAgIGZvbnQtZmFtaWx5OiBPcGVuIFNhbnMgQm9sZDtcbn1cblxuLmVtYWlsTGFiZWx7XG4gICAgZm9udC1mYW1pbHk6IE9wZW4gU2FucztcbiAgICBjb2xvcjogd2hpdGU7XG4gICAgcGFkZGluZy1sZWZ0OiA1cHg7XG4gICAgZm9udC1zaXplOiAxM3B4O1xufVxuXG4uZW1haWxJdGVtXG57XG4gICAgLS1taW4taGVpZ2h0OiAzN3B4IWltcG9ydGFudDtcbiAgICAtLWJhY2tncm91bmQ6IHdoaXRlO1xuICAgIGZvbnQtc2l6ZTogMTNweDtcbiAgICAtLXBhZGRpbmctc3RhcnQ6IDVweDtcblxuICAgIGlvbi1pbnB1dHtcbiAgICAtLXBhZGRpbmctdG9wOiAwO1xuICAgIC0tcGFkZGluZy1ib3R0b206IDA7XG4gICAgLS1wYWRkaW5nLWVuZDogNXB4O1xuICAgIC0tcGFkZGluZy1zdGFydDogNXB4O1xuICAgIH1cbn1cblxuLnBhc3N3b3JkSXRlbVxue1xuICAgIC0tbWluLWhlaWdodDogMzdweCFpbXBvcnRhbnQ7XG4gICAgLS1iYWNrZ3JvdW5kOiB3aGl0ZTtcbiAgICBmb250LXNpemU6IDEzcHg7XG4gICAgLS1wYWRkaW5nLXN0YXJ0OiA1cHg7XG5cbiAgICBpb24taW5wdXR7XG4gICAgICAgIC0tcGFkZGluZy10b3A6IDA7XG4gICAgICAgIC0tcGFkZGluZy1ib3R0b206IDA7XG4gICAgICAgIC0tcGFkZGluZy1lbmQ6IDVweDtcbiAgICAgICAgLS1wYWRkaW5nLXN0YXJ0OiA1cHg7XG4gICAgICAgIH1cbn1cblxuLnBhc3N3b3JkSW5wdXR7XG4gICAgXG59XG5cbi5uby12YWxpZGF0aW9uLWxpbmUgLml0ZW0taW5uZXIge1xuICAgIGJveC1zaGFkb3c6IG5vbmUgIWltcG9ydGFudDtcbiAgfVxuXG4uZm9ybXtcbiAgICBwYWRkaW5nLXRvcDogMHB4O1xufVxuXG4uaW5wdXRkaXZ7XG4gICAgcGFkZGluZzogMTBweDtcbn1cblxuLmxvZ2luQnRue1xuICAgIC0tYm9yZGVyLXJhZGl1czogMTVweDsgZm9udC1zaXplOiAyMnB4OyBoZWlnaHQ6IDUwcHg7IFxuICAgICAgICAgICAgLS1iYWNrZ3JvdW5kOiAjMDBiOWZmO1xuICAgICAgICAgICAgLS1iYWNrZ3JvdW5kLWFjdGl2YXRlZDogICMwMGI5ZmY7XG4gICAgICAgICAgICAtLWJhY2tncm91bmQtZm9jdXNlZDogICMwMGI5ZmY7XG4gICAgICAgICAgICAtLWJhY2tncm91bmQtaG92ZXI6ICMwMGI5ZmY7XG4gICAgLS1jb2xvclx0OiAjZmZmZmZmO1xuICAgIC0tcmlwcGxlLWNvbG9yIDogIzlhOWE5YTtcbiAgICAtLWNvbG9yLWFjdGl2YXRlZCA6ICNmZmZmZmY7XG4gICAgbWFyZ2luLWlubGluZS1zdGFydDogMHB4O1xuICAgIG1hcmdpbi1pbmxpbmUtZW5kOiAwcHg7XG4gICAgLS1ib3JkZXItcmFkaXVzOiAxNXB4O1xuICAgIGhlaWdodDogMzdweDtcbiAgICBmb250LWZhbWlseTogT3BlbiBTYW5zIHNlbWlCb2xkO1xuICAgIGZvbnQtc2l6ZTogMTdweDtcbiAgICB0ZXh0LXRyYW5zZm9ybTogaW5oZXJpdDtcbn1cblxuLmxvZ2luRGl2e1xuICAgIHBhZGRpbmc6IDE1cHggMTBweCAxNXB4IDEwcHg7XG59XG5cbi5mb3Jnb3RQYXNzQnRue1xuICAgIGNvbG9yOiAjMDBhZWVmO1xuICAgIGhlaWdodDogMTZweDtcbiAgICBmb250LWZhbWlseTogT3BlbiBTYW5zIFNlbWlCb2xkO1xuICAgIGZvbnQtc2l6ZTogMTNweDtcbiAgICB0ZXh0LXRyYW5zZm9ybTogaW5oZXJpdDtcbn1cblxuLmZvcmdvdFBhc3NEaXZ7XG4gICAgcGFkZGluZzogMHB4IDEwcHggMTBweCAxMHB4O1xufVxuXG4ucmVtZW1iZXJJdGVte1xuICAgIC0tcGFkZGluZy1zdGFydDogMCU7XG4gICAgLS1iYWNrZ3JvdW5kOiAjMmU0Yzk5IDtcbiAgICAtLWJhY2tncm91bmQtYWN0aXZhdGVkOiAjMmU0Yzk5O1xufVxuXG4uY2hlY2tib3hMYWJlbHtcbiAgICBjb2xvcjogd2hpdGU7XG4gICAgcGFkZGluZy1sZWZ0OiAxMHB4O1xuICAgIGZvbnQtc2l6ZTogMTRweDtcbn1cblxuXG5AbWVkaWEgc2NyZWVuIGFuZCAob3JpZW50YXRpb246bGFuZHNjYXBlKSB7XG4ub3ZlcmZsb3Njcm9sbHtcbiAgICBvdmVyZmxvdzogYXV0bztcbn1cbi5vdmVyZmxvc2Nyb2xsOjotd2Via2l0LXNjcm9sbGJhciwgKjo6LXdlYmtpdC1zY3JvbGxiYXIgeyBcbiAgICBkaXNwbGF5OiBub25lOyBcbn1cblxuLmlubmVyY2FyZG1vYmlsZXtcbiAgICAuY2FyZC1Db250ZW50e1xuICAgICAgICB3aWR0aDogNDUlICFpbXBvcnRhbnQ7XG4gICAgfVxufVxufVxuXG4udGFiX2JhY2tncm91bmR7XG4gICAgLS1iYWNrZ3JvdW5kOiB1cmwoJy4uLy4uL2Fzc2V0cy9pbWFnZXMvVG9vbF9CRy5zdmcnKSAhaW1wb3J0YW50O1xufSJdfQ== */";
+    /***/
+  },
 
-      if (invalidChars !== '') {
-        return null;
-      }
+  /***/
+  "./src/app/auth/auth.page.ts":
+  /*!***********************************!*\
+    !*** ./src/app/auth/auth.page.ts ***!
+    \***********************************/
 
-      return iconName;
-    };
+  /*! exports provided: AuthPage */
 
-    var getSrc = function getSrc(src) {
-      if (isStr(src)) {
-        src = src.trim();
+  /***/
+  function srcAppAuthAuthPageTs(module, __webpack_exports__, __webpack_require__) {
+    "use strict";
 
-        if (isSrc(src)) {
-          return src;
-        }
-      }
+    __webpack_require__.r(__webpack_exports__);
+    /* harmony export (binding) */
 
-      return null;
-    };
 
-    var isSrc = function isSrc(str) {
-      return str.length > 0 && /(\/|\.)/.test(str);
-    };
+    __webpack_require__.d(__webpack_exports__, "AuthPage", function () {
+      return AuthPage;
+    });
+    /* harmony import */
 
-    var isStr = function isStr(val) {
-      return typeof val === 'string';
-    };
 
-    var toLower = function toLower(val) {
-      return val.toLowerCase();
-    };
+    var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(
+    /*! tslib */
+    "./node_modules/tslib/tslib.es6.js");
+    /* harmony import */
 
-    var buttonIosCss = ":host{--overflow:hidden;--ripple-color:currentColor;--border-width:initial;--border-color:initial;--border-style:initial;--color-activated:var(--color);--color-focused:var(--color);--color-hover:var(--color);--box-shadow:none;display:inline-block;width:auto;color:var(--color);font-family:var(--ion-font-family, inherit);text-align:center;text-decoration:none;text-overflow:ellipsis;white-space:nowrap;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;vertical-align:top;vertical-align:-webkit-baseline-middle;pointer-events:auto;-webkit-font-kerning:none;font-kerning:none}:host(.button-disabled){cursor:default;opacity:0.5;pointer-events:none}:host(.button-solid){--background:var(--ion-color-primary, #3880ff);--color:var(--ion-color-primary-contrast, #fff)}:host(.button-outline){--border-color:var(--ion-color-primary, #3880ff);--background:transparent;--color:var(--ion-color-primary, #3880ff)}:host(.button-clear){--border-width:0;--background:transparent;--color:var(--ion-color-primary, #3880ff)}:host(.button-block){display:block}:host(.button-block) .button-native{margin-left:0;margin-right:0;display:block;width:100%;clear:both;contain:content}:host(.button-block) .button-native::after{clear:both}:host(.button-full){display:block}:host(.button-full) .button-native{margin-left:0;margin-right:0;display:block;width:100%;contain:content}:host(.button-full:not(.button-round)) .button-native{border-radius:0;border-right-width:0;border-left-width:0}.button-native{border-radius:var(--border-radius);-moz-osx-font-smoothing:grayscale;-webkit-font-smoothing:antialiased;margin-left:0;margin-right:0;margin-top:0;margin-bottom:0;padding-left:var(--padding-start);padding-right:var(--padding-end);padding-top:var(--padding-top);padding-bottom:var(--padding-bottom);font-family:inherit;font-size:inherit;font-style:inherit;font-weight:inherit;letter-spacing:inherit;text-decoration:inherit;text-indent:inherit;text-overflow:inherit;text-transform:inherit;text-align:inherit;white-space:inherit;color:inherit;display:block;position:relative;width:100%;height:100%;-webkit-transition:var(--transition);transition:var(--transition);border-width:var(--border-width);border-style:var(--border-style);border-color:var(--border-color);outline:none;background:var(--background);line-height:1;-webkit-box-shadow:var(--box-shadow);box-shadow:var(--box-shadow);contain:layout style;cursor:pointer;opacity:var(--opacity);overflow:var(--overflow);z-index:0;-webkit-box-sizing:border-box;box-sizing:border-box;-webkit-appearance:none;-moz-appearance:none;appearance:none}@supports ((-webkit-margin-start: 0) or (margin-inline-start: 0)) or (-webkit-margin-start: 0){.button-native{padding-left:unset;padding-right:unset;-webkit-padding-start:var(--padding-start);padding-inline-start:var(--padding-start);-webkit-padding-end:var(--padding-end);padding-inline-end:var(--padding-end)}}.button-native::-moz-focus-inner{border:0}.button-inner{display:-ms-flexbox;display:flex;position:relative;-ms-flex-flow:row nowrap;flex-flow:row nowrap;-ms-flex-negative:0;flex-shrink:0;-ms-flex-align:center;align-items:center;-ms-flex-pack:center;justify-content:center;width:100%;height:100%;z-index:1}::slotted(ion-icon){font-size:1.4em;pointer-events:none}::slotted(ion-icon[slot=start]){margin-left:-0.3em;margin-right:0.3em;margin-top:0;margin-bottom:0}@supports ((-webkit-margin-start: 0) or (margin-inline-start: 0)) or (-webkit-margin-start: 0){::slotted(ion-icon[slot=start]){margin-left:unset;margin-right:unset;-webkit-margin-start:-0.3em;margin-inline-start:-0.3em;-webkit-margin-end:0.3em;margin-inline-end:0.3em}}::slotted(ion-icon[slot=end]){margin-left:0.3em;margin-right:-0.2em;margin-top:0;margin-bottom:0}@supports ((-webkit-margin-start: 0) or (margin-inline-start: 0)) or (-webkit-margin-start: 0){::slotted(ion-icon[slot=end]){margin-left:unset;margin-right:unset;-webkit-margin-start:0.3em;margin-inline-start:0.3em;-webkit-margin-end:-0.2em;margin-inline-end:-0.2em}}::slotted(ion-icon[slot=icon-only]){font-size:1.8em}ion-ripple-effect{color:var(--ripple-color)}.button-native::after{left:0;right:0;top:0;bottom:0;position:absolute;content:\"\";opacity:0}:host(.ion-activated){color:var(--color-activated)}:host(.ion-activated) .button-native::after{background:var(--background-activated);opacity:var(--background-activated-opacity)}:host(.ion-focused){color:var(--color-focused)}:host(.ion-focused) .button-native::after{background:var(--background-focused);opacity:var(--background-focused-opacity)}@media (any-hover: hover){:host(:hover){color:var(--color-hover)}:host(:hover) .button-native::after{background:var(--background-hover);opacity:var(--background-hover-opacity)}}:host(.button-solid.ion-color) .button-native{background:var(--ion-color-base);color:var(--ion-color-contrast)}:host(.button-outline.ion-color) .button-native{border-color:var(--ion-color-base);background:transparent;color:var(--ion-color-base)}:host(.button-clear.ion-color) .button-native{background:transparent;color:var(--ion-color-base)}:host(.in-toolbar:not(.ion-color):not(.in-toolbar-color)) .button-native{color:var(--ion-toolbar-color, var(--color))}:host(.button-outline.in-toolbar:not(.ion-color):not(.in-toolbar-color)) .button-native{border-color:var(--ion-toolbar-color, var(--color, var(--border-color)))}:host(.button-solid.in-toolbar:not(.ion-color):not(.in-toolbar-color)) .button-native{background:var(--ion-toolbar-color, var(--background));color:var(--ion-toolbar-background, var(--color))}:host{--border-radius:10px;--padding-top:0;--padding-bottom:0;--padding-start:1em;--padding-end:1em;--transition:background-color, opacity 100ms linear;margin-left:2px;margin-right:2px;margin-top:4px;margin-bottom:4px;height:2.8em;font-size:16px;font-weight:500;letter-spacing:-0.03em}@supports ((-webkit-margin-start: 0) or (margin-inline-start: 0)) or (-webkit-margin-start: 0){:host{margin-left:unset;margin-right:unset;-webkit-margin-start:2px;margin-inline-start:2px;-webkit-margin-end:2px;margin-inline-end:2px}}:host(.button-solid){--background-activated:var(--ion-color-primary-shade, #3171e0);--background-focused:var(--ion-color-primary-shade, #3171e0);--background-hover:var(--ion-color-primary-tint, #4c8dff);--background-activated-opacity:1;--background-focused-opacity:1;--background-hover-opacity:1}:host(.button-outline){--border-radius:10px;--border-width:1px;--border-style:solid;--background-activated:var(--ion-color-primary, #3880ff);--background-focused:var(--ion-color-primary, #3880ff);--background-hover:transparent;--background-focused-opacity:.1;--color-activated:var(--ion-color-primary-contrast, #fff)}:host(.button-clear){--background-activated:transparent;--background-focused:var(--ion-color-primary, #3880ff);--background-hover:transparent;--background-focused-opacity:.1;font-size:17px;font-weight:normal;letter-spacing:0}:host(.button-large){--border-radius:12px;--padding-top:0;--padding-start:1em;--padding-end:1em;--padding-bottom:0;height:2.8em;font-size:20px}:host(.button-small){--border-radius:6px;--padding-top:0;--padding-start:0.9em;--padding-end:0.9em;--padding-bottom:0;height:2.1em;font-size:13px}:host(.button-round){--border-radius:64px;--padding-top:0;--padding-start:26px;--padding-end:26px;--padding-bottom:0}:host(.button-strong){font-weight:600}:host(.button-clear.ion-activated){opacity:0.4}:host(.button-outline.ion-activated.ion-color) .button-native{color:var(--ion-color-contrast)}:host(.button-outline.ion-activated.ion-color) .button-native::after{background:var(--ion-color-base)}:host(.button-solid.ion-color.ion-activated) .button-native::after{background:var(--ion-color-shade)}:host(.button-outline.ion-focused.ion-color) .button-native,:host(.button-clear.ion-focused.ion-color) .button-native{color:var(--ion-color-base)}:host(.button-outline.ion-focused.ion-color) .button-native::after,:host(.button-clear.ion-focused.ion-color) .button-native::after{background:var(--ion-color-base)}:host(.button-solid.ion-color.ion-focused) .button-native::after{background:var(--ion-color-shade)}@media (any-hover: hover){:host(.button-clear:hover),:host(.button-outline:hover){opacity:0.6}:host(.button-clear.ion-color:hover) .button-native,:host(.button-outline.ion-color:hover) .button-native{color:var(--ion-color-base)}:host(.button-clear.ion-color:hover) .button-native::after,:host(.button-outline.ion-color:hover) .button-native::after{background:transparent}:host(.button-solid.ion-color:hover) .button-native::after{background:var(--ion-color-tint)}:host(:hover.button-solid.in-toolbar:not(.ion-color):not(.in-toolbar-color)) .button-native::after{background:#fff;opacity:0.1}}";
-    var buttonMdCss = ":host{--overflow:hidden;--ripple-color:currentColor;--border-width:initial;--border-color:initial;--border-style:initial;--color-activated:var(--color);--color-focused:var(--color);--color-hover:var(--color);--box-shadow:none;display:inline-block;width:auto;color:var(--color);font-family:var(--ion-font-family, inherit);text-align:center;text-decoration:none;text-overflow:ellipsis;white-space:nowrap;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;vertical-align:top;vertical-align:-webkit-baseline-middle;pointer-events:auto;-webkit-font-kerning:none;font-kerning:none}:host(.button-disabled){cursor:default;opacity:0.5;pointer-events:none}:host(.button-solid){--background:var(--ion-color-primary, #3880ff);--color:var(--ion-color-primary-contrast, #fff)}:host(.button-outline){--border-color:var(--ion-color-primary, #3880ff);--background:transparent;--color:var(--ion-color-primary, #3880ff)}:host(.button-clear){--border-width:0;--background:transparent;--color:var(--ion-color-primary, #3880ff)}:host(.button-block){display:block}:host(.button-block) .button-native{margin-left:0;margin-right:0;display:block;width:100%;clear:both;contain:content}:host(.button-block) .button-native::after{clear:both}:host(.button-full){display:block}:host(.button-full) .button-native{margin-left:0;margin-right:0;display:block;width:100%;contain:content}:host(.button-full:not(.button-round)) .button-native{border-radius:0;border-right-width:0;border-left-width:0}.button-native{border-radius:var(--border-radius);-moz-osx-font-smoothing:grayscale;-webkit-font-smoothing:antialiased;margin-left:0;margin-right:0;margin-top:0;margin-bottom:0;padding-left:var(--padding-start);padding-right:var(--padding-end);padding-top:var(--padding-top);padding-bottom:var(--padding-bottom);font-family:inherit;font-size:inherit;font-style:inherit;font-weight:inherit;letter-spacing:inherit;text-decoration:inherit;text-indent:inherit;text-overflow:inherit;text-transform:inherit;text-align:inherit;white-space:inherit;color:inherit;display:block;position:relative;width:100%;height:100%;-webkit-transition:var(--transition);transition:var(--transition);border-width:var(--border-width);border-style:var(--border-style);border-color:var(--border-color);outline:none;background:var(--background);line-height:1;-webkit-box-shadow:var(--box-shadow);box-shadow:var(--box-shadow);contain:layout style;cursor:pointer;opacity:var(--opacity);overflow:var(--overflow);z-index:0;-webkit-box-sizing:border-box;box-sizing:border-box;-webkit-appearance:none;-moz-appearance:none;appearance:none}@supports ((-webkit-margin-start: 0) or (margin-inline-start: 0)) or (-webkit-margin-start: 0){.button-native{padding-left:unset;padding-right:unset;-webkit-padding-start:var(--padding-start);padding-inline-start:var(--padding-start);-webkit-padding-end:var(--padding-end);padding-inline-end:var(--padding-end)}}.button-native::-moz-focus-inner{border:0}.button-inner{display:-ms-flexbox;display:flex;position:relative;-ms-flex-flow:row nowrap;flex-flow:row nowrap;-ms-flex-negative:0;flex-shrink:0;-ms-flex-align:center;align-items:center;-ms-flex-pack:center;justify-content:center;width:100%;height:100%;z-index:1}::slotted(ion-icon){font-size:1.4em;pointer-events:none}::slotted(ion-icon[slot=start]){margin-left:-0.3em;margin-right:0.3em;margin-top:0;margin-bottom:0}@supports ((-webkit-margin-start: 0) or (margin-inline-start: 0)) or (-webkit-margin-start: 0){::slotted(ion-icon[slot=start]){margin-left:unset;margin-right:unset;-webkit-margin-start:-0.3em;margin-inline-start:-0.3em;-webkit-margin-end:0.3em;margin-inline-end:0.3em}}::slotted(ion-icon[slot=end]){margin-left:0.3em;margin-right:-0.2em;margin-top:0;margin-bottom:0}@supports ((-webkit-margin-start: 0) or (margin-inline-start: 0)) or (-webkit-margin-start: 0){::slotted(ion-icon[slot=end]){margin-left:unset;margin-right:unset;-webkit-margin-start:0.3em;margin-inline-start:0.3em;-webkit-margin-end:-0.2em;margin-inline-end:-0.2em}}::slotted(ion-icon[slot=icon-only]){font-size:1.8em}ion-ripple-effect{color:var(--ripple-color)}.button-native::after{left:0;right:0;top:0;bottom:0;position:absolute;content:\"\";opacity:0}:host(.ion-activated){color:var(--color-activated)}:host(.ion-activated) .button-native::after{background:var(--background-activated);opacity:var(--background-activated-opacity)}:host(.ion-focused){color:var(--color-focused)}:host(.ion-focused) .button-native::after{background:var(--background-focused);opacity:var(--background-focused-opacity)}@media (any-hover: hover){:host(:hover){color:var(--color-hover)}:host(:hover) .button-native::after{background:var(--background-hover);opacity:var(--background-hover-opacity)}}:host(.button-solid.ion-color) .button-native{background:var(--ion-color-base);color:var(--ion-color-contrast)}:host(.button-outline.ion-color) .button-native{border-color:var(--ion-color-base);background:transparent;color:var(--ion-color-base)}:host(.button-clear.ion-color) .button-native{background:transparent;color:var(--ion-color-base)}:host(.in-toolbar:not(.ion-color):not(.in-toolbar-color)) .button-native{color:var(--ion-toolbar-color, var(--color))}:host(.button-outline.in-toolbar:not(.ion-color):not(.in-toolbar-color)) .button-native{border-color:var(--ion-toolbar-color, var(--color, var(--border-color)))}:host(.button-solid.in-toolbar:not(.ion-color):not(.in-toolbar-color)) .button-native{background:var(--ion-toolbar-color, var(--background));color:var(--ion-toolbar-background, var(--color))}:host{--border-radius:4px;--padding-top:0;--padding-bottom:0;--padding-start:1.1em;--padding-end:1.1em;--transition:box-shadow 280ms cubic-bezier(.4, 0, .2, 1),\n                background-color 15ms linear,\n                color 15ms linear;margin-left:2px;margin-right:2px;margin-top:4px;margin-bottom:4px;height:36px;font-size:14px;font-weight:500;letter-spacing:0.06em;text-transform:uppercase}@supports ((-webkit-margin-start: 0) or (margin-inline-start: 0)) or (-webkit-margin-start: 0){:host{margin-left:unset;margin-right:unset;-webkit-margin-start:2px;margin-inline-start:2px;-webkit-margin-end:2px;margin-inline-end:2px}}:host(.button-solid){--background-activated:transparent;--background-hover:var(--ion-color-primary-contrast, #fff);--background-focused:var(--ion-color-primary-contrast, #fff);--background-activated-opacity:0;--background-focused-opacity:.24;--background-hover-opacity:.08;--box-shadow:0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12)}:host(.button-solid.ion-activated){--box-shadow:0 5px 5px -3px rgba(0, 0, 0, 0.2), 0 8px 10px 1px rgba(0, 0, 0, 0.14), 0 3px 14px 2px rgba(0, 0, 0, 0.12)}:host(.button-outline){--border-width:2px;--border-style:solid;--box-shadow:none;--background-activated:transparent;--background-focused:var(--ion-color-primary, #3880ff);--background-hover:var(--ion-color-primary, #3880ff);--background-activated-opacity:0;--background-focused-opacity:.12;--background-hover-opacity:.04}:host(.button-outline.ion-activated.ion-color) .button-native{background:transparent}:host(.button-clear){--background-activated:transparent;--background-focused:var(--ion-color-primary, #3880ff);--background-hover:var(--ion-color-primary, #3880ff);--background-activated-opacity:0;--background-focused-opacity:.12;--background-hover-opacity:.04}:host(.button-round){--border-radius:64px;--padding-top:0;--padding-start:26px;--padding-end:26px;--padding-bottom:0}:host(.button-large){--padding-top:0;--padding-start:1em;--padding-end:1em;--padding-bottom:0;height:2.8em;font-size:20px}:host(.button-small){--padding-top:0;--padding-start:0.9em;--padding-end:0.9em;--padding-bottom:0;height:2.1em;font-size:13px}:host(.button-strong){font-weight:bold}::slotted(ion-icon[slot=icon-only]){padding-left:0;padding-right:0;padding-top:0;padding-bottom:0}:host(.button-solid.ion-color.ion-focused) .button-native::after{background:var(--ion-color-contrast);opacity:0.24}:host(.button-clear.ion-color.ion-focused) .button-native::after,:host(.button-outline.ion-color.ion-focused) .button-native::after{background:var(--ion-color-base);opacity:0.12}@media (any-hover: hover){:host(.button-solid.ion-color:hover) .button-native::after{background:var(--ion-color-contrast);opacity:0.08}:host(.button-clear.ion-color:hover) .button-native::after,:host(.button-outline.ion-color:hover) .button-native::after{background:var(--ion-color-base);opacity:0.04}}";
 
-    var Button = /*#__PURE__*/function () {
-      function Button(hostRef) {
+    var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
+    /*! @angular/core */
+    "./node_modules/@angular/core/fesm2015/core.js");
+    /* harmony import */
+
+
+    var _angular_forms__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
+    /*! @angular/forms */
+    "./node_modules/@angular/forms/fesm2015/forms.js");
+    /* harmony import */
+
+
+    var _angular_router__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
+    /*! @angular/router */
+    "./node_modules/@angular/router/fesm2015/router.js");
+    /* harmony import */
+
+
+    var _angular_common_http__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
+    /*! @angular/common/http */
+    "./node_modules/@angular/common/fesm2015/http.js");
+    /* harmony import */
+
+
+    var _ionic_angular__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(
+    /*! @ionic/angular */
+    "./node_modules/@ionic/angular/fesm2015/ionic-angular.js");
+    /* harmony import */
+
+
+    var _services_authentication_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(
+    /*! ../services/authentication.service */
+    "./src/app/services/authentication.service.ts");
+    /* harmony import */
+
+
+    var _ionic_storage__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(
+    /*! @ionic/storage */
+    "./node_modules/@ionic/storage/fesm2015/ionic-storage.js");
+    /* harmony import */
+
+
+    var _ionic_native_in_app_browser_ngx__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(
+    /*! @ionic-native/in-app-browser/ngx */
+    "./node_modules/@ionic-native/in-app-browser/ngx/index.js");
+    /* harmony import */
+
+
+    var _ionic_native_device_ngx__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(
+    /*! @ionic-native/device/ngx */
+    "./node_modules/@ionic-native/device/ngx/index.js");
+    /* harmony import */
+
+
+    var _ionic_native_user_agent_ngx__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(
+    /*! @ionic-native/user-agent/ngx */
+    "./node_modules/@ionic-native/user-agent/ngx/index.js");
+    /* harmony import */
+
+
+    var _ionic_native_app_version_ngx__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(
+    /*! @ionic-native/app-version/ngx */
+    "./node_modules/@ionic-native/app-version/ngx/index.js");
+
+    var AuthPage = /*#__PURE__*/function () {
+      // @ViewChild('EmailInput',{static: false}) EmailInt;
+      function AuthPage(appVersion, userAgent, device, platform, route, iab, http, toastController, authenticationService, storage) {
         var _this = this;
 
-        _classCallCheck(this, Button);
+        _classCallCheck(this, AuthPage);
 
-        Object(_index_e806d1f6_js__WEBPACK_IMPORTED_MODULE_0__["r"])(this, hostRef);
-        this.ionFocus = Object(_index_e806d1f6_js__WEBPACK_IMPORTED_MODULE_0__["e"])(this, "ionFocus", 7);
-        this.ionBlur = Object(_index_e806d1f6_js__WEBPACK_IMPORTED_MODULE_0__["e"])(this, "ionBlur", 7);
-        this.inItem = false;
-        this.inListHeader = false;
-        this.inToolbar = false;
-        this.inheritedAttributes = {};
-        /**
-         * The type of button.
-         */
+        this.appVersion = appVersion;
+        this.userAgent = userAgent;
+        this.device = device;
+        this.platform = platform;
+        this.route = route;
+        this.iab = iab;
+        this.http = http;
+        this.toastController = toastController;
+        this.authenticationService = authenticationService;
+        this.storage = storage;
+        this.showLoad = false;
+        this.signupUrl = 'https://blog.newagealpha.com/h-factor';
+        this.pwd = false;
+        this.email = false;
 
-        this.buttonType = 'button';
-        /**
-         * If `true`, the user cannot interact with the button.
-         */
-
-        this.disabled = false;
-        /**
-         * When using a router, it specifies the transition direction when navigating to
-         * another page using `href`.
-         */
-
-        this.routerDirection = 'forward';
-        /**
-         * If `true`, activates a button with a heavier font weight.
-         */
-
-        this.strong = false;
-        /**
-         * The type of the button.
-         */
-
-        this.type = 'button';
-
-        this.handleClick = function (ev) {
-          if (_this.type === 'button') {
-            Object(_theme_ff3fc52f_js__WEBPACK_IMPORTED_MODULE_3__["o"])(_this.href, ev, _this.routerDirection, _this.routerAnimation);
-          } else if (Object(_helpers_90f46169_js__WEBPACK_IMPORTED_MODULE_2__["j"])(_this.el)) {
-            // this button wants to specifically submit a form
-            // climb up the dom to see if we're in a <form>
-            // and if so, then use JS to submit it
-            var form = _this.el.closest('form');
-
-            if (form) {
-              ev.preventDefault();
-              var fakeButton = document.createElement('button');
-              fakeButton.type = _this.type;
-              fakeButton.style.display = 'none';
-              form.appendChild(fakeButton);
-              fakeButton.click();
-              fakeButton.remove();
-            }
-          }
-        };
-
-        this.onFocus = function () {
-          _this.ionFocus.emit();
-        };
-
-        this.onBlur = function () {
-          _this.ionBlur.emit();
+        this.hasError = function (controlName, errorName) {
+          return _this.loginForm.controls[controlName].hasError(errorName);
         };
       }
 
-      _createClass(Button, [{
-        key: "componentWillLoad",
-        value: function componentWillLoad() {
-          this.inToolbar = !!this.el.closest('ion-buttons');
-          this.inListHeader = !!this.el.closest('ion-list-header');
-          this.inItem = !!this.el.closest('ion-item') || !!this.el.closest('ion-item-divider');
-          this.inheritedAttributes = Object(_helpers_90f46169_js__WEBPACK_IMPORTED_MODULE_2__["i"])(this.el, ['aria-label']);
+      _createClass(AuthPage, [{
+        key: "ngAfterViewInit",
+        value: function ngAfterViewInit() {
+          document.getElementById('authLoader').style.display = 'none';
         }
       }, {
-        key: "render",
-        value: function render() {
-          var _Object;
-
-          var mode = Object(_ionic_global_9d5c8ee3_js__WEBPACK_IMPORTED_MODULE_1__["b"])(this);
-          var buttonType = this.buttonType,
-              type = this.type,
-              disabled = this.disabled,
-              rel = this.rel,
-              target = this.target,
-              size = this.size,
-              href = this.href,
-              color = this.color,
-              expand = this.expand,
-              hasIconOnly = this.hasIconOnly,
-              shape = this.shape,
-              strong = this.strong,
-              inheritedAttributes = this.inheritedAttributes;
-          var finalSize = size === undefined && this.inItem ? 'small' : size;
-          var TagType = href === undefined ? 'button' : 'a';
-          var attrs = TagType === 'button' ? {
-            type: type
-          } : {
-            download: this.download,
-            href: href,
-            rel: rel,
-            target: target
-          };
-          var fill = this.fill;
-
-          if (fill === undefined) {
-            fill = this.inToolbar || this.inListHeader ? 'clear' : 'solid';
+        key: "ngOnInit",
+        value: function ngOnInit() {
+          if (this.platform.is('ipad') || this.platform.is('tablet')) {
+            this.mobile = false;
+          } else {
+            this.mobile = true;
           }
 
-          return Object(_index_e806d1f6_js__WEBPACK_IMPORTED_MODULE_0__["h"])(_index_e806d1f6_js__WEBPACK_IMPORTED_MODULE_0__["H"], {
-            onClick: this.handleClick,
-            "aria-disabled": disabled ? 'true' : null,
-            "class": Object(_theme_ff3fc52f_js__WEBPACK_IMPORTED_MODULE_3__["c"])(color, (_Object = {}, _defineProperty(_Object, mode, true), _defineProperty(_Object, buttonType, true), _defineProperty(_Object, "".concat(buttonType, "-").concat(expand), expand !== undefined), _defineProperty(_Object, "".concat(buttonType, "-").concat(finalSize), finalSize !== undefined), _defineProperty(_Object, "".concat(buttonType, "-").concat(shape), shape !== undefined), _defineProperty(_Object, "".concat(buttonType, "-").concat(fill), true), _defineProperty(_Object, "".concat(buttonType, "-strong"), strong), _defineProperty(_Object, 'in-toolbar', Object(_theme_ff3fc52f_js__WEBPACK_IMPORTED_MODULE_3__["h"])('ion-toolbar', this.el)), _defineProperty(_Object, 'in-toolbar-color', Object(_theme_ff3fc52f_js__WEBPACK_IMPORTED_MODULE_3__["h"])('ion-toolbar[color]', this.el)), _defineProperty(_Object, 'button-has-icon-only', hasIconOnly), _defineProperty(_Object, 'button-disabled', disabled), _defineProperty(_Object, 'ion-activatable', true), _defineProperty(_Object, 'ion-focusable', true), _Object))
-          }, Object(_index_e806d1f6_js__WEBPACK_IMPORTED_MODULE_0__["h"])(TagType, Object.assign({}, attrs, {
-            "class": "button-native",
-            part: "native",
-            disabled: disabled,
-            onFocus: this.onFocus,
-            onBlur: this.onBlur
-          }, inheritedAttributes), Object(_index_e806d1f6_js__WEBPACK_IMPORTED_MODULE_0__["h"])("span", {
-            "class": "button-inner"
-          }, Object(_index_e806d1f6_js__WEBPACK_IMPORTED_MODULE_0__["h"])("slot", {
-            name: "icon-only"
-          }), Object(_index_e806d1f6_js__WEBPACK_IMPORTED_MODULE_0__["h"])("slot", {
-            name: "start"
-          }), Object(_index_e806d1f6_js__WEBPACK_IMPORTED_MODULE_0__["h"])("slot", null), Object(_index_e806d1f6_js__WEBPACK_IMPORTED_MODULE_0__["h"])("slot", {
-            name: "end"
-          })), mode === 'md' && Object(_index_e806d1f6_js__WEBPACK_IMPORTED_MODULE_0__["h"])("ion-ripple-effect", {
-            type: this.rippleType
-          })));
-        }
-      }, {
-        key: "hasIconOnly",
-        get: function get() {
-          return !!this.el.querySelector('[slot="icon-only"]');
-        }
-      }, {
-        key: "rippleType",
-        get: function get() {
-          var hasClearFill = this.fill === undefined || this.fill === 'clear'; // If the button is in a toolbar, has a clear fill (which is the default)
-          // and only has an icon we use the unbounded "circular" ripple effect
-
-          if (hasClearFill && this.hasIconOnly && this.inToolbar) {
-            return 'unbounded';
-          }
-
-          return 'bounded';
-        }
-      }, {
-        key: "el",
-        get: function get() {
-          return Object(_index_e806d1f6_js__WEBPACK_IMPORTED_MODULE_0__["i"])(this);
-        }
-      }]);
-
-      return Button;
-    }();
-
-    Button.style = {
-      ios: buttonIosCss,
-      md: buttonMdCss
-    };
-
-    var validateContent = function validateContent(svgContent) {
-      if (svgContent && typeof document !== 'undefined') {
-        var div = document.createElement('div');
-        div.innerHTML = svgContent; // setup this way to ensure it works on our buddy IE
-
-        for (var i = div.childNodes.length - 1; i >= 0; i--) {
-          if (div.childNodes[i].nodeName.toLowerCase() !== 'svg') {
-            div.removeChild(div.childNodes[i]);
-          }
-        } // must only have 1 root element
-
-
-        var svgElm = div.firstElementChild;
-
-        if (svgElm && svgElm.nodeName.toLowerCase() === 'svg') {
-          var svgClass = svgElm.getAttribute('class') || '';
-          svgElm.setAttribute('class', (svgClass + ' s-ion-icon').trim()); // root element must be an svg
-          // lets double check we've got valid elements
-          // do not allow scripts
-
-          if (isValid(svgElm)) {
-            return div.innerHTML;
-          }
-        }
-      }
-
-      return '';
-    };
-
-    var isValid = function isValid(elm) {
-      if (elm.nodeType === 1) {
-        if (elm.nodeName.toLowerCase() === 'script') {
-          return false;
-        }
-
-        for (var i = 0; i < elm.attributes.length; i++) {
-          var val = elm.attributes[i].value;
-
-          if (isStr(val) && val.toLowerCase().indexOf('on') === 0) {
-            return false;
-          }
-        }
-
-        for (var _i = 0; _i < elm.childNodes.length; _i++) {
-          if (!isValid(elm.childNodes[_i])) {
-            return false;
-          }
-        }
-      }
-
-      return true;
-    };
-
-    var ioniconContent = new Map();
-    var requests = new Map();
-
-    var getSvgContent = function getSvgContent(url) {
-      // see if we already have a request for this url
-      var req = requests.get(url);
-
-      if (!req) {
-        if (typeof fetch !== 'undefined') {
-          // we don't already have a request
-          req = fetch(url).then(function (rsp) {
-            if (rsp.ok) {
-              return rsp.text().then(function (svgContent) {
-                ioniconContent.set(url, validateContent(svgContent));
-              });
-            }
-
-            ioniconContent.set(url, '');
-          }); // cache for the same requests
-
-          requests.set(url, req);
-        } else {
-          // set to empty for ssr scenarios and resolve promise
-          ioniconContent.set(url, '');
-          return Promise.resolve();
-        }
-      }
-
-      return req;
-    };
-
-    var iconCss = ":host{display:inline-block;width:1em;height:1em;contain:strict;fill:currentColor;-webkit-box-sizing:content-box !important;box-sizing:content-box !important}:host .ionicon{stroke:currentColor}.ionicon-fill-none{fill:none}.ionicon-stroke-width{stroke-width:32px;stroke-width:var(--ionicon-stroke-width, 32px)}.icon-inner,.ionicon,svg{display:block;height:100%;width:100%}:host(.flip-rtl) .icon-inner{-webkit-transform:scaleX(-1);transform:scaleX(-1)}:host(.icon-small){font-size:18px !important}:host(.icon-large){font-size:32px !important}:host(.ion-color){color:var(--ion-color-base) !important}:host(.ion-color-primary){--ion-color-base:var(--ion-color-primary, #3880ff)}:host(.ion-color-secondary){--ion-color-base:var(--ion-color-secondary, #0cd1e8)}:host(.ion-color-tertiary){--ion-color-base:var(--ion-color-tertiary, #f4a942)}:host(.ion-color-success){--ion-color-base:var(--ion-color-success, #10dc60)}:host(.ion-color-warning){--ion-color-base:var(--ion-color-warning, #ffce00)}:host(.ion-color-danger){--ion-color-base:var(--ion-color-danger, #f14141)}:host(.ion-color-light){--ion-color-base:var(--ion-color-light, #f4f5f8)}:host(.ion-color-medium){--ion-color-base:var(--ion-color-medium, #989aa2)}:host(.ion-color-dark){--ion-color-base:var(--ion-color-dark, #222428)}";
-
-    var Icon = /*#__PURE__*/function () {
-      function Icon(hostRef) {
-        _classCallCheck(this, Icon);
-
-        Object(_index_e806d1f6_js__WEBPACK_IMPORTED_MODULE_0__["r"])(this, hostRef);
-        this.isVisible = false;
-        /**
-         * The mode determines which platform styles to use.
-         */
-
-        this.mode = getIonMode();
-        /**
-         * If enabled, ion-icon will be loaded lazily when it's visible in the viewport.
-         * Default, `false`.
-         */
-
-        this.lazy = false;
-      }
-
-      _createClass(Icon, [{
-        key: "connectedCallback",
-        value: function connectedCallback() {
-          var _this2 = this;
-
-          // purposely do not return the promise here because loading
-          // the svg file should not hold up loading the app
-          // only load the svg if it's visible
-          this.waitUntilVisible(this.el, '50px', function () {
-            _this2.isVisible = true;
-
-            _this2.loadIcon();
+          this.loginForm = new _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormGroup"]({
+            Email: new _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormControl"]('', [_angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required, _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].email]),
+            Password: new _angular_forms__WEBPACK_IMPORTED_MODULE_2__["FormControl"]('', [_angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required])
           });
         }
       }, {
-        key: "disconnectedCallback",
-        value: function disconnectedCallback() {
-          if (this.io) {
-            this.io.disconnect();
-            this.io = undefined;
-          }
+        key: "onemialTextInput",
+        value: function onemialTextInput() {
+          this.email = true;
         }
       }, {
-        key: "waitUntilVisible",
-        value: function waitUntilVisible(el, rootMargin, cb) {
-          var _this3 = this;
-
-          if (this.lazy && typeof window !== 'undefined' && window.IntersectionObserver) {
-            var io = this.io = new window.IntersectionObserver(function (data) {
-              if (data[0].isIntersecting) {
-                io.disconnect();
-                _this3.io = undefined;
-                cb();
-              }
-            }, {
-              rootMargin: rootMargin
-            });
-            io.observe(el);
-          } else {
-            // browser doesn't support IntersectionObserver
-            // so just fallback to always show it
-            cb();
-          }
+        key: "onPwdTextInput",
+        value: function onPwdTextInput() {
+          this.pwd = true;
         }
       }, {
-        key: "loadIcon",
-        value: function loadIcon() {
-          var _this4 = this;
+        key: "onLoginClick",
+        value: function onLoginClick() {
+          var _this2 = this;
 
-          if (this.isVisible) {
-            var url = getUrl(this);
-
-            if (url) {
-              if (ioniconContent.has(url)) {
-                // sync if it's already loaded
-                this.svgContent = ioniconContent.get(url);
-              } else {
-                // async if it hasn't been loaded
-                getSvgContent(url).then(function () {
-                  return _this4.svgContent = ioniconContent.get(url);
-                });
-              }
-            }
-          }
-
-          if (!this.ariaLabel) {
-            var label = getName(this.name, this.icon, this.mode, this.ios, this.md); // user did not provide a label
-            // come up with the label based on the icon name
-
-            if (label) {
-              this.ariaLabel = label.replace(/\-/g, ' ');
-            }
-          }
-        }
-      }, {
-        key: "render",
-        value: function render() {
-          var _Object$assign2;
-
-          var mode = this.mode || 'md';
-          var flipRtl = this.flipRtl || this.ariaLabel && (this.ariaLabel.indexOf('arrow') > -1 || this.ariaLabel.indexOf('chevron') > -1) && this.flipRtl !== false;
-          return Object(_index_e806d1f6_js__WEBPACK_IMPORTED_MODULE_0__["h"])(_index_e806d1f6_js__WEBPACK_IMPORTED_MODULE_0__["H"], {
-            role: "img",
-            "class": Object.assign(Object.assign(_defineProperty({}, mode, true), createColorClasses(this.color)), (_Object$assign2 = {}, _defineProperty(_Object$assign2, "icon-".concat(this.size), !!this.size), _defineProperty(_Object$assign2, 'flip-rtl', !!flipRtl && this.el.ownerDocument.dir === 'rtl'), _Object$assign2))
-          }, this.svgContent ? Object(_index_e806d1f6_js__WEBPACK_IMPORTED_MODULE_0__["h"])("div", {
-            "class": "icon-inner",
-            innerHTML: this.svgContent
-          }) : Object(_index_e806d1f6_js__WEBPACK_IMPORTED_MODULE_0__["h"])("div", {
-            "class": "icon-inner"
-          }));
-        }
-      }, {
-        key: "el",
-        get: function get() {
-          return Object(_index_e806d1f6_js__WEBPACK_IMPORTED_MODULE_0__["i"])(this);
-        }
-      }], [{
-        key: "assetsDirs",
-        get: function get() {
-          return ["svg"];
-        }
-      }, {
-        key: "watchers",
-        get: function get() {
-          return {
-            "name": ["loadIcon"],
-            "src": ["loadIcon"],
-            "icon": ["loadIcon"]
+          this.showLoad = true;
+          var httpOptions = {
+            headers: new _angular_common_http__WEBPACK_IMPORTED_MODULE_4__["HttpHeaders"]({
+              'Content-Type': 'application/json'
+            })
           };
+
+          if (this.loginForm.valid) {
+            var username = this.loginForm.controls['Email'].value;
+            var password = this.loginForm.controls['Password'].value;
+            var isRemember = 'Y';
+            this.authenticationService.login(username, password, isRemember).subscribe(function (data) {
+              _this2.showLoad = false;
+
+              if (data.isEmailVerified !== "" && data.isEmailVerified == "Y") {
+                _this2.loginForm.reset();
+              } else {
+                _this2.presentToast("Please verify your email address sent to your inbox");
+              }
+            }, function (err) {
+              _this2.showLoad = false;
+            });
+          }
+        }
+      }, {
+        key: "onSignupClick",
+        value: function onSignupClick() {
+          document.getElementById('authLoader').style.display = "flex";
+          var browser = this.iab.create(this.signupUrl, '_blank', "location=no,toolbar=yes,zoom=no,toolbarcolor=#2b468f");
+          browser.hide();
+          browser.on('loadstop').subscribe(function () {
+            document.getElementById('authLoader').style.display = "none";
+            browser.show();
+            browser.insertCSS({
+              code: "#hs_cos_wrapper_module_156318587919491_{display: none !important;"
+            });
+          });
+          browser.on('exit').subscribe(function () {
+            browser.close();
+          });
+        }
+      }, {
+        key: "onForgotPassClick",
+        value: function onForgotPassClick() {
+          this.route.navigateByUrl('/forgot-password');
+        }
+      }, {
+        key: "presentToast",
+        value: function presentToast(msg) {
+          return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
+            var toast;
+            return regeneratorRuntime.wrap(function _callee$(_context) {
+              while (1) {
+                switch (_context.prev = _context.next) {
+                  case 0:
+                    _context.next = 2;
+                    return this.toastController.create({
+                      message: msg,
+                      duration: 3000,
+                      cssClass: 'center'
+                    });
+
+                  case 2:
+                    toast = _context.sent;
+                    toast.present();
+
+                  case 4:
+                  case "end":
+                    return _context.stop();
+                }
+              }
+            }, _callee, this);
+          }));
         }
       }]);
 
-      return Icon;
+      return AuthPage;
     }();
 
-    var getIonMode = function getIonMode() {
-      return typeof document !== 'undefined' && document.documentElement.getAttribute('mode') || 'md';
+    AuthPage.ctorParameters = function () {
+      return [{
+        type: _ionic_native_app_version_ngx__WEBPACK_IMPORTED_MODULE_11__["AppVersion"]
+      }, {
+        type: _ionic_native_user_agent_ngx__WEBPACK_IMPORTED_MODULE_10__["UserAgent"]
+      }, {
+        type: _ionic_native_device_ngx__WEBPACK_IMPORTED_MODULE_9__["Device"]
+      }, {
+        type: _ionic_angular__WEBPACK_IMPORTED_MODULE_5__["Platform"]
+      }, {
+        type: _angular_router__WEBPACK_IMPORTED_MODULE_3__["Router"]
+      }, {
+        type: _ionic_native_in_app_browser_ngx__WEBPACK_IMPORTED_MODULE_8__["InAppBrowser"]
+      }, {
+        type: _angular_common_http__WEBPACK_IMPORTED_MODULE_4__["HttpClient"]
+      }, {
+        type: _ionic_angular__WEBPACK_IMPORTED_MODULE_5__["ToastController"]
+      }, {
+        type: _services_authentication_service__WEBPACK_IMPORTED_MODULE_6__["AuthenticationService"]
+      }, {
+        type: _ionic_storage__WEBPACK_IMPORTED_MODULE_7__["Storage"]
+      }];
     };
 
-    var createColorClasses = function createColorClasses(color) {
-      return color ? _defineProperty({
-        'ion-color': true
-      }, "ion-color-".concat(color), true) : null;
-    };
-
-    Icon.style = iconCss;
+    AuthPage = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+      selector: 'app-auth',
+      template: tslib__WEBPACK_IMPORTED_MODULE_0__["__importDefault"](__webpack_require__(
+      /*! raw-loader!./auth.page.html */
+      "./node_modules/raw-loader/dist/cjs.js!./src/app/auth/auth.page.html"))["default"],
+      styles: [tslib__WEBPACK_IMPORTED_MODULE_0__["__importDefault"](__webpack_require__(
+      /*! ./auth.page.scss */
+      "./src/app/auth/auth.page.scss"))["default"]]
+    }), tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_ionic_native_app_version_ngx__WEBPACK_IMPORTED_MODULE_11__["AppVersion"], _ionic_native_user_agent_ngx__WEBPACK_IMPORTED_MODULE_10__["UserAgent"], _ionic_native_device_ngx__WEBPACK_IMPORTED_MODULE_9__["Device"], _ionic_angular__WEBPACK_IMPORTED_MODULE_5__["Platform"], _angular_router__WEBPACK_IMPORTED_MODULE_3__["Router"], _ionic_native_in_app_browser_ngx__WEBPACK_IMPORTED_MODULE_8__["InAppBrowser"], _angular_common_http__WEBPACK_IMPORTED_MODULE_4__["HttpClient"], _ionic_angular__WEBPACK_IMPORTED_MODULE_5__["ToastController"], _services_authentication_service__WEBPACK_IMPORTED_MODULE_6__["AuthenticationService"], _ionic_storage__WEBPACK_IMPORTED_MODULE_7__["Storage"]])], AuthPage);
     /***/
   }
 }]);

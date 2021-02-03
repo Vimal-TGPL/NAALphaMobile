@@ -1,4 +1,4 @@
-cordova.define("cordova-plugin-advanced-http.public-interface", function(require, exports, module) { module.exports = function init(exec, cookieHandler, urlUtil, helpers, globalConfigs, errorCodes) {
+cordova.define("cordova-plugin-advanced-http.public-interface", function(require, exports, module) { module.exports = function init(exec, cookieHandler, urlUtil, helpers, globalConfigs, errorCodes, ponyfills) {
   var publicInterface = {
     getBasicAuthHeader: getBasicAuthHeader,
     useBasicAuth: useBasicAuth,
@@ -22,14 +22,16 @@ cordova.define("cordova-plugin-advanced-http.public-interface", function(require
     setClientAuthMode: setClientAuthMode,
     sendRequest: sendRequest,
     post: post,
-    get: get,
     put: put,
     patch: patch,
+    get: get,
     delete: del,
     head: head,
+    options: options,
     uploadFile: uploadFile,
     downloadFile: downloadFile,
-    ErrorCode: errorCodes
+    ErrorCode: errorCodes,
+    ponyfills: ponyfills
   };
 
   function getBasicAuthHeader(username, password) {
@@ -152,8 +154,9 @@ cordova.define("cordova-plugin-advanced-http.public-interface", function(require
       case 'post':
       case 'put':
       case 'patch':
-        var data = helpers.getProcessedData(options.data, options.serializer);
-        return exec(onSuccess, onFail, 'CordovaHttpPlugin', options.method, [url, data, options.serializer, headers, options.timeout, options.followRedirect, options.responseType]);
+        return helpers.processData(options.data, options.serializer, function(data) {
+          exec(onSuccess, onFail, 'CordovaHttpPlugin', options.method, [url, data, options.serializer, headers, options.timeout, options.followRedirect, options.responseType]);
+        });
       case 'upload':
         var fileOptions = helpers.checkUploadFileOptions(options.filePath, options.name);
         return exec(onSuccess, onFail, 'CordovaHttpPlugin', 'uploadFiles', [url, headers, fileOptions.filePaths, fileOptions.names, options.timeout, options.followRedirect, options.responseType]);
@@ -170,10 +173,6 @@ cordova.define("cordova-plugin-advanced-http.public-interface", function(require
     return publicInterface.sendRequest(url, { method: 'post', data: data, headers: headers }, success, failure);
   };
 
-  function get(url, params, headers, success, failure) {
-    return publicInterface.sendRequest(url, { method: 'get', params: params, headers: headers }, success, failure);
-  };
-
   function put(url, data, headers, success, failure) {
     return publicInterface.sendRequest(url, { method: 'put', data: data, headers: headers }, success, failure);
   }
@@ -182,6 +181,10 @@ cordova.define("cordova-plugin-advanced-http.public-interface", function(require
     return publicInterface.sendRequest(url, { method: 'patch', data: data, headers: headers }, success, failure);
   }
 
+  function get(url, params, headers, success, failure) {
+    return publicInterface.sendRequest(url, { method: 'get', params: params, headers: headers }, success, failure);
+  };
+
   function del(url, params, headers, success, failure) {
     return publicInterface.sendRequest(url, { method: 'delete', params: params, headers: headers }, success, failure);
   }
@@ -189,6 +192,10 @@ cordova.define("cordova-plugin-advanced-http.public-interface", function(require
   function head(url, params, headers, success, failure) {
     return publicInterface.sendRequest(url, { method: 'head', params: params, headers: headers }, success, failure);
   }
+
+  function options(url, params, headers, success, failure) {
+    return publicInterface.sendRequest(url, { method: 'options', params: params, headers: headers }, success, failure);
+  };
 
   function uploadFile(url, params, headers, filePath, name, success, failure) {
     return publicInterface.sendRequest(url, { method: 'upload', params: params, headers: headers, filePath: filePath, name: name }, success, failure);
