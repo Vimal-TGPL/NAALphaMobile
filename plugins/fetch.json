@@ -135,7 +135,9 @@
       "id": "cordova-plugin-ionic-webview@^4.0.0"
     },
     "is_top_level": true,
-    "variables": {}
+    "variables": {
+      "ANDROID_SUPPORT_ANNOTATIONS_VERSION": "27.+"
+    }
   },
   "im.ltdev.cordova.UserAgent": {
     "source": {
@@ -143,6 +145,14 @@
       "id": "cordova-plugin-useragent@^1.0.6"
     },
     "is_top_level": true,
+    "variables": {}
+  },
+  "es6-promise-plugin": {
+    "source": {
+      "type": "registry",
+      "id": "es6-promise-plugin@^4.1.0"
+    },
+    "is_top_level": false,
     "variables": {}
   }
 }
