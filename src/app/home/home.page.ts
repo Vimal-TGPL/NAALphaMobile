@@ -1485,9 +1485,11 @@ export class HomePage implements OnInit, OnDestroy {
         GICSId = that.selComp.industry.slice(0,2*(selSecLvl-1));
       }
       range = 'top'+(100 - Math.round(this.CurrSliderData.e));
-
+      
+      //this.smChart.showLoading();
       this.dataHandler.getIndexPreRuns(this.IndexId,GICSId,Ctype,range).subscribe((res:any[]) =>{
         if(res.length != 0){
+          //this.smChart.hideLoading();
           that.chartData = true;
         if(that.smChart != null){
           that.smChart.destroy();
@@ -1591,6 +1593,15 @@ export class HomePage implements OnInit, OnDestroy {
           },
           credits: {
             enabled: false
+          },
+          loading:{
+            labelStyle:{
+              background: '../../assests/images/NAA.gif',
+              display:'flex',
+              width: 25,
+              height: 25,
+              backgroundColor: '#fff'
+            },
           },
           legend: {
             enabled: false,

@@ -2,7 +2,7 @@
 
 platform :ios, '10.0'
 
-target 'C:\Projects\NAAlphaMobile\platforms\ios\NewAgeAlpha' do
-	project 'C:\Projects\NAAlphaMobile\platforms\ios\NewAgeAlpha.xcodeproj'
+target 'NewAgeAlpha' do
+	project 'NewAgeAlpha.xcodeproj'
 
 end

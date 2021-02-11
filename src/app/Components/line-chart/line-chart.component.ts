@@ -42,6 +42,9 @@ export class LineChartComponent implements OnInit,OnDestroy {
     this.range = evt.detail.value;
     console.log(this.range);
     this.currentData.e = evt.detail.value == 100 ? 0 : evt.detail.value ;
+    if(this.lgChart != null){
+      this.lgChart.showLoading('<img src="../../../assets/images/NAA.gif" alt="Loading" width="35">');
+    }
     this.highChartLine();
   }
 
@@ -69,6 +72,7 @@ export class LineChartComponent implements OnInit,OnDestroy {
         if(res.length > 0){
 
           if (that.lgChart != null) {
+            this.lgChart.hideLoading();
             that.lgChart.destroy();
             that.lgChart = null;
           }
@@ -126,7 +130,15 @@ export class LineChartComponent implements OnInit,OnDestroy {
               style: {
                 fontFamily: 'Open Sans SemiBold'
               }
-            }, exporting:{
+            // }, loading:{
+            //   labelStyle:{
+            //     backgroundImage: '../../../assets/images/NAA.gif',
+            //     height:25,
+            //     backgroundColor: '#fff',
+            //     display:'block',
+            //   }
+            },
+            exporting:{
               url: 'https://export.highcharts.com/',
               enabled: true,
               buttons: {

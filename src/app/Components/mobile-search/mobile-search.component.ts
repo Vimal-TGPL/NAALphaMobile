@@ -26,7 +26,7 @@ export class MobileSearchComponent implements OnInit, OnDestroy,AfterViewInit {
 
   ngOnInit() {
    this._dataSub = this.dataService.dbScore.subscribe(d =>{
-      this.data = d;
+      this.data = d.filter(i => i.companyName != null && i.ticker != null);
       // console.log(this.data);
     })
     // this.searchbar = document.getElementById("searchbar");
