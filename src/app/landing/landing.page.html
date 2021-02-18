@@ -26,12 +26,12 @@
       </ion-text>
     </div>
     <div class="LoginBtnDiv">
-      <ion-button (click)="onLoginClick()" expand="block" fill="clear">
+      <ion-button [routerLink]="['/auth']" routerDirection="forward" routerLinkActive="router-link-active"  expand="block" fill="clear">
         Login
       </ion-button>
     </div>
     <div class="forgotPwdDiv">
-      <ion-button (click)="onForgotPwdClick()" expand="block" fill="clear" shape="round">
+      <ion-button [routerLink]="['/forgot-password']" routerDirection="forward" routerLinkActive="router-link-active"  expand="block" fill="clear" shape="round">
         Forgot Password?
       </ion-button>
     </div>

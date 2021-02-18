@@ -56,7 +56,7 @@ export class AuthPage implements OnInit,AfterViewInit {
     this.pwd = true;
   }
   onLoginClick(){
-    this.showLoad = true;
+    
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
@@ -65,6 +65,7 @@ export class AuthPage implements OnInit,AfterViewInit {
 
     if(this.loginForm.valid)
     {
+      this.showLoad = true;
        let username = this.loginForm.controls['Email'].value;
        let password = this.loginForm.controls['Password'].value;
        let isRemember ='Y';

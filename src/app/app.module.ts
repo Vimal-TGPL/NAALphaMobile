@@ -34,12 +34,13 @@ import { FaConfig, FaIconLibrary, FontAwesomeModule } from '@fortawesome/angular
 import { MobileSearchComponent } from './Components/mobile-search/mobile-search.component';
 import { SectorPopoverComponent } from './Components/sector-popover/sector-popover.component';
 import { LineChartComponent } from './Components/line-chart/line-chart.component';
+import { enterAnimation } from './_animations/nav-animation';
 
 library.add(faAngleDoubleLeft);
 @NgModule({
   declarations: [AppComponent,ProfiledetailsComponent,MobileSearchComponent,SectorPopoverComponent,LineChartComponent],
   entryComponents: [ProfiledetailsComponent,MobileSearchComponent,SectorPopoverComponent,LineChartComponent],
-  imports: [BrowserModule,BrowserAnimationsModule, MatTabsModule, IonicModule.forRoot(), HttpClientModule, ReactiveFormsModule, AppRoutingModule, IonicStorageModule.forRoot(),FontAwesomeModule],
+  imports: [BrowserModule,BrowserAnimationsModule, MatTabsModule, IonicModule.forRoot({navAnimation:enterAnimation}), HttpClientModule, ReactiveFormsModule, AppRoutingModule, IonicStorageModule.forRoot(),FontAwesomeModule],
   providers: [
     InAppBrowser,
     StatusBar,DatePipe,

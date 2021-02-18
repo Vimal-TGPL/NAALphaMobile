@@ -66,13 +66,13 @@ export class LandingPage implements OnInit {
     this.iab.create(this.url,'_blank','location=no,toolbar=yes,zoom=no');
   }
 
-  onLoginClick(){
-    this.route.navigateByUrl('/auth');
-  }
+  // onLoginClick(){
+  //   //this.route.navigateByUrl('/auth');
+  // }
 
-  onForgotPwdClick(){
-    this.route.navigateByUrl('/forgot-password');
-  }
+  // onForgotPwdClick(){
+  //   this.route.navigateByUrl('/forgot-password');
+  // }
 
   onSignupClick(){
     document.getElementById('Loader').style.display ="flex";
