@@ -1988,7 +1988,7 @@ export class HomePage implements OnInit, OnDestroy {
         if (that.selComp.indexName == "S&P Europe Ex-UK BMI Index") {
           that.IndexId = 58;
         }
-        if (that.selComp.indexName == "S&P USA Ex S&P 1500") {
+        if (that.selComp.indexName == "S&P USA Ex S&P 1500" || that.selComp.indexName == "S&P USA") {
           that.IndexId = 122;
         }
         if (that.selComp.indexName == "S&P Canada BMI Index") {

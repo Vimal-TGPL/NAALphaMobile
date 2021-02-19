@@ -120,6 +120,7 @@ export class DataService{
           d.aisin = d.isin;
           d.isin = "a" + d.stockKey;
           d.Fixeds = "";
+          d.indexName = d.indexName=='S&P USA Ex S&P 1500'? 'S&P USA' : d.indexName;
           d.cx = ((i * 360 / selreslen) - 90);
           let flt = that.IndexOrder.filter(function (x) { return x.index == d.indexName })
           d.sortOrder = flt.length > 0 ? flt[0].order : null;
