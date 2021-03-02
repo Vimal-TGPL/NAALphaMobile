@@ -129,7 +129,7 @@ ion-content{
     .footor_icon_div{
         display: flex;
         flex-direction: row;
-        justify-content: space-evenly;
+        justify-content: center;
         position: absolute;
         height: 15%;
         bottom: 0;
@@ -139,6 +139,7 @@ ion-content{
 
         img{
             height: 40px;
+            margin:0 15px;
         }
         img:first-child, img:last-child{
             margin-bottom: 75px; 
@@ -230,22 +231,27 @@ ion-content{
         font-size: 40px;
         color: #fff;
     }
+    
 
     .mdSlides{
         ion-slide{
-            height: calc(100vh - 360px);
+            height: calc(100vh - 350px);
         }
     }
 
     .iosSlides{
         ion-slide{
-            height: calc(100vh - 345px);
+            height: calc(100vh - 335px);
         }
     }
 
     ion-slides{
 
+        --bullet-background-active: #00b9ff;
+        --bullet-background: #fff;
+        
         .CompSlide{
+            align-items: flex-start;
             ion-list::-webkit-scrollbar {
                 display: none;
               }
@@ -615,21 +621,23 @@ ion-content{
 
     .mdSlides{
         ion-slide{
-            height: calc(100vh - 360px);
+            height: calc(100vh - 350px);
         }
     }
 
     .iosSlides{
         ion-slide{
-            height: calc(100vh - 345px);
+            height: calc(100vh - 335px);
         }
     }
 
 
 
     ion-slides{
-
+        --bullet-background-active: #00b9ff;
+        --bullet-background: #fff;
         .CompSlide{
+            align-items: flex-start;
             ion-list::-webkit-scrollbar {
                 display: none;
               }
@@ -691,3 +699,4 @@ ion-content{
         }
     }
 }
+

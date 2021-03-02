@@ -1,12 +1,12 @@
 ion-header ion-toolbar{
-    --background: #274b9e;
+    --background: #2d6ddb!important;
     padding: 10px;
     --border-width:0;
 }
 
 ion-content{
 
-    --background: #274b9e;
+    --background: #2d6ddb!important;
 
 }
 
@@ -42,20 +42,17 @@ ion-content{
 }
 
 .loginBtn{
-    --background: #00b9ff;
-    --background-activated: #00b9ff;
-    --background-focused: #00b9ff;
-    --background-hover: #00b9ff; 
-    --color	: #ffffff;
-    --ripple-color : #9a9a9a;
-    --color-activated : #ffffff;
-    margin-inline-start: 0px;
-    margin-inline-end: 0px;
-    --border-radius: 25px;
-    height: 37px;
-    font-family: Open Sans semiBold;
-    font-size: 17px;
-    text-transform: inherit;
+    --background: #00aeef;
+    --color:#ffffff;
+    font-size: 14px;
+    height: 35px;
+    --background-activated: #2d6ddb!important;
+    margin: 0;
+    font-family: 'Open Sans SemiBold';
+}
+
+.loginBtn:active,.loginBtn:focus{
+    border: 2px solid #fff;
 }
 
 .loginDiv{

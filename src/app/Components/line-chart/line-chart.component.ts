@@ -155,7 +155,7 @@ export class LineChartComponent implements OnInit,OnDestroy {
               text: ''
             },
             legend: {
-
+              
             },xAxis: {
               // minRange: 10,
               type: 'datetime',
@@ -208,7 +208,7 @@ export class LineChartComponent implements OnInit,OnDestroy {
                 var d = new Date(this.x);
                 function formater(value) { if (value < 10) { return '0' + value; } else { return value; } }
                 var formatdate = formater(d.getMonth() + 1) + '/' + formater(d.getDate()) + '/' + d.getFullYear();
-                if (this.points.length > 1) { return "<div style='font-size:7pt'>" + formatdate + "<br><b>All : </b> <span  style='font-size: 8pt'>" + this.points[0].y.toFixed(2) + "</span><br><b>" + that.range + " : </b><span style='font-size: 8pt'>" + this.points[1].y.toFixed(2) + ' </span></div>'; }
+                if (this.points.length > 1) { return "<div style='font-size:7pt'>" + formatdate + "<br><b>All : </b> <span  style='font-size: 8pt'>" + this.points[0].y.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",") + "</span><br><b>" + that.range + " : </b><span style='font-size: 8pt'>" + this.points[1].y.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",") + ' </span></div>'; }
                 else if (this.points[0].color == "#00b9ff") { return "<div style='font-size:7pt'>" + formatdate + "<br><b>" + that.range + " : </b><span  style='font-size: 8pt'>" + this.points[0].y.toFixed(2) + '</span></div>'; }
                 else { return "<div style='font-size:7pt'>" + formatdate + "<br><b>All : </b><span  style='font-size: 8pt'>" + this.points[0].y.toFixed(2) + '</span></div>'; }
               }
@@ -218,6 +218,13 @@ export class LineChartComponent implements OnInit,OnDestroy {
                   radius: 0.1,
                   lineColor: '#666666',
                   lineWidth: 0.1
+                }
+              },
+              series: {
+                  events:{
+                    legendItemClick: function(e){
+                      e.preventDefault();
+                    }
                 }
               }
             },series: series,

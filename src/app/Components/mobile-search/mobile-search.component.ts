@@ -44,7 +44,7 @@ export class MobileSearchComponent implements OnInit, OnDestroy,AfterViewInit {
   SearchCompany(evt){
     // console.log(evt);
     var serText = evt.detail.value.toLowerCase();
-    if(serText.length != 0)
+    if(serText.length > 1)
     this._searchRes = this.data.filter(item=> item.companyName.toString().toLowerCase().startsWith(serText) || item.ticker.toString().toLowerCase().startsWith(serText));
     else
     this._searchRes = [];

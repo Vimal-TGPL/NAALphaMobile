@@ -1,6 +1,9 @@
+
+/* Data Service is responsible for Sharing Data between the Components */
+
 import { Injectable, OnInit } from '@angular/core';
 import { DataHandlerService } from '../dataHandler/data-handler.service';
-import * as d3 from 'd3/';
+import * as d3 from 'd3';
 import { BehaviorSubject } from 'rxjs';
 import { Storage } from '@ionic/storage';
 

@@ -3,7 +3,7 @@
 }
 
 .menuContent {
-    --background: #274b9e;
+    --background: #2d6ddb!important;
     overflow: hidden;
     -ms-overflow-style: none;
 
@@ -24,7 +24,7 @@
     height: 80px;
     width: 80px;
     border-radius: 50%;
-    background-color: #2e4c99;
+    background-color: #2d6ddb;
     padding: 20px;
     border: 2px solid white;
 }
@@ -72,7 +72,7 @@ p {
 }
 
 #menu-List {
-    --ion-background-color: #274b9e;
+    --ion-background-color: #2d6ddb;
 }
 
 @media screen and (orientation: landscape) {
@@ -81,7 +81,7 @@ p {
     }
 
     #menu-List {
-        --ion-background-color: #274b9e;
+        --ion-background-color: #2d6ddb;
         margin-bottom: unset;
         height: calc(100vh - 170px);
         overflow: auto;

@@ -1,3 +1,6 @@
+
+/* User Service is responsible for Forgot Password, Update/Change Password Http requests */
+
 import { Injectable } from '@angular/core';
 import { User, UserView, UserPass } from '../_models/user';
 import { HttpClient, HttpHeaders } from '@angular/common/http';

@@ -33,6 +33,8 @@ export class MenuPage implements OnInit {
     this.route.events.subscribe((event:RouterEvent)=>{
       this.selectedPath = event.url;
     });
+
+    // Geting User Details From Storage
     this.storage.get('currentUser').then(res=>{
       this.user = JSON.parse(res);
       this.firstname = this.user.firstName;
@@ -43,6 +45,8 @@ export class MenuPage implements OnInit {
 
   ngOnInit() {
     this.investmentsolution = false;
+
+    // Detecting Device Form Factor
     if(this.platform.is('ipad') || this.platform.is('tablet')){
       this.mobile = false;
     }else{
@@ -56,9 +60,5 @@ export class MenuPage implements OnInit {
 
   onChangePasswordClick(){
     this.route.navigateByUrl('/menu/menu/change-password')
-  }
-
-  openBrowserClick(){
-    this.iab.create(this.url,'_blank','location=no,toolbar=yes,zoom=no');
   }
 }

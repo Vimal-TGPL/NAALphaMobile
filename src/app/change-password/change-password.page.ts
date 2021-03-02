@@ -14,20 +14,18 @@ import { Platform} from '@ionic/angular';
 export class ChangePasswordPage implements OnInit, OnDestroy {
   showLoad:boolean = false;
   mobile : boolean;
-  customErrors = {required: 'Please accept the terms'}
   changePasswordForm:FormGroup;
   flag: any;
-    valueee: any;
   pwd:boolean = false;
   Cpwd:boolean = false;
   _backSub:any;
   constructor(private platform:Platform, private menuController:MenuController ,private formBuilder:FormBuilder,private userServices:UserService,private toastController:ToastController, private route:Router) { 
-    this._backSub = this.platform.backButton.subscribeWithPriority(0, async()=> {
+    this._backSub = this.platform.backButton.subscribeWithPriority(0, async()=> {     //Hardware Back Button Subscribe
       this.onReturnClick();
     });
   }
   ngOnDestroy() {
-    this._backSub.unsubscribe();
+    this._backSub.unsubscribe();        //Hardware Back Button Unsubscribe
   }
   
   hasError = (controlName: string, errorName: string) => {
@@ -35,15 +33,19 @@ export class ChangePasswordPage implements OnInit, OnDestroy {
 }
 
 ionViewDidLeave(){
-  this.menuController.enable(true);
+  this.menuController.enable(true);     // Enabling Side Menu
 }
 
   ngOnInit() {
+
+    // Detecting Device Form Factor
     if(this.platform.is('ipad') || this.platform.is('tablet')){
       this.mobile = false;
     }else{
       this.mobile = true;
     }
+
+    //Change Password Form Definition
     this.changePasswordForm = this.formBuilder.group({
       Password: ['', [
           Validators.required,
@@ -53,7 +55,7 @@ ionViewDidLeave(){
       confirmPassword: ['', [Validators.required, Validators.minLength(8)]]
   }, { validator: passwordMatchValidator });
 
-  this.menuController.enable(false);
+  this.menuController.enable(false);      // Disabling Side Menu
   }
   
 

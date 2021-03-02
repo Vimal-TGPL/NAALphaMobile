@@ -1,3 +1,6 @@
+
+/* Data Handler Service is responsible for to fetch all the Data via HTTP Request */
+
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
@@ -11,7 +14,7 @@ import * as d3 from 'd3';
 })
 export class DataHandlerService {
 
-  api_url = environment.api_url;
+  api_url = environment.api_url;    //NewAgeAlpha API Url
 
   constructor( private httpclient: HttpClient) { }
 
@@ -27,6 +30,7 @@ export class DataHandlerService {
     delayWhen(()=> timer(1000))
   ))).pipe(map(res => {return res}));
   }
+  
   getGlobalData():Observable<Object>{
     return this.httpclient.get(this.api_url + "/Scores/GetNAAIndexScoresCurrent/GLOBAL").pipe(retryWhen(err=> err.pipe(
       scan(count=>{

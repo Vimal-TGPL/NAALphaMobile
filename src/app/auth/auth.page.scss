@@ -1,12 +1,12 @@
 ion-header ion-toolbar{
-    --background: #274b9e;
+    --background: #2d6ddb!important;
     padding: 10px;
     --border-width:0;
 }
 
 ion-content{
 
-    --background: #274b9e;  
+    --background: #2d6ddb!important;  
     
     .outerDiv{
         display: flex;
@@ -14,9 +14,45 @@ ion-content{
     align-items: center;
     height: 100%;
     width: 100%;
+    flex-direction: column;
 
     form{
         width: 80%;
+    }
+
+    .SignUpDiv{
+        width: 80%;
+        padding: 0 10px;
+        h1{
+            color: #ffffff;
+            font-family: Open Sans Bold;
+            font-size: 32px;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        ion-button{
+            --background: #00aeef;
+            --color:#ffffff;
+            font-size: 14px;
+            height: 35px;
+            --background-activated: #2d6ddb!important;
+            margin: 15px 15px;
+            font-family: 'Open Sans SemiBold';
+        }
+
+        ion-button:active,on-button:focus{
+            border: 2px solid #fff;
+        }
+
+        p{
+            color: #fff;
+            font-family: Open Sans SemiBold;
+            font-size: 13px;
+            text-align: center;
+            margin: 0px;
+            line-height: 1.4;
+        }
     }
     }
 
@@ -36,10 +72,8 @@ ion-content{
 .cardTitle
 {
     text-align: center; 
-    color: #00aeef; 
-    font-size: 32px; 
-    font-weight: bold;
-    padding-top: 15px;
+    color: #fff; 
+    font-size: 32px;
     font-family: Open Sans Bold;
 }
 
@@ -94,24 +128,21 @@ ion-content{
 
 .inputdiv{
     padding: 10px;
+    margin: 0 15px;
 }
 
 .loginBtn{
-    --border-radius: 15px; font-size: 22px; height: 50px; 
-            --background: #00b9ff;
-            --background-activated:  #00b9ff;
-            --background-focused:  #00b9ff;
-            --background-hover: #00b9ff;
-    --color	: #ffffff;
-    --ripple-color : #9a9a9a;
-    --color-activated : #ffffff;
-    margin-inline-start: 0px;
-    margin-inline-end: 0px;
-    --border-radius: 15px;
-    height: 37px;
-    font-family: Open Sans semiBold;
-    font-size: 17px;
-    text-transform: inherit;
+    --background: #00aeef;
+    --color:#ffffff;
+    font-size: 14px;
+    height: 35px;
+    --background-activated: #2d6ddb!important;
+    margin: 15px 15px;
+    font-family: 'Open Sans SemiBold';
+}
+
+.loginBtn:active,.loginBtn:focus{
+    border: 2px solid #fff;
 }
 
 .loginDiv{
@@ -119,7 +150,7 @@ ion-content{
 }
 
 .forgotPassBtn{
-    color: #00aeef;
+    color: #00b9ff;
     height: 16px;
     font-family: Open Sans SemiBold;
     font-size: 13px;

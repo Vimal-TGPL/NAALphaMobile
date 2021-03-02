@@ -1,3 +1,7 @@
+ /* ---JSON Web Token Interceptor---
+ 
+ Capture the Http request and add the Bearer Token with header*/
+
 import { Injectable } from "@angular/core";
 import { HttpInterceptor, HttpClient, HttpRequest, HttpHandler, HttpEvent, HttpErrorResponse } from '@angular/common/http';
 import { Storage } from '@ionic/storage';
@@ -24,7 +28,7 @@ export class JwtInterceptor implements HttpInterceptor {
          if(this.currentUser && this.currentUser.token){
              request = request.clone({
                  setHeaders:{
-                    Authorization: `Bearer ${this.currentUser.token}`
+                    Authorization: `Bearer ${this.currentUser.token}`       //Bearer Token
                  }
              })
          }
@@ -33,11 +37,11 @@ export class JwtInterceptor implements HttpInterceptor {
      }
 
     constructor(private toast: Toast,public alertController: AlertController,public toastController : ToastController ,public http: HttpClient, private storage:Storage, private authService: AuthenticationService){
-    this.currentUser = this.authService.currentUserValue();
+    this.currentUser = this.authService.currentUserValue();             // Get the User Details
     }
 
     getCurrentUser()
     {
-        this.currentUser = this.authService.currentUserValue();
+        this.currentUser = this.authService.currentUserValue();         // Get the User Details
     }
 }

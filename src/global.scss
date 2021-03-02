@@ -273,3 +273,41 @@
       position: static !important;
   }
 }
+
+.arrowTopRight:before{
+  content: '';
+    border-bottom: 10px solid #3db9ff;
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    position: absolute;
+    bottom: 30px;
+    right: 110px;
+}
+
+.arrowTopLeft:before{
+  content: '';
+    border-bottom: 10px solid #3db9ff;
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    position: absolute;
+    bottom: 30px;
+    left: 57px;
+}
+
+#MainSlider, #AL_Slider{
+  .swiper-slide, .swiper-pagination{
+      bottom: 0 !important;
+      position: relative;
+  }
+}
+
+.ALErrorToast{
+  --background: #00b9ff !important;
+  --color: #fff;
+  font-size: 14px;
+  font-family: Open Sans SemiBold;
+}
+
+.ALErrorToast::part(button){
+  color: #fff;
+}

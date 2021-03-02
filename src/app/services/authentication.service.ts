@@ -1,3 +1,6 @@
+
+/* Authentication Service is responsible for NAA Account Login,Logout, Track User and Handling User Data */
+
 import { Injectable } from '@angular/core';
 import { HttpHeaders, HttpClient, HttpHandler } from '@angular/common/http';
 import { environment } from '../../environments/environment';

@@ -3,20 +3,17 @@ import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 import { AuthGaurdService } from './services/auth-gaurd.service';
 
 const routes: Routes = [
-  { path: '', redirectTo: 'landing', pathMatch: 'full' },
-  {
-    path: 'landing',
-    loadChildren: () => import('./landing/landing.module').then( m => m.LandingPageModule)
-  },
+  { path: '', redirectTo: 'auth', pathMatch: 'full' },
+  
   {
     path: 'auth',
     
     loadChildren: () => import('./auth/auth.module').then( m => m.AuthPageModule)
   },
-  {
-    path: 'signup',
-    loadChildren: () => import('./signup/signup.module').then( m => m.SignupPageModule)
-  },
+  // {
+  //   path: 'landing',
+  //   loadChildren: () => import('./landing/landing.module').then( m => m.LandingPageModule)
+  // },
   {
     path: 'forgot-password',
     loadChildren: () => import('./forgot-password/forgot-password.module').then( m => m.ForgotPasswordPageModule)
@@ -37,10 +34,6 @@ const routes: Routes = [
   {
     path: 'change-password',
     loadChildren: () => import('./change-password/change-password.module').then( m => m.ChangePasswordPageModule)
-  },
-  {
-    path: 'tabs',
-    loadChildren: () => import('./tabs/tabs.module').then( m => m.TabsPageModule)
   },
 ];
 

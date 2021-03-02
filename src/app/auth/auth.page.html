@@ -1,54 +1,104 @@
-<ion-header class="login-header ion-no-border">
+<ion-content forceOverscroll=false *ngIf="showSplashLoader">
+  <div style="height: 100%; width: 100%; display: flex; justify-content: center; align-items:center;">
+    <img src="../../assets/images/NAA.gif" alt="loading..." height="35px">
+  </div>
+</ion-content>
+
+<!-- Page Header Start -->
+<ion-header class="login-header ion-no-border" *ngIf="!showSplashLoader">
   <ion-toolbar>
     <img src="../../assets/images/NAA_Logo_Mobile.svg" height="35" alt="Logo">
   </ion-toolbar>
 </ion-header>
-<ion-content forceOverscroll=false>
-    <div class="outerDiv">
-      <form [formGroup]="loginForm">
-        
-        <ion-text>
-          <h1 class="cardTitle">Login</h1>
-        </ion-text>
-        
-        <div class="form">
-          <div class="inputdiv">
-            <ion-label class="emailLabel">Email<ion-text color="danger"> *</ion-text>
-            </ion-label>
-            <ion-item class="emailItem" lines="none">
-              <ion-input autofocus="true" inputmode="email" (ionInput)="onemialTextInput()" placeholder="Email Address" formControlName="Email" autocomplete="on"></ion-input>
-            </ion-item>
-            <div style="color: #f44336; padding-top: 0.2rem; font-size: 11px; font-family: Open Sans;" *ngIf="hasError('Email', 'required') && email">An email address is required</div>
-            <div style="color: #f44336; padding-top: 0.2rem; font-size: 11px; font-family: Open Sans;" *ngIf="hasError('Email', 'email') && email">Please enter a valid email address</div>
-          </div>
-          <div class="inputdiv">
-            <ion-label class="emailLabel">Password<ion-text color="danger"> *</ion-text>
-            </ion-label>
-            <ion-item class="passwordItem" lines="none">
-              <ion-input class="passwordInput" (keyup.enter)='onLoginClick()'  (ionInput)="onPwdTextInput()" type="password" inputmode="text" enterkeyhint="Login" placeholder="Password" formControlName="Password">
-              </ion-input>
-            </ion-item>
-            <div style="color: #f44336; padding-top: 0.2rem; font-size: 11px; font-family: Open Sans;" *ngIf="hasError('Password', 'required') && pwd">A password is required</div>
-          </div>
-          <div class="loginDiv">
-            <ion-button class="loginBtn" size="medium" expand="block" [disabled] ="!loginForm.valid" (click)="onLoginClick()">
-              <ion-spinner *ngIf="showLoad" name="crescent"></ion-spinner>&nbsp;{{showLoad ? 'Logging in...': 'Login'}}
-            </ion-button>
-          </div>
+<!-- Page Header End -->
+
+<!-- Page Content Start -->
+<ion-content forceOverscroll=false *ngIf="!showSplashLoader">
+  <div class="outerDiv">
+
+    <!-- Login Form Start -->
+    <form [formGroup]="loginForm">
+
+      <ion-text>
+        <h1 class="cardTitle">Login</h1>
+      </ion-text>
+
+      <div class="form">
+
+        <!-- Email Input Start -->
+        <div class="inputdiv">
+          <ion-label class="emailLabel">Email<ion-text color="danger"> *</ion-text>
+          </ion-label>
+          <ion-item class="emailItem" lines="none">
+            <ion-input autofocus="true" inputmode="email" (ionInput)="onemialTextInput()" placeholder="Email Address"
+              formControlName="Email" autocomplete="on"></ion-input>
+          </ion-item>
+          <!-- Email Validation Error Messages Start -->
+          <div style="color: #f44336; padding-top: 0.2rem; font-size: 11px; font-family: Open Sans;"
+            *ngIf="hasError('Email', 'required') && email">An email address is required</div>
+          <div style="color: #f44336; padding-top: 0.2rem; font-size: 11px; font-family: Open Sans;"
+            *ngIf="hasError('Email', 'email') && email">Please enter a valid email address</div>
+          <!-- Email Validation Error Messages End -->
         </div>
-        <div class="forgotPassDiv">
-          <ion-button class="forgotPassBtn" fill="clear" expand="block" (click)="onForgotPassClick()">
-            Forgot Password?
+        <!-- Email Input Start -->
+
+        <!-- Password Input Start -->
+        <div class="inputdiv">
+          <ion-label class="emailLabel">Password<ion-text color="danger"> *</ion-text>
+          </ion-label>
+          <ion-item class="passwordItem" lines="none">
+            <ion-input class="passwordInput" (keyup.enter)='onLoginClick()' (ionInput)="onPwdTextInput()"
+              type="password" inputmode="text" enterkeyhint="Login" placeholder="Password" formControlName="Password">
+            </ion-input>
+          </ion-item>
+          <div style="color: #f44336; padding-top: 0.2rem; font-size: 11px; font-family: Open Sans;"
+            *ngIf="hasError('Password', 'required') && pwd">A password is required</div>
+        </div>
+        <!-- Password Input End -->
+
+        <!-- Login Button Start -->
+        <div class="loginDiv">
+          <ion-button class="loginBtn" expand="full" [disabled]="!loginForm.valid"
+            (click)="onLoginClick()">
+            <ion-spinner *ngIf="showLoad" name="crescent"></ion-spinner>&nbsp;{{showLoad ? 'Logging in...': 'Login'}}
           </ion-button>
         </div>
-        <div class="forgotPassDiv">
-          <ion-button expand="block" fill="clear" class="forgotPassBtn" (click)="onSignupClick()">
-            Sign up
-          </ion-button>
-        </div>
-  </form>
+        <!-- Login Button End -->
+      </div>
+
+      <!-- Forgot Password Button Start -->
+      <div class="forgotPassDiv">
+        <ion-button class="forgotPassBtn" fill="clear" expand="block" (click)="onForgotPassClick()">
+          Forgot Password?
+        </ion-button>
+      </div>
+      <!-- Forgot Password Button End -->
+
+      <!-- Sign Up Button Start -->
+      <!-- <div class="forgotPassDiv">
+        <ion-button expand="block" fill="clear" class="forgotPassBtn" (click)="onSignupClick()">
+          Sign up
+        </ion-button>
+      </div> -->
+      <!-- Sign Up Button End -->
+    </form>
+    <!-- Login Form End -->
+
+    <div class="SignUpDiv">
+      <h1>Want to Sign Up?</h1>
+      <ion-button (click)="onRegisterClick()" expand="full">
+        Register
+      </ion-button>
+      <p>*Requires a One-on-One</p>
+      <p>20-minute meeting with a<br>New Age Alpha Portfolio Specialist.</p>
+    </div>
   </div>
 </ion-content>
-<div id="authLoader" style="background: rgba(0,0,0,0.5);z-index: 99999; position: absolute; height: 100%; width: 100%; display: flex; justify-content: center; align-items: center;">
-  <img src="../../assets/images/NAA.gif" alt="Loading..." style="height: 30px;width: 30px !important;">    
+<!-- Page Content End -->
+
+<!-- Full Page Loader start -->
+<div id="authLoader"
+  style="background: rgba(0,0,0,0.5);z-index: 99999; position: absolute; height: 100%; width: 100%; display: flex; justify-content: center; align-items: center;">
+  <img src="../../assets/images/NAA.gif" alt="Loading..." style="height: 30px;width: 30px !important;">
 </div>
+<!-- Full Page Loader End -->

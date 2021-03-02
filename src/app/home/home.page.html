@@ -47,11 +47,11 @@
 
   <!-- Footer Icons Start -->
   <div class="footor_icon_div">
-    <img src="../../assets/images/Portfolio_Icon_Mobile.svg">
+    <img src="../../assets/images/Portfolio_Icon_Mobile.svg" style="display: none;">
     <img src="../../assets/images/Compare_Icon_Mobile.svg">
     <img src='../../assets/images/Avoid Loser_Icon_Mobile.svg' style="opacity:0.5 ;">
     <img src='../../assets/images/Notification_Icon_Mobile.svg' style="opacity:0.5 ;">
-    <img src='../../assets/images/Report_Download_Icon_Mobile.svg' style="opacity:0.5 ;">
+    <img src='../../assets/images/Report_Download_Icon_Mobile.svg' style="opacity:0.5;display: none;">
   </div>
   <!-- Footer Icons End -->
 
@@ -86,7 +86,7 @@
     <!-- Left, Right Arrow End -->
 
     <!-- Home Page Slider Start -->
-    <ion-slides id='MainSlider' [ngClass]="{'mdSlides': plt=='android', 'iosSlides': plt =='ios'}" mode="ios" [options]='slideOpts' (ionSlideDidChange)="onSlideChange($event)">
+    <ion-slides id='MainSlider' pager=true [ngClass]="{'mdSlides': plt=='android', 'iosSlides': plt =='ios'}" mode="ios" [options]='slideOpts' (ionSlideDidChange)="onSlideChange($event)">
 
       <!-- Company List Grid Start -->
       <ion-slide class="CompSlide">
@@ -122,11 +122,11 @@
 
     <!-- Footer Icons Start -->
   <div class="footor_icon_div">
-    <img src="../../assets/images/Portfolio_Icon_Mobile.svg">
+    <img src="../../assets/images/Portfolio_Icon_Mobile.svg" style="display: none;">
     <img src="../../assets/images/Compare_Icon_Mobile.svg">
     <img [src]="AvoidLosersec? '../../assets/images/Avoid Loser_Blue_Icon_Mobile.svg' : '../../assets/images/Avoid Loser_Icon_Mobile.svg'" (click)="onAvoidLoserClick()">
     <img [src]="AlertSec? '../../assets/images/Notification_Blue_Icon_Mobile.svg' : '../../assets/images/Notification_Icon_Mobile.svg'" (click)="onAlertClick()">
-    <img [src]="ReportSec? '../../assets/images/Report_Download_Blue_Icon_Mobile.svg' : '../../assets/images/Report_Download_Icon_Mobile.svg'" (click)="onReportClick()">
+    <img style="display: none;" [src]="ReportSec? '../../assets/images/Report_Download_Blue_Icon_Mobile.svg' : '../../assets/images/Report_Download_Icon_Mobile.svg'" (click)="onReportClick()">
   </div>
   <!-- Footer Icons End -->
 
@@ -170,7 +170,7 @@
 <!-- Left, Right Arrow End -->
 
 <!-- Avoid Looser Page Slider Start -->
-<ion-slides mode="ios" *ngIf="avoidSlides" [ngClass]="{'mdSlides': plt=='android' , 'iosSlides': plt =='ios'}" [options]='slideOpts' (ionSlideDidChange)="onALSlideChange($event)" id="AL_Slider">
+<ion-slides mode="ios" *ngIf="avoidSlides" pager=true [ngClass]="{'mdSlides': plt=='android' , 'iosSlides': plt =='ios'}" [options]='slideOpts' (ionSlideDidChange)="onALSlideChange($event)" id="AL_Slider">
   
   <!-- Company List Grid Start -->
   <ion-slide class="CompSlide">
@@ -210,11 +210,11 @@
 
 <!-- Footer Icons Start -->
   <div class="footor_icon_div">
-    <img src="../../assets/images/Portfolio_Icon_Mobile.svg">
+    <img src="../../assets/images/Portfolio_Icon_Mobile.svg" style="display: none;">
     <img src="../../assets/images/Compare_Icon_Mobile.svg">
     <img [src]="AvoidLosersec? '../../assets/images/Avoid Loser_Blue_Icon_Mobile.svg' : '../../assets/images/Avoid Loser_Icon_Mobile.svg'" (click)="onAvoidLoserClick()">
     <img [src]="AlertSec? '../../assets/images/Notification_Blue_Icon_Mobile.svg' : '../../assets/images/Notification_Icon_Mobile.svg'" (click)="onAlertClick()">
-    <img [src]="ReportSec? '../../assets/images/Report_Download_Blue_Icon_Mobile.svg' : '../../assets/images/Report_Download_Icon_Mobile.svg'" (click)="onReportClick()">
+    <img style="display: none;" [src]="ReportSec? '../../assets/images/Report_Download_Blue_Icon_Mobile.svg' : '../../assets/images/Report_Download_Icon_Mobile.svg'" (click)="onReportClick()">
   </div>
   <!-- Footer Icons End -->
 
@@ -323,11 +323,11 @@
 
   <!-- Footer Icons Start -->
   <div class="footor_icon_div">
-    <img src="../../assets/images/Portfolio_Icon_Mobile.svg">
+    <img src="../../assets/images/Portfolio_Icon_Mobile.svg" style="display: none;">
     <img src="../../assets/images/Compare_Icon_Mobile.svg">
     <img [src]="AvoidLosersec? '../../assets/images/Avoid Loser_Blue_Icon_Mobile.svg' : '../../assets/images/Avoid Loser_Icon_Mobile.svg'" (click)="onAvoidLoserClick()">
     <img [src]="AlertSec? '../../assets/images/Notification_Blue_Icon_Mobile.svg' : '../../assets/images/Notification_Icon_Mobile.svg'" (click)="onAlertClick()">
-    <img [src]="ReportSec? '../../assets/images/Report_Download_Blue_Icon_Mobile.svg' : '../../assets/images/Report_Download_Icon_Mobile.svg'" (click)="onReportClick()">
+    <img style="display: none;" [src]="ReportSec? '../../assets/images/Report_Download_Blue_Icon_Mobile.svg' : '../../assets/images/Report_Download_Icon_Mobile.svg'" (click)="onReportClick()">
   </div>
   <!-- Footer Icons End -->
 </ion-content>
@@ -375,11 +375,11 @@
 
   <!-- Footer Icons Start -->
   <div class="footor_icon_div">
-    <img src="../../assets/images/Portfolio_Icon_Mobile.svg">
+    <img src="../../assets/images/Portfolio_Icon_Mobile.svg" style="display: none;">
     <img src="../../assets/images/Compare_Icon_Mobile.svg">
     <img [src]="AvoidLosersec? '../../assets/images/Avoid Loser_Blue_Icon_Mobile.svg' : '../../assets/images/Avoid Loser_Icon_Mobile.svg'" (click)="onAvoidLoserClick()">
     <img [src]="AlertSec? '../../assets/images/Notification_Blue_Icon_Mobile.svg' : '../../assets/images/Notification_Icon_Mobile.svg'" (click)="onAlertClick()">
-    <img [src]="ReportSec? '../../assets/images/Report_Download_Blue_Icon_Mobile.svg' : '../../assets/images/Report_Download_Icon_Mobile.svg'" (click)="onReportClick()">
+    <img style="display: none;" [src]="ReportSec? '../../assets/images/Report_Download_Blue_Icon_Mobile.svg' : '../../assets/images/Report_Download_Icon_Mobile.svg'" (click)="onReportClick()">
   </div>
   <!-- Footer Icons End -->
 </ion-content>

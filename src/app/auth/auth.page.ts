@@ -11,6 +11,7 @@ import { UserTrack, UserTrackDtls } from '../_models/user'
 import { Device } from '@ionic-native/device/ngx';
 import { UserAgent } from '@ionic-native/user-agent/ngx'
 import { AppVersion } from '@ionic-native/app-version/ngx';
+import { DataService } from '../services/shareddata/data.service';
 
 @Component({
   selector: 'app-auth',
@@ -25,10 +26,9 @@ export class AuthPage implements OnInit,AfterViewInit {
   signupUrl = 'https://blog.newagealpha.com/h-factor';
   pwd:boolean = false;
   email:boolean = false;
+  showSplashLoader:boolean = true;
 
-  // @ViewChild('EmailInput',{static: false}) EmailInt;
-
-  constructor(private appVersion:AppVersion, private userAgent: UserAgent, private device:Device, private platform:Platform, private route:Router, private iab:InAppBrowser, private http: HttpClient, private toastController:ToastController, private authenticationService: AuthenticationService, private storage:Storage) { }
+  constructor(private dataService: DataService,private appVersion:AppVersion, private userAgent: UserAgent, private device:Device, private platform:Platform, private route:Router, private iab:InAppBrowser, private http: HttpClient, private toastController:ToastController, private authenticationService: AuthenticationService, private storage:Storage) { }
   ngAfterViewInit(){
     document.getElementById('authLoader').style.display= 'none';
   }
@@ -36,12 +36,17 @@ export class AuthPage implements OnInit,AfterViewInit {
     return this.loginForm.controls[controlName].hasError(errorName);
 }
   ngOnInit() {
-    
+    this.dataService.showsplashLoader.subscribe(d =>{
+      this.showSplashLoader = d;
+    })
+    //Detecting Device Form Factor
     if(this.platform.is('ipad') || this.platform.is('tablet')){
       this.mobile = false;
     }else{
       this.mobile = true;
     }
+
+    //Login Form Group Definition 
     this.loginForm = new FormGroup({
       Email: new FormControl('', [Validators.required, Validators.email]),
       Password: new FormControl('', [Validators.required]),
@@ -55,8 +60,8 @@ export class AuthPage implements OnInit,AfterViewInit {
   onPwdTextInput(){
     this.pwd = true;
   }
+
   onLoginClick(){
-    
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
@@ -85,7 +90,7 @@ export class AuthPage implements OnInit,AfterViewInit {
     } 
   }
 
-  onSignupClick(){
+  onRegisterClick(){
     document.getElementById('authLoader').style.display ="flex";
      var browser = this.iab.create(this.signupUrl,'_blank',"location=no,toolbar=yes,zoom=no,toolbarcolor=#2b468f");
      

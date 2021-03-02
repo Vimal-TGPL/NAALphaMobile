@@ -24,11 +24,15 @@ export class ForgotPasswordPage implements OnInit {
 }
 
   ngOnInit() {
+
+    // Detecting Device Form Factor
     if(this.platform.is('ipad') || this.platform.is('tablet')){
       this.mobile = false;
     }else{
       this.mobile = true;
     }
+    
+    // Forgot Password Form Group Definition
     this.forgotPass = new FormGroup({
       Email: new FormControl('',[Validators.required,Validators.email]),
     });

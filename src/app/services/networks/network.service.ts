@@ -1,3 +1,6 @@
+
+/* Network Service is responsible for Device Newtwork Monitoring */
+
 import { Injectable } from '@angular/core';
 import { Network } from '@ionic-native/network/ngx';
 import { Observable, observable, merge } from 'rxjs';
@@ -22,14 +25,14 @@ export class NetworkService {
    }
 
    getNetworkType():string{
-     console.log(this.network.type);
+    //  console.log(this.network.type);
      return this.network.type;
    }
 
    getNetworkStatus():Observable<boolean>{
-     this.online.pipe(debounceTime(300)).subscribe((con)=>{
-       console.log(con);
-     })
+    //  this.online.pipe(debounceTime(300)).subscribe((con)=>{
+    //    console.log(con);
+    //  })
      return this.online;
    }
 }

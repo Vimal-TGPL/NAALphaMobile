@@ -12,6 +12,7 @@ export class ThankyouPage implements OnInit {
   constructor(private router:Router, private route: ActivatedRoute) { }
 
   ngOnInit() {
+    // Identifying which Thankyou message should be shown
     if(this.route.snapshot.queryParams['resetPassword'] == "successfullyreset")
     {
       this.showMessage = "successfullyreset";

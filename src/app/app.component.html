@@ -1,5 +1,8 @@
+<!-- App Start -->
 <ion-app>
   <ion-router-outlet></ion-router-outlet>
+
+  <!-- Network Disconected Start -->
   <div id="NetError" style="visibility: hidden; transition: 1s; position: absolute;
 height: 100%;
 width: 100%;
@@ -12,17 +15,18 @@ display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center; ">
-<div style="display: flex; flex-direction: column; align-items: center; justify-content: center;">
-  <img src="../assets/images/NAA_No-Connection.png" alt="NoNetwork">
-  <ion-text style="    text-align: center;
+    <div style="display: flex; flex-direction: column; align-items: center; justify-content: center;">
+      <img src="../assets/images/NAA_No-Connection.png" alt="NoNetwork">
+      <ion-text style="    text-align: center;
   color: #666666;">
-    <h1 style="font-family: Open Sans Bold;
+        <h1 style="font-family: Open Sans Bold;
     font-size: 25px;">Ooops!</h1>
-    <p style="    font-family: Open sans SemiBold;
+        <p style="    font-family: Open sans SemiBold;
     font-size: 14px;">No Internet Connection found<br>Check your connection.</p>
-  </ion-text>
+      </ion-text>
 
-  <ion-button (click)="onTryAgainClick()" expand="block" shape="round" style="     --border-radius: 20px;
+      <!-- Try Again Button Start -->
+      <ion-button (click)="onTryAgainClick()" expand="block" shape="round" style="     --border-radius: 20px;
   font-size: 16px;
   height: 35px;
   --background: linear-gradient(45deg, #00b9ff 0%, #2e4c99 100%);
@@ -33,8 +37,12 @@ display: flex;
   width: 26vh;
   font-family: Open Sans semiBold;
   margin-top: 5vh;">
-    <ion-spinner *ngIf="showLoad" name="crescent"></ion-spinner>&nbsp;{{showLoad? 'Connection...':'Try Again'}}
-  </ion-button>
-</div>
-</div>
+        <ion-spinner *ngIf="showLoad" name="crescent"></ion-spinner>&nbsp;{{showLoad? 'Connecting...':'Try Again'}}
+      </ion-button>
+      <!-- Try Again Button End -->
+    </div>
+  </div>
+  <!-- Network Disconected End -->
+
 </ion-app>
+<!-- App End -->

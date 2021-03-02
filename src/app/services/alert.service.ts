@@ -1,3 +1,6 @@
+
+/* Alert Service is responsible for Alert Get, Set, Delete, Update */
+
 import { Injectable } from '@angular/core';
 import { HttpHeaders, HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment'
@@ -11,13 +14,11 @@ export class AlertService {
   constructor(private http: HttpClient) { }
 
   setAlert(alert){
-    console.log('posting alert');
     const httpOptions = {
       headers: new HttpHeaders({
           'Content-Type': 'application/json'
       })
     };
-    console.log(alert);
     return this.http.post(this.api_url+'/Users/SetAlerts',alert,httpOptions);
   }
 
@@ -27,7 +28,6 @@ export class AlertService {
           'Content-Type': 'application/json'
       })
     };
-    console.log(alert);
     return this.http.post(this.api_url + '/Users/RemoveAlerts', alert, httpOptions);
   }
 

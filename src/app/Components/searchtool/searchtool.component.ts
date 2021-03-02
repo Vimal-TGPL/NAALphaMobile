@@ -34,7 +34,7 @@ export class SearchtoolComponent implements OnInit, OnDestroy {
     console.log(this.searchText);
     console.log(this.data);
     var serText = e.target.value.toLowerCase();
-    if(serText.length != 0 && this.data.length != 0){
+    if(serText.length > 1 && this.data.length != 0){
       if(this.selTab != "ETF's"){
         this._searchRes = this.data.filter(i => i.companyName.toString().toLowerCase().startsWith(serText) || i.ticker.toString().toLowerCase().startsWith(serText));
         this._searchRes.sort((a,b)=>{

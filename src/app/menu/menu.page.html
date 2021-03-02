@@ -1,35 +1,50 @@
-<ion-content class="menuContent"  forceOverscroll="false">
-<ion-split-pane contentId="menu-content" when="xs" [disabled]="true">
-  <ion-menu contentId="menu-content" menuId="menu-content" side="end" type="overlay" *ngIf="mobile" (ionDidClose)="investmentsolution = false">
-    <ion-content class="menuContent" forceOverscroll = false *ngIf="mobile">
-      <div>
-      <div class = "avatarDiv">
-          <div class = "avatar">
-            
-            <img src="../../assets/images/Profile_NAA5.svg" alt="Profile">
+<!-- Page Content Start -->
+<ion-content class="menuContent" forceOverscroll="false">
+  <ion-split-pane contentId="menu-content" when="xs" [disabled]="true">
+
+    <!-- Menu Start -->
+    <ion-menu contentId="menu-content" menuId="menu-content" side="end" type="overlay" *ngIf="mobile"
+      (ionDidClose)="investmentsolution = false">
+
+      <!-- Menu Content Start -->
+      <ion-content class="menuContent" forceOverscroll=false *ngIf="mobile">
+        <div>
+
+          <!-- User Details Start -->
+          <div class="avatarDiv">
+            <div class="avatar">
+
+              <img src="../../assets/images/Profile_NAA5.svg" alt="Profile">
+            </div>
+            <div class="deatilsDiv">
+
+              <p>{{firstname}} {{lastname}}</p>
+              <p>{{username}}</p>
+            </div>
           </div>
-          <div class = "deatilsDiv">
-           
-            <p>{{firstname}} {{lastname}}</p>
-            <p>{{username}}</p>
-          </div>
+          <!-- User Details End -->
+
         </div>
-      </div>
-      <hr class="divider">
-      <ion-list id="menu-List" >
-          <ion-menu-toggle autoHide="false" >
+        <hr class="divider">
+        <ion-list id="menu-List">
+          <ion-menu-toggle autoHide="false">
             <ion-list *ngIf="investmentsolution === false" style="margin-bottom: 0px; padding-bottom: 0px;">
-              <ion-item lines="none" style="    color: white; --detail-icon-opacity: 1;" [routerLink]="['/menu/home']" routerDirection="root" [class.active-item]="selectedPath==='/menu/menu/path'">
-                <img src="../../assets/images/H-Factor Icon solid.svg" alt="home" style="height: 25px; padding-right: 5px;">
-               <ion-text color="light" style="font-size: 16px; font-family: Open Sans SemiBold;">
-                 H-Factor System
-               </ion-text>
+
+              <!-- H-Factor System Menu Item Start -->
+              <ion-item lines="none" style="    color: white; --detail-icon-opacity: 1;" [routerLink]="['/menu/home']"
+                routerDirection="root" [class.active-item]="selectedPath==='/menu/menu/path'">
+                <img src="../../assets/images/H-Factor Icon solid.svg" alt="home"
+                  style="height: 25px; padding-right: 5px;">
+                <ion-text color="light" style="font-size: 16px; font-family: Open Sans SemiBold;">
+                  H-Factor System
+                </ion-text>
               </ion-item>
+              <!-- H-Factor System Menu Item End -->
+
             </ion-list>
-            
-        </ion-menu-toggle>
-    
-            <ion-menu-toggle autoHide="false" >
+          </ion-menu-toggle>
+
+          <!-- <ion-menu-toggle autoHide="false" >
               <ion-list *ngIf="investmentsolution == true" style="margin-bottom: 0px; ">
                 <ion-item lines="none" style="color: white; --detail-icon-opacity: 1;" [routerLink]="['/menu/menu/performance',{'Key':'ESG'}]" routerLinkActive="router-link-active">
                   <ion-text color="light" style="font-size: 15px; font-family: Open Sans Regular;">
@@ -61,33 +76,50 @@
                   </ion-text>
                 </ion-item>
               </ion-list>
-            </ion-menu-toggle>
-    
-            <ion-menu-toggle autoHide="false" >
-              <ion-list *ngIf="investmentsolution === false" style="padding-top: 0px;">
-                
-                <ion-item lines="none" style="    color: white; --detail-icon-opacity: 1;" [routerLink]="['/menu/menu/change-password']" routerLinkActive="router-link-active" >
-                  <img src="../../assets/images/password.svg" alt="ChangePassword" style="height: 20px; padding-right: 10px;">
-                    <ion-text color="light" style="font-size: 16px; font-family: Open Sans SemiBold;">
-                      Change Password
-                    </ion-text>
-                  </ion-item>
-                <ion-item lines="none" style="    color: white; --detail-icon-opacity: 1;" (click)="onLogoutClick()">
-                    <img src="../../assets/images/power.svg" alt="logout" style="height: 20px; padding-right: 10px;">
-                    <ion-text color="light" style="font-size: 16px; font-family: Open Sans SemiBold;">
-                        Logout
-                      </ion-text>
-                </ion-item>
-              </ion-list>
+            </ion-menu-toggle> -->
+
+          <ion-menu-toggle autoHide="false">
+            <ion-list *ngIf="investmentsolution === false" style="padding-top: 0px;">
+
+              <!-- Change Password Menu Item Start -->
+              <ion-item lines="none" style="    color: white; --detail-icon-opacity: 1;"
+                [routerLink]="['/menu/menu/change-password']" routerLinkActive="router-link-active">
+                <img src="../../assets/images/password.svg" alt="ChangePassword"
+                  style="height: 20px; padding-right: 10px;">
+                <ion-text color="light" style="font-size: 16px; font-family: Open Sans SemiBold;">
+                  Change Password
+                </ion-text>
+              </ion-item>
+              <!-- Change Password Menu Item End -->
+
+              <!-- Logout Menu Item Start -->
+              <ion-item lines="none" style="    color: white; --detail-icon-opacity: 1;" (click)="onLogoutClick()">
+                <img src="../../assets/images/power.svg" alt="logout" style="height: 20px; padding-right: 10px;">
+                <ion-text color="light" style="font-size: 16px; font-family: Open Sans SemiBold;">
+                  Logout
+                </ion-text>
+              </ion-item>
+              <!-- Logout Menu Item End -->
+
+            </ion-list>
           </ion-menu-toggle>
-      </ion-list>
-      <div class="footerDiv">
-        <ion-text class="footerText">
-          <p style="font-family: Open Sans;">© 2021 <span style="color: #00AEEF;">newagealpha.com</span></p>
-        </ion-text>
-      </div>
-    </ion-content>
-  </ion-menu>
-  <ion-router-outlet id="menu-content"></ion-router-outlet>
-</ion-split-pane>
+        </ion-list>
+
+        <!-- Footer Start -->
+        <div class="footerDiv">
+          <ion-text class="footerText">
+            <p style="font-family: Open Sans; text-align: center; font-size: 12px;">© 2021 <span
+                style="color: #fff;">New Age Alpha, LLC. <br> All Rights Reserved.</span></p>
+          </ion-text>
+        </div>
+        <!-- Footer End -->
+      </ion-content>
+      <!-- Menu Content End -->
+
+    </ion-menu>
+    <!-- Menu End -->
+
+    <ion-router-outlet id="menu-content"></ion-router-outlet>
+  </ion-split-pane>
 </ion-content>
+<!-- Page Content End -->

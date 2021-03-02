@@ -1,3 +1,10 @@
+
+/* App Component will be executed first when app launches */
+
+/* While App Launches, App component will check for the Network Status and exisitng User Login Sessions */
+
+/* And also lock the screen orientation to Portait Orientation */
+
 import { Component } from '@angular/core';
 
 import { Platform, NavController } from '@ionic/angular';
@@ -9,8 +16,8 @@ import { Network } from '@ionic-native/network/ngx';
 import { ToastController } from '@ionic/angular';
 import { ScreenOrientation } from '@ionic-native/screen-orientation/ngx';
 
-declare var navigator: any;
-declare var Connection: any;
+declare var navigator: any;     //DOM Navigator Object Definition
+declare var Connection: any;    
 
 @Component({
   selector: 'app-root',
@@ -40,7 +47,7 @@ export class AppComponent {
       this.splashScreen.hide();
       this.statusBar.styleDefault();
       this.statusBar.overlaysWebView(false);
-      this.statusBar.backgroundColorByHexString("#2b468f");
+      this.statusBar.backgroundColorByHexString("#2b468f");     //Status Bar BackGround Color
       
       var netcon = this.network.onConnect().subscribe(async ()=>{
         document.getElementById('NetError').style.visibility = 'hidden';
@@ -51,26 +58,23 @@ export class AppComponent {
      });
 
       if(this.platform.is('cordova')){
-        this.screenOrientation.lock(this.screenOrientation.ORIENTATIONS.PORTRAIT);
-        // console.log('device');
+      //If Part will be executed only in mobile or tablet with Cordova
+
+        this.screenOrientation.lock(this.screenOrientation.ORIENTATIONS.PORTRAIT);    //Screen Orientation Lock
         if(this.network.type != 'none' ){
           this.authService.authenticationState.subscribe(state =>{
-            // console.log("Auth State : "+state);
             if(state){
               if(this.platform.is('ipad') || this.platform.is('tablet'))
               {
                 this.navController.navigateRoot(['tabs/home']);
                 this.splashScreen.hide();
               }else{
-                  this.navController.navigateRoot(['menu/menu/home']);
-                  // this.router.navigateByUrl('/menu/menu/home');       
+                  this.navController.navigateRoot(['menu/menu/home']);       
                   this.splashScreen.hide();
                 }
             }else{
               this.splashScreen.hide();
-              this.navController.navigateRoot(['landing']);
-              // this.router.navigateByUrl('/landing');
-              
+              this.navController.navigateRoot(['auth']);
             }
           });
         }else{
@@ -78,13 +82,12 @@ export class AppComponent {
           document.getElementById('NetError').style.visibility = 'visible';
         }
       }else{
-        // console.log('browser');
+        // Else part will be executed in browser while under development
+
         if(navigator.onLine){
           this.authService.authenticationState.subscribe(state =>{
-            // console.log("Auth State : "+state);
             if(state){
               if(this.platform.is('ipad') || this.platform.is('tablet')){
-                // console.log('ipad/tablet');
                 this.navController.navigateRoot(['tabs/home']);
                 this.splashScreen.hide();
               }else{
@@ -95,7 +98,7 @@ export class AppComponent {
               
             }else{
               this.splashScreen.hide();
-              this.navController.navigateRoot(['landing']);              
+              this.navController.navigateRoot(['auth']);              
             }
           });
         }else{
