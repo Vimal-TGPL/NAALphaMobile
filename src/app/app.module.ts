@@ -14,7 +14,6 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { HTTP } from '@ionic-native/http/ngx'
 import { IonicStorageModule } from '@ionic/storage';
 import { ScreenOrientation } from '@ionic-native/screen-orientation/ngx';
-import { ProfiledetailsComponent } from './Components/profiledetails/profiledetails.component'
 import { JwtInterceptor } from './_helper/jwt.interceptor';
 import { ErrorInterceptor } from './_helper/error.interceptor';
 import { MatTabsModule} from '@angular/material/tabs'
@@ -38,8 +37,8 @@ import { enterAnimation } from './_animations/nav-animation';
 
 library.add(faAngleDoubleLeft);
 @NgModule({
-  declarations: [AppComponent,ProfiledetailsComponent,MobileSearchComponent,SectorPopoverComponent,LineChartComponent],
-  entryComponents: [ProfiledetailsComponent,MobileSearchComponent,SectorPopoverComponent,LineChartComponent],
+  declarations: [AppComponent,MobileSearchComponent,SectorPopoverComponent,LineChartComponent],
+  entryComponents: [MobileSearchComponent,SectorPopoverComponent,LineChartComponent],
   imports: [BrowserModule,BrowserAnimationsModule, MatTabsModule, IonicModule.forRoot({navAnimation:enterAnimation}), HttpClientModule, ReactiveFormsModule, AppRoutingModule, IonicStorageModule.forRoot(),FontAwesomeModule],
   providers: [
     InAppBrowser,

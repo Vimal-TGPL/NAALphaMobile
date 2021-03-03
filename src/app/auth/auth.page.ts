@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild, ElementRef, AfterViewInit } from '@angula
 import { Validators, FormGroup, FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { ToastController, IonInput } from '@ionic/angular';
+import { ToastController, IonInput, NavController } from '@ionic/angular';
 import { AuthenticationService } from '../services/authentication.service';
 import { Storage } from '@ionic/storage';
 import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
@@ -28,7 +28,7 @@ export class AuthPage implements OnInit,AfterViewInit {
   email:boolean = false;
   showSplashLoader:boolean = true;
 
-  constructor(private dataService: DataService,private appVersion:AppVersion, private userAgent: UserAgent, private device:Device, private platform:Platform, private route:Router, private iab:InAppBrowser, private http: HttpClient, private toastController:ToastController, private authenticationService: AuthenticationService, private storage:Storage) { }
+  constructor(private navCtrl: NavController,private dataService: DataService,private appVersion:AppVersion, private userAgent: UserAgent, private device:Device, private platform:Platform, private route:Router, private iab:InAppBrowser, private http: HttpClient, private toastController:ToastController, private authenticationService: AuthenticationService, private storage:Storage) { }
   ngAfterViewInit(){
     document.getElementById('authLoader').style.display= 'none';
   }
@@ -106,7 +106,7 @@ export class AuthPage implements OnInit,AfterViewInit {
   }
 
   onForgotPassClick(){
-    this.route.navigateByUrl('/forgot-password');
+    this.navCtrl.navigateForward(['/forgot-password']);
   }
 
   async presentToast(msg) {

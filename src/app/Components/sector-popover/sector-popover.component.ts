@@ -15,8 +15,6 @@ export class SectorPopoverComponent implements OnInit {
     
     this.sectorList = this.navParams.get('sectorList');
     this.selComp = this.navParams.get('selComp');
-    // console.log(this.sectorList);
-    // console.log(this.selComp);
    }
 
   ngOnInit() {}

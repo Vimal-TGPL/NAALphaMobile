@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormGroup, Validators, FormControl, FormBuilder, ValidatorFn, ValidationErrors } from '@angular/forms';
 import { UserService } from '../services/user.service';
-import { ToastController, MenuController } from '@ionic/angular';
+import { ToastController, MenuController, NavController } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { Platform} from '@ionic/angular';
 
@@ -19,7 +19,7 @@ export class ChangePasswordPage implements OnInit, OnDestroy {
   pwd:boolean = false;
   Cpwd:boolean = false;
   _backSub:any;
-  constructor(private platform:Platform, private menuController:MenuController ,private formBuilder:FormBuilder,private userServices:UserService,private toastController:ToastController, private route:Router) { 
+  constructor(private navCtrl:NavController, private platform:Platform, private menuController:MenuController ,private formBuilder:FormBuilder,private userServices:UserService,private toastController:ToastController, private route:Router) { 
     this._backSub = this.platform.backButton.subscribeWithPriority(0, async()=> {     //Hardware Back Button Subscribe
       this.onReturnClick();
     });
@@ -70,14 +70,14 @@ ionViewDidLeave(){
         this.presentToast("New Password changed successfully");
         this.changePasswordForm.reset();
         setTimeout(()=>{
-          this.route.navigateByUrl('/menu/menu/home');
+          this.navCtrl.navigateBack(['/menu/menu/home']);
         })
       })
      }
    }
 
    onReturnClick(){
-    this.route.navigateByUrl('/menu/menu/home');
+    this.navCtrl.navigateBack(['/menu/menu/home']);
    }
 
    async presentToast(msg) {

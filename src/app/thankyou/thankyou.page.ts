@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
+import { NavController } from '@ionic/angular';
 
 @Component({
   selector: 'app-thankyou',
@@ -9,7 +10,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 export class ThankyouPage implements OnInit {
   showMessage:string = "";
 
-  constructor(private router:Router, private route: ActivatedRoute) { }
+  constructor(private navCtrl: NavController,private router:Router, private route: ActivatedRoute) { }
 
   ngOnInit() {
     // Identifying which Thankyou message should be shown
@@ -24,6 +25,6 @@ export class ThankyouPage implements OnInit {
   }
 
   onLoginClick(){
-    this.router.navigateByUrl('/auth');
+    this.navCtrl.navigateRoot(['/auth']);
   }
 }

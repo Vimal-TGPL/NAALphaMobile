@@ -557,6 +557,7 @@ export class HomePage implements OnInit, OnDestroy {
       if(d.data != undefined){
         if(d.data.secCount > 20 || (!this.AvoidLosersec && !this.AL_mainCircle && !this.AL_rangeCircle)){
           this.selSec = d.data;
+          this.createIndexData();
         }else if((this.AvoidLosersec || this.AL_rangeCircle) && !this.avoidSlides){
           var toast = await this.toastCtrl.create({
             message: 'Company coverage is less than 20',
@@ -575,7 +576,6 @@ export class HomePage implements OnInit, OnDestroy {
         }
         
         if(!this.AvoidLosersec){
-          this.createIndexData();
           this.showLoader = true;
           setTimeout(() => {
             this.scrollto();
@@ -593,7 +593,6 @@ export class HomePage implements OnInit, OnDestroy {
           }, 100);
         }else if(this.AvoidLosersec && !this.AL_mainCircle && this.AL_rangeCircle){
           if(d.data.secCount > 20){
-          this.createIndexData();
           this.showLoader = true;
           this.CurrSliderData = {'a': 0,
           'aAngle': 360,
@@ -622,7 +621,6 @@ export class HomePage implements OnInit, OnDestroy {
         }
         }else if(this.AvoidLosersec && this.AL_mainCircle && !this.AL_rangeCircle){
           if(d.data.secCount > 20){
-          this.createIndexData();
           this.showLoader = true;
           this.CurrSliderData = {'a': 0,
           'aAngle': 360,
@@ -2671,7 +2669,6 @@ export class HomePage implements OnInit, OnDestroy {
       .append('g')
       .attr('class', 'handlercontainer')
       .attr('transform', function (d) {
-        // console.log(angularScale(d.value))
         return 'rotate(' + angularScale(d.value) + ') translate(0,' + (radius-3) * -1 + ')';
       })
       .call(dragBehavior);

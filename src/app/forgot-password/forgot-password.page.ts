@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Validators, FormGroup, FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
 import { UserService } from '../services/user.service';
-import { ToastController } from '@ionic/angular';
+import { NavController, ToastController } from '@ionic/angular';
 import { Platform} from '@ionic/angular';
 
 @Component({
@@ -17,7 +17,7 @@ export class ForgotPasswordPage implements OnInit {
   showLoad:boolean=false;
   email:boolean = false;
 
-  constructor(private platform:Platform, private route:Router, private userServices:UserService, private toastController:ToastController) { }
+  constructor(private navCtrl: NavController,private platform:Platform, private route:Router, private userServices:UserService, private toastController:ToastController) { }
 
   hasError = (controlName: string, errorName: string) => {
     return this.forgotPass.controls[controlName].hasError(errorName);
@@ -51,7 +51,8 @@ export class ForgotPasswordPage implements OnInit {
     this.userServices.forgotPassword(data).subscribe(data=>{
       this.forgotPass.reset();
       this.showLoad = false;
-      this.route.navigate(['/thankyou'],{ queryParams: { resetPassword: 'successfullyreset' } });
+      //this.route.navigate(['/thankyou'],{ queryParams: { resetPassword: 'successfullyreset' } });
+      this.navCtrl.navigateRoot(['/thankyou'],{ queryParams: { resetPassword: 'successfullyreset' } })
       return false;
     },err=>{
       this.showLoad = false;
@@ -60,7 +61,8 @@ export class ForgotPasswordPage implements OnInit {
   }
 
   OnLoginClick(){
-    this.route.navigateByUrl('/auth');
+    //this.route.navigateByUrl('/auth');
+    this.navCtrl.navigateRoot(['/auth']);
   }
 
   async presentToast(msg) {
