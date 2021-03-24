@@ -4,29 +4,29 @@
     <div class="header-Logo" [ngClass]="{'ipad_Logo': !mobile}">
       <!-- Logo -->
       <img src="../../assets/images/NAA_Logo_Mobile.svg" alt="NewAgeAlpha" width="auto">
-      
+
       <!-- Logged in User Details Start -->
-        <div (click)="openMenu()">
-          <ion-avatar>
-            <img src="../../assets/images/Profile_NAA5.svg" />
-          </ion-avatar>
-            <p>{{currentUser.firstName}}&nbsp;{{currentUser.lastName}}</p>
-        </div>
-        <!-- Logged in User Details End-->
-    </div>
-    
-  </ion-toolbar>
-  <ion-toolbar> 
-    <!-- SearchBar start -->
-      <div class="searchDiv">
-        <ion-item class="searchItem" lines="none" (click)="openSearch()">
-          <ion-label>
-            <ion-icon name="search" ></ion-icon>
-            <p>Ticker or company name</p>
-            </ion-label>
-        </ion-item>
+      <div (click)="openMenu()">
+        <ion-avatar>
+          <img src="../../assets/images/Profile_NAA5.svg" />
+        </ion-avatar>
+        <p>{{currentUser.firstName}}&nbsp;{{currentUser.lastName}}</p>
       </div>
-       <!-- SearchBar End-->
+      <!-- Logged in User Details End-->
+    </div>
+
+  </ion-toolbar>
+  <ion-toolbar>
+    <!-- SearchBar start -->
+    <div class="searchDiv">
+      <ion-item class="searchItem" lines="none" (click)="openSearch()">
+        <ion-label>
+          <ion-icon name="search"></ion-icon>
+          <p>Ticker or company name</p>
+        </ion-label>
+      </ion-item>
+    </div>
+    <!-- SearchBar End-->
   </ion-toolbar>
   <hr>
 </ion-header>
@@ -62,71 +62,86 @@
 <ion-content forceOverscroll="false" *ngIf="selComp && !AvoidLosersec && !AlertSec && !ReportSec" class="MainContent">
 
   <!-- Sector DropDown Start -->
-    <ion-item *ngIf="selSec" lines="none" (click)="openSecPopOver($event)" class="secDropDown">
-      <div>
-        <span class="sec_Detail">
-          <span class="medItemSpan"><p [style.color]="getColor(selSec.secMed)">{{selSec.secMed}}</p></span>
-          <span class="Sec_Details_Sub">
-            <p>{{selSec.secTitle}}&nbsp;(<span>{{selComp.indexName}}</span>)</p>
-            <p>{{selSec.secName}}</p>
-          </span>
+  <ion-item *ngIf="selSec" lines="none" (click)="openSecPopOver($event)" class="secDropDown">
+    <div>
+      <span class="sec_Detail">
+        <span class="medItemSpan">
+          <p [style.color]="getColor(selSec.secMed)">{{selSec.secMed}}</p>
+        </span>
+        <span class="Sec_Details_Sub">
+          <p>{{selSec.secTitle}}&nbsp;(<span>{{selComp.indexName}}</span>)</p>
+          <p>{{selSec.secName}}</p>
+        </span>
       </span>
       <ion-icon name="chevron-down-circle-outline"></ion-icon>
-      </div>
-    </ion-item>
-    <!-- Sector DropDown End -->
-
-    <!-- Left, Right Arrow Start -->
-    <div class="arrow_div">
-      <ion-icon *ngIf="CurrSlide == 1" name='chevron-back-circle-outline' (click)="onArrowClick(0);" style="color: #fff;"></ion-icon>
-      <img *ngIf="CurrSlide == 0" src="../../assets/images/Left Arrow Active.svg" alt="LA" style="height: 35px;">
-      <ion-icon *ngIf="CurrSlide == 0" name='chevron-forward-circle-outline' (click)="onArrowClick(1);" style="color: #fff;"></ion-icon>
-      <img *ngIf="CurrSlide == 1" src="../../assets/images/Right Arrow Active.svg" alt="RA" style="height: 35px;">
     </div>
-    <!-- Left, Right Arrow End -->
+  </ion-item>
+  <!-- Sector DropDown End -->
 
-    <!-- Home Page Slider Start -->
-    <ion-slides id='MainSlider' pager=true [ngClass]="{'mdSlides': plt=='android', 'iosSlides': plt =='ios'}" mode="ios" [options]='slideOpts' (ionSlideDidChange)="onSlideChange($event)">
+  <!-- Left, Right Arrow Start -->
+  <div class="arrow_div">
+    <ion-icon *ngIf="CurrSlide == 1" name='chevron-back-circle-outline' (click)="onArrowClick(0);" style="color: #fff;">
+    </ion-icon>
+    <img *ngIf="CurrSlide == 0" src="../../assets/images/Left Arrow Active.svg" alt="LA" style="height: 35px;">
+    <ion-icon *ngIf="CurrSlide == 0" name='chevron-forward-circle-outline' (click)="onArrowClick(1);"
+      style="color: #fff;"></ion-icon>
+    <img *ngIf="CurrSlide == 1" src="../../assets/images/Right Arrow Active.svg" alt="RA" style="height: 35px;">
+  </div>
+  <!-- Left, Right Arrow End -->
 
-      <!-- Company List Grid Start -->
-      <ion-slide class="CompSlide">
-        <ion-list id="CompList">
-          <ion-item *ngFor="let item of selIndexData" lines="none" class="compItem" [class.active]="selComp === item" (click)="onCompanyClick(item)">
-              <span [style.color]="getColor(roundMed(item.scores *100))">{{roundMed(item.scores *100)}}</span>
-              <div><p [style.color]="selComp === item? getColor(roundMed(item.scores *100)) : '#fff'">{{item.companyName}}</p>
-              <p [style.color]="selComp === item? getColor(roundMed(item.scores *100)) : '#fff'">{{item.ticker}}</p></div>
-          </ion-item>
-        </ion-list>
-      </ion-slide>
-      <!-- Company List Grid End -->
+  <!-- Home Page Slider Start -->
+  <ion-slides id='MainSlider' pager=true [ngClass]="{'mdSlides': plt=='android', 'iosSlides': plt =='ios'}" mode="ios"
+    [options]='HomeslideOpts' (ionSlideDidChange)="onSlideChange($event)">
 
-      <!-- Tool Start -->
-      <ion-slide class="circleSlide">
-        <svg preserveAspectRatio="xMidYMid meet" id="svgHContainer1" viewBox="0 0 700 550" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" version="1.1">
-          <g id="gchart" transform="translate(345 ,260)"></g>
-        </svg>
-        <div id="Circleloader" style="height: 100%;
+    <!-- Company List Grid Start -->
+    <ion-slide class="CompSlide">
+      <ion-list id="CompList">
+        <ion-item *ngFor="let item of selIndexData" lines="none" class="compItem" [class.active]="selComp === item"
+          (click)="onCompanyClick(item)">
+          <span [style.color]="getColor(roundMed(item.scores *100))">{{roundMed(item.scores *100)}}</span>
+          <div>
+            <p [style.color]="selComp === item? getColor(roundMed(item.scores *100)) : '#fff'">{{item.companyName}}</p>
+            <p [style.color]="selComp === item? getColor(roundMed(item.scores *100)) : '#fff'">{{item.ticker}}</p>
+          </div>
+        </ion-item>
+      </ion-list>
+    </ion-slide>
+    <!-- Company List Grid End -->
+
+    <!-- Tool Start -->
+    <ion-slide class="circleSlide">
+      <svg preserveAspectRatio="xMidYMid meet" id="svgHContainer1" viewBox="0 0 700 550" width="100%" height="100%"
+        xmlns="http://www.w3.org/2000/svg" version="1.1">
+        <g id="gchart" transform="translate(345 ,260)"></g>
+      </svg>
+      <div id="Circleloader" style="height: 100%;
         width: 100%;
         display: none;
         justify-content: center;
         align-items: center;
-        position: absolute;" >
-          <img src="../../assets/images/NAA.gif" alt="Loading..." style="    height: 35px;
+        position: absolute;">
+        <img src="../../assets/images/NAA.gif" alt="Loading..." style="    height: 35px;
           width: 35px;">
-        </div>
-      </ion-slide>
-      <!-- Tool End -->
+      </div>
+    </ion-slide>
+    <!-- Tool End -->
 
-    </ion-slides>
-    <!-- Home Page Slider End -->
+  </ion-slides>
+  <!-- Home Page Slider End -->
 
-    <!-- Footer Icons Start -->
+  <!-- Footer Icons Start -->
   <div class="footor_icon_div">
     <img src="../../assets/images/Portfolio_Icon_Mobile.svg" style="display: none;">
     <img src="../../assets/images/Compare_Icon_Mobile.svg">
-    <img [src]="AvoidLosersec? '../../assets/images/Avoid Loser_Blue_Icon_Mobile.svg' : '../../assets/images/Avoid Loser_Icon_Mobile.svg'" (click)="onAvoidLoserClick()">
-    <img [src]="AlertSec? '../../assets/images/Notification_Blue_Icon_Mobile.svg' : '../../assets/images/Notification_Icon_Mobile.svg'" (click)="onAlertClick()">
-    <img style="display: none;" [src]="ReportSec? '../../assets/images/Report_Download_Blue_Icon_Mobile.svg' : '../../assets/images/Report_Download_Icon_Mobile.svg'" (click)="onReportClick()">
+    <img
+      [src]="AvoidLosersec? '../../assets/images/Avoid Loser_Blue_Icon_Mobile.svg' : '../../assets/images/Avoid Loser_Icon_Mobile.svg'"
+      (click)="onAvoidLoserClick()">
+    <img
+      [src]="AlertSec? '../../assets/images/Notification_Blue_Icon_Mobile.svg' : '../../assets/images/Notification_Icon_Mobile.svg'"
+      (click)="onAlertClick()">
+    <img style="display: none;"
+      [src]="ReportSec? '../../assets/images/Report_Download_Blue_Icon_Mobile.svg' : '../../assets/images/Report_Download_Icon_Mobile.svg'"
+      (click)="onReportClick()">
   </div>
   <!-- Footer Icons End -->
 
@@ -140,13 +155,15 @@
   <ion-item *ngIf="selSec" lines="none" (click)="openSecPopOver($event)" class="secDropDown">
     <div>
       <span class="sec_Detail">
-        <span class="medItemSpan"><p [style.color]="getColor(selSec.secMed)">{{selSec.secMed}}</p></span>
+        <span class="medItemSpan">
+          <p [style.color]="getColor(selSec.secMed)">{{selSec.secMed}}</p>
+        </span>
         <span class="Sec_Details_Sub">
           <p>{{selSec.secTitle}}&nbsp;(<span>{{selComp.indexName}}</span>)</p>
           <p>{{selSec.secName}}</p>
         </span>
-    </span>
-    <ion-icon name="chevron-down-circle-outline"></ion-icon>
+      </span>
+      <ion-icon name="chevron-down-circle-outline"></ion-icon>
     </div>
   </ion-item>
   <!-- Sector DropDown End -->
@@ -154,67 +171,82 @@
   <!-- Initial Range Slider Start -->
   <div style="width: 100%;
   height: calc(100vh - 285px);" *ngIf="!avoidSlides" class="R_slider">
-  <svg preserveAspectRatio="xMidYMid meet" id="svgHContainer1" viewBox="0 0 450 550" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" version="1.1">
-    <g id="gchart" transform="translate(225 ,260)"></g>
-  </svg>
-</div>
-<!-- Initial Range Slider End -->
-
-<!-- Left, Right Arrow Start -->
-<div class="arrow_div" *ngIf="avoidSlides">
-  <ion-icon *ngIf="AL_CurrSlide != 0" name='chevron-back-circle-outline' (click)="onALArrowClick('prev');" style="color: #fff;"></ion-icon>
-  <img *ngIf="AL_CurrSlide == 0" src="../../assets/images/Left Arrow Active.svg" alt="LA" style="height: 35px;">
-  <ion-icon *ngIf="AL_CurrSlide != 2" name='chevron-forward-circle-outline' (click)="onALArrowClick('frwd');" style="color: #fff;"></ion-icon>
-  <img *ngIf="AL_CurrSlide == 2" src="../../assets/images/Right Arrow Active.svg" alt="RA" style="height: 35px;">
-</div>
-<!-- Left, Right Arrow End -->
-
-<!-- Avoid Looser Page Slider Start -->
-<ion-slides mode="ios" *ngIf="avoidSlides" pager=true [ngClass]="{'mdSlides': plt=='android' , 'iosSlides': plt =='ios'}" [options]='slideOpts' (ionSlideDidChange)="onALSlideChange($event)" id="AL_Slider">
-  
-  <!-- Company List Grid Start -->
-  <ion-slide class="CompSlide">
-    <ion-list id="CompList" *ngIf="AL_FilteredList.length != 0">
-      <ion-item *ngFor="let item of AL_FilteredList" lines="none" class="compItem" [class.active]="selComp === item">
-          <span [style.color]="getColor(roundMed(item.scores *100))">{{roundMed(item.scores *100)}}</span>
-          <div><p [style.color]="selComp === item? getColor(roundMed(item.scores *100)) : '#fff'">{{item.companyName}}</p>
-          <p [style.color]="selComp === item? getColor(roundMed(item.scores *100)) : '#fff'">{{item.ticker}}</p></div>
-      </ion-item>
-    </ion-list>
-    <div *ngIf="AL_FilteredList.length == 0">
-      <p style="    font-family: 'Open Sans SemiBold';
-      color: #fff;
-      font-size: 16px;">No company to show</p>
-    </div>
-  </ion-slide>
-  <!-- Company List Grid End -->
-
-  <!-- Avoid Looser Tool Start -->
-  <ion-slide class="CircleSlider">
-    <svg *ngIf="AL_mainCircle" preserveAspectRatio="xMidYMid meet" id="svgHContainer1" viewBox="0 0 700 550" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" version="1.1">
-      <g id="gchart" transform="translate(345 ,260)"></g>
-    </svg>
-  </ion-slide>
-  <!-- Avoid Looser Tool End -->
-
-  <!-- Range Slider Tool Start -->
-  <ion-slide class="rangeSlide R_slider">
-    <svg *ngIf="AL_rangeCircle" preserveAspectRatio="xMidYMid meet" id="svgHContainer1" viewBox="0 0 450 550" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" version="1.1">
+    <svg preserveAspectRatio="xMidYMid meet" id="svgHContainer1" viewBox="0 0 450 550" width="100%" height="100%"
+      xmlns="http://www.w3.org/2000/svg" version="1.1">
       <g id="gchart" transform="translate(225 ,260)"></g>
     </svg>
-  </ion-slide>
-  <!-- Range Slider Tool End -->
+  </div>
+  <!-- Initial Range Slider End -->
 
-</ion-slides>
-<!-- Avoid Looser Page Slider End -->
+  <!-- Left, Right Arrow Start -->
+  <div class="arrow_div" *ngIf="avoidSlides">
+    <ion-icon *ngIf="AL_CurrSlide != 0" name='chevron-back-circle-outline' (click)="onALArrowClick('prev');"
+      style="color: #fff;"></ion-icon>
+    <img *ngIf="AL_CurrSlide == 0" src="../../assets/images/Left Arrow Active.svg" alt="LA" style="height: 35px;">
+    <ion-icon *ngIf="AL_CurrSlide != 2" name='chevron-forward-circle-outline' (click)="onALArrowClick('frwd');"
+      style="color: #fff;"></ion-icon>
+    <img *ngIf="AL_CurrSlide == 2" src="../../assets/images/Right Arrow Active.svg" alt="RA" style="height: 35px;">
+  </div>
+  <!-- Left, Right Arrow End -->
 
-<!-- Footer Icons Start -->
+  <!-- Avoid Looser Page Slider Start -->
+  <ion-slides mode="ios" *ngIf="avoidSlides" pager=true
+    [ngClass]="{'mdSlides': plt=='android' , 'iosSlides': plt =='ios'}" [options]='slideOpts'
+    (ionSlideDidChange)="onALSlideChange($event)" id="AL_Slider">
+
+    <!-- Company List Grid Start -->
+    <ion-slide class="CompSlide">
+      <ion-list id="CompList" *ngIf="AL_FilteredList.length != 0">
+        <ion-item *ngFor="let item of AL_FilteredList" lines="none" class="compItem" [class.active]="selComp === item">
+          <span [style.color]="getColor(roundMed(item.scores *100))">{{roundMed(item.scores *100)}}</span>
+          <div>
+            <p [style.color]="selComp === item? getColor(roundMed(item.scores *100)) : '#fff'">{{item.companyName}}</p>
+            <p [style.color]="selComp === item? getColor(roundMed(item.scores *100)) : '#fff'">{{item.ticker}}</p>
+          </div>
+        </ion-item>
+      </ion-list>
+      <div *ngIf="AL_FilteredList.length == 0">
+        <p style="    font-family: 'Open Sans SemiBold';
+      color: #fff;
+      font-size: 16px;">No company to show</p>
+      </div>
+    </ion-slide>
+    <!-- Company List Grid End -->
+
+    <!-- Avoid Looser Tool Start -->
+    <ion-slide class="CircleSlider">
+      <svg *ngIf="AL_mainCircle" preserveAspectRatio="xMidYMid meet" id="svgHContainer1" viewBox="0 0 700 550"
+        width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" version="1.1">
+        <g id="gchart" transform="translate(345 ,260)"></g>
+      </svg>
+    </ion-slide>
+    <!-- Avoid Looser Tool End -->
+
+    <!-- Range Slider Tool Start -->
+    <ion-slide class="rangeSlide R_slider">
+      <svg *ngIf="AL_rangeCircle" preserveAspectRatio="xMidYMid meet" id="svgHContainer1" viewBox="0 0 450 550"
+        width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" version="1.1">
+        <g id="gchart" transform="translate(225 ,260)"></g>
+      </svg>
+    </ion-slide>
+    <!-- Range Slider Tool End -->
+
+  </ion-slides>
+  <!-- Avoid Looser Page Slider End -->
+
+  <!-- Footer Icons Start -->
   <div class="footor_icon_div">
     <img src="../../assets/images/Portfolio_Icon_Mobile.svg" style="display: none;">
     <img src="../../assets/images/Compare_Icon_Mobile.svg">
-    <img [src]="AvoidLosersec? '../../assets/images/Avoid Loser_Blue_Icon_Mobile.svg' : '../../assets/images/Avoid Loser_Icon_Mobile.svg'" (click)="onAvoidLoserClick()">
-    <img [src]="AlertSec? '../../assets/images/Notification_Blue_Icon_Mobile.svg' : '../../assets/images/Notification_Icon_Mobile.svg'" (click)="onAlertClick()">
-    <img style="display: none;" [src]="ReportSec? '../../assets/images/Report_Download_Blue_Icon_Mobile.svg' : '../../assets/images/Report_Download_Icon_Mobile.svg'" (click)="onReportClick()">
+    <img
+      [src]="AvoidLosersec? '../../assets/images/Avoid Loser_Blue_Icon_Mobile.svg' : '../../assets/images/Avoid Loser_Icon_Mobile.svg'"
+      (click)="onAvoidLoserClick()">
+    <img
+      [src]="AlertSec? '../../assets/images/Notification_Blue_Icon_Mobile.svg' : '../../assets/images/Notification_Icon_Mobile.svg'"
+      (click)="onAlertClick()">
+    <img style="display: none;"
+      [src]="ReportSec? '../../assets/images/Report_Download_Blue_Icon_Mobile.svg' : '../../assets/images/Report_Download_Icon_Mobile.svg'"
+      (click)="onReportClick()">
   </div>
   <!-- Footer Icons End -->
 
@@ -275,16 +307,17 @@
           <!-- Monthly Date Dropdown -->
           <ion-item (click)="showMonthlyPicker($event)" lines="none" *ngIf="monthlyBtn" style="    display: flex;
             align-items: center; --min-height: 30px;">
-              <ion-label slot="start">Date</ion-label>
-              <ion-label slot="end">{{monthlyDate}}</ion-label>
-            </ion-item>
+            <ion-label slot="start">Date</ion-label>
+            <ion-label slot="end">{{monthlyDate}}</ion-label>
+          </ion-item>
 
         </ion-radio-group>
       </ion-list>
 
       <ion-list>
-        <ion-radio-group name="auto" mode="md" [value]="perRadioGrp" allowEmptySelection=true (ionChange)="onperRadioChange($event)">
-          
+        <ion-radio-group name="auto" mode="md" [value]="perRadioGrp" allowEmptySelection=true
+          (ionChange)="onperRadioChange($event)">
+
           <!-- Percentage change Radio Button -->
           <ion-item lines="none">
             <ion-radio value="percentage"></ion-radio>
@@ -294,7 +327,8 @@
 
         <!-- Percentage Range Slider -->
         <ion-item *ngIf="percentageRage" lines="none" style="    --padding-start: 0;">
-          <ion-range class="per_range" min="1" max="100" mode="ios" pin=true [value]='rangePer' *ngIf="percentageRage" (ionChange)="setRangePer($event)">
+          <ion-range class="per_range" min="1" max="100" mode="ios" pin=true [value]='rangePer' *ngIf="percentageRage"
+            (ionChange)="setRangePer($event)">
             <ion-label slot="start">1%</ion-label>
             <ion-label slot="end">100%</ion-label>
           </ion-range>
@@ -308,7 +342,7 @@
     display: flex;
     justify-content: space-evenly;
     align-items: center;">
-      <ion-button *ngIf="alertSubmitBtn" (click)="onAlertSubmit($event)"  shape="round">
+      <ion-button *ngIf="alertSubmitBtn" (click)="onAlertSubmit($event)" shape="round">
         Submit
       </ion-button>
       <ion-button *ngIf="alertUpdateBtn" (click)="onAlertSubmit($event)" shape="round">
@@ -325,9 +359,15 @@
   <div class="footor_icon_div">
     <img src="../../assets/images/Portfolio_Icon_Mobile.svg" style="display: none;">
     <img src="../../assets/images/Compare_Icon_Mobile.svg">
-    <img [src]="AvoidLosersec? '../../assets/images/Avoid Loser_Blue_Icon_Mobile.svg' : '../../assets/images/Avoid Loser_Icon_Mobile.svg'" (click)="onAvoidLoserClick()">
-    <img [src]="AlertSec? '../../assets/images/Notification_Blue_Icon_Mobile.svg' : '../../assets/images/Notification_Icon_Mobile.svg'" (click)="onAlertClick()">
-    <img style="display: none;" [src]="ReportSec? '../../assets/images/Report_Download_Blue_Icon_Mobile.svg' : '../../assets/images/Report_Download_Icon_Mobile.svg'" (click)="onReportClick()">
+    <img
+      [src]="AvoidLosersec? '../../assets/images/Avoid Loser_Blue_Icon_Mobile.svg' : '../../assets/images/Avoid Loser_Icon_Mobile.svg'"
+      (click)="onAvoidLoserClick()">
+    <img
+      [src]="AlertSec? '../../assets/images/Notification_Blue_Icon_Mobile.svg' : '../../assets/images/Notification_Icon_Mobile.svg'"
+      (click)="onAlertClick()">
+    <img style="display: none;"
+      [src]="ReportSec? '../../assets/images/Report_Download_Blue_Icon_Mobile.svg' : '../../assets/images/Report_Download_Icon_Mobile.svg'"
+      (click)="onReportClick()">
   </div>
   <!-- Footer Icons End -->
 </ion-content>
@@ -377,9 +417,15 @@
   <div class="footor_icon_div">
     <img src="../../assets/images/Portfolio_Icon_Mobile.svg" style="display: none;">
     <img src="../../assets/images/Compare_Icon_Mobile.svg">
-    <img [src]="AvoidLosersec? '../../assets/images/Avoid Loser_Blue_Icon_Mobile.svg' : '../../assets/images/Avoid Loser_Icon_Mobile.svg'" (click)="onAvoidLoserClick()">
-    <img [src]="AlertSec? '../../assets/images/Notification_Blue_Icon_Mobile.svg' : '../../assets/images/Notification_Icon_Mobile.svg'" (click)="onAlertClick()">
-    <img style="display: none;" [src]="ReportSec? '../../assets/images/Report_Download_Blue_Icon_Mobile.svg' : '../../assets/images/Report_Download_Icon_Mobile.svg'" (click)="onReportClick()">
+    <img
+      [src]="AvoidLosersec? '../../assets/images/Avoid Loser_Blue_Icon_Mobile.svg' : '../../assets/images/Avoid Loser_Icon_Mobile.svg'"
+      (click)="onAvoidLoserClick()">
+    <img
+      [src]="AlertSec? '../../assets/images/Notification_Blue_Icon_Mobile.svg' : '../../assets/images/Notification_Icon_Mobile.svg'"
+      (click)="onAlertClick()">
+    <img style="display: none;"
+      [src]="ReportSec? '../../assets/images/Report_Download_Blue_Icon_Mobile.svg' : '../../assets/images/Report_Download_Icon_Mobile.svg'"
+      (click)="onReportClick()">
   </div>
   <!-- Footer Icons End -->
 </ion-content>
